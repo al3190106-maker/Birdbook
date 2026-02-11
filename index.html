@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svensk Fågelskådare | BirdFinder Sweden</title>
+    <!-- Use Preconnect for Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="logo" id="app-logo-home" style="cursor: pointer;">
+            <i class="fa-solid fa-dove"></i>
+            <h1>Fågelboken</h1>
+        </div>
+
+        <div class="header-center">
+            <nav class="view-nav">
+                <button class="nav-btn active" data-tab="log-view">Min Logg</button>
+                <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
+                <button class="nav-btn" data-tab="sweden-view">Sverige</button>
+            </nav>
+
+            <div class="user-toggles">
+                <button class="user-btn active" data-user="Theia">Theia</button>
+                <button class="user-btn" data-user="Alexander">Alexander</button>
+            </div>
+        </div>
+
+        <div class="actions-right">
+            <div class="year-filter-container">
+                <i class="fa-regular fa-calendar"></i>
+                <select id="year-select">
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+            <button id="reset-app-btn" class="icon-btn" title="Återställ all data"><i
+                    class="fa-solid fa-trash-can"></i></button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- Dashboard Stats -->
+
+
+        <!-- View Tabs Removed -->
+
+        <!-- Log View -->
+        <section id="log-view" class="view-section active">
+            <!-- Dashboard Stats (Moved here) -->
+            <section class="stats-dashboard">
+                <div class="stat-card">
+                    <span class="stat-value" id="total-sightings">0</span>
+                    <span class="stat-label">Antal observationer</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="unique-species">0</span>
+                    <span class="stat-label">Unika arter</span>
+                </div>
+                <div class="stat-card action-card" id="add-sighting-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    <span class="stat-label">Ny observation</span>
+                </div>
+            </section>
+
+            <div class="list-controls">
+                <div class="list-header-row">
+                    <h2 id="current-year-display">Alla observationer</h2>
+                    <div class="sort-controls">
+                        <label for="sort-select"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
+                        <select id="sort-select">
+                            <option value="date">Senaste</option>
+                            <option value="name">Namn (A-Ö)</option>
+                            <option value="wingspan">Vingspann</option>
+                            <option value="eggs">Antal Ägg</option>
+                            <option value="rarity">Sällsynthet</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="sightings-grid" id="sightings-list">
+                <!-- Injected via JS -->
+                <div class="empty-state">
+                    <i class="fa-solid fa-binoculars"></i>
+                    <p>Inga fåglar sedda än under <span class="highlight">denna period</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide View -->
+        <section id="guide-view" class="view-section">
+            <div class="search-bar-container">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="guide-search" placeholder="Sök svenska fåglar...">
+
+                <div class="sort-controls compact"
+                    style="margin-left: auto; padding: 0; background: none; box-shadow: none; border: none;">
+                    <select id="guide-sort-select" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd;">
+                        <option value="name">Namn (A-Ö)</option>
+                        <option value="wingspan">Vingspann</option>
+                        <option value="eggs">Antal Ägg</option>
+                        <option value="weight">Vikt</option>
+                        <option value="rarity">Sällsynthet</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Categories View -->
+            <div id="guide-categories" class="categories-grid">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Navigation / Breadcrumbs -->
+            <div id="guide-navigation" class="guide-nav hidden">
+                <button id="back-to-categories" class="nav-back-btn">
+                    <i class="fa-solid fa-arrow-left"></i> Tillbaka till kategorier
+                </button>
+                <h3 id="current-category-title">Kategori</h3>
+            </div>
+
+            <div class="birds-grid hidden" id="guide-list">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Sweden Map View -->
+        <section id="sweden-view" class="view-section">
+            <div id="sweden-map-root">
+                <!-- Injected via sweden-map.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Hidden Inputs -->
+    <input type="file" id="custom-image-upload" accept="image/*" style="display: none;">
+
+    <!-- Add Sighting Modal -->
+    <div class="modal-overlay" id="sighting-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal"><i class="fa-solid fa-times"></i></button>
+            <h2>Rapportera observation</h2>
+            <form id="sighting-form">
+
+                <!-- Bird Selection -->
+                <div class="form-group">
+                    <label for="bird-search-input">Fågelart</label>
+                    <div class="autocomplete-wrapper">
+                        <input type="text" id="bird-search-input" placeholder="Börja skriva (t.ex. Koltrast)..."
+                            autocomplete="off" required>
+                        <div id="autocomplete-list" class="autocomplete-items"></div>
+                        <input type="hidden" id="selected-bird-id">
+                    </div>
+                </div>
+
+                <!-- Date -->
+                <div class="form-group">
+                    <label for="sighting-date">Datum</label>
+                    <input type="date" id="sighting-date" required>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="sighting-location">Plats</label>
+                    <input type="text" id="sighting-location" placeholder="Var såg du den?">
+                </div>
+
+                <!-- Notes -->
+                <div class="form-group">
+                    <label for="sighting-notes">Anteckningar</label>
+                    <textarea id="sighting-notes" rows="3"
+                        placeholder="Beteende, väder eller andra anteckningar..."></textarea>
+                </div>
+
+                <!-- Photo Upload -->
+                <div class="form-group">
+                    <label for="sighting-photo">Din bild (Frivilligt)</label>
+                    <input type="file" id="sighting-photo" accept="image/*">
+                    <div class="image-preview" id="image-preview-container"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Spara observation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bird Detail Modal -->
+    <div class="modal-overlay" id="bird-detail-modal-overlay">
+        <div class="modal-content bird-detail-modal">
+            <button class="close-detail-modal" id="close-detail-modal"><i class="fa-solid fa-times"></i></button>
+
+            <div class="bird-detail-header">
+                <img src="" alt="Bird Image" class="bird-detail-hero-img" id="detail-hero-img">
+            </div>
+
+            <div class="bird-detail-content">
+                <h2 class="bird-detail-title" id="detail-name-sv">Svenskt Namn</h2>
+                <span class="bird-detail-scientific" id="detail-name-sc-en">Scientific (English)</span>
+
+                <div class="bird-facts-grid">
+                    <!-- Rarity -->
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-star"></i> Vanlighet</div>
+                        <div class="rarity-stars" id="detail-rarity">★★★★★</div>
+                        <p class="stat-label">1 = Mycket vanlig, 5 = Sällsynt</p>
+                    </div>
+
+                    <!-- Season Map -->
+                    <!-- Season (Text Only) -->
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-map"></i> Utbredning</div>
+                        <div class="fact-value" id="detail-season-text" style="font-size: 1rem; line-height: 1.4;">--
+                        </div>
+                        <div class="stat-label">Säsong</div>
+                    </div>
+
+                    <!-- New Info Cards -->
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-ruler-horizontal"></i> Storlek</div>
+                        <div class="fact-value" id="detail-wingspan">-- cm</div>
+                        <div class="stat-label">Vingspann</div>
+                    </div>
+
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-egg"></i> Häckning</div>
+                        <div class="fact-value" id="detail-eggs">--</div>
+                        <div class="stat-label">Antal ägg</div>
+                    </div>
+
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-weight-hanging"></i> Vikt</div>
+                        <div class="fact-value" id="detail-weight">-- g</div>
+                        <div class="stat-label">Genomsnitt</div>
+                    </div>
+
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-palette"></i> Färg</div>
+                        <div class="fact-value" id="detail-color">--</div>
+                        <div class="stat-label">Dominant</div>
+                    </div>
+                </div>
+
+                <!-- Fun Fact -->
+                <div class="fact-card" style="margin-bottom: 2rem;">
+                    <div class="fact-title"><i class="fa-solid fa-lightbulb"></i> Visste du att?</div>
+                    <p class="fun-fact-text" id="detail-fun-fact">
+                        Här kommer en rolig fakta om fågeln.
+                    </p>
+                </div>
+
+                <!-- Detail Actions -->
+                <div class="detail-actions">
+                    <button class="add-sighting-detail-btn" id="detail-add-sighting-btn">
+                        <i class="fa-solid fa-plus"></i> Rapportera
+                    </button>
+                    <button class="add-sighting-detail-btn secondary" id="detail-quick-add-btn"
+                        style="background-color: var(--secondary); margin-left: 0.5rem;" title="Lägg till +1 direkt">
+                        <i class="fa-solid fa-check"></i> +1 Snabbt
+                    </button>
+                    <!-- Artportalen & Stats moved here -->
+                    <a href="#" target="_blank" class="artportalen-btn" id="detail-artportalen-link">
+                        <i class="fa-solid fa-chart-line"></i> Artportalen
+                    </a>
+                </div>
+
+                <!-- Artportalen & Stats Section (Original section modified) -->
+                <div class="artportalen-section">
+                    <p style="margin-bottom: 0.5rem; color: #666;">
+                        <i class="fa-solid fa-binoculars"></i> <span id="detail-obs-count">Sök antal observationer i
+                            år</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="birds.js"></script>
+    <script src="sweden-map.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
