@@ -11,6 +11,7 @@ const state = {
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
+let _cloudSaveTimeout = null; // Debounce timer for cloud saves
 
 // --- DOM Elements ---
 const elements = {
@@ -66,7 +67,7 @@ const elements = {
 let editingBirdId = null;
 
 // --- Initialization ---
-function init() {
+async function init() {
     console.log('App Initializing...');
 
     // Check for data dependency
@@ -76,8 +77,13 @@ function init() {
         return;
     }
 
-    // Load Data
-    loadSightings();
+    // Initialize Firebase (if configured)
+    if (window.firebaseSync) {
+        window.firebaseSync.init();
+    }
+
+    // Load Data (local first, then merge with cloud)
+    await loadSightings();
 
     // Setup Year Filter
     setupYearFilter();
@@ -89,6 +95,20 @@ function init() {
 
     // Event Listeners
     setupEventListeners();
+
+    // --- Cloud Real-Time Listener ---
+    if (window.firebaseSync && window.firebaseSync.isReady) {
+        window.firebaseSync.listen((cloudSightings) => {
+            // Merge cloud data with local
+            state.sightings = window.firebaseSync.merge(state.sightings, cloudSightings);
+            // Save merged data locally
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+            // Re-render
+            setupYearFilter();
+            renderApp();
+            console.log('🔄 UI updated from cloud sync');
+        });
+    }
 
     // --- PERSISTENCE FIX (Ghost Bird) ---
     // This logic ensures the app "wakes up" and saves data correctly on first load
@@ -126,7 +146,8 @@ function init() {
 }
 
 // --- Data Management ---
-function loadSightings() {
+async function loadSightings() {
+    // 1. Load from localStorage (instant, always available)
     try {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -137,10 +158,39 @@ function loadSightings() {
         localStorage.removeItem(STORAGE_KEY);
         state.sightings = [];
     }
+
+    // 2. Try loading from cloud and merge
+    if (window.firebaseSync && window.firebaseSync.isReady) {
+        try {
+            const cloudData = await window.firebaseSync.load();
+            if (cloudData) {
+                state.sightings = window.firebaseSync.merge(state.sightings, cloudData);
+                // Update localStorage with merged data
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+                console.log('📦 Merged local + cloud data:', state.sightings.length, 'sightings');
+            } else if (state.sightings.length > 0) {
+                // Cloud is empty but we have local data — push it up
+                window.firebaseSync.save(state.sightings);
+                console.log('📤 Pushed local data to cloud');
+            }
+        } catch (e) {
+            console.warn('Cloud load failed, using local data:', e);
+        }
+    }
 }
 
 function saveSightings() {
+    // 1. Always save to localStorage (instant)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+
+    // 2. Debounced save to cloud (avoid flooding on rapid clicks)
+    if (window.firebaseSync && window.firebaseSync.isReady) {
+        clearTimeout(_cloudSaveTimeout);
+        _cloudSaveTimeout = setTimeout(() => {
+            window.firebaseSync.save(state.sightings);
+        }, 1000); // Wait 1s after last change before syncing
+    }
+
     renderApp();
 }
 

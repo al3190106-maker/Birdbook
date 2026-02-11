@@ -168,6 +168,64 @@ body {
     opacity: 1;
 }
 
+/* Sync Status Indicator */
+.sync-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: var(--font-stack);
+    transition: all 0.3s ease;
+    cursor: default;
+    white-space: nowrap;
+}
+
+.sync-status .sync-icon {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+
+.sync-status .sync-text {
+    line-height: 1;
+}
+
+.sync-status.synced {
+    background: rgba(76, 175, 80, 0.25);
+    color: #a5d6a7;
+}
+
+.sync-status.syncing {
+    background: rgba(255, 193, 7, 0.25);
+    color: #ffe082;
+    animation: syncPulse 1.5s ease-in-out infinite;
+}
+
+.sync-status.offline {
+    background: rgba(244, 67, 54, 0.25);
+    color: #ef9a9a;
+}
+
+.sync-status.not-configured {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes syncPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
 /* Main Container */
 .app-container {
     max-width: 1200px;
