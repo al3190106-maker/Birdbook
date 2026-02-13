@@ -1,4 +1,4 @@
-
+﻿
 // Comprehensive list of birds seen in Sweden (Regular breeding, migration, and common visitors)
 // Classification follows standard Swedish taxonomy.
 // Rarity Scale: 1 (Very Common) -> 5 (Very Rare / Casual Visitor)
@@ -16,7 +16,8 @@ window.swedishBirds = [
         "wingspan": 220,
         "eggs": 6,
         "weight": 11209,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "whooper_swan",
@@ -30,7 +31,8 @@ window.swedishBirds = [
         "wingspan": 235,
         "eggs": 5,
         "weight": 10723,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "canada_goose",
@@ -44,7 +46,8 @@ window.swedishBirds = [
         "wingspan": 175,
         "eggs": 6,
         "weight": 4310,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "greylag_goose",
@@ -58,7 +61,8 @@ window.swedishBirds = [
         "wingspan": 160,
         "eggs": 6,
         "weight": 4993,
-        "color": "Grå"
+        "color": "Grå",
+        "bestTime": "Dag"
     },
     {
         "id": "barnacle_goose",
@@ -72,7 +76,8 @@ window.swedishBirds = [
         "wingspan": 140,
         "eggs": 4,
         "weight": 2535,
-        "color": "Vit"
+        "color": "Vit",
+        "bestTime": "Dag"
     },
     {
         "id": "brent_goose",
@@ -86,7 +91,8 @@ window.swedishBirds = [
         "wingspan": 115,
         "eggs": 4,
         "weight": 2359,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "mallard",
@@ -100,7 +106,8 @@ window.swedishBirds = [
         "wingspan": 90,
         "eggs": 10,
         "weight": 1191,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_teal",
@@ -114,7 +121,8 @@ window.swedishBirds = [
         "wingspan": 60,
         "eggs": 9,
         "weight": 525,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_wigeon",
@@ -128,7 +136,8 @@ window.swedishBirds = [
         "wingspan": 80,
         "eggs": 8,
         "weight": 466,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "tufted_duck",
@@ -142,7 +151,8 @@ window.swedishBirds = [
         "wingspan": 70,
         "eggs": 9,
         "weight": 859,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_goldeneye",
@@ -156,7 +166,8 @@ window.swedishBirds = [
         "wingspan": 77,
         "eggs": 9,
         "weight": 999,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_eider",
@@ -170,7 +181,8 @@ window.swedishBirds = [
         "wingspan": 100,
         "eggs": 5,
         "weight": 2591,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "long_tailed_duck",
@@ -184,7 +196,8 @@ window.swedishBirds = [
         "wingspan": 75,
         "eggs": 7,
         "weight": 831,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "goosander",
@@ -198,7 +211,8 @@ window.swedishBirds = [
         "wingspan": 95,
         "eggs": 9,
         "weight": 1187,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "northern_shoveler",
@@ -212,7 +226,8 @@ window.swedishBirds = [
         "wingspan": 80,
         "eggs": 10,
         "weight": 508,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "gadwall",
@@ -226,7 +241,8 @@ window.swedishBirds = [
         "wingspan": 90,
         "eggs": 10,
         "weight": 639,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "western_capercaillie",
@@ -240,7 +256,8 @@ window.swedishBirds = [
         "wingspan": 110,
         "eggs": 7,
         "weight": 3344,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Gryning"
     },
     {
         "id": "black_grouse",
@@ -254,7 +271,8 @@ window.swedishBirds = [
         "wingspan": 80,
         "eggs": 8,
         "weight": 1286,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Gryning"
     },
     {
         "id": "common_pheasant",
@@ -268,7 +286,8 @@ window.swedishBirds = [
         "wingspan": 80,
         "eggs": 10,
         "weight": 1006,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "black_throated_loon",
@@ -282,7 +301,8 @@ window.swedishBirds = [
         "wingspan": 120,
         "eggs": 2,
         "weight": 1532,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "great_crested_grebe",
@@ -296,7 +316,8 @@ window.swedishBirds = [
         "wingspan": 89,
         "eggs": 4,
         "weight": 1781,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "grey_heron",
@@ -310,7 +331,8 @@ window.swedishBirds = [
         "wingspan": 175,
         "eggs": 4,
         "weight": 1843,
-        "color": "Grå"
+        "color": "Grå",
+        "bestTime": "Dag"
     },
     {
         "id": "white_tailed_eagle",
@@ -324,7 +346,8 @@ window.swedishBirds = [
         "wingspan": 220,
         "eggs": 2,
         "weight": 5880,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "golden_eagle",
@@ -338,7 +361,8 @@ window.swedishBirds = [
         "wingspan": 200,
         "eggs": 2,
         "weight": 5345,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "western_osprey",
@@ -352,7 +376,8 @@ window.swedishBirds = [
         "wingspan": 160,
         "eggs": 3,
         "weight": 1740,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_buzzard",
@@ -366,7 +391,8 @@ window.swedishBirds = [
         "wingspan": 120,
         "eggs": 3,
         "weight": 803,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_sparrowhawk",
@@ -380,7 +406,8 @@ window.swedishBirds = [
         "wingspan": 70,
         "eggs": 5,
         "weight": 283,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "northern_goshawk",
@@ -394,7 +421,8 @@ window.swedishBirds = [
         "wingspan": 110,
         "eggs": 3,
         "weight": 718,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_kestrel",
@@ -408,7 +436,8 @@ window.swedishBirds = [
         "wingspan": 75,
         "eggs": 5,
         "weight": 194,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "peregrine_falcon",
@@ -422,7 +451,8 @@ window.swedishBirds = [
         "wingspan": 100,
         "eggs": 3,
         "weight": 961,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "western_marsh_harrier",
@@ -436,7 +466,8 @@ window.swedishBirds = [
         "wingspan": 125,
         "eggs": 4,
         "weight": 906,
-        "color": "Brun"
+        "color": "Brun",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_hobby",
@@ -450,7 +481,8 @@ window.swedishBirds = [
         "wingspan": 80,
         "eggs": 3,
         "weight": 247,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_crane",
@@ -464,7 +496,8 @@ window.swedishBirds = [
         "wingspan": 220,
         "eggs": 2,
         "weight": 4328,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_coot",
@@ -478,7 +511,8 @@ window.swedishBirds = [
         "wingspan": 75,
         "eggs": 8,
         "weight": 770,
-        "color": "Svart"
+        "color": "Svart",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_oystercatcher",
@@ -492,7 +526,8 @@ window.swedishBirds = [
         "wingspan": 83,
         "eggs": 3,
         "weight": 520,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "northern_lapwing",
@@ -506,7 +541,8 @@ window.swedishBirds = [
         "wingspan": 85,
         "eggs": 4,
         "weight": 199,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_woodcock",
@@ -520,7 +556,8 @@ window.swedishBirds = [
         "wingspan": 60,
         "eggs": 4,
         "weight": 281,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Skymning"
     },
     {
         "id": "common_snipe",
@@ -534,7 +571,8 @@ window.swedishBirds = [
         "wingspan": 45,
         "eggs": 4,
         "weight": 342,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_curlew",
@@ -548,7 +586,8 @@ window.swedishBirds = [
         "wingspan": 90,
         "eggs": 4,
         "weight": 819,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_redshank",
@@ -562,7 +601,8 @@ window.swedishBirds = [
         "wingspan": 65,
         "eggs": 4,
         "weight": 133,
-        "color": "Röd"
+        "color": "Röd",
+        "bestTime": "Dag"
     },
     {
         "id": "black_headed_gull",
@@ -576,7 +616,8 @@ window.swedishBirds = [
         "wingspan": 105,
         "eggs": 3,
         "weight": 389,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_gull",
@@ -590,7 +631,8 @@ window.swedishBirds = [
         "wingspan": 115,
         "eggs": 3,
         "weight": 486,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "herring_gull",
@@ -604,7 +646,8 @@ window.swedishBirds = [
         "wingspan": 140,
         "eggs": 3,
         "weight": 1219,
-        "color": "Grå"
+        "color": "Grå",
+        "bestTime": "Dag"
     },
     {
         "id": "great_black_backed_gull",
@@ -618,7 +661,8 @@ window.swedishBirds = [
         "wingspan": 155,
         "eggs": 3,
         "weight": 1981,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "arctic_tern",
@@ -632,7 +676,8 @@ window.swedishBirds = [
         "wingspan": 80,
         "eggs": 2,
         "weight": 132,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_tern",
@@ -646,7 +691,8 @@ window.swedishBirds = [
         "wingspan": 79,
         "eggs": 3,
         "weight": 103,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_murre",
@@ -660,7 +706,8 @@ window.swedishBirds = [
         "wingspan": 70,
         "eggs": 1,
         "weight": 807,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "razorbill",
@@ -674,7 +721,8 @@ window.swedishBirds = [
         "wingspan": 65,
         "eggs": 1,
         "weight": 617,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "black_guillemot",
@@ -688,7 +736,8 @@ window.swedishBirds = [
         "wingspan": 55,
         "eggs": 2,
         "weight": 955,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "great_spotted_woodpecker",
@@ -702,7 +751,8 @@ window.swedishBirds = [
         "wingspan": 44,
         "eggs": 6,
         "weight": 97,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "black_woodpecker",
@@ -716,7 +766,8 @@ window.swedishBirds = [
         "wingspan": 70,
         "eggs": 4,
         "weight": 146,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "european_green_woodpecker",
@@ -730,7 +781,8 @@ window.swedishBirds = [
         "wingspan": 41,
         "eggs": 6,
         "weight": 229,
-        "color": "Grön"
+        "color": "Grön",
+        "bestTime": "Dag"
     },
     {
         "id": "tawny_owl",
@@ -744,7 +796,8 @@ window.swedishBirds = [
         "wingspan": 96,
         "eggs": 4,
         "weight": 460,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Natt"
     },
     {
         "id": "eurasian_eagle_owl",
@@ -758,7 +811,8 @@ window.swedishBirds = [
         "wingspan": 165,
         "eggs": 2,
         "weight": 2132,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Natt"
     },
     {
         "id": "common_wood_pigeon",
@@ -772,7 +826,8 @@ window.swedishBirds = [
         "wingspan": 77,
         "eggs": 2,
         "weight": 503,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_cuckoo",
@@ -786,7 +841,8 @@ window.swedishBirds = [
         "wingspan": 60,
         "eggs": 10,
         "weight": 41,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_swift",
@@ -800,7 +856,8 @@ window.swedishBirds = [
         "wingspan": 42,
         "eggs": 3,
         "weight": 61,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "willow_warbler",
@@ -814,7 +871,8 @@ window.swedishBirds = [
         "wingspan": 19,
         "eggs": 6,
         "weight": 20,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "common_chiffchaff",
@@ -828,7 +886,8 @@ window.swedishBirds = [
         "wingspan": 18,
         "eggs": 5,
         "weight": 32,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "eurasian_blackcap",
@@ -842,7 +901,8 @@ window.swedishBirds = [
         "wingspan": 23,
         "eggs": 5,
         "weight": 27,
-        "color": "Svart"
+        "color": "Svart",
+        "bestTime": "Morgon"
     },
     {
         "id": "goldcrest",
@@ -856,7 +916,8 @@ window.swedishBirds = [
         "wingspan": 14,
         "eggs": 10,
         "weight": 8,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "garden_warbler",
@@ -870,7 +931,8 @@ window.swedishBirds = [
         "wingspan": 22,
         "eggs": 5,
         "weight": 26,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "lesser_whitethroat",
@@ -884,7 +946,8 @@ window.swedishBirds = [
         "wingspan": 19,
         "eggs": 5,
         "weight": 17,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "common_whitethroat",
@@ -898,7 +961,8 @@ window.swedishBirds = [
         "wingspan": 23,
         "eggs": 5,
         "weight": 20,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "common_blackbird",
@@ -912,7 +976,8 @@ window.swedishBirds = [
         "wingspan": 36,
         "eggs": 4,
         "weight": 108,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Gryning/Skymning"
     },
     {
         "id": "song_thrush",
@@ -926,7 +991,8 @@ window.swedishBirds = [
         "wingspan": 34,
         "eggs": 5,
         "weight": 66,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "fieldfare",
@@ -940,7 +1006,8 @@ window.swedishBirds = [
         "wingspan": 40,
         "eggs": 6,
         "weight": 93,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "redwing",
@@ -954,7 +1021,8 @@ window.swedishBirds = [
         "wingspan": 34,
         "eggs": 5,
         "weight": 86,
-        "color": "Röd"
+        "color": "Röd",
+        "bestTime": "Morgon"
     },
     {
         "id": "european_robin",
@@ -968,7 +1036,8 @@ window.swedishBirds = [
         "wingspan": 21,
         "eggs": 6,
         "weight": 79,
-        "color": "Röd"
+        "color": "Röd",
+        "bestTime": "Gryning/Skymning"
     },
     {
         "id": "great_tit",
@@ -982,7 +1051,8 @@ window.swedishBirds = [
         "wingspan": 24,
         "eggs": 8,
         "weight": 21,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "eurasian_blue_tit",
@@ -996,7 +1066,8 @@ window.swedishBirds = [
         "wingspan": 18,
         "eggs": 10,
         "weight": 12,
-        "color": "Blå"
+        "color": "Blå",
+        "bestTime": "Morgon"
     },
     {
         "id": "coal_tit",
@@ -1010,7 +1081,8 @@ window.swedishBirds = [
         "wingspan": 18,
         "eggs": 9,
         "weight": 23,
-        "color": "Svart"
+        "color": "Svart",
+        "bestTime": "Morgon"
     },
     {
         "id": "crested_tit",
@@ -1024,7 +1096,8 @@ window.swedishBirds = [
         "wingspan": 20,
         "eggs": 5,
         "weight": 32,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "common_chaffinch",
@@ -1038,7 +1111,8 @@ window.swedishBirds = [
         "wingspan": 26,
         "eggs": 5,
         "weight": 16,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "brambling",
@@ -1052,7 +1126,8 @@ window.swedishBirds = [
         "wingspan": 26,
         "eggs": 6,
         "weight": 29,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "eurasian_bullfinch",
@@ -1066,7 +1141,8 @@ window.swedishBirds = [
         "wingspan": 26,
         "eggs": 5,
         "weight": 35,
-        "color": "Röd"
+        "color": "Röd",
+        "bestTime": "Morgon"
     },
     {
         "id": "european_greenfinch",
@@ -1080,7 +1156,8 @@ window.swedishBirds = [
         "wingspan": 26,
         "eggs": 5,
         "weight": 35,
-        "color": "Grön"
+        "color": "Grön",
+        "bestTime": "Morgon"
     },
     {
         "id": "european_goldfinch",
@@ -1094,7 +1171,8 @@ window.swedishBirds = [
         "wingspan": 23,
         "eggs": 5,
         "weight": 15,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "eurasian_siskin",
@@ -1108,7 +1186,8 @@ window.swedishBirds = [
         "wingspan": 21,
         "eggs": 5,
         "weight": 20,
-        "color": "Grön"
+        "color": "Grön",
+        "bestTime": "Morgon"
     },
     {
         "id": "house_sparrow",
@@ -1122,7 +1201,8 @@ window.swedishBirds = [
         "wingspan": 23,
         "eggs": 4,
         "weight": 22,
-        "color": "Grå"
+        "color": "Grå",
+        "bestTime": "Morgon"
     },
     {
         "id": "eurasian_tree_sparrow",
@@ -1136,7 +1216,8 @@ window.swedishBirds = [
         "wingspan": 21,
         "eggs": 5,
         "weight": 17,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "yellowhammer",
@@ -1150,7 +1231,8 @@ window.swedishBirds = [
         "wingspan": 26,
         "eggs": 4,
         "weight": 35,
-        "color": "Gul"
+        "color": "Gul",
+        "bestTime": "Morgon"
     },
     {
         "id": "reed_bunting",
@@ -1164,7 +1246,8 @@ window.swedishBirds = [
         "wingspan": 23,
         "eggs": 5,
         "weight": 24,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Morgon"
     },
     {
         "id": "hooded_crow",
@@ -1178,7 +1261,8 @@ window.swedishBirds = [
         "wingspan": 98,
         "eggs": 4,
         "weight": 550,
-        "color": "Grå"
+        "color": "Grå",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_jackdaw",
@@ -1192,7 +1276,8 @@ window.swedishBirds = [
         "wingspan": 67,
         "eggs": 4,
         "weight": 311,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_magpie",
@@ -1206,7 +1291,8 @@ window.swedishBirds = [
         "wingspan": 56,
         "eggs": 6,
         "weight": 247,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_jay",
@@ -1220,7 +1306,8 @@ window.swedishBirds = [
         "wingspan": 55,
         "eggs": 5,
         "weight": 248,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_raven",
@@ -1234,7 +1321,8 @@ window.swedishBirds = [
         "wingspan": 130,
         "eggs": 5,
         "weight": 1240,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "barn_swallow",
@@ -1248,7 +1336,8 @@ window.swedishBirds = [
         "wingspan": 33,
         "eggs": 4,
         "weight": 15,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_house_martin",
@@ -1262,7 +1351,8 @@ window.swedishBirds = [
         "wingspan": 28,
         "eggs": 4,
         "weight": 25,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "sand_martin",
@@ -1276,7 +1366,8 @@ window.swedishBirds = [
         "wingspan": 27,
         "eggs": 5,
         "weight": 27,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "white_wagtail",
@@ -1290,7 +1381,8 @@ window.swedishBirds = [
         "wingspan": 28,
         "eggs": 5,
         "weight": 24,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "eurasian_wren",
@@ -1304,7 +1396,8 @@ window.swedishBirds = [
         "wingspan": 15,
         "eggs": 6,
         "weight": 69,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "common_starling",
@@ -1318,7 +1411,8 @@ window.swedishBirds = [
         "wingspan": 40,
         "eggs": 5,
         "weight": 18,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "bohemian_waxwing",
@@ -1332,7 +1426,8 @@ window.swedishBirds = [
         "wingspan": 34,
         "eggs": 5,
         "weight": 94,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "meadow_pipit",
@@ -1346,7 +1441,8 @@ window.swedishBirds = [
         "wingspan": 24,
         "eggs": 4,
         "weight": 19,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "tree_pipit",
@@ -1360,7 +1456,8 @@ window.swedishBirds = [
         "wingspan": 26,
         "eggs": 4,
         "weight": 54,
-        "color": "Blandad"
+        "color": "Blandad",
+        "bestTime": "Dag"
     },
     {
         "id": "european_pied_flycatcher",
@@ -1374,7 +1471,8 @@ window.swedishBirds = [
         "wingspan": 22,
         "eggs": 6,
         "weight": 87,
-        "color": "Svart"
+        "color": "Svart",
+        "bestTime": "Dag"
     },
     {
         "id": "spotted_flycatcher",
@@ -1388,6 +1486,2392 @@ window.swedishBirds = [
         "wingspan": 24,
         "eggs": 4,
         "weight": 30,
-        "color": "Grå"
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "greater_scaup",
+        "type": "Andfåglar",
+        "nameEn": "Greater Scaup",
+        "nameSv": "Bergand",
+        "scientific": "Aythya marila",
+        "rarity": 3,
+        "funFact": "Berganden dyker ofta ner till 6 meters djup för att hitta föda.",
+        "seasonDistribution": "Vinter (kusten)",
+        "wingspan": 76,
+        "eggs": 9,
+        "weight": 1100,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "greater_white_fronted_goose",
+        "type": "Andfåglar",
+        "nameEn": "Greater White-fronted Goose",
+        "nameSv": "Bläsgås",
+        "scientific": "Anser albifrons",
+        "rarity": 3,
+        "funFact": "Bläsgåsen flyger i V-formation under sina långa flyttresor.",
+        "seasonDistribution": "Vinter/Genomflyttare",
+        "wingspan": 155,
+        "eggs": 5,
+        "weight": 2500,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_pochard",
+        "type": "Andfåglar",
+        "nameEn": "Common Pochard",
+        "nameSv": "Brunand",
+        "scientific": "Aythya ferina",
+        "rarity": 3,
+        "funFact": "Brunanden kan stanna under vattnet i upp till 20 sekunder.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 77,
+        "eggs": 9,
+        "weight": 900,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_shelduck",
+        "type": "Andfåglar",
+        "nameEn": "Common Shelduck",
+        "nameSv": "Gravand",
+        "scientific": "Tadorna tadorna",
+        "rarity": 2,
+        "funFact": "Gravanden häckar ofta i gamla kaninbon.",
+        "seasonDistribution": "Hela året (Kusten)",
+        "wingspan": 120,
+        "eggs": 10,
+        "weight": 1200,
+        "color": "Blandad",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "smew",
+        "type": "Andfåglar",
+        "nameEn": "Smew",
+        "nameSv": "Salskrake",
+        "scientific": "Mergellus albellus",
+        "rarity": 3,
+        "funFact": "Salskrakens hane är nästan helt vit med svarta detaljer.",
+        "seasonDistribution": "Vinter (Södra Sverige)",
+        "wingspan": 60,
+        "eggs": 8,
+        "weight": 650,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "velvet_scoter",
+        "type": "Andfåglar",
+        "nameEn": "Velvet Scoter",
+        "nameSv": "Sjöorre",
+        "scientific": "Melanitta fusca",
+        "rarity": 3,
+        "funFact": "Sjöorren kan dyka ner till 20 meters djup.",
+        "seasonDistribution": "Hela året (Kusten)",
+        "wingspan": 90,
+        "eggs": 8,
+        "weight": 1600,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_breasted_merganser",
+        "type": "Andfåglar",
+        "nameEn": "Red-breasted Merganser",
+        "nameSv": "Småskrake",
+        "scientific": "Mergus serrator",
+        "rarity": 2,
+        "funFact": "Småskraken jagar fisk i grupp genom att driva dem mot grunda vatten.",
+        "seasonDistribution": "Hela året (Kusten)",
+        "wingspan": 82,
+        "eggs": 9,
+        "weight": 1000,
+        "color": "Blandad",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "northern_pintail",
+        "type": "Andfåglar",
+        "nameEn": "Northern Pintail",
+        "nameSv": "Stjärtand",
+        "scientific": "Anas acuta",
+        "rarity": 3,
+        "funFact": "Stjärtandens hane har en lång, spetsig stjärt som kan bli 10 cm.",
+        "seasonDistribution": "Sommar/Genomflyttare",
+        "wingspan": 90,
+        "eggs": 8,
+        "weight": 850,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_scoter",
+        "type": "Andfåglar",
+        "nameEn": "Common Scoter",
+        "nameSv": "Svärta",
+        "scientific": "Melanitta nigra",
+        "rarity": 3,
+        "funFact": "Svärtan är en av få helt svarta änder.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 84,
+        "eggs": 7,
+        "weight": 1100,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "bean_goose",
+        "type": "Andfåglar",
+        "nameEn": "Bean Goose",
+        "nameSv": "Sädgås",
+        "scientific": "Anser fabalis",
+        "rarity": 3,
+        "funFact": "Sädgåsen fick sitt namn för att den ofta åt på sädescfält.",
+        "seasonDistribution": "Vinter/Genomflyttare",
+        "wingspan": 160,
+        "eggs": 5,
+        "weight": 3200,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "taiga_bean_goose",
+        "type": "Andfåglar",
+        "nameEn": "Taiga Bean Goose",
+        "nameSv": "Skogsgås",
+        "scientific": "Anser fabalis fabalis",
+        "rarity": 3,
+        "funFact": "Skogsgåsen häckar i den nordliga tajgan.",
+        "seasonDistribution": "Vinter/Genomflyttare",
+        "wingspan": 155,
+        "eggs": 5,
+        "weight": 3100,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "pink_footed_goose",
+        "type": "Andfåglar",
+        "nameEn": "Pink-footed Goose",
+        "nameSv": "Spetsbergsgås",
+        "scientific": "Anser brachyrhynchus",
+        "rarity": 4,
+        "funFact": "Spetsbergsgåsen häckar på Svalbard och övervintrar i Nordeuropa.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 150,
+        "eggs": 5,
+        "weight": 2700,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "bar_headed_goose",
+        "type": "Andfåglar",
+        "nameEn": "Bar-headed Goose",
+        "nameSv": "Stripgås",
+        "scientific": "Anser indicus",
+        "rarity": 5,
+        "funFact": "Stripgåsen kan flyga över Himalaya på över 7000 meters höjd.",
+        "seasonDistribution": "Sällsynt gäst",
+        "wingspan": 150,
+        "eggs": 5,
+        "weight": 2500,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "garganey",
+        "type": "Andfåglar",
+        "nameEn": "Garganey",
+        "nameSv": "Årta",
+        "scientific": "Spatula querquedula",
+        "rarity": 3,
+        "funFact": "Årtan är en av få änder som flyttar till Afrika på vintern.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 63,
+        "eggs": 9,
+        "weight": 400,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "willow_ptarmigan",
+        "type": "Hönsfåglar",
+        "nameEn": "Willow Ptarmigan",
+        "nameSv": "Dalripa",
+        "scientific": "Lagopus lagopus",
+        "rarity": 3,
+        "funFact": "Dalripan byter fjäderdräkt till vit på vintern för kamouflage.",
+        "seasonDistribution": "Hela året (Fjällen)",
+        "wingspan": 62,
+        "eggs": 9,
+        "weight": 550,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "rock_ptarmigan",
+        "type": "Hönsfåglar",
+        "nameEn": "Rock Ptarmigan",
+        "nameSv": "Fjällripa",
+        "scientific": "Lagopus muta",
+        "rarity": 3,
+        "funFact": "Fjällripan lever högre upp i fjällen än dalripan.",
+        "seasonDistribution": "Hela året (Fjällen)",
+        "wingspan": 60,
+        "eggs": 8,
+        "weight": 450,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "hazel_grouse",
+        "type": "Hönsfåglar",
+        "nameEn": "Hazel Grouse",
+        "nameSv": "Järpe",
+        "scientific": "Tetrastes bonasia",
+        "rarity": 3,
+        "funFact": "Järpen är en skygg skogsfågel som sällan flyger.",
+        "seasonDistribution": "Hela året (Norra/Mellersta Sverige)",
+        "wingspan": 52,
+        "eggs": 8,
+        "weight": 400,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "grey_partridge",
+        "type": "Hönsfåglar",
+        "nameEn": "Grey Partridge",
+        "nameSv": "Rapphöna",
+        "scientific": "Perdix perdix",
+        "rarity": 3,
+        "funFact": "Rapphönan kan lägga upp till 20 ägg i en kull.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 48,
+        "eggs": 16,
+        "weight": 390,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_quail",
+        "type": "Hönsfåglar",
+        "nameEn": "Common Quail",
+        "nameSv": "Vaktel",
+        "scientific": "Coturnix coturnix",
+        "rarity": 4,
+        "funFact": "Vakteln är den enda europeiska hönsfågeln som flyttar.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 35,
+        "eggs": 10,
+        "weight": 100,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_necked_grebe",
+        "type": "Lommar & Doppingar",
+        "nameEn": "Red-necked Grebe",
+        "nameSv": "Gråhakedopping",
+        "scientific": "Podiceps grisegena",
+        "rarity": 3,
+        "funFact": "Gråhakedoppingen bär sina ungar på ryggen.",
+        "seasonDistribution": "Sommar (Mellersta Sverige)",
+        "wingspan": 85,
+        "eggs": 4,
+        "weight": 850,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "little_grebe",
+        "type": "Lommar & Doppingar",
+        "nameEn": "Little Grebe",
+        "nameSv": "Smådopping",
+        "scientific": "Tachybaptus ruficollis",
+        "rarity": 3,
+        "funFact": "Smådoppingen är Sveriges minsta dykfågel.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 42,
+        "eggs": 5,
+        "weight": 200,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "horned_grebe",
+        "type": "Lommar & Doppingar",
+        "nameEn": "Horned Grebe",
+        "nameSv": "Svarthakedopping",
+        "scientific": "Podiceps auritus",
+        "rarity": 3,
+        "funFact": "Svarthakedoppingen har lysande gyllene örontofsar på sommaren.",
+        "seasonDistribution": "Sommar",
+        "wingspan": 58,
+        "eggs": 4,
+        "weight": 400,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "black_necked_grebe",
+        "type": "Lommar & Doppingar",
+        "nameEn": "Black-necked Grebe",
+        "nameSv": "Svarthalsad dopping",
+        "scientific": "Podiceps nigricollis",
+        "rarity": 4,
+        "funFact": "Svarthalsad dopping häckar ofta i närheten av skrattmåskolonier.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 58,
+        "eggs": 4,
+        "weight": 350,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_throated_loon",
+        "type": "Lommar & Doppingar",
+        "nameEn": "Red-throated Loon",
+        "nameSv": "Smålom",
+        "scientific": "Gavia stellata",
+        "rarity": 3,
+        "funFact": "Smålommen behöver springa på vattenytan för att lyfta.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 110,
+        "eggs": 2,
+        "weight": 1600,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "stock_dove",
+        "type": "Duvor",
+        "nameEn": "Stock Dove",
+        "nameSv": "Skogsduva",
+        "scientific": "Columba oenas",
+        "rarity": 3,
+        "funFact": "Skogsduvan häckar i gamla hackspettshål.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 66,
+        "eggs": 2,
+        "weight": 310,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "rock_dove",
+        "type": "Duvor",
+        "nameEn": "Rock Dove",
+        "nameSv": "Tamduva",
+        "scientific": "Columba livia",
+        "rarity": 1,
+        "funFact": "Tamduvan härstammar från klippduvan och finns i städer världen över.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 67,
+        "eggs": 2,
+        "weight": 300,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_collared_dove",
+        "type": "Duvor",
+        "nameEn": "Eurasian Collared Dove",
+        "nameSv": "Turkduva",
+        "scientific": "Streptopelia decaocto",
+        "rarity": 2,
+        "funFact": "Turkduvan spred sig från Turkiet till hela Europa på bara 50 år.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 52,
+        "eggs": 2,
+        "weight": 190,
+        "color": "Beige",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "european_turtle_dove",
+        "type": "Duvor",
+        "nameEn": "European Turtle Dove",
+        "nameSv": "Turturduva",
+        "scientific": "Streptopelia turtur",
+        "rarity": 5,
+        "funFact": "Turturduvan är starkt hotad och har minskat kraftigt i Europa.",
+        "seasonDistribution": "Sällsynt sommarbesökare",
+        "wingspan": 52,
+        "eggs": 2,
+        "weight": 150,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "corn_crake",
+        "type": "Tranor & Rallar",
+        "nameEn": "Corn Crake",
+        "nameSv": "Kornknarr",
+        "scientific": "Crex crex",
+        "rarity": 4,
+        "funFact": "Kornknarren hörs oftare än den ses med sitt raspiga läte.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 50,
+        "eggs": 10,
+        "weight": 170,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_moorhen",
+        "type": "Tranor & Rallar",
+        "nameEn": "Common Moorhen",
+        "nameSv": "Rörhöna",
+        "scientific": "Gallinula chloropus",
+        "rarity": 2,
+        "funFact": "Rörhönan nickar med huvudet när den simmar.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 55,
+        "eggs": 7,
+        "weight": 320,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "spotted_crake",
+        "type": "Tranor & Rallar",
+        "nameEn": "Spotted Crake",
+        "nameSv": "Småfläckig sumphöna",
+        "scientific": "Porzana porzana",
+        "rarity": 4,
+        "funFact": "Småfläckig sumphöna är extremt skygg och svår att se.",
+        "seasonDistribution": "Sommar",
+        "wingspan": 38,
+        "eggs": 10,
+        "weight": 80,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "water_rail",
+        "type": "Tranor & Rallar",
+        "nameEn": "Water Rail",
+        "nameSv": "Vattenrall",
+        "scientific": "Rallus aquaticus",
+        "rarity": 3,
+        "funFact": "Vattenrallens läte kallas ibland för 'grislåte'.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 42,
+        "eggs": 8,
+        "weight": 120,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "ruff",
+        "type": "Vadare",
+        "nameEn": "Ruff",
+        "nameSv": "Brushane",
+        "scientific": "Calidris pugnax",
+        "rarity": 3,
+        "funFact": "Brushanens hanar har unika fjäderkragar under spelperioden.",
+        "seasonDistribution": "Sommar",
+        "wingspan": 54,
+        "eggs": 4,
+        "weight": 130,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "marsh_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Marsh Sandpiper",
+        "nameSv": "Dammsnäppa",
+        "scientific": "Tringa stagnatilis",
+        "rarity": 4,
+        "funFact": "Dammsnäppan är en elegant vadare med mycket långa ben.",
+        "seasonDistribution": "Sällsynt sommarbesökare",
+        "wingspan": 60,
+        "eggs": 4,
+        "weight": 70,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Common Sandpiper",
+        "nameSv": "Drillsnäppa",
+        "scientific": "Actitis hypoleucos",
+        "rarity": 2,
+        "funFact": "Drillsnäppan gungar ständigt på stjärten när den står stilla.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 38,
+        "eggs": 4,
+        "weight": 50,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "great_snipe",
+        "type": "Vadare",
+        "nameEn": "Great Snipe",
+        "nameSv": "Dubbelbeckasin",
+        "scientific": "Gallinago media",
+        "rarity": 4,
+        "funFact": "Dubbelbeckasinens spelflygning kan pågå hela natten.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 48,
+        "eggs": 4,
+        "weight": 180,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "jack_snipe",
+        "type": "Vadare",
+        "nameEn": "Jack Snipe",
+        "nameSv": "Dvärgbeckasin",
+        "scientific": "Lymnocryptes minimus",
+        "rarity": 4,
+        "funFact": "Dvärgbeckasin är mycket svår att upptäcka tack vare sin kamouflage.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 40,
+        "eggs": 4,
+        "weight": 50,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_dotterel",
+        "type": "Vadare",
+        "nameEn": "Eurasian Dotterel",
+        "nameSv": "Fjällpipare",
+        "scientific": "Charadrius morinellus",
+        "rarity": 3,
+        "funFact": "Hos fjällpiparen är det hanen som ruvar äggen.",
+        "seasonDistribution": "Sommar (Fjällen)",
+        "wingspan": 60,
+        "eggs": 3,
+        "weight": 110,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "greenshank",
+        "type": "Vadare",
+        "nameEn": "Greenshank",
+        "nameSv": "Gluttsnäppa",
+        "scientific": "Tringa nebularia",
+        "rarity": 3,
+        "funFact": "Gluttsnäppan har ett tydligt trestavigt läte.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 70,
+        "eggs": 4,
+        "weight": 190,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "wood_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Wood Sandpiper",
+        "nameSv": "Grönbena",
+        "scientific": "Tringa glareola",
+        "rarity": 2,
+        "funFact": "Grönbenan häckar ibland i gamla trastbon i träd.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 40,
+        "eggs": 4,
+        "weight": 65,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "dunlin",
+        "type": "Vadare",
+        "nameEn": "Dunlin",
+        "nameSv": "Kärrsnäppa",
+        "scientific": "Calidris alpina",
+        "rarity": 2,
+        "funFact": "Kärrsnäppan bildar enorma flockar på vintern som flyger i synkroniserade mönster.",
+        "seasonDistribution": "Sommar (Norra Sverige)/Vinter (kusten)",
+        "wingspan": 40,
+        "eggs": 4,
+        "weight": 50,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "grey_plover",
+        "type": "Vadare",
+        "nameEn": "Grey Plover",
+        "nameSv": "Kustpipare",
+        "scientific": "Pluvialis squatarola",
+        "rarity": 3,
+        "funFact": "Kustpiparen häckar på arktiska tundran.",
+        "seasonDistribution": "Genomflyttare/Vinter",
+        "wingspan": 76,
+        "eggs": 4,
+        "weight": 230,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "knot",
+        "type": "Vadare",
+        "nameEn": "Red Knot",
+        "nameSv": "Kustsnäppa",
+        "scientific": "Calidris canutus",
+        "rarity": 3,
+        "funFact": "Kustsnäppan flyger över 5000 km utan att landa.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 58,
+        "eggs": 4,
+        "weight": 140,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "european_golden_plover",
+        "type": "Vadare",
+        "nameEn": "European Golden Plover",
+        "nameSv": "Ljungpipare",
+        "scientific": "Pluvialis apricaria",
+        "rarity": 2,
+        "funFact": "Ljungpiparen har ett melankoliskt visslet som hörs över heden.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 72,
+        "eggs": 4,
+        "weight": 210,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "little_ringed_plover",
+        "type": "Vadare",
+        "nameEn": "Little Ringed Plover",
+        "nameSv": "Mindre strandpipare",
+        "scientific": "Charadrius dubius",
+        "rarity": 2,
+        "funFact": "Mindre strandpiparen häckar gärna på grusplaner.",
+        "seasonDistribution": "Sommar",
+        "wingspan": 48,
+        "eggs": 4,
+        "weight": 40,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "temminck_stint",
+        "type": "Vadare",
+        "nameEn": "Temminck's Stint",
+        "nameSv": "Mosnäppa",
+        "scientific": "Calidris temminckii",
+        "rarity": 3,
+        "funFact": "Mosnäppan flyger rakt uppåt som en lärka när den störs.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 35,
+        "eggs": 4,
+        "weight": 25,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "little_stint",
+        "type": "Vadare",
+        "nameEn": "Little Stint",
+        "nameSv": "Småsnäppa",
+        "scientific": "Calidris minuta",
+        "rarity": 3,
+        "funFact": "Småsnäppan är en av Europas minsta vadare.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 34,
+        "eggs": 4,
+        "weight": 25,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "broad_billed_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Broad-billed Sandpiper",
+        "nameSv": "Myrsnäppa",
+        "scientific": "Calidris falcinellus",
+        "rarity": 4,
+        "funFact": "Myrsnäppan har en unik nedåtböjd näbbspets.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 38,
+        "eggs": 4,
+        "weight": 35,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "bar_tailed_godwit",
+        "type": "Vadare",
+        "nameEn": "Bar-tailed Godwit",
+        "nameSv": "Myrspov",
+        "scientific": "Limosa lapponica",
+        "rarity": 3,
+        "funFact": "Myrspoven kan flyga 11000 km non-stop under flyttningen.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 75,
+        "eggs": 4,
+        "weight": 320,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "black_tailed_godwit",
+        "type": "Vadare",
+        "nameEn": "Black-tailed Godwit",
+        "nameSv": "Rödspov",
+        "scientific": "Limosa limosa",
+        "rarity": 4,
+        "funFact": "Rödspoven har minskat kraftigt i Europa och är hotad.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 75,
+        "eggs": 4,
+        "weight": 300,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "turnstone",
+        "type": "Vadare",
+        "nameEn": "Ruddy Turnstone",
+        "nameSv": "Roskarl",
+        "scientific": "Arenaria interpres",
+        "rarity": 3,
+        "funFact": "Roskarlen vänder på stenar för att hitta föda under dem.",
+        "seasonDistribution": "Genomflyttare/Vinter (kusten)",
+        "wingspan": 53,
+        "eggs": 4,
+        "weight": 110,
+        "color": "Blandad",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "sanderling",
+        "type": "Vadare",
+        "nameEn": "Sanderling",
+        "nameSv": "Sandlöpare",
+        "scientific": "Calidris alba",
+        "rarity": 3,
+        "funFact": "Sandlöparen springer snabbt längs strandkanten och följer vågorna.",
+        "seasonDistribution": "Genomflyttare/Vinter",
+        "wingspan": 42,
+        "eggs": 4,
+        "weight": 55,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "avocet",
+        "type": "Vadare",
+        "nameEn": "Pied Avocet",
+        "nameSv": "Skärfläcka",
+        "scientific": "Recurvirostra avosetta",
+        "rarity": 3,
+        "funFact": "Skärfläckan sveper sin uppåtböjda näbb genom vattnet för att fånga mat.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 77,
+        "eggs": 4,
+        "weight": 310,
+        "color": "Svartvit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "rock_pipit",
+        "type": "Vadare",
+        "nameEn": "Rock Pipit",
+        "nameSv": "Skärpiplärka",
+        "scientific": "Anthus petrosus",
+        "rarity": 3,
+        "funFact": "Skärpiplärkan lever uteslutande vid klippiga kuster.",
+        "seasonDistribution": "Hela året (Västkusten)",
+        "wingspan": 25,
+        "eggs": 5,
+        "weight": 23,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "purple_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Purple Sandpiper",
+        "nameSv": "Skärsnäppa",
+        "scientific": "Calidris maritima",
+        "rarity": 3,
+        "funFact": "Skärsnäppan lever på klippiga havsstränder vintertid.",
+        "seasonDistribution": "Vinter (kusten)/Sommar (fjällen)",
+        "wingspan": 44,
+        "eggs": 4,
+        "weight": 65,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_necked_phalarope",
+        "type": "Vadare",
+        "nameEn": "Red-necked Phalarope",
+        "nameSv": "Smalnäbbad simsnäppa",
+        "scientific": "Phalaropus lobatus",
+        "rarity": 3,
+        "funFact": "Hos simsnäppan är honan mer färggrann och hanen ruvar äggen.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 38,
+        "eggs": 4,
+        "weight": 35,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "whimbrel",
+        "type": "Vadare",
+        "nameEn": "Whimbrel",
+        "nameSv": "Småspov",
+        "scientific": "Numenius phaeopus",
+        "rarity": 3,
+        "funFact": "Småspoven har ett bubblande sjutonigt läte.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 82,
+        "eggs": 4,
+        "weight": 400,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "little_tern",
+        "type": "Vadare",
+        "nameEn": "Little Tern",
+        "nameSv": "Småtärna",
+        "scientific": "Sternula albifrons",
+        "rarity": 3,
+        "funFact": "Småtärnan är Sveriges minsta tärna och rytteldyker efter fisk.",
+        "seasonDistribution": "Sommar (Kusten)",
+        "wingspan": 52,
+        "eggs": 2,
+        "weight": 55,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "curlew_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Curlew Sandpiper",
+        "nameSv": "Spovsnäppa",
+        "scientific": "Calidris ferruginea",
+        "rarity": 3,
+        "funFact": "Spovsnäppan häckar i Sibirien och passerar Sverige under flytten.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 42,
+        "eggs": 4,
+        "weight": 55,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "spotted_redshank",
+        "type": "Vadare",
+        "nameEn": "Spotted Redshank",
+        "nameSv": "Svartsnäppa",
+        "scientific": "Tringa erythropus",
+        "rarity": 3,
+        "funFact": "Svartsnäppan blir helt svart i sommardräkt.",
+        "seasonDistribution": "Sommar (Norra Sverige)/Genomflyttare",
+        "wingspan": 65,
+        "eggs": 4,
+        "weight": 160,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "ringed_plover",
+        "type": "Vadare",
+        "nameEn": "Common Ringed Plover",
+        "nameSv": "Större strandpipare",
+        "scientific": "Charadrius hiaticula",
+        "rarity": 2,
+        "funFact": "Större strandpiparen spelar skadad för att lura bort rovdjur från boet.",
+        "seasonDistribution": "Sommar",
+        "wingspan": 55,
+        "eggs": 4,
+        "weight": 60,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "green_sandpiper",
+        "type": "Vadare",
+        "nameEn": "Green Sandpiper",
+        "nameSv": "Skogssnäppa",
+        "scientific": "Tringa ochropus",
+        "rarity": 2,
+        "funFact": "Skogssnäppan häckar i gamla trastbon högt upp i träden.",
+        "seasonDistribution": "Sommar (Norra/Mellersta Sverige)",
+        "wingspan": 41,
+        "eggs": 4,
+        "weight": 80,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "little_gull",
+        "type": "Måsar & Tärnor",
+        "nameEn": "Little Gull",
+        "nameSv": "Dvärgmås",
+        "scientific": "Hydrocoloeus minutus",
+        "rarity": 3,
+        "funFact": "Dvärgmåsen är världens minsta måsfågel.",
+        "seasonDistribution": "Genomflyttare",
+        "wingspan": 70,
+        "eggs": 3,
+        "weight": 120,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "arctic_skua",
+        "type": "Måsar & Tärnor",
+        "nameEn": "Arctic Skua",
+        "nameSv": "Fjällabb",
+        "scientific": "Stercorarius parasiticus",
+        "rarity": 3,
+        "funFact": "Fjällabben tvingar andra sjöfåglar att lämna ifrån sig sin fångst.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 110,
+        "eggs": 2,
+        "weight": 450,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "sandwich_tern",
+        "type": "Måsar & Tärnor",
+        "nameEn": "Sandwich Tern",
+        "nameSv": "Kentsk tärna",
+        "scientific": "Thalasseus sandvicensis",
+        "rarity": 3,
+        "funFact": "Kentska tärnan har en skarp näbb med gul spets.",
+        "seasonDistribution": "Sommar (Kusten)",
+        "wingspan": 100,
+        "eggs": 2,
+        "weight": 250,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "great_skua",
+        "type": "Måsar & Tärnor",
+        "nameEn": "Great Skua",
+        "nameSv": "Kustlabb",
+        "scientific": "Stercorarius skua",
+        "rarity": 4,
+        "funFact": "Kustlabben attackerar till och med havsörnar för att stjäla mat.",
+        "seasonDistribution": "Genomflyttare/Sällsynt häckfågel",
+        "wingspan": 140,
+        "eggs": 2,
+        "weight": 1400,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "lesser_black_backed_gull",
+        "type": "Måsar & Tärnor",
+        "nameEn": "Lesser Black-backed Gull",
+        "nameSv": "Silltrut",
+        "scientific": "Larus fuscus",
+        "rarity": 2,
+        "funFact": "Silltruten har mörkare rygg än gråtruten.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 140,
+        "eggs": 3,
+        "weight": 800,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "caspian_tern",
+        "type": "Måsar & Tärnor",
+        "nameEn": "Caspian Tern",
+        "nameSv": "Skräntärna",
+        "scientific": "Hydroprogne caspia",
+        "rarity": 3,
+        "funFact": "Skräntärnan är världens största tärna med kraftig röd näbb.",
+        "seasonDistribution": "Sommar (Kusten)",
+        "wingspan": 140,
+        "eggs": 2,
+        "weight": 650,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "little_auk",
+        "type": "Alkfåglar",
+        "nameEn": "Little Auk",
+        "nameSv": "Alkekung",
+        "scientific": "Alle alle",
+        "rarity": 4,
+        "funFact": "Alkekungen är en av världens minsta sjöfåglar.",
+        "seasonDistribution": "Vinter (Sällsynt)",
+        "wingspan": 38,
+        "eggs": 1,
+        "weight": 160,
+        "color": "Svartvit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "european_honey_buzzard",
+        "type": "Rovfåglar",
+        "nameEn": "European Honey Buzzard",
+        "nameSv": "Bivråk",
+        "scientific": "Pernis apivorus",
+        "rarity": 3,
+        "funFact": "Bivråken gräver upp getingbon och äter larverna.",
+        "seasonDistribution": "Sommar (Södra/Mellersta Sverige)",
+        "wingspan": 135,
+        "eggs": 2,
+        "weight": 750,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "hen_harrier",
+        "type": "Rovfåglar",
+        "nameEn": "Hen Harrier",
+        "nameSv": "Blå kärrhök",
+        "scientific": "Circus cyaneus",
+        "rarity": 3,
+        "funFact": "Blå kärrhökens hane är silvergrå och kallas ibland 'den gråa spöket'.",
+        "seasonDistribution": "Hela året (Norra/Mellersta Sverige)",
+        "wingspan": 110,
+        "eggs": 5,
+        "weight": 400,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "black_kite",
+        "type": "Rovfåglar",
+        "nameEn": "Black Kite",
+        "nameSv": "Brun glada",
+        "scientific": "Milvus migrans",
+        "rarity": 4,
+        "funFact": "Brun glada är en av världens vanligaste rovfåglar men sällsynt i Sverige.",
+        "seasonDistribution": "Sällsynt sommarbesökare",
+        "wingspan": 150,
+        "eggs": 3,
+        "weight": 800,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "rough_legged_buzzard",
+        "type": "Rovfåglar",
+        "nameEn": "Rough-legged Buzzard",
+        "nameSv": "Fjällvråk",
+        "scientific": "Buteo lagopus",
+        "rarity": 3,
+        "funFact": "Fjällvråken förändrar sin kost efter lämmelcykeln.",
+        "seasonDistribution": "Sommar (Fjällen)/Vinter (Södra Sverige)",
+        "wingspan": 135,
+        "eggs": 4,
+        "weight": 950,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_kite",
+        "type": "Rovfåglar",
+        "nameEn": "Red Kite",
+        "nameSv": "Röd glada",
+        "scientific": "Milvus milvus",
+        "rarity": 3,
+        "funFact": "Röda gladan har ökat kraftigt i Sverige sedan 1990-talet.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 165,
+        "eggs": 3,
+        "weight": 1100,
+        "color": "Rödbrun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "montagu_harrier",
+        "type": "Rovfåglar",
+        "nameEn": "Montagu's Harrier",
+        "nameSv": "Ängshök",
+        "scientific": "Circus pygargus",
+        "rarity": 4,
+        "funFact": "Ängshöken är slankare och elegantare än blå kärrhök.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 115,
+        "eggs": 4,
+        "weight": 300,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_footed_falcon",
+        "type": "Rovfåglar",
+        "nameEn": "Red-footed Falcon",
+        "nameSv": "Aftonfalk",
+        "scientific": "Falco vespertinus",
+        "rarity": 5,
+        "funFact": "Aftonfalk jagar insekter i skymningen.",
+        "seasonDistribution": "Sällsynt gäst",
+        "wingspan": 72,
+        "eggs": 4,
+        "weight": 170,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "gyrfalcon",
+        "type": "Rovfåglar",
+        "nameEn": "Gyrfalcon",
+        "nameSv": "Jaktfalk",
+        "scientific": "Falco rusticolus",
+        "rarity": 4,
+        "funFact": "Jaktfalken är världens största falk och lever i fjällen.",
+        "seasonDistribution": "Hela året (Fjällen)",
+        "wingspan": 130,
+        "eggs": 4,
+        "weight": 1400,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "merlin",
+        "type": "Rovfåglar",
+        "nameEn": "Merlin",
+        "nameSv": "Stenfalk",
+        "scientific": "Falco columbarius",
+        "rarity": 3,
+        "funFact": "Stenfalken är Sveriges minsta falk.",
+        "seasonDistribution": "Sommar (Norra Sverige)/Vinter (Södra Sverige)",
+        "wingspan": 62,
+        "eggs": 5,
+        "weight": 200,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "snowy_owl",
+        "type": "Ugglor",
+        "nameEn": "Snowy Owl",
+        "nameSv": "Fjälluggla",
+        "scientific": "Bubo scandiacus",
+        "rarity": 4,
+        "funFact": "Fjällugglan häckar bara när det finns gott om lämlar.",
+        "seasonDistribution": "Hela året (Fjällen, sällsynt)",
+        "wingspan": 155,
+        "eggs": 7,
+        "weight": 2000,
+        "color": "Vit",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "long_eared_owl",
+        "type": "Ugglor",
+        "nameEn": "Long-eared Owl",
+        "nameSv": "Hornuggla",
+        "scientific": "Asio otus",
+        "rarity": 3,
+        "funFact": "Hornugglan har fjädertofsar som liknar horn men inte är öron.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 95,
+        "eggs": 5,
+        "weight": 280,
+        "color": "Brun",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "northern_hawk_owl",
+        "type": "Ugglor",
+        "nameEn": "Northern Hawk-Owl",
+        "nameSv": "Hökuggla",
+        "scientific": "Surnia ulula",
+        "rarity": 3,
+        "funFact": "Hökugglan jagar på dagen och flyger som en hök.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 80,
+        "eggs": 7,
+        "weight": 300,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "short_eared_owl",
+        "type": "Ugglor",
+        "nameEn": "Short-eared Owl",
+        "nameSv": "Jorduggla",
+        "scientific": "Asio flammeus",
+        "rarity": 3,
+        "funFact": "Jordugglan häckar på marken och jagar gärna i skymningen.",
+        "seasonDistribution": "Sommar (Hela landet)/Vinter (Södra)",
+        "wingspan": 105,
+        "eggs": 6,
+        "weight": 350,
+        "color": "Brun",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "great_grey_owl",
+        "type": "Ugglor",
+        "nameEn": "Great Grey Owl",
+        "nameSv": "Lappuggla",
+        "scientific": "Strix nebulosa",
+        "rarity": 3,
+        "funFact": "Lappugglan har det största ansiktsskivan av alla ugglor.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 145,
+        "eggs": 4,
+        "weight": 1000,
+        "color": "Grå",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "tengmalm_owl",
+        "type": "Ugglor",
+        "nameEn": "Tengmalm's Owl",
+        "nameSv": "Pärluggla",
+        "scientific": "Aegolius funereus",
+        "rarity": 3,
+        "funFact": "Pärlugglan häckar i gamla hackspettshål.",
+        "seasonDistribution": "Hela året (Norra/Mellersta Sverige)",
+        "wingspan": 58,
+        "eggs": 5,
+        "weight": 120,
+        "color": "Brun",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "ural_owl",
+        "type": "Ugglor",
+        "nameEn": "Ural Owl",
+        "nameSv": "Slaguggla",
+        "scientific": "Strix uralensis",
+        "rarity": 3,
+        "funFact": "Slagugglan försvarar aggressivt sitt bo mot inkräktare.",
+        "seasonDistribution": "Hela året (Mellersta/Norra Sverige)",
+        "wingspan": 125,
+        "eggs": 4,
+        "weight": 800,
+        "color": "Grå",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "eurasian_pygmy_owl",
+        "type": "Ugglor",
+        "nameEn": "Eurasian Pygmy-Owl",
+        "nameSv": "Sparvuggla",
+        "scientific": "Glaucidium passerinum",
+        "rarity": 3,
+        "funFact": "Sparvugglan är Europas minsta uggla.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 35,
+        "eggs": 6,
+        "weight": 60,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "barn_owl",
+        "type": "Ugglor",
+        "nameEn": "Barn Owl",
+        "nameSv": "Tornuggla",
+        "scientific": "Tyto alba",
+        "rarity": 4,
+        "funFact": "Tornugglan har ett hjärtformat ansikte som fungerar som parabolantenn.",
+        "seasonDistribution": "Hela året (Södra Sverige, sällsynt)",
+        "wingspan": 90,
+        "eggs": 5,
+        "weight": 350,
+        "color": "Vit",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "grey_headed_woodpecker",
+        "type": "Hackspettar",
+        "nameEn": "Grey-headed Woodpecker",
+        "nameSv": "Gråspett",
+        "scientific": "Picus canus",
+        "rarity": 3,
+        "funFact": "Gråspetten liknar gröngölingen men har grått huvud.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 42,
+        "eggs": 7,
+        "weight": 130,
+        "color": "Grön",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "lesser_spotted_woodpecker",
+        "type": "Hackspettar",
+        "nameEn": "Lesser Spotted Woodpecker",
+        "nameSv": "Mindre hackspett",
+        "scientific": "Dryobates minor",
+        "rarity": 3,
+        "funFact": "Mindre hackspetten är stor som en sparv.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 28,
+        "eggs": 6,
+        "weight": 22,
+        "color": "Svartvit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_three_toed_woodpecker",
+        "type": "Hackspettar",
+        "nameEn": "Eurasian Three-toed Woodpecker",
+        "nameSv": "Tretåig hackspett",
+        "scientific": "Picoides tridactylus",
+        "rarity": 3,
+        "funFact": "Tretåig hackspett har bara tre tår istället för fyra.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 38,
+        "eggs": 4,
+        "weight": 65,
+        "color": "Svartvit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_wryneck",
+        "type": "Hackspettar",
+        "nameEn": "Eurasian Wryneck",
+        "nameSv": "Göktyta",
+        "scientific": "Jynx torquilla",
+        "rarity": 3,
+        "funFact": "Göktytan kan vrida huvudet nästan 180 grader.",
+        "seasonDistribution": "Sommar (Södra/Mellersta Sverige)",
+        "wingspan": 27,
+        "eggs": 9,
+        "weight": 35,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "river_warbler",
+        "type": "Sångare",
+        "nameEn": "River Warbler",
+        "nameSv": "Flodsångare",
+        "scientific": "Locustella fluviatilis",
+        "rarity": 4,
+        "funFact": "Flodsångarens sång låter som en syrsas surrande.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 23,
+        "eggs": 5,
+        "weight": 18,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "grasshopper_warbler",
+        "type": "Sångare",
+        "nameEn": "Common Grasshopper Warbler",
+        "nameSv": "Gräshoppsångare",
+        "scientific": "Locustella naevia",
+        "rarity": 3,
+        "funFact": "Gräshoppsångarens sång låter som en gräshoppa.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 19,
+        "eggs": 5,
+        "weight": 14,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "wood_warbler",
+        "type": "Sångare",
+        "nameEn": "Wood Warbler",
+        "nameSv": "Grönsångare",
+        "scientific": "Phylloscopus sibilatrix",
+        "rarity": 2,
+        "funFact": "Grönsångaren sjunger med ett accelererande drill som slutar i ett 'piu'.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 23,
+        "eggs": 6,
+        "weight": 10,
+        "color": "Grön",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "icterine_warbler",
+        "type": "Sångare",
+        "nameEn": "Icterine Warbler",
+        "nameSv": "Härmsångare",
+        "scientific": "Hippolais icterina",
+        "rarity": 3,
+        "funFact": "Härmsångaren imiterar andra fåglars sång.",
+        "seasonDistribution": "Sommar (Södra/Mellersta Sverige)",
+        "wingspan": 22,
+        "eggs": 5,
+        "weight": 13,
+        "color": "Gul",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "barred_warbler",
+        "type": "Sångare",
+        "nameEn": "Barred Warbler",
+        "nameSv": "Höksångare",
+        "scientific": "Curruca nisoria",
+        "rarity": 3,
+        "funFact": "Höksångaren har gula ögon och tvärbandad undersida.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 24,
+        "eggs": 5,
+        "weight": 25,
+        "color": "Grå",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "goldcrest_warbler",
+        "type": "Sångare",
+        "nameEn": "Pallas's Leaf Warbler",
+        "nameSv": "Kungsfågelsångare",
+        "scientific": "Phylloscopus proregulus",
+        "rarity": 5,
+        "funFact": "Kungsfågelsångaren är en sällsynt gäst från Sibirien.",
+        "seasonDistribution": "Sällsynt gäst (höst)",
+        "wingspan": 16,
+        "eggs": 5,
+        "weight": 6,
+        "color": "Grön",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "marsh_warbler",
+        "type": "Sångare",
+        "nameEn": "Marsh Warbler",
+        "nameSv": "Kärrsångare",
+        "scientific": "Acrocephalus palustris",
+        "rarity": 3,
+        "funFact": "Kärrsångaren är en mästare på att imitera afrikanska fåglars läten.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 20,
+        "eggs": 5,
+        "weight": 13,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "greenish_warbler",
+        "type": "Sångare",
+        "nameEn": "Greenish Warbler",
+        "nameSv": "Lundsångare",
+        "scientific": "Phylloscopus trochiloides",
+        "rarity": 4,
+        "funFact": "Lundsångaren har expanderat sitt häckningsområde västerut under 1900-talet.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 19,
+        "eggs": 5,
+        "weight": 9,
+        "color": "Grön",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "arctic_warbler",
+        "type": "Sångare",
+        "nameEn": "Arctic Warbler",
+        "nameSv": "Nordsångare",
+        "scientific": "Phylloscopus borealis",
+        "rarity": 4,
+        "funFact": "Nordsångaren flyttar hela vägen till Sydostasien.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 20,
+        "eggs": 5,
+        "weight": 10,
+        "color": "Grön",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "eurasian_reed_warbler",
+        "type": "Sångare",
+        "nameEn": "Eurasian Reed Warbler",
+        "nameSv": "Rörsångare",
+        "scientific": "Acrocephalus scirpaceus",
+        "rarity": 2,
+        "funFact": "Rörsångaren är en av gökungens vanligaste värdfåglar.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 20,
+        "eggs": 5,
+        "weight": 12,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "sedge_warbler",
+        "type": "Sångare",
+        "nameEn": "Sedge Warbler",
+        "nameSv": "Sävsångare",
+        "scientific": "Acrocephalus schoenobaenus",
+        "rarity": 2,
+        "funFact": "Sävsångaren sjunger intensivt under flygspel.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 20,
+        "eggs": 5,
+        "weight": 12,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "blyth_reed_warbler",
+        "type": "Sångare",
+        "nameEn": "Blyth's Reed Warbler",
+        "nameSv": "Trastsångare",
+        "scientific": "Acrocephalus dumetorum",
+        "rarity": 4,
+        "funFact": "Trastsångaren liknar rörsångaren men har annorlunda sång.",
+        "seasonDistribution": "Sommar (Norra/Mellersta Sverige)",
+        "wingspan": 19,
+        "eggs": 5,
+        "weight": 12,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "moustached_warbler",
+        "type": "Sångare",
+        "nameEn": "Savi's Warbler",
+        "nameSv": "Vassångare",
+        "scientific": "Locustella luscinioides",
+        "rarity": 4,
+        "funFact": "Vassångarens surrande sång hörs från vassbälten.",
+        "seasonDistribution": "Sommar (Södra Sverige, sällsynt)",
+        "wingspan": 20,
+        "eggs": 5,
+        "weight": 15,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "collared_flycatcher",
+        "type": "Övriga",
+        "nameEn": "Collared Flycatcher",
+        "nameSv": "Halsbandsflugsnappare",
+        "scientific": "Ficedula albicollis",
+        "rarity": 3,
+        "funFact": "Halsbandsflugsnapparen har ett vitt halsband som skiljer den från svartvit flugsnappare.",
+        "seasonDistribution": "Sommar (Öland/Gotland)",
+        "wingspan": 24,
+        "eggs": 6,
+        "weight": 13,
+        "color": "Svartvit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_breasted_flycatcher",
+        "type": "Övriga",
+        "nameEn": "Red-breasted Flycatcher",
+        "nameSv": "Mindre flugsnappare",
+        "scientific": "Ficedula parva",
+        "rarity": 3,
+        "funFact": "Mindre flugsnapparen har en liten röd haklapp.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 22,
+        "eggs": 5,
+        "weight": 11,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "mistle_thrush",
+        "type": "Trastar",
+        "nameEn": "Mistle Thrush",
+        "nameSv": "Dubbeltrast",
+        "scientific": "Turdus viscivorus",
+        "rarity": 2,
+        "funFact": "Dubbeltrasten sjunger gärna i stormigt väder.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 45,
+        "eggs": 4,
+        "weight": 120,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "ring_ouzel",
+        "type": "Trastar",
+        "nameEn": "Ring Ouzel",
+        "nameSv": "Ringtrast",
+        "scientific": "Turdus torquatus",
+        "rarity": 3,
+        "funFact": "Ringtrasten har ett vitt bröstband och lever i fjällbjörkskogen.",
+        "seasonDistribution": "Sommar (Fjällen)",
+        "wingspan": 30,
+        "eggs": 4,
+        "weight": 100,
+        "color": "Svart",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "bluethroat",
+        "type": "Trastar",
+        "nameEn": "Bluethroat",
+        "nameSv": "Blåhake",
+        "scientific": "Luscinia svecica",
+        "rarity": 3,
+        "funFact": "Blåhaken har ett vackert blått bröst med röd fläck.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 24,
+        "eggs": 6,
+        "weight": 18,
+        "color": "Blå",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "whinchat",
+        "type": "Trastar",
+        "nameEn": "Whinchat",
+        "nameSv": "Buskskvätta",
+        "scientific": "Saxicola rubetra",
+        "rarity": 2,
+        "funFact": "Buskskvättan sitter gärna på höga utkiksposter i ängsmark.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 24,
+        "eggs": 6,
+        "weight": 17,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "grey_wagtail",
+        "type": "Övriga",
+        "nameEn": "Grey Wagtail",
+        "nameSv": "Forsärla",
+        "scientific": "Motacilla cinerea",
+        "rarity": 3,
+        "funFact": "Forsärlan lever vid snabbströmmande vatten året runt.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 27,
+        "eggs": 5,
+        "weight": 18,
+        "color": "Gul",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "yellow_wagtail",
+        "type": "Övriga",
+        "nameEn": "Yellow Wagtail",
+        "nameSv": "Gulärla",
+        "scientific": "Motacilla flava",
+        "rarity": 2,
+        "funFact": "Gulärlan följer ofta betesdjur för att fånga uppskrämda insekter.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 25,
+        "eggs": 5,
+        "weight": 17,
+        "color": "Gul",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "dunnock",
+        "type": "Övriga",
+        "nameEn": "Dunnock",
+        "nameSv": "Järnsparv",
+        "scientific": "Prunella modularis",
+        "rarity": 1,
+        "funFact": "Järnsparven ser ut som en sparv men är egentligen en brunnelle.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 21,
+        "eggs": 5,
+        "weight": 20,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "european_nightjar",
+        "type": "Övriga",
+        "nameEn": "European Nightjar",
+        "nameSv": "Nattskärra",
+        "scientific": "Caprimulgus europaeus",
+        "rarity": 3,
+        "funFact": "Nattskärrans kamouflage gör den nästan osynlig på marken.",
+        "seasonDistribution": "Sommar (Södra/Mellersta Sverige)",
+        "wingspan": 58,
+        "eggs": 2,
+        "weight": 75,
+        "color": "Brun",
+        "bestTime": "Natt"
+    },
+    {
+        "id": "thrush_nightingale",
+        "type": "Trastar",
+        "nameEn": "Thrush Nightingale",
+        "nameSv": "Näktergal",
+        "scientific": "Luscinia luscinia",
+        "rarity": 3,
+        "funFact": "Näktergalen sjunger intensivast nattetid.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 26,
+        "eggs": 5,
+        "weight": 25,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "common_redstart",
+        "type": "Trastar",
+        "nameEn": "Common Redstart",
+        "nameSv": "Rödstjärt",
+        "scientific": "Phoenicurus phoenicurus",
+        "rarity": 2,
+        "funFact": "Rödstjärtens röda stjärt darrar ständigt.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 24,
+        "eggs": 6,
+        "weight": 15,
+        "color": "Röd",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "black_redstart",
+        "type": "Trastar",
+        "nameEn": "Black Redstart",
+        "nameSv": "Svart rödstjärt",
+        "scientific": "Phoenicurus ochruros",
+        "rarity": 4,
+        "funFact": "Svart rödstjärt trivs i stadsmiljöer och bygger bo i byggnader.",
+        "seasonDistribution": "Sällsynt, lokal (Södra Sverige)",
+        "wingspan": 25,
+        "eggs": 5,
+        "weight": 16,
+        "color": "Svart",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "northern_wheatear",
+        "type": "Trastar",
+        "nameEn": "Northern Wheatear",
+        "nameSv": "Stenskvätta",
+        "scientific": "Oenanthe oenanthe",
+        "rarity": 2,
+        "funFact": "Stenskvättan kan flyga från Grönland till Afrika - en av de längsta flyttvägarna.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 30,
+        "eggs": 6,
+        "weight": 24,
+        "color": "Grå",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "white_throated_dipper",
+        "type": "Övriga",
+        "nameEn": "White-throated Dipper",
+        "nameSv": "Strömstare",
+        "scientific": "Cinclus cinclus",
+        "rarity": 2,
+        "funFact": "Strömstaren kan gå på bottnen av snabbströmmande vatten.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 28,
+        "eggs": 5,
+        "weight": 60,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_skylark",
+        "type": "Övriga",
+        "nameEn": "Eurasian Skylark",
+        "nameSv": "Sånglärka",
+        "scientific": "Alauda arvensis",
+        "rarity": 2,
+        "funFact": "Sånglärkan sjunger under flygning högt uppe i luften.",
+        "seasonDistribution": "Sommar (Hela landet)",
+        "wingspan": 35,
+        "eggs": 4,
+        "weight": 38,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_treecreeper",
+        "type": "Övriga",
+        "nameEn": "Eurasian Treecreeper",
+        "nameSv": "Trädkrypare",
+        "scientific": "Certhia familiaris",
+        "rarity": 2,
+        "funFact": "Trädkryparen spiralklättrar uppför trädstammar.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 20,
+        "eggs": 6,
+        "weight": 9,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "woodlark",
+        "type": "Övriga",
+        "nameEn": "Woodlark",
+        "nameSv": "Trädlärka",
+        "scientific": "Lullula arborea",
+        "rarity": 3,
+        "funFact": "Trädlärkans sång är en av de vackraste i den svenska naturen.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 30,
+        "eggs": 4,
+        "weight": 28,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_nuthatch",
+        "type": "Övriga",
+        "nameEn": "Eurasian Nuthatch",
+        "nameSv": "Nötväcka",
+        "scientific": "Sitta europaea",
+        "rarity": 2,
+        "funFact": "Nötväckan är den enda fågeln som kan klättra nedför trädstammar.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 27,
+        "eggs": 7,
+        "weight": 23,
+        "color": "Blågrå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "golden_oriole",
+        "type": "Övriga",
+        "nameEn": "Eurasian Golden Oriole",
+        "nameSv": "Sommargylling",
+        "scientific": "Oriolus oriolus",
+        "rarity": 3,
+        "funFact": "Sommargylingens flöjtlika sång hörs ofta men fågeln är svår att se.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 45,
+        "eggs": 4,
+        "weight": 70,
+        "color": "Gul",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_throated_pipit",
+        "type": "Övriga",
+        "nameEn": "Red-throated Pipit",
+        "nameSv": "Rödstrupig piplärka",
+        "scientific": "Anthus cervinus",
+        "rarity": 4,
+        "funFact": "Rödstrupig piplärka häckar på fjällets myrmarker.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 26,
+        "eggs": 5,
+        "weight": 20,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "common_kingfisher",
+        "type": "Övriga",
+        "nameEn": "Common Kingfisher",
+        "nameSv": "Kungsfiskare",
+        "scientific": "Alcedo atthis",
+        "rarity": 3,
+        "funFact": "Kungsfiskaren dyker blixtsnabbt efter fisk från en utkiksplats.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 25,
+        "eggs": 6,
+        "weight": 35,
+        "color": "Blå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "white_stork",
+        "type": "Hägrar",
+        "nameEn": "White Stork",
+        "nameSv": "Vit stork",
+        "scientific": "Ciconia ciconia",
+        "rarity": 4,
+        "funFact": "Vit stork har återinförts i Skåne efter att ha försvunnit.",
+        "seasonDistribution": "Sommar (Skåne)",
+        "wingspan": 200,
+        "eggs": 4,
+        "weight": 3400,
+        "color": "Svartvit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "eurasian_bittern",
+        "type": "Hägrar",
+        "nameEn": "Eurasian Bittern",
+        "nameSv": "Rördrom",
+        "scientific": "Botaurus stellaris",
+        "rarity": 4,
+        "funFact": "Rördrommens basiga rop hörs kilometerlångt över vassbälten.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 130,
+        "eggs": 5,
+        "weight": 1100,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "great_cormorant",
+        "type": "Övriga",
+        "nameEn": "Great Cormorant",
+        "nameSv": "Storskarv",
+        "scientific": "Phalacrocorax carbo",
+        "rarity": 2,
+        "funFact": "Storskarven måste torka vingarna efter dykning.",
+        "seasonDistribution": "Hela året (Kusten)",
+        "wingspan": 145,
+        "eggs": 4,
+        "weight": 2500,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "northern_gannet",
+        "type": "Övriga",
+        "nameEn": "Northern Gannet",
+        "nameSv": "Havssula",
+        "scientific": "Morus bassanus",
+        "rarity": 4,
+        "funFact": "Havssulans störtdyker från 30 meters höjd.",
+        "seasonDistribution": "Genomflyttare (kusten)",
+        "wingspan": 180,
+        "eggs": 1,
+        "weight": 3000,
+        "color": "Vit",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "two_barred_crossbill",
+        "type": "Finkar",
+        "nameEn": "Two-barred Crossbill",
+        "nameSv": "Bändelkorsnäbb",
+        "scientific": "Loxia leucoptera",
+        "rarity": 4,
+        "funFact": "Bändelkorsnäbben har vita vingband till skillnad från mindre korsnäbb.",
+        "seasonDistribution": "Oregelbunden besökare",
+        "wingspan": 27,
+        "eggs": 4,
+        "weight": 28,
+        "color": "Röd",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "common_redpoll",
+        "type": "Finkar",
+        "nameEn": "Common Redpoll",
+        "nameSv": "Gråsiska",
+        "scientific": "Acanthis flammea",
+        "rarity": 2,
+        "funFact": "Gråsiskans röda panna lyser som en liten lampa.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 22,
+        "eggs": 5,
+        "weight": 13,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "common_linnet",
+        "type": "Finkar",
+        "nameEn": "Common Linnet",
+        "nameSv": "Hämpling",
+        "scientific": "Linaria cannabina",
+        "rarity": 2,
+        "funFact": "Hamplingen har en vacker rödaktig bröstfärg på våren.",
+        "seasonDistribution": "Sommar (Hela landet)/Delvis stannfågel",
+        "wingspan": 24,
+        "eggs": 5,
+        "weight": 18,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "common_crossbill",
+        "type": "Finkar",
+        "nameEn": "Common Crossbill",
+        "nameSv": "Mindre korsnäbb",
+        "scientific": "Loxia curvirostra",
+        "rarity": 2,
+        "funFact": "Mindre korsnäbbens korslagda näbb är perfekt för att plocka frön ur kottar.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 29,
+        "eggs": 4,
+        "weight": 35,
+        "color": "Röd",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "common_rosefinch",
+        "type": "Finkar",
+        "nameEn": "Common Rosefinch",
+        "nameSv": "Rosenfink",
+        "scientific": "Carpodacus erythrinus",
+        "rarity": 3,
+        "funFact": "Rosenfinken sjunger 'pleased to meet you' på engelska.",
+        "seasonDistribution": "Sommar (Norra/Mellersta Sverige)",
+        "wingspan": 25,
+        "eggs": 5,
+        "weight": 22,
+        "color": "Röd",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "hawfinch",
+        "type": "Finkar",
+        "nameEn": "Hawfinch",
+        "nameSv": "Stenknäck",
+        "scientific": "Coccothraustes coccothraustes",
+        "rarity": 3,
+        "funFact": "Stenknäckens bett är så starkt att den kan knäcka körsbärskärnor.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 33,
+        "eggs": 5,
+        "weight": 55,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "parrot_crossbill",
+        "type": "Finkar",
+        "nameEn": "Parrot Crossbill",
+        "nameSv": "Större korsnäbb",
+        "scientific": "Loxia pytyopsittacus",
+        "rarity": 3,
+        "funFact": "Större korsnäbbens robusta näbb öppnar tallkottar.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 30,
+        "eggs": 4,
+        "weight": 45,
+        "color": "Röd",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "pine_grosbeak",
+        "type": "Finkar",
+        "nameEn": "Pine Grosbeak",
+        "nameSv": "Tallbit",
+        "scientific": "Pinicola enucleator",
+        "rarity": 3,
+        "funFact": "Tallbiten är en stor och tam fink som äter tallknoppar.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 35,
+        "eggs": 4,
+        "weight": 55,
+        "color": "Röd",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "arctic_redpoll",
+        "type": "Finkar",
+        "nameEn": "Arctic Redpoll",
+        "nameSv": "Vinterhämpling",
+        "scientific": "Acanthis hornemanni",
+        "rarity": 3,
+        "funFact": "Vinterhämplingen är ljusare och vitare än gråsiskan.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 22,
+        "eggs": 5,
+        "weight": 14,
+        "color": "Vit",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "least_bunting",
+        "type": "Sparvar",
+        "nameEn": "Least Bunting",
+        "nameSv": "Dvärgsparv",
+        "scientific": "Emberiza pusilla",
+        "rarity": 5,
+        "funFact": "Dvärgsparven är en sällsynt gäst från Sibirien.",
+        "seasonDistribution": "Sällsynt gäst",
+        "wingspan": 18,
+        "eggs": 5,
+        "weight": 13,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "corn_bunting",
+        "type": "Sparvar",
+        "nameEn": "Corn Bunting",
+        "nameSv": "Kornsparv",
+        "scientific": "Emberiza calandra",
+        "rarity": 4,
+        "funFact": "Kornsparven har ett klirrandre läte som en nyckelknippa.",
+        "seasonDistribution": "Hela året (Södra Sverige, sällsynt)",
+        "wingspan": 28,
+        "eggs": 4,
+        "weight": 45,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "lapland_bunting",
+        "type": "Sparvar",
+        "nameEn": "Lapland Bunting",
+        "nameSv": "Lappsparv",
+        "scientific": "Calcarius lapponicus",
+        "rarity": 3,
+        "funFact": "Lappsparven häckar på kalfjäll och tundra.",
+        "seasonDistribution": "Sommar (Fjällen)",
+        "wingspan": 28,
+        "eggs": 5,
+        "weight": 28,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "ortolan_bunting",
+        "type": "Sparvar",
+        "nameEn": "Ortolan Bunting",
+        "nameSv": "Ortolansparv",
+        "scientific": "Emberiza hortulana",
+        "rarity": 4,
+        "funFact": "Ortolansparven ansågs vara en delikatess i Frankrike.",
+        "seasonDistribution": "Sommar (Södra Sverige)",
+        "wingspan": 26,
+        "eggs": 5,
+        "weight": 23,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "snow_bunting",
+        "type": "Sparvar",
+        "nameEn": "Snow Bunting",
+        "nameSv": "Snösparv",
+        "scientific": "Plectrophenax nivalis",
+        "rarity": 3,
+        "funFact": "Snösparven häckar högst upp i fjällen av alla svenska fåglar.",
+        "seasonDistribution": "Hela året (Fjällen)",
+        "wingspan": 35,
+        "eggs": 5,
+        "weight": 35,
+        "color": "Vit",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "rustic_bunting",
+        "type": "Sparvar",
+        "nameEn": "Rustic Bunting",
+        "nameSv": "Videsparv",
+        "scientific": "Emberiza rustica",
+        "rarity": 3,
+        "funFact": "Videsparven har minskat dramatiskt och är nu hotad.",
+        "seasonDistribution": "Sommar (Norra Sverige)",
+        "wingspan": 23,
+        "eggs": 5,
+        "weight": 20,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "siberian_jay",
+        "type": "Kråkfåglar",
+        "nameEn": "Siberian Jay",
+        "nameSv": "Lavskrika",
+        "scientific": "Perisoreus infaustus",
+        "rarity": 3,
+        "funFact": "Lavskrikan samlar mat i förråd som den gömmer i träd.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 28,
+        "eggs": 4,
+        "weight": 40,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "spotted_nutcracker",
+        "type": "Kråkfåglar",
+        "nameEn": "Spotted Nutcracker",
+        "nameSv": "Nötkråka",
+        "scientific": "Nucifraga caryocatactes",
+        "rarity": 3,
+        "funFact": "Nötkråkan kan gömma tusentals nötter och minnas var de är.",
+        "seasonDistribution": "Hela året (Norra/Mellersta Sverige)",
+        "wingspan": 53,
+        "eggs": 4,
+        "weight": 180,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "rook",
+        "type": "Kråkfåglar",
+        "nameEn": "Rook",
+        "nameSv": "Råka",
+        "scientific": "Corvus frugilegus",
+        "rarity": 2,
+        "funFact": "Råkan bygger kolonier med hundratals bon i trädtoppar.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 90,
+        "eggs": 4,
+        "weight": 450,
+        "color": "Svart",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "red_backed_shrike",
+        "type": "Övriga",
+        "nameEn": "Red-backed Shrike",
+        "nameSv": "Törnskata",
+        "scientific": "Lanius collurio",
+        "rarity": 3,
+        "funFact": "Törnskatan spetsar sina byten på törnen som matförråd.",
+        "seasonDistribution": "Sommar (Södra/Mellersta Sverige)",
+        "wingspan": 27,
+        "eggs": 5,
+        "weight": 30,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "great_grey_shrike",
+        "type": "Övriga",
+        "nameEn": "Great Grey Shrike",
+        "nameSv": "Varfågel",
+        "scientific": "Lanius excubitor",
+        "rarity": 3,
+        "funFact": "Varfågeln kallas 'slaktarfågeln' för sin vana att spetsa byten.",
+        "seasonDistribution": "Hela året (Norra/Mellersta Sverige)",
+        "wingspan": 36,
+        "eggs": 5,
+        "weight": 65,
+        "color": "Grå",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "marsh_tit_entita",
+        "type": "Mesar",
+        "nameEn": "Marsh Tit",
+        "nameSv": "Entita",
+        "scientific": "Poecile palustris",
+        "rarity": 2,
+        "funFact": "Entitan samlar frön i skrymslen som vinterförråd.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 20,
+        "eggs": 8,
+        "weight": 11,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "siberian_tit",
+        "type": "Mesar",
+        "nameEn": "Siberian Tit",
+        "nameSv": "Lappmes",
+        "scientific": "Poecile cinctus",
+        "rarity": 3,
+        "funFact": "Lappmesen klarar temperaturer ner till -40°C.",
+        "seasonDistribution": "Hela året (Norra Sverige)",
+        "wingspan": 22,
+        "eggs": 8,
+        "weight": 12,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "willow_tit",
+        "type": "Mesar",
+        "nameEn": "Willow Tit",
+        "nameSv": "Talltita",
+        "scientific": "Poecile montanus",
+        "rarity": 2,
+        "funFact": "Talltitan hackar ut sitt eget bohål i murken ved.",
+        "seasonDistribution": "Hela året (Hela landet)",
+        "wingspan": 20,
+        "eggs": 8,
+        "weight": 11,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "bearded_reedling",
+        "type": "Mesar",
+        "nameEn": "Bearded Reedling",
+        "nameSv": "Skäggmes",
+        "scientific": "Panurus biarmicus",
+        "rarity": 3,
+        "funFact": "Skäggmesens hane har ett karakteristiskt svart 'mustaschstreck'.",
+        "seasonDistribution": "Hela året (Södra Sverige)",
+        "wingspan": 18,
+        "eggs": 6,
+        "weight": 15,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "penduline_tit",
+        "type": "Mesar",
+        "nameEn": "Eurasian Penduline Tit",
+        "nameSv": "Pungmes",
+        "scientific": "Remiz pendulinus",
+        "rarity": 4,
+        "funFact": "Pungmesen bygger ett avancerat hängande bo av växtfibrer.",
+        "seasonDistribution": "Sommar (Södra Sverige, sällsynt)",
+        "wingspan": 22,
+        "eggs": 6,
+        "weight": 10,
+        "color": "Brun",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "long_tailed_tit",
+        "type": "Mesar",
+        "nameEn": "Long-tailed Tit",
+        "nameSv": "Stjärtmes",
+        "scientific": "Aegithalos caudatus",
+        "rarity": 2,
+        "funFact": "Stjärtmesens bo är en fantastisk konstruktion av mossa, spindelväv och fjädrar.",
+        "seasonDistribution": "Hela året (Södra/Mellersta Sverige)",
+        "wingspan": 17,
+        "eggs": 10,
+        "weight": 8,
+        "color": "Svartvit",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "firecrest",
+        "type": "Sångare",
+        "nameEn": "Firecrest",
+        "nameSv": "Brandkronad kungsfågel",
+        "scientific": "Regulus ignicapilla",
+        "rarity": 4,
+        "funFact": "Brandkronad kungsfågel är sällsynt i Sverige och har orange hjässband.",
+        "seasonDistribution": "Sällsynt besökare/lokal häckfågel",
+        "wingspan": 16,
+        "eggs": 8,
+        "weight": 5,
+        "color": "Grön",
+        "bestTime": "Morgon"
+    },
+    {
+        "id": "bean_goose_tundra",
+        "type": "Andfåglar",
+        "nameEn": "Tundra Bean Goose",
+        "nameSv": "Sädgås",
+        "scientific": "Anser serrirostris",
+        "rarity": 3,
+        "funFact": "Sädgåsen rastar i stora flockar på åkerfält.",
+        "seasonDistribution": "Vinter/Genomflyttare",
+        "wingspan": 155,
+        "eggs": 5,
+        "weight": 3000,
+        "color": "Brun",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "lesser_white_fronted_goose",
+        "type": "Andfåglar",
+        "nameEn": "Lesser White-fronted Goose",
+        "nameSv": "Fjällgås",
+        "scientific": "Anser erythropus",
+        "rarity": 5,
+        "funFact": "Fjällgåsen är akut hotad med bara ett fåtal par kvar i Sverige.",
+        "seasonDistribution": "Sommar (Fjällen, extremt sällsynt)",
+        "wingspan": 130,
+        "eggs": 4,
+        "weight": 1800,
+        "color": "Brun",
+        "bestTime": "Dag"
     }
 ];

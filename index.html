@@ -29,6 +29,7 @@
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="sweden-view">Sverige</button>
+                <button class="nav-btn" data-tab="quiz-view"><i class="fa-solid fa-brain"></i> Fågelquiz</button>
             </nav>
 
             <div class="user-toggles">
@@ -115,8 +116,18 @@
                         <option value="eggs">Antal Ägg</option>
                         <option value="weight">Vikt</option>
                         <option value="rarity">Sällsynthet</option>
+                        <option value="bestTime">Bästa tid</option>
                     </select>
                 </div>
+            </div>
+
+            <div id="time-filter-container" class="time-filter-container hidden">
+                <button class="time-filter-btn active" data-time="all">Alla
+                    tider</button>
+                <button class="time-filter-btn" data-time="Morgon">Morgon</button>
+                <button class="time-filter-btn" data-time="Dag">Dag</button>
+                <button class="time-filter-btn" data-time="Kväll">Kväll</button>
+                <button class="time-filter-btn" data-time="Natt">Natt</button>
             </div>
 
             <!-- Categories View -->
@@ -141,6 +152,70 @@
         <section id="sweden-view" class="view-section">
             <div id="sweden-map-root">
                 <!-- Injected via sweden-map.js -->
+            </div>
+        </section>
+
+        <!-- Quiz View -->
+        <section id="quiz-view" class="view-section">
+            <!-- Quiz Mode Selection -->
+            <div id="quiz-menu" class="quiz-menu">
+                <h2 class="quiz-title"><i class="fa-solid fa-brain"></i> Fågelquiz</h2>
+                <p class="quiz-subtitle">Testa dina kunskaper om svenska fåglar!</p>
+                <div class="quiz-modes-grid">
+                    <div class="quiz-mode-card" data-mode="image">
+                        <div class="quiz-mode-icon"><i class="fa-solid fa-image"></i></div>
+                        <h3>Gissa Fågeln</h3>
+                        <p>Se bilden, gissa rätt fågel</p>
+                    </div>
+                    <div class="quiz-mode-card" data-mode="funfact">
+                        <div class="quiz-mode-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h3>Visste du?</h3>
+                        <p>Gissa vilken fågel faktan handlar om</p>
+                    </div>
+                    <div class="quiz-mode-card" data-mode="stats">
+                        <div class="quiz-mode-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                        <h3>Gissa Fakta</h3>
+                        <p>Matcha fågeln med rätt fakta</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Quiz Area -->
+            <div id="quiz-area" class="quiz-area hidden">
+                <div class="quiz-header">
+                    <button id="quiz-back-btn" class="nav-back-btn"><i class="fa-solid fa-arrow-left"></i>
+                        Tillbaka</button>
+                    <div class="quiz-score-display">
+                        <span id="quiz-score">0</span> / <span id="quiz-total">10</span>
+                    </div>
+                    <button id="quiz-quit-btn" class="quiz-btn secondary quiz-quit-btn"><i
+                            class="fa-solid fa-xmark"></i> Avsluta</button>
+                </div>
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                </div>
+                <div id="quiz-question-container" class="quiz-question-container">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Quiz Results -->
+            <div id="quiz-results" class="quiz-results hidden">
+                <div class="quiz-results-card">
+                    <div class="quiz-results-icon" id="quiz-results-icon">🎉</div>
+                    <h2 id="quiz-results-title">Bra jobbat!</h2>
+                    <p class="quiz-results-score">Du fick <strong id="quiz-final-score">0</strong> av <strong
+                            id="quiz-final-total">10</strong> rätt</p>
+                    <div class="quiz-results-bar">
+                        <div class="quiz-results-bar-fill" id="quiz-results-bar-fill"></div>
+                    </div>
+                    <div class="quiz-results-actions">
+                        <button id="quiz-retry-btn" class="quiz-btn primary"><i class="fa-solid fa-rotate-right"></i>
+                            Spela igen</button>
+                        <button id="quiz-menu-btn" class="quiz-btn secondary"><i class="fa-solid fa-list"></i> Välj
+                            quiz</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -227,6 +302,14 @@
                         <div class="fact-value" id="detail-season-text" style="font-size: 1rem; line-height: 1.4;">--
                         </div>
                         <div class="stat-label">Säsong</div>
+                    </div>
+
+                    <!-- Best Time Card -->
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-regular fa-clock"></i> Bästa Tid</div>
+                        <div class="fact-value" id="detail-best-time" style="font-size: 1rem; line-height: 1.4;">--
+                        </div>
+                        <div class="stat-label">På Dagen</div>
                     </div>
 
                     <!-- New Info Cards -->

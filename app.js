@@ -7,11 +7,44 @@ const state = {
     guideSearchTerm: '',
     currentUser: 'Theia', // 'Theia' or 'Alexander'
     sortBy: 'date', // date, name, wingspan, eggs, rarity
-    guideSortBy: 'name' // name, wingspan, eggs, weight, rarity
+    guideSortBy: 'name', // name, wingspan, eggs, weight, rarity
+    // Quiz state
+    quizMode: null, // 'image', 'funfact', 'stats'
+    quizQuestions: [],
+    quizCurrent: 0,
+    quizScore: 0,
+    quizScore: 0,
+    quizAnswered: false,
+    timeFilter: 'all' // all, Morgon, Dag, Kväll, Natt
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
 let _cloudSaveTimeout = null; // Debounce timer for cloud saves
+
+// --- Holder Image System ---
+// Color palettes and silhouettes per bird category for beautiful placeholders.
+const CATEGORY_THEMES = {
+    'Andfåglar': { bg: ['#0e4a6e', '#1a7ab5'], accent: '#5ec6e8', icon: '🦆', label: 'Andfåglar' },
+    'Hönsfåglar': { bg: ['#5c3d1e', '#8b6914'], accent: '#d4a843', icon: '🐔', label: 'Hönsfåglar' },
+    'Lommar & Doppingar': { bg: ['#0d3b4f', '#1a6b7a'], accent: '#4ec9d4', icon: '🌊', label: 'Dykare' },
+    'Hägrar': { bg: ['#2d4a3e', '#3d7a5e'], accent: '#7acfa0', icon: '🪿', label: 'Hägrar' },
+    'Rovfåglar': { bg: ['#5a2d0c', '#8b4513'], accent: '#e8a03e', icon: '🦅', label: 'Rovfåglar' },
+    'Tranor & Rallar': { bg: ['#3a4a2e', '#5a7a3e'], accent: '#9acd5e', icon: '🦩', label: 'Tranor' },
+    'Vadare': { bg: ['#4a3a2e', '#7a6a4e'], accent: '#c4b48e', icon: '🦤', label: 'Vadare' },
+    'Måsar & Tärnor': { bg: ['#3a5a7a', '#5a8aaa'], accent: '#b0d8f0', icon: '🕊️', label: 'Måsar' },
+    'Alkfåglar': { bg: ['#1a2a3a', '#2a4a5a'], accent: '#6aafcf', icon: '🐧', label: 'Alkfåglar' },
+    'Hackspettar': { bg: ['#3a1a1a', '#6a2a2a'], accent: '#e05050', icon: '🪶', label: 'Hackspettar' },
+    'Ugglor': { bg: ['#2a1a3a', '#4a2a5a'], accent: '#b080d0', icon: '🦉', label: 'Ugglor' },
+    'Duvor': { bg: ['#4a4a5a', '#6a6a7a'], accent: '#b0b0d0', icon: '🕊️', label: 'Duvor' },
+    'Sångare': { bg: ['#1a4a2a', '#2a7a3a'], accent: '#6ad06a', icon: '🎵', label: 'Sångare' },
+    'Trastar': { bg: ['#3a2a1a', '#6a4a2a'], accent: '#c08a4a', icon: '🐦', label: 'Trastar' },
+    'Mesar': { bg: ['#1a3a4a', '#2a6a7a'], accent: '#5ac0e0', icon: '🐤', label: 'Mesar' },
+    'Finkar': { bg: ['#4a2a1a', '#7a4a2a'], accent: '#e0904a', icon: '🎶', label: 'Finkar' },
+    'Sparvar': { bg: ['#4a3a1a', '#7a6a2a'], accent: '#d0c04a', icon: '🐦', label: 'Sparvar' },
+    'Kråkfåglar': { bg: ['#1a1a2a', '#2a2a3a'], accent: '#7070a0', icon: '🐦‍⬛', label: 'Kråkfåglar' },
+    'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨', label: 'Svalor' },
+    'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦', label: 'Övriga' }
+};
 
 // --- DOM Elements ---
 const elements = {
@@ -51,6 +84,7 @@ const elements = {
     detailColor: document.getElementById('detail-color'),
     detailWeight: document.getElementById('detail-weight'),
     detailSeasonText: document.getElementById('detail-season-text'),
+    detailBestTime: document.getElementById('detail-best-time'),
 
     detailWingspan: document.getElementById('detail-wingspan'),
     detailEggs: document.getElementById('detail-eggs'),
@@ -61,6 +95,8 @@ const elements = {
     detailQuickAddBtn: document.getElementById('detail-quick-add-btn'),
     sortSelect: document.getElementById('sort-select'),
     guideSortSelect: document.getElementById('guide-sort-select'),
+    timeFilterContainer: document.getElementById('time-filter-container'),
+    timeFilterBtns: document.querySelectorAll('.time-filter-btn'),
     logoHome: document.getElementById('app-logo-home')
 };
 
@@ -89,9 +125,13 @@ async function init() {
     setupYearFilter();
 
     // Initial Render
-    renderApp();
-    renderApp();
-    renderGuideCategories(); // Change: Start with categories
+    try {
+        renderApp();
+        renderGuideCategories();
+    } catch (e) {
+        console.error('Render failed:', e);
+        alert('Ett fel uppstod vid start. Se konsolen.');
+    }
 
     // Event Listeners
     setupEventListeners();
@@ -192,6 +232,121 @@ function saveSightings() {
     }
 
     renderApp();
+}
+
+// --- Logic Helpers ---
+
+function getBirdImageSrc(birdId) {
+    // 1. Check LocalStorage for custom override
+    const custom = localStorage.getItem(`custom_img_${birdId}`);
+    if (custom) return custom;
+    // 2. Default
+    return `images/${birdId}.jpg`;
+}
+
+function handleImageError(img) {
+    const birdId = img.dataset.birdId;
+    if (!birdId) return;
+    const svg = generateHolderSvg(birdId);
+    img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+    img.onerror = null;
+    img.classList.add('placeholder-active');
+}
+
+function triggerImageUpload(birdId) {
+    editingBirdId = birdId;
+    elements.customImageInput.click();
+}
+
+function getFilteredSightings() {
+    return state.sightings.filter(s => {
+        if (s.id === 'SYSTEM_INIT_BIRD') return false;
+        if (s.user !== state.currentUser) return false;
+        if (state.yearFilter !== 'all') {
+            const y = new Date(s.date).getFullYear();
+            if (y !== state.yearFilter) return false;
+        }
+        return true;
+    });
+}
+
+function openBirdDetail(bird) {
+    elements.detailHeroImg.src = getBirdImageSrc(bird.id);
+    elements.detailNameSv.textContent = bird.nameSv;
+    elements.detailNameScEn.textContent = `${bird.scientific} (${bird.nameEn})`;
+    elements.detailRarity.innerHTML = '★'.repeat(bird.rarity || 1) + '☆'.repeat(5 - (bird.rarity || 1));
+    elements.detailColor.textContent = bird.color || 'Okänd';
+    elements.detailWeight.textContent = bird.weight ? `${bird.weight} g` : '--';
+    elements.detailSeasonText.textContent = bird.seasonDistribution || 'Hela landet';
+    elements.detailBestTime.textContent = bird.bestTime || 'Dag';
+
+    if (elements.detailWingspan) elements.detailWingspan.textContent = bird.wingspan ? `${bird.wingspan} cm` : '--';
+    if (elements.detailEggs) elements.detailEggs.textContent = bird.eggs || '--';
+    if (elements.detailFunFact) elements.detailFunFact.textContent = bird.funFact || 'Ingen fakta tillgänglig.';
+
+    // Obs Count
+    const count = getFilteredSightings().filter(s => s.birdId === bird.id).length;
+    if (elements.detailObsCount) {
+        elements.detailObsCount.textContent = `${count} observationer (filtrerat)`;
+    }
+
+    // Setup Actions
+    if (elements.detailAddSightingBtn) {
+        elements.detailAddSightingBtn.onclick = () => {
+            elements.closeDetailModal.click();
+            elements.form.reset();
+            document.getElementById('sighting-date').valueAsDate = new Date();
+            elements.imagePreviewContainer.innerHTML = '';
+            elements.selectedBirdId.value = bird.id;
+            elements.birdSearchInput.value = bird.nameSv;
+            elements.modal.classList.add('active');
+        };
+    }
+    if (elements.detailQuickAddBtn) {
+        elements.detailQuickAddBtn.onclick = () => {
+            quickAddSighting(bird.id);
+            elements.closeDetailModal.click();
+        };
+    }
+    if (elements.detailArtportalenLink) {
+        elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(bird.nameSv)}`;
+    }
+
+    elements.detailModal.classList.add('active');
+}
+
+function quickAddSighting(birdId) {
+    const bird = window.swedishBirds.find(b => b.id === birdId);
+    if (!bird) return;
+
+    const newSighting = {
+        id: Date.now().toString(),
+        birdId: bird.id,
+        date: new Date().toISOString().split('T')[0],
+        location: 'Snabbtillägg',
+        notes: '',
+        user: state.currentUser,
+        photo: null
+    };
+
+    state.sightings.push(newSighting);
+
+    // Auto-switch year
+    const sYear = new Date().getFullYear();
+    if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
+        state.yearFilter = sYear;
+    }
+
+    saveSightings();
+    setupYearFilter();
+    alert(`+1 observation av ${bird.nameSv} tillagd!`);
+}
+
+function deleteSighting(id) {
+    if (!confirm('Vill du ta bort denna observation?')) return;
+    state.sightings = state.sightings.filter(s => s.id !== id);
+    saveSightings();
+    setupYearFilter();
 }
 
 // --- Rendering ---
@@ -336,6 +491,13 @@ function renderGuideList(birdList) {
             case 'eggs': return (b.eggs || 0) - (a.eggs || 0);
             case 'weight': return (b.weight || 0) - (a.weight || 0);
             case 'rarity': return (b.rarity || 0) - (a.rarity || 0);
+            case 'bestTime':
+                // Group by time roughly: Morgon < Dag < Kväll < Natt
+                const timeOrder = { 'Morgon': 1, 'Gryning': 1, 'Gryning/Skymning': 3, 'Dag': 2, 'Hela dagen': 2, 'Kväll': 3, 'Skymning': 3, 'Natt': 4 };
+                const tA = timeOrder[a.bestTime] || 5;
+                const tB = timeOrder[b.bestTime] || 5;
+                if (tA !== tB) return tA - tB;
+                return a.nameSv.localeCompare(b.nameSv);
             default: return 0;
         }
     });
@@ -452,201 +614,74 @@ function createCategoryCard(cat) {
     return div;
 }
 
-function selectCategory(categoryName) {
-    state.activeCategory = categoryName;
+function matchTimeFilter(bird) {
+    if (state.guideSortBy !== 'bestTime') return true;
+    if (state.timeFilter === 'all') return true;
 
-    // Filter Logic
-    let filtered = window.swedishBirds;
-    if (categoryName) {
-        filtered = filtered.filter(b => b.type === categoryName);
-        elements.currentCategoryTitle.textContent = categoryName;
-    } else {
-        elements.currentCategoryTitle.textContent = 'Alla Fåglar';
-    }
+    const bt = (bird.bestTime || '').toLowerCase();
+    const filter = state.timeFilter.toLowerCase();
 
-    // Sort alphabetically
-    filtered.sort((a, b) => a.nameSv.localeCompare(b.nameSv));
+    if (filter === 'morgon') return bt.includes('morgon') || bt.includes('gryning');
+    if (filter === 'dag') return bt.includes('dag'); // matches 'dag', 'hela dagen'
+    if (filter === 'kväll') return bt.includes('kväll') || bt.includes('skymning');
+    if (filter === 'natt') return bt.includes('natt');
 
-    renderGuideList(filtered);
+    return false;
+}
 
-    // Toggle Views
+function selectCategory(category) {
+    state.activeCategory = category;
+
+    // UI Update
     elements.guideCategories.classList.add('hidden');
     elements.guideNavigation.classList.remove('hidden');
     elements.guideList.classList.remove('hidden');
 
-    // Reset search when entering a category to avoid confusion
-    elements.guideSearch.value = '';
+    if (category) {
+        elements.currentCategoryTitle.textContent = category;
+        // Filter birds
+        const birds = window.swedishBirds.filter(b => b.type === category && matchTimeFilter(b));
+        renderGuideList(birds);
+    } else {
+        elements.currentCategoryTitle.textContent = 'Alla fåglar';
+        // Render all
+        const birds = window.swedishBirds.filter(b => matchTimeFilter(b));
+        renderGuideList(birds);
+    }
 }
-
+// Helper for icons (used in Map view)
+// Helper for icons (used in Map view & Guide Categories)
 function getCategoryIcon(type) {
-    const map = {
-        'Andfåglar': 'fa-feather-pointed',
-        'Hönsfåglar': 'fa-drumstick-bite',
-        'Lommar & Doppingar': 'fa-water',
-        'Hägrar': 'fa-staff-snake',
-        'Rovfåglar': 'fa-dragon',
-        'Tranor & Rallar': 'fa-person-walking',
-        'Vadare': 'fa-shoe-prints',
-        'Måsar & Tärnor': 'fa-paper-plane',
-        'Alkfåglar': 'fa-anchor',
-        'Hackspettar': 'fa-hammer',
-        'Ugglor': 'fa-glasses',
-        'Duvor': 'fa-dove',
-        'Mesar': 'fa-seedling',
-        'Finkar': 'fa-music',
-        'Sparvar': 'fa-wheat-awn',
-        'Trastar': 'fa-worm',
-        'Sångare': 'fa-microphone-lines',
-        'Kråkfåglar': 'fa-crow',
-        'Svalor': 'fa-wind',
-        'Övriga': 'fa-kiwi-bird'
-    };
-    return map[type] || 'fa-dove';
-}
-
-function openBirdDetail(bird) {
-    // Populate Modal
-    if (elements.detailHeroImg) {
-        elements.detailHeroImg.dataset.birdId = bird.id;
-        elements.detailHeroImg.onerror = function () { handleImageError(this); };
-        elements.detailHeroImg.src = getBirdImageSrc(bird.id);
+    if (CATEGORY_THEMES[type]) {
+        // Convert icon char to fa class if possible, or just use generic
+        // Actually, the map uses fa classes, but CATEGORY_THEMES uses emojis for the placeholder.
+        // The original getCategoryIcon returned fa classes. Let's restore that map fully.
+        const map = {
+            'Andfåglar': 'fa-feather-pointed',
+            'Hönsfåglar': 'fa-drumstick-bite',
+            'Lommar & Doppingar': 'fa-water',
+            'Hägrar': 'fa-staff-snake',
+            'Rovfåglar': 'fa-dragon',
+            'Tranor & Rallar': 'fa-person-walking',
+            'Vadare': 'fa-shoe-prints',
+            'Måsar & Tärnor': 'fa-paper-plane',
+            'Alkfåglar': 'fa-anchor',
+            'Hackspettar': 'fa-hammer',
+            'Ugglor': 'fa-glasses',
+            'Duvor': 'fa-dove',
+            'Mesar': 'fa-seedling',
+            'Finkar': 'fa-music',
+            'Sparvar': 'fa-wheat-awn',
+            'Trastar': 'fa-worm',
+            'Sångare': 'fa-microphone-lines',
+            'Kråkfåglar': 'fa-crow',
+            'Svalor': 'fa-wind',
+            'Övriga': 'fa-kiwi-bird'
+        };
+        return map[type] || 'fa-dove';
     }
-    if (elements.detailNameSv) elements.detailNameSv.textContent = bird.nameSv;
-    if (elements.detailNameScEn) elements.detailNameScEn.textContent = `${bird.scientific} (${bird.nameEn})`;
-
-
-    // Rarity Stars
-    // Rarity Stars
-    const rarity = bird.rarity || 3;
-    let stars = '';
-    for (let i = 0; i < 5; i++) {
-        stars += i < rarity ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
-    }
-    if (elements.detailRarity) elements.detailRarity.innerHTML = stars;
-
-
-    // Season & Map
-    // Season & Map
-    if (elements.detailSeasonText) elements.detailSeasonText.textContent = bird.seasonDistribution || 'Hela året';
-
-    // Wingspan & Eggs
-    if (elements.detailWingspan) elements.detailWingspan.textContent = (bird.wingspan ? bird.wingspan + ' cm' : 'Okänt');
-    if (elements.detailEggs) elements.detailEggs.textContent = (bird.eggs ? bird.eggs + ' st' : 'Okänt');
-
-    // Weight & Color
-    if (elements.detailWeight) elements.detailWeight.textContent = (bird.weight ? bird.weight + ' g' : 'Okänt');
-    if (elements.detailColor) elements.detailColor.textContent = (bird.color || 'Blandad');
-
-    // Fun Fact
-    // Fun Fact
-    if (elements.detailFunFact) elements.detailFunFact.textContent = bird.funFact || 'Ingen information tillgänglig än.';
-
-
-    // Artportalen Link
-    // Use the search link as requested
-    // Try to construct a search URL if possible, otherwise generic
-    const searchUrl = `https://www.artportalen.se/ViewSighting/SearchSighting`;
-    if (elements.detailArtportalenLink) elements.detailArtportalenLink.href = searchUrl;
-    if (elements.detailObsCount) elements.detailObsCount.textContent = `Sök efter "${bird.nameSv}" för att se årets observationer`;
-
-
-    // Detail Actions
-    if (elements.detailAddSightingBtn) {
-        elements.detailAddSightingBtn.dataset.birdId = bird.id;
-    }
-
-    // Show Modal
-    elements.detailModal.classList.add('active');
+    return 'fa-dove';
 }
-
-// Add Sighting from Detail View
-if (elements.detailAddSightingBtn) {
-    elements.detailAddSightingBtn.addEventListener('click', () => {
-        const birdId = elements.detailAddSightingBtn.dataset.birdId;
-        const bird = window.swedishBirds.find(b => b.id === birdId);
-
-        if (!bird) return;
-
-        // Close Detail Modal
-        elements.detailModal.classList.remove('active');
-
-        // Open Sighting Modal (simulating click resets form generally, but we want to prefill)
-        elements.addSightingBtn.click();
-
-        // Pre-fill
-        setTimeout(() => {
-            elements.birdSearchInput.value = bird.nameSv;
-            elements.selectedBirdId.value = bird.id;
-            // Trigger input event to simulate search but we already set the ID so autocomplete not strictly needed
-        }, 50); // Small delay to allow modal open and form reset
-    });
-}
-
-// Quick Add from Detail View
-if (elements.detailQuickAddBtn) {
-    elements.detailQuickAddBtn.addEventListener('click', () => {
-        const birdId = elements.detailAddSightingBtn.dataset.birdId; // Borrow ID from main btn
-        if (birdId) {
-            window.quickAddSighting(birdId);
-            elements.detailModal.classList.remove('active');
-        }
-    });
-}
-
-// Close Detail Modal
-if (elements.closeDetailModal) {
-    elements.closeDetailModal.addEventListener('click', () => {
-        elements.detailModal.classList.remove('active');
-    });
-
-    // Close on outside click
-    elements.detailModal.addEventListener('click', (e) => {
-        if (e.target === elements.detailModal) {
-            elements.detailModal.classList.remove('active');
-        }
-    });
-}
-
-// --- Helpers ---
-function getFilteredSightings() {
-    let list = state.sightings;
-
-    // 1. Filter by User
-    // defaults to 'Theia' if user is missing (legacy data)
-    list = list.filter(s => (s.user || 'Theia') === state.currentUser);
-
-    // 2. Filter by Year
-    if (state.yearFilter !== 'all') {
-        list = list.filter(s => new Date(s.date).getFullYear() === state.yearFilter);
-    }
-    return list;
-}
-
-// --- Holder Image System ---
-// Color palettes and silhouettes per bird category for beautiful placeholders.
-// To replace a placeholder: simply drop a .jpg file named {bird_id}.jpg into the images/ folder.
-const CATEGORY_THEMES = {
-    'Andfåglar': { bg: ['#0e4a6e', '#1a7ab5'], accent: '#5ec6e8', icon: '🦆', label: 'Andfåglar' },
-    'Hönsfåglar': { bg: ['#5c3d1e', '#8b6914'], accent: '#d4a843', icon: '🐔', label: 'Hönsfåglar' },
-    'Lommar & Doppingar': { bg: ['#0d3b4f', '#1a6b7a'], accent: '#4ec9d4', icon: '🌊', label: 'Dykare' },
-    'Hägrar': { bg: ['#2d4a3e', '#3d7a5e'], accent: '#7acfa0', icon: '🪿', label: 'Hägrar' },
-    'Rovfåglar': { bg: ['#5a2d0c', '#8b4513'], accent: '#e8a03e', icon: '🦅', label: 'Rovfåglar' },
-    'Tranor & Rallar': { bg: ['#3a4a2e', '#5a7a3e'], accent: '#9acd5e', icon: '🦩', label: 'Tranor' },
-    'Vadare': { bg: ['#4a3a2e', '#7a6a4e'], accent: '#c4b48e', icon: '🦤', label: 'Vadare' },
-    'Måsar & Tärnor': { bg: ['#3a5a7a', '#5a8aaa'], accent: '#b0d8f0', icon: '🕊️', label: 'Måsar' },
-    'Alkfåglar': { bg: ['#1a2a3a', '#2a4a5a'], accent: '#6aafcf', icon: '🐧', label: 'Alkfåglar' },
-    'Hackspettar': { bg: ['#3a1a1a', '#6a2a2a'], accent: '#e05050', icon: '🪶', label: 'Hackspettar' },
-    'Ugglor': { bg: ['#2a1a3a', '#4a2a5a'], accent: '#b080d0', icon: '🦉', label: 'Ugglor' },
-    'Duvor': { bg: ['#4a4a5a', '#6a6a7a'], accent: '#b0b0d0', icon: '🕊️', label: 'Duvor' },
-    'Sångare': { bg: ['#1a4a2a', '#2a7a3a'], accent: '#6ad06a', icon: '🎵', label: 'Sångare' },
-    'Trastar': { bg: ['#3a2a1a', '#6a4a2a'], accent: '#c08a4a', icon: '🐦', label: 'Trastar' },
-    'Mesar': { bg: ['#1a3a4a', '#2a6a7a'], accent: '#5ac0e0', icon: '🐤', label: 'Mesar' },
-    'Finkar': { bg: ['#4a2a1a', '#7a4a2a'], accent: '#e0904a', icon: '🎶', label: 'Finkar' },
-    'Sparvar': { bg: ['#4a3a1a', '#7a6a2a'], accent: '#d0c04a', icon: '🐦', label: 'Sparvar' },
-    'Kråkfåglar': { bg: ['#1a1a2a', '#2a2a3a'], accent: '#7070a0', icon: '🐦‍⬛', label: 'Kråkfåglar' },
-    'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨', label: 'Svalor' },
-    'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦', label: 'Övriga' }
-};
 
 function generateHolderSvg(birdId) {
     const bird = window.swedishBirds.find(b => b.id === birdId);
@@ -655,6 +690,7 @@ function generateHolderSvg(birdId) {
     const theme = CATEGORY_THEMES[bird.type] || CATEGORY_THEMES['Övriga'];
     const nameDisplay = bird.nameSv;
     const sciName = bird.scientific;
+
 
     // Generate a unique rotation/offset from the bird id for visual variety
     const hash = birdId.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
@@ -779,246 +815,584 @@ window.quickAddSighting = (birdId) => {
 
 // --- Event Listeners ---
 
-// 1. Reset App
-if (elements.resetBtn) {
-    elements.resetBtn.addEventListener('click', () => {
-        if (confirm('VARNING: Detta kommer att radera ALLA dina observationer och egna bilder. Är du säker?')) {
-            localStorage.clear();
-            location.reload();
-        }
-    });
-}
-
-// 1b. Logo Home Click
-if (elements.logoHome) {
-    elements.logoHome.addEventListener('click', () => {
-        elements.navBtns.forEach(b => b.classList.remove('active'));
-        // Find Log View btn
-        const logBtn = document.querySelector('[data-tab="log-view"]');
-        if (logBtn) logBtn.classList.add('active');
-
-        elements.viewSections.forEach(s => s.classList.remove('active'));
-        document.getElementById('log-view').classList.add('active');
-        state.view = 'log-view';
-    });
-}
-
-// 1c. Sort Change
-if (elements.sortSelect) {
-    elements.sortSelect.addEventListener('change', (e) => {
-        state.sortBy = e.target.value;
-        renderApp();
-    });
-}
-
-// 1d. Guide Sort Change
-if (elements.guideSortSelect) {
-    elements.guideSortSelect.addEventListener('change', (e) => {
-        state.guideSortBy = e.target.value;
-        const term = elements.guideSearch.value.toLowerCase();
-
-        if (state.activeCategory) {
-            selectCategory(state.activeCategory);
-        } else if (term) {
-            // Re-trigger search logic
-            elements.guideSearch.dispatchEvent(new Event('input'));
-        } else {
-            // If viewing all birds (no category, no search, but list visible)
-            if (!elements.guideList.classList.contains('hidden')) {
-                selectCategory(null);
+function setupEventListeners() {
+    // 1. Reset App
+    if (elements.resetBtn) {
+        elements.resetBtn.addEventListener('click', () => {
+            if (confirm('VARNING: Detta kommer att radera ALLA dina observationer och egna bilder. Är du säker?')) {
+                localStorage.clear();
+                location.reload();
             }
-        }
-    });
-}
+        });
+    }
 
-// 2. View Switching
-elements.navBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // UI Toggle
-        elements.navBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    // 1b. Logo Home Click
+    if (elements.logoHome) {
+        elements.logoHome.addEventListener('click', () => {
+            elements.navBtns.forEach(b => b.classList.remove('active'));
+            // Find Log View btn
+            const logBtn = document.querySelector('[data-tab="log-view"]');
+            if (logBtn) logBtn.classList.add('active');
 
-        elements.viewSections.forEach(s => s.classList.remove('active'));
-        document.getElementById(btn.dataset.tab).classList.add('active');
+            elements.viewSections.forEach(s => s.classList.remove('active'));
+            document.getElementById('log-view').classList.add('active');
+            state.view = 'log-view';
+        });
+    }
 
-        state.view = btn.dataset.tab;
+    // 1c. Sort Change
+    if (elements.sortSelect) {
+        elements.sortSelect.addEventListener('change', (e) => {
+            state.sortBy = e.target.value;
+            renderApp();
+        });
+    }
 
-        // Initialize Sweden map on first visit
-        if (btn.dataset.tab === 'sweden-view' && typeof renderSwedenMap === 'function') {
-            const mapRoot = document.getElementById('sweden-map-root');
-            if (mapRoot && !mapRoot.dataset.initialized) {
-                renderSwedenMap('sweden-map-root');
-                mapRoot.dataset.initialized = 'true';
+    // 1d. Guide Sort Change
+    if (elements.guideSortSelect) {
+        elements.guideSortSelect.addEventListener('change', (e) => {
+            state.guideSortBy = e.target.value;
+            const term = elements.guideSearch.value.toLowerCase();
+
+            // Show/Hide Time Filter
+            if (state.guideSortBy === 'bestTime') {
+                elements.timeFilterContainer.classList.remove('hidden');
+            } else {
+                elements.timeFilterContainer.classList.add('hidden');
+                // Check if we need to reset filter? Maybe keep it but irrelevant
             }
-        }
-    });
-});
 
-// 2b. User Switching
-elements.userBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const newUser = btn.dataset.user;
-        if (state.currentUser === newUser) return;
+            if (state.activeCategory) {
+                selectCategory(state.activeCategory);
+            } else if (term) {
+                // Re-trigger search logic
+                elements.guideSearch.dispatchEvent(new Event('input'));
+            } else {
+                // If viewing all birds (no category, no search, but list visible)
+                if (!elements.guideList.classList.contains('hidden')) {
+                    selectCategory(null);
+                }
+            }
+        });
+    }
 
-        state.currentUser = newUser;
+    // 1e. Time Filter Buttons
+    if (elements.timeFilterBtns) {
+        elements.timeFilterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // UI Toggle
+                elements.timeFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-        // Update UI
-        elements.userBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+                state.timeFilter = btn.dataset.time;
 
-        // Reset filters for new user
-        state.yearFilter = new Date().getFullYear(); // Default to current year or all?
-        // Check if there are sightings for this year, otherwise maybe 'all'
-
-        setupYearFilter();
-        renderApp();
-    });
-});
-
-// 3. Modal Controls
-elements.addSightingBtn.addEventListener('click', () => {
-    elements.form.reset();
-    document.getElementById('sighting-date').valueAsDate = new Date();
-    elements.imagePreviewContainer.innerHTML = '';
-    elements.selectedBirdId.value = '';
-    elements.modal.classList.add('active');
-});
-
-elements.closeModal.addEventListener('click', () => {
-    elements.modal.classList.remove('active');
-});
-
-// 4. Autocomplete
-elements.birdSearchInput.addEventListener('input', function () {
-    const val = this.value.toLowerCase();
-    elements.autocompleteList.innerHTML = '';
-    if (!val) return;
-
-    window.swedishBirds.forEach(bird => {
-        if (bird.nameEn.toLowerCase().includes(val) || bird.nameSv.toLowerCase().includes(val)) {
-            const item = document.createElement('div');
-            item.className = 'autocomplete-item';
-            item.innerHTML = `<strong>${bird.nameSv}</strong> <small>(${bird.nameEn})</small>`;
-            item.addEventListener('click', () => {
-                elements.birdSearchInput.value = bird.nameSv;
-                elements.selectedBirdId.value = bird.id;
-                elements.autocompleteList.innerHTML = '';
+                // Re-render current view
+                if (state.activeCategory) {
+                    selectCategory(state.activeCategory);
+                } else {
+                    const term = elements.guideSearch.value.toLowerCase();
+                    if (term) {
+                        elements.guideSearch.dispatchEvent(new Event('input'));
+                    } else {
+                        // Always switch to list view to show filtered results
+                        selectCategory(null);
+                    }
+                }
             });
-            elements.autocompleteList.appendChild(item);
+        });
+    }
+
+    // 2. View Switching
+    elements.navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // UI Toggle
+            elements.navBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            elements.viewSections.forEach(s => s.classList.remove('active'));
+            document.getElementById(btn.dataset.tab).classList.add('active');
+
+            state.view = btn.dataset.tab;
+
+            // Initialize Sweden map on first visit
+            if (btn.dataset.tab === 'sweden-view' && typeof renderSwedenMap === 'function') {
+                const mapRoot = document.getElementById('sweden-map-root');
+                if (mapRoot && !mapRoot.dataset.initialized) {
+                    renderSwedenMap('sweden-map-root');
+                    mapRoot.dataset.initialized = 'true';
+                }
+            }
+        });
+    });
+
+    // 2b. User Switching
+    elements.userBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const newUser = btn.dataset.user;
+            if (state.currentUser === newUser) return;
+
+            state.currentUser = newUser;
+
+            // Update UI
+            elements.userBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Reset filters for new user
+            state.yearFilter = new Date().getFullYear(); // Default to current year or all?
+            // Check if there are sightings for this year, otherwise maybe 'all'
+
+            setupYearFilter();
+            renderApp();
+        });
+    });
+
+    // 3. Modal Controls
+    elements.addSightingBtn.addEventListener('click', () => {
+        elements.form.reset();
+        document.getElementById('sighting-date').valueAsDate = new Date();
+        elements.imagePreviewContainer.innerHTML = '';
+        elements.selectedBirdId.value = '';
+        elements.modal.classList.add('active');
+    });
+
+    elements.closeModal.addEventListener('click', () => {
+        elements.modal.classList.remove('active');
+    });
+
+    if (elements.closeDetailModal) {
+        elements.closeDetailModal.addEventListener('click', () => {
+            elements.detailModal.classList.remove('active');
+        });
+    }
+
+    // 4. Autocomplete
+    elements.birdSearchInput.addEventListener('input', function () {
+        const val = this.value.toLowerCase();
+        elements.autocompleteList.innerHTML = '';
+        if (!val) return;
+
+        window.swedishBirds.forEach(bird => {
+            if (bird.nameEn.toLowerCase().includes(val) || bird.nameSv.toLowerCase().includes(val)) {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                item.innerHTML = `<strong>${bird.nameSv}</strong> <small>(${bird.nameEn})</small>`;
+                item.addEventListener('click', () => {
+                    elements.birdSearchInput.value = bird.nameSv;
+                    elements.selectedBirdId.value = bird.id;
+                    elements.autocompleteList.innerHTML = '';
+                });
+                elements.autocompleteList.appendChild(item);
+            }
+        });
+    });
+
+    // Close autocomplete on outside click
+    document.addEventListener('click', (e) => {
+        if (e.target !== elements.birdSearchInput) {
+            elements.autocompleteList.innerHTML = '';
         }
     });
-});
 
-// Close autocomplete on outside click
-document.addEventListener('click', (e) => {
-    if (e.target !== elements.birdSearchInput) {
-        elements.autocompleteList.innerHTML = '';
-    }
-});
+    // 5. Form Submit
+    elements.form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-// 5. Form Submit
-elements.form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if (!elements.selectedBirdId.value) {
-        alert('Vänligen välj en fågel från listan!');
-        return;
-    }
-
-    const newSighting = {
-        id: Date.now().toString(),
-        birdId: elements.selectedBirdId.value,
-        date: document.getElementById('sighting-date').value,
-        location: document.getElementById('sighting-location').value,
-        notes: document.getElementById('sighting-notes').value,
-        user: state.currentUser,
-        photo: null
-    };
-
-    const finish = () => {
-        state.sightings.push(newSighting);
-
-        // Auto-switch year filter if needed
-        const sYear = new Date(newSighting.date).getFullYear();
-        if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
-            state.yearFilter = sYear;
+        if (!elements.selectedBirdId.value) {
+            alert('Vänligen välj en fågel från listan!');
+            return;
         }
 
-        saveSightings();
-        setupYearFilter();
-        elements.modal.classList.remove('active');
-    };
-
-    // Check for photo
-    if (elements.sightingPhoto.files && elements.sightingPhoto.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            newSighting.photo = ev.target.result;
-            finish();
+        const newSighting = {
+            id: Date.now().toString(),
+            birdId: elements.selectedBirdId.value,
+            date: document.getElementById('sighting-date').value,
+            location: document.getElementById('sighting-location').value,
+            notes: document.getElementById('sighting-notes').value,
+            user: state.currentUser,
+            photo: null
         };
-        reader.readAsDataURL(elements.sightingPhoto.files[0]);
-    } else {
-        finish();
-    }
-});
 
-// 6. Custom Image Upload
-elements.customImageInput.addEventListener('change', function () {
-    if (this.files && this.files[0] && editingBirdId) {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            try {
-                localStorage.setItem(`custom_img_${editingBirdId}`, ev.target.result);
-                renderApp();
-                renderGuideList(window.swedishBirds); // Refresh guide too
-            } catch (err) {
-                alert('Bilden är för stor!');
+        const finish = () => {
+            state.sightings.push(newSighting);
+
+            // Auto-switch year filter if needed
+            const sYear = new Date(newSighting.date).getFullYear();
+            if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
+                state.yearFilter = sYear;
             }
-            editingBirdId = null;
+
+            saveSightings();
+            setupYearFilter();
+            elements.modal.classList.remove('active');
         };
-        reader.readAsDataURL(this.files[0]);
+
+        // Check for photo
+        if (elements.sightingPhoto.files && elements.sightingPhoto.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                newSighting.photo = ev.target.result;
+                finish();
+            };
+            reader.readAsDataURL(elements.sightingPhoto.files[0]);
+        } else {
+            finish();
+        }
+    });
+
+    // 6. Custom Image Upload
+    elements.customImageInput.addEventListener('change', function () {
+        if (this.files && this.files[0] && editingBirdId) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    localStorage.setItem(`custom_img_${editingBirdId}`, ev.target.result);
+                    renderApp();
+                    renderGuideList(window.swedishBirds); // Refresh guide too
+                } catch (err) {
+                    alert('Bilden är för stor!');
+                }
+                editingBirdId = null;
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    // 7. Guide Search
+    elements.guideSearch.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+
+        // If search term exists, switch to list view automatically
+        if (term.length > 0) {
+            state.activeCategory = null; // Reset category context
+            elements.guideCategories.classList.add('hidden');
+            elements.guideNavigation.classList.add('hidden'); // Hide back button in search mode
+            elements.guideList.classList.remove('hidden');
+
+            const filtered = window.swedishBirds.filter(b =>
+                (b.nameEn.toLowerCase().includes(term) ||
+                    b.nameSv.toLowerCase().includes(term) ||
+                    (b.type && b.type.toLowerCase().includes(term)) ||
+                    (b.wingspan && b.wingspan.toString().includes(term)) ||
+                    (b.eggs && b.eggs.toString().includes(term)) ||
+                    (b.weight && b.weight.toString().includes(term)) ||
+                    (b.color && b.color.toLowerCase().includes(term))) &&
+                matchTimeFilter(b)
+            );
+            renderGuideList(filtered);
+        } else {
+            // Show categories again
+            if (state.activeCategory) {
+                selectCategory(state.activeCategory);
+            } else {
+                // Show categories
+                elements.guideCategories.classList.remove('hidden');
+                elements.guideNavigation.classList.add('hidden');
+                elements.guideList.classList.add('hidden');
+            }
+        }
+    });
+
+    // 9. Back to Categories
+    if (elements.backToCategoriesBtn) {
+        elements.backToCategoriesBtn.addEventListener('click', () => {
+            renderGuideCategories();
+        });
     }
-});
 
-// 7. Guide Search
-elements.guideSearch.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-
-    // If search term exists, switch to list view automatically
-    if (term.length > 0) {
-        state.activeCategory = null; // Reset category context
-        elements.guideCategories.classList.add('hidden');
-        elements.guideNavigation.classList.add('hidden'); // Hide back button in search mode
-        elements.guideList.classList.remove('hidden');
-
-        const filtered = window.swedishBirds.filter(b =>
-            b.nameEn.toLowerCase().includes(term) ||
-            b.nameSv.toLowerCase().includes(term) ||
-            (b.type && b.type.toLowerCase().includes(term)) ||
-            (b.wingspan && b.wingspan.toString().includes(term)) ||
-            (b.eggs && b.eggs.toString().includes(term)) ||
-            (b.weight && b.weight.toString().includes(term)) ||
-            (b.color && b.color.toLowerCase().includes(term))
-        );
-        renderGuideList(filtered);
-    } else {
-        // Empty search -> go back to categories
-        renderGuideCategories();
-    }
-});
-
-// 9. Back to Categories
-if (elements.backToCategoriesBtn) {
-    elements.backToCategoriesBtn.addEventListener('click', () => {
-        renderGuideCategories();
+    // 8. Filter Change
+    elements.yearSelect.addEventListener('change', (e) => {
+        const v = e.target.value;
+        state.yearFilter = v === 'all' ? 'all' : parseInt(v);
+        renderApp();
     });
 }
 
-// 8. Filter Change
-elements.yearSelect.addEventListener('change', (e) => {
-    const v = e.target.value;
-    state.yearFilter = v === 'all' ? 'all' : parseInt(v);
-    renderApp();
+// --- Quiz System ---
+
+function getRandomBirds(count, excludeId, type) {
+    let pool = window.swedishBirds.filter(b => b.id !== excludeId);
+    // If type specified and enough birds of that type, filter
+    if (type) {
+        const sameType = pool.filter(b => b.type === type);
+        if (sameType.length >= count) {
+            pool = sameType;
+        }
+    }
+    const shuffled = pool.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+}
+
+function stripBirdName(text, bird) {
+    // Remove the bird's Swedish name and common variations from the fun fact
+    // e.g. "Knölsvanen" from "Knölsvanen är en av..."
+    const nameSv = bird.nameSv;
+    // Try common Swedish definite forms: append 'n', 'en', 'an', 'et', 's'
+    const variants = [nameSv];
+    // Also try lowercase
+    variants.push(nameSv.toLowerCase());
+    // Common definite article forms
+    if (!nameSv.endsWith('n')) variants.push(nameSv + 'n');
+    if (!nameSv.endsWith('en')) variants.push(nameSv + 'en');
+    if (!nameSv.endsWith('an')) variants.push(nameSv + 'an');
+    if (!nameSv.endsWith('s')) variants.push(nameSv + 's');
+
+    let result = text;
+    for (const v of variants) {
+        // Case insensitive replacement
+        const regex = new RegExp(v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+        result = result.replace(regex, '???');
+    }
+    return result;
+}
+
+function getClosestBirds(bird, stat, count) {
+    // Find birds with similar stat values to make harder options
+    const birdValue = bird[stat] || 0;
+    if (!birdValue) return getRandomBirds(count, bird.id);
+
+    const candidates = window.swedishBirds
+        .filter(b => b.id !== bird.id && b[stat])
+        .map(b => ({
+            bird: b,
+            diff: Math.abs((b[stat] || 0) - birdValue)
+        }))
+        .sort((a, b) => a.diff - b.diff);
+
+    // Pick from the closest candidates, with some randomness
+    const top = candidates.slice(0, Math.min(count * 3, candidates.length));
+    const shuffled = top.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count).map(c => c.bird);
+}
+
+function generateQuizQuestions(mode, count = 10) {
+    const birds = [...window.swedishBirds].sort(() => Math.random() - 0.5);
+    const questions = [];
+
+    for (let i = 0; i < Math.min(count, birds.length); i++) {
+        const bird = birds[i];
+
+        if (mode === 'image') {
+            // Same type/category birds as distractors
+            const wrongBirds = getRandomBirds(3, bird.id, bird.type);
+            const options = [bird, ...wrongBirds].sort(() => Math.random() - 0.5);
+            questions.push({
+                type: 'image',
+                prompt: null,
+                image: bird.id,
+                question: 'Vilken fågel ser du på bilden?',
+                options: options.map(b => ({ label: b.nameSv, value: b.id })),
+                correctValue: bird.id,
+                correctLabel: bird.nameSv
+            });
+        } else if (mode === 'funfact') {
+            // Show fun fact with bird name stripped, guess which bird
+            const wrongBirds = getRandomBirds(3, bird.id);
+            const options = [bird, ...wrongBirds].sort(() => Math.random() - 0.5);
+            const cleanedFact = stripBirdName(bird.funFact, bird);
+            questions.push({
+                type: 'funfact',
+                prompt: `"${cleanedFact}"`,
+                image: null,
+                question: 'Vilken fågel handlar detta om?',
+                options: options.map(b => ({ label: b.nameSv, value: b.id })),
+                correctValue: bird.id,
+                correctLabel: bird.nameSv
+            });
+        } else if (mode === 'stats') {
+            // Random stat type with close-value distractors
+            const statTypes = ['wingspan', 'weight', 'eggs'];
+            const stat = statTypes[Math.floor(Math.random() * statTypes.length)];
+            const statLabels = { wingspan: 'Vingspann', weight: 'Vikt', eggs: 'Antal ägg' };
+            const statUnits = { wingspan: 'cm', weight: 'g', eggs: 'st' };
+
+            // Get birds with similar stat values for harder options
+            const wrongBirds = getClosestBirds(bird, stat, 3);
+            const allOptions = [bird, ...wrongBirds].sort(() => Math.random() - 0.5);
+
+            questions.push({
+                type: 'stats',
+                prompt: bird.nameSv,
+                image: bird.id,
+                question: `Vad är ${bird.nameSv}s ${statLabels[stat].toLowerCase()}?`,
+                options: allOptions.map(b => ({
+                    label: `${b[stat] || '?'} ${statUnits[stat]}`,
+                    value: b.id
+                })),
+                correctValue: bird.id,
+                correctLabel: `${bird[stat] || '?'} ${statUnits[stat]}`
+            });
+        }
+    }
+    return questions;
+}
+
+function showQuizMenu() {
+    document.getElementById('quiz-menu').classList.remove('hidden');
+    document.getElementById('quiz-area').classList.add('hidden');
+    document.getElementById('quiz-results').classList.add('hidden');
+}
+
+function initQuiz(mode) {
+    state.quizMode = mode;
+    state.quizQuestions = generateQuizQuestions(mode);
+    state.quizCurrent = 0;
+    state.quizScore = 0;
+    state.quizAnswered = false;
+
+    document.getElementById('quiz-menu').classList.add('hidden');
+    document.getElementById('quiz-area').classList.remove('hidden');
+    document.getElementById('quiz-results').classList.add('hidden');
+
+    document.getElementById('quiz-score').textContent = '0';
+    document.getElementById('quiz-total').textContent = state.quizQuestions.length;
+
+    renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+    const q = state.quizQuestions[state.quizCurrent];
+    if (!q) return;
+
+    state.quizAnswered = false;
+
+    // Update progress
+    const progress = ((state.quizCurrent) / state.quizQuestions.length) * 100;
+    document.getElementById('quiz-progress-fill').style.width = progress + '%';
+
+    const container = document.getElementById('quiz-question-container');
+
+    let imageHtml = '';
+    if (q.image) {
+        const imgSrc = getBirdImageSrc(q.image);
+        imageHtml = `<div class="quiz-image-container">
+            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" onerror="handleImageError(this)" class="quiz-bird-image">
+        </div>`;
+    }
+
+    let promptHtml = '';
+    if (q.prompt) {
+        promptHtml = `<div class="quiz-prompt">${q.prompt}</div>`;
+    }
+
+    const optionsHtml = q.options.map((opt, i) => `
+        <button class="quiz-option-btn" data-value="${opt.value}" data-index="${i}">
+            ${opt.label}
+        </button>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="quiz-question-number">Fråga ${state.quizCurrent + 1} av ${state.quizQuestions.length}</div>
+        ${imageHtml}
+        ${promptHtml}
+        <h3 class="quiz-question-text">${q.question}</h3>
+        <div class="quiz-options">
+            ${optionsHtml}
+        </div>
+    `;
+
+    // Bind option clicks
+    container.querySelectorAll('.quiz-option-btn').forEach(btn => {
+        btn.addEventListener('click', () => handleQuizAnswer(btn));
+    });
+}
+
+function handleQuizAnswer(btnEl) {
+    if (state.quizAnswered) return;
+    state.quizAnswered = true;
+
+    const q = state.quizQuestions[state.quizCurrent];
+    const selectedValue = btnEl.dataset.value;
+    const isCorrect = selectedValue === q.correctValue;
+
+    if (isCorrect) {
+        state.quizScore++;
+        btnEl.classList.add('correct');
+    } else {
+        btnEl.classList.add('incorrect');
+        // Highlight correct answer
+        document.querySelectorAll('.quiz-option-btn').forEach(b => {
+            if (b.dataset.value === q.correctValue) {
+                b.classList.add('correct');
+            }
+        });
+    }
+
+    document.getElementById('quiz-score').textContent = state.quizScore;
+
+    // Auto-advance after delay
+    setTimeout(() => {
+        state.quizCurrent++;
+        if (state.quizCurrent >= state.quizQuestions.length) {
+            showQuizResults();
+        } else {
+            renderQuizQuestion();
+        }
+    }, 1200);
+}
+
+function showQuizResults() {
+    document.getElementById('quiz-area').classList.add('hidden');
+    document.getElementById('quiz-results').classList.remove('hidden');
+
+    const score = state.quizScore;
+    const total = state.quizQuestions.length;
+    const pct = Math.round((score / total) * 100);
+
+    document.getElementById('quiz-final-score').textContent = score;
+    document.getElementById('quiz-final-total').textContent = total;
+    document.getElementById('quiz-results-bar-fill').style.width = pct + '%';
+
+    // Fun results
+    let icon, title;
+    if (pct === 100) { icon = '🏆'; title = 'Perfekt! Du är en fågelexpert!'; }
+    else if (pct >= 80) { icon = '🌟'; title = 'Fantastiskt! Nästan perfekt!'; }
+    else if (pct >= 60) { icon = '🎉'; title = 'Bra jobbat!'; }
+    else if (pct >= 40) { icon = '🐣'; title = 'Bra försök! Öva mer!'; }
+    else { icon = '📚'; title = 'Dags att studera fågelguiden!'; }
+
+    document.getElementById('quiz-results-icon').textContent = icon;
+    document.getElementById('quiz-results-title').textContent = title;
+}
+
+// --- Quiz Event Listeners ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Quiz mode cards
+    document.querySelectorAll('.quiz-mode-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const mode = card.dataset.mode;
+            initQuiz(mode);
+        });
+    });
+
+    // Back button
+    const quizBackBtn = document.getElementById('quiz-back-btn');
+    if (quizBackBtn) {
+        quizBackBtn.addEventListener('click', showQuizMenu);
+    }
+
+    // Quit button (end quiz early, show results)
+    const quizQuitBtn = document.getElementById('quiz-quit-btn');
+    if (quizQuitBtn) {
+        quizQuitBtn.addEventListener('click', () => {
+            // Set total to current question count for accurate results
+            state.quizQuestions.length = state.quizCurrent + (state.quizAnswered ? 0 : 0);
+            showQuizResults();
+        });
+    }
+
+    // Retry button
+    const quizRetryBtn = document.getElementById('quiz-retry-btn');
+    if (quizRetryBtn) {
+        quizRetryBtn.addEventListener('click', () => {
+            initQuiz(state.quizMode);
+        });
+    }
+
+    // Menu button (from results)
+    const quizMenuBtn = document.getElementById('quiz-menu-btn');
+    if (quizMenuBtn) {
+        quizMenuBtn.addEventListener('click', showQuizMenu);
+    }
 });
 
 // Start
