@@ -19,7 +19,7 @@ const state = {
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
-let _cloudSaveTimeout = null; // Debounce timer for cloud saves
+// let _cloudSaveTimeout = null; // Removed cloud debounce
 
 // --- Holder Image System ---
 // Color palettes and silhouettes per bird category for beautiful placeholders.
@@ -106,6 +106,21 @@ let editingBirdId = null;
 async function init() {
     console.log('App Initializing...');
 
+    // 0. Load Preserved User
+    const savedUser = localStorage.getItem('birdfinder_currentUser');
+    if (savedUser && (savedUser === 'Theia' || savedUser === 'Alexander')) {
+        state.currentUser = savedUser;
+    }
+
+    // Update active class on buttons to match state
+    if (state.currentUser === 'Alexander') {
+        document.querySelector('[data-user="Theia"]').classList.remove('active');
+        document.querySelector('[data-user="Alexander"]').classList.add('active');
+    } else {
+        document.querySelector('[data-user="Alexander"]').classList.remove('active');
+        document.querySelector('[data-user="Theia"]').classList.add('active');
+    }
+
     // Check for data dependency
     if (!window.swedishBirds) {
         console.error('Bird data not loaded!');
@@ -113,10 +128,7 @@ async function init() {
         return;
     }
 
-    // Initialize Firebase (if configured)
-    if (window.firebaseSync) {
-        window.firebaseSync.init();
-    }
+    // Initialize Firebase (Removed)
 
     // Load Data (local first, then merge with cloud)
     await loadSightings();
@@ -136,19 +148,42 @@ async function init() {
     // Event Listeners
     setupEventListeners();
 
-    // --- Cloud Real-Time Listener ---
-    if (window.firebaseSync && window.firebaseSync.isReady) {
-        window.firebaseSync.listen((cloudSightings) => {
-            // Merge cloud data with local
-            state.sightings = window.firebaseSync.merge(state.sightings, cloudSightings);
-            // Save merged data locally
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
-            // Re-render
-            setupYearFilter();
-            renderApp();
-            console.log('🔄 UI updated from cloud sync');
-        });
-    }
+    // --- Cloud Real-Time Listener (Removed) ---
+
+    // --- PWA Install Logic ---
+    let deferredPrompt;
+    const installBtn = document.getElementById('install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can install the PWA
+        installBtn.style.display = 'block';
+
+        console.log('Use can install app');
+    });
+
+    installBtn.addEventListener('click', async () => {
+        // Hide the app provided install promotion
+        installBtn.style.display = 'none';
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+        // Hide the app-provided install promotion
+        installBtn.style.display = 'none';
+        // Clear the deferredPrompt so it can be garbage collected
+        deferredPrompt = null;
+        console.log('PWA was installed');
+    });
 
     // --- PERSISTENCE FIX (Ghost Bird) ---
     // This logic ensures the app "wakes up" and saves data correctly on first load
@@ -193,29 +228,11 @@ async function loadSightings() {
         if (stored) {
             state.sightings = JSON.parse(stored);
         }
+        console.log('📂 Loaded', state.sightings.length, 'sightings from LocalStorage');
     } catch (e) {
         console.error('Data corruption detected', e);
         localStorage.removeItem(STORAGE_KEY);
         state.sightings = [];
-    }
-
-    // 2. Try loading from cloud and merge
-    if (window.firebaseSync && window.firebaseSync.isReady) {
-        try {
-            const cloudData = await window.firebaseSync.load();
-            if (cloudData) {
-                state.sightings = window.firebaseSync.merge(state.sightings, cloudData);
-                // Update localStorage with merged data
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
-                console.log('📦 Merged local + cloud data:', state.sightings.length, 'sightings');
-            } else if (state.sightings.length > 0) {
-                // Cloud is empty but we have local data — push it up
-                window.firebaseSync.save(state.sightings);
-                console.log('📤 Pushed local data to cloud');
-            }
-        } catch (e) {
-            console.warn('Cloud load failed, using local data:', e);
-        }
     }
 }
 
@@ -223,14 +240,7 @@ function saveSightings() {
     // 1. Always save to localStorage (instant)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
 
-    // 2. Debounced save to cloud (avoid flooding on rapid clicks)
-    if (window.firebaseSync && window.firebaseSync.isReady) {
-        clearTimeout(_cloudSaveTimeout);
-        _cloudSaveTimeout = setTimeout(() => {
-            window.firebaseSync.save(state.sightings);
-        }, 1000); // Wait 1s after last change before syncing
-    }
-
+    // Cloud save removed.
     renderApp();
 }
 
@@ -932,6 +942,7 @@ function setupEventListeners() {
             if (state.currentUser === newUser) return;
 
             state.currentUser = newUser;
+            localStorage.setItem('birdfinder_currentUser', newUser);
 
             // Update UI
             elements.userBtns.forEach(b => b.classList.remove('active'));

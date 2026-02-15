@@ -1,0 +1,20 @@
+{
+  "name": "Svensk Fågelskådare",
+  "short_name": "Fågelboken",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F0F4F1",
+  "theme_color": "#2E5D4B",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
