@@ -15,7 +15,9 @@ const state = {
     quizScore: 0,
     quizScore: 0,
     quizAnswered: false,
-    timeFilter: 'all' // all, Morgon, Dag, Kväll, Natt
+    quizAnswered: false,
+    timeFilter: 'all', // all, Morgon, Dag, Kväll, Natt
+    appMode: 'birds' // 'birds' or 'trees'
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
@@ -43,7 +45,12 @@ const CATEGORY_THEMES = {
     'Sparvar': { bg: ['#4a3a1a', '#7a6a2a'], accent: '#d0c04a', icon: '🐦', label: 'Sparvar' },
     'Kråkfåglar': { bg: ['#1a1a2a', '#2a2a3a'], accent: '#7070a0', icon: '🐦‍⬛', label: 'Kråkfåglar' },
     'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨', label: 'Svalor' },
-    'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦', label: 'Övriga' }
+    'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦', label: 'Övriga' },
+    // Tree Themes
+    'Lövträd': { bg: ['#4caf50', '#8bc34a'], accent: '#cddc39', icon: '🍃', label: 'Lövträd' },
+    'Barrträd': { bg: ['#1b5e20', '#2e7d32'], accent: '#4caf50', icon: '🌲', label: 'Barrträd' },
+    'Ädla lövträd': { bg: ['#3e2723', '#5d4037'], accent: '#8d6e63', icon: '🌳', label: 'Ädelträd' },
+    'Buskar': { bg: ['#558b2f', '#7cb342'], accent: '#aed581', icon: '🌿', label: 'Buskar' }
 };
 
 // --- DOM Elements ---
@@ -101,10 +108,153 @@ const elements = {
 };
 
 let editingBirdId = null;
+let currentRecordingBase64 = null;
+let mediaRecorder = null;
+let audioChunks = [];
+let recordingTimerInterval = null;
+
+
+// --- Helper for Mode ---
+function getCurrentSpeciesList() {
+    return state.appMode === 'birds' ? window.swedishBirds : window.swedishTrees;
+}
+
+function toggleAppMode() {
+    state.appMode = state.appMode === 'birds' ? 'trees' : 'birds';
+    const isTree = state.appMode === 'trees';
+
+    // 1. Title & Icon
+    const btn = document.getElementById('app-mode-btn');
+    const title = document.getElementById('app-title-text');
+    const icon = document.getElementById('app-logo-icon');
+
+    if (isTree) {
+        btn.innerHTML = '<i class="fa-solid fa-dove"></i> Fågelboken';
+        btn.title = "Växla till Fågelboken";
+        title.textContent = "Träboken";
+        icon.className = "fa-solid fa-tree";
+        document.body.classList.add('mode-trees');
+        document.title = 'Svensk Trädskådare | TreeFinder Sweden';
+    } else {
+        btn.innerHTML = '<i class="fa-solid fa-tree"></i> Träboken';
+        btn.title = "Växla till Träboken";
+        title.textContent = "Fågelboken";
+        icon.className = "fa-solid fa-dove";
+        document.body.classList.remove('mode-trees');
+        document.title = 'Svensk Fågelskådare | BirdFinder Sweden';
+    }
+
+    // 2. Comprehensive Text Replacements
+    const place = (id, p) => { const el = document.getElementById(id); if (el) el.placeholder = p; };
+    const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+
+    if (isTree) {
+        place('guide-search', 'Sök svenska träd...');
+        place('bird-search-input', 'Börja skriva (t.ex. Ek)...');
+        place('sighting-location', 'Var såg du trädet?');
+        const l1 = document.querySelector('label[for="bird-search-input"]'); if (l1) l1.textContent = "Trädart";
+
+        // Quiz
+        const qTitle = document.getElementById('quiz-main-title'); if (qTitle) qTitle.innerHTML = '<i class="fa-solid fa-tree"></i> Trädquiz';
+        set('quiz-subtitle', 'Testa dina kunskaper om svenska träd!');
+        document.querySelectorAll('[data-mode="image"] h3').forEach(e => e.textContent = 'Gissa Trädet');
+        document.querySelectorAll('[data-mode="image"] p').forEach(e => e.textContent = 'Se bilden, gissa rätt träd');
+        document.querySelectorAll('[data-mode="stats"] h3').forEach(e => e.textContent = 'Gissa Höjd');
+        document.querySelectorAll('[data-mode="stats"] p').forEach(e => e.textContent = 'Matcha trädet med rätt höjd');
+
+        // Detail Labels
+        const bestTimeLabel = document.querySelector('#detail-best-time + .stat-label');
+        if (bestTimeLabel) bestTimeLabel.textContent = 'Säsong';
+
+    } else {
+        place('guide-search', 'Sök svenska fåglar...');
+        place('bird-search-input', 'Börja skriva (t.ex. Koltrast)...');
+        place('sighting-location', 'Var såg du den?');
+        const l1 = document.querySelector('label[for="bird-search-input"]'); if (l1) l1.textContent = "Fågelart";
+
+        // Quiz
+        const qTitle = document.getElementById('quiz-main-title'); if (qTitle) qTitle.innerHTML = '<i class="fa-solid fa-brain"></i> Fågelquiz';
+        set('quiz-subtitle', 'Testa dina kunskaper om svenska fåglar!');
+        document.querySelectorAll('[data-mode="image"] h3').forEach(e => e.textContent = 'Gissa Fågeln');
+        document.querySelectorAll('[data-mode="image"] p').forEach(e => e.textContent = 'Se bilden, gissa rätt fågel');
+        document.querySelectorAll('[data-mode="stats"] h3').forEach(e => e.textContent = 'Gissa Fakta');
+        document.querySelectorAll('[data-mode="stats"] p').forEach(e => e.textContent = 'Matcha fågeln med rätt fakta');
+
+        // Detail Labels
+        const bestTimeLabel = document.querySelector('#detail-best-time + .stat-label');
+        if (bestTimeLabel) bestTimeLabel.textContent = 'På Dagen';
+    }
+
+    // Sort Options
+    const sortSelect = document.getElementById('guide-sort-select');
+    if (sortSelect) {
+        Array.from(sortSelect.options).forEach(o => { o.disabled = false; o.style.display = ''; });
+        const wingspanOpt = sortSelect.querySelector('option[value="wingspan"]');
+
+        if (isTree) {
+            if (wingspanOpt) wingspanOpt.textContent = 'Höjd';
+            ['eggs', 'weight'].forEach(v => { const o = sortSelect.querySelector(`option[value="${v}"]`); if (o) { o.disabled = true; o.style.display = 'none'; } });
+        } else {
+            if (wingspanOpt) wingspanOpt.textContent = 'Vingspann';
+        }
+
+        if (sortSelect.selectedOptions[0].disabled) {
+            sortSelect.value = 'name';
+            sortSelect.dispatchEvent(new Event('change'));
+        }
+    }
+
+    // Reset filters
+    state.activeCategory = null;
+    state.guideSearchTerm = '';
+
+    // Re-render everything
+    setupYearFilter();
+    renderApp();
+    renderGuideCategories();
+
+    if (state.view === 'quiz-view') {
+        showQuizMenu();
+    }
+}
+
 
 // --- Initialization ---
 async function init() {
     console.log('App Initializing...');
+
+    // --- Password Protection ---
+    const isAuthenticated = localStorage.getItem('birdfinder_auth_token') === 'valid';
+    const passwordModal = document.getElementById('password-modal');
+    const passwordForm = document.getElementById('password-form');
+    const passwordInput = document.getElementById('password-input');
+    const passwordError = document.getElementById('password-error');
+
+    if (!isAuthenticated) {
+        // Show modal
+        passwordModal.classList.add('active');
+        passwordModal.style.display = 'flex'; // Ensure flex for centering
+
+        // Handle Submit
+        passwordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = passwordInput.value.trim();
+            if (input === 'apa') {
+                // Correct
+                localStorage.setItem('birdfinder_auth_token', 'valid');
+                passwordModal.style.display = 'none';
+                passwordModal.classList.remove('active');
+            } else {
+                // Incorrect
+                passwordError.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        });
+    } else {
+        // Already authenticated
+        if (passwordModal) passwordModal.style.display = 'none';
+    }
 
     // 0. Load Preserved User
     const savedUser = localStorage.getItem('birdfinder_currentUser');
@@ -122,8 +272,8 @@ async function init() {
     }
 
     // Check for data dependency
-    if (!window.swedishBirds) {
-        console.error('Bird data not loaded!');
+    if (!window.swedishBirds || !window.swedishTrees) {
+        console.error('Data not loaded!');
         alert('Fel: Datafil saknas. Vänligen ladda om sidan.');
         return;
     }
@@ -145,8 +295,16 @@ async function init() {
         alert('Ett fel uppstod vid start. Se konsolen.');
     }
 
+    // Audio Recording Setup
+    setupRecordingLogic();
+
     // Event Listeners
     setupEventListeners();
+
+    const modeBtn = document.getElementById('app-mode-btn');
+    if (modeBtn) {
+        modeBtn.addEventListener('click', toggleAppMode);
+    }
 
     // --- Cloud Real-Time Listener (Removed) ---
 
@@ -269,9 +427,16 @@ function triggerImageUpload(birdId) {
 }
 
 function getFilteredSightings() {
+    const currentList = getCurrentSpeciesList();
     return state.sightings.filter(s => {
         if (s.id === 'SYSTEM_INIT_BIRD') return false;
         if (s.user !== state.currentUser) return false;
+
+        // Filter by Current Mode (Bird vs Tree)
+        // Check if the ID belongs to the current list
+        const belongsToMode = currentList.some(item => item.id === s.birdId);
+        if (!belongsToMode) return false;
+
         if (state.yearFilter !== 'all') {
             const y = new Date(s.date).getFullYear();
             if (y !== state.yearFilter) return false;
@@ -280,22 +445,49 @@ function getFilteredSightings() {
     });
 }
 
-function openBirdDetail(bird) {
-    elements.detailHeroImg.src = getBirdImageSrc(bird.id);
-    elements.detailNameSv.textContent = bird.nameSv;
-    elements.detailNameScEn.textContent = `${bird.scientific} (${bird.nameEn})`;
-    elements.detailRarity.innerHTML = '★'.repeat(bird.rarity || 1) + '☆'.repeat(5 - (bird.rarity || 1));
-    elements.detailColor.textContent = bird.color || 'Okänd';
-    elements.detailWeight.textContent = bird.weight ? `${bird.weight} g` : '--';
-    elements.detailSeasonText.textContent = bird.seasonDistribution || 'Hela landet';
-    elements.detailBestTime.textContent = bird.bestTime || 'Dag';
+function openBirdDetail(item) {
+    elements.detailHeroImg.src = getBirdImageSrc(item.id);
+    elements.detailNameSv.textContent = item.nameSv;
+    elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
+    elements.detailRarity.innerHTML = '★'.repeat(item.rarity || 1) + '☆'.repeat(5 - (item.rarity || 1));
+    elements.detailColor.textContent = item.color || (item.trunkColor ? item.trunkColor : 'Okänd');
 
-    if (elements.detailWingspan) elements.detailWingspan.textContent = bird.wingspan ? `${bird.wingspan} cm` : '--';
-    if (elements.detailEggs) elements.detailEggs.textContent = bird.eggs || '--';
-    if (elements.detailFunFact) elements.detailFunFact.textContent = bird.funFact || 'Ingen fakta tillgänglig.';
+    // Weight / Height Logic
+    if (state.appMode === 'trees') {
+        elements.detailWeight.parentElement.style.display = 'none'; // Hide Weight
+    } else {
+        elements.detailWeight.parentElement.style.display = 'block';
+        elements.detailWeight.textContent = item.weight ? `${item.weight} g` : '--';
+    }
+
+    elements.detailSeasonText.textContent = item.seasonDistribution || 'Hela landet';
+    elements.detailBestTime.textContent = item.bestTime || 'Dag';
+
+    // Wingspan / Height
+    if (state.appMode === 'trees') {
+        // Reuse wingspan field for Height?
+        // Or hide and show a new one. Let's use wingspan element but change label if possible.
+        // Better to hide wingspan and maybe inject height or just use wingspan element.
+        // Let's assume wingspan is height for trees.
+        const label = elements.detailWingspan.nextElementSibling;
+        if (label) label.textContent = 'Höjd';
+        elements.detailWingspan.textContent = item.height ? `${item.height} m` : '--';
+
+        // Hide Eggs
+        elements.detailEggs.parentElement.style.display = 'none';
+    } else {
+        const label = elements.detailWingspan.nextElementSibling;
+        if (label) label.textContent = 'Vingspann';
+        elements.detailWingspan.textContent = item.wingspan ? `${item.wingspan} cm` : '--';
+
+        elements.detailEggs.parentElement.style.display = 'block';
+        if (elements.detailEggs) elements.detailEggs.textContent = item.eggs || '--';
+    }
+
+    if (elements.detailFunFact) elements.detailFunFact.textContent = item.funFact || 'Ingen fakta tillgänglig.';
 
     // Obs Count
-    const count = getFilteredSightings().filter(s => s.birdId === bird.id).length;
+    const count = getFilteredSightings().filter(s => s.birdId === item.id).length;
     if (elements.detailObsCount) {
         elements.detailObsCount.textContent = `${count} observationer (filtrerat)`;
     }
@@ -307,26 +499,27 @@ function openBirdDetail(bird) {
             elements.form.reset();
             document.getElementById('sighting-date').valueAsDate = new Date();
             elements.imagePreviewContainer.innerHTML = '';
-            elements.selectedBirdId.value = bird.id;
-            elements.birdSearchInput.value = bird.nameSv;
+            elements.selectedBirdId.value = item.id;
+            elements.birdSearchInput.value = item.nameSv;
             elements.modal.classList.add('active');
         };
     }
     if (elements.detailQuickAddBtn) {
         elements.detailQuickAddBtn.onclick = () => {
-            quickAddSighting(bird.id);
+            quickAddSighting(item.id);
             elements.closeDetailModal.click();
         };
     }
     if (elements.detailArtportalenLink) {
-        elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(bird.nameSv)}`;
+        elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(item.nameSv)}`;
     }
 
     elements.detailModal.classList.add('active');
 }
 
 function quickAddSighting(birdId) {
-    const bird = window.swedishBirds.find(b => b.id === birdId);
+    const list = getCurrentSpeciesList();
+    const bird = list.find(b => b.id === birdId);
     if (!bird) return;
 
     const newSighting = {
@@ -386,11 +579,16 @@ function renderSightingsList(sightings) {
     elements.sightingsList.innerHTML = '';
 
     if (sightings.length === 0) {
+        const isTree = state.appMode === 'trees';
+        const emptyText = isTree
+            ? `Inga träd hittade än under <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`
+            : `Inga fåglar sedda än under <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`;
+
         elements.sightingsList.innerHTML = `
             <div class="empty-state">
-                <i class="fa-solid fa-binoculars"></i>
-                <p>Inga fåglar sedda än under <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.</p>
-                <button onclick="elements.addSightingBtn.click()" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">Lägg till din första observation!</button>
+                <i class="fa-solid ${isTree ? 'fa-tree' : 'fa-binoculars'}"></i>
+                <p>${emptyText}</p>
+                <button onclick="elements.addSightingBtn.click()" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">${isTree ? 'Lägg till ditt första träd!' : 'Lägg till din första observation!'}</button>
             </div>
         `;
         return;
@@ -418,8 +616,9 @@ function renderSightingsList(sightings) {
 
     // Sorting Logic
     groups.sort((a, b) => {
-        const birdA = window.swedishBirds.find(x => x.id === a.latestSighting.birdId);
-        const birdB = window.swedishBirds.find(x => x.id === b.latestSighting.birdId);
+        const list = getCurrentSpeciesList();
+        const birdA = list.find(x => x.id === a.latestSighting.birdId);
+        const birdB = list.find(x => x.id === b.latestSighting.birdId);
 
         if (!birdA || !birdB) return 0;
 
@@ -441,7 +640,8 @@ function renderSightingsList(sightings) {
 
     groups.forEach(group => {
         const sighting = group.latestSighting;
-        const bird = window.swedishBirds.find(b => b.id === sighting.birdId);
+        const list = getCurrentSpeciesList();
+        const bird = list.find(b => b.id === sighting.birdId);
 
         if (!bird) return; // Skip if bird data invalid
 
@@ -471,6 +671,7 @@ function renderSightingsList(sightings) {
                     <div class="detail-row"><i class="fa-regular fa-calendar"></i> ${sighting.date}</div>
                     <div class="detail-row"><i class="fa-solid fa-map-pin"></i> ${sighting.location || 'Okänd plats'}</div>
                     ${sighting.notes ? `<div class="notes-text">"${sighting.notes}"</div>` : ''}
+                    ${sighting.sound ? `<div style="margin-top:0.5rem;"><audio controls src="${sighting.sound}" style="width:100%; height:32px;"></audio></div>` : ''}
                 </div>
             </div>
             </div>
@@ -579,14 +780,17 @@ function renderGuideList(birdList) {
 function renderGuideCategories() {
     // 1. Group birds by type
     const categories = {};
-    window.swedishBirds.forEach(bird => {
+    const list = getCurrentSpeciesList();
+    list.forEach(bird => {
         const type = bird.type || 'Övriga';
         if (!categories[type]) {
             categories[type] = {
                 name: type,
                 count: 0,
                 // Assign icon based on type name
-                icon: getCategoryIcon(type)
+                icon: getCategoryIcon(type),
+                // Handle different themes based on mode
+                // Actually getCategoryIcon handles the icon, themes handles color
             };
         }
         categories[type].count++;
@@ -597,7 +801,7 @@ function renderGuideCategories() {
     const sortedCategories = Object.values(categories).sort((a, b) => a.name.localeCompare(b.name));
 
     // "All" Category
-    const allCard = createCategoryCard({ name: 'Alla Fåglar', count: window.swedishBirds.length, icon: 'fa-crow' });
+    const allCard = createCategoryCard({ name: state.appMode === 'trees' ? 'Alla Träd' : 'Alla Fåglar', count: list.length, icon: state.appMode === 'trees' ? 'fa-tree' : 'fa-crow' });
     allCard.addEventListener('click', () => selectCategory(null));
     elements.guideCategories.appendChild(allCard);
 
@@ -650,12 +854,14 @@ function selectCategory(category) {
     if (category) {
         elements.currentCategoryTitle.textContent = category;
         // Filter birds
-        const birds = window.swedishBirds.filter(b => b.type === category && matchTimeFilter(b));
+        const list = getCurrentSpeciesList();
+        const birds = list.filter(b => b.type === category && matchTimeFilter(b));
         renderGuideList(birds);
     } else {
-        elements.currentCategoryTitle.textContent = 'Alla fåglar';
+        elements.currentCategoryTitle.textContent = state.appMode === 'trees' ? 'Alla träd' : 'Alla fåglar';
         // Render all
-        const birds = window.swedishBirds.filter(b => matchTimeFilter(b));
+        const list = getCurrentSpeciesList();
+        const birds = list.filter(b => matchTimeFilter(b));
         renderGuideList(birds);
     }
 }
@@ -686,7 +892,11 @@ function getCategoryIcon(type) {
             'Sångare': 'fa-microphone-lines',
             'Kråkfåglar': 'fa-crow',
             'Svalor': 'fa-wind',
-            'Övriga': 'fa-kiwi-bird'
+            'Övriga': 'fa-kiwi-bird',
+            'Lövträd': 'fa-leaf',
+            'Barrträd': 'fa-tree',
+            'Ädla lövträd': 'fa-crown',
+            'Buskar': 'fa-seedling'
         };
         return map[type] || 'fa-dove';
     }
@@ -694,10 +904,17 @@ function getCategoryIcon(type) {
 }
 
 function generateHolderSvg(birdId) {
-    const bird = window.swedishBirds.find(b => b.id === birdId);
-    if (!bird) return 'https://placehold.co/400x300?text=Okänd+fågel';
+    const list = getCurrentSpeciesList();
+    let bird = list.find(b => b.id === birdId);
+    // Fallback: Check other list if not found (e.g. if switching modes but image loading delayed)
+    if (!bird) {
+        const otherList = state.appMode === 'birds' ? window.swedishTrees : window.swedishBirds;
+        bird = otherList ? otherList.find(b => b.id === birdId) : null;
+    }
 
-    const theme = CATEGORY_THEMES[bird.type] || CATEGORY_THEMES['Övriga'];
+    if (!bird) return 'https://placehold.co/400x300?text=Okänd';
+
+    const theme = CATEGORY_THEMES[bird.type] || CATEGORY_THEMES['Övriga'] || TREE_THEMES['Lövträd'];
     const nameDisplay = bird.nameSv;
     const sciName = bird.scientific;
 
@@ -824,6 +1041,94 @@ window.quickAddSighting = (birdId) => {
 };
 
 // --- Event Listeners ---
+
+// --- Audio Recording Logic ---
+function setupRecordingLogic() {
+    const startBtn = document.getElementById('start-recording-btn');
+    const stopBtn = document.getElementById('stop-recording-btn');
+    const statusEl = document.getElementById('recording-status');
+    const timerEl = document.getElementById('recording-timer');
+    const audioPreview = document.getElementById('audio-preview');
+    const deleteBtn = document.getElementById('delete-recording-btn');
+
+    if (!startBtn || !stopBtn) return;
+
+    startBtn.addEventListener('click', async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                audioPreview.src = audioUrl;
+
+                // Convert to Base64 for storage
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = () => {
+                    currentRecordingBase64 = reader.result;
+                    console.log('Audio converted to base64, length:', currentRecordingBase64.length);
+                };
+
+                // UI Updates
+                audioPreview.classList.remove('hidden');
+                deleteBtn.classList.remove('hidden');
+                startBtn.classList.remove('hidden');
+                stopBtn.classList.add('hidden');
+                statusEl.classList.add('hidden');
+
+                // Stop all tracks to release microphone
+                stream.getTracks().forEach(track => track.stop());
+                clearInterval(recordingTimerInterval);
+            };
+
+            mediaRecorder.start();
+
+            // UI Updates
+            startBtn.classList.add('hidden');
+            stopBtn.classList.remove('hidden');
+            statusEl.classList.remove('hidden');
+            audioPreview.classList.add('hidden');
+            deleteBtn.classList.add('hidden');
+
+            // Timer
+            let seconds = 0;
+            timerEl.textContent = "00:00";
+            clearInterval(recordingTimerInterval);
+            recordingTimerInterval = setInterval(() => {
+                seconds++;
+                const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const secs = (seconds % 60).toString().padStart(2, '0');
+                timerEl.textContent = `${mins}:${secs}`;
+            }, 1000);
+
+        } catch (err) {
+            console.error('Error accessing microphone:', err);
+            alert('Kunde inte komma åt mikrofonen. Kontrollera behörigheter.');
+        }
+    });
+
+    stopBtn.addEventListener('click', () => {
+        if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+        }
+    });
+
+    deleteBtn.addEventListener('click', () => {
+        if (confirm('Vill du ta bort inspelningen?')) {
+            currentRecordingBase64 = null;
+            audioPreview.src = '';
+            audioPreview.classList.add('hidden');
+            deleteBtn.classList.add('hidden');
+        }
+    });
+}
 
 function setupEventListeners() {
     // 1. Reset App
@@ -982,7 +1287,8 @@ function setupEventListeners() {
         elements.autocompleteList.innerHTML = '';
         if (!val) return;
 
-        window.swedishBirds.forEach(bird => {
+        const list = getCurrentSpeciesList();
+        list.forEach(bird => {
             if (bird.nameEn.toLowerCase().includes(val) || bird.nameSv.toLowerCase().includes(val)) {
                 const item = document.createElement('div');
                 item.className = 'autocomplete-item';
@@ -1019,6 +1325,7 @@ function setupEventListeners() {
             date: document.getElementById('sighting-date').value,
             location: document.getElementById('sighting-location').value,
             notes: document.getElementById('sighting-notes').value,
+            sound: currentRecordingBase64,
             user: state.currentUser,
             photo: null
         };
@@ -1034,6 +1341,15 @@ function setupEventListeners() {
 
             saveSightings();
             setupYearFilter();
+
+            // Reset Recording
+            currentRecordingBase64 = null;
+            document.getElementById('recording-status').classList.add('hidden');
+            document.getElementById('start-recording-btn').classList.remove('hidden');
+            document.getElementById('stop-recording-btn').classList.add('hidden');
+            document.getElementById('audio-preview').classList.add('hidden');
+            document.getElementById('delete-recording-btn').classList.add('hidden');
+
             elements.modal.classList.remove('active');
         };
 
@@ -1079,7 +1395,8 @@ function setupEventListeners() {
             elements.guideNavigation.classList.add('hidden'); // Hide back button in search mode
             elements.guideList.classList.remove('hidden');
 
-            const filtered = window.swedishBirds.filter(b =>
+            const list = getCurrentSpeciesList();
+            const filtered = list.filter(b =>
                 (b.nameEn.toLowerCase().includes(term) ||
                     b.nameSv.toLowerCase().includes(term) ||
                     (b.type && b.type.toLowerCase().includes(term)) ||
@@ -1121,7 +1438,8 @@ function setupEventListeners() {
 // --- Quiz System ---
 
 function getRandomBirds(count, excludeId, type) {
-    let pool = window.swedishBirds.filter(b => b.id !== excludeId);
+    const list = getCurrentSpeciesList();
+    let pool = list.filter(b => b.id !== excludeId);
     // If type specified and enough birds of that type, filter
     if (type) {
         const sameType = pool.filter(b => b.type === type);
@@ -1161,7 +1479,8 @@ function getClosestBirds(bird, stat, count) {
     const birdValue = bird[stat] || 0;
     if (!birdValue) return getRandomBirds(count, bird.id);
 
-    const candidates = window.swedishBirds
+    const list = getCurrentSpeciesList();
+    const candidates = list
         .filter(b => b.id !== bird.id && b[stat])
         .map(b => ({
             bird: b,
@@ -1176,8 +1495,13 @@ function getClosestBirds(bird, stat, count) {
 }
 
 function generateQuizQuestions(mode, count = 10) {
-    const birds = [...window.swedishBirds].sort(() => Math.random() - 0.5);
+    const list = getCurrentSpeciesList();
+    const birds = [...list].sort(() => Math.random() - 0.5);
     const questions = [];
+    const isTrees = state.appMode === 'trees';
+    const entityName = isTrees ? 'träd' : 'fågel';
+    const entityNamePlural = isTrees ? 'träd' : 'fåglar';
+    const entityNameDef = isTrees ? 'trädet' : 'fågeln';
 
     for (let i = 0; i < Math.min(count, birds.length); i++) {
         const bird = birds[i];
@@ -1190,7 +1514,7 @@ function generateQuizQuestions(mode, count = 10) {
                 type: 'image',
                 prompt: null,
                 image: bird.id,
-                question: 'Vilken fågel ser du på bilden?',
+                question: `Vilken ${entityName} ser du på bilden?`,
                 options: options.map(b => ({ label: b.nameSv, value: b.id })),
                 correctValue: bird.id,
                 correctLabel: bird.nameSv
@@ -1204,17 +1528,24 @@ function generateQuizQuestions(mode, count = 10) {
                 type: 'funfact',
                 prompt: `"${cleanedFact}"`,
                 image: null,
-                question: 'Vilken fågel handlar detta om?',
+                question: `Vilken ${entityName} handlar detta om?`,
                 options: options.map(b => ({ label: b.nameSv, value: b.id })),
                 correctValue: bird.id,
                 correctLabel: bird.nameSv
             });
         } else if (mode === 'stats') {
             // Random stat type with close-value distractors
-            const statTypes = ['wingspan', 'weight', 'eggs'];
+            let statTypes = ['wingspan', 'weight', 'eggs'];
+            let statLabels = { wingspan: 'Vingspann', weight: 'Vikt', eggs: 'Antal ägg' };
+            let statUnits = { wingspan: 'cm', weight: 'g', eggs: 'st' };
+
+            if (isTrees) {
+                statTypes = ['height'];
+                statLabels = { height: 'Höjd' };
+                statUnits = { height: 'm' };
+            }
+
             const stat = statTypes[Math.floor(Math.random() * statTypes.length)];
-            const statLabels = { wingspan: 'Vingspann', weight: 'Vikt', eggs: 'Antal ägg' };
-            const statUnits = { wingspan: 'cm', weight: 'g', eggs: 'st' };
 
             // Get birds with similar stat values for harder options
             const wrongBirds = getClosestBirds(bird, stat, 3);

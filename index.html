@@ -21,8 +21,15 @@
 <body>
     <header class="app-header">
         <div class="logo" id="app-logo-home" style="cursor: pointer;">
-            <i class="fa-solid fa-dove"></i>
-            <h1>Fågelboken</h1>
+            <i class="fa-solid fa-dove" id="app-logo-icon"></i>
+            <h1 id="app-title-text">Fågelboken</h1>
+        </div>
+
+        <div class="mode-toggle-container" style="margin-left: 1rem;">
+            <button id="app-mode-btn" class="icon-btn" style="background: rgba(255,255,255,0.2); color: white;"
+                title="Växla till Träboken">
+                <i class="fa-solid fa-tree"></i> Träboken
+            </button>
         </div>
 
         <div class="header-center">
@@ -160,8 +167,8 @@
         <section id="quiz-view" class="view-section">
             <!-- Quiz Mode Selection -->
             <div id="quiz-menu" class="quiz-menu">
-                <h2 class="quiz-title"><i class="fa-solid fa-brain"></i> Fågelquiz</h2>
-                <p class="quiz-subtitle">Testa dina kunskaper om svenska fåglar!</p>
+                <h2 class="quiz-title" id="quiz-main-title"><i class="fa-solid fa-brain"></i> Fågelquiz</h2>
+                <p class="quiz-subtitle" id="quiz-subtitle">Testa dina kunskaper om svenska fåglar!</p>
                 <div class="quiz-modes-grid">
                     <div class="quiz-mode-card" data-mode="image">
                         <div class="quiz-mode-icon"><i class="fa-solid fa-image"></i></div>
@@ -259,6 +266,27 @@
                     <label for="sighting-notes">Anteckningar</label>
                     <textarea id="sighting-notes" rows="3"
                         placeholder="Beteende, väder eller andra anteckningar..."></textarea>
+                </div>
+
+                <!-- Sound Recording -->
+                <div class="form-group" id="sound-recording-group">
+                    <label>Ljudinspelning (Frivilligt)</label>
+                    <div class="audio-recording-controls">
+                        <button type="button" id="start-recording-btn" class="record-btn" title="Starta inspelning">
+                            <i class="fa-solid fa-microphone"></i> Starta
+                        </button>
+                        <button type="button" id="stop-recording-btn" class="record-btn stop-btn hidden"
+                            title="Stoppa inspelning">
+                            <i class="fa-solid fa-stop"></i> Stoppa
+                        </button>
+                        <div id="recording-status" class="recording-status hidden">Spelar in... <span
+                                id="recording-timer">00:00</span></div>
+                    </div>
+                    <audio id="audio-preview" controls class="hidden" style="width: 100%; margin-top: 0.5rem;"></audio>
+                    <button type="button" id="delete-recording-btn" class="delete-btn hidden"
+                        style="margin-top: 0.5rem; color: #ff4444; background: none; border: none; cursor: pointer;">
+                        <i class="fa-solid fa-trash"></i> Ta bort inspelning
+                    </button>
                 </div>
 
                 <!-- Photo Upload -->
@@ -374,10 +402,32 @@
     </div>
     </div>
 
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="password-modal" style="z-index: 3000; background-color: var(--primary);">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h2>Välkommen!</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Ange lösenord för att fortsätta.</p>
+            <form id="password-form">
+                <div class="form-group">
+                    <input type="password" id="password-input" placeholder="Lösenord" required
+                        style="text-align: center; letter-spacing: 2px;">
+                </div>
+                <div id="password-error" style="color: #e74c3c; margin-bottom: 1rem; display: none;">
+                    Fel lösenord. Försök igen.
+                </div>
+                <button type="submit" class="submit-btn">Lås upp</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Firebase SDK Removed -->
 
     <!-- Scripts -->
     <script src="birds.js"></script>
+    <script src="trees.js"></script>
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
     <script src="app.js"></script>
