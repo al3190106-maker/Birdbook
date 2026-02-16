@@ -20,16 +20,10 @@
 
 <body>
     <header class="app-header">
-        <div class="logo" id="app-logo-home" style="cursor: pointer;">
+        <div class="logo" id="app-title" style="cursor: pointer;" title="Klicka för att byta bok">
             <i class="fa-solid fa-dove" id="app-logo-icon"></i>
             <h1 id="app-title-text">Fågelboken</h1>
-        </div>
-
-        <div class="mode-toggle-container" style="margin-left: 1rem;">
-            <button id="app-mode-btn" class="icon-btn" style="background: rgba(255,255,255,0.2); color: white;"
-                title="Växla till Träboken">
-                <i class="fa-solid fa-tree"></i> Träboken
-            </button>
+            <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem; opacity: 0.7;"></i>
         </div>
 
         <div class="header-center">
@@ -425,9 +419,52 @@
 
     <!-- Firebase SDK Removed -->
 
+    <!-- LIBRARY MODAL -->
+    <div id="library-modal" class="modal-overlay">
+        <div class="modal-content library-menu" style="max-width: 400px; text-align: center;">
+            <h2><i class="fa-solid fa-book-open"></i> Bibliotek</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">Välj vilken bok du vill öppna</p>
+
+            <div class="library-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; padding: 1rem 0;">
+                <button class="library-card mode-birds"
+                    onclick="switchSubject('birds'); document.getElementById('library-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-dove"></i></div>
+                    <span class="lib-label">Fågelboken</span>
+                </button>
+                <button class="library-card mode-trees"
+                    onclick="switchSubject('trees'); document.getElementById('library-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-tree"></i></div>
+                    <span class="lib-label">Träboken</span>
+                </button>
+                <button class="library-card mode-fish"
+                    onclick="switchSubject('fish'); document.getElementById('library-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-fish"></i></div>
+                    <span class="lib-label">Fiskboken</span>
+                </button>
+                <button class="library-card mode-animals"
+                    onclick="switchSubject('animals'); document.getElementById('library-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-paw"></i></div>
+                    <span class="lib-label">Viltboken</span>
+                </button>
+                <button class="library-card mode-fungi"
+                    onclick="switchSubject('fungi'); document.getElementById('library-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-circle"></i></div>
+                    <span class="lib-label">Svampboken</span>
+                </button>
+            </div>
+
+            <button class="secondary-btn" onclick="document.getElementById('library-modal').classList.remove('active')"
+                style="margin-top: 2rem; width: 100%;">Stäng</button>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="birds.js"></script>
     <script src="trees.js"></script>
+    <script src="fish.js"></script>
+    <script src="animals.js"></script>
+    <script src="fungi.js"></script>
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
     <script src="app.js"></script>

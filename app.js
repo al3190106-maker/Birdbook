@@ -1,56 +1,189 @@
 // --- Configuration & State ---
+// --- Configuration & State ---
 const state = {
     sightings: [],
     yearFilter: new Date().getFullYear(),
-    view: 'log-view', // 'log-view' or 'guide-view'
+    view: 'log-view',
     activeCategory: null,
     guideSearchTerm: '',
-    currentUser: 'Theia', // 'Theia' or 'Alexander'
-    sortBy: 'date', // date, name, wingspan, eggs, rarity
-    guideSortBy: 'name', // name, wingspan, eggs, weight, rarity
-    // Quiz state
-    quizMode: null, // 'image', 'funfact', 'stats'
+    currentUser: 'Theia',
+    sortBy: 'date',
+    guideSortBy: 'name',
+    quizMode: null,
     quizQuestions: [],
     quizCurrent: 0,
     quizScore: 0,
-    quizScore: 0,
     quizAnswered: false,
-    quizAnswered: false,
-    timeFilter: 'all', // all, Morgon, Dag, Kväll, Natt
-    appMode: 'birds' // 'birds' or 'trees'
+    timeFilter: 'all',
+    currentSubject: 'birds' // Replaces appMode
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
-// let _cloudSaveTimeout = null; // Removed cloud debounce
 
-// --- Holder Image System ---
-// Color palettes and silhouettes per bird category for beautiful placeholders.
+const SUBJECT_CONFIG = {
+    birds: {
+        id: 'birds',
+        name: 'Fågelboken',
+        icon: 'fa-dove',
+        dataVar: 'swedishBirds',
+        themeClass: 'mode-birds',
+        texts: {
+            itemLabel: 'Fågelart',
+            searchPlaceholder: 'Sök fågel...',
+            locationPlaceholder: 'Var såg du fågeln?',
+            quizTitle: 'Fågelquiz',
+            quizSubtitle: 'Testa dina fågelkunskaper!',
+            quizGuessItem: 'Gissa Fågeln',
+            quizGuessItemDesc: 'Vilken fågel är detta?',
+            quizGuessStats: 'Gissa Fakta',
+            quizGuessStatsDesc: 'Vad vet du om fågeln?',
+            detailBestTimeLabel: 'På Dagen',
+            emptyLog: 'Inga fåglar sedda än under',
+            addFirst: 'Logga din första fågel'
+        },
+        fields: {
+            size: { key: 'wingspan', label: 'Vingspann', unit: 'cm' },
+            weight: { key: 'weight', label: 'Vikt', unit: 'g', hidden: false },
+            lifespan: { key: 'eggs', label: 'Antal ägg', unit: 'st', hidden: false }
+        }
+    },
+    trees: {
+        id: 'trees',
+        name: 'Träboken',
+        icon: 'fa-tree',
+        dataVar: 'swedishTrees',
+        themeClass: 'mode-trees',
+        texts: {
+            itemLabel: 'Trädart',
+            searchPlaceholder: 'Sök träd...',
+            locationPlaceholder: 'Var såg du trädet?',
+            quizTitle: 'Trädquiz',
+            quizSubtitle: 'Testa dina trädkunskaper!',
+            quizGuessItem: 'Gissa Trädet',
+            quizGuessItemDesc: 'Vilket träd är detta?',
+            quizGuessStats: 'Gissa Trädfakta',
+            quizGuessStatsDesc: 'Vad vet du om trädet?',
+            detailBestTimeLabel: 'Växtplats',
+            emptyLog: 'Inga träd sedda än under',
+            addFirst: 'Logga ditt första träd'
+        },
+        fields: {
+            size: { key: 'height', label: 'Höjd', unit: 'm' },
+            weight: { key: 'age', label: 'Ålder', unit: 'år', hidden: false },
+            lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
+        }
+    },
+    fish: {
+        id: 'fish',
+        name: 'Fiskboken',
+        icon: 'fa-fish',
+        dataVar: 'swedishFish',
+        themeClass: 'mode-fish',
+        texts: {
+            itemLabel: 'Fiskart',
+            searchPlaceholder: 'Sök fisk...',
+            locationPlaceholder: 'Var såg du fisken?',
+            quizTitle: 'Fiskquiz',
+            quizSubtitle: 'Testa dina fiskkunskaper!',
+            quizGuessItem: 'Gissa Fisken',
+            quizGuessItemDesc: 'Vilken fisk är detta?',
+            quizGuessStats: 'Gissa Fakta',
+            quizGuessStatsDesc: 'Vad vet du om fisken?',
+            detailBestTimeLabel: 'Vatten',
+            emptyLog: 'Inga fiskar sedda än under',
+            addFirst: 'Logga din första fisk'
+        },
+        fields: {
+            size: { key: 'length', label: 'Längd', unit: 'cm' },
+            weight: { key: 'weight', label: 'Vikt', unit: 'kg', hidden: false },
+            lifespan: { key: 'lifespan', label: 'Livslängd', unit: 'år', hidden: false }
+        }
+    },
+    animals: {
+        id: 'animals',
+        name: 'Viltboken',
+        icon: 'fa-paw',
+        dataVar: 'swedishAnimals',
+        themeClass: 'mode-animals',
+        texts: {
+            itemLabel: 'Djurart',
+            searchPlaceholder: 'Sök djur...',
+            locationPlaceholder: 'Var såg du djuret?',
+            quizTitle: 'Djurquiz',
+            quizSubtitle: 'Testa dina djurkunskaper!',
+            quizGuessItem: 'Gissa Djuret',
+            quizGuessItemDesc: 'Vilket djur är detta?',
+            quizGuessStats: 'Gissa Fakta',
+            quizGuessStatsDesc: 'Vad vet du om djuret?',
+            detailBestTimeLabel: 'Aktivitet',
+            emptyLog: 'Inga djur sedda än under',
+            addFirst: 'Logga ditt första djur'
+        },
+        fields: {
+            size: { key: 'height', label: 'Mankhöjd', unit: 'cm' },
+            weight: { key: 'weight', label: 'Vikt', unit: 'kg', hidden: false },
+            lifespan: { key: 'lifespan', label: 'Livslängd', unit: 'år', hidden: false }
+        }
+    },
+    fungi: {
+        id: 'fungi',
+        name: 'Svampboken',
+        icon: 'fa-circle',
+        dataVar: 'swedishFungi',
+        themeClass: 'mode-fungi',
+        texts: {
+            itemLabel: 'Svampart',
+            searchPlaceholder: 'Sök svamp...',
+            locationPlaceholder: 'Var såg du svampen?',
+            quizTitle: 'Svampquiz',
+            quizSubtitle: 'Testa dina svampkunskaper!',
+            quizGuessItem: 'Gissa Svampen',
+            quizGuessItemDesc: 'Vilken svamp är detta?',
+            quizGuessStats: 'Gissa Fakta',
+            quizGuessStatsDesc: 'Vad vet du om svampen?',
+            detailBestTimeLabel: 'Säsong',
+            emptyLog: 'Inga svampar sedda än under',
+            addFirst: 'Logga din första svamp'
+        },
+        fields: {
+            size: { key: 'size', label: 'Hattbredd', unit: 'cm' },
+            weight: { key: 'edibility', label: 'Ätlighet', unit: '', hidden: false },
+            lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
+        }
+    }
+};
+
 const CATEGORY_THEMES = {
-    'Andfåglar': { bg: ['#0e4a6e', '#1a7ab5'], accent: '#5ec6e8', icon: '🦆', label: 'Andfåglar' },
-    'Hönsfåglar': { bg: ['#5c3d1e', '#8b6914'], accent: '#d4a843', icon: '🐔', label: 'Hönsfåglar' },
-    'Lommar & Doppingar': { bg: ['#0d3b4f', '#1a6b7a'], accent: '#4ec9d4', icon: '🌊', label: 'Dykare' },
-    'Hägrar': { bg: ['#2d4a3e', '#3d7a5e'], accent: '#7acfa0', icon: '🪿', label: 'Hägrar' },
-    'Rovfåglar': { bg: ['#5a2d0c', '#8b4513'], accent: '#e8a03e', icon: '🦅', label: 'Rovfåglar' },
-    'Tranor & Rallar': { bg: ['#3a4a2e', '#5a7a3e'], accent: '#9acd5e', icon: '🦩', label: 'Tranor' },
-    'Vadare': { bg: ['#4a3a2e', '#7a6a4e'], accent: '#c4b48e', icon: '🦤', label: 'Vadare' },
-    'Måsar & Tärnor': { bg: ['#3a5a7a', '#5a8aaa'], accent: '#b0d8f0', icon: '🕊️', label: 'Måsar' },
-    'Alkfåglar': { bg: ['#1a2a3a', '#2a4a5a'], accent: '#6aafcf', icon: '🐧', label: 'Alkfåglar' },
-    'Hackspettar': { bg: ['#3a1a1a', '#6a2a2a'], accent: '#e05050', icon: '🪶', label: 'Hackspettar' },
-    'Ugglor': { bg: ['#2a1a3a', '#4a2a5a'], accent: '#b080d0', icon: '🦉', label: 'Ugglor' },
-    'Duvor': { bg: ['#4a4a5a', '#6a6a7a'], accent: '#b0b0d0', icon: '🕊️', label: 'Duvor' },
-    'Sångare': { bg: ['#1a4a2a', '#2a7a3a'], accent: '#6ad06a', icon: '🎵', label: 'Sångare' },
-    'Trastar': { bg: ['#3a2a1a', '#6a4a2a'], accent: '#c08a4a', icon: '🐦', label: 'Trastar' },
-    'Mesar': { bg: ['#1a3a4a', '#2a6a7a'], accent: '#5ac0e0', icon: '🐤', label: 'Mesar' },
-    'Finkar': { bg: ['#4a2a1a', '#7a4a2a'], accent: '#e0904a', icon: '🎶', label: 'Finkar' },
-    'Sparvar': { bg: ['#4a3a1a', '#7a6a2a'], accent: '#d0c04a', icon: '🐦', label: 'Sparvar' },
-    'Kråkfåglar': { bg: ['#1a1a2a', '#2a2a3a'], accent: '#7070a0', icon: '🐦‍⬛', label: 'Kråkfåglar' },
-    'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨', label: 'Svalor' },
-    'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦', label: 'Övriga' },
+    // Birds
+    'Andfåglar': { bg: ['#0e4a6e', '#1a7ab5'], accent: '#5ec6e8', icon: '🦆' },
+    'Hönsfåglar': { bg: ['#5c3d1e', '#8b6914'], accent: '#d4a843', icon: '🐔' },
+    'Lommar & Doppingar': { bg: ['#0d3b4f', '#1a6b7a'], accent: '#4ec9d4', icon: '🌊' },
+    'Hägrar': { bg: ['#2d4a3e', '#3d7a5e'], accent: '#7acfa0', icon: '🪿' },
+    'Rovfåglar': { bg: ['#5a2d0c', '#8b4513'], accent: '#e8a03e', icon: '🦅' },
+    'Tranor & Rallar': { bg: ['#3a4a2e', '#5a7a3e'], accent: '#9acd5e', icon: '🦩' },
+    'Vadare': { bg: ['#4a3a2e', '#7a6a4e'], accent: '#c4b48e', icon: '🦤' },
+    'Måsar & Tärnor': { bg: ['#3a5a7a', '#5a8aaa'], accent: '#b0d8f0', icon: '🕊️' },
+    'Alkfåglar': { bg: ['#1a2a3a', '#2a4a5a'], accent: '#6aafcf', icon: '🐧' },
+    'Hackspettar': { bg: ['#3a1a1a', '#6a2a2a'], accent: '#e05050', icon: '🪶' },
+    'Ugglor': { bg: ['#2a1a3a', '#4a2a5a'], accent: '#b080d0', icon: '🦉' },
+    'Duvor': { bg: ['#4a4a5a', '#6a6a7a'], accent: '#b0b0d0', icon: '🕊️' },
+    'Sångare': { bg: ['#1a4a2a', '#2a7a3a'], accent: '#6ad06a', icon: '🎵' },
+    'Trastar': { bg: ['#3a2a1a', '#6a4a2a'], accent: '#c08a4a', icon: '🐦' },
+    'Mesar': { bg: ['#1a3a4a', '#2a6a7a'], accent: '#5ac0e0', icon: '🐤' },
+    'Finkar': { bg: ['#4a2a1a', '#7a4a2a'], accent: '#e0904a', icon: '🎶' },
+    'Sparvar': { bg: ['#4a3a1a', '#7a6a2a'], accent: '#d0c04a', icon: '🐦' },
+    'Kråkfåglar': { bg: ['#1a1a2a', '#2a2a3a'], accent: '#7070a0', icon: '🐦‍⬛' },
+    'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨' },
+    'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦' },
     // Tree Themes
-    'Lövträd': { bg: ['#4caf50', '#8bc34a'], accent: '#cddc39', icon: '🍃', label: 'Lövträd' },
-    'Barrträd': { bg: ['#1b5e20', '#2e7d32'], accent: '#4caf50', icon: '🌲', label: 'Barrträd' },
-    'Ädla lövträd': { bg: ['#3e2723', '#5d4037'], accent: '#8d6e63', icon: '🌳', label: 'Ädelträd' },
-    'Buskar': { bg: ['#558b2f', '#7cb342'], accent: '#aed581', icon: '🌿', label: 'Buskar' }
+    'Lövträd': { bg: ['#4caf50', '#8bc34a'], accent: '#cddc39', icon: '🍃' },
+    'Barrträd': { bg: ['#1b5e20', '#2e7d32'], accent: '#4caf50', icon: '🌲' },
+    'Ädla lövträd': { bg: ['#3e2723', '#5d4037'], accent: '#8d6e63', icon: '🌳' },
+    'Buskar': { bg: ['#558b2f', '#7cb342'], accent: '#aed581', icon: '🌿' },
+    // Generic Themes
+    'Fisk': { bg: ['#0288d1', '#03a9f4'], accent: '#b3e5fc', icon: '🐟' },
+    'Djur': { bg: ['#795548', '#8d6e63'], accent: '#d7ccc8', icon: '🐾' },
+    'Svamp': { bg: ['#e64a19', '#ff5722'], accent: '#ffccbc', icon: '🍄' }
 };
 
 // --- DOM Elements ---
@@ -113,102 +246,222 @@ let mediaRecorder = null;
 let audioChunks = [];
 let recordingTimerInterval = null;
 
+// --- History State Handler ---
+window.addEventListener('popstate', (event) => {
+    // 1. Close all modals visually first
+    elements.modal.classList.remove('active');
+    elements.detailModal.classList.remove('active');
 
-// --- Helper for Mode ---
-function getCurrentSpeciesList() {
-    return state.appMode === 'birds' ? window.swedishBirds : window.swedishTrees;
-}
+    // 2. Restore state
+    if (event.state) {
+        if (event.state.modal === 'detail' && event.state.birdId) {
+            const list = getCurrentSpeciesList();
+            const bird = list.find(b => b.id === event.state.birdId);
+            if (bird) {
+                _renderBirdDetail(bird);
+                elements.detailModal.classList.add('active');
+            }
+        } else if (event.state.modal === 'sighting') {
+            // If we have prefill data in state, use it
+            if (event.state.birdId) {
+                const list = getCurrentSpeciesList();
+                const bird = list.find(b => b.id === event.state.birdId);
+                if (bird) {
+                    elements.selectedBirdId.value = bird.id;
+                    elements.birdSearchInput.value = bird.nameSv;
+                }
+            }
+            elements.modal.classList.add('active');
+        }
+    }
+});
 
-function toggleAppMode() {
-    state.appMode = state.appMode === 'birds' ? 'trees' : 'birds';
-    const isTree = state.appMode === 'trees';
+function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
+    elements.form.reset();
+    document.getElementById('sighting-date').valueAsDate = new Date();
+    elements.imagePreviewContainer.innerHTML = '';
 
-    // 1. Title & Icon
-    const btn = document.getElementById('app-mode-btn');
-    const title = document.getElementById('app-title-text');
-    const icon = document.getElementById('app-logo-icon');
-
-    if (isTree) {
-        btn.innerHTML = '<i class="fa-solid fa-dove"></i> Fågelboken';
-        btn.title = "Växla till Fågelboken";
-        title.textContent = "Träboken";
-        icon.className = "fa-solid fa-tree";
-        document.body.classList.add('mode-trees');
-        document.title = 'Svensk Trädskådare | TreeFinder Sweden';
+    if (prefillBirdId) {
+        elements.selectedBirdId.value = prefillBirdId;
+        elements.birdSearchInput.value = prefillBirdName || '';
     } else {
-        btn.innerHTML = '<i class="fa-solid fa-tree"></i> Träboken';
-        btn.title = "Växla till Träboken";
-        title.textContent = "Fågelboken";
-        icon.className = "fa-solid fa-dove";
-        document.body.classList.remove('mode-trees');
-        document.title = 'Svensk Fågelskådare | BirdFinder Sweden';
+        elements.selectedBirdId.value = '';
     }
 
-    // 2. Comprehensive Text Replacements
+    elements.modal.classList.add('active');
+}
+
+function _renderBirdDetail(item) {
+    const config = SUBJECT_CONFIG[state.currentSubject];
+    const fields = config.fields;
+
+    elements.detailHeroImg.src = getBirdImageSrc(item.id);
+    elements.detailNameSv.textContent = item.nameSv;
+    elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
+    elements.detailRarity.innerHTML = '★'.repeat(item.rarity || 1) + '☆'.repeat(5 - (item.rarity || 1));
+    elements.detailColor.textContent = item.color || (item.trunkColor ? item.trunkColor : 'Okänd');
+
+    // 1. Weight / Second Field
+    if (fields.weight.hidden) {
+        elements.detailWeight.parentElement.style.display = 'none';
+    } else {
+        elements.detailWeight.parentElement.style.display = 'block';
+        // Check if item has the specific key, e.g. item.weight
+        const val = item[fields.weight.key];
+        elements.detailWeight.textContent = val ? `${val} ${fields.weight.unit}` : '--';
+        // Update label (if needed to be dynamic per item, but usually per subject)
+        const label = elements.detailWeight.parentElement.querySelector('.fact-title');
+        if (label) label.innerHTML = `<i class="fa-solid fa-weight-hanging"></i> ${fields.weight.label}`;
+        const subLabel = elements.detailWeight.parentElement.querySelector('.stat-label');
+        if (subLabel) subLabel.textContent = 'Genomsnitt';
+    }
+
+    elements.detailSeasonText.textContent = item.seasonDistribution || 'Hela landet';
+    elements.detailBestTime.textContent = item.bestTime || 'Dag/Natt';
+
+    // 2. Size / First Field (Wingspan/Height/Length)
+    const labelSize = elements.detailWingspan.parentElement.querySelector('.fact-title');
+    if (labelSize) labelSize.innerHTML = `<i class="fa-solid fa-ruler-horizontal"></i> ${fields.size.label}`;
+
+    const subLabelSize = elements.detailWingspan.parentElement.querySelector('.stat-label');
+    if (subLabelSize) subLabelSize.textContent = fields.size.label;
+
+    const valSize = item[fields.size.key];
+    elements.detailWingspan.textContent = valSize ? `${valSize} ${fields.size.unit}` : '--';
+
+    // 3. Lifespan / Eggs / Third Field
+    if (fields.lifespan.hidden) {
+        elements.detailEggs.parentElement.style.display = 'none';
+    } else {
+        elements.detailEggs.parentElement.style.display = 'block';
+        const valLife = item[fields.lifespan.key];
+        elements.detailEggs.textContent = valLife || '--';
+
+        const labelLife = elements.detailEggs.parentElement.querySelector('.fact-title');
+        // Icon logic might need to be generic or mapped. Defaulting to egg icon for now, 
+        // but maybe should update icon based on config if I had that in fields.
+        if (labelLife) labelLife.innerHTML = `<i class="fa-solid fa-egg"></i> ${fields.lifespan.label}`;
+
+        const subLabelLife = elements.detailEggs.parentElement.querySelector('.stat-label');
+        if (subLabelLife) subLabelLife.textContent = fields.lifespan.label;
+    }
+
+    if (elements.detailFunFact) elements.detailFunFact.textContent = item.funFact || 'Ingen fakta tillgänglig.';
+
+    // Obs Count
+    const count = getFilteredSightings().filter(s => s.birdId === item.id).length;
+    if (elements.detailObsCount) {
+        elements.detailObsCount.textContent = `${count} observationer (filtrerat)`;
+    }
+
+    // Setup Actions
+    if (elements.detailAddSightingBtn) {
+        elements.detailAddSightingBtn.onclick = () => {
+            history.pushState({ modal: 'sighting', birdId: item.id }, '');
+            elements.detailModal.classList.remove('active');
+            _showSightingModal(item.id, item.nameSv);
+        };
+    }
+    if (elements.detailQuickAddBtn) {
+        elements.detailQuickAddBtn.onclick = () => {
+            quickAddSighting(item.id);
+            history.back();
+        };
+    }
+    if (elements.detailArtportalenLink) {
+        elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(item.nameSv)}`;
+    }
+}
+function getCurrentSpeciesList() {
+    const config = SUBJECT_CONFIG[state.currentSubject];
+    return window[config.dataVar] || [];
+}
+
+function switchSubject(subjectId) {
+    if (!SUBJECT_CONFIG[subjectId]) return;
+    state.currentSubject = subjectId;
+    const config = SUBJECT_CONFIG[subjectId];
+
+    // 1. Update Body Theme
+    document.body.className = ''; // Reset
+    document.body.classList.add(config.themeClass);
+
+    // 2. Update Header Title & Icon
+    const titleText = document.getElementById('app-title-text');
+    const titleIcon = document.getElementById('app-logo-icon');
+    if (titleText) titleText.textContent = config.name;
+    if (titleIcon) titleIcon.className = `fa-solid ${config.icon}`;
+
+    // 3. Update Placeholders & Text
     const place = (id, p) => { const el = document.getElementById(id); if (el) el.placeholder = p; };
     const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
 
-    if (isTree) {
-        place('guide-search', 'Sök svenska träd...');
-        place('bird-search-input', 'Börja skriva (t.ex. Ek)...');
-        place('sighting-location', 'Var såg du trädet?');
-        const l1 = document.querySelector('label[for="bird-search-input"]'); if (l1) l1.textContent = "Trädart";
+    place('guide-search', config.texts.searchPlaceholder);
+    place('bird-search-input', config.texts.searchPlaceholder); // Re-use search placeholder or create specific if needed
+    place('sighting-location', config.texts.locationPlaceholder);
 
-        // Quiz
-        const qTitle = document.getElementById('quiz-main-title'); if (qTitle) qTitle.innerHTML = '<i class="fa-solid fa-tree"></i> Trädquiz';
-        set('quiz-subtitle', 'Testa dina kunskaper om svenska träd!');
-        document.querySelectorAll('[data-mode="image"] h3').forEach(e => e.textContent = 'Gissa Trädet');
-        document.querySelectorAll('[data-mode="image"] p').forEach(e => e.textContent = 'Se bilden, gissa rätt träd');
-        document.querySelectorAll('[data-mode="stats"] h3').forEach(e => e.textContent = 'Gissa Höjd');
-        document.querySelectorAll('[data-mode="stats"] p').forEach(e => e.textContent = 'Matcha trädet med rätt höjd');
+    // Label for Add Sighting Bird/Tree Input
+    const l1 = document.querySelector('label[for="bird-search-input"]');
+    if (l1) l1.textContent = config.texts.itemLabel;
 
-        // Detail Labels
-        const bestTimeLabel = document.querySelector('#detail-best-time + .stat-label');
-        if (bestTimeLabel) bestTimeLabel.textContent = 'Säsong';
+    // Quiz Texts
+    const qTitle = document.getElementById('quiz-main-title');
+    if (qTitle) qTitle.innerHTML = `<i class="fa-solid ${config.icon}"></i> ${config.texts.quizTitle}`;
+    set('quiz-subtitle', config.texts.quizSubtitle);
 
-    } else {
-        place('guide-search', 'Sök svenska fåglar...');
-        place('bird-search-input', 'Börja skriva (t.ex. Koltrast)...');
-        place('sighting-location', 'Var såg du den?');
-        const l1 = document.querySelector('label[for="bird-search-input"]'); if (l1) l1.textContent = "Fågelart";
+    document.querySelectorAll('[data-mode="image"] h3').forEach(e => e.textContent = config.texts.quizGuessItem);
+    document.querySelectorAll('[data-mode="image"] p').forEach(e => e.textContent = config.texts.quizGuessItemDesc);
+    document.querySelectorAll('[data-mode="stats"] h3').forEach(e => e.textContent = config.texts.quizGuessStats);
+    document.querySelectorAll('[data-mode="stats"] p').forEach(e => e.textContent = config.texts.quizGuessStatsDesc);
 
-        // Quiz
-        const qTitle = document.getElementById('quiz-main-title'); if (qTitle) qTitle.innerHTML = '<i class="fa-solid fa-brain"></i> Fågelquiz';
-        set('quiz-subtitle', 'Testa dina kunskaper om svenska fåglar!');
-        document.querySelectorAll('[data-mode="image"] h3').forEach(e => e.textContent = 'Gissa Fågeln');
-        document.querySelectorAll('[data-mode="image"] p').forEach(e => e.textContent = 'Se bilden, gissa rätt fågel');
-        document.querySelectorAll('[data-mode="stats"] h3').forEach(e => e.textContent = 'Gissa Fakta');
-        document.querySelectorAll('[data-mode="stats"] p').forEach(e => e.textContent = 'Matcha fågeln med rätt fakta');
+    // Detail Labels
+    const bestTimeLabel = document.querySelector('#detail-best-time + .stat-label');
+    if (bestTimeLabel) bestTimeLabel.textContent = config.texts.detailBestTimeLabel;
 
-        // Detail Labels
-        const bestTimeLabel = document.querySelector('#detail-best-time + .stat-label');
-        if (bestTimeLabel) bestTimeLabel.textContent = 'På Dagen';
-    }
-
-    // Sort Options
+    // 4. Update Sort Options
     const sortSelect = document.getElementById('guide-sort-select');
     if (sortSelect) {
+        // Enable all first
         Array.from(sortSelect.options).forEach(o => { o.disabled = false; o.style.display = ''; });
-        const wingspanOpt = sortSelect.querySelector('option[value="wingspan"]');
 
-        if (isTree) {
-            if (wingspanOpt) wingspanOpt.textContent = 'Höjd';
-            ['eggs', 'weight'].forEach(v => { const o = sortSelect.querySelector(`option[value="${v}"]`); if (o) { o.disabled = true; o.style.display = 'none'; } });
-        } else {
-            if (wingspanOpt) wingspanOpt.textContent = 'Vingspann';
-        }
+        // Disable irrelevant ones based on config fields
+        // We know 'name' and 'rarity' and 'bestTime' are generic.
+        // We check fields: size, weight, lifespan(eggs)
+        const fields = config.fields;
 
+        const setOpt = (val, text, show) => {
+            const o = sortSelect.querySelector(`option[value="${val}"]`);
+            if (o) {
+                if (show) {
+                    o.textContent = text;
+                    o.disabled = false;
+                    o.style.display = '';
+                } else {
+                    o.disabled = true;
+                    o.style.display = 'none';
+                }
+            }
+        };
+
+        setOpt('wingspan', fields.size.label, true);
+        setOpt('weight', fields.weight.label, !fields.weight.hidden);
+        setOpt('eggs', fields.lifespan.label, !fields.lifespan.hidden);
+
+        // Reset sort if selected is disabled
         if (sortSelect.selectedOptions[0].disabled) {
             sortSelect.value = 'name';
             sortSelect.dispatchEvent(new Event('change'));
         }
     }
 
-    // Reset filters
+    // 5. Reset Filters & Render
     state.activeCategory = null;
     state.guideSearchTerm = '';
 
-    // Re-render everything
+    // Check if we need to close the library menu (if we implement it as a modal)
+    const libraryModal = document.getElementById('library-modal');
+    if (libraryModal) libraryModal.classList.remove('active');
+
     setupYearFilter();
     renderApp();
     renderGuideCategories();
@@ -301,10 +554,20 @@ async function init() {
     // Event Listeners
     setupEventListeners();
 
-    const modeBtn = document.getElementById('app-mode-btn');
-    if (modeBtn) {
-        modeBtn.addEventListener('click', toggleAppMode);
+    // Subject Switching / Library
+    const appTitle = document.getElementById('app-title');
+    if (appTitle) {
+        appTitle.style.cursor = 'pointer';
+        appTitle.addEventListener('click', () => {
+            document.getElementById('library-modal').classList.add('active');
+        });
     }
+
+    // Default to birds if not set (or load from storage if we persisted subject? 
+    // For now default is fine, or arguably we should persist it. 
+    // Let's stick to default birds for simplicity unless changed).
+    // Actually, we should probably render the current subject correctly on init.
+    // switchSubject(state.currentSubject); // Ensure UI matches state
 
     // --- Cloud Real-Time Listener (Removed) ---
 
@@ -446,75 +709,9 @@ function getFilteredSightings() {
 }
 
 function openBirdDetail(item) {
-    elements.detailHeroImg.src = getBirdImageSrc(item.id);
-    elements.detailNameSv.textContent = item.nameSv;
-    elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
-    elements.detailRarity.innerHTML = '★'.repeat(item.rarity || 1) + '☆'.repeat(5 - (item.rarity || 1));
-    elements.detailColor.textContent = item.color || (item.trunkColor ? item.trunkColor : 'Okänd');
-
-    // Weight / Height Logic
-    if (state.appMode === 'trees') {
-        elements.detailWeight.parentElement.style.display = 'none'; // Hide Weight
-    } else {
-        elements.detailWeight.parentElement.style.display = 'block';
-        elements.detailWeight.textContent = item.weight ? `${item.weight} g` : '--';
-    }
-
-    elements.detailSeasonText.textContent = item.seasonDistribution || 'Hela landet';
-    elements.detailBestTime.textContent = item.bestTime || 'Dag';
-
-    // Wingspan / Height
-    if (state.appMode === 'trees') {
-        // Reuse wingspan field for Height?
-        // Or hide and show a new one. Let's use wingspan element but change label if possible.
-        // Better to hide wingspan and maybe inject height or just use wingspan element.
-        // Let's assume wingspan is height for trees.
-        const label = elements.detailWingspan.nextElementSibling;
-        if (label) label.textContent = 'Höjd';
-        elements.detailWingspan.textContent = item.height ? `${item.height} m` : '--';
-
-        // Hide Eggs
-        elements.detailEggs.parentElement.style.display = 'none';
-    } else {
-        const label = elements.detailWingspan.nextElementSibling;
-        if (label) label.textContent = 'Vingspann';
-        elements.detailWingspan.textContent = item.wingspan ? `${item.wingspan} cm` : '--';
-
-        elements.detailEggs.parentElement.style.display = 'block';
-        if (elements.detailEggs) elements.detailEggs.textContent = item.eggs || '--';
-    }
-
-    if (elements.detailFunFact) elements.detailFunFact.textContent = item.funFact || 'Ingen fakta tillgänglig.';
-
-    // Obs Count
-    const count = getFilteredSightings().filter(s => s.birdId === item.id).length;
-    if (elements.detailObsCount) {
-        elements.detailObsCount.textContent = `${count} observationer (filtrerat)`;
-    }
-
-    // Setup Actions
-    if (elements.detailAddSightingBtn) {
-        elements.detailAddSightingBtn.onclick = () => {
-            elements.closeDetailModal.click();
-            elements.form.reset();
-            document.getElementById('sighting-date').valueAsDate = new Date();
-            elements.imagePreviewContainer.innerHTML = '';
-            elements.selectedBirdId.value = item.id;
-            elements.birdSearchInput.value = item.nameSv;
-            elements.modal.classList.add('active');
-        };
-    }
-    if (elements.detailQuickAddBtn) {
-        elements.detailQuickAddBtn.onclick = () => {
-            quickAddSighting(item.id);
-            elements.closeDetailModal.click();
-        };
-    }
-    if (elements.detailArtportalenLink) {
-        elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(item.nameSv)}`;
-    }
-
+    _renderBirdDetail(item);
     elements.detailModal.classList.add('active');
+    history.pushState({ modal: 'detail', birdId: item.id }, '');
 }
 
 function quickAddSighting(birdId) {
@@ -577,24 +774,23 @@ function renderApp() {
 
 function renderSightingsList(sightings) {
     elements.sightingsList.innerHTML = '';
+    const config = SUBJECT_CONFIG[state.currentSubject];
 
     if (sightings.length === 0) {
-        const isTree = state.appMode === 'trees';
-        const emptyText = isTree
-            ? `Inga träd hittade än under <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`
-            : `Inga fåglar sedda än under <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`;
+        const emptyText = config.texts.emptyLog
+            + ` <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`;
 
         elements.sightingsList.innerHTML = `
             <div class="empty-state">
-                <i class="fa-solid ${isTree ? 'fa-tree' : 'fa-binoculars'}"></i>
+                <i class="fa-solid ${config.icon}"></i>
                 <p>${emptyText}</p>
-                <button onclick="elements.addSightingBtn.click()" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">${isTree ? 'Lägg till ditt första träd!' : 'Lägg till din första observation!'}</button>
+                <button onclick="elements.addSightingBtn.click()" style="margin-top:1rem; padding:0.5rem 1rem; cursor:pointer;">${config.texts.addFirst}</button>
             </div>
         `;
         return;
     }
 
-    // Sort by Date Descending
+    // Sort by Date Descending by default for grouping
     sightings.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // Grouping Logic (group by Species)
@@ -617,23 +813,32 @@ function renderSightingsList(sightings) {
     // Sorting Logic
     groups.sort((a, b) => {
         const list = getCurrentSpeciesList();
-        const birdA = list.find(x => x.id === a.latestSighting.birdId);
-        const birdB = list.find(x => x.id === b.latestSighting.birdId);
+        const itemA = list.find(x => x.id === a.latestSighting.birdId);
+        const itemB = list.find(x => x.id === b.latestSighting.birdId);
 
-        if (!birdA || !birdB) return 0;
+        if (!itemA || !itemB) return 0;
+
+        const getVal = (item, sortKey) => {
+            if (sortKey === 'wingspan') return item[config.fields.size.key] || 0;
+            if (sortKey === 'weight') return item[config.fields.weight.key] || 0;
+            if (sortKey === 'eggs') return item[config.fields.lifespan.key] || 0;
+            if (sortKey === 'rarity') return item.rarity || 0;
+            return 0; // name/date handled separately
+        };
 
         switch (state.sortBy) {
             case 'name':
-                return birdA.nameSv.localeCompare(birdB.nameSv);
+                return itemA.nameSv.localeCompare(itemB.nameSv);
             case 'wingspan':
-                return (birdB.wingspan || 0) - (birdA.wingspan || 0); // Descending
+                return getVal(itemB, 'wingspan') - getVal(itemA, 'wingspan');
             case 'eggs':
-                return (birdB.eggs || 0) - (birdA.eggs || 0); // Descending
+                return getVal(itemB, 'eggs') - getVal(itemA, 'eggs');
+            case 'weight':
+                return getVal(itemB, 'weight') - getVal(itemA, 'weight');
             case 'rarity':
-                return (birdB.rarity || 0) - (birdA.rarity || 0); // Descending (Rarest first)
+                return getVal(itemB, 'rarity') - getVal(itemA, 'rarity');
             case 'date':
             default:
-                // Default to date descending
                 return new Date(b.latestSighting.date) - new Date(a.latestSighting.date);
         }
     });
@@ -641,21 +846,20 @@ function renderSightingsList(sightings) {
     groups.forEach(group => {
         const sighting = group.latestSighting;
         const list = getCurrentSpeciesList();
-        const bird = list.find(b => b.id === sighting.birdId);
+        const item = list.find(b => b.id === sighting.birdId);
 
-        if (!bird) return; // Skip if bird data invalid
+        if (!item) return;
 
         const card = document.createElement('div');
-        card.className = 'bird-card';
+        card.className = 'bird-card'; // Keep generic styling
 
-        // Image Logic
-        const imgSource = sighting.photo || getBirdImageSrc(bird.id);
+        const imgSource = sighting.photo || getBirdImageSrc(item.id);
 
         card.innerHTML = `
             <div class="bird-image-container">
-                <img src="${imgSource}" alt="${bird.nameEn}" data-bird-id="${bird.id}" loading="lazy" onerror="handleImageError(this)">
+                <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
-                <button class="instant-add-btn" onclick="quickAddSighting('${bird.id}')" title="Lägg till +1 direkt">
+                <button class="instant-add-btn" onclick="quickAddSighting('${item.id}')" title="Lägg till +1 direkt">
                     +
                 </button>
                 <button class="delete-sighting-btn" onclick="deleteSighting('${sighting.id}')" title="Ta bort logg">
@@ -663,9 +867,9 @@ function renderSightingsList(sightings) {
                 </button>
             </div>
             <div class="bird-info">
-                <div class="bird-primary-name">${bird.nameSv}</div>
-                <div class="bird-secondary-name">${bird.nameEn}</div>
-                <div class="bird-scientific">${bird.scientific}</div>
+                <div class="bird-primary-name">${item.nameSv}</div>
+                <div class="bird-secondary-name">${item.nameEn}</div>
+                <div class="bird-scientific">${item.scientific}</div>
                 
                 <div class="sighting-details">
                     <div class="detail-row"><i class="fa-regular fa-calendar"></i> ${sighting.date}</div>
@@ -677,16 +881,11 @@ function renderSightingsList(sightings) {
             </div>
         `;
 
-        // Add Click Listener
         card.addEventListener('click', (e) => {
-            // Avoid buttons
             if (e.target.closest('button')) return;
-            openBirdDetail(bird);
+            openBirdDetail(item);
         });
-
-        // Add pointer cursor style
         card.style.cursor = 'pointer';
-
         elements.sightingsList.appendChild(card);
     });
 }
@@ -694,14 +893,24 @@ function renderSightingsList(sightings) {
 function renderGuideList(birdList) {
     if (!birdList) return;
 
+    const config = SUBJECT_CONFIG[state.currentSubject];
+
     // Sort before rendering
     birdList.sort((a, b) => {
+        const getVal = (item, sortKey) => {
+            if (sortKey === 'wingspan') return item[config.fields.size.key] || 0;
+            if (sortKey === 'weight') return item[config.fields.weight.key] || 0;
+            if (sortKey === 'eggs') return item[config.fields.lifespan.key] || 0;
+            if (sortKey === 'rarity') return item.rarity || 0;
+            return 0;
+        };
+
         switch (state.guideSortBy) {
             case 'name': return a.nameSv.localeCompare(b.nameSv);
-            case 'wingspan': return (b.wingspan || 0) - (a.wingspan || 0);
-            case 'eggs': return (b.eggs || 0) - (a.eggs || 0);
-            case 'weight': return (b.weight || 0) - (a.weight || 0);
-            case 'rarity': return (b.rarity || 0) - (a.rarity || 0);
+            case 'wingspan': return getVal(b, 'wingspan') - getVal(a, 'wingspan');
+            case 'weight': return getVal(b, 'weight') - getVal(a, 'weight');
+            case 'eggs': return getVal(b, 'eggs') - getVal(a, 'eggs');
+            case 'rarity': return getVal(b, 'rarity') - getVal(a, 'rarity');
             case 'bestTime':
                 // Group by time roughly: Morgon < Dag < Kväll < Natt
                 const timeOrder = { 'Morgon': 1, 'Gryning': 1, 'Gryning/Skymning': 3, 'Dag': 2, 'Hela dagen': 2, 'Kväll': 3, 'Skymning': 3, 'Natt': 4 };
@@ -764,12 +973,9 @@ function renderGuideList(birdList) {
             quickAddBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 // Open sighting modal pre-filled with this bird
-                elements.form.reset();
-                document.getElementById('sighting-date').valueAsDate = new Date();
-                elements.imagePreviewContainer.innerHTML = '';
-                elements.selectedBirdId.value = bird.id;
-                elements.birdSearchInput.value = bird.nameSv;
-                elements.modal.classList.add('active');
+                // Open sighting modal pre-filled with this bird
+                history.pushState({ modal: 'sighting', birdId: bird.id }, '');
+                _showSightingModal(bird.id, bird.nameSv);
             });
         }
 
@@ -778,19 +984,19 @@ function renderGuideList(birdList) {
 }
 
 function renderGuideCategories() {
+    const config = SUBJECT_CONFIG[state.currentSubject];
+    const list = getCurrentSpeciesList();
+
     // 1. Group birds by type
     const categories = {};
-    const list = getCurrentSpeciesList();
-    list.forEach(bird => {
-        const type = bird.type || 'Övriga';
+    list.forEach(item => {
+        const type = item.type || 'Övriga';
         if (!categories[type]) {
             categories[type] = {
                 name: type,
                 count: 0,
                 // Assign icon based on type name
                 icon: getCategoryIcon(type),
-                // Handle different themes based on mode
-                // Actually getCategoryIcon handles the icon, themes handles color
             };
         }
         categories[type].count++;
@@ -801,7 +1007,14 @@ function renderGuideCategories() {
     const sortedCategories = Object.values(categories).sort((a, b) => a.name.localeCompare(b.name));
 
     // "All" Category
-    const allCard = createCategoryCard({ name: state.appMode === 'trees' ? 'Alla Träd' : 'Alla Fåglar', count: list.length, icon: state.appMode === 'trees' ? 'fa-tree' : 'fa-crow' });
+    const allName = 'Alla ' + config.texts.itemLabel + 'er'; // Crude pluralization or use config
+    // Actually, config.texts.itemLabel is "Fågelart", "Trädart". Plural: "Fågelarter"?
+    // Let's us a generic "Alla Arter" or just "Alla".
+    const allCard = createCategoryCard({
+        name: 'Alla',
+        count: list.length,
+        icon: config.icon // Use subject icon (dove, tree, fish)
+    });
     allCard.addEventListener('click', () => selectCategory(null));
     elements.guideCategories.appendChild(allCard);
 
@@ -828,15 +1041,15 @@ function createCategoryCard(cat) {
     return div;
 }
 
-function matchTimeFilter(bird) {
+function matchTimeFilter(item) {
     if (state.guideSortBy !== 'bestTime') return true;
     if (state.timeFilter === 'all') return true;
 
-    const bt = (bird.bestTime || '').toLowerCase();
+    const bt = (item.bestTime || '').toLowerCase();
     const filter = state.timeFilter.toLowerCase();
 
     if (filter === 'morgon') return bt.includes('morgon') || bt.includes('gryning');
-    if (filter === 'dag') return bt.includes('dag'); // matches 'dag', 'hela dagen'
+    if (filter === 'dag') return bt.includes('dag');
     if (filter === 'kväll') return bt.includes('kväll') || bt.includes('skymning');
     if (filter === 'natt') return bt.includes('natt');
 
@@ -845,6 +1058,7 @@ function matchTimeFilter(bird) {
 
 function selectCategory(category) {
     state.activeCategory = category;
+    const config = SUBJECT_CONFIG[state.currentSubject];
 
     // UI Update
     elements.guideCategories.classList.add('hidden');
@@ -853,70 +1067,95 @@ function selectCategory(category) {
 
     if (category) {
         elements.currentCategoryTitle.textContent = category;
-        // Filter birds
         const list = getCurrentSpeciesList();
-        const birds = list.filter(b => b.type === category && matchTimeFilter(b));
-        renderGuideList(birds);
+        const items = list.filter(b => b.type === category && matchTimeFilter(b));
+        renderGuideList(items);
     } else {
-        elements.currentCategoryTitle.textContent = state.appMode === 'trees' ? 'Alla träd' : 'Alla fåglar';
-        // Render all
+        elements.currentCategoryTitle.textContent = 'Alla ' + config.texts.itemLabel + 'er'; // Or "Alla Arter"
+        if (elements.currentCategoryTitle.textContent.includes('arterer')) elements.currentCategoryTitle.textContent = 'Alla Arter'; // Fix double suffix if any
+
         const list = getCurrentSpeciesList();
-        const birds = list.filter(b => matchTimeFilter(b));
-        renderGuideList(birds);
+        const items = list.filter(b => matchTimeFilter(b));
+        renderGuideList(items);
     }
 }
 // Helper for icons (used in Map view)
 // Helper for icons (used in Map view & Guide Categories)
 function getCategoryIcon(type) {
-    if (CATEGORY_THEMES[type]) {
-        // Convert icon char to fa class if possible, or just use generic
-        // Actually, the map uses fa classes, but CATEGORY_THEMES uses emojis for the placeholder.
-        // The original getCategoryIcon returned fa classes. Let's restore that map fully.
-        const map = {
-            'Andfåglar': 'fa-feather-pointed',
-            'Hönsfåglar': 'fa-drumstick-bite',
-            'Lommar & Doppingar': 'fa-water',
-            'Hägrar': 'fa-staff-snake',
-            'Rovfåglar': 'fa-dragon',
-            'Tranor & Rallar': 'fa-person-walking',
-            'Vadare': 'fa-shoe-prints',
-            'Måsar & Tärnor': 'fa-paper-plane',
-            'Alkfåglar': 'fa-anchor',
-            'Hackspettar': 'fa-hammer',
-            'Ugglor': 'fa-glasses',
-            'Duvor': 'fa-dove',
-            'Mesar': 'fa-seedling',
-            'Finkar': 'fa-music',
-            'Sparvar': 'fa-wheat-awn',
-            'Trastar': 'fa-worm',
-            'Sångare': 'fa-microphone-lines',
-            'Kråkfåglar': 'fa-crow',
-            'Svalor': 'fa-wind',
-            'Övriga': 'fa-kiwi-bird',
-            'Lövträd': 'fa-leaf',
-            'Barrträd': 'fa-tree',
-            'Ädla lövträd': 'fa-crown',
-            'Buskar': 'fa-seedling'
-        };
-        return map[type] || 'fa-dove';
-    }
-    return 'fa-dove';
+    const map = {
+        // Birds
+        'Andfåglar': 'fa-feather-pointed',
+        'Hönsfåglar': 'fa-drumstick-bite',
+        'Lommar & Doppingar': 'fa-water',
+        'Hägrar': 'fa-staff-snake',
+        'Rovfåglar': 'fa-dragon',
+        'Tranor & Rallar': 'fa-person-walking',
+        'Vadare': 'fa-shoe-prints',
+        'Måsar & Tärnor': 'fa-paper-plane',
+        'Alkfåglar': 'fa-anchor',
+        'Hackspettar': 'fa-hammer',
+        'Ugglor': 'fa-glasses',
+        'Duvor': 'fa-dove',
+        'Mesar': 'fa-seedling',
+        'Finkar': 'fa-music',
+        'Sparvar': 'fa-wheat-awn',
+        'Trastar': 'fa-worm',
+        'Sångare': 'fa-microphone-lines',
+        'Kråkfåglar': 'fa-crow',
+        'Svalor': 'fa-wind',
+        'Övriga': 'fa-kiwi-bird',
+
+        // Trees
+        'Lövträd': 'fa-leaf',
+        'Barrträd': 'fa-tree',
+        'Ädla lövträd': 'fa-crown',
+        'Buskar': 'fa-seedling',
+
+        // Fish
+        'Rovfisk': 'fa-fish', // Generic or more specific if available
+        'Abborrfiskar': 'fa-fish-fins',
+        'Sillfiskar': 'fa-fish',
+        'Torskfiskar': 'fa-fish',
+        'Laxfiskar': 'fa-water',
+
+        // Animals
+        'Hovdjur': 'fa-horse',
+        'Rovdjur': 'fa-dog',
+        'Insektsätare': 'fa-bug',
+
+        // Fungi
+        'Kantareller': 'fa-circle-half-stroke',
+        'Soppar': 'fa-circle',
+        'Flugsvampar': 'fa-circle-exclamation'
+    };
+    return map[type] || 'fa-dove';
 }
 
 function generateHolderSvg(birdId) {
     const list = getCurrentSpeciesList();
-    let bird = list.find(b => b.id === birdId);
-    // Fallback: Check other list if not found (e.g. if switching modes but image loading delayed)
-    if (!bird) {
-        const otherList = state.appMode === 'birds' ? window.swedishTrees : window.swedishBirds;
-        bird = otherList ? otherList.find(b => b.id === birdId) : null;
+    let item = list.find(b => b.id === birdId);
+
+    // Fallback: Check all other lists if not found (e.g. if switching modes but image loading delayed)
+    if (!item) {
+        // Iterate over all subjects in config
+        for (const key in SUBJECT_CONFIG) {
+            const dataVar = SUBJECT_CONFIG[key].dataVar;
+            const otherList = window[dataVar];
+            if (otherList) {
+                const found = otherList.find(b => b.id === birdId);
+                if (found) {
+                    item = found;
+                    break;
+                }
+            }
+        }
     }
 
-    if (!bird) return 'https://placehold.co/400x300?text=Okänd';
+    if (!item) return 'https://placehold.co/400x300?text=Okänd';
 
-    const theme = CATEGORY_THEMES[bird.type] || CATEGORY_THEMES['Övriga'] || TREE_THEMES['Lövträd'];
-    const nameDisplay = bird.nameSv;
-    const sciName = bird.scientific;
+    const theme = CATEGORY_THEMES[item.type] || CATEGORY_THEMES['Övriga'];
+    const nameDisplay = item.nameSv;
+    const sciName = item.scientific;
 
 
     // Generate a unique rotation/offset from the bird id for visual variety
@@ -1264,20 +1503,17 @@ function setupEventListeners() {
 
     // 3. Modal Controls
     elements.addSightingBtn.addEventListener('click', () => {
-        elements.form.reset();
-        document.getElementById('sighting-date').valueAsDate = new Date();
-        elements.imagePreviewContainer.innerHTML = '';
-        elements.selectedBirdId.value = '';
-        elements.modal.classList.add('active');
+        history.pushState({ modal: 'sighting' }, '');
+        _showSightingModal();
     });
 
     elements.closeModal.addEventListener('click', () => {
-        elements.modal.classList.remove('active');
+        history.back();
     });
 
     if (elements.closeDetailModal) {
         elements.closeDetailModal.addEventListener('click', () => {
-            elements.detailModal.classList.remove('active');
+            history.back();
         });
     }
 
@@ -1350,7 +1586,7 @@ function setupEventListeners() {
             document.getElementById('audio-preview').classList.add('hidden');
             document.getElementById('delete-recording-btn').classList.add('hidden');
 
-            elements.modal.classList.remove('active');
+            history.back(); // Close modal via history
         };
 
         // Check for photo
@@ -1374,7 +1610,11 @@ function setupEventListeners() {
                 try {
                     localStorage.setItem(`custom_img_${editingBirdId}`, ev.target.result);
                     renderApp();
-                    renderGuideList(window.swedishBirds); // Refresh guide too
+                    // Refresh guide if active
+                    const list = getCurrentSpeciesList();
+                    if (!elements.guideList.classList.contains('hidden')) {
+                        renderGuideList(list);
+                    }
                 } catch (err) {
                     alert('Bilden är för stor!');
                 }
@@ -1498,70 +1738,65 @@ function generateQuizQuestions(mode, count = 10) {
     const list = getCurrentSpeciesList();
     const birds = [...list].sort(() => Math.random() - 0.5);
     const questions = [];
-    const isTrees = state.appMode === 'trees';
-    const entityName = isTrees ? 'träd' : 'fågel';
-    const entityNamePlural = isTrees ? 'träd' : 'fåglar';
-    const entityNameDef = isTrees ? 'trädet' : 'fågeln';
+
+    const config = SUBJECT_CONFIG[state.currentSubject];
+    const entityName = config.texts.itemLabel.toLowerCase().replace('art', '');
 
     for (let i = 0; i < Math.min(count, birds.length); i++) {
-        const bird = birds[i];
+        const item = birds[i];
 
         if (mode === 'image') {
-            // Same type/category birds as distractors
-            const wrongBirds = getRandomBirds(3, bird.id, bird.type);
-            const options = [bird, ...wrongBirds].sort(() => Math.random() - 0.5);
+            const wrongItems = getRandomBirds(3, item.id, item.type);
+            const options = [item, ...wrongItems].sort(() => Math.random() - 0.5);
             questions.push({
                 type: 'image',
                 prompt: null,
-                image: bird.id,
+                image: item.id,
                 question: `Vilken ${entityName} ser du på bilden?`,
                 options: options.map(b => ({ label: b.nameSv, value: b.id })),
-                correctValue: bird.id,
-                correctLabel: bird.nameSv
+                correctValue: item.id,
+                correctLabel: item.nameSv
             });
         } else if (mode === 'funfact') {
-            // Show fun fact with bird name stripped, guess which bird
-            const wrongBirds = getRandomBirds(3, bird.id);
-            const options = [bird, ...wrongBirds].sort(() => Math.random() - 0.5);
-            const cleanedFact = stripBirdName(bird.funFact, bird);
+            const wrongItems = getRandomBirds(3, item.id);
+            const options = [item, ...wrongItems].sort(() => Math.random() - 0.5);
+            const cleanedFact = stripBirdName(item.funFact, item);
             questions.push({
                 type: 'funfact',
                 prompt: `"${cleanedFact}"`,
                 image: null,
                 question: `Vilken ${entityName} handlar detta om?`,
                 options: options.map(b => ({ label: b.nameSv, value: b.id })),
-                correctValue: bird.id,
-                correctLabel: bird.nameSv
+                correctValue: item.id,
+                correctLabel: item.nameSv
             });
         } else if (mode === 'stats') {
-            // Random stat type with close-value distractors
-            let statTypes = ['wingspan', 'weight', 'eggs'];
-            let statLabels = { wingspan: 'Vingspann', weight: 'Vikt', eggs: 'Antal ägg' };
-            let statUnits = { wingspan: 'cm', weight: 'g', eggs: 'st' };
+            const fields = config.fields;
+            const availableStats = [];
 
-            if (isTrees) {
-                statTypes = ['height'];
-                statLabels = { height: 'Höjd' };
-                statUnits = { height: 'm' };
-            }
+            if (fields.size) availableStats.push({ key: fields.size.key, label: fields.size.label, unit: fields.size.unit });
+            if (fields.weight && !fields.weight.hidden) availableStats.push({ key: fields.weight.key, label: fields.weight.label, unit: fields.weight.unit });
+            if (fields.lifespan && !fields.lifespan.hidden) availableStats.push({ key: fields.lifespan.key, label: fields.lifespan.label, unit: fields.lifespan.unit });
 
-            const stat = statTypes[Math.floor(Math.random() * statTypes.length)];
+            if (availableStats.length === 0) continue;
 
-            // Get birds with similar stat values for harder options
-            const wrongBirds = getClosestBirds(bird, stat, 3);
-            const allOptions = [bird, ...wrongBirds].sort(() => Math.random() - 0.5);
+            const statObj = availableStats[Math.floor(Math.random() * availableStats.length)];
+            const statKey = statObj.key;
+
+            const wrongItems = getClosestBirds(item, statKey, 3);
+            const allOptions = [item, ...wrongItems].sort(() => Math.random() - 0.5);
 
             questions.push({
                 type: 'stats',
-                prompt: bird.nameSv,
-                image: bird.id,
-                question: `Vad är ${bird.nameSv}s ${statLabels[stat].toLowerCase()}?`,
+                prompt: item.nameSv,
+                image: item.id,
+                question: `Vad är ${item.nameSv}s ${statObj.label.toLowerCase()}?`,
                 options: allOptions.map(b => ({
-                    label: `${b[stat] || '?'} ${statUnits[stat]}`,
+                    label: `${b[statKey] || '?'} ${statObj.unit}`,
                     value: b.id
                 })),
-                correctValue: bird.id,
-                correctLabel: `${bird[stat] || '?'} ${statUnits[stat]}`
+                correctValue: item.id,
+                correctLabel: `${item[statKey] || '?'} ${statObj.unit}`
             });
         }
     }
