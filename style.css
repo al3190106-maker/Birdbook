@@ -2835,3 +2835,10 @@ body.mode-trees .quiz-btn.primary {
     color: #2c3e50;
 }
 
+
+ / *   V i e w   M o d e s   * / 
+ b o d y . v i e w - m o d e - t e x t   . b i r d - i m a g e - c o n t a i n e r   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   } 
+ b o d y . v i e w - m o d e - i m a g e   . b i r d - i n f o   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   } 
+ b o d y . v i e w - m o d e - t e x t   . d e t a i l - r o w   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   } 
+ b o d y . v i e w - m o d e - i m a g e   . b i r d - i m a g e - c o n t a i n e r   i m g   {   b o r d e r - r a d i u s :   v a r ( - - b o r d e r - r a d i u s )   ! i m p o r t a n t ;   }  
+ 
