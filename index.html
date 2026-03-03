@@ -30,8 +30,7 @@
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
-                <button class="nav-btn" data-tab="sweden-view">Sverige</button>
-                <button class="nav-btn" data-tab="quiz-view"><i class="fa-solid fa-brain"></i> Fågelquiz</button>
+                <button class="nav-btn" data-tab="quiz-view">Fågelquiz</button>
             </nav>
 
             <div class="user-toggles">
@@ -42,6 +41,9 @@
 
         <div class="actions-right">
             <!-- Sync Status Removed -->
+            <button id="view-mode-btn" class="icon-btn" title="Växla vy">
+                <i class="fa-solid fa-list"></i>
+            </button>
             <button id="install-btn" class="icon-btn" title="Installera appen" style="display: none;">
                 <i class="fa-solid fa-download"></i>
             </button>
@@ -150,18 +152,11 @@
             </div>
         </section>
 
-        <!-- Sweden Map View -->
-        <section id="sweden-view" class="view-section">
-            <div id="sweden-map-root">
-                <!-- Injected via sweden-map.js -->
-            </div>
-        </section>
-
         <!-- Quiz View -->
         <section id="quiz-view" class="view-section">
             <!-- Quiz Mode Selection -->
             <div id="quiz-menu" class="quiz-menu">
-                <h2 class="quiz-title" id="quiz-main-title"><i class="fa-solid fa-brain"></i> Fågelquiz</h2>
+                <h2 class="quiz-title" id="quiz-main-title">Fågelquiz</h2>
                 <p class="quiz-subtitle" id="quiz-subtitle">Testa dina kunskaper om svenska fåglar!</p>
                 <div class="quiz-modes-grid">
                     <div class="quiz-mode-card" data-mode="image">
@@ -260,27 +255,6 @@
                     <label for="sighting-notes">Anteckningar</label>
                     <textarea id="sighting-notes" rows="3"
                         placeholder="Beteende, väder eller andra anteckningar..."></textarea>
-                </div>
-
-                <!-- Sound Recording -->
-                <div class="form-group" id="sound-recording-group">
-                    <label>Ljudinspelning (Frivilligt)</label>
-                    <div class="audio-recording-controls">
-                        <button type="button" id="start-recording-btn" class="record-btn" title="Starta inspelning">
-                            <i class="fa-solid fa-microphone"></i> Starta
-                        </button>
-                        <button type="button" id="stop-recording-btn" class="record-btn stop-btn hidden"
-                            title="Stoppa inspelning">
-                            <i class="fa-solid fa-stop"></i> Stoppa
-                        </button>
-                        <div id="recording-status" class="recording-status hidden">Spelar in... <span
-                                id="recording-timer">00:00</span></div>
-                    </div>
-                    <audio id="audio-preview" controls class="hidden" style="width: 100%; margin-top: 0.5rem;"></audio>
-                    <button type="button" id="delete-recording-btn" class="delete-btn hidden"
-                        style="margin-top: 0.5rem; color: #ff4444; background: none; border: none; cursor: pointer;">
-                        <i class="fa-solid fa-trash"></i> Ta bort inspelning
-                    </button>
                 </div>
 
                 <!-- Photo Upload -->

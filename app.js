@@ -15,7 +15,8 @@ const state = {
     quizScore: 0,
     quizAnswered: false,
     timeFilter: 'all',
-    currentSubject: 'birds' // Replaces appMode
+    currentSubject: 'birds', // Replaces appMode
+    viewMode: 'both'
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
@@ -241,10 +242,6 @@ const elements = {
 };
 
 let editingBirdId = null;
-let currentRecordingBase64 = null;
-let mediaRecorder = null;
-let audioChunks = [];
-let recordingTimerInterval = null;
 
 // --- History State Handler ---
 window.addEventListener('popstate', (event) => {
@@ -548,11 +545,9 @@ async function init() {
         alert('Ett fel uppstod vid start. Se konsolen.');
     }
 
-    // Audio Recording Setup
-    setupRecordingLogic();
-
     // Event Listeners
     setupEventListeners();
+    applyViewMode();
 
     // Subject Switching / Library
     const appTitle = document.getElementById('app-title');
@@ -875,7 +870,6 @@ function renderSightingsList(sightings) {
                     <div class="detail-row"><i class="fa-regular fa-calendar"></i> ${sighting.date}</div>
                     <div class="detail-row"><i class="fa-solid fa-map-pin"></i> ${sighting.location || 'Okänd plats'}</div>
                     ${sighting.notes ? `<div class="notes-text">"${sighting.notes}"</div>` : ''}
-                    ${sighting.sound ? `<div style="margin-top:0.5rem;"><audio controls src="${sighting.sound}" style="width:100%; height:32px;"></audio></div>` : ''}
                 </div>
             </div>
             </div>
@@ -1281,94 +1275,6 @@ window.quickAddSighting = (birdId) => {
 
 // --- Event Listeners ---
 
-// --- Audio Recording Logic ---
-function setupRecordingLogic() {
-    const startBtn = document.getElementById('start-recording-btn');
-    const stopBtn = document.getElementById('stop-recording-btn');
-    const statusEl = document.getElementById('recording-status');
-    const timerEl = document.getElementById('recording-timer');
-    const audioPreview = document.getElementById('audio-preview');
-    const deleteBtn = document.getElementById('delete-recording-btn');
-
-    if (!startBtn || !stopBtn) return;
-
-    startBtn.addEventListener('click', async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = [];
-
-            mediaRecorder.ondataavailable = (event) => {
-                audioChunks.push(event.data);
-            };
-
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                audioPreview.src = audioUrl;
-
-                // Convert to Base64 for storage
-                const reader = new FileReader();
-                reader.readAsDataURL(audioBlob);
-                reader.onloadend = () => {
-                    currentRecordingBase64 = reader.result;
-                    console.log('Audio converted to base64, length:', currentRecordingBase64.length);
-                };
-
-                // UI Updates
-                audioPreview.classList.remove('hidden');
-                deleteBtn.classList.remove('hidden');
-                startBtn.classList.remove('hidden');
-                stopBtn.classList.add('hidden');
-                statusEl.classList.add('hidden');
-
-                // Stop all tracks to release microphone
-                stream.getTracks().forEach(track => track.stop());
-                clearInterval(recordingTimerInterval);
-            };
-
-            mediaRecorder.start();
-
-            // UI Updates
-            startBtn.classList.add('hidden');
-            stopBtn.classList.remove('hidden');
-            statusEl.classList.remove('hidden');
-            audioPreview.classList.add('hidden');
-            deleteBtn.classList.add('hidden');
-
-            // Timer
-            let seconds = 0;
-            timerEl.textContent = "00:00";
-            clearInterval(recordingTimerInterval);
-            recordingTimerInterval = setInterval(() => {
-                seconds++;
-                const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-                const secs = (seconds % 60).toString().padStart(2, '0');
-                timerEl.textContent = `${mins}:${secs}`;
-            }, 1000);
-
-        } catch (err) {
-            console.error('Error accessing microphone:', err);
-            alert('Kunde inte komma åt mikrofonen. Kontrollera behörigheter.');
-        }
-    });
-
-    stopBtn.addEventListener('click', () => {
-        if (mediaRecorder && mediaRecorder.state === 'recording') {
-            mediaRecorder.stop();
-        }
-    });
-
-    deleteBtn.addEventListener('click', () => {
-        if (confirm('Vill du ta bort inspelningen?')) {
-            currentRecordingBase64 = null;
-            audioPreview.src = '';
-            audioPreview.classList.add('hidden');
-            deleteBtn.classList.add('hidden');
-        }
-    });
-}
-
 function setupEventListeners() {
     // 1. Reset App
     if (elements.resetBtn) {
@@ -1377,6 +1283,17 @@ function setupEventListeners() {
                 localStorage.clear();
                 location.reload();
             }
+        });
+    }
+
+    // View Mode Toggle
+    const viewBtn = document.getElementById('view-mode-btn');
+    if (viewBtn) {
+        viewBtn.addEventListener('click', () => {
+            const modes = ['both', 'image', 'text'];
+            const currentIndex = modes.indexOf(state.viewMode) !== -1 ? modes.indexOf(state.viewMode) : 0;
+            state.viewMode = modes[(currentIndex + 1) % modes.length];
+            applyViewMode();
         });
     }
 
@@ -1561,7 +1478,6 @@ function setupEventListeners() {
             date: document.getElementById('sighting-date').value,
             location: document.getElementById('sighting-location').value,
             notes: document.getElementById('sighting-notes').value,
-            sound: currentRecordingBase64,
             user: state.currentUser,
             photo: null
         };
@@ -1577,14 +1493,6 @@ function setupEventListeners() {
 
             saveSightings();
             setupYearFilter();
-
-            // Reset Recording
-            currentRecordingBase64 = null;
-            document.getElementById('recording-status').classList.add('hidden');
-            document.getElementById('start-recording-btn').classList.remove('hidden');
-            document.getElementById('stop-recording-btn').classList.add('hidden');
-            document.getElementById('audio-preview').classList.add('hidden');
-            document.getElementById('delete-recording-btn').classList.add('hidden');
 
             history.back(); // Close modal via history
         };
@@ -1971,6 +1879,26 @@ document.addEventListener('DOMContentLoaded', () => {
         quizMenuBtn.addEventListener('click', showQuizMenu);
     }
 });
+
+function applyViewMode() {
+    const body = document.body;
+    body.classList.remove('view-mode-text', 'view-mode-image', 'view-mode-both');
+    body.classList.add(`view-mode-${state.viewMode}`);
+
+    const btn = document.getElementById('view-mode-btn');
+    if (btn) {
+        if (state.viewMode === 'text') {
+            btn.innerHTML = '<i class="fa-solid fa-align-left"></i>';
+            btn.title = "Endast Text";
+        } else if (state.viewMode === 'image') {
+            btn.innerHTML = '<i class="fa-solid fa-image"></i>';
+            btn.title = "Endast Bild";
+        } else {
+            btn.innerHTML = '<i class="fa-solid fa-list"></i>';
+            btn.title = "Bild & Namn";
+        }
+    }
+}
 
 // Start
 document.addEventListener('DOMContentLoaded', init);
