@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --primary: #2E5D4B;
     --secondary: #8FBC8F;
     --accent: #D4A373;
@@ -1659,7 +1659,7 @@ body {
    RESPONSIVE / MOBILE STYLES
    ======================================== */
 
-/* --- Tablet breakpoint (≤ 768px) --- */
+/* --- Tablet breakpoint (â‰¤ 768px) --- */
 @media (max-width: 768px) {
 
     /* Header */
@@ -1759,7 +1759,7 @@ body {
 }
 
 
-/* --- Phone breakpoint (≤ 600px) --- */
+/* --- Phone breakpoint (â‰¤ 600px) --- */
 @media (max-width: 600px) {
 
     /* Header: stack vertically */
@@ -2124,7 +2124,7 @@ body {
 }
 
 
-/* --- Very small phones (≤ 380px) --- */
+/* --- Very small phones (â‰¤ 380px) --- */
 @media (max-width: 380px) {
 
     .stats-dashboard {
@@ -2669,14 +2669,16 @@ body {
 
          / *   . . .   r e s t   o f   t h e   f i l e   w i l l   b e   a p p e n d e d / m e r g e d   i f   I   u s e   a p p e n d ?   N o ,
    w r i t e _ t o _ f i l e   o v e r w r i t e s .   * /     
-/* Tr�boken Mode Styles */
+
+/* Träboken Mode Styles */
 body.mode-trees #sound-recording-group {
     display: none !important;
 }
 
 /* Optional: Slight theme adjustment for trees */
 body.mode-trees .app-header {
-    background-color: #27ae60; /* Green */
+    background-color: #27ae60;
+    /* Green */
 }
 
 body.mode-trees .nav-btn.active {
@@ -2688,7 +2690,7 @@ body.mode-trees .stat-value {
 }
 
 
-/* Tr�boken Sunburnt Yellow Theme */
+/* Träboken Sunburnt Yellow Theme */
 body.mode-trees {
     --primary: #E09F3E;
     --primary-light: #F4C47B;
@@ -2721,8 +2723,8 @@ body.mode-trees .quiz-btn.primary {
     border-radius: 20px;
     padding: 2rem;
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .library-menu h2 {
@@ -2746,12 +2748,12 @@ body.mode-trees .quiz-btn.primary {
     position: relative;
     overflow: hidden;
     min-height: 140px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .library-card:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
 .library-card:active {
@@ -2762,7 +2764,7 @@ body.mode-trees .quiz-btn.primary {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     z-index: 1;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .lib-label {
@@ -2780,7 +2782,7 @@ body.mode-trees .quiz-btn.primary {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(0,0,0,0.05));
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.05));
     z-index: 0;
 }
 
@@ -2791,18 +2793,25 @@ body.mode-trees .quiz-btn.primary {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     color: white;
 }
-.library-card.mode-birds .lib-icon { color: white; }
+
+.library-card.mode-birds .lib-icon {
+    color: white;
+}
 
 /* Trees: Green */
 .library-card.mode-trees {
     background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     color: #1a5e20;
 }
-.library-card.mode-trees .lib-icon { color: #1b5e20; }
+
+.library-card.mode-trees .lib-icon {
+    color: #1b5e20;
+}
 
 /* Fish: Deep Blue */
 .library-card.mode-fish {
-    background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%); /* Actually used teal/green for fish in some designs, let's go with Ocean Blue */
+    background: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+    /* Actually used teal/green for fish in some designs, let's go with Ocean Blue */
     background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
     color: white;
 }
@@ -2812,12 +2821,17 @@ body.mode-trees .quiz-btn.primary {
     background: linear-gradient(135deg, #e6b980 0%, #eacda3 100%);
     color: #5d4037;
 }
-.library-card.mode-animals .lib-icon { color: #3e2723; }
+
+.library-card.mode-animals .lib-icon {
+    color: #3e2723;
+}
 
 /* Fungi: Orange/Red */
 .library-card.mode-fungi {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); /* Soft pink/red */
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); /* Peach */
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    /* Soft pink/red */
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    /* Peach */
     color: #bf360c;
 }
 
@@ -2830,15 +2844,25 @@ body.mode-trees .quiz-btn.primary {
     font-weight: 600;
     transition: all 0.2s;
 }
+
 .library-menu .secondary-btn:hover {
     background-color: #ddd;
     color: #2c3e50;
 }
 
+/* View Modes */
+body.view-mode-text .bird-image-container {
+    display: none !important;
+}
 
- / *   V i e w   M o d e s   * / 
- b o d y . v i e w - m o d e - t e x t   . b i r d - i m a g e - c o n t a i n e r   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   } 
- b o d y . v i e w - m o d e - i m a g e   . b i r d - i n f o   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   } 
- b o d y . v i e w - m o d e - t e x t   . d e t a i l - r o w   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   } 
- b o d y . v i e w - m o d e - i m a g e   . b i r d - i m a g e - c o n t a i n e r   i m g   {   b o r d e r - r a d i u s :   v a r ( - - b o r d e r - r a d i u s )   ! i m p o r t a n t ;   }  
- 
+body.view-mode-image .bird-info {
+    display: none !important;
+}
+
+body.view-mode-text .detail-row {
+    display: none !important;
+}
+
+body.view-mode-image .bird-image-container img {
+    border-radius: var(--border-radius) !important;
+}
