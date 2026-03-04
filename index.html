@@ -277,7 +277,21 @@
             <button class="close-detail-modal" id="close-detail-modal"><i class="fa-solid fa-times"></i></button>
 
             <div class="bird-detail-header">
-                <img src="" alt="Bird Image" class="bird-detail-hero-img" id="detail-hero-img">
+                <div class="bird-image-carousel" id="bird-image-carousel">
+                    <div class="carousel-slides" id="carousel-slides">
+                        <!-- Slides injected by JS -->
+                    </div>
+                    <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Föregående bild">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Nästa bild">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <div class="carousel-dots" id="carousel-dots">
+                        <!-- Dots injected by JS -->
+                    </div>
+                    <div class="carousel-counter" id="carousel-counter">1 / 1</div>
+                </div>
             </div>
 
             <div class="bird-detail-content">
@@ -447,6 +461,7 @@
     <script src="flowers.js"></script>
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
+    <script src="bird_images.js"></script>
     <script src="app.js"></script>
 
     <script>

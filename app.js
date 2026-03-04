@@ -251,7 +251,11 @@ const elements = {
     // Detail Modal Elements
     detailModal: document.getElementById('bird-detail-modal-overlay'),
     closeDetailModal: document.getElementById('close-detail-modal'),
-    detailHeroImg: document.getElementById('detail-hero-img'),
+    carouselSlides: document.getElementById('carousel-slides'),
+    carouselDots: document.getElementById('carousel-dots'),
+    carouselCounter: document.getElementById('carousel-counter'),
+    carouselPrev: document.getElementById('carousel-prev'),
+    carouselNext: document.getElementById('carousel-next'),
     detailNameSv: document.getElementById('detail-name-sv'),
     detailNameScEn: document.getElementById('detail-name-sc-en'),
     detailRarity: document.getElementById('detail-rarity'),
@@ -321,11 +325,83 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     elements.modal.classList.add('active');
 }
 
+// --- Carousel State ---
+let carouselIndex = 0;
+let carouselImages = [];
+
+function _buildCarousel(images) {
+    carouselImages = images;
+    carouselIndex = 0;
+    const slides = elements.carouselSlides;
+    const dots = elements.carouselDots;
+    slides.innerHTML = '';
+    dots.innerHTML = '';
+
+    images.forEach((src, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Bild ' + (i + 1);
+        img.className = 'carousel-img';
+        img.onerror = function () {
+            this.src = `images/${currentCarouselBirdId}.jpg`;
+            this.onerror = null;
+        };
+        slide.appendChild(img);
+        slides.appendChild(slide);
+
+        if (images.length > 1) {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Bild ' + (i + 1));
+            dot.addEventListener('click', () => _goToSlide(i));
+            dots.appendChild(dot);
+        }
+    });
+
+    // Show/hide nav buttons
+    const showNav = images.length > 1;
+    elements.carouselPrev.style.display = showNav ? '' : 'none';
+    elements.carouselNext.style.display = showNav ? '' : 'none';
+    elements.carouselDots.style.display = showNav ? '' : 'none';
+    _updateCarouselCounter();
+}
+
+let currentCarouselBirdId = '';
+
+function _goToSlide(index) {
+    const allSlides = elements.carouselSlides.querySelectorAll('.carousel-slide');
+    const allDots = elements.carouselDots.querySelectorAll('.carousel-dot');
+    if (allSlides.length === 0) return;
+
+    // Clamp index
+    index = (index + allSlides.length) % allSlides.length;
+    carouselIndex = index;
+
+    allSlides.forEach((s, i) => s.classList.toggle('active', i === index));
+    allDots.forEach((d, i) => d.classList.toggle('active', i === index));
+    _updateCarouselCounter();
+}
+
+function _updateCarouselCounter() {
+    const total = carouselImages.length;
+    if (elements.carouselCounter) {
+        elements.carouselCounter.textContent = total > 1 ? `${carouselIndex + 1} / ${total}` : '';
+    }
+}
+
 function _renderBirdDetail(item) {
     const config = SUBJECT_CONFIG[state.currentSubject];
     const fields = config.fields;
 
-    elements.detailHeroImg.src = getBirdImageSrc(item.id);
+    // Build image carousel
+    currentCarouselBirdId = item.id;
+    const galleryImages = (window.birdImages && window.birdImages[item.id]) || [];
+    const fallbackSrc = getBirdImageSrc(item.id);
+    const imagesToShow = galleryImages.length > 0 ? galleryImages : [fallbackSrc];
+    _buildCarousel(imagesToShow);
+
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
     elements.detailRarity.innerHTML = '★'.repeat(item.rarity || 1) + '☆'.repeat(5 - (item.rarity || 1));
@@ -1466,6 +1542,38 @@ function setupEventListeners() {
             history.back();
         });
     }
+
+    // Carousel Navigation
+    if (elements.carouselPrev) {
+        elements.carouselPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            _goToSlide(carouselIndex - 1);
+        });
+    }
+    if (elements.carouselNext) {
+        elements.carouselNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            _goToSlide(carouselIndex + 1);
+        });
+    }
+
+    // Touch/Swipe support for carousel
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const carouselEl = document.getElementById('bird-image-carousel');
+    if (carouselEl) {
+        carouselEl.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        carouselEl.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 40) {
+                _goToSlide(diff > 0 ? carouselIndex + 1 : carouselIndex - 1);
+            }
+        }, { passive: true });
+    }
+
 
     // 4. Autocomplete
     elements.birdSearchInput.addEventListener('input', function () {
