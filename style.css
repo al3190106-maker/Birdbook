@@ -2866,3 +2866,89 @@ body.view-mode-text .detail-row {
 body.view-mode-image .bird-image-container img {
     border-radius: var(--border-radius) !important;
 }
+
+/* =============================================
+   Blomboken (Flower Mode) — Rose/Magenta Theme
+   ============================================= */
+body.mode-flowers {
+    --primary: #c2185b;
+    --secondary: #f06292;
+    --accent: #f8bbd0;
+    --background: #fce4ec;
+}
+
+body.mode-flowers .app-header {
+    background: linear-gradient(135deg, #ad1457 0%, #c2185b 60%, #e91e63 100%);
+}
+
+body.mode-flowers .nav-btn.active {
+    color: #c2185b;
+}
+
+body.mode-flowers .stat-value {
+    color: #c2185b;
+}
+
+body.mode-flowers .action-card {
+    background: linear-gradient(135deg, #e91e63, #f06292);
+}
+
+body.mode-flowers .action-card:hover {
+    background: linear-gradient(135deg, #c2185b, #e91e63);
+}
+
+body.mode-flowers .submit-btn {
+    background-color: #c2185b;
+}
+
+body.mode-flowers .submit-btn:hover {
+    background-color: #ad1457;
+}
+
+body.mode-flowers .form-group input:focus,
+body.mode-flowers .form-group textarea:focus {
+    border-color: #c2185b;
+    box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.12);
+}
+
+body.mode-flowers .modal-content h2 {
+    color: #c2185b;
+}
+
+body.mode-flowers .autocomplete-item strong {
+    color: #c2185b;
+}
+
+body.mode-flowers .quiz-btn.primary {
+    background-color: #c2185b;
+}
+
+body.mode-flowers .quiz-btn.primary:hover {
+    background-color: #ad1457;
+}
+
+body.mode-flowers .quiz-results-score strong {
+    color: #c2185b;
+}
+
+body.mode-flowers .category-card {
+    border-top: 4px solid #e91e63;
+}
+
+body.mode-flowers .add-sighting-detail-btn {
+    background-color: #c2185b;
+}
+
+body.mode-flowers .bird-secondary-name {
+    color: #e91e63;
+}
+
+/* Blomboken Library Card */
+.library-card.mode-flowers {
+    background: linear-gradient(135deg, #f8a5c2 0%, #f9ca24 40%, #fd79a8 100%);
+    color: #6d1939;
+}
+
+.library-card.mode-flowers .lib-icon {
+    color: #6d1939;
+}

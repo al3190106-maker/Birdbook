@@ -426,6 +426,11 @@
                     <div class="lib-icon"><i class="fa-solid fa-circle"></i></div>
                     <span class="lib-label">Svampboken</span>
                 </button>
+                <button class="library-card mode-flowers"
+                    onclick="switchSubject('flowers'); document.getElementById('library-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <span class="lib-label">Blomboken</span>
+                </button>
             </div>
 
             <button class="secondary-btn" onclick="document.getElementById('library-modal').classList.remove('active')"
@@ -439,6 +444,7 @@
     <script src="fish.js"></script>
     <script src="animals.js"></script>
     <script src="fungi.js"></script>
+    <script src="flowers.js"></script>
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
     <script src="app.js"></script>

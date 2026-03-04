@@ -151,6 +151,32 @@ const SUBJECT_CONFIG = {
             weight: { key: 'edibility', label: 'Ätlighet', unit: '', hidden: false },
             lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
         }
+    },
+    flowers: {
+        id: 'flowers',
+        name: 'Blomboken',
+        icon: 'fa-seedling',
+        dataVar: 'swedishFlowers',
+        themeClass: 'mode-flowers',
+        texts: {
+            itemLabel: 'Blomstart',
+            searchPlaceholder: 'Sök blomma...',
+            locationPlaceholder: 'Var såg du blomman?',
+            quizTitle: 'Blomquiz',
+            quizSubtitle: 'Testa dina blomsterkunskaper!',
+            quizGuessItem: 'Gissa Blomman',
+            quizGuessItemDesc: 'Vilken blomma är detta?',
+            quizGuessStats: 'Gissa Faktum',
+            quizGuessStatsDesc: 'Vad vet du om blomman?',
+            detailBestTimeLabel: 'Blomningstid',
+            emptyLog: 'Inga blommor sedda än under',
+            addFirst: 'Logga din första blomma'
+        },
+        fields: {
+            size: { key: 'height', label: 'Höjd', unit: 'cm' },
+            weight: { key: 'color', label: 'Färg', unit: '', hidden: false },
+            lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
+        }
     }
 };
 
@@ -184,7 +210,14 @@ const CATEGORY_THEMES = {
     // Generic Themes
     'Fisk': { bg: ['#0288d1', '#03a9f4'], accent: '#b3e5fc', icon: '🐟' },
     'Djur': { bg: ['#795548', '#8d6e63'], accent: '#d7ccc8', icon: '🐾' },
-    'Svamp': { bg: ['#e64a19', '#ff5722'], accent: '#ffccbc', icon: '🍄' }
+    'Svamp': { bg: ['#e64a19', '#ff5722'], accent: '#ffccbc', icon: '🍄' },
+    // Flower Themes
+    'Vårblommor': { bg: ['#880e4f', '#ad1457'], accent: '#f48fb1', icon: '🌸' },
+    'Ängsblommor': { bg: ['#4a148c', '#7b1fa2'], accent: '#ce93d8', icon: '🌼' },
+    'Skogsblommor': { bg: ['#1b5e20', '#388e3c'], accent: '#a5d6a7', icon: '🌿' },
+    'Orkidéer': { bg: ['#6a1b9a', '#8e24aa'], accent: '#e1bee7', icon: '🌺' },
+    'Vattenblommor': { bg: ['#01579b', '#0288d1'], accent: '#b3e5fc', icon: '🌊' },
+    'Hedblommor': { bg: ['#4e342e', '#795548'], accent: '#d7ccc8', icon: '🫐' }
 };
 
 // --- DOM Elements ---
