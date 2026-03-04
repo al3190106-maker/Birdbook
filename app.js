@@ -1136,8 +1136,12 @@ function renderGuideCategories() {
 function createCategoryCard(cat) {
     const div = document.createElement('div');
     div.className = 'category-card';
+    const imgFile = CATEGORY_ICON_IMAGES[cat.name];
+    const iconHtml = (state.currentSubject === 'birds' && imgFile)
+        ? `<img src="images/category_icons/${imgFile}" class="category-icon-img" alt="${cat.name}" onerror="this.style.display='none';this.nextElementSibling&&this.nextElementSibling.classList.remove('hidden')">`
+        : `<i class="fa-solid ${cat.icon} category-icon"></i>`;
     div.innerHTML = `
-        <i class="fa-solid ${cat.icon} category-icon"></i>
+        ${iconHtml}
         <div class="category-name">${cat.name}</div>
         <div class="category-count">${cat.count} arter</div>
     `;
@@ -1182,7 +1186,27 @@ function selectCategory(category) {
         renderGuideList(items);
     }
 }
-// Helper for icons (used in Map view)
+// Maps bird category names to PNG icon filenames in images/category_icons/
+const CATEGORY_ICON_IMAGES = {
+    'Alkfåglar': 'alkfaglar.png',
+    'Andfåglar': 'andfaglar.png',
+    'Duvor': 'duvor.png',
+    'Finkar': 'finkar.png',
+    'Hackspettar': 'hackspettar.png',
+    'Hägrar': 'hagrar.png',
+    'Hönsfåglar': 'honsfaglar.png',
+    'Kråkfåglar': 'krakfaglar.png',
+    'Lommar & Doppingar': 'lommar_doppingar.png',
+    'Mesar': 'mesar.png',
+    'Måsar & Tärnor': 'masar_tarnor.png',
+    'Rovfåglar': 'rovfaglar.png',
+    'Sparvar': 'sparvar.png',
+    'Svalor': 'svalor.png',
+    'Sångare': 'sangare.png',
+    'Tranor & Rallar': 'tranor_rallar.png',
+    'Trastar': 'trastar.png',
+};
+
 // Helper for icons (used in Map view & Guide Categories)
 function getCategoryIcon(type) {
     const map = {
