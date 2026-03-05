@@ -1175,6 +1175,7 @@ function selectCategory(category) {
 }
 // Maps bird category names to PNG icon filenames in images/category_icons/
 const CATEGORY_ICON_IMAGES = {
+    'Alla': 'alla.png',
     'Alkfåglar': 'alkfaglar.png',
     'Andfåglar': 'andfaglar.png',
     'Duvor': 'duvor.png',
