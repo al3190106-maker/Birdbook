@@ -259,7 +259,7 @@ const elements = {
     detailNameSv: document.getElementById('detail-name-sv'),
     detailNameScEn: document.getElementById('detail-name-sc-en'),
     detailRarity: document.getElementById('detail-rarity'),
-    detailColor: document.getElementById('detail-color'),
+
     detailWeight: document.getElementById('detail-weight'),
     detailSeasonText: document.getElementById('detail-season-text'),
     detailBestTime: document.getElementById('detail-best-time'),
@@ -269,8 +269,7 @@ const elements = {
     detailFunFact: document.getElementById('detail-fun-fact'),
     detailObsCount: document.getElementById('detail-obs-count'),
     detailArtportalenLink: document.getElementById('detail-artportalen-link'),
-    detailAddSightingBtn: document.getElementById('detail-add-sighting-btn'),
-    detailQuickAddBtn: document.getElementById('detail-quick-add-btn'),
+
     sortSelect: document.getElementById('sort-select'),
     guideSortSelect: document.getElementById('guide-sort-select'),
     timeFilterContainer: document.getElementById('time-filter-container'),
@@ -405,7 +404,7 @@ function _renderBirdDetail(item) {
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
     elements.detailRarity.innerHTML = '★'.repeat(item.rarity || 1) + '☆'.repeat(5 - (item.rarity || 1));
-    elements.detailColor.textContent = item.color || (item.trunkColor ? item.trunkColor : 'Okänd');
+
 
     // 1. Weight / Second Field
     if (fields.weight.hidden) {
@@ -461,19 +460,7 @@ function _renderBirdDetail(item) {
     }
 
     // Setup Actions
-    if (elements.detailAddSightingBtn) {
-        elements.detailAddSightingBtn.onclick = () => {
-            history.pushState({ modal: 'sighting', birdId: item.id }, '');
-            elements.detailModal.classList.remove('active');
-            _showSightingModal(item.id, item.nameSv);
-        };
-    }
-    if (elements.detailQuickAddBtn) {
-        elements.detailQuickAddBtn.onclick = () => {
-            quickAddSighting(item.id);
-            history.back();
-        };
-    }
+
     if (elements.detailArtportalenLink) {
         elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(item.nameSv)}`;
     }
@@ -1205,6 +1192,9 @@ const CATEGORY_ICON_IMAGES = {
     'Sångare': 'sangare.png',
     'Tranor & Rallar': 'tranor_rallar.png',
     'Trastar': 'trastar.png',
+    'Ugglor': 'ugglor.png',
+    'Vadare': 'vadare.png',
+    'Övriga': 'ovriga.png',
 };
 
 // Helper for icons (used in Map view & Guide Categories)
