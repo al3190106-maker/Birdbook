@@ -3075,3 +3075,441 @@ body.mode-flowers .bird-secondary-name {
 .library-card.mode-flowers .lib-icon {
     color: #6d1939;
 }
+
+/* ===================================================
+   STATISTICS TAB
+   =================================================== */
+
+.stats-view-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+}
+
+/* --- Profile Card --- */
+.stats-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #1a4a36 50%, #0d2e22 100%);
+    border-radius: 20px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(46, 93, 75, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-profile-card::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(143, 188, 143, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.stats-rank-badge {
+    font-size: 3.5rem;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: floatBadge 3s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.stats-profile-info {
+    flex-grow: 1;
+    color: white;
+}
+
+.stats-rank-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.stats-rank-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.75;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+.stats-rank-progress-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.stats-rank-progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 380px;
+}
+
+.stats-rank-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8FBC8F, #D4A373);
+    border-radius: 10px;
+    transition: width 1s ease;
+    width: 0%;
+}
+
+.stats-rank-progress-label {
+    font-size: 0.8rem;
+    opacity: 0.65;
+}
+
+/* --- Overview Grid --- */
+.stats-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stats-overview-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-overview-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.stats-overview-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.stats-overview-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+}
+
+.stats-overview-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.stats-overview-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* --- Sections Grid --- */
+.stats-sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.stats-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+.stats-panel-wide {
+    grid-column: 1 / -1;
+}
+
+.stats-panel-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.7rem;
+}
+
+.stats-panel-title i {
+    color: var(--accent);
+}
+
+/* --- Stat Rows --- */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 0.9rem;
+}
+
+.stats-row:last-child {
+    border-bottom: none;
+}
+
+.stats-row-label {
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+.stats-row-value {
+    font-weight: 700;
+    color: var(--text-main);
+    text-align: right;
+    max-width: 60%;
+    word-break: break-word;
+}
+
+.stats-row-value.highlight {
+    color: var(--primary);
+}
+
+.stats-row-value.rarity-score {
+    color: #e67e22;
+}
+
+/* --- Rarity Breakdown --- */
+.rarity-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.rarity-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+}
+
+.rarity-bar-label {
+    width: 100px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+.rarity-bar-wrap {
+    flex-grow: 1;
+    height: 7px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.rarity-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1s ease;
+}
+
+.rarity-bar-count {
+    width: 25px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* --- Badges Grid --- */
+.stats-badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.stats-badge {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-badge.earned {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-color: #86efac;
+    box-shadow: 0 3px 10px rgba(46, 93, 75, 0.1);
+}
+
+.stats-badge.earned:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(46, 93, 75, 0.2);
+}
+
+.stats-badge.locked {
+    opacity: 0.45;
+    filter: grayscale(0.6);
+}
+
+.stats-badge-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.stats-badge-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.2rem;
+}
+
+.stats-badge-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+.stats-badge-earned-glow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 24px solid #22c55e;
+    border-left: 24px solid transparent;
+}
+
+.stats-badge-earned-glow::after {
+    content: '✓';
+    position: absolute;
+    top: -22px;
+    right: 2px;
+    font-size: 0.6rem;
+    color: white;
+    font-weight: 700;
+}
+
+/* --- Nature Profile Subject Bars --- */
+.nature-subject-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.87rem;
+}
+
+.nature-subject-icon {
+    font-size: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+.nature-subject-name {
+    width: 80px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+.nature-subject-bar-wrap {
+    flex-grow: 1;
+    height: 10px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.nature-subject-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+}
+
+.nature-subject-count {
+    font-weight: 700;
+    width: 30px;
+    text-align: right;
+    color: var(--text-main);
+}
+
+/* --- Specialization label --- */
+.stats-specialization {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-top: 0.4rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* --- Empty State for Stats --- */
+.stats-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+}
+
+.stats-empty i {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.4;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .stats-profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-rank-progress-bar {
+        max-width: 100%;
+    }
+
+    .stats-sections-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-badges-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+}

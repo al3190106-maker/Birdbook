@@ -643,7 +643,7 @@ function showZoneBirds(zone, month) {
                     <select id="map-sort-select" style="padding: 0.3rem; border-radius: 6px; border: 1px solid #ddd; font-size: 0.9rem; pointer-events: auto;">
                         <option value="name" ${currentMapSort === 'name' ? 'selected' : ''}>Namn</option>
                         <option value="wingspan" ${currentMapSort === 'wingspan' ? 'selected' : ''}>Vingspann</option>
-                        <option value="eggs" ${currentMapSort === 'eggs' ? 'selected' : ''}>Ägg</option>
+                        <option value="eggs" ${currentMapSort === 'eggs' ? 'selected' : ''}>Ägg (per kull)</option>
                         <option value="weight" ${currentMapSort === 'weight' ? 'selected' : ''}>Vikt</option>
                         <option value="rarity" ${currentMapSort === 'rarity' ? 'selected' : ''}>Sällsynthet</option>
                     </select>
@@ -671,6 +671,15 @@ function showZoneBirds(zone, month) {
             const imgSrc = getBirdImageSrc(bird.id);
             // Dots are tricky for zones, let's just use the zone logic
             const monthDotsHtml = generateMonthDots(bird, zone, null, month);
+            const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
+            const rarityColors = ['#ffffff', '#2563eb', '#9333ea', '#ea580c', '#dc2626'];
+            const rIndex = (bird.rarity || 1) - 1;
+            const rName = rarityLevels[rIndex] || 'Allmän';
+            const rColor = rarityColors[rIndex] || '#ffffff';
+            const rBg = rIndex === 0 ? '#94a3b8' : 'transparent';
+            const rPad = rIndex === 0 ? '0.1rem 0.4rem' : '0';
+            const rRad = rIndex === 0 ? '6px' : '0';
+
             html += `
                 <div class="map-bird-card" data-bird-id="${bird.id}" onclick="openBirdDetail(window.swedishBirds.find(b => b.id === '${bird.id}'))">
                     <img src="${imgSrc}" alt="${bird.nameSv}" data-bird-id="${bird.id}"
@@ -678,7 +687,7 @@ function showZoneBirds(zone, month) {
                     <div class="map-bird-info">
                         <div class="map-bird-name-row">
                             <span class="map-bird-name">${bird.nameSv}</span>
-                            <span class="map-bird-rarity">${'★'.repeat(bird.rarity || 1)}${'☆'.repeat(5 - (bird.rarity || 1))}</span>
+                            <span class="map-bird-rarity" style="color: ${rColor}; background: ${rBg}; padding: ${rPad}; border-radius: ${rRad}; font-weight: 600; font-size: 0.8em; display: inline-block;">${rName}</span>
                         </div>
                         <span class="map-bird-en">${bird.nameEn}</span>
                         ${monthDotsHtml}

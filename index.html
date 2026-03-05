@@ -31,12 +31,9 @@
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="quiz-view">Fågelquiz</button>
+                <button class="nav-btn" data-tab="stats-view"><i class="fa-solid fa-chart-simple"></i>
+                    Statistik</button>
             </nav>
-
-            <div class="user-toggles">
-                <button class="user-btn" data-user="Alexander">Alexander</button>
-                <button class="user-btn active" data-user="Theia">Theia</button>
-            </div>
         </div>
 
         <div class="actions-right">
@@ -68,10 +65,7 @@
         <section id="log-view" class="view-section active">
             <!-- Dashboard Stats (Moved here) -->
             <section class="stats-dashboard">
-                <div class="stat-card">
-                    <span class="stat-value" id="total-sightings">0</span>
-                    <span class="stat-label">Antal observationer</span>
-                </div>
+
                 <div class="stat-card">
                     <span class="stat-value" id="unique-species">0</span>
                     <span class="stat-label">Unika arter</span>
@@ -91,7 +85,7 @@
                             <option value="date">Senaste</option>
                             <option value="name">Namn (A-Ö)</option>
                             <option value="wingspan">Vingspann</option>
-                            <option value="eggs">Antal Ägg</option>
+                            <option value="eggs">Ägg (per kull)</option>
                             <option value="rarity">Sällsynthet</option>
                         </select>
                     </div>
@@ -117,10 +111,10 @@
                     <select id="guide-sort-select" style="padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd;">
                         <option value="name">Namn (A-Ö)</option>
                         <option value="wingspan">Vingspann</option>
-                        <option value="eggs">Antal Ägg</option>
+                        <option value="eggs">Ägg (per kull)</option>
                         <option value="weight">Vikt</option>
                         <option value="rarity">Sällsynthet</option>
-                        <option value="bestTime">Bästa tid</option>
+                        <option value="bestTime">Aktiv</option>
                     </select>
                 </div>
             </div>
@@ -164,16 +158,6 @@
                         <h3>Gissa Fågeln</h3>
                         <p>Se bilden, gissa rätt fågel</p>
                     </div>
-                    <div class="quiz-mode-card" data-mode="funfact">
-                        <div class="quiz-mode-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                        <h3>Visste du?</h3>
-                        <p>Gissa vilken fågel faktan handlar om</p>
-                    </div>
-                    <div class="quiz-mode-card" data-mode="stats">
-                        <div class="quiz-mode-icon"><i class="fa-solid fa-chart-bar"></i></div>
-                        <h3>Gissa Fakta</h3>
-                        <p>Matcha fågeln med rätt fakta</p>
-                    </div>
                 </div>
             </div>
 
@@ -212,6 +196,78 @@
                         <button id="quiz-menu-btn" class="quiz-btn secondary"><i class="fa-solid fa-list"></i> Välj
                             quiz</button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats View -->
+        <section id="stats-view" class="view-section">
+            <div class="stats-view-container">
+
+                <!-- Profile / Rank Card -->
+                <div class="stats-profile-card">
+                    <div class="stats-rank-badge" id="stats-rank-icon">🐦</div>
+                    <div class="stats-profile-info">
+                        <div class="stats-rank-title" id="stats-rank-title">Naturnybörjare</div>
+                        <div class="stats-rank-subtitle" id="stats-rank-subtitle">Fortsätt utforska naturen!</div>
+                        <div class="stats-rank-progress-wrap">
+                            <div class="stats-rank-progress-bar">
+                                <div class="stats-rank-progress-fill" id="stats-rank-progress"></div>
+                            </div>
+                            <span class="stats-rank-progress-label" id="stats-rank-progress-label">0 / 10 till nästa
+                                rang</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overview Numbers -->
+                <div class="stats-overview-grid" id="stats-overview-grid">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- Main sections -->
+                <div class="stats-sections-grid">
+
+                    <!-- Bird Highlights -->
+                    <div class="stats-panel" id="stats-birds-panel">
+                        <h3 class="stats-panel-title"><i class="fa-solid fa-dove"></i> Fågelstatistik</h3>
+                        <div class="stats-panel-body" id="stats-birds-body">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Other Nature -->
+                    <div class="stats-panel" id="stats-nature-panel">
+                        <h3 class="stats-panel-title"><i class="fa-solid fa-leaf"></i> Naturprofil</h3>
+                        <div class="stats-panel-body" id="stats-nature-body">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Achievements / Badges -->
+                    <div class="stats-panel stats-panel-wide">
+                        <h3 class="stats-panel-title"><i class="fa-solid fa-trophy"></i> Utmärkelser</h3>
+                        <div class="stats-badges-grid" id="stats-badges-grid">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Time & Location Insights -->
+                    <div class="stats-panel">
+                        <h3 class="stats-panel-title"><i class="fa-regular fa-clock"></i> Tid & Plats</h3>
+                        <div class="stats-panel-body" id="stats-time-body">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Rarity Score -->
+                    <div class="stats-panel">
+                        <h3 class="stats-panel-title"><i class="fa-solid fa-star"></i> Sällsynthetsscore</h3>
+                        <div class="stats-panel-body" id="stats-rarity-body">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -301,9 +357,10 @@
                 <div class="bird-facts-grid">
                     <!-- Rarity -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-star"></i> Vanlighet</div>
-                        <div class="rarity-stars" id="detail-rarity">★★★★★</div>
-                        <p class="stat-label">1 = Mycket vanlig, 5 = Sällsynt</p>
+                        <div class="fact-title"><i class="fa-solid fa-star"></i> Sällsynthet</div>
+                        <div class="rarity-text" id="detail-rarity"
+                            style="font-size: 1.1rem; font-weight: 600; color: var(--accent);">Allmän</div>
+                        <p class="stat-label">I Sverige</p>
                     </div>
 
                     <!-- Season Map -->
@@ -317,23 +374,23 @@
 
                     <!-- Best Time Card -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-regular fa-clock"></i> Bästa Tid</div>
+                        <div class="fact-title"><i class="fa-regular fa-clock"></i> Aktiv</div>
                         <div class="fact-value" id="detail-best-time" style="font-size: 1rem; line-height: 1.4;">--
                         </div>
-                        <div class="stat-label">På Dagen</div>
+                        <div class="stat-label"></div>
                     </div>
 
                     <!-- New Info Cards -->
                     <div class="fact-card">
                         <div class="fact-title"><i class="fa-solid fa-ruler-horizontal"></i> Storlek</div>
                         <div class="fact-value" id="detail-wingspan">-- cm</div>
-                        <div class="stat-label">Vingspann</div>
+                        <div class="stat-label"></div>
                     </div>
 
                     <div class="fact-card">
                         <div class="fact-title"><i class="fa-solid fa-egg"></i> Häckning</div>
                         <div class="fact-value" id="detail-eggs">--</div>
-                        <div class="stat-label">Antal ägg</div>
+                        <div class="stat-label"></div>
                     </div>
 
                     <div class="fact-card">
@@ -345,13 +402,7 @@
 
                 </div>
 
-                <!-- Fun Fact -->
-                <div class="fact-card" style="margin-bottom: 2rem;">
-                    <div class="fact-title"><i class="fa-solid fa-lightbulb"></i> Visste du att?</div>
-                    <p class="fun-fact-text" id="detail-fun-fact">
-                        Här kommer en rolig fakta om fågeln.
-                    </p>
-                </div>
+
 
                 <!-- Detail Actions -->
                 <div class="detail-actions">
@@ -362,13 +413,7 @@
                     </a>
                 </div>
 
-                <!-- Artportalen & Stats Section (Original section modified) -->
-                <div class="artportalen-section">
-                    <p style="margin-bottom: 0.5rem; color: #666;">
-                        <i class="fa-solid fa-binoculars"></i> <span id="detail-obs-count">Sök antal observationer i
-                            år</span>
-                    </p>
-                </div>
+
             </div>
         </div>
     </div>

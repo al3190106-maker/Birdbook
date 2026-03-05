@@ -6,8 +6,6 @@ const state = {
     view: 'log-view',
     activeCategory: null,
     guideSearchTerm: '',
-    currentUser: 'Theia',
-    sortBy: 'date',
     guideSortBy: 'name',
     quizMode: null,
     quizQuestions: [],
@@ -38,14 +36,14 @@ const SUBJECT_CONFIG = {
             quizGuessItemDesc: 'Vilken fågel är detta?',
             quizGuessStats: 'Gissa Fakta',
             quizGuessStatsDesc: 'Vad vet du om fågeln?',
-            detailBestTimeLabel: 'På Dagen',
+            detailBestTimeLabel: '',
             emptyLog: 'Inga fåglar sedda än under',
             addFirst: 'Logga din första fågel'
         },
         fields: {
             size: { key: 'wingspan', label: 'Vingspann', unit: 'cm' },
             weight: { key: 'weight', label: 'Vikt', unit: 'g', hidden: false },
-            lifespan: { key: 'eggs', label: 'Antal ägg', unit: 'st', hidden: false }
+            lifespan: { key: 'eggs', label: 'Ägg per kull', unit: 'st', hidden: false }
         }
     },
     trees: {
@@ -236,7 +234,6 @@ const elements = {
     autocompleteList: document.getElementById('autocomplete-list'),
     selectedBirdId: document.getElementById('selected-bird-id'),
     navBtns: document.querySelectorAll('.nav-btn'),
-    userBtns: document.querySelectorAll('.user-btn'),
     viewSections: document.querySelectorAll('.view-section'),
     guideSearch: document.getElementById('guide-search'),
     customImageInput: document.getElementById('custom-image-upload'),
@@ -266,8 +263,6 @@ const elements = {
 
     detailWingspan: document.getElementById('detail-wingspan'),
     detailEggs: document.getElementById('detail-eggs'),
-    detailFunFact: document.getElementById('detail-fun-fact'),
-    detailObsCount: document.getElementById('detail-obs-count'),
     detailArtportalenLink: document.getElementById('detail-artportalen-link'),
 
     sortSelect: document.getElementById('sort-select'),
@@ -403,7 +398,17 @@ function _renderBirdDetail(item) {
 
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
-    elements.detailRarity.innerHTML = '★'.repeat(item.rarity || 1) + '☆'.repeat(5 - (item.rarity || 1));
+    const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
+    const rarityColors = ['#ffffff', '#2563eb', '#9333ea', '#ea580c', '#dc2626']; // Darker shades for white background
+    const rIndex = (item.rarity || 1) - 1;
+    elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
+    elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
+    elements.detailRarity.style.backgroundColor = rIndex === 0 ? '#94a3b8' : 'transparent';
+    elements.detailRarity.style.padding = rIndex === 0 ? '0.1rem 0.4rem' : '0';
+    elements.detailRarity.style.borderRadius = rIndex === 0 ? '6px' : '0';
+    elements.detailRarity.style.display = 'inline-block';
+    elements.detailRarity.style.textShadow = 'none';
+    elements.detailRarity.style.border = 'none';
 
 
     // 1. Weight / Second Field
@@ -429,7 +434,7 @@ function _renderBirdDetail(item) {
     if (labelSize) labelSize.innerHTML = `<i class="fa-solid fa-ruler-horizontal"></i> ${fields.size.label}`;
 
     const subLabelSize = elements.detailWingspan.parentElement.querySelector('.stat-label');
-    if (subLabelSize) subLabelSize.textContent = fields.size.label;
+    if (subLabelSize) subLabelSize.textContent = '';
 
     const valSize = item[fields.size.key];
     elements.detailWingspan.textContent = valSize ? `${valSize} ${fields.size.unit}` : '--';
@@ -448,16 +453,9 @@ function _renderBirdDetail(item) {
         if (labelLife) labelLife.innerHTML = `<i class="fa-solid fa-egg"></i> ${fields.lifespan.label}`;
 
         const subLabelLife = elements.detailEggs.parentElement.querySelector('.stat-label');
-        if (subLabelLife) subLabelLife.textContent = fields.lifespan.label;
+        if (subLabelLife) subLabelLife.textContent = '';
     }
 
-    if (elements.detailFunFact) elements.detailFunFact.textContent = item.funFact || 'Ingen fakta tillgänglig.';
-
-    // Obs Count
-    const count = getFilteredSightings().filter(s => s.birdId === item.id).length;
-    if (elements.detailObsCount) {
-        elements.detailObsCount.textContent = `${count} observationer (filtrerat)`;
-    }
 
     // Setup Actions
 
@@ -600,21 +598,6 @@ async function init() {
     } else {
         // Already authenticated
         if (passwordModal) passwordModal.style.display = 'none';
-    }
-
-    // 0. Load Preserved User
-    const savedUser = localStorage.getItem('birdfinder_currentUser');
-    if (savedUser && (savedUser === 'Theia' || savedUser === 'Alexander')) {
-        state.currentUser = savedUser;
-    }
-
-    // Update active class on buttons to match state
-    if (state.currentUser === 'Alexander') {
-        document.querySelector('[data-user="Theia"]').classList.remove('active');
-        document.querySelector('[data-user="Alexander"]').classList.add('active');
-    } else {
-        document.querySelector('[data-user="Alexander"]').classList.remove('active');
-        document.querySelector('[data-user="Theia"]').classList.add('active');
     }
 
     // Check for data dependency
@@ -784,7 +767,6 @@ function getFilteredSightings() {
     const currentList = getCurrentSpeciesList();
     return state.sightings.filter(s => {
         if (s.id === 'SYSTEM_INIT_BIRD') return false;
-        if (s.user !== state.currentUser) return false;
 
         // Filter by Current Mode (Bird vs Tree)
         // Check if the ID belongs to the current list
@@ -816,7 +798,6 @@ function quickAddSighting(birdId) {
         date: new Date().toISOString().split('T')[0],
         location: 'Snabbtillägg',
         notes: '',
-        user: state.currentUser,
         photo: null
     };
 
@@ -848,7 +829,7 @@ function renderApp() {
     // 2. Update Stats (Exclude Ghost)
     const validSightings = filteredSightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD');
 
-    elements.totalSightings.textContent = validSightings.length;
+    if (elements.totalSightings) elements.totalSightings.textContent = validSightings.length;
     const uniqueBirds = new Set(validSightings.map(s => s.birdId));
     elements.uniqueSpecies.textContent = uniqueBirds.size;
 
@@ -950,9 +931,6 @@ function renderSightingsList(sightings) {
             <div class="bird-image-container">
                 <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
-                <button class="instant-add-btn" onclick="quickAddSighting('${item.id}')" title="Lägg till +1 direkt">
-                    +
-                </button>
                 <button class="delete-sighting-btn" onclick="deleteSighting('${sighting.id}')" title="Ta bort logg">
                     <i class="fa-solid fa-trash"></i>
                 </button>
@@ -1340,8 +1318,7 @@ function setupYearFilter() {
     const years = new Set([currentYear]);
 
     state.sightings.forEach(s => {
-        const sUser = s.user || 'Theia';
-        if (s.id !== 'SYSTEM_INIT_BIRD' && sUser === state.currentUser) {
+        if (s.id !== 'SYSTEM_INIT_BIRD') {
             years.add(new Date(s.date).getFullYear());
         }
     });
@@ -1376,7 +1353,6 @@ window.quickAddSighting = (birdId) => {
         date: new Date().toISOString().split('T')[0], // Today
         location: 'Snabbtillägg',
         notes: '',
-        user: state.currentUser,
         photo: null
     };
 
@@ -1517,30 +1493,14 @@ function setupEventListeners() {
                     mapRoot.dataset.initialized = 'true';
                 }
             }
+
+            // Render statistics tab
+            if (btn.dataset.tab === 'stats-view') {
+                renderStatsView();
+            }
         });
     });
 
-    // 2b. User Switching
-    elements.userBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const newUser = btn.dataset.user;
-            if (state.currentUser === newUser) return;
-
-            state.currentUser = newUser;
-            localStorage.setItem('birdfinder_currentUser', newUser);
-
-            // Update UI
-            elements.userBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Reset filters for new user
-            state.yearFilter = new Date().getFullYear(); // Default to current year or all?
-            // Check if there are sightings for this year, otherwise maybe 'all'
-
-            setupYearFilter();
-            renderApp();
-        });
-    });
 
     // 3. Modal Controls
     elements.addSightingBtn.addEventListener('click', () => {
@@ -1634,7 +1594,6 @@ function setupEventListeners() {
             date: document.getElementById('sighting-date').value,
             location: document.getElementById('sighting-location').value,
             notes: document.getElementById('sighting-notes').value,
-            user: state.currentUser,
             photo: null
         };
 
@@ -2055,6 +2014,326 @@ function applyViewMode() {
         }
     }
 }
+
+// ============================================================
+//  STATISTICS TAB
+// ============================================================
+
+/**
+ * Rank / title system.
+ * Each rank has: icon, title (sv), subtitle, minSpecies (total unique species across ALL subjects).
+ * Special "specialization" titles override the generic one if the user logged ONLY birds (or mostly birds).
+ */
+const RANKS = [
+    // Tier 0 – 0-4
+    { min: 0, icon: '🥚', title: 'Naturnyböjare', subtitle: 'Välkommen till naturens värld!' },
+    // Tier 1 – 5-14
+    { min: 5, icon: '🐣', title: 'Naturspejare', subtitle: 'Du börjar ana naturens mönster.' },
+    // Tier 2 – 15-29
+    { min: 15, icon: '🔭', title: 'Naturentusiast', subtitle: 'Kikaren är alltid plockad.' },
+    // Tier 3 – 30-49 BIRD FOCUS
+    { min: 30, icon: '🦜', title: 'Fågelskådare', subtitle: 'Du vet vad som flyger förbi.' },
+    // Tier 4 – 50-79
+    { min: 50, icon: '📓', title: 'Fältbiologen', subtitle: 'Anteckningsboken är alltid framme.' },
+    // Tier 5 – 80-119
+    { min: 80, icon: '🦅', title: 'Rapphönsornitolog', subtitle: 'Rovfåglarna saluterar dig.' },
+    // Tier 6 – 120-199
+    { min: 120, icon: '🌿', title: 'Naturälskare', subtitle: 'Skogen, sjöarna och fälten är ditt hem.' },
+    // Tier 7 – 200-299
+    { min: 200, icon: '🔬', title: 'Naturforskare', subtitle: 'Du ser vad andra missar.' },
+    // Tier 8 – 300-449
+    { min: 300, icon: '🦩', title: 'Master Ornitolog', subtitle: 'Fåglarna känner igen dig.' },
+    // Tier 9 – 450+
+    { min: 450, icon: '🏅', title: 'Naturens Väktare', subtitle: 'Du är en levande naturencyklopedi.' },
+];
+
+const BIRD_SPECIALIZATIONS = [
+    { minBirds: 5, icon: '🐦', title: 'Fågelvakt', subtitle: 'Du håller ögonen på himlen.' },
+    { minBirds: 20, icon: '🦢', title: 'Fågelskådare', subtitle: 'Kikaren sitter alltid runt halsen.' },
+    { minBirds: 50, icon: '🦅', title: 'Erfaren Ornitolog', subtitle: 'Du artbestämmer på sekunden.' },
+    { minBirds: 100, icon: '🦉', title: 'Mäster Ornitolog', subtitle: 'Fåglarna lyssnar på dig.' },
+    { minBirds: 200, icon: '🦚', title: 'Fågellegend', subtitle: 'En vandring i riksägarens sällskap.' },
+];
+
+function computeStats() {
+    // Filter out ghost / system sightings
+    const realSightings = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD');
+
+    // --- Per subject unique species counts ---
+    const subjectCounts = {};
+    for (const key in SUBJECT_CONFIG) {
+        const cfg = SUBJECT_CONFIG[key];
+        const list = window[cfg.dataVar] || [];
+        const ids = new Set(list.map(i => i.id));
+        const seen = new Set(realSightings.filter(s => ids.has(s.birdId)).map(s => s.birdId));
+        subjectCounts[key] = seen.size;
+    }
+
+    const totalUniq = Object.values(subjectCounts).reduce((a, b) => a + b, 0);
+    const birdUniq = subjectCounts.birds || 0;
+
+    // --- Determine rank ---
+    let rank = RANKS[0];
+    for (const r of RANKS) {
+        if (totalUniq >= r.min) rank = r;
+    }
+
+    // If the user is predominantly a bird person (birds > 60% of sightings), override title
+    let birdSpec = null;
+    const birdSightings = realSightings.filter(s => (window.swedishBirds || []).some(b => b.id === s.birdId));
+    if (birdSightings.length > 0 && birdSightings.length / realSightings.length > 0.6) {
+        for (const sp of BIRD_SPECIALIZATIONS) {
+            if (birdUniq >= sp.minBirds) birdSpec = sp;
+        }
+    }
+
+    const activeRank = birdSpec || rank;
+
+    // Next rank threshold
+    const currentRankIdx = RANKS.indexOf(rank);
+    const nextRank = RANKS[currentRankIdx + 1];
+    let progressPct = 100, progressLabel = 'Max rang uppnådd! 🏆';
+    if (nextRank) {
+        const span = nextRank.min - rank.min;
+        const done = totalUniq - rank.min;
+        progressPct = Math.min(100, Math.round((done / span) * 100));
+        progressLabel = `${done} / ${span} till nästa rang (${nextRank.title})`;
+    }
+
+    // --- Bird-specific highlights ---
+    const birdList = window.swedishBirds || [];
+    const loggedBirdSightings = realSightings.filter(s => birdList.some(b => b.id === s.birdId));
+    const loggedBirdIds = [...new Set(loggedBirdSightings.map(s => s.birdId))];
+    const loggedBirds = loggedBirdIds.map(id => birdList.find(b => b.id === id)).filter(Boolean);
+
+    // Rarest bird logged
+    const rarestBird = loggedBirds.length
+        ? loggedBirds.reduce((acc, b) => (b.rarity || 0) > (acc.rarity || 0) ? b : acc, loggedBirds[0])
+        : null;
+
+    // Largest wingspan
+    const biggestWingspan = loggedBirds.length
+        ? loggedBirds.reduce((acc, b) => (b.wingspan || 0) > (acc.wingspan || 0) ? b : acc, loggedBirds[0])
+        : null;
+
+    // Most logged species
+    const countByBird = {};
+    loggedBirdSightings.forEach(s => { countByBird[s.birdId] = (countByBird[s.birdId] || 0) + 1; });
+    const mostLoggedId = Object.entries(countByBird).sort((a, b) => b[1] - a[1])[0];
+    const mostLoggedBird = mostLoggedId ? birdList.find(b => b.id === mostLoggedId[0]) : null;
+    const mostLoggedCount = mostLoggedId ? mostLoggedId[1] : 0;
+
+    // Cat with most coverage
+    const birdsPerCategory = {};
+    birdList.forEach(b => { if (!birdsPerCategory[b.type]) birdsPerCategory[b.type] = { total: 0, seen: 0 }; birdsPerCategory[b.type].total++; });
+    loggedBirds.forEach(b => { if (birdsPerCategory[b.type]) birdsPerCategory[b.type].seen++; });
+    const bestCat = Object.entries(birdsPerCategory).sort((a, b) => (b[1].seen / b[1].total) - (a[1].seen / a[1].total))[0];
+
+    // Rarity breakdown for logged birds
+    const rarityNames = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
+    const rarityColors = ['#64748b', '#3b82f6', '#8b5cf6', '#f97316', '#ef4444'];
+    const rarityBreakdown = [0, 0, 0, 0, 0];
+    loggedBirds.forEach(b => { const idx = (b.rarity || 1) - 1; if (idx >= 0 && idx < 5) rarityBreakdown[idx]++; });
+
+    // Rarity score: 1pt=Allmän, 2=Vanlig, 3=Ovanlig, 5=Sällsynt, 10=Mycket sällsynt
+    const rarityPoints = [1, 2, 3, 5, 10];
+    const rarityScore = loggedBirds.reduce((sum, b) => sum + (rarityPoints[(b.rarity || 1) - 1] || 0), 0);
+
+    // --- Location & Time insights ---
+    const locationCount = {};
+    realSightings.forEach(s => {
+        const loc = (s.location || '').trim();
+        if (loc && loc !== 'Snabbtillägg' && loc !== 'System Init') {
+            locationCount[loc] = (locationCount[loc] || 0) + 1;
+        }
+    });
+    const topLocation = Object.entries(locationCount).sort((a, b) => b[1] - a[1])[0];
+
+    // Best month
+    const monthCount = {};
+    realSightings.forEach(s => {
+        if (s.date) {
+            const m = new Date(s.date).getMonth(); // 0-11
+            monthCount[m] = (monthCount[m] || 0) + 1;
+        }
+    });
+    const monthNames = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
+    const bestMonthEntry = Object.entries(monthCount).sort((a, b) => b[1] - a[1])[0];
+    const bestMonth = bestMonthEntry ? monthNames[parseInt(bestMonthEntry[0])] : null;
+
+    // Active years
+    const years = new Set(realSightings.filter(s => s.date).map(s => new Date(s.date).getFullYear()));
+    const yearCount = years.size;
+
+    // First sighting date
+    const firstDate = realSightings.filter(s => s.date).map(s => s.date).sort()[0] || null;
+
+    // Total sightings (including duplicates)
+    const totalSightings = realSightings.length;
+
+    return {
+        totalUniq, birdUniq, subjectCounts, activeRank, progressPct, progressLabel,
+        loggedBirds, rarestBird, biggestWingspan,
+        mostLoggedBird, mostLoggedCount,
+        bestCat, rarityBreakdown, rarityNames, rarityColors, rarityScore, rarityPoints,
+        topLocation, bestMonth, yearCount, firstDate, totalSightings,
+        birdSightings: loggedBirdSightings.length
+    };
+}
+
+function row(label, value, cls = '') {
+    return `<div class="stats-row">
+        <span class="stats-row-label">${label}</span>
+        <span class="stats-row-value ${cls}">${value}</span>
+    </div>`;
+}
+
+function renderStatsView() {
+    const s = computeStats();
+
+    // --- Profile card ---
+    document.getElementById('stats-rank-icon').textContent = s.activeRank.icon;
+    document.getElementById('stats-rank-title').textContent = s.activeRank.title;
+    document.getElementById('stats-rank-subtitle').textContent = s.activeRank.subtitle;
+    document.getElementById('stats-rank-progress').style.width = s.progressPct + '%';
+    document.getElementById('stats-rank-progress-label').textContent = s.progressLabel;
+
+    // --- Overview numbers ---
+    const overviewEl = document.getElementById('stats-overview-grid');
+    const overviewCards = [
+        { icon: '🔍', value: s.totalSightings, label: 'Totala observationer' },
+        { icon: '🐦', value: s.birdUniq, label: 'Unika fågelarter' },
+        { icon: '🌿', value: s.totalUniq, label: 'Unika arter (alla)' },
+        { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
+        {
+            icon: '📍', value: Object.keys(s.subjectCounts).reduce((n, k) => n, 0) || '—',
+            label: 'Ämnen utforskade'
+        },
+        { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+    ];
+    // Replace 5th with years of active subjects
+    const activeSubjects = Object.values(s.subjectCounts).filter(v => v > 0).length;
+    overviewCards[4] = { icon: '📚', value: activeSubjects, label: 'Böcker utforskade' };
+    overviewEl.innerHTML = overviewCards.map(c => `
+        <div class="stats-overview-card">
+            <div class="stats-overview-icon">${c.icon}</div>
+            <div class="stats-overview-value">${c.value}</div>
+            <div class="stats-overview-label">${c.label}</div>
+        </div>
+    `).join('');
+
+    // --- Bird Stats Panel ---
+    const birdsEl = document.getElementById('stats-birds-body');
+    if (s.loggedBirds.length === 0) {
+        birdsEl.innerHTML = `<div class="stats-empty"><i class="fa-solid fa-dove"></i><p>Logga din första fågel för att se statistik!</p></div>`;
+    } else {
+        const totalBirdTypes = (window.swedishBirds || []).length;
+        const coverage = Math.round((s.birdUniq / totalBirdTypes) * 100);
+        birdsEl.innerHTML = `
+            ${row('🦅 Sällsyntaste fågeln', s.rarestBird ? `${s.rarestBird.nameSv} <small style="color:#8b5cf6">(Nivå ${s.rarestBird.rarity})</small>` : '—', 'highlight')}
+            ${row('📏 Störst vingspann', s.biggestWingspan ? `${s.biggestWingspan.nameSv} (${s.biggestWingspan.wingspan} cm)` : '—')}
+            ${row('🔄 Mest loggad', s.mostLoggedBird ? `${s.mostLoggedBird.nameSv} · ${s.mostLoggedCount}×` : '—', 'highlight')}
+            ${row('📦 Bästa kategori', s.bestCat ? `${s.bestCat[0]} (${s.bestCat[1].seen}/${s.bestCat[1].total})` : '—')}
+            ${row('📊 Artböckens täckning', `${s.birdUniq} / ${totalBirdTypes} (${coverage}%)`)}
+            ${row('⭐ Sällsynthetsscore', s.rarityScore + ' poäng', 'rarity-score')}
+        `;
+    }
+
+    // --- Nature Profile Panel ---
+    const natureEl = document.getElementById('stats-nature-body');
+    const subjects = [
+        { key: 'birds', icon: '🐦', name: 'Fåglar', color: '#2E5D4B' },
+        { key: 'animals', icon: '🐾', name: 'Vilt', color: '#795548' },
+        { key: 'flowers', icon: '🌸', name: 'Blommor', color: '#e91e63' },
+        { key: 'trees', icon: '🌲', name: 'Träd', color: '#388e3c' },
+        { key: 'fish', icon: '🐟', name: 'Fisk', color: '#0288d1' },
+        { key: 'fungi', icon: '🍄', name: 'Svamp', color: '#e64a19' },
+    ];
+    const maxCount = Math.max(1, ...subjects.map(sub => s.subjectCounts[sub.key] || 0));
+
+    // Determine specialization label
+    let specLabel = '';
+    const birdPct = s.totalUniq > 0 ? (s.birdUniq / s.totalUniq) : 0;
+    if (birdPct > 0.8 && s.birdUniq > 5) specLabel = `<span class="stats-specialization">Fågelspecialist</span>`;
+    else if (birdPct < 0.3 && s.totalUniq > 10) specLabel = `<span class="stats-specialization">Naturalist</span>`;
+    else if (s.totalUniq > 5) specLabel = `<span class="stats-specialization">Allroundare</span>`;
+
+    natureEl.innerHTML = subjects.map(sub => {
+        const cnt = s.subjectCounts[sub.key] || 0;
+        const w = Math.round((cnt / maxCount) * 100);
+        return `<div class="nature-subject-row">
+            <span class="nature-subject-icon">${sub.icon}</span>
+            <span class="nature-subject-name">${sub.name}</span>
+            <div class="nature-subject-bar-wrap">
+                <div class="nature-subject-bar-fill" style="width: ${w}%; background: ${sub.color}"></div>
+            </div>
+            <span class="nature-subject-count">${cnt}</span>
+        </div>`;
+    }).join('') + specLabel;
+
+    // --- Achievements / Badges ---
+    const badgesEl = document.getElementById('stats-badges-grid');
+    const badges = [
+        { icon: '🥚', name: 'Första fågeln', desc: 'Logga din första observation', earned: s.totalSightings >= 1 },
+        { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: s.totalSightings >= 10 },
+        { icon: '🦅', name: '5 fågelarter', desc: 'Observera 5 unika fågelarter', earned: s.birdUniq >= 5 },
+        { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en ugglor-observation', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && s.loggedBirds.some(lb => lb.id === b.id)) },
+        { icon: '👑', name: '25 fågelarter', desc: 'Observera 25 unika fågelarter', earned: s.birdUniq >= 25 },
+        { icon: '🦢', name: '50 fågelarter', desc: 'Observera 50 unika fågelarter', earned: s.birdUniq >= 50 },
+        { icon: '🌿', name: 'Naturälskare', desc: 'Logga i 3+ olika ämnesböcker', earned: Object.values(s.subjectCounts).filter(v => v > 0).length >= 3 },
+        { icon: '💐', name: 'Blomstervän', desc: 'Logga 5 blommor', earned: (s.subjectCounts.flowers || 0) >= 5 },
+        { icon: '🍄', name: 'Svampplockaren', desc: 'Logga 5 svampar', earned: (s.subjectCounts.fungi || 0) >= 5 },
+        { icon: '🐟', name: 'Fiskaren', desc: 'Logga 5 fiskar', earned: (s.subjectCounts.fish || 0) >= 5 },
+        { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (s.subjectCounts.animals || 0) >= 5 },
+        { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt fågel (nivå 4+)', earned: s.loggedBirds.some(b => (b.rarity || 0) >= 4) },
+        { icon: '🏆', name: 'Raritetsmästare', desc: 'Uppnå 100 sällsynthetsscore', earned: s.rarityScore >= 100 },
+        { icon: '📍', name: 'Äventyraren', desc: 'Logga på 5 olika platser', earned: Object.keys(s.subjectCounts).length > 0 && (() => { const locs = new Set(state.sightings.filter(s => s.location && s.location !== 'Snabbtillägg' && s.location !== 'System Init' && s.id !== 'SYSTEM_INIT_BIRD').map(s => s.location)); return locs.size >= 5; })() },
+        { icon: '🌟', name: '100 unika arter', desc: 'Totalt 100 unika arter loggade', earned: s.totalUniq >= 100 },
+    ];
+
+    badgesEl.innerHTML = badges.map(b => `
+        <div class="stats-badge ${b.earned ? 'earned' : 'locked'}">
+            ${b.earned ? '<div class="stats-badge-earned-glow"></div>' : ''}
+            <span class="stats-badge-icon">${b.icon}</span>
+            <div class="stats-badge-name">${b.name}</div>
+            <div class="stats-badge-desc">${b.desc}</div>
+        </div>
+    `).join('');
+
+    // --- Time & Location ---
+    const timeEl = document.getElementById('stats-time-body');
+    timeEl.innerHTML = `
+        ${row('📍 Favoritplats', s.topLocation ? `${s.topLocation[0]} (${s.topLocation[1]}×)` : '—', 'highlight')}
+        ${row('🌸 Bästa månad', s.bestMonth || '—')}
+        ${row('📅 Aktiva år', s.yearCount === 0 ? '—' : s.yearCount + ' år')}
+        ${row('🗓 Första observation', s.firstDate ? new Date(s.firstDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }) : '—')}
+        ${row('📋 Totala observationer', s.totalSightings)}
+    `;
+
+    // --- Rarity breakdown ---
+    const rarityEl = document.getElementById('stats-rarity-body');
+    const maxRarityCount = Math.max(1, ...s.rarityBreakdown);
+    const totalLogged = s.loggedBirds.length;
+    rarityEl.innerHTML = `
+        ${row('🏅 Totalt sällsynthetsscore', s.rarityScore + ' poäng', 'rarity-score')}
+        <div class="rarity-breakdown">
+            ${s.rarityNames.map((name, i) => {
+        const cnt = s.rarityBreakdown[i];
+        const w = Math.round((cnt / maxRarityCount) * 100);
+        return `<div class="rarity-bar-row">
+                    <span class="rarity-bar-label">${name}</span>
+                    <div class="rarity-bar-wrap">
+                        <div class="rarity-bar-fill" style="width:${w}%; background:${s.rarityColors[i]}"></div>
+                    </div>
+                    <span class="rarity-bar-count">${cnt}</span>
+                </div>`;
+    }).join('')}
+        </div>
+        ${totalLogged > 0 ? row('📊 Snittpoäng / art', (s.rarityScore / totalLogged).toFixed(1)) : ''}
+    `;
+}
+
+// ============================================================
 
 // Start
 document.addEventListener('DOMContentLoaded', init);
