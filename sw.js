@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v2-local';
+const CACHE_NAME = 'birdfinder-v3-local';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -36,11 +36,29 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    // Strategies: Cache First, falling back to Network
+    // Strategy: Network First, falling back to Cache
     event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                return response || fetch(event.request);
-            })
+        fetch(event.request).then((response) => {
+            // Check if we received a valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+                return response;
+            }
+
+            // IMPORTANT: Clone the response. A response is a stream
+            // and because we want the browser to consume the response
+            // as well as the cache consuming the response, we need
+            // to clone it so we have two streams.
+            var responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+                .then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+
+            return response;
+        }).catch(() => {
+            // If network fails, try cache
+            return caches.match(event.request);
+        })
     );
 });

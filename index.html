@@ -151,8 +151,33 @@
             <!-- Quiz Mode Selection -->
             <div id="quiz-menu" class="quiz-menu">
                 <h2 class="quiz-title" id="quiz-main-title">Fågelquiz</h2>
-                <p class="quiz-subtitle" id="quiz-subtitle">Testa dina kunskaper om svenska fåglar!</p>
-                <div class="quiz-modes-grid">
+                <p class="quiz-subtitle" id="quiz-subtitle">Välj en svårighetsgrad för att starta quizen!</p>
+
+                <div class="difficulty-grid">
+                    <div class="difficulty-card" data-difficulty="nyborjare">
+                        <div class="diff-icon">🐣</div>
+                        <h3>Nybörjaren</h3>
+                        <p>Allmänna arter</p>
+                    </div>
+                    <div class="difficulty-card" data-difficulty="intresserad">
+                        <div class="diff-icon">🐦</div>
+                        <h3>Fågelintresserad</h3>
+                        <p>Allmänna & Vanliga</p>
+                    </div>
+                    <div class="difficulty-card" data-difficulty="skadare">
+                        <div class="diff-icon">🔭</div>
+                        <h3>Fågelskådare</h3>
+                        <p>Ovanliga & Sällsynta</p>
+                    </div>
+                    <div class="difficulty-card" data-difficulty="orakel">
+                        <div class="diff-icon">🦉</div>
+                        <h3>Fågelorakel</h3>
+                        <p>Ovanliga till Mycket Sällsynta</p>
+                    </div>
+                </div>
+
+                <!-- Hidden for now, simplified to direct difficulty choice -->
+                <div class="quiz-modes-grid hidden">
                     <div class="quiz-mode-card" data-mode="image">
                         <div class="quiz-mode-icon"><i class="fa-solid fa-image"></i></div>
                         <h3>Gissa Fågeln</h3>
@@ -170,7 +195,8 @@
                         <span id="quiz-score">0</span> / <span id="quiz-total">10</span>
                     </div>
                     <button id="quiz-quit-btn" class="quiz-btn secondary quiz-quit-btn"><i
-                            class="fa-solid fa-xmark"></i> Avsluta</button>
+                            class="fa-solid fa-xmark"></i>
+                        Avsluta</button>
                 </div>
                 <div class="quiz-progress-bar">
                     <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
@@ -185,6 +211,7 @@
                 <div class="quiz-results-card">
                     <div class="quiz-results-icon" id="quiz-results-icon">🎉</div>
                     <h2 id="quiz-results-title">Bra jobbat!</h2>
+                    <p class="quiz-results-difficulty" id="quiz-results-difficulty">Nivå: Nybörjaren</p>
                     <p class="quiz-results-score">Du fick <strong id="quiz-final-score">0</strong> av <strong
                             id="quiz-final-total">10</strong> rätt</p>
                     <div class="quiz-results-bar">
@@ -418,6 +445,21 @@
         </div>
     </div>
     </div>
+    <!-- Fullscreen Image Modal -->
+    <div class="modal-overlay" id="fullscreen-image-modal" style="z-index: 4000; background-color: rgba(0, 0, 0, 0.9);">
+        <button class="close-modal" id="close-fullscreen-img"
+            style="color: white; font-size: 2rem; position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; cursor: pointer; z-index: 4010;"><i
+                class="fa-solid fa-times"></i></button>
+        <button id="fullscreen-prev" class="carousel-btn carousel-btn-prev" style="z-index: 4010;"
+            aria-label="Föregående bild"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="fullscreen-next" class="carousel-btn carousel-btn-next" style="z-index: 4010;"
+            aria-label="Nästa bild"><i class="fa-solid fa-chevron-right"></i></button>
+        <div id="fullscreen-counter"
+            style="position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 20px; font-weight: bold; font-family: var(--font-stack, sans-serif); letter-spacing: 1px; z-index: 4010; font-size: 0.9rem;">
+        </div>
+        <img id="fullscreen-img-element" src="" alt="Fullscreen Image"
+            style="max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 8px;">
+    </div>
 
     <!-- Password Modal -->
     <div class="modal-overlay" id="password-modal" style="z-index: 3000; background-color: var(--primary);">
@@ -437,6 +479,10 @@
                 </div>
                 <button type="submit" class="submit-btn">Lås upp</button>
             </form>
+            <button id="install-btn-login" class="secondary-btn"
+                style="margin-top: 1.5rem; width: 100%; border: 2px solid var(--primary); background: white; color: var(--primary);">
+                <i class="fa-solid fa-download"></i> Installera appen
+            </button>
         </div>
     </div>
 

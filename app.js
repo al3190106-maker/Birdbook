@@ -8,6 +8,7 @@ const state = {
     guideSearchTerm: '',
     guideSortBy: 'name',
     quizMode: null,
+    quizDifficulty: null,
     quizQuestions: [],
     quizCurrent: 0,
     quizScore: 0,
@@ -265,6 +266,13 @@ const elements = {
     detailEggs: document.getElementById('detail-eggs'),
     detailArtportalenLink: document.getElementById('detail-artportalen-link'),
 
+    // Fullscreen Modal Elements
+    fsModal: document.getElementById('fullscreen-image-modal'),
+    fsImg: document.getElementById('fullscreen-img-element'),
+    fsPrev: document.getElementById('fullscreen-prev'),
+    fsNext: document.getElementById('fullscreen-next'),
+    fsCounter: document.getElementById('fullscreen-counter'),
+
     sortSelect: document.getElementById('sort-select'),
     guideSortSelect: document.getElementById('guide-sort-select'),
     timeFilterContainer: document.getElementById('time-filter-container'),
@@ -279,6 +287,8 @@ window.addEventListener('popstate', (event) => {
     // 1. Close all modals visually first
     elements.modal.classList.remove('active');
     elements.detailModal.classList.remove('active');
+    const fsModal = document.getElementById('fullscreen-image-modal');
+    if (fsModal) fsModal.classList.remove('active');
 
     // 2. Restore state
     if (event.state) {
@@ -342,6 +352,10 @@ function _buildCarousel(images) {
             this.src = `images/${currentCarouselBirdId}.jpg`;
             this.onerror = null;
         };
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+            _openFullscreenSlide(i);
+        });
         slide.appendChild(img);
         slides.appendChild(slide);
 
@@ -376,6 +390,11 @@ function _goToSlide(index) {
     allSlides.forEach((s, i) => s.classList.toggle('active', i === index));
     allDots.forEach((d, i) => d.classList.toggle('active', i === index));
     _updateCarouselCounter();
+
+    if (elements.fsImg && elements.fsModal && elements.fsModal.classList.contains('active')) {
+        elements.fsImg.src = carouselImages[carouselIndex];
+        _updateFullscreenNav();
+    }
 }
 
 function _updateCarouselCounter() {
@@ -385,7 +404,29 @@ function _updateCarouselCounter() {
     }
 }
 
-function _renderBirdDetail(item) {
+function _openFullscreenSlide(index) {
+    if (!elements.fsModal || !elements.fsImg) return;
+    _goToSlide(index);
+    elements.fsImg.src = carouselImages[carouselIndex];
+    elements.fsModal.classList.add('active');
+    history.pushState({ modal: 'fullscreen' }, '');
+    _updateFullscreenNav();
+}
+
+function _updateFullscreenNav() {
+    const total = carouselImages.length;
+    if (elements.fsPrev && elements.fsNext) {
+        const showNav = total > 1;
+        elements.fsPrev.style.display = showNav ? '' : 'none';
+        elements.fsNext.style.display = showNav ? '' : 'none';
+    }
+    if (elements.fsCounter) {
+        elements.fsCounter.textContent = total > 1 ? `${carouselIndex + 1} / ${total}` : '';
+        elements.fsCounter.style.display = total > 1 ? '' : 'none';
+    }
+}
+
+function _renderBirdDetail(item, sighting = null) {
     const config = SUBJECT_CONFIG[state.currentSubject];
     const fields = config.fields;
 
@@ -458,9 +499,25 @@ function _renderBirdDetail(item) {
 
 
     // Setup Actions
-
     if (elements.detailArtportalenLink) {
         elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(item.nameSv)}`;
+    }
+
+    // Delete sighting button — only show when opened from log
+    const existingDeleteBtn = document.getElementById('detail-delete-btn');
+    if (existingDeleteBtn) existingDeleteBtn.remove();
+
+    if (sighting) {
+        const deleteBtn = document.createElement('button');
+        deleteBtn.id = 'detail-delete-btn';
+        deleteBtn.className = 'detail-delete-btn';
+        deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i> Ta bort observation`;
+        deleteBtn.addEventListener('click', () => {
+            elements.detailModal.classList.remove('active');
+            deleteSighting(sighting.id);
+        });
+        const actionsDiv = document.querySelector('.detail-actions');
+        if (actionsDiv) actionsDiv.appendChild(deleteBtn);
     }
 }
 function getCurrentSpeciesList() {
@@ -648,21 +705,39 @@ async function init() {
     // --- PWA Install Logic ---
     let deferredPrompt;
     const installBtn = document.getElementById('install-btn');
+    const installBtnLogin = document.getElementById('install-btn-login');
+
+    // Initial check: Hide if already installed
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if (isStandalone) {
+        if (installBtn) installBtn.style.display = 'none';
+        if (installBtnLogin) installBtnLogin.style.display = 'none';
+    }
 
     window.addEventListener('beforeinstallprompt', (e) => {
         // Prevent the mini-infobar from appearing on mobile
         e.preventDefault();
         // Stash the event so it can be triggered later.
         deferredPrompt = e;
-        // Update UI notify the user they can install the PWA
-        installBtn.style.display = 'block';
 
-        console.log('Use can install app');
+        // Show promotion only if not already installed
+        if (!isStandalone) {
+            if (installBtn) installBtn.style.display = 'block';
+            if (installBtnLogin) installBtnLogin.style.display = 'block';
+        }
+
+        console.log('User can install app');
     });
 
-    installBtn.addEventListener('click', async () => {
-        // Hide the app provided install promotion
-        installBtn.style.display = 'none';
+    const handleInstallClick = async () => {
+        if (!deferredPrompt) {
+            alert('Appen kan inte installeras just nu. Om du använder iPhone, tryck på "Dela"-knappen och välj "Lägg till på hemskärmen".');
+            return;
+        }
+        // Hide the promotion
+        if (installBtn) installBtn.style.display = 'none';
+        if (installBtnLogin) installBtnLogin.style.display = 'none';
+
         // Show the install prompt
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt
@@ -670,12 +745,14 @@ async function init() {
         console.log(`User response to the install prompt: ${outcome}`);
         // We've used the prompt, and can't use it again, throw it away
         deferredPrompt = null;
-    });
+    };
+
+    if (installBtn) installBtn.addEventListener('click', handleInstallClick);
+    if (installBtnLogin) installBtnLogin.addEventListener('click', handleInstallClick);
 
     window.addEventListener('appinstalled', () => {
-        // Hide the app-provided install promotion
-        installBtn.style.display = 'none';
-        // Clear the deferredPrompt so it can be garbage collected
+        if (installBtn) installBtn.style.display = 'none';
+        if (installBtnLogin) installBtnLogin.style.display = 'none';
         deferredPrompt = null;
         console.log('PWA was installed');
     });
@@ -781,8 +858,8 @@ function getFilteredSightings() {
     });
 }
 
-function openBirdDetail(item) {
-    _renderBirdDetail(item);
+function openBirdDetail(item, sighting = null) {
+    _renderBirdDetail(item, sighting);
     elements.detailModal.classList.add('active');
     history.pushState({ modal: 'detail', birdId: item.id }, '');
 }
@@ -931,9 +1008,6 @@ function renderSightingsList(sightings) {
             <div class="bird-image-container">
                 <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
-                <button class="delete-sighting-btn" onclick="deleteSighting('${sighting.id}')" title="Ta bort logg">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
             </div>
             <div class="bird-info">
                 <div class="bird-primary-name">${item.nameSv}</div>
@@ -951,7 +1025,7 @@ function renderSightingsList(sightings) {
 
         card.addEventListener('click', (e) => {
             if (e.target.closest('button')) return;
-            openBirdDetail(item);
+            openBirdDetail(item, sighting);
         });
         card.style.cursor = 'pointer';
         elements.sightingsList.appendChild(card);
@@ -1549,6 +1623,39 @@ function setupEventListeners() {
         }, { passive: true });
     }
 
+    // Fullscreen Navigation
+    if (elements.fsPrev) {
+        elements.fsPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            _goToSlide(carouselIndex - 1);
+        });
+    }
+    if (elements.fsNext) {
+        elements.fsNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            _goToSlide(carouselIndex + 1);
+        });
+    }
+
+    // Touch/Swipe support for fullscreen modal
+    let fsTouchStartX = 0;
+    let fsTouchEndX = 0;
+    if (elements.fsModal) {
+        elements.fsModal.addEventListener('touchstart', (e) => {
+            // Ignore touch events on buttons to avoid double execution or conflicts
+            if (e.target.closest('button')) return;
+            fsTouchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        elements.fsModal.addEventListener('touchend', (e) => {
+            if (e.target.closest('button')) return;
+            fsTouchEndX = e.changedTouches[0].clientX;
+            const diff = fsTouchStartX - fsTouchEndX;
+            if (Math.abs(diff) > 40) {
+                _goToSlide(diff > 0 ? carouselIndex + 1 : carouselIndex - 1);
+            }
+        }, { passive: true });
+    }
+
 
     // 4. Autocomplete
     elements.birdSearchInput.addEventListener('input', function () {
@@ -1696,6 +1803,28 @@ function setupEventListeners() {
         state.yearFilter = v === 'all' ? 'all' : parseInt(v);
         renderApp();
     });
+
+    // Close modals when clicking outside the modal content
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal-overlay')) {
+            // Do not close password modal by clicking outside
+            if (e.target.id === 'password-modal') return;
+
+            // These modals use HTML5 history state for navigation
+            if (e.target.id === 'sighting-modal' || e.target.id === 'bird-detail-modal-overlay' || e.target.id === 'fullscreen-image-modal') {
+                history.back();
+            } else {
+                e.target.classList.remove('active');
+            }
+        }
+    });
+
+    const fsCloseBtn = document.getElementById('close-fullscreen-img');
+    if (fsCloseBtn) {
+        fsCloseBtn.addEventListener('click', () => {
+            history.back();
+        });
+    }
 }
 
 // --- Quiz System ---
@@ -1758,7 +1887,27 @@ function getClosestBirds(bird, stat, count) {
 }
 
 function generateQuizQuestions(mode, count = 10) {
-    const list = getCurrentSpeciesList();
+    let list = getCurrentSpeciesList();
+
+    // Filter by rarity if it's birds and difficulty is set
+    if (state.currentSubject === 'birds' && state.quizDifficulty) {
+        const diff = state.quizDifficulty;
+        if (diff === 'nyborjare') {
+            list = list.filter(b => (b.rarity || 1) === 1);
+        } else if (diff === 'intresserad') {
+            list = list.filter(b => (b.rarity || 1) <= 2);
+        } else if (diff === 'skadare') {
+            list = list.filter(b => (b.rarity || 1) >= 3 && (b.rarity || 1) <= 4);
+        } else if (diff === 'orakel') {
+            list = list.filter(b => (b.rarity || 1) >= 3);
+        }
+    }
+
+    // Safety fallback if filtered list is too small
+    if (list.length < 4) {
+        list = getCurrentSpeciesList();
+    }
+
     const birds = [...list].sort(() => Math.random() - 0.5);
     const questions = [];
 
@@ -1832,8 +1981,9 @@ function showQuizMenu() {
     document.getElementById('quiz-results').classList.add('hidden');
 }
 
-function initQuiz(mode) {
+function initQuiz(mode, difficulty = 'nyborjare') {
     state.quizMode = mode;
+    state.quizDifficulty = difficulty;
     state.quizQuestions = generateQuizQuestions(mode);
     state.quizCurrent = 0;
     state.quizScore = 0;
@@ -1942,6 +2092,18 @@ function showQuizResults() {
     document.getElementById('quiz-final-total').textContent = total;
     document.getElementById('quiz-results-bar-fill').style.width = pct + '%';
 
+    // Difficulty label
+    const diffNames = {
+        'nyborjare': 'Nybörjaren',
+        'intresserad': 'Fågelintresserad',
+        'skadare': 'Fågelskådare',
+        'orakel': 'Fågelorakel'
+    };
+    const diffEl = document.getElementById('quiz-results-difficulty');
+    if (diffEl) {
+        diffEl.textContent = `Nivå: ${diffNames[state.quizDifficulty] || 'Standard'}`;
+    }
+
     // Fun results
     let icon, title;
     if (pct === 100) { icon = '🏆'; title = 'Perfekt! Du är en fågelexpert!'; }
@@ -1956,11 +2118,20 @@ function showQuizResults() {
 
 // --- Quiz Event Listeners ---
 document.addEventListener('DOMContentLoaded', () => {
+    // Difficulty cards
+    document.querySelectorAll('.difficulty-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const diff = card.dataset.difficulty;
+            // Since we currently only have "image" mode, we start that directly
+            initQuiz('image', diff);
+        });
+    });
+
     // Quiz mode cards
     document.querySelectorAll('.quiz-mode-card').forEach(card => {
         card.addEventListener('click', () => {
             const mode = card.dataset.mode;
-            initQuiz(mode);
+            initQuiz(mode, state.quizDifficulty || 'nyborjare');
         });
     });
 
