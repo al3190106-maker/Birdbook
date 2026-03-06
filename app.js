@@ -49,7 +49,7 @@ const SUBJECT_CONFIG = {
     },
     trees: {
         id: 'trees',
-        name: 'Träboken',
+        name: 'Trädboken',
         icon: 'fa-tree',
         dataVar: 'swedishTrees',
         themeClass: 'mode-trees',
@@ -101,7 +101,7 @@ const SUBJECT_CONFIG = {
     },
     animals: {
         id: 'animals',
-        name: 'Viltboken',
+        name: 'Däggdjursboken',
         icon: 'fa-paw',
         dataVar: 'swedishAnimals',
         themeClass: 'mode-animals',
