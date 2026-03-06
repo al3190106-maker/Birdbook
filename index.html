@@ -461,29 +461,74 @@
             style="max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 8px;">
     </div>
 
+    <!-- Welcome Modal -->
+    <div id="welcome-modal" class="modal-overlay" style="z-index: 2500; background-color: var(--primary);">
+        <div class="modal-content library-menu" style="max-width: 450px; text-align: center;">
+            <div style="font-size: 3.5rem; margin-bottom: 0.5rem; color: var(--primary);">
+                <i class="fa-solid fa-leaf"></i>
+            </div>
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Naturkalendern</h2>
+            <p style="margin-bottom: 1.5rem; color: #666; font-size: 1.05rem;">Visste du att du kan samla mer än bara
+                fåglar? Välj en bok nedan för att starta din upptäcktsfärd!</p>
+
+            <div class="library-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; padding: 0.5rem 0;">
+                <button class="library-card mode-birds"
+                    onclick="switchSubject('birds'); document.getElementById('welcome-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-dove"></i></div>
+                    <span class="lib-label">Fåglar</span>
+                </button>
+                <button class="library-card mode-trees"
+                    onclick="switchSubject('trees'); document.getElementById('welcome-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-tree"></i></div>
+                    <span class="lib-label">Träd</span>
+                </button>
+                <button class="library-card mode-fish"
+                    onclick="switchSubject('fish'); document.getElementById('welcome-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-fish"></i></div>
+                    <span class="lib-label">Fiskar</span>
+                </button>
+                <button class="library-card mode-animals"
+                    onclick="switchSubject('animals'); document.getElementById('welcome-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-paw"></i></div>
+                    <span class="lib-label">Däggdjur</span>
+                </button>
+                <button class="library-card mode-fungi"
+                    onclick="switchSubject('fungi'); document.getElementById('welcome-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-circle"></i></div>
+                    <span class="lib-label">Svampar</span>
+                </button>
+                <button class="library-card mode-flowers"
+                    onclick="switchSubject('flowers'); document.getElementById('welcome-modal').classList.remove('active')">
+                    <div class="lib-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <span class="lib-label">Blommor</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Password Modal -->
     <div class="modal-overlay" id="password-modal" style="z-index: 3000; background-color: var(--primary);">
         <div class="modal-content" style="max-width: 400px; text-align: center;">
-            <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            <h2>Välkommen!</h2>
-            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Ange lösenord för att fortsätta.</p>
-            <form id="password-form">
-                <div class="form-group">
-                    <input type="password" id="password-input" placeholder="Lösenord" required
-                        style="text-align: center; letter-spacing: 2px;">
-                </div>
-                <div id="password-error" style="color: #e74c3c; margin-bottom: 1rem; display: none;">
-                    Fel lösenord. Försök igen.
-                </div>
-                <button type="submit" class="submit-btn">Lås upp</button>
-            </form>
-            <button id="install-btn-login" class="secondary-btn"
-                style="margin-top: 1.5rem; width: 100%; border: 2px solid var(--primary); background: white; color: var(--primary);">
-                <i class="fa-solid fa-download"></i> Installera appen
-            </button>
+            <i class="fa-solid fa-lock"></i>
         </div>
+        <h2>Välkommen!</h2>
+        <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Ange lösenord för att fortsätta.</p>
+        <form id="password-form">
+            <div class="form-group">
+                <input type="password" id="password-input" placeholder="Lösenord" required
+                    style="text-align: center; letter-spacing: 2px;">
+            </div>
+            <div id="password-error" style="color: #e74c3c; margin-bottom: 1rem; display: none;">
+                Fel lösenord. Försök igen.
+            </div>
+            <button type="submit" class="submit-btn">Lås upp</button>
+        </form>
+        <button id="install-btn-login" class="secondary-btn"
+            style="margin-top: 1.5rem; width: 100%; border: 2px solid var(--primary); background: white; color: var(--primary);">
+            <i class="fa-solid fa-download"></i> Installera appen
+        </button>
+    </div>
     </div>
 
     <!-- Firebase SDK Removed -->

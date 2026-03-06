@@ -626,15 +626,16 @@ async function init() {
 
     // --- Password Protection ---
     const isAuthenticated = localStorage.getItem('birdfinder_auth_token') === 'valid';
+    const hasSeenWelcome = localStorage.getItem('birdfinder_welcome_shown') === 'true';
     const passwordModal = document.getElementById('password-modal');
     const passwordForm = document.getElementById('password-form');
     const passwordInput = document.getElementById('password-input');
     const passwordError = document.getElementById('password-error');
+    const welcomeModal = document.getElementById('welcome-modal');
 
     if (!isAuthenticated) {
         // Show modal
         passwordModal.classList.add('active');
-        passwordModal.style.display = 'flex'; // Ensure flex for centering
 
         // Handle Submit
         passwordForm.addEventListener('submit', (e) => {
@@ -643,8 +644,13 @@ async function init() {
             if (input === 'apa') {
                 // Correct
                 localStorage.setItem('birdfinder_auth_token', 'valid');
-                passwordModal.style.display = 'none';
                 passwordModal.classList.remove('active');
+
+                // Show Welcome screen if never seen
+                if (!hasSeenWelcome && welcomeModal) {
+                    welcomeModal.classList.add('active');
+                    localStorage.setItem('birdfinder_welcome_shown', 'true');
+                }
             } else {
                 // Incorrect
                 passwordError.style.display = 'block';
@@ -654,7 +660,13 @@ async function init() {
         });
     } else {
         // Already authenticated
-        if (passwordModal) passwordModal.style.display = 'none';
+        if (passwordModal) passwordModal.classList.remove('active');
+
+        // Show Welcome screen if they haven't seen it yet
+        if (!hasSeenWelcome && welcomeModal) {
+            welcomeModal.classList.add('active');
+            localStorage.setItem('birdfinder_welcome_shown', 'true');
+        }
     }
 
     // Check for data dependency
@@ -1807,8 +1819,8 @@ function setupEventListeners() {
     // Close modals when clicking outside the modal content
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal-overlay')) {
-            // Do not close password modal by clicking outside
-            if (e.target.id === 'password-modal') return;
+            // Do not close password modal or welcome modal by clicking outside
+            if (e.target.id === 'password-modal' || e.target.id === 'welcome-modal') return;
 
             // These modals use HTML5 history state for navigation
             if (e.target.id === 'sighting-modal' || e.target.id === 'bird-detail-modal-overlay' || e.target.id === 'fullscreen-image-modal') {
