@@ -240,6 +240,11 @@ const elements = {
     guideSearch: document.getElementById('guide-search'),
     customImageInput: document.getElementById('custom-image-upload'),
     resetBtn: document.getElementById('reset-app-btn'),
+    settingsBtn: document.getElementById('settings-btn'),
+    settingsModal: document.getElementById('settings-modal'),
+    exportDataBtn: document.getElementById('export-data-btn'),
+    importDataBtn: document.getElementById('import-data-btn'),
+    importDataInput: document.getElementById('import-data-input'),
     imagePreviewContainer: document.getElementById('image-preview-container'),
     sightingPhoto: document.getElementById('sighting-photo'),
     // Guide Elements
@@ -1463,13 +1468,96 @@ window.quickAddSighting = (birdId) => {
 // --- Event Listeners ---
 
 function setupEventListeners() {
-    // 1. Reset App
+    // Settings Modal Open
+    if (elements.settingsBtn) {
+        elements.settingsBtn.addEventListener('click', () => {
+            if (elements.settingsModal) elements.settingsModal.classList.add('active');
+        });
+    }
+
+    // 1. Reset App (Inside Settings)
     if (elements.resetBtn) {
         elements.resetBtn.addEventListener('click', () => {
             if (confirm('VARNING: Detta kommer att radera ALLA dina observationer och egna bilder. Är du säker?')) {
                 localStorage.clear();
                 location.reload();
             }
+        });
+    }
+
+    // Export Data
+    if (elements.exportDataBtn) {
+        elements.exportDataBtn.addEventListener('click', () => {
+            // Generate a backup object containing sightings and custom images
+            const backup = {
+                sightings: state.sightings,
+                customImages: {}
+            };
+
+            // Extract all custom images
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('custom_img_')) {
+                    backup.customImages[key] = localStorage.getItem(key);
+                }
+            }
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "naturboken_backup_" + new Date().toISOString().split('T')[0] + ".json");
+            document.body.appendChild(downloadAnchorNode); // required for firefox
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        });
+    }
+
+    // Import Data Trigger
+    if (elements.importDataBtn) {
+        elements.importDataBtn.addEventListener('click', () => {
+            if (elements.importDataInput) elements.importDataInput.click();
+        });
+    }
+
+    // Import Data Action
+    if (elements.importDataInput) {
+        elements.importDataInput.addEventListener('change', (e) => {
+            if (e.target.files.length === 0) return;
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                try {
+                    const backup = JSON.parse(event.target.result);
+                    if (backup && backup.sightings) {
+                        if (confirm('Vill du skriva över din nuvarande data med denna backup? Detta går inte att ångra.')) {
+                            // Clear basic storage that might conflict
+                            localStorage.removeItem('birdfinder_sightings');
+
+                            // Load custom images from backup if they exist
+                            if (backup.customImages) {
+                                Object.keys(backup.customImages).forEach(key => {
+                                    localStorage.setItem(key, backup.customImages[key]);
+                                });
+                            }
+
+                            // Overwrite sightings
+                            state.sightings = backup.sightings;
+                            saveSightings();
+                            alert('Backup inläst! Appen laddas nu om.');
+                            location.reload();
+                        }
+                    } else {
+                        alert('Ogiltig backup-fil.');
+                    }
+                } catch (err) {
+                    console.error('Import error', err);
+                    alert('Något gick fel när filen skulle läsas. Är det verkligen en korrekt backup-fil?');
+                }
+            };
+            reader.readAsText(file);
+            // Clear input so same file can be selected again
+            e.target.value = '';
         });
     }
 
