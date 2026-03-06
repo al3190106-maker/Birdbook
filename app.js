@@ -513,7 +513,12 @@ function _renderBirdDetail(item, sighting = null) {
     const existingDeleteBtn = document.getElementById('detail-delete-btn');
     if (existingDeleteBtn) existingDeleteBtn.remove();
 
+    // Quick Add button — only show when opened from guide (no sighting passed)
+    const detailQuickAddBtn = document.getElementById('detail-quick-add-btn');
+
     if (sighting) {
+        if (detailQuickAddBtn) detailQuickAddBtn.style.display = 'none';
+
         const deleteBtn = document.createElement('button');
         deleteBtn.id = 'detail-delete-btn';
         deleteBtn.className = 'detail-delete-btn';
@@ -524,6 +529,29 @@ function _renderBirdDetail(item, sighting = null) {
         });
         const actionsDiv = document.querySelector('.detail-actions');
         if (actionsDiv) actionsDiv.appendChild(deleteBtn);
+    } else {
+        if (detailQuickAddBtn) {
+            detailQuickAddBtn.style.display = 'inline-flex';
+
+            // Clean up old event listeners to prevent duplicate clicks
+            const newDetailQuickAddBtn = detailQuickAddBtn.cloneNode(true);
+            detailQuickAddBtn.replaceWith(newDetailQuickAddBtn);
+
+            newDetailQuickAddBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                quickAddSighting(item.id);
+
+                // Visual feedback
+                const originalHTML = newDetailQuickAddBtn.innerHTML;
+                newDetailQuickAddBtn.innerHTML = '<i class="fa-solid fa-check"></i> Tillagd';
+                newDetailQuickAddBtn.style.backgroundColor = '#2ecc71';
+
+                setTimeout(() => {
+                    newDetailQuickAddBtn.innerHTML = originalHTML;
+                    newDetailQuickAddBtn.style.backgroundColor = '';
+                }, 1500);
+            });
+        }
     }
 }
 function getCurrentSpeciesList() {
