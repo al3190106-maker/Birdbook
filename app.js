@@ -228,6 +228,7 @@ const elements = {
     closeModal: document.getElementById('close-modal'),
     form: document.getElementById('sighting-form'),
     yearSelect: document.getElementById('year-select'),
+    yearFilterContainer: document.querySelector('.year-filter-container'),
     currentYearDisplay: document.getElementById('current-year-display'),
     sightingsList: document.getElementById('sightings-list'),
     guideList: document.getElementById('guide-list'),
@@ -1494,6 +1495,9 @@ function setupEventListeners() {
             elements.viewSections.forEach(s => s.classList.remove('active'));
             document.getElementById('log-view').classList.add('active');
             state.view = 'log-view';
+            if (elements.yearFilterContainer) {
+                elements.yearFilterContainer.style.display = '';
+            }
         });
     }
 
@@ -1570,6 +1574,11 @@ function setupEventListeners() {
             document.getElementById(btn.dataset.tab).classList.add('active');
 
             state.view = btn.dataset.tab;
+
+            // Toggle year filter visibility (Only show in log-view)
+            if (elements.yearFilterContainer) {
+                elements.yearFilterContainer.style.display = (state.view === 'log-view') ? '' : 'none';
+            }
 
             // Initialize Sweden map on first visit
             if (btn.dataset.tab === 'sweden-view' && typeof renderSwedenMap === 'function') {
