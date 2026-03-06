@@ -362,9 +362,9 @@ body {
 }
 
 .edit-image-btn,
-.delete-sighting-btn {
+.delete-sighting-btn,
+.quick-add-btn {
     position: absolute;
-    top: 10px;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -380,16 +380,26 @@ body {
 }
 
 .edit-image-btn {
+    top: 10px;
     right: 10px;
 }
 
 .delete-sighting-btn {
+    top: 10px;
     left: 10px;
     background: rgba(220, 53, 69, 0.8);
 }
 
+.quick-add-btn {
+    bottom: 10px;
+    right: 10px;
+    background: var(--primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .bird-card:hover .edit-image-btn,
-.bird-card:hover .delete-sighting-btn {
+.bird-card:hover .delete-sighting-btn,
+.bird-card:hover .quick-add-btn {
     opacity: 1;
 }
 

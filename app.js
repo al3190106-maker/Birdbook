@@ -1132,10 +1132,18 @@ function renderGuideList(birdList) {
         if (quickAddBtn) {
             quickAddBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Open sighting modal pre-filled with this bird
-                // Open sighting modal pre-filled with this bird
-                history.pushState({ modal: 'sighting', birdId: bird.id }, '');
-                _showSightingModal(bird.id, bird.nameSv);
+
+                quickAddSighting(bird.id);
+
+                // Visual feedback
+                const originalIcon = quickAddBtn.innerHTML;
+                quickAddBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                quickAddBtn.style.backgroundColor = '#2ecc71';
+
+                setTimeout(() => {
+                    quickAddBtn.innerHTML = originalIcon;
+                    quickAddBtn.style.backgroundColor = '';
+                }, 1500);
             });
         }
 
