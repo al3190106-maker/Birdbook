@@ -615,6 +615,50 @@
         </div>
     </div>
 
+    <!-- iOS Install Modal -->
+    <div class="modal-overlay" id="ios-install-modal" style="z-index: 5000;">
+        <div class="modal-content" style="max-width: 350px; text-align: center; border-radius: 20px; padding: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">
+                <i class="fa-solid fa-download"></i>
+            </div>
+            <h2 style="margin-bottom: 1rem; font-size: 1.5rem; color: var(--text-main);">Installera Appen</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+                Eftersom du använder en iPhone/iPad via Safari måste du lägga till appen manuellt. Följ dessa två snabba steg:
+            </p>
+            
+            <div style="background: #f8f9fa; border-radius: 12px; padding: 1.2rem; text-align: left; margin-bottom: 1.5rem; border: 1px solid #e9ecef;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem;">
+                    <div style="background: white; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0;">
+                        <span style="font-size: 1.5rem; color: #007AFF; font-family: -apple-system, sans-serif;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                <polyline points="16 6 12 2 8 6"></polyline>
+                                <line x1="12" y1="2" x2="12" y2="15"></line>
+                            </svg>
+                        </span>
+                    </div>
+                    <div>
+                        <strong style="display: block; font-size: 0.95rem; margin-bottom: 0.2rem;">1. Tryck på Dela-knappen</strong>
+                        <span style="font-size: 0.85rem; color: #666;">Du hittar den i menyn längst ner på skärmen i Safari.</span>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <div style="background: white; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0;">
+                        <i class="fa-solid fa-square-plus" style="font-size: 1.3rem; color: var(--text-main);"></i>
+                    </div>
+                    <div>
+                        <strong style="display: block; font-size: 0.95rem; margin-bottom: 0.2rem;">2. Lägg till på hemskärmen</strong>
+                        <span style="font-size: 0.85rem; color: #666;">Scrolla ner i listan och välj detta alternativ.</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="document.getElementById('ios-install-modal').classList.remove('active')"
+                style="width: 100%; border-radius: 30px;">Jag förstår</button>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="birds.js"></script>
     <script src="trees.js"></script>

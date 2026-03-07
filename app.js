@@ -787,7 +787,8 @@ async function init() {
     const handleInstallClick = async () => {
         if (!deferredPrompt) {
             if (isIos) {
-               alert('För att installera appen på iPhone/iPad:\n\n1. Tryck på Dela-knappen (fyrkant med pil uppåt) längst ner i webbläsaren.\n2. Välj "Lägg till på hemskärmen" i listan.');
+               const iosModal = document.getElementById('ios-install-modal');
+               if (iosModal) iosModal.classList.add('active');
             } else {
                alert('Appen kan inte installeras automatiskt just nu. Försök att lägga till den på hemskärmen via din webbläsares meny.');
             }
