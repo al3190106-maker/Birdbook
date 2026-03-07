@@ -755,9 +755,18 @@ async function init() {
 
     // Initial check: Hide if already installed
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    
+    // Detect iOS
+    const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase()) || 
+                  (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
+
     if (isStandalone) {
         if (installBtn) installBtn.style.display = 'none';
         if (installBtnLogin) installBtnLogin.style.display = 'none';
+    } else if (isIos) {
+        // iOS doesn't support beforeinstallprompt, so we always show the button
+        if (installBtn) installBtn.style.display = 'inline-block';
+        if (installBtnLogin) installBtnLogin.style.display = 'inline-flex';
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -777,7 +786,11 @@ async function init() {
 
     const handleInstallClick = async () => {
         if (!deferredPrompt) {
-            alert('Appen kan inte installeras just nu. Om du använder iPhone, tryck på "Dela"-knappen och välj "Lägg till på hemskärmen".');
+            if (isIos) {
+               alert('För att installera appen på iPhone/iPad:\n\n1. Tryck på Dela-knappen (fyrkant med pil uppåt) längst ner i webbläsaren.\n2. Välj "Lägg till på hemskärmen" i listan.');
+            } else {
+               alert('Appen kan inte installeras automatiskt just nu. Försök att lägga till den på hemskärmen via din webbläsares meny.');
+            }
             return;
         }
         // Hide the promotion
