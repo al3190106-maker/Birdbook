@@ -530,15 +530,36 @@ body {
     font-size: 0.8rem;
     color: var(--text-muted);
     font-style: italic;
-    margin-bottom: 0.8rem;
+    color: var(--text-muted);
 }
 
-.sighting-details {
-    margin-top: auto;
-    padding-top: 0.8rem;
-    border-top: 1px solid #eee;
-    font-size: 0.9rem;
+.bird-description {
+    font-size: 0.85rem;
     color: var(--text-muted);
+    margin: 0.5rem 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+#detail-description {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin: 1rem 0;
+    line-height: 1.6;
+    display: block !important;
+}
+
+.bird-card-rarity {
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
 }
 
 .detail-row {
@@ -1096,50 +1117,75 @@ body {
 
 .category-card {
     background: white;
-    aspect-ratio: 1 / 1;
-    border-radius: 12px;
+    aspect-ratio: 1 / 1.1;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-    border: 2px solid transparent;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     text-align: center;
-    padding: 1rem;
+    padding: 1.2rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    border-color: var(--secondary);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.category-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .category-icon {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: var(--primary);
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.1);
 }
 
 .category-icon-img {
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
     object-fit: contain;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+}
+
+.category-card:hover .category-icon-img {
+    transform: scale(1.1);
 }
 
 .category-name {
-    font-weight: 600;
-    color: var(--text-main);
-    font-size: 0.95rem;
+    font-weight: 700;
+    color: inherit;
+    font-size: 1rem;
     line-height: 1.2;
+    margin-top: 0.2rem;
 }
 
 .category-count {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--cat-text, var(--text-muted));
+    margin-top: 0.5rem;
+    opacity: 0.85;
+    font-weight: 500;
 }
 
 /* Guide Navigation */
@@ -2906,11 +2952,12 @@ body.mode-trees .stat-value {
 }
 
 
-/* Träboken Sunburnt Yellow Theme */
+/* Träboken Sage/Forest Theme */
 body.mode-trees {
-    --primary: #E09F3E;
-    --primary-light: #F4C47B;
-    --primary-dark: #A66E1A;
+    --primary: #385a3c;
+    --primary-light: #5e8c61;
+    --primary-dark: #1e3a1e;
+    --background: #f0f4f1;
 }
 
 body.mode-trees .app-header {
@@ -2985,9 +3032,11 @@ body.mode-trees .quiz-btn.primary {
 
 .lib-label {
     font-family: 'Outfit', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.1rem;
     z-index: 1;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.2px;
 }
 
 /* Background overlay for depth */
@@ -3006,9 +3055,9 @@ body.mode-trees .quiz-btn.primary {
 
 /* Subject Specific Styles */
 
-/* Birds: Green (Root) */
+/* Birds: Forest Mist */
 .library-card.mode-birds {
-    background: #2E5D4B;
+    background: linear-gradient(135deg, #2E5D4B 0%, #3e7a63 100%);
     color: white;
 }
 
@@ -3016,9 +3065,9 @@ body.mode-trees .quiz-btn.primary {
     color: white;
 }
 
-/* Trees: Yellow/Orange */
+/* Trees: Deep Sage */
 .library-card.mode-trees {
-    background: #E09F3E;
+    background: linear-gradient(135deg, #385a3c 0%, #4a7a50 100%);
     color: white;
 }
 
@@ -3026,9 +3075,9 @@ body.mode-trees .quiz-btn.primary {
     color: white;
 }
 
-/* Fish: Blue */
+/* Fish: Oceanic Slate */
 .library-card.mode-fish {
-    background: #005bea;
+    background: linear-gradient(135deg, #2c3e50 0%, #3d5a71 100%);
     color: white;
 }
 
@@ -3036,9 +3085,9 @@ body.mode-trees .quiz-btn.primary {
     color: white;
 }
 
-/* Animals: Earthy/Brown */
+/* Animals: Warm Earth */
 .library-card.mode-animals {
-    background: #795548;
+    background: linear-gradient(135deg, #795548 0%, #8d6e63 100%);
     color: white;
 }
 
@@ -3046,9 +3095,9 @@ body.mode-trees .quiz-btn.primary {
     color: white;
 }
 
-/* Fungi: Orange/Red */
+/* Fungi: Deep Cinnamon */
 .library-card.mode-fungi {
-    background: #d84315;
+    background: linear-gradient(135deg, #5a2d1a 0%, #7d3c26 100%);
     color: white;
 }
 
@@ -3106,84 +3155,80 @@ body.mode-trees .quiz-btn.primary {
 }
 
 /* =============================================
-   Blomboken (Flower Mode) — Rose/Magenta Theme
+   Blomboken (Flower Mode) — Lavender/Iris Theme
    ============================================= */
 body.mode-flowers {
-    --primary: #c2185b;
-    --secondary: #f06292;
-    --accent: #f8bbd0;
-    --background: #fce4ec;
+    --primary: #5d4485;
+    --secondary: #856db5;
+    --accent: #b1a5c1;
+    --background: #f3f0f8;
 }
 
 body.mode-flowers .app-header {
-    background: linear-gradient(135deg, #ad1457 0%, #c2185b 60%, #e91e63 100%);
+    background: linear-gradient(135deg, #3a2a5a 0%, #5d4485 60%, #856db5 100%);
 }
 
 body.mode-flowers .nav-btn.active {
-    color: #c2185b;
+    color: #5d4485;
 }
 
 body.mode-flowers .stat-value {
-    color: #c2185b;
+    color: #5d4485;
 }
 
 body.mode-flowers .action-card {
-    background: linear-gradient(135deg, #e91e63, #f06292);
+    background: linear-gradient(135deg, #5d4485, #856db5);
 }
 
 body.mode-flowers .action-card:hover {
-    background: linear-gradient(135deg, #c2185b, #e91e63);
+    background: linear-gradient(135deg, #443266, #5d4485);
 }
 
 body.mode-flowers .submit-btn {
-    background-color: #c2185b;
+    background-color: #5d4485;
 }
 
 body.mode-flowers .submit-btn:hover {
-    background-color: #ad1457;
+    background-color: #443266;
 }
 
 body.mode-flowers .form-group input:focus,
 body.mode-flowers .form-group textarea:focus {
-    border-color: #c2185b;
-    box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.12);
+    border-color: #5d4485;
+    box-shadow: 0 0 0 3px rgba(93, 68, 133, 0.12);
 }
 
 body.mode-flowers .modal-content h2 {
-    color: #c2185b;
+    color: #5d4485;
 }
 
 body.mode-flowers .autocomplete-item strong {
-    color: #c2185b;
+    color: #5d4485;
 }
 
 body.mode-flowers .quiz-btn.primary {
-    background-color: #c2185b;
+    background-color: #5d4485;
 }
 
 body.mode-flowers .quiz-btn.primary:hover {
-    background-color: #ad1457;
+    background-color: #443266;
 }
 
 body.mode-flowers .quiz-results-score strong {
-    color: #c2185b;
-}
-
-body.mode-flowers .category-card {
-    border-top: 4px solid #e91e63;
+    color: #5d4485;
 }
 
 body.mode-flowers .add-sighting-detail-btn {
-    background-color: #c2185b;
+    background-color: #5d4485;
 }
 
 body.mode-flowers .bird-secondary-name {
-    color: #e91e63;
+    color: #5d4485;
 }
 
-/* Blomboken Library Card */
+/* Blomboken Library Card: Soft Iris */
 .library-card.mode-flowers {
-    background: #c2185b;
+    background: linear-gradient(135deg, #5d4485 0%, #7d63a8 100%);
     color: white;
 }
 
@@ -3195,9 +3240,10 @@ body.mode-flowers .bird-secondary-name {
    App Themes
    ============================================= */
 body.mode-fish {
-    --primary: #005bea;
-    --primary-light: #4facfe;
-    --primary-dark: #003a99;
+    --primary: #2c3e50;
+    --primary-light: #4a6b8c;
+    --primary-dark: #1a2a3a;
+    --background: #f0f4f8;
 }
 
 body.mode-fish .app-header,
@@ -3231,9 +3277,10 @@ body.mode-animals .quiz-results-score strong {
 }
 
 body.mode-fungi {
-    --primary: #d84315;
-    --primary-light: #ff7043;
-    --primary-dark: #bf360c;
+    --primary: #5a2d1a;
+    --primary-light: #8c4a2d;
+    --primary-dark: #3a1a0a;
+    --background: #f8f4f0;
 }
 
 body.mode-fungi .app-header,

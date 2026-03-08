@@ -44,7 +44,9 @@ const SUBJECT_CONFIG = {
             quizGuessStatsDesc: 'Vad vet du om fågeln?',
             detailBestTimeLabel: '',
             emptyLog: 'Inga fåglar sedda än under',
-            addFirst: 'Logga din första fågel'
+            addFirst: 'Logga din första fågel',
+            guideTab: 'Fågelguide',
+            quizTab: 'Fågelquiz'
         },
         fields: {
             size: { key: 'wingspan', label: 'Vingspann', unit: 'cm' },
@@ -70,7 +72,9 @@ const SUBJECT_CONFIG = {
             quizGuessStatsDesc: 'Vad vet du om trädet?',
             detailBestTimeLabel: 'Växtplats',
             emptyLog: 'Inga träd sedda än under',
-            addFirst: 'Logga ditt första träd'
+            addFirst: 'Logga ditt första träd',
+            guideTab: 'Trädguide',
+            quizTab: 'Trädquiz'
         },
         fields: {
             size: { key: 'height', label: 'Höjd', unit: 'm' },
@@ -96,7 +100,9 @@ const SUBJECT_CONFIG = {
             quizGuessStatsDesc: 'Vad vet du om fisken?',
             detailBestTimeLabel: 'Vatten',
             emptyLog: 'Inga fiskar sedda än under',
-            addFirst: 'Logga din första fisk'
+            addFirst: 'Logga din första fisk',
+            guideTab: 'Fiskguide',
+            quizTab: 'Fiskquiz'
         },
         fields: {
             size: { key: 'length', label: 'Längd', unit: 'cm' },
@@ -122,7 +128,9 @@ const SUBJECT_CONFIG = {
             quizGuessStatsDesc: 'Vad vet du om djuret?',
             detailBestTimeLabel: 'Aktivitet',
             emptyLog: 'Inga djur sedda än under',
-            addFirst: 'Logga ditt första djur'
+            addFirst: 'Logga ditt första djur',
+            guideTab: 'Djurguide',
+            quizTab: 'Djurquiz'
         },
         fields: {
             size: { key: 'height', label: 'Mankhöjd', unit: 'cm' },
@@ -148,7 +156,9 @@ const SUBJECT_CONFIG = {
             quizGuessStatsDesc: 'Vad vet du om svampen?',
             detailBestTimeLabel: 'Säsong',
             emptyLog: 'Inga svampar sedda än under',
-            addFirst: 'Logga din första svamp'
+            addFirst: 'Logga din första svamp',
+            guideTab: 'Svampguide',
+            quizTab: 'Svampquiz'
         },
         fields: {
             size: { key: 'size', label: 'Hattbredd', unit: 'cm' },
@@ -174,7 +184,9 @@ const SUBJECT_CONFIG = {
             quizGuessStatsDesc: 'Vad vet du om blomman?',
             detailBestTimeLabel: 'Blomningstid',
             emptyLog: 'Inga blommor sedda än under',
-            addFirst: 'Logga din första blomma'
+            addFirst: 'Logga din första blomma',
+            guideTab: 'Blomguide',
+            quizTab: 'Blomquiz'
         },
         fields: {
             size: { key: 'height', label: 'Höjd', unit: 'cm' },
@@ -207,21 +219,38 @@ const CATEGORY_THEMES = {
     'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨' },
     'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦' },
     // Tree Themes
-    'Lövträd': { bg: ['#4caf50', '#8bc34a'], accent: '#cddc39', icon: '🍃' },
-    'Barrträd': { bg: ['#1b5e20', '#2e7d32'], accent: '#4caf50', icon: '🌲' },
-    'Ädla lövträd': { bg: ['#3e2723', '#5d4037'], accent: '#8d6e63', icon: '🌳' },
-    'Buskar': { bg: ['#558b2f', '#7cb342'], accent: '#aed581', icon: '🌿' },
-    // Generic Themes
-    'Fisk': { bg: ['#0288d1', '#03a9f4'], accent: '#b3e5fc', icon: '🐟' },
+    'Lövträd': { bg: ['#385a3c', '#5e8c61'], accent: '#a7c1a8', icon: '🍃' },
+    'Barrträd': { bg: ['#1e3a34', '#2d5a4e'], accent: '#85c5b5', icon: '🌲' },
+    'Ädla lövträd': { bg: ['#5a4a27', '#8c7a4d'], accent: '#d4c185', icon: '🌳' },
+    'Buskar': { bg: ['#4a5a27', '#7a8c4d'], accent: '#c1d485', icon: '🌿' },
+    // Fish Themes
+    'Rovfisk': { bg: ['#2c3e50', '#4a6b8c'], accent: '#95afc0', icon: '🐟' },
+    'Abborrfiskar': { bg: ['#3d4a27', '#5a6d34'], accent: '#a3b37a', icon: '🐠' },
+    'Sillfiskar': { bg: ['#2d4a5a', '#4a6d8c'], accent: '#a5c1e1', icon: '🐟' },
+    'Torskfiskar': { bg: ['#3a3a2a', '#5a5a4a'], accent: '#a1a185', icon: '🐟' },
+    'Laxfiskar': { bg: ['#4a3a3a', '#7a5a5a'], accent: '#c1a5a5', icon: '🎣' },
+    'Karpfiskar': { bg: ['#5a4a1a', '#8c7a2d'], accent: '#d1c5a5', icon: '🐟' },
+    'Platfiskar': { bg: ['#5a5a4a', '#8a8a7a'], accent: '#c1c1b5', icon: '🐟' },
+    'Ålfiskar': { bg: ['#1a2a3a', '#2a4a5a'], accent: '#6aafcf', icon: '🐍' },
+    'Makrillfiskar': { bg: ['#1a3a4a', '#2a5a6d'], accent: '#85b5c5', icon: '🐟' },
+    'Fisk': { bg: ['#1a4a6d', '#2a6d85'], accent: '#85b5d5', icon: '🐟' },
     'Djur': { bg: ['#795548', '#8d6e63'], accent: '#d7ccc8', icon: '🐾' },
-    'Svamp': { bg: ['#e64a19', '#ff5722'], accent: '#ffccbc', icon: '🍄' },
+    // Fungi Themes
+    'Kantareller': { bg: ['#6d5a1a', '#9c8c2d'], accent: '#f1e1a5', icon: '🍄' },
+    'Soppar': { bg: ['#4a3728', '#6d5d44'], accent: '#c5b585', icon: '🍄' },
+    'Flugsvampar': { bg: ['#6d1a1a', '#9c2d2d'], accent: '#f1a5a5', icon: '🍄' },
+    'Riska': { bg: ['#6d3a1a', '#9c5a2d'], accent: '#f1b5a5', icon: '🍄' },
+    'Tickor': { bg: ['#3a2a1a', '#5a4a3a'], accent: '#a59585', icon: '🍄' },
+    'Röksvampar': { bg: ['#5a5a5a', '#7a7a7a'], accent: '#c1c1c1', icon: '🍄' },
+    'Murkla': { bg: ['#4a3a2a', '#6d5a4a'], accent: '#b5a595', icon: '🍄' },
+    'Svamp': { bg: ['#5a2d1a', '#8c4a2d'], accent: '#d1a585', icon: '🍄' },
     // Flower Themes
-    'Vårblommor': { bg: ['#880e4f', '#ad1457'], accent: '#f48fb1', icon: '🌸' },
-    'Ängsblommor': { bg: ['#4a148c', '#7b1fa2'], accent: '#ce93d8', icon: '🌼' },
-    'Skogsblommor': { bg: ['#1b5e20', '#388e3c'], accent: '#a5d6a7', icon: '🌿' },
-    'Orkidéer': { bg: ['#6a1b9a', '#8e24aa'], accent: '#e1bee7', icon: '🌺' },
-    'Vattenblommor': { bg: ['#01579b', '#0288d1'], accent: '#b3e5fc', icon: '🌊' },
-    'Hedblommor': { bg: ['#4e342e', '#795548'], accent: '#d7ccc8', icon: '🫐' }
+    'Vårblommor': { bg: ['#2d4a5a', '#4a6d8c'], accent: '#a5c1e1', icon: '🌸' },
+    'Ängsblommor': { bg: ['#6d5a1a', '#8c7a2d'], accent: '#d1c585', icon: '🌼' },
+    'Skogsblommor': { bg: ['#1e3a1e', '#2d5a2d'], accent: '#85c585', icon: '🌿' },
+    'Orkidéer': { bg: ['#441a44', '#6d2a6d'], accent: '#c585c5', icon: '🌺' },
+    'Vattenblommor': { bg: ['#0d3b4f', '#1a6b7a'], accent: '#4ec9d4', icon: '🌊' },
+    'Hedblommor': { bg: ['#4a2d44', '#6d3d5a'], accent: '#b585a3', icon: '🫐' }
 };
 
 // --- DOM Elements ---
@@ -327,7 +356,11 @@ window.addEventListener('popstate', (event) => {
 
 function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     elements.form.reset();
-    document.getElementById('sighting-date').valueAsDate = new Date();
+    const sightingDateEl = document.getElementById('sighting-date');
+    const today = new Date();
+    sightingDateEl.valueAsDate = today;
+    // Set max to today so user can't select future dates
+    sightingDateEl.max = today.toISOString().split('T')[0];
     elements.imagePreviewContainer.innerHTML = '';
 
     if (prefillBirdId) {
@@ -451,7 +484,7 @@ function _renderBirdDetail(item, sighting = null) {
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
     const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-    const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; // White, Green, Blue, Purple, Orange
+    const rarityColors = ['#94a3b8', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; 
     const rIndex = (item.rarity || 1) - 1;
     elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
     elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
@@ -461,6 +494,13 @@ function _renderBirdDetail(item, sighting = null) {
     elements.detailRarity.style.display = 'inline-block';
     elements.detailRarity.style.textShadow = 'none';
     elements.detailRarity.style.border = 'none';
+    
+    // 0. Description / Fun Fact
+    const descEl = document.getElementById('detail-description');
+    if (descEl) {
+        descEl.textContent = item.funFact || '';
+        descEl.style.display = item.funFact ? 'block' : 'none';
+    }
 
 
     // 1. Weight / Second Field
@@ -604,6 +644,27 @@ function switchSubject(subjectId) {
     // Detail Labels
     const bestTimeLabel = document.querySelector('#detail-best-time + .stat-label');
     if (bestTimeLabel) bestTimeLabel.textContent = config.texts.detailBestTimeLabel;
+
+    // 3b. Update Nav Tabs & Interface Labels
+    const guideTabBtn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+    const quizTabBtn = document.querySelector('.nav-btn[data-tab="quiz-view"]');
+    if (guideTabBtn) guideTabBtn.textContent = config.texts.guideTab;
+    if (quizTabBtn) quizTabBtn.textContent = config.texts.quizTab;
+
+    const subjectPrefix = config.name.replace('boken', '');
+    
+    // Update Quiz Difficulty Cards
+    const diffCards = document.querySelectorAll('.difficulty-card h3');
+    if (diffCards.length >= 4) {
+        // Nybörjaren remains unchanged
+        diffCards[1].textContent = subjectPrefix + 'intresserad';
+        diffCards[2].textContent = subjectPrefix + 'skådare';
+        diffCards[3].textContent = subjectPrefix + 'orakel';
+    }
+
+    // Update Stats Panel Title
+    const statsTitle = document.querySelector('#stats-birds-panel .stats-panel-title');
+    if (statsTitle) statsTitle.innerHTML = `<i class="fa-solid ${config.icon}"></i> ${subjectPrefix}statistik`;
 
     // 4. Update Sort Options
     const sortSelect = document.getElementById('guide-sort-select');
@@ -752,8 +813,8 @@ async function init() {
     // Default to birds if not set (or load from storage if we persisted subject? 
     // For now default is fine, or arguably we should persist it. 
     // Let's stick to default birds for simplicity unless changed).
-    // Actually, we should probably render the current subject correctly on init.
-    // switchSubject(state.currentSubject); // Ensure UI matches state
+    // Ensure UI matches state after everything is set up
+    switchSubject(state.currentSubject); 
 
     // --- Cloud Real-Time Listener (Removed) ---
 
@@ -1186,6 +1247,9 @@ function renderGuideList(birdList) {
 
     elements.guideList.innerHTML = '';
 
+    const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
+    const rarityColors = ['#94a3b8', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
+
     birdList.forEach(bird => {
         const card = document.createElement('div');
         card.className = 'bird-card';
@@ -1209,6 +1273,10 @@ function renderGuideList(birdList) {
                  <div class="bird-primary-name">${bird.nameSv}</div>
                 <div class="bird-secondary-name">${bird.nameEn}</div>
                 <div class="bird-scientific">${bird.scientific}</div>
+                ${bird.funFact ? `<div class="bird-description">${bird.funFact}</div>` : ''}
+                <div class="bird-card-rarity" style="color: ${rarityColors[(bird.rarity || 1) - 1]}">
+                    <i class="fa-solid fa-star"></i> ${rarityLevels[(bird.rarity || 1) - 1]}
+                </div>
             </div>
         `;
 
@@ -1304,10 +1372,21 @@ function renderGuideCategories() {
 function createCategoryCard(cat) {
     const div = document.createElement('div');
     div.className = 'category-card';
+    
+    // Apply theme if available
+    const theme = CATEGORY_THEMES[cat.name];
+    if (theme) {
+        div.style.backgroundColor = theme.bg;
+        div.style.color = theme.text;
+        // Also set a property for the count text if we want it to match
+        div.style.setProperty('--cat-text', theme.text);
+    }
+
     const imgFile = CATEGORY_ICON_IMAGES[cat.name];
     const iconHtml = (state.currentSubject === 'birds' && imgFile)
         ? `<img src="images/category_icons/${imgFile}" class="category-icon-img" alt="${cat.name}" onerror="this.style.display='none';this.nextElementSibling&&this.nextElementSibling.classList.remove('hidden')">`
-        : `<i class="fa-solid ${cat.icon} category-icon"></i>`;
+        : `<i class="fa-solid ${cat.icon} category-icon" ${theme ? `style="color: ${theme.text}"` : ''}></i>`;
+    
     div.innerHTML = `
         ${iconHtml}
         <div class="category-name">${cat.name}</div>
@@ -1518,7 +1597,12 @@ window.handleImageError = function (imgEl) {
 
 function setupYearFilter() {
     const currentYear = new Date().getFullYear();
-    const years = new Set([currentYear]);
+    const years = new Set();
+    
+    // Add all years from 2020 up to currentYear
+    for (let y = 2020; y <= currentYear; y++) {
+        years.add(y);
+    }
 
     state.sightings.forEach(s => {
         if (s.id !== 'SYSTEM_INIT_BIRD') {
@@ -2304,11 +2388,12 @@ function showQuizResults() {
     document.getElementById('quiz-results-bar-fill').style.width = pct + '%';
 
     // Difficulty label
+    const subjectPrefix = SUBJECT_CONFIG[state.currentSubject].name.replace('boken', '');
     const diffNames = {
         'nyborjare': 'Nybörjaren',
-        'intresserad': 'Fågelintresserad',
-        'skadare': 'Fågelskådare',
-        'orakel': 'Fågelorakel'
+        'intresserad': subjectPrefix + 'intresserad',
+        'skadare': subjectPrefix + 'skadare',
+        'orakel': subjectPrefix + 'orakel'
     };
     const diffEl = document.getElementById('quiz-results-difficulty');
     if (diffEl) {
