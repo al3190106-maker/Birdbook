@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --primary: #2E5D4B;
     --secondary: #8FBC8F;
     --accent: #D4A373;
@@ -35,8 +35,23 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 500;
     gap: 2rem;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.top-actions button {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.top-actions button:hover {
+    opacity: 1;
 }
 
 .header-center {
@@ -643,6 +658,33 @@ body {
 
 .modal-overlay.active {
     display: flex;
+    animation: fadeInOverlay 0.3s ease-out forwards;
+}
+
+.modal-overlay.active .modal-content {
+    animation: slideUpModal 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        background: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+    }
+    to {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+    }
+}
+
+@keyframes slideUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .modal-content {
@@ -1933,9 +1975,25 @@ body {
         padding: 0.6rem 0.8rem;
     }
 
-    .app-header>.logo {
+    .header-top {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header-top .logo {
+        grid-column: 2;
+        margin: 0 auto;
         display: flex;
         justify-content: center;
+    }
+
+    .header-top .top-actions {
+        grid-column: 3;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
     }
 
     .header-center {
@@ -3016,21 +3074,35 @@ body.mode-trees .quiz-btn.primary {
     color: #2c3e50;
 }
 
-/* View Modes */
-body.view-mode-text .bird-image-container {
+/* View Modes Fixed */
+#log-view .bird-info {
     display: none !important;
 }
 
-body.view-mode-image .bird-info {
-    display: none !important;
-}
-
-body.view-mode-text .detail-row {
-    display: none !important;
-}
-
-body.view-mode-image .bird-image-container img {
+#log-view .bird-image-container img {
     border-radius: var(--border-radius) !important;
+}
+
+.bird-image-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 0.5rem 0.5rem 0.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    pointer-events: none;
+    display: none;
+    z-index: 10;
+}
+
+#log-view .bird-image-name {
+    display: block;
 }
 
 /* =============================================
@@ -3612,4 +3684,144 @@ body.mode-fungi .quiz-results-score strong {
     .stats-badges-grid {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     }
+}
+
+/* --- More Info Details Accordion --- */
+.more-info-details {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+}
+
+.more-info-summary {
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none; /* Hide default arrow */
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.more-info-summary::-webkit-details-marker {
+    display: none;
+}
+
+.more-info-summary:hover {
+    background: #f1f1f1;
+}
+
+.more-info-summary i {
+    transition: transform 0.3s;
+    font-size: 0.9rem;
+}
+
+.more-info-details[open] .more-info-summary i {
+    transform: rotate(180deg);
+}
+
+.more-info-content {
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    background: white;
+}
+
+/* --- Achievement Toast Notifications --- */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column; /* Stack naturally */
+    gap: 10px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .toast-container {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+.achievement-toast {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+    .achievement-toast {
+        transform: translateY(120px);
+    }
+}
+
+.achievement-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .achievement-toast.show {
+        transform: translateY(0);
+    }
+}
+
+.toast-icon {
+    font-size: 2rem;
+    margin-right: 12px;
+}
+
+.toast-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.toast-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.toast-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* --- Unseen Highlight Notifications --- */
+@keyframes unseen-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 163, 115, 0.6), inset 0 0 5px rgba(212, 163, 115, 0.4);
+        border: 2px solid rgba(212, 163, 115, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 15px 5px rgba(212, 163, 115, 0.8), inset 0 0 10px rgba(212, 163, 115, 0.6);
+        border: 2px solid rgba(212, 163, 115, 1);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 163, 115, 0.6), inset 0 0 5px rgba(212, 163, 115, 0.4);
+        border: 2px solid rgba(212, 163, 115, 0.2);
+    }
+}
+
+.unseen-highlight {
+    animation: unseen-pulse 1.5s infinite ease-in-out !important;
+    position: relative;
+    box-sizing: border-box;
 }

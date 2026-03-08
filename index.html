@@ -20,10 +20,16 @@
 
 <body>
     <header class="app-header">
-        <div class="logo" id="app-title" style="cursor: pointer;" title="Klicka för att byta bok">
-            <i class="fa-solid fa-dove" id="app-logo-icon"></i>
-            <h1 id="app-title-text">Fågelboken</h1>
-            <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem; opacity: 0.7;"></i>
+        <div class="header-top">
+            <div class="logo" id="app-title" style="cursor: pointer;" title="Klicka för att byta bok">
+                <i class="fa-solid fa-dove" id="app-logo-icon"></i>
+                <h1 id="app-title-text">Fågelboken</h1>
+                <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem; opacity: 0.7;"></i>
+            </div>
+            <div class="top-actions" style="display: flex; gap: 0.5rem;">
+                <button id="info-btn" class="icon-btn" title="Information" onclick="document.getElementById('info-modal').classList.add('active')"><i class="fa-solid fa-circle-info"></i></button>
+                <button id="settings-btn" class="icon-btn" title="Inställningar"><i class="fa-solid fa-gear"></i></button>
+            </div>
         </div>
 
         <div class="header-center">
@@ -38,7 +44,7 @@
 
         <div class="actions-right">
             <!-- Sync Status Removed -->
-            <button id="view-mode-btn" class="icon-btn" title="Växla vy">
+            <button id="view-mode-btn" class="icon-btn" title="Växla vy" style="display: none;">
                 <i class="fa-solid fa-list"></i>
             </button>
             <button id="install-btn" class="icon-btn" title="Installera appen" style="display: none;">
@@ -50,7 +56,6 @@
                     <!-- Populated by JS -->
                 </select>
             </div>
-            <button id="settings-btn" class="icon-btn" title="Inställningar"><i class="fa-solid fa-gear"></i></button>
         </div>
     </header>
 
@@ -320,31 +325,36 @@
                     </div>
                 </div>
 
-                <!-- Date -->
-                <div class="form-group">
-                    <label for="sighting-date">Datum</label>
-                    <input type="date" id="sighting-date" required>
-                </div>
+                <details class="more-info-details">
+                    <summary class="more-info-summary">Mer info <i class="fa-solid fa-chevron-down"></i></summary>
+                    <div class="more-info-content">
+                        <!-- Date -->
+                        <div class="form-group">
+                            <label for="sighting-date">Datum</label>
+                            <input type="date" id="sighting-date" required>
+                        </div>
 
-                <!-- Location -->
-                <div class="form-group">
-                    <label for="sighting-location">Plats</label>
-                    <input type="text" id="sighting-location" placeholder="Var såg du den?">
-                </div>
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="sighting-location">Plats</label>
+                            <input type="text" id="sighting-location" placeholder="Var såg du den?">
+                        </div>
 
-                <!-- Notes -->
-                <div class="form-group">
-                    <label for="sighting-notes">Anteckningar</label>
-                    <textarea id="sighting-notes" rows="3"
-                        placeholder="Beteende, väder eller andra anteckningar..."></textarea>
-                </div>
+                        <!-- Notes -->
+                        <div class="form-group">
+                            <label for="sighting-notes">Anteckningar</label>
+                            <textarea id="sighting-notes" rows="3"
+                                placeholder="Beteende, väder eller andra anteckningar..."></textarea>
+                        </div>
 
-                <!-- Photo Upload -->
-                <div class="form-group">
-                    <label for="sighting-photo">Din bild (Frivilligt)</label>
-                    <input type="file" id="sighting-photo" accept="image/*">
-                    <div class="image-preview" id="image-preview-container"></div>
-                </div>
+                        <!-- Photo Upload -->
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="sighting-photo">Din bild (Frivilligt)</label>
+                            <input type="file" id="sighting-photo" accept="image/*">
+                            <div class="image-preview" id="image-preview-container"></div>
+                        </div>
+                    </div>
+                </details>
 
                 <div class="form-actions">
                     <button type="submit" class="submit-btn">Spara observation</button>
@@ -582,6 +592,50 @@
                 style="margin-top: 2rem; width: 100%;">Stäng</button>
         </div>
     </div>
+    
+    <!-- Info Modal -->
+    <div class="modal-overlay" id="info-modal" style="z-index: 2800;" onclick="if(event.target === this) this.classList.remove('active')">
+        <div class="modal-content" style="max-width: 500px;">
+            <button class="close-modal" onclick="document.getElementById('info-modal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); text-align: center;">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Om Datan & Sällsynthet</h2>
+            
+            <div style="line-height: 1.6; color: var(--text-main); font-size: 0.95rem; margin-bottom: 2rem; max-height: 60vh; overflow-y: auto; padding-right: 0.5rem;">
+                <p style="margin-bottom: 1rem;">All fakta och biologisk data i denna app strävar efter att återspegla verkligheten, men bör ses som en generell vägledning snarare än absolut vetenskaplig sanning.</p>
+                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Hur fungerar Sällsynthets-skalan?</h3>
+                <p style="margin-bottom: 1rem;">Skalan (1-5) är statiskt förutbestämd och bygger inte på realtidsdata, utan på allmän bedömning av hur spridda arterna är och hur lätt det är för allmänheten att se dem:</p>
+                <ul style="list-style-type: none; padding-left: 0; margin-bottom: 1rem;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <span style="display:inline-block; background:#94a3b8; color:#fff; padding:0.1rem 0.4rem; border-radius:6px; font-weight:600; font-size:0.8em; margin-right:0.5rem; width:50px; text-align:center;">Allmän</span>
+                        Mkt vanligt förekommande / utbredd över stora områden.
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <span style="color:#16a34a; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Vanlig</span>
+                        Regelbunden, men knuten till mer specifika miljöer.
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <span style="color:#2563eb; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Ovanlig</span>
+                        Relativt sparsamt förekommande eller svårare att upptäcka.
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <span style="color:#9333ea; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Sällsynt</span>
+                        Verkligt få individer i landet; ses mycket sällan.
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <span style="color:#ea580c; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Mycket sällsynt</span>
+                        Tillfälliga gäster (rariteter) och extremt sällsynta fynd.
+                    </li>
+                </ul>
+                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-main); text-align: center; border-top: 1px solid #eee; padding-top: 1rem;">
+                    <strong>Skapad av:</strong> Alexander Larsson & Theia Skoog
+                </p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; margin-top: 0.5rem;">Obs: Eftersom värdet är generellt för hela Sverige uppmärksammas inga lokala avvikelser i denna skala.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Settings Modal -->
     <div class="modal-overlay" id="settings-modal" style="z-index: 2800;">
         <div class="modal-content" style="max-width: 400px; text-align: center;">

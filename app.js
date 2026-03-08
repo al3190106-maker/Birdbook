@@ -14,8 +14,13 @@ const state = {
     quizScore: 0,
     quizAnswered: false,
     timeFilter: 'all',
-    currentSubject: 'birds', // Replaces appMode
-    viewMode: 'both'
+    currentSubject: 'birds' // Replaces appMode
+};
+
+const appStateMeta = {
+    isInitialized: false,
+    lastRank: null,
+    lastBadges: new Set()
 };
 
 const STORAGE_KEY = 'birdfinder_sightings';
@@ -446,7 +451,7 @@ function _renderBirdDetail(item, sighting = null) {
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
     const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-    const rarityColors = ['#ffffff', '#2563eb', '#9333ea', '#ea580c', '#dc2626']; // Darker shades for white background
+    const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; // White, Green, Blue, Purple, Orange
     const rIndex = (item.rarity || 1) - 1;
     elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
     elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
@@ -715,6 +720,11 @@ async function init() {
     // Load Data (local first, then merge with cloud)
     await loadSightings();
 
+    const initStats = computeStats();
+    appStateMeta.lastRank = initStats.activeRank ? initStats.activeRank.title : null;
+    initStats.badges.filter(b => b.earned).forEach(b => appStateMeta.lastBadges.add(b.name));
+    appStateMeta.isInitialized = true;
+
     // Setup Year Filter
     setupYearFilter();
 
@@ -729,7 +739,6 @@ async function init() {
 
     // Event Listeners
     setupEventListeners();
-    applyViewMode();
 
     // Subject Switching / Library
     const appTitle = document.getElementById('app-title');
@@ -868,11 +877,61 @@ async function loadSightings() {
     }
 }
 
+function showAchievementToast(icon, title, desc) {
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'achievement-toast';
+    toast.innerHTML = `
+        <div class="toast-icon">${icon}</div>
+        <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-desc">${desc}</div>
+        </div>
+    `;
+    container.appendChild(toast);
+    
+    // Add fly-in class wait a tiny bit for DOM
+    requestAnimationFrame(() => toast.classList.add('show'));
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400); // Wait for transition
+    }, 5000); // Display time
+}
+
+function checkAchievements() {
+    if (!appStateMeta.isInitialized) return;
+    const stats = computeStats();
+    
+    const newRank = stats.activeRank;
+    if (newRank && newRank.title !== appStateMeta.lastRank) {
+        showAchievementToast(newRank.icon, `Ny rang upplåst: ${newRank.title}!`, newRank.subtitle);
+        appStateMeta.lastRank = newRank.title;
+        localStorage.setItem(`birdfinder_unseen_rank_${newRank.title}`, 'true');
+    }
+
+    stats.badges.forEach(b => {
+        if (b.earned && !appStateMeta.lastBadges.has(b.name)) {
+            appStateMeta.lastBadges.add(b.name);
+            showAchievementToast(b.icon, `Ny utmärkelse: ${b.name}!`, b.desc);
+            localStorage.setItem(`birdfinder_unseen_badge_${b.name}`, 'true');
+        } else if (!b.earned && appStateMeta.lastBadges.has(b.name)) {
+            appStateMeta.lastBadges.delete(b.name);
+        }
+    });
+}
+
 function saveSightings() {
     // 1. Always save to localStorage (instant)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
 
-    // Cloud save removed.
+    checkAchievements();
     renderApp();
 }
 
@@ -1068,6 +1127,7 @@ function renderSightingsList(sightings) {
             <div class="bird-image-container">
                 <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
+                <div class="bird-image-name">${item.nameSv}</div>
             </div>
             <div class="bird-info">
                 <div class="bird-primary-name">${item.nameSv}</div>
@@ -1143,6 +1203,7 @@ function renderGuideList(birdList) {
                 <button class="quick-add-btn" id="quick-add-${bird.id}" title="Lägg till observation">
                     <i class="fa-solid fa-plus"></i>
                 </button>
+                <div class="bird-image-name">${bird.nameSv}</div>
             </div>
             <div class="bird-info">
                  <div class="bird-primary-name">${bird.nameSv}</div>
@@ -1611,16 +1672,7 @@ function setupEventListeners() {
         });
     }
 
-    // View Mode Toggle
-    const viewBtn = document.getElementById('view-mode-btn');
-    if (viewBtn) {
-        viewBtn.addEventListener('click', () => {
-            const modes = ['both', 'image', 'text'];
-            const currentIndex = modes.indexOf(state.viewMode) !== -1 ? modes.indexOf(state.viewMode) : 0;
-            state.viewMode = modes[(currentIndex + 1) % modes.length];
-            applyViewMode();
-        });
-    }
+    // View Mode Toggle (Removed, now handled by CSS per view)
 
     // 1b. Logo Home Click
     if (elements.logoHome) {
@@ -2325,26 +2377,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function applyViewMode() {
-    const body = document.body;
-    body.classList.remove('view-mode-text', 'view-mode-image', 'view-mode-both');
-    body.classList.add(`view-mode-${state.viewMode}`);
-
-    const btn = document.getElementById('view-mode-btn');
-    if (btn) {
-        if (state.viewMode === 'text') {
-            btn.innerHTML = '<i class="fa-solid fa-align-left"></i>';
-            btn.title = "Endast Text";
-        } else if (state.viewMode === 'image') {
-            btn.innerHTML = '<i class="fa-solid fa-image"></i>';
-            btn.title = "Endast Bild";
-        } else {
-            btn.innerHTML = '<i class="fa-solid fa-list"></i>';
-            btn.title = "Bild & Namn";
-        }
-    }
-}
-
 // ============================================================
 //  STATISTICS TAB
 // ============================================================
@@ -2501,13 +2533,32 @@ function computeStats() {
     // Total sightings (including duplicates)
     const totalSightings = realSightings.length;
 
+    const badges = [
+        { icon: '🥚', name: 'Första fågeln', desc: 'Logga din första observation', earned: totalSightings >= 1 },
+        { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: totalSightings >= 10 },
+        { icon: '🦅', name: '5 fågelarter', desc: 'Observera 5 unika fågelarter', earned: birdUniq >= 5 },
+        { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en ugglor-observation', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && loggedBirds.some(lb => lb.id === b.id)) },
+        { icon: '👑', name: '25 fågelarter', desc: 'Observera 25 unika fågelarter', earned: birdUniq >= 25 },
+        { icon: '🦢', name: '50 fågelarter', desc: 'Observera 50 unika fågelarter', earned: birdUniq >= 50 },
+        { icon: '🌿', name: 'Naturälskare', desc: 'Logga i 3+ olika ämnesböcker', earned: Object.values(subjectCounts).filter(v => v > 0).length >= 3 },
+        { icon: '💐', name: 'Blomstervän', desc: 'Logga 5 blommor', earned: (subjectCounts.flowers || 0) >= 5 },
+        { icon: '🍄', name: 'Svampplockaren', desc: 'Logga 5 svampar', earned: (subjectCounts.fungi || 0) >= 5 },
+        { icon: '🐟', name: 'Fiskaren', desc: 'Logga 5 fiskar', earned: (subjectCounts.fish || 0) >= 5 },
+        { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (subjectCounts.animals || 0) >= 5 },
+        { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt fågel (nivå 4+)', earned: loggedBirds.some(b => (b.rarity || 0) >= 4) },
+        { icon: '🏆', name: 'Raritetsmästare', desc: 'Uppnå 100 sällsynthetsscore', earned: rarityScore >= 100 },
+        { icon: '📍', name: 'Äventyraren', desc: 'Logga på 5 olika platser', earned: Object.keys(subjectCounts).length > 0 && (() => { const locs = new Set(realSightings.filter(s => s.location && s.location !== 'Snabbtillägg' && s.location !== 'System Init' && s.id !== 'SYSTEM_INIT_BIRD').map(s => s.location)); return locs.size >= 5; })() },
+        { icon: '🌟', name: '100 unika arter', desc: 'Totalt 100 unika arter loggade', earned: totalUniq >= 100 },
+    ];
+
     return {
         totalUniq, birdUniq, subjectCounts, activeRank, progressPct, progressLabel,
         loggedBirds, rarestBird, biggestWingspan,
         mostLoggedBird, mostLoggedCount,
         bestCat, rarityBreakdown, rarityNames, rarityColors, rarityScore, rarityPoints,
         topLocation, bestMonth, yearCount, firstDate, totalSightings,
-        birdSightings: loggedBirdSightings.length
+        birdSightings: loggedBirdSightings.length,
+        badges
     };
 }
 
@@ -2522,6 +2573,27 @@ function renderStatsView() {
     const s = computeStats();
 
     // --- Profile card ---
+    const rankTitle = s.activeRank.title;
+    const isUnseenRank = localStorage.getItem(`birdfinder_unseen_rank_${rankTitle}`) === 'true';
+    const profileCard = document.querySelector('.stats-profile-card');
+    
+    if (profileCard) {
+        if (isUnseenRank) {
+            profileCard.classList.add('unseen-highlight');
+            profileCard.style.cursor = 'pointer';
+            profileCard.onclick = () => {
+                localStorage.removeItem(`birdfinder_unseen_rank_${rankTitle}`);
+                profileCard.classList.remove('unseen-highlight');
+                profileCard.onclick = null;
+                profileCard.style.cursor = '';
+            };
+        } else {
+            profileCard.classList.remove('unseen-highlight');
+            profileCard.onclick = null;
+            profileCard.style.cursor = '';
+        }
+    }
+
     document.getElementById('stats-rank-icon').textContent = s.activeRank.icon;
     document.getElementById('stats-rank-title').textContent = s.activeRank.title;
     document.getElementById('stats-rank-subtitle').textContent = s.activeRank.subtitle;
@@ -2603,32 +2675,30 @@ function renderStatsView() {
 
     // --- Achievements / Badges ---
     const badgesEl = document.getElementById('stats-badges-grid');
-    const badges = [
-        { icon: '🥚', name: 'Första fågeln', desc: 'Logga din första observation', earned: s.totalSightings >= 1 },
-        { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: s.totalSightings >= 10 },
-        { icon: '🦅', name: '5 fågelarter', desc: 'Observera 5 unika fågelarter', earned: s.birdUniq >= 5 },
-        { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en ugglor-observation', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && s.loggedBirds.some(lb => lb.id === b.id)) },
-        { icon: '👑', name: '25 fågelarter', desc: 'Observera 25 unika fågelarter', earned: s.birdUniq >= 25 },
-        { icon: '🦢', name: '50 fågelarter', desc: 'Observera 50 unika fågelarter', earned: s.birdUniq >= 50 },
-        { icon: '🌿', name: 'Naturälskare', desc: 'Logga i 3+ olika ämnesböcker', earned: Object.values(s.subjectCounts).filter(v => v > 0).length >= 3 },
-        { icon: '💐', name: 'Blomstervän', desc: 'Logga 5 blommor', earned: (s.subjectCounts.flowers || 0) >= 5 },
-        { icon: '🍄', name: 'Svampplockaren', desc: 'Logga 5 svampar', earned: (s.subjectCounts.fungi || 0) >= 5 },
-        { icon: '🐟', name: 'Fiskaren', desc: 'Logga 5 fiskar', earned: (s.subjectCounts.fish || 0) >= 5 },
-        { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (s.subjectCounts.animals || 0) >= 5 },
-        { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt fågel (nivå 4+)', earned: s.loggedBirds.some(b => (b.rarity || 0) >= 4) },
-        { icon: '🏆', name: 'Raritetsmästare', desc: 'Uppnå 100 sällsynthetsscore', earned: s.rarityScore >= 100 },
-        { icon: '📍', name: 'Äventyraren', desc: 'Logga på 5 olika platser', earned: Object.keys(s.subjectCounts).length > 0 && (() => { const locs = new Set(state.sightings.filter(s => s.location && s.location !== 'Snabbtillägg' && s.location !== 'System Init' && s.id !== 'SYSTEM_INIT_BIRD').map(s => s.location)); return locs.size >= 5; })() },
-        { icon: '🌟', name: '100 unika arter', desc: 'Totalt 100 unika arter loggade', earned: s.totalUniq >= 100 },
-    ];
+    const badges = s.badges;
 
-    badgesEl.innerHTML = badges.map(b => `
-        <div class="stats-badge ${b.earned ? 'earned' : 'locked'}">
+    badgesEl.innerHTML = badges.map(b => {
+        const isUnseen = b.earned && localStorage.getItem(`birdfinder_unseen_badge_${b.name}`) === 'true';
+        return `
+        <div class="stats-badge ${b.earned ? 'earned' : 'locked'} ${isUnseen ? 'unseen-highlight' : ''}" data-badge-name="${b.name}">
             ${b.earned ? '<div class="stats-badge-earned-glow"></div>' : ''}
             <span class="stats-badge-icon">${b.icon}</span>
             <div class="stats-badge-name">${b.name}</div>
             <div class="stats-badge-desc">${b.desc}</div>
         </div>
-    `).join('');
+    `}).join('');
+
+    // Add click listeners to remove highlight from unseen badges
+    const unseenBadges = badgesEl.querySelectorAll('.unseen-highlight');
+    unseenBadges.forEach(el => {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', () => {
+            const badgeName = el.dataset.badgeName;
+            localStorage.removeItem(`birdfinder_unseen_badge_${badgeName}`);
+            el.classList.remove('unseen-highlight');
+            el.style.cursor = '';
+        });
+    });
 
     // --- Time & Location ---
     const timeEl = document.getElementById('stats-time-body');

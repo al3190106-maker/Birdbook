@@ -672,7 +672,7 @@ function showZoneBirds(zone, month) {
             // Dots are tricky for zones, let's just use the zone logic
             const monthDotsHtml = generateMonthDots(bird, zone, null, month);
             const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-            const rarityColors = ['#ffffff', '#2563eb', '#9333ea', '#ea580c', '#dc2626'];
+            const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
             const rIndex = (bird.rarity || 1) - 1;
             const rName = rarityLevels[rIndex] || 'Allmän';
             const rColor = rarityColors[rIndex] || '#ffffff';
