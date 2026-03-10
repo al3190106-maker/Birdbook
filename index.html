@@ -36,9 +36,9 @@
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
-                <button class="nav-btn" data-tab="quiz-view">Fågelquiz</button>
-                <button class="nav-btn" data-tab="stats-view"><i class="fa-solid fa-chart-simple"></i>
-                    Statistik</button>
+                <button class="nav-btn" data-tab="photographers-view">Fotografer</button>
+                <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
+                <button class="nav-btn" data-tab="stats-view">Statistik</button>
             </nav>
         </div>
 
@@ -50,12 +50,6 @@
             <button id="install-btn" class="icon-btn" title="Installera appen" style="display: none;">
                 <i class="fa-solid fa-download"></i>
             </button>
-            <div class="year-filter-container">
-                <i class="fa-regular fa-calendar"></i>
-                <select id="year-select">
-                    <!-- Populated by JS -->
-                </select>
-            </div>
         </div>
     </header>
 
@@ -83,15 +77,23 @@
             <div class="list-controls">
                 <div class="list-header-row">
                     <h2 id="current-year-display">Alla observationer</h2>
-                    <div class="sort-controls">
-                        <label for="sort-select"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
-                        <select id="sort-select">
-                            <option value="date">Senaste</option>
-                            <option value="name">Namn (A-Ö)</option>
-                            <option value="wingspan">Vingspann</option>
-                            <option value="eggs">Ägg (per kull)</option>
-                            <option value="rarity">Sällsynthet</option>
-                        </select>
+                    <div style="display: flex; gap: 0.5rem; justify-content: space-between; align-items: center; flex-wrap: nowrap; width: 100%;">
+                        <div class="year-filter-container sort-controls" style="margin: 0; background: white; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center;">
+                            <i class="fa-regular fa-calendar" style="color: var(--primary); flex-shrink: 0;"></i>
+                            <select id="year-select" style="color: var(--text-main); width: 100%; text-overflow: ellipsis; overflow: hidden; outline: none; border: none; background: transparent; font-weight: 600;">
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+                        <div class="sort-controls" style="flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center; margin: 0;">
+                            <label for="sort-select" style="flex-shrink: 0;"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
+                            <select id="sort-select" style="width: 100%; text-overflow: ellipsis; overflow: hidden; border: none; outline: none; background: transparent; font-weight: 600; font-family: inherit; font-size: 1rem; color: var(--text-main);">
+                                <option value="date">Senaste</option>
+                                <option value="name">Namn (A-Ö)</option>
+                                <option value="wingspan">Vingspann</option>
+                                <option value="eggs">Ägg (per kull)</option>
+                                <option value="rarity">Sällsynthet</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -302,6 +304,38 @@
                 </div>
             </div>
         </section>
+
+        <!-- Photographers View -->
+        <section id="photographers-view" class="view-section">
+            <div class="photographers-container">
+                <h2 style="margin-bottom: 1.5rem; color: var(--text-main); text-align: center;">Våra Naturfotografer</h2>
+                <div id="photographers-grid" class="photographers-grid">
+                    <!-- Populated by JS -->
+                </div>
+                
+                <div id="photographer-detail" class="photographer-detail hidden">
+                    <button id="back-to-photographers" class="nav-back-btn" style="margin-bottom: 1rem;">
+                        <i class="fa-solid fa-arrow-left"></i> Tillbaka till fotografer
+                    </button>
+                    
+                    <div class="photographer-profile-header">
+                        <img id="photographer-profile-photo" src="" alt="Photographer" class="photographer-avatar-large">
+                        <div class="photographer-profile-info">
+                            <h2 id="photographer-name-detail">Namn</h2>
+                            <p id="photographer-desc-detail" style="margin-bottom: 1rem;"></p>
+                            <a href="#" id="photographer-donate-btn" target="_blank" class="primary-btn donate-btn">
+                                <i class="fa-solid fa-heart"></i> Stötta arbetet
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Bilder av fotografen</h3>
+                    <div id="photographer-gallery" class="photographer-gallery-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Hidden Inputs -->
@@ -473,7 +507,7 @@
             style="position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.5); padding: 5px 12px; border-radius: 20px; font-weight: bold; font-family: var(--font-stack, sans-serif); letter-spacing: 1px; z-index: 4010; font-size: 0.9rem;">
         </div>
         <img id="fullscreen-img-element" src="" alt="Fullscreen Image"
-            style="max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 8px;">
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 8px;">
     </div>
 
     <!-- Welcome Modal -->
@@ -724,6 +758,7 @@
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
     <script src="bird_images.js"></script>
+    <script src="photographers.js"></script>
     <script src="app.js"></script>
 
     <script>

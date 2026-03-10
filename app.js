@@ -385,7 +385,11 @@ function _buildCarousel(images) {
     slides.innerHTML = '';
     dots.innerHTML = '';
 
-    images.forEach((src, i) => {
+    images.forEach((item, i) => {
+        const src = typeof item === 'object' ? item.src : item;
+        const photographerId = typeof item === 'object' ? item.photographer : null;
+        const photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
+
         const slide = document.createElement('div');
         slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
         const img = document.createElement('img');
@@ -401,26 +405,98 @@ function _buildCarousel(images) {
             _openFullscreenSlide(i);
         });
         slide.appendChild(img);
+
+        if (photographer) {
+            const tag = document.createElement('div');
+            tag.className = 'photographer-tag';
+            tag.innerHTML = '<i class="fa-solid fa-camera"></i> ' + photographer.name;
+            tag.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent fullscreen
+                
+                const returnBirdId = currentCarouselBirdId;
+                const returnSubject = state.currentSubject;
+                
+                elements.detailModal.classList.remove('active');
+                
+                _showPhotographer(photographerId, () => {
+                    if (state.currentSubject !== returnSubject) switchSubject(returnSubject);
+                    const btn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+                    if (btn) btn.click();
+                    
+                    const allData = [
+                        ...(window.swedishBirds || []), ...(window.swedishTrees || []),
+                        ...(window.swedishFish || []), ...(window.swedishAnimals || []),
+                        ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
+                    ];
+                    const subject = allData.find(d => d.id === returnBirdId);
+                    if (subject) {
+                        _renderBirdDetail(subject);
+                        elements.detailModal.classList.add('active');
+                    }
+                });
+            });
+            slide.appendChild(tag);
+        }
+
         slides.appendChild(slide);
 
-        if (images.length > 1) {
-            const dot = document.createElement('button');
-            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', 'Bild ' + (i + 1));
-            dot.addEventListener('click', () => _goToSlide(i));
-            dots.appendChild(dot);
-        }
+        // Dots disabled in favor of text counter
     });
 
     // Show/hide nav buttons
     const showNav = images.length > 1;
     elements.carouselPrev.style.display = showNav ? '' : 'none';
     elements.carouselNext.style.display = showNav ? '' : 'none';
-    elements.carouselDots.style.display = showNav ? '' : 'none';
+    elements.carouselDots.style.display = 'none';
     _updateCarouselCounter();
 }
 
 let currentCarouselBirdId = '';
+
+function _applyFullscreenItem(index) {
+    const item = carouselImages[index];
+    const src = typeof item === 'object' ? item.src : item;
+    const photographerId = typeof item === 'object' ? item.photographer : null;
+    const photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
+    
+    elements.fsImg.src = src;
+    
+    let existingTag = elements.fsModal.querySelector('.photographer-tag');
+    if (existingTag) existingTag.remove();
+    
+    if (photographer) {
+        const tag = document.createElement('div');
+        tag.className = 'photographer-tag';
+        tag.innerHTML = '<i class="fa-solid fa-camera"></i> ' + photographer.name;
+        tag.style.bottom = '40px'; 
+        tag.addEventListener('click', (e) => {
+            e.stopPropagation();
+            elements.fsModal.classList.remove('active');
+            elements.detailModal.classList.remove('active');
+            
+            const returnBirdId = currentCarouselBirdId;
+            const returnSubject = state.currentSubject;
+            
+            _showPhotographer(photographerId, () => {
+                if (state.currentSubject !== returnSubject) switchSubject(returnSubject);
+                const btn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+                if (btn) btn.click();
+                
+                const allData = [
+                    ...(window.swedishBirds || []), ...(window.swedishTrees || []),
+                    ...(window.swedishFish || []), ...(window.swedishAnimals || []),
+                    ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
+                ];
+                const subject = allData.find(d => d.id === returnBirdId);
+                if (subject) {
+                    _renderBirdDetail(subject);
+                    elements.detailModal.classList.add('active');
+                }
+            });
+        });
+        elements.fsModal.appendChild(tag);
+    }
+}
 
 function _goToSlide(index) {
     const allSlides = elements.carouselSlides.querySelectorAll('.carousel-slide');
@@ -436,7 +512,7 @@ function _goToSlide(index) {
     _updateCarouselCounter();
 
     if (elements.fsImg && elements.fsModal && elements.fsModal.classList.contains('active')) {
-        elements.fsImg.src = carouselImages[carouselIndex];
+        _applyFullscreenItem(carouselIndex);
         _updateFullscreenNav();
     }
 }
@@ -451,7 +527,7 @@ function _updateCarouselCounter() {
 function _openFullscreenSlide(index) {
     if (!elements.fsModal || !elements.fsImg) return;
     _goToSlide(index);
-    elements.fsImg.src = carouselImages[carouselIndex];
+    _applyFullscreenItem(carouselIndex);
     elements.fsModal.classList.add('active');
     history.pushState({ modal: 'fullscreen' }, '');
     _updateFullscreenNav();
@@ -484,7 +560,7 @@ function _renderBirdDetail(item, sighting = null) {
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
     const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-    const rarityColors = ['#94a3b8', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; 
+    const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; 
     const rIndex = (item.rarity || 1) - 1;
     elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
     elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
@@ -1248,7 +1324,7 @@ function renderGuideList(birdList) {
     elements.guideList.innerHTML = '';
 
     const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-    const rarityColors = ['#94a3b8', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
+    const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
 
     birdList.forEach(bird => {
         const card = document.createElement('div');
@@ -1274,7 +1350,7 @@ function renderGuideList(birdList) {
                 <div class="bird-secondary-name">${bird.nameEn}</div>
                 <div class="bird-scientific">${bird.scientific}</div>
                 ${bird.funFact ? `<div class="bird-description">${bird.funFact}</div>` : ''}
-                <div class="bird-card-rarity" style="color: ${rarityColors[(bird.rarity || 1) - 1]}">
+                <div class="bird-card-rarity" style="color: ${rarityColors[(bird.rarity || 1) - 1]}; ${(bird.rarity || 1) === 1 ? 'background: #94a3b8; padding: 0.1rem 0.4rem; border-radius: 6px; display: inline-flex; width: max-content;' : ''}">
                     <i class="fa-solid fa-star"></i> ${rarityLevels[(bird.rarity || 1) - 1]}
                 </div>
             </div>
@@ -1866,6 +1942,11 @@ function setupEventListeners() {
             // Render statistics tab
             if (btn.dataset.tab === 'stats-view') {
                 renderStatsView();
+            }
+
+            // Render photographers view
+            if (btn.dataset.tab === 'photographers-view') {
+                _renderPhotographersView();
             }
         });
     });
@@ -2817,6 +2898,127 @@ function renderStatsView() {
         ${totalLogged > 0 ? row('📊 Snittpoäng / art', (s.rarityScore / totalLogged).toFixed(1)) : ''}
     `;
 }
+
+// --- Photographers View ---
+function _renderPhotographersView() {
+    const grid = document.getElementById('photographers-grid');
+    const detail = document.getElementById('photographer-detail');
+    if (!grid || !detail) return;
+    
+    grid.style.display = 'grid';
+    detail.style.display = 'none';
+    grid.innerHTML = '';
+    
+    if (window.photographers) {
+        Object.values(window.photographers).forEach(photographer => {
+            const card = document.createElement('div');
+            card.className = 'photographer-card';
+            card.onclick = () => _showPhotographer(photographer.id);
+            
+            card.innerHTML = `
+                <img src="${photographer.image}" alt="${photographer.name}" class="photographer-avatar">
+                <h3>${photographer.name}</h3>
+                <p>${photographer.description}</p>
+            `;
+            grid.appendChild(card);
+        });
+    }
+}
+
+function _showPhotographer(id, returnAction = null) {
+    if (!window.photographers || !window.photographers[id]) return;
+    
+    // Switch to tab if not already there
+    const btn = document.querySelector('.nav-btn[data-tab="photographers-view"]');
+    if (btn && !btn.classList.contains('active')) {
+        btn.click();
+    }
+    
+    const photographer = window.photographers[id];
+    
+    const grid = document.getElementById('photographers-grid');
+    const detail = document.getElementById('photographer-detail');
+    const nameEl = document.getElementById('photographer-name-detail');
+    const descEl = document.getElementById('photographer-desc-detail');
+    const imgEl = document.getElementById('photographer-profile-photo');
+    const donateBtn = document.getElementById('photographer-donate-btn');
+    const gallery = document.getElementById('photographer-gallery');
+    
+    grid.style.display = 'none';
+    detail.style.display = 'block';
+    detail.classList.remove('hidden'); // fail-safe if hidden class was used originally
+    
+    nameEl.textContent = photographer.name;
+    descEl.textContent = photographer.description;
+    imgEl.src = photographer.image;
+    donateBtn.href = photographer.donationLink;
+    
+    // Back button
+    const backBtn = document.getElementById('back-to-photographers');
+    backBtn.onclick = () => {
+        if (returnAction) {
+            returnAction();
+        } else {
+            detail.style.display = 'none';
+            grid.style.display = 'grid';
+        }
+    };
+    
+    // Find all images by this photographer in bird_images.js
+    let allImages = [];
+    if (window.birdImages) {
+        Object.keys(window.birdImages).forEach(birdId => {
+            const arr = window.birdImages[birdId];
+            arr.forEach(item => {
+                if (typeof item === 'object' && item.photographer === id) {
+                    allImages.push({ src: item.src, birdId: birdId });
+                }
+            });
+        });
+    }
+    
+    gallery.innerHTML = '';
+    allImages.forEach(img => {
+        const imgEl = document.createElement('img');
+        imgEl.className = 'photographer-gallery-item';
+        imgEl.src = img.src;
+        imgEl.title = 'Klicka för att visa i guiden';
+        
+        // When clicking an image in the gallery, switch to the bird guide for that subject
+        imgEl.onclick = () => {
+            const allData = [
+                ...(window.swedishBirds || []),
+                ...(window.swedishTrees || []),
+                ...(window.swedishFish || []),
+                ...(window.swedishAnimals || []),
+                ...(window.swedishFungi || []),
+                ...(window.swedishFlowers || [])
+            ];
+            const subject = allData.find(d => d.id === img.birdId);
+            if (subject) {
+                let subjectType = 'birds';
+                if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
+                else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
+                else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
+                else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
+                else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+                
+                if (state.currentSubject !== subjectType) {
+                    switchSubject(subjectType);
+                }
+                
+                const guideBtn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+                if (guideBtn) guideBtn.click();
+                
+                _renderBirdDetail(subject);
+                elements.detailModal.classList.add('active');
+            }
+        };
+        
+        gallery.appendChild(imgEl);
+    });
+}
+
 
 // ============================================================
 

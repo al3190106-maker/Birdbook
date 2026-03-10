@@ -1,4 +1,4 @@
-﻿
+
 // Comprehensive list of birds seen in Sweden (Regular breeding, migration, and common visitors)
 // Classification follows standard Swedish taxonomy.
 // Rarity Scale: 1 (Very Common) -> 5 (Very Rare / Casual Visitor)
@@ -242,6 +242,21 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 639,
         "color": "Blandad",
+        "bestTime": "Dag"
+    },
+    {
+        "id": "mandarin_duck",
+        "type": "Andfåglar",
+        "nameEn": "Mandarin Duck",
+        "nameSv": "Mandarinand",
+        "scientific": "Aix galericulata",
+        "rarity": 4,
+        "funFact": "Mandarinanden är en fantastiskt färggrann exotisk art som ibland etablerar frilevande bestånd.",
+        "seasonDistribution": "Hela året (Sällsynt i parker/dammar)",
+        "wingspan": 70,
+        "eggs": 10,
+        "weight": 600,
+        "color": "Flerfärgad",
         "bestTime": "Dag"
     },
     {

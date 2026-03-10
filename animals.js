@@ -403,5 +403,18 @@ window.swedishAnimals = [
         "height": 10,
         "weight": 150,
         "bestTime": "Dag"
+    },
+    {
+        "id": "common_frog",
+        "type": "Groddjur",
+        "nameEn": "Common Frog",
+        "nameSv": "Vanlig groda",
+        "scientific": "Rana temporaria",
+        "rarity": 1,
+        "funFact": "Den vanliga grodan kan bl.a. andas genom huden när den övervintrar på botten av frusna sjöar.",
+        "seasonDistribution": "Hela landet",
+        "height": 10,
+        "weight": 50,
+        "bestTime": "Natt/Gryning"
     }
 ];

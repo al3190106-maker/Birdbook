@@ -1,11 +1,4 @@
-// Bird images from fageln.se - multiple images per bird for gallery carousel
-// Images are hosted on fageln.se/wp-content/uploads/
-// Scraped from individual bird pages - each key matches the bird 'id' in birds.js
-
 window.birdImages = {
-
-    // ---- ANDFÅGLAR ----
-
     'mute_swan': [
         'https://fageln.se/wp-content/uploads/2025/09/knolsvan_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/knolsvan_familj.jpg',
@@ -60,6 +53,7 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/kricka_hane3.jpg'
     ],
     'eurasian_wigeon': [
+        { src: 'images/Fotografer/gustav gotthardsson/Anas_penelope.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/07/blasand_hane_1.jpg',
         'https://fageln.se/wp-content/uploads/2025/07/blasand_hona_vinter.jpg',
         'https://fageln.se/wp-content/uploads/2025/07/blasand_hona_2_vinter.jpg',
@@ -108,9 +102,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/skedand_hona2.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/skedand_hane2.jpg'
     ],
-
-    // ---- HÖNSFÅGLAR ----
-
     'western_capercaillie': [
         'https://fageln.se/wp-content/uploads/2025/10/tjader_tupp2.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/tjader_hona2.jpg',
@@ -131,9 +122,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/08/fasan_hanne2.jpg',
         'https://fageln.se/wp-content/uploads/2025/11/fasanhona.jpg'
     ],
-
-    // ---- LOMMAR & DOPPINGAR ----
-
     'black_throated_loon': [
         'https://fageln.se/wp-content/uploads/2025/10/storlom1.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/storlom2.jpg',
@@ -146,18 +134,12 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/skaggdopping_vinter.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/skaggdoppimg_juvenil.jpg'
     ],
-
-    // ---- HÄGRAR ----
-
     'grey_heron': [
         'https://fageln.se/wp-content/uploads/2025/09/grahager_1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/grahager_2.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/grahager_3.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/grahager_4.jpg'
     ],
-
-    // ---- ROVFÅGLAR ----
-
     'white_tailed_eagle': [
         'https://fageln.se/wp-content/uploads/2025/09/havsorn_old.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/havsorn_old2.jpg',
@@ -257,9 +239,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/stenfalk1_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/stenfalk_hona.jpg'
     ],
-
-    // ---- TRANOR & RALLAR ----
-
     'common_crane': [
         'https://fageln.se/wp-content/uploads/2025/10/trana1.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/trana5.jpg',
@@ -269,14 +248,13 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/trana3.jpg'
     ],
     'eurasian_coot': [
+        { src: 'images/Fotografer/gustav gotthardsson/Fulica_atra_2.jpg', photographer: 'gustav' },
+        { src: 'images/Fotografer/gustav gotthardsson/Fulica_atra.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/10/sothona3.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/sothona_bo.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/sothona_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/sothona_med_pulli.jpg'
     ],
-
-    // ---- VADARE ----
-
     'eurasian_oystercatcher': [
         'https://fageln.se/wp-content/uploads/2025/10/strandskata4.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/strandskata1.jpg',
@@ -316,10 +294,8 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/rodbena4.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/rodbena3.jpg'
     ],
-
-    // ---- MÅSAR & TÄRNOR ----
-
     'black_headed_gull': [
+        { src: 'images/Fotografer/gustav gotthardsson/Chroicocephalus_ridinundus.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/10/skrattmas1.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/skrattmas2.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/skrattmas_vinter.jpg',
@@ -355,14 +331,12 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/08/silvertarna_pulli.jpg'
     ],
     'common_tern': [
+        { src: 'images/Fotografer/gustav gotthardsson/Sterna hirundo.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/08/fisktarna.jpg',
         'https://fageln.se/wp-content/uploads/2025/08/fisktarna_4.jpg',
         'https://fageln.se/wp-content/uploads/2025/08/fisktarna_5.jpg',
         'https://fageln.se/wp-content/uploads/2025/08/fisktarna_3.jpg'
     ],
-
-    // ---- ALKFÅGLAR ----
-
     'common_murre': [
         'https://fageln.se/wp-content/uploads/2025/07/sillgrissla.jpg'
     ],
@@ -373,9 +347,6 @@ window.birdImages = {
     'black_guillemot': [
         'https://fageln.se/wp-content/uploads/2025/07/tobisgrissla2.jpg'
     ],
-
-    // ---- HACKSPETTAR ----
-
     'great_spotted_woodpecker': [
         'https://fageln.se/wp-content/uploads/2025/10/storre_hackspett_hona.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/storre_hackspett_hane.jpg',
@@ -386,13 +357,11 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/spillkraka_hona.jpg'
     ],
     'european_green_woodpecker': [
+        { src: 'images/Fotografer/gustav gotthardsson/Picus_Viridis.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/10/grongoling_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/grongoling_hona.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/grongoling_hane2.jpg'
     ],
-
-    // ---- UGGLOR ----
-
     'tawny_owl': [
         'https://fageln.se/wp-content/uploads/2025/09/kattuggla2.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/kattuggla.jpg'
@@ -423,32 +392,20 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/parluggla_juv2.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/parluggla_pulli.jpg'
     ],
-
-    // ---- DUVOR ----
-
     'common_wood_pigeon': [
         'https://fageln.se/wp-content/uploads/2025/09/ringduva.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/ringduva2.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/ringduva_pulli.jpg'
     ],
-
-    // ---- GÖK ----
-
     'common_cuckoo': [
         'https://fageln.se/wp-content/uploads/2025/08/gok.jpg'
     ],
-
-    // ---- SEGLARE ----
-
     'common_swift': [
         'https://fageln.se/wp-content/uploads/2025/09/tornseglare1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/tornseglare3.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/tornseglare4.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/tornseglare_holk.jpg'
     ],
-
-    // ---- SÅNGARE ----
-
     'willow_warbler': [
         'https://fageln.se/wp-content/uploads/2025/09/lovsangare1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/lovsangare2.jpg',
@@ -486,9 +443,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/08/tornsangare_3.jpg',
         'https://fageln.se/wp-content/uploads/2025/08/tornsangare_bo.jpg'
     ],
-
-    // ---- TRASTAR ----
-
     'common_blackbird': [
         'https://fageln.se/wp-content/uploads/2025/09/koltrast_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/koltrast_hona.jpg',
@@ -514,20 +468,16 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/rodvingetrast3.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/rodvingetrast_bo.jpg'
     ],
-
-    // ---- ROBIN ETC ----
-
     'european_robin': [
+        { src: 'images/Fotografer/gustav gotthardsson/Erithacus_rubecula.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/09/rodhake1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/rodhake2.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/rodhake3.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/rodhake_bo.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/rodhake_juvenil.jpg'
     ],
-
-    // ---- MESAR ----
-
     'great_tit': [
+        { src: 'images/Fotografer/gustav gotthardsson/Parus_major.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/10/talgoxe.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/talgoxe_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/talgoxe_hane2.jpg',
@@ -555,18 +505,17 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/tofsmes5.jpg'
     ],
     'long_tailed_tit': [
+        { src: 'images/Fotografer/gustav gotthardsson/Aegithalos_caudatus.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/09/stjartmes.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/stjartmes_bo.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/stjartmes_juvenil.jpg'
     ],
     'eurasian_nuthatch': [
+        { src: 'images/Fotografer/gustav gotthardsson/Sitta_europaea.jpg', photographer: 'gustav' },
         'https://fageln.se/wp-content/uploads/2025/09/notvacka.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/notvacka_2.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/notvacka_3.jpg'
     ],
-
-    // ---- FINKAR ----
-
     'common_chaffinch': [
         'https://fageln.se/wp-content/uploads/2025/09/bofink_hanne_3.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/bofink_hane_ORG.jpg',
@@ -608,9 +557,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/gronsiska_juvenil.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/gronsiska_juvenil_2.jpg'
     ],
-
-    // ---- SPARVAR ----
-
     'house_sparrow': [
         'https://fageln.se/wp-content/uploads/2025/08/grasparv_hanne2.jpg',
         'https://fageln.se/wp-content/uploads/2025/08/grasparv_hona.jpg',
@@ -639,9 +585,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/savsparv2_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/savsparv1_hane.jpg'
     ],
-
-    // ---- KRÅKFÅGLAR ----
-
     'hooded_crow': [
         'https://fageln.se/wp-content/uploads/2025/09/gra_kraka1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/gra_kraka_2.jpg',
@@ -671,9 +614,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/09/korp4.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/korp_bo.jpg'
     ],
-
-    // ---- SVALOR ----
-
     'barn_swallow': [
         'https://fageln.se/wp-content/uploads/2025/09/ladusvala1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/ladusvala2.jpg',
@@ -694,9 +634,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/06/backsvala_3.jpg',
         'https://fageln.se/wp-content/uploads/2025/06/backsvala_4.jpg'
     ],
-
-    // ---- ÄRLOR & PIPLÄRKOR ----
-
     'white_wagtail': [
         'https://fageln.se/wp-content/uploads/2025/09/sadesarla1.jpg',
         'https://fageln.se/wp-content/uploads/2025/09/sadesarla1_hane.jpg',
@@ -718,9 +655,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/tradpiplarka3.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/tradpiplarka5.jpg'
     ],
-
-    // ---- FLUGSNAPPARE ----
-
     'european_pied_flycatcher': [
         'https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane2.jpg',
@@ -733,9 +667,6 @@ window.birdImages = {
         'https://fageln.se/wp-content/uploads/2025/10/gra_flugsnappare_4.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/gra_flugsnappare_5.jpg'
     ],
-
-    // ---- ÖVRIGA ----
-
     'eurasian_wren': [
         'https://fageln.se/wp-content/uploads/2025/10/gardsmyg.jpg',
         'https://fageln.se/wp-content/uploads/2025/10/gardsmyg_2.jpg',
@@ -762,5 +693,26 @@ window.birdImages = {
     ],
     'goldcrest': [
         'https://fageln.se/wp-content/uploads/2025/09/kungsfagel.jpg'
+    ],
+    'mandarin_duck': [
+        { src: 'images/Fotografer/gustav gotthardsson/Aix_galericulata.jpg', photographer: 'gustav' }
+    ],
+    'lesser_spotted_woodpecker': [
+        { src: 'images/Fotografer/gustav gotthardsson/Dendrocopos_minor.jpg', photographer: 'gustav' }
+    ],
+    'fly_orchid': [
+        { src: 'images/Fotografer/gustav gotthardsson/Ophrys_insectifera.jpg', photographer: 'gustav' }
+    ],
+    'pine_grosbeak': [
+        { src: 'images/Fotografer/gustav gotthardsson/Pinicola_enucleator.jpg', photographer: 'gustav' }
+    ],
+    'horned_grebe': [
+        { src: 'images/Fotografer/gustav gotthardsson/Podiceps_auritus.jpg', photographer: 'gustav' }
+    ],
+    'red_necked_grebe': [
+        { src: 'images/Fotografer/gustav gotthardsson/Podiceps_grisgena.jpg', photographer: 'gustav' }
+    ],
+    'common_frog': [
+        { src: 'images/Fotografer/gustav gotthardsson/Rana_temporaria.jpg', photographer: 'gustav' }
     ]
 };

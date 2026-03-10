@@ -377,5 +377,18 @@ window.swedishFlowers = [
         "height": 15,
         "color": "Lila/Gul/Vit",
         "bestTime": "Vår/Sommar"
+    },
+    {
+        "id": "fly_orchid",
+        "type": "Orkidéer",
+        "nameEn": "Fly Orchid",
+        "nameSv": "Flugblomster",
+        "scientific": "Ophrys insectifera",
+        "rarity": 4,
+        "funFact": "Flugblomstrets blomma ser ut som en stekelhona för att lura stekelhanar att pollinera den.",
+        "seasonDistribution": "Gotland, Öland m.fl.",
+        "height": 30,
+        "color": "Mörkbrun/Lila",
+        "bestTime": "Sommar"
     }
 ];
