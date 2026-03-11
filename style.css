@@ -1373,6 +1373,23 @@ body {
     transform: translateY(-2px);
 }
 
+#detail-camera-btn {
+    background-color: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    box-shadow: none;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.2s;
+}
+
+#detail-camera-btn:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(46, 93, 75, 0.3);
+}
+
 /* ========================================
    SWEDEN INTERACTIVE MAP
    ======================================== */

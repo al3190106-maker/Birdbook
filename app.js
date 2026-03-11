@@ -554,7 +554,14 @@ function _renderBirdDetail(item, sighting = null) {
     currentCarouselBirdId = item.id;
     const galleryImages = (window.birdImages && window.birdImages[item.id]) || [];
     const fallbackSrc = getBirdImageSrc(item.id);
-    const imagesToShow = galleryImages.length > 0 ? galleryImages : [fallbackSrc];
+    let imagesToShow = galleryImages.length > 0 ? [...galleryImages] : [fallbackSrc];
+
+    // If user has a custom image, prepend it as the primary image
+    const userCustomImg = localStorage.getItem(`custom_img_${item.id}`);
+    if (userCustomImg) {
+        imagesToShow = [userCustomImg, ...imagesToShow];
+    }
+
     _buildCarousel(imagesToShow);
 
     elements.detailNameSv.textContent = item.nameSv;
@@ -674,6 +681,56 @@ function _renderBirdDetail(item, sighting = null) {
             });
         }
     }
+
+    // Add Camera/Photo button in detail modal for both views
+    const existingCameraBtn = document.getElementById('detail-camera-btn');
+    if (existingCameraBtn) existingCameraBtn.remove();
+
+    const cameraBtn = document.createElement('button');
+    cameraBtn.id = 'detail-camera-btn';
+    cameraBtn.className = 'add-sighting-detail-btn';
+    cameraBtn.style.cssText = 'padding: 0.8rem 1.5rem; font-size: 1rem;';
+    cameraBtn.innerHTML = `<i class="fa-solid fa-camera"></i> Lägg till egen bild`;
+    cameraBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Use a special handler that also refreshes the detail view
+        editingBirdId = item.id;
+        const tempInput = document.createElement('input');
+        tempInput.type = 'file';
+        tempInput.accept = 'image/*';
+        tempInput.capture = 'environment';
+        tempInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    try {
+                        localStorage.setItem(`custom_img_${item.id}`, ev.target.result);
+                        // Refresh the detail modal carousel with new image
+                        _renderBirdDetail(item, sighting);
+                        // Also refresh the log/guide behind
+                        renderApp();
+                        if (!elements.guideList.classList.contains('hidden')) {
+                            const list = getCurrentSpeciesList();
+                            renderGuideList(list);
+                        }
+                        // Visual feedback
+                        cameraBtn.innerHTML = '<i class="fa-solid fa-check"></i> Bild sparad!';
+                        cameraBtn.style.backgroundColor = '#2ecc71';
+                        setTimeout(() => {
+                            cameraBtn.innerHTML = `<i class="fa-solid fa-camera"></i> Lägg till egen bild`;
+                            cameraBtn.style.backgroundColor = '';
+                        }, 2000);
+                    } catch (err) {
+                        alert('Bilden är för stor!');
+                    }
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        tempInput.click();
+    });
+    const actionsDiv2 = document.querySelector('.detail-actions');
+    if (actionsDiv2) actionsDiv2.appendChild(cameraBtn);
 }
 function getCurrentSpeciesList() {
     const config = SUBJECT_CONFIG[state.currentSubject];
@@ -1258,11 +1315,16 @@ function renderSightingsList(sightings) {
         const card = document.createElement('div');
         card.className = 'bird-card'; // Keep generic styling
 
-        const imgSource = sighting.photo || getBirdImageSrc(item.id);
+        // Custom image takes priority as the new primary image
+        const customImg = localStorage.getItem(`custom_img_${item.id}`);
+        const imgSource = customImg || sighting.photo || getBirdImageSrc(item.id);
 
         card.innerHTML = `
             <div class="bird-image-container">
                 <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
+                <button class="edit-image-btn" id="log-edit-btn-${item.id}" title="Lägg till egen bild">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
                 <div class="bird-image-name">${item.nameSv}</div>
             </div>
@@ -1279,6 +1341,15 @@ function renderSightingsList(sightings) {
             </div>
             </div>
         `;
+
+        // Bind camera/edit image button
+        const logEditBtn = card.querySelector(`#log-edit-btn-${item.id}`);
+        if (logEditBtn) {
+            logEditBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerImageUpload(item.id);
+            });
+        }
 
         card.addEventListener('click', (e) => {
             if (e.target.closest('button')) return;
