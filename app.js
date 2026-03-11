@@ -3393,6 +3393,30 @@ function _setupMapEventListeners() {
             }
         });
     }
+
+    // Compact view toggle
+    const compactBtn = document.getElementById('compact-view-toggle');
+    if (compactBtn) {
+        // Restore saved preference
+        const saved = localStorage.getItem('birdfinder_compact_view');
+        if (saved === 'true') {
+            document.getElementById('sightings-list').classList.add('compact');
+            compactBtn.classList.add('active');
+            compactBtn.querySelector('i').className = 'fa-solid fa-list';
+        }
+
+        compactBtn.addEventListener('click', () => {
+            const grid = document.getElementById('sightings-list');
+            grid.classList.toggle('compact');
+            const isCompact = grid.classList.contains('compact');
+
+            compactBtn.classList.toggle('active', isCompact);
+            const icon = compactBtn.querySelector('i');
+            icon.className = isCompact ? 'fa-solid fa-list' : 'fa-solid fa-grip';
+
+            localStorage.setItem('birdfinder_compact_view', isCompact);
+        });
+    }
 }
 
 // Extend init to include map event listeners

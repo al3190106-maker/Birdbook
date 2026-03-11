@@ -340,6 +340,79 @@ body {
     gap: 2rem;
 }
 
+/* Compact View Toggle Button */
+.compact-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: white;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.compact-toggle-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.compact-toggle-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(46, 93, 75, 0.3);
+}
+
+/* Compact Grid Mode */
+.sightings-grid.compact {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.6rem;
+}
+
+.sightings-grid.compact .bird-card {
+    border-radius: 10px;
+}
+
+.sightings-grid.compact .bird-image-container {
+    height: 0;
+    padding-bottom: 100%; /* Square aspect ratio */
+}
+
+.sightings-grid.compact .bird-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+}
+
+.sightings-grid.compact .bird-image-name {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.4rem;
+}
+
+.sightings-grid.compact .bird-info {
+    display: none;
+}
+
+.sightings-grid.compact .edit-image-btn,
+.sightings-grid.compact .delete-sighting-btn {
+    display: none;
+}
+
+.sightings-grid.compact .sighting-count-badge {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+}
+
 /* Bird Card */
 .bird-card {
     background: var(--card-bg);
