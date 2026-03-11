@@ -534,9 +534,12 @@
     <!-- Sightings Map Overlay -->
     <div class="modal-overlay" id="sightings-map-modal" style="z-index: 2600;">
         <div class="modal-content sightings-map-modal-content">
-            <button class="close-modal" id="close-sightings-map" style="z-index: 2700;"><i class="fa-solid fa-times"></i></button>
-            <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-map-location-dot"></i> Mina Fynd</h2>
-            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Alla observationer med platsdata visas som nålar på kartan.</p>
+            <div class="sightings-map-header">
+                <button class="close-modal" id="close-sightings-map" style="z-index: 2700;"><i class="fa-solid fa-times"></i></button>
+                <button class="map-expand-btn" id="expand-sightings-map" title="Förstora kartan"><i class="fa-solid fa-expand"></i></button>
+            </div>
+            <h2 class="sightings-map-title" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-map-location-dot"></i> Mina Fynd</h2>
+            <p class="sightings-map-subtitle" style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Alla observationer med platsdata visas som nålar på kartan.</p>
             <div id="sightings-overview-map" class="sightings-overview-map"></div>
         </div>
     </div>

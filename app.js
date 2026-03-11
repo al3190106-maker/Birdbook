@@ -3292,18 +3292,56 @@ function _renderSightingsOverviewMap() {
 
         const imgSrc = getBirdImageSrc(item.id);
         const popupContent = `
-            <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img" onerror="this.style.display='none'">
-            <div class="sighting-popup">
-                <div class="sighting-popup-name">${item.nameSv}</div>
-                <div class="sighting-popup-scientific">${item.scientific}</div>
-                <div class="sighting-popup-detail"><i class="fa-regular fa-calendar"></i> ${s.date}</div>
-                <div class="sighting-popup-detail"><i class="fa-solid fa-map-pin"></i> ${s.location || 'Ok\u00e4nd plats'}</div>
-                ${s.notes ? `<div class="sighting-popup-detail" style="font-style:italic;"><i class="fa-regular fa-note-sticky"></i> ${s.notes}</div>` : ''}
+            <div class="sighting-popup-square" data-bird-id="${item.id}" data-sighting-id="${s.id}">
+                <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img-square" data-bird-id="${item.id}" onerror="this.style.display='none'">
+                <div class="sighting-popup-overlay">
+                    <span class="sighting-popup-label">${item.nameSv}</span>
+                </div>
             </div>
         `;
 
         const marker = L.marker([s.lat, s.lng]).addTo(_overviewMap);
-        marker.bindPopup(popupContent, { maxWidth: 250, minWidth: 180 });
+        marker.bindPopup(popupContent, { maxWidth: 160, minWidth: 120, className: 'square-popup', closeButton: false });
+
+        // On popup open, wire up click to detail
+        marker.on('popupopen', () => {
+            const popupEl = marker.getPopup().getElement();
+            if (popupEl) {
+                const imgEl = popupEl.querySelector('.sighting-popup-square');
+                if (imgEl) {
+                    imgEl.style.cursor = 'pointer';
+                    imgEl.onclick = () => {
+                        // Close map modal
+                        const modal = document.getElementById('sightings-map-modal');
+                        if (modal) modal.classList.remove('active');
+                        modal.querySelector('.sightings-map-modal-content').classList.remove('fullscreen');
+
+                        // Find the species and determine subject type
+                        const allData = [
+                            ...(window.swedishBirds || []), ...(window.swedishTrees || []),
+                            ...(window.swedishFish || []), ...(window.swedishAnimals || []),
+                            ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
+                        ];
+                        const subject = allData.find(d => d.id === item.id);
+                        if (subject) {
+                            let subjectType = 'birds';
+                            if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
+                            else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
+                            else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
+                            else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
+                            else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+
+                            if (state.currentSubject !== subjectType) switchSubject(subjectType);
+
+                            // Find the sighting to pass to detail
+                            const sighting = state.sightings.find(si => si.id === s.id);
+                            openBirdDetail(subject, sighting || null);
+                        }
+                    };
+                }
+            }
+        });
+
         bounds.push([s.lat, s.lng]);
     });
 
@@ -3325,6 +3363,34 @@ function _setupMapEventListeners() {
         closeMapBtn.addEventListener('click', () => {
             const modal = document.getElementById('sightings-map-modal');
             if (modal) modal.classList.remove('active');
+            // Reset fullscreen
+            const content = modal.querySelector('.sightings-map-modal-content');
+            if (content) content.classList.remove('fullscreen');
+        });
+    }
+
+    // Fullscreen toggle
+    const expandBtn = document.getElementById('expand-sightings-map');
+    if (expandBtn) {
+        expandBtn.addEventListener('click', () => {
+            const content = document.querySelector('.sightings-map-modal-content');
+            if (!content) return;
+            content.classList.toggle('fullscreen');
+
+            // Toggle icon
+            const icon = expandBtn.querySelector('i');
+            if (content.classList.contains('fullscreen')) {
+                icon.className = 'fa-solid fa-compress';
+                expandBtn.title = 'F\u00f6rminska kartan';
+            } else {
+                icon.className = 'fa-solid fa-expand';
+                expandBtn.title = 'F\u00f6rstora kartan';
+            }
+
+            // Leaflet needs size invalidation after resize
+            if (_overviewMap) {
+                setTimeout(() => _overviewMap.invalidateSize(), 200);
+            }
         });
     }
 }
