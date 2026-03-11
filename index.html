@@ -13,6 +13,10 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -71,6 +75,10 @@
                 <div class="stat-card action-card" id="add-sighting-btn">
                     <i class="fa-solid fa-plus"></i>
                     <span class="stat-label">Ny observation</span>
+                </div>
+                <div class="stat-card action-card" id="show-sightings-map-btn" title="Visa alla fynd på kartan">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span class="stat-label">Karta</span>
                 </div>
             </section>
 
@@ -374,6 +382,19 @@
                             <input type="text" id="sighting-location" placeholder="Var såg du den?">
                         </div>
 
+                        <!-- Map Pin Placement -->
+                        <div class="form-group">
+                            <label>Placera nål på kartan</label>
+                            <div class="sighting-map-wrapper">
+                                <div id="sighting-map" class="sighting-map"></div>
+                                <button type="button" id="sighting-map-gps-btn" class="map-gps-btn" title="Använd min position">
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" id="sighting-lat">
+                            <input type="hidden" id="sighting-lng">
+                        </div>
+
                         <!-- Notes -->
                         <div class="form-group">
                             <label for="sighting-notes">Anteckningar</label>
@@ -508,6 +529,16 @@
         </div>
         <img id="fullscreen-img-element" src="" alt="Fullscreen Image"
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 95%; max-height: 90vh; object-fit: contain; border-radius: 8px;">
+    </div>
+
+    <!-- Sightings Map Overlay -->
+    <div class="modal-overlay" id="sightings-map-modal" style="z-index: 2600;">
+        <div class="modal-content sightings-map-modal-content">
+            <button class="close-modal" id="close-sightings-map" style="z-index: 2700;"><i class="fa-solid fa-times"></i></button>
+            <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-map-location-dot"></i> Mina Fynd</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Alla observationer med platsdata visas som nålar på kartan.</p>
+            <div id="sightings-overview-map" class="sightings-overview-map"></div>
+        </div>
     </div>
 
     <!-- Welcome Modal -->

@@ -354,14 +354,20 @@ window.addEventListener('popstate', (event) => {
     }
 });
 
+let _sightingMap = null;
+let _sightingMarker = null;
+
 function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     elements.form.reset();
     const sightingDateEl = document.getElementById('sighting-date');
     const today = new Date();
     sightingDateEl.valueAsDate = today;
-    // Set max to today so user can't select future dates
     sightingDateEl.max = today.toISOString().split('T')[0];
     elements.imagePreviewContainer.innerHTML = '';
+
+    // Clear lat/lng
+    document.getElementById('sighting-lat').value = '';
+    document.getElementById('sighting-lng').value = '';
 
     if (prefillBirdId) {
         elements.selectedBirdId.value = prefillBirdId;
@@ -371,6 +377,107 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     }
 
     elements.modal.classList.add('active');
+
+    // Initialize or reset Leaflet map
+    setTimeout(() => {
+        _initSightingMap();
+    }, 150);
+}
+
+function _initSightingMap() {
+    const mapContainer = document.getElementById('sighting-map');
+    if (!mapContainer) return;
+
+    // Destroy previous map instance
+    if (_sightingMap) {
+        _sightingMap.remove();
+        _sightingMap = null;
+        _sightingMarker = null;
+    }
+
+    // Center on Sweden
+    _sightingMap = L.map('sighting-map', {
+        zoomControl: true,
+        attributionControl: false
+    }).setView([62.0, 15.5], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18
+    }).addTo(_sightingMap);
+
+    // Click to place pin
+    _sightingMap.on('click', (e) => {
+        _placeSightingPin(e.latlng.lat, e.latlng.lng);
+    });
+
+    // GPS button
+    const gpsBtn = document.getElementById('sighting-map-gps-btn');
+    if (gpsBtn) {
+        // Remove old listeners by cloning
+        const newGpsBtn = gpsBtn.cloneNode(true);
+        gpsBtn.replaceWith(newGpsBtn);
+        newGpsBtn.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                alert('Geolokalisering st\u00f6ds inte av din webbl\u00e4sare.');
+                return;
+            }
+            newGpsBtn.classList.add('locating');
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    newGpsBtn.classList.remove('locating');
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    _sightingMap.setView([lat, lng], 13);
+                    _placeSightingPin(lat, lng);
+                },
+                (err) => {
+                    newGpsBtn.classList.remove('locating');
+                    alert('Kunde inte h\u00e4mta din position. Kontrollera att du till\u00e5ter plats\u00e5tkomst.');
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        });
+    }
+}
+
+function _placeSightingPin(lat, lng) {
+    if (!_sightingMap) return;
+
+    // Store coordinates
+    document.getElementById('sighting-lat').value = lat;
+    document.getElementById('sighting-lng').value = lng;
+
+    // Place or move marker
+    if (_sightingMarker) {
+        _sightingMarker.setLatLng([lat, lng]);
+    } else {
+        _sightingMarker = L.marker([lat, lng], { draggable: true }).addTo(_sightingMap);
+        _sightingMarker.on('dragend', (e) => {
+            const pos = e.target.getLatLng();
+            document.getElementById('sighting-lat').value = pos.lat;
+            document.getElementById('sighting-lng').value = pos.lng;
+            _reverseGeocode(pos.lat, pos.lng);
+        });
+    }
+
+    // Reverse geocode to fill location text
+    _reverseGeocode(lat, lng);
+}
+
+function _reverseGeocode(lat, lng) {
+    const locationInput = document.getElementById('sighting-location');
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`, {
+        headers: { 'Accept-Language': 'sv' }
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data && data.address) {
+            const a = data.address;
+            const parts = [a.village || a.town || a.city || a.municipality, a.county || a.state].filter(Boolean);
+            locationInput.value = parts.join(', ') || data.display_name || '';
+        }
+    })
+    .catch(() => { /* silently fail, user can still type manually */ });
 }
 
 // --- Carousel State ---
@@ -2161,13 +2268,18 @@ function setupEventListeners() {
             return;
         }
 
+        const latVal = document.getElementById('sighting-lat').value;
+        const lngVal = document.getElementById('sighting-lng').value;
+
         const newSighting = {
             id: Date.now().toString(),
             birdId: elements.selectedBirdId.value,
             date: document.getElementById('sighting-date').value,
             location: document.getElementById('sighting-location').value,
             notes: document.getElementById('sighting-notes').value,
-            photo: null
+            photo: null,
+            lat: latVal ? parseFloat(latVal) : null,
+            lng: lngVal ? parseFloat(lngVal) : null
         };
 
         const finish = () => {
@@ -3111,6 +3223,118 @@ function _showPhotographer(id, returnAction = null) {
 
 
 // ============================================================
+
+// --- Sightings Overview Map ---
+let _overviewMap = null;
+
+function _openSightingsMap() {
+    const modal = document.getElementById('sightings-map-modal');
+    if (!modal) return;
+    modal.classList.add('active');
+
+    setTimeout(() => {
+        _renderSightingsOverviewMap();
+    }, 200);
+}
+
+function _renderSightingsOverviewMap() {
+    const container = document.getElementById('sightings-overview-map');
+    if (!container) return;
+
+    // Destroy previous
+    if (_overviewMap) {
+        _overviewMap.remove();
+        _overviewMap = null;
+    }
+
+    _overviewMap = L.map('sightings-overview-map', {
+        zoomControl: true,
+        attributionControl: false
+    }).setView([62.0, 15.5], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18
+    }).addTo(_overviewMap);
+
+    // Collect ALL sightings with coordinates (across all subjects)
+    const allSpecies = [
+        ...(window.swedishBirds || []),
+        ...(window.swedishTrees || []),
+        ...(window.swedishFish || []),
+        ...(window.swedishAnimals || []),
+        ...(window.swedishFungi || []),
+        ...(window.swedishFlowers || [])
+    ];
+
+    const geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD');
+
+    if (geoSightings.length === 0) {
+        // Show a message on the map
+        const info = L.control({ position: 'topright' });
+        info.onAdd = function() {
+            const div = L.DomUtil.create('div', 'sighting-popup');
+            div.style.background = 'white';
+            div.style.borderRadius = '10px';
+            div.style.padding = '1rem';
+            div.style.boxShadow = '0 2px 10px rgba(0,0,0,0.15)';
+            div.innerHTML = '<strong>Inga observationer med platsdata \u00e4n.</strong><br>Placera en n\u00e5l n\u00e4r du skapar en ny observation!';
+            return div;
+        };
+        info.addTo(_overviewMap);
+        return;
+    }
+
+    const bounds = [];
+
+    geoSightings.forEach(s => {
+        const item = allSpecies.find(sp => sp.id === s.birdId);
+        if (!item) return;
+
+        const imgSrc = getBirdImageSrc(item.id);
+        const popupContent = `
+            <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img" onerror="this.style.display='none'">
+            <div class="sighting-popup">
+                <div class="sighting-popup-name">${item.nameSv}</div>
+                <div class="sighting-popup-scientific">${item.scientific}</div>
+                <div class="sighting-popup-detail"><i class="fa-regular fa-calendar"></i> ${s.date}</div>
+                <div class="sighting-popup-detail"><i class="fa-solid fa-map-pin"></i> ${s.location || 'Ok\u00e4nd plats'}</div>
+                ${s.notes ? `<div class="sighting-popup-detail" style="font-style:italic;"><i class="fa-regular fa-note-sticky"></i> ${s.notes}</div>` : ''}
+            </div>
+        `;
+
+        const marker = L.marker([s.lat, s.lng]).addTo(_overviewMap);
+        marker.bindPopup(popupContent, { maxWidth: 250, minWidth: 180 });
+        bounds.push([s.lat, s.lng]);
+    });
+
+    // Fit bounds if we have markers
+    if (bounds.length > 0) {
+        _overviewMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
+    }
+}
+
+// Wire up map button and close button after DOM loads
+function _setupMapEventListeners() {
+    const mapBtn = document.getElementById('show-sightings-map-btn');
+    if (mapBtn) {
+        mapBtn.addEventListener('click', _openSightingsMap);
+    }
+
+    const closeMapBtn = document.getElementById('close-sightings-map');
+    if (closeMapBtn) {
+        closeMapBtn.addEventListener('click', () => {
+            const modal = document.getElementById('sightings-map-modal');
+            if (modal) modal.classList.remove('active');
+        });
+    }
+}
+
+// Extend init to include map event listeners
+const _originalInit = init;
+init = async function() {
+    await _originalInit();
+    _setupMapEventListeners();
+};
 
 // Start
 document.addEventListener('DOMContentLoaded', init);
