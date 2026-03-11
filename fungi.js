@@ -1,4 +1,3 @@
-
 // List of Swedish Fungi (Svampboken)
 window.swedishFungi = [
     {
@@ -10,9 +9,11 @@ window.swedishFungi = [
         "rarity": 1,
         "funFact": "Kantarellen kallas ofta för 'Skogens guld' och är en av Sveriges mest insamlade matsvampar.",
         "seasonDistribution": "Hela landet",
-        "size": 10, // cm hattbredd
+        "size": 10,
         "edibility": "Utmärkt matsvamp",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/chanterelle.jpg",
+        "photographer": "Alan Rockefeller"
     },
     {
         "id": "penny_bun",
@@ -25,7 +26,9 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 15,
         "edibility": "Utmärkt matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/penny_bun.jpg",
+        "photographer": "Alan Rockefeller"
     },
     {
         "id": "fly_agaric",
@@ -38,7 +41,9 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 15,
         "edibility": "Giftig",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/fly_agaric.jpeg",
+        "photographer": "Johan Adler"
     },
     {
         "id": "death_cap",
@@ -51,7 +56,9 @@ window.swedishFungi = [
         "seasonDistribution": "Södra Sverige",
         "size": 12,
         "edibility": "Dödligt giftig",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/death_cap.jpeg",
+        "photographer": "Sofia Zvolanek"
     },
     {
         "id": "destroying_angel",
@@ -64,20 +71,24 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 10,
         "edibility": "Dödligt giftig",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/destroying_angel.jpg",
+        "photographer": "Thierry Arbault"
     },
     {
         "id": "common_mushroom",
         "type": "Bläcksvampar",
         "nameEn": "Field Mushroom",
-        "nameSv": "Champinjon",
+        "nameSv": "Ängschampinjon",
         "scientific": "Agaricus campestris",
         "rarity": 1,
         "funFact": "Vildchampinjonen är förälder till den odlade champinjonen i matbutiken.",
         "seasonDistribution": "Hela landet",
         "size": 12,
         "edibility": "Utmärkt matsvamp",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/common_mushroom.jpeg",
+        "photographer": "Thomas Mesaglio"
     },
     {
         "id": "meadow_waxcap",
@@ -90,7 +101,9 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 5,
         "edibility": "Ej matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/meadow_waxcap.jpeg",
+        "photographer": "Alan Rockefeller"
     },
     {
         "id": "black_trumpet",
@@ -103,7 +116,9 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 8,
         "edibility": "God matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/black_trumpet.jpeg",
+        "photographer": "Thor-Rune Hansen"
     },
     {
         "id": "horn_of_plenty",
@@ -116,7 +131,9 @@ window.swedishFungi = [
         "seasonDistribution": "Södra och mellersta Sverige",
         "size": 10,
         "edibility": "Utmärkt matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/horn_of_plenty.jpeg",
+        "photographer": "Sofia Zvolanek"
     },
     {
         "id": "oyster_mushroom",
@@ -129,33 +146,39 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 15,
         "edibility": "Utmärkt matsvamp",
-        "bestTime": "Höst/Vinter"
+        "bestTime": "Höst/Vinter",
+        "image": "images/svampboken_bilder/oyster_mushroom.jpg",
+        "photographer": "Katja Schulz"
     },
     {
         "id": "honey_fungus",
         "type": "Rottickor",
         "nameEn": "Honey Fungus",
-        "nameSv": "Hallonvaxskivling",
+        "nameSv": "Honungsskivling",
         "scientific": "Armillaria mellea",
         "rarity": 1,
         "funFact": "Lever som parasit och kan bilda ett av världens största levande organismer via sitt underjordiska mycel.",
         "seasonDistribution": "Hela landet",
         "size": 12,
         "edibility": "God matsvamp (måste kokas)",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/honey_fungus.jpg",
+        "photographer": "Anisha Kumra"
     },
     {
         "id": "velvet_shank",
         "type": "Flammor",
         "nameEn": "Velvet Shank",
-        "nameSv": "Vintertagging",
+        "nameSv": "Vinterskivling",
         "scientific": "Flammulina velutipes",
         "rarity": 1,
         "funFact": "En av de få svampar som växer mitt i vintern – används i det odlade 'enokisvampen' i asiatisk mat.",
         "seasonDistribution": "Hela landet",
         "size": 5,
         "edibility": "God matsvamp",
-        "bestTime": "Vinter"
+        "bestTime": "Vinter",
+        "image": "images/svampboken_bilder/velvet_shank.jpeg",
+        "photographer": "Caroline Edwards"
     },
     {
         "id": "giant_puffball",
@@ -168,7 +191,9 @@ window.swedishFungi = [
         "seasonDistribution": "Södra och mellersta Sverige",
         "size": 50,
         "edibility": "God matsvamp (ung)",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/giant_puffball.jpg",
+        "photographer": "Carrie Seltzer"
     },
     {
         "id": "common_puffball",
@@ -181,72 +206,84 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 5,
         "edibility": "God matsvamp (ung)",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/common_puffball.jpeg",
+        "photographer": "Thomas Hirsch"
     },
     {
         "id": "sulphur_tuft",
         "type": "Svavelskivlingar",
         "nameEn": "Sulphur Tuft",
-        "nameSv": "Giftkremla",
+        "nameSv": "Svavelgul slöjskivling",
         "scientific": "Hypholoma fasciculare",
         "rarity": 1,
         "funFact": "Växer i enorma tuvor på döda träd och är en av de vanligaste orsakerna till svampförgiftning i Sverige.",
         "seasonDistribution": "Hela landet",
         "size": 7,
         "edibility": "Giftig",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/sulphur_tuft.jpeg",
+        "photographer": "Alan Rockefeller"
     },
     {
         "id": "saffron_milkcap",
         "type": "Riska",
         "nameEn": "Saffron Milk Cap",
-        "nameSv": "Blodriskor",
+        "nameSv": "Läcker riska",
         "scientific": "Lactarius deliciosus",
         "rarity": 2,
         "funFact": "Rinner orange saft när man skär i den. En populär matsvamp i södra Europa men ovanligare i Sverige.",
         "seasonDistribution": "Södra Sverige",
         "size": 12,
         "edibility": "God matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/saffron_milkcap.jpeg",
+        "photographer": "Alan Rockefeller"
     },
     {
         "id": "woolly_milkcap",
         "type": "Riska",
         "nameEn": "Woolly Milkcap",
-        "nameSv": "Pepparriska",
+        "nameSv": "Skäggriska",
         "scientific": "Lactarius torminosus",
         "rarity": 1,
         "funFact": "Har en typisk ullhårig hatt och en brännande skarp mjölksaft. Giftig rå men kan syltas i Norden.",
         "seasonDistribution": "Hela landet",
         "size": 12,
         "edibility": "Giftig (rå), Ätbar (bearbetad)",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/woolly_milkcap.jpeg",
+        "photographer": "Davide Puddu"
     },
     {
         "id": "shaggy_inkcap",
         "type": "Bläcksvampar",
         "nameEn": "Shaggy Inkcap",
-        "nameSv": "Skallersvamp",
+        "nameSv": "Fjällig bläcksvamp",
         "scientific": "Coprinus comatus",
         "rarity": 1,
         "funFact": "Löser upp sig själv till ett svart bläck inom dagar för att sprida sina sporer – ett fascinerande fenomen.",
         "seasonDistribution": "Hela landet",
         "size": 10,
         "edibility": "God matsvamp (ung)",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/shaggy_inkcap.jpeg",
+        "photographer": "Tom Norton"
     },
     {
         "id": "morel",
         "type": "Murkla",
         "nameEn": "Common Morel",
-        "nameSv": "Toppmurkla",
+        "nameSv": "Rundmurkla",
         "scientific": "Morchella esculenta",
         "rarity": 3,
         "funFact": "Springsvampens läckraste representant. Dyker upp tidigt på våren och betingar höga priser på restauranger.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "size": 12,
         "edibility": "Utmärkt matsvamp (kokt)",
-        "bestTime": "Vår"
+        "bestTime": "Vår",
+        "image": "images/svampboken_bilder/morel.jpg",
+        "photographer": "Сергей Неклюдов"
     },
     {
         "id": "false_morel",
@@ -259,46 +296,54 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 10,
         "edibility": "Giftig (rå)",
-        "bestTime": "Vår"
+        "bestTime": "Vår",
+        "image": "images/svampboken_bilder/false_morel.jpg",
+        "photographer": "Christian Kahle"
     },
     {
         "id": "cep_rough",
         "type": "Soppar",
         "nameEn": "Bay Bolete",
-        "nameSv": "Kastanjesoppa",
+        "nameSv": "Brunsopp",
         "scientific": "Imleria badia",
         "rarity": 1,
         "funFact": "Lätt att känna igen på bruna hatten och porer som blånar vid skada. God matsvamp i karljohansfamiljen.",
         "seasonDistribution": "Hela landet",
         "size": 12,
         "edibility": "God matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/cep_rough.jpg",
+        "photographer": "A. Johann"
     },
     {
         "id": "scarlet_elf_cup",
         "type": "Skålsvampar",
         "nameEn": "Scarlet Elf Cup",
-        "nameSv": "Scharlakansröd skålsvamp",
+        "nameSv": "Scharlakansvårskål",
         "scientific": "Sarcoscypha austriaca",
         "rarity": 3,
         "funFact": "Lyser i en intensiv skarlakansröd färg mot snön – en av de första tecknen på att våren är på väg.",
         "seasonDistribution": "Södra Sverige",
         "size": 5,
         "edibility": "Ej matsvamp",
-        "bestTime": "Vinter/Vår"
+        "bestTime": "Vinter/Vår",
+        "image": "images/svampboken_bilder/scarlet_elf_cup.jpeg",
+        "photographer": "Lena Perova"
     },
     {
         "id": "chicken_of_the_woods",
         "type": "Tickor",
         "nameEn": "Chicken of the Woods",
-        "nameSv": "Kycklingsticka",
+        "nameSv": "Svavelticka",
         "scientific": "Laetiporus sulphureus",
         "rarity": 2,
         "funFact": "Bildar stora orange/gula hyllor på levande ekar. Kallas 'kycklingsvamp' för sin köttiga konsistens.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "size": 40,
         "edibility": "God matsvamp (ung)",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/chicken_of_the_woods.jpg",
+        "photographer": "Bethany Teigen"
     },
     {
         "id": "birch_polypore",
@@ -311,32 +356,38 @@ window.swedishFungi = [
         "seasonDistribution": "Hela landet",
         "size": 25,
         "edibility": "Ej matsvamp (medicinell)",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/birch_polypore.jpg",
+        "photographer": "Deana Tempest Thomas"
     },
     {
         "id": "velvet_bolete",
         "type": "Soppar",
         "nameEn": "Brown Birch Bolete",
-        "nameSv": "Björksoppa",
+        "nameSv": "Björksopp",
         "scientific": "Leccinum scabrum",
         "rarity": 1,
         "funFact": "Lever i symbios med björkar och kan, trots att den är ätbar, ha en mörknande fruktkött vid tillagning.",
         "seasonDistribution": "Hela landet",
         "size": 15,
         "edibility": "God matsvamp",
-        "bestTime": "Sommar/Höst"
+        "bestTime": "Sommar/Höst",
+        "image": "images/svampboken_bilder/velvet_bolete.jpg",
+        "photographer": "Paul Cook"
     },
     {
         "id": "hedgehog_fungus",
         "type": "Piggsoppar",
         "nameEn": "Hedgehog Fungus",
-        "nameSv": "Taggsvamp",
+        "nameSv": "Blek taggsvamp",
         "scientific": "Hydnum repandum",
         "rarity": 2,
         "funFact": "Lätt att känna igen på undersidans taggar (istället för lameller eller porer). Utmärkt matsvamp.",
         "seasonDistribution": "Hela landet",
         "size": 12,
         "edibility": "Utmärkt matsvamp",
-        "bestTime": "Höst"
+        "bestTime": "Höst",
+        "image": "images/svampboken_bilder/hedgehog_fungus.jpg",
+        "photographer": "Carminda Santos"
     }
 ];

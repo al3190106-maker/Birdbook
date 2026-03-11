@@ -495,7 +495,11 @@ function _buildCarousel(images) {
     images.forEach((item, i) => {
         const src = typeof item === 'object' ? item.src : item;
         const photographerId = typeof item === 'object' ? item.photographer : null;
-        const photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
+        let photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
+
+        if (typeof item === 'object' && item.photographerName) {
+            photographer = { name: item.photographerName };
+        }
 
         const slide = document.createElement('div');
         slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
@@ -517,31 +521,36 @@ function _buildCarousel(images) {
             const tag = document.createElement('div');
             tag.className = 'photographer-tag';
             tag.innerHTML = '<i class="fa-solid fa-camera"></i> ' + photographer.name;
-            tag.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent fullscreen
-                
-                const returnBirdId = currentCarouselBirdId;
-                const returnSubject = state.currentSubject;
-                
-                elements.detailModal.classList.remove('active');
-                
-                _showPhotographer(photographerId, () => {
-                    if (state.currentSubject !== returnSubject) switchSubject(returnSubject);
-                    const btn = document.querySelector('.nav-btn[data-tab="guide-view"]');
-                    if (btn) btn.click();
+            if (photographerId) {
+                tag.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent fullscreen
                     
-                    const allData = [
-                        ...(window.swedishBirds || []), ...(window.swedishTrees || []),
-                        ...(window.swedishFish || []), ...(window.swedishAnimals || []),
-                        ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
-                    ];
-                    const subject = allData.find(d => d.id === returnBirdId);
-                    if (subject) {
-                        _renderBirdDetail(subject);
-                        elements.detailModal.classList.add('active');
-                    }
+                    const returnBirdId = currentCarouselBirdId;
+                    const returnSubject = state.currentSubject;
+                    
+                    elements.detailModal.classList.remove('active');
+                    
+                    _showPhotographer(photographerId, () => {
+                        if (state.currentSubject !== returnSubject) switchSubject(returnSubject);
+                        const btn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+                        if (btn) btn.click();
+                        
+                        const allData = [
+                            ...(window.swedishBirds || []), ...(window.swedishTrees || []),
+                            ...(window.swedishFish || []), ...(window.swedishAnimals || []),
+                            ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
+                        ];
+                        const subject = allData.find(d => d.id === returnBirdId);
+                        if (subject) {
+                            _renderBirdDetail(subject);
+                            elements.detailModal.classList.add('active');
+                        }
+                    });
                 });
-            });
+            } else {
+                // Just display the tag, ignore clicks for un-registered photographers
+                tag.addEventListener('click', (e) => e.stopPropagation());
+            }
             slide.appendChild(tag);
         }
 
@@ -564,7 +573,11 @@ function _applyFullscreenItem(index) {
     const item = carouselImages[index];
     const src = typeof item === 'object' ? item.src : item;
     const photographerId = typeof item === 'object' ? item.photographer : null;
-    const photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
+    let photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
+    
+    if (typeof item === 'object' && item.photographerName) {
+        photographer = { name: item.photographerName };
+    }
     
     elements.fsImg.src = src;
     
@@ -576,31 +589,35 @@ function _applyFullscreenItem(index) {
         tag.className = 'photographer-tag';
         tag.innerHTML = '<i class="fa-solid fa-camera"></i> ' + photographer.name;
         tag.style.bottom = '40px'; 
-        tag.addEventListener('click', (e) => {
-            e.stopPropagation();
-            elements.fsModal.classList.remove('active');
-            elements.detailModal.classList.remove('active');
-            
-            const returnBirdId = currentCarouselBirdId;
-            const returnSubject = state.currentSubject;
-            
-            _showPhotographer(photographerId, () => {
-                if (state.currentSubject !== returnSubject) switchSubject(returnSubject);
-                const btn = document.querySelector('.nav-btn[data-tab="guide-view"]');
-                if (btn) btn.click();
+        if (photographerId) {
+            tag.addEventListener('click', (e) => {
+                e.stopPropagation();
+                elements.fsModal.classList.remove('active');
+                elements.detailModal.classList.remove('active');
                 
-                const allData = [
-                    ...(window.swedishBirds || []), ...(window.swedishTrees || []),
-                    ...(window.swedishFish || []), ...(window.swedishAnimals || []),
-                    ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
-                ];
-                const subject = allData.find(d => d.id === returnBirdId);
-                if (subject) {
-                    _renderBirdDetail(subject);
-                    elements.detailModal.classList.add('active');
-                }
+                const returnBirdId = currentCarouselBirdId;
+                const returnSubject = state.currentSubject;
+                
+                _showPhotographer(photographerId, () => {
+                    if (state.currentSubject !== returnSubject) switchSubject(returnSubject);
+                    const btn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+                    if (btn) btn.click();
+                    
+                    const allData = [
+                        ...(window.swedishBirds || []), ...(window.swedishTrees || []),
+                        ...(window.swedishFish || []), ...(window.swedishAnimals || []),
+                        ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
+                    ];
+                    const subject = allData.find(d => d.id === returnBirdId);
+                    if (subject) {
+                        _renderBirdDetail(subject);
+                        elements.detailModal.classList.add('active');
+                    }
+                });
             });
-        });
+        } else {
+            tag.addEventListener('click', (e) => e.stopPropagation());
+        }
         elements.fsModal.appendChild(tag);
     }
 }
@@ -660,8 +677,16 @@ function _renderBirdDetail(item, sighting = null) {
     // Build image carousel
     currentCarouselBirdId = item.id;
     const galleryImages = (window.birdImages && window.birdImages[item.id]) || [];
-    const fallbackSrc = getBirdImageSrc(item.id);
-    let imagesToShow = galleryImages.length > 0 ? [...galleryImages] : [fallbackSrc];
+    const fallbackSrc = item.image || getBirdImageSrc(item.id);
+    let imagesToShow = galleryImages.length > 0 ? [...galleryImages] : [];
+    
+    if (imagesToShow.length === 0) {
+        if (item.photographer) {
+            imagesToShow.push({ src: fallbackSrc, photographerName: item.photographer });
+        } else {
+            imagesToShow.push(fallbackSrc);
+        }
+    }
 
     // If user has a custom image, prepend it as the primary image
     const userCustomImg = localStorage.getItem(`custom_img_${item.id}`);
@@ -1242,6 +1267,11 @@ function getBirdImageSrc(birdId) {
     // 1. Check LocalStorage for custom override
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
+    
+    // Check if it's fungi
+    const fungiItem = (window.swedishFungi || []).find(f => f.id === birdId);
+    if (fungiItem && fungiItem.image) return fungiItem.image;
+
     // 2. Default
     return `images/${birdId}.jpg`;
 }
@@ -1424,7 +1454,8 @@ function renderSightingsList(sightings) {
 
         // Custom image takes priority as the new primary image
         const customImg = localStorage.getItem(`custom_img_${item.id}`);
-        const imgSource = customImg || sighting.photo || getBirdImageSrc(item.id);
+        const obj = (window.swedishFungi || []).find(f => f.id === item.id);
+        const imgSource = customImg || sighting.photo || (obj && obj.image) || getBirdImageSrc(item.id);
 
         card.innerHTML = `
             <div class="bird-image-container">
@@ -1510,7 +1541,8 @@ function renderGuideList(birdList) {
         // Make the whole card clickable for details
         card.style.cursor = 'pointer';
 
-        const imgSource = getBirdImageSrc(bird.id);
+        const obj = (window.swedishFungi || []).find(f => f.id === bird.id);
+        const imgSource = (obj && obj.image) || getBirdImageSrc(bird.id);
 
         card.innerHTML = `
             <div class="bird-image-container">
@@ -1854,6 +1886,10 @@ function getBirdImageSrc(birdId) {
     // 1. Check LocalStorage for custom override
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
+    
+    // Check if it's fungi
+    const fungiItem = (window.swedishFungi || []).find(f => f.id === birdId);
+    if (fungiItem && fungiItem.image) return fungiItem.image;
 
     // 2. Try the real image file (images/{bird_id}.jpg)
     //    The onerror handler on the <img> will swap to the holder if this 404s
@@ -2591,7 +2627,8 @@ function renderQuizQuestion() {
 
     let imageHtml = '';
     if (q.image) {
-        const imgSrc = getBirdImageSrc(q.image);
+        const obj = (window.swedishFungi || []).find(f => f.id === q.image);
+        const imgSrc = (obj && obj.image) || getBirdImageSrc(q.image);
         imageHtml = `<div class="quiz-image-container">
             <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" onerror="handleImageError(this)" class="quiz-bird-image">
         </div>`;
@@ -3290,7 +3327,8 @@ function _renderSightingsOverviewMap() {
         const item = allSpecies.find(sp => sp.id === s.birdId);
         if (!item) return;
 
-        const imgSrc = getBirdImageSrc(item.id);
+        const obj = (window.swedishFungi || []).find(f => f.id === item.id);
+        const imgSrc = (obj && obj.image) || getBirdImageSrc(item.id);
         const popupContent = `
             <div class="sighting-popup-square" data-bird-id="${item.id}" data-sighting-id="${s.id}">
                 <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img-square" data-bird-id="${item.id}" onerror="this.style.display='none'">
