@@ -1458,8 +1458,9 @@ function createCategoryCard(cat) {
         div.style.setProperty('--cat-text', theme.text);
     }
 
-    const imgFile = CATEGORY_ICON_IMAGES[cat.name];
-    const iconHtml = (state.currentSubject === 'birds' && imgFile)
+    const subjectAllaKey = cat.name === 'Alla' ? `Alla_${state.currentSubject}` : null;
+    const imgFile = (subjectAllaKey && CATEGORY_ICON_IMAGES[subjectAllaKey]) || CATEGORY_ICON_IMAGES[cat.name];
+    const iconHtml = (imgFile)
         ? `<img src="images/category_icons/${imgFile}" class="category-icon-img" alt="${cat.name}" onerror="this.style.display='none';this.nextElementSibling&&this.nextElementSibling.classList.remove('hidden')">`
         : `<i class="fa-solid ${cat.icon} category-icon" ${theme ? `style="color: ${theme.text}"` : ''}></i>`;
     
@@ -1512,6 +1513,8 @@ function selectCategory(category) {
 // Maps bird category names to PNG icon filenames in images/category_icons/
 const CATEGORY_ICON_IMAGES = {
     'Alla': 'alla.png',
+    'Alla_birds': 'alla.png',
+    'Alla_fungi': 'fungi_alla.png',
     'Alkfåglar': 'alkfaglar.png',
     'Andfåglar': 'andfaglar.png',
     'Duvor': 'duvor.png',
@@ -1532,6 +1535,22 @@ const CATEGORY_ICON_IMAGES = {
     'Ugglor': 'ugglor.png',
     'Vadare': 'vadare.png',
     'Övriga': 'ovriga.png',
+    // Fungi
+    'Bläcksvampar':     'fungi_blacksvampar.png',
+    'Flammor':          'fungi_flammor.png',
+    'Flugsvampar':      'fungi_flugsvampar.png',
+    'Kantareller':      'fungi_kantareller.png',
+    'Murkla':           'fungi_murkla.png',
+    'Ostronsvampar':    'fungi_ostronsvampar.png',
+    'Piggsoppar':       'fungi_piggsoppar.png',
+    'Riska':            'fungi_riska.png',
+    'Rottickor':        'fungi_rottickor.png',
+    'Röksvampar':       'fungi_roksvampar.png',
+    'Skålsvampar':      'fungi_skalsvampar.png',
+    'Soppar':           'fungi_soppar.png',
+    'Svavelskivlingar': 'fungi_svavelskivlingar.png',
+    'Tickor':           'fungi_tickor.png',
+    'Vaxskivlingar':    'fungi_vaxskivlingar.png',
 };
 
 // Helper for icons (used in Map view & Guide Categories)
