@@ -1828,6 +1828,12 @@ const CATEGORY_ICON_IMAGES = {
     'Stickelfiskar':    'fish_stickelfiskar.png',
     'Torskfiskar':      'fish_torskfiskar.png',
     'Ålfiskar':         'fish_alfiskar.png',
+    // Flowers
+    'Hedblommor':       'flower_hedblommor.png',
+    'Orkidéer':         'flower_orkideer.png',
+    'Skogsblommor':     'flower_skogsblommor.png',
+    'Vattenblommor':    'flower_vattenblommor.png',
+    'Vårblommor':       'flower_varblommor.png',
 };
 
 // Helper for icons (used in Map view & Guide Categories)
