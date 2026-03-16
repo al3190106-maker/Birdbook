@@ -357,6 +357,41 @@ window.addEventListener('popstate', (event) => {
 let _sightingMap = null;
 let _sightingMarker = null;
 
+// Toggle visibility of sighting sections
+window.toggleSightingSection = function(section) {
+    const sections = ['map', 'date', 'notes'];
+    let openedElement = null;
+
+    sections.forEach(s => {
+        const el = document.getElementById('sighting-section-' + s);
+        const btn = document.getElementById('btn-toggle-' + s);
+        if (!el || !btn) return;
+
+        if (s === section) {
+            el.classList.toggle('hidden');
+            btn.classList.toggle('active');
+            
+            if (!el.classList.contains('hidden')) {
+                openedElement = el;
+                // If map is shown, trigger a resize for Leaflet
+                if (s === 'map' && typeof _sightingMap !== 'undefined' && _sightingMap) {
+                    setTimeout(() => _sightingMap.invalidateSize(), 150);
+                }
+            }
+        } else {
+            el.classList.add('hidden');
+            btn.classList.remove('active');
+        }
+    });
+
+    if (openedElement) {
+        // Wait for rendering to complete before scrolling
+        setTimeout(() => {
+            openedElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+    }
+};
+
 function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     elements.form.reset();
     const sightingDateEl = document.getElementById('sighting-date');
@@ -364,6 +399,14 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     sightingDateEl.valueAsDate = today;
     sightingDateEl.max = today.toISOString().split('T')[0];
     elements.imagePreviewContainer.innerHTML = '';
+
+    // Reset hidden sections
+    ['map', 'date', 'notes'].forEach(s => {
+        const el = document.getElementById('sighting-section-' + s);
+        const btn = document.getElementById('btn-toggle-' + s);
+        if (el) el.classList.add('hidden');
+        if (btn) btn.classList.remove('active');
+    });
 
     // Clear lat/lng
     document.getElementById('sighting-lat').value = '';
@@ -418,7 +461,7 @@ function _initSightingMap() {
         gpsBtn.replaceWith(newGpsBtn);
         newGpsBtn.addEventListener('click', () => {
             if (!navigator.geolocation) {
-                alert('Geolokalisering st\u00f6ds inte av din webbl\u00e4sare.');
+                alert('Geolokalisering stöds inte av din webbläsare.');
                 return;
             }
             newGpsBtn.classList.add('locating');
@@ -432,11 +475,14 @@ function _initSightingMap() {
                 },
                 (err) => {
                     newGpsBtn.classList.remove('locating');
-                    alert('Kunde inte h\u00e4mta din position. Kontrollera att du till\u00e5ter plats\u00e5tkomst.');
+                    console.warn('Kunde inte hämta din position. Kontrollera att du tillåter platsåtkomst.');
                 },
                 { enableHighAccuracy: true, timeout: 10000 }
             );
         });
+        
+        // Automatically trigger GPS click on start
+        setTimeout(() => newGpsBtn.click(), 100);
     }
 }
 
@@ -1296,7 +1342,6 @@ function getFilteredSightings() {
         if (s.id === 'SYSTEM_INIT_BIRD') return false;
 
         // Filter by Current Mode (Bird vs Tree)
-        // Check if the ID belongs to the current list
         const belongsToMode = currentList.some(item => item.id === s.birdId);
         if (!belongsToMode) return false;
 
@@ -1450,18 +1495,20 @@ function renderSightingsList(sightings) {
         if (!item) return;
 
         const card = document.createElement('div');
-        card.className = 'bird-card'; // Keep generic styling
+        card.className = 'bird-card';
 
-        // Custom image takes priority as the new primary image
+        // Custom image takes priority
         const customImg = localStorage.getItem(`custom_img_${item.id}`);
-        const obj = (window.swedishFungi || []).find(f => f.id === item.id);
-        const imgSource = customImg || sighting.photo || (obj && obj.image) || getBirdImageSrc(item.id);
+        const imgSource = customImg || sighting.photo || getBirdImageSrc(item.id);
 
         card.innerHTML = `
             <div class="bird-image-container">
                 <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
                 <button class="edit-image-btn" id="log-edit-btn-${item.id}" title="Lägg till egen bild">
                     <i class="fa-solid fa-camera"></i>
+                </button>
+                <button class="delete-sighting-btn" id="delete-btn-${sighting.id}" title="Ta bort observation">
+                    <i class="fa-solid fa-trash"></i>
                 </button>
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
                 <div class="bird-image-name">${item.nameSv}</div>
@@ -1470,15 +1517,21 @@ function renderSightingsList(sightings) {
                 <div class="bird-primary-name">${item.nameSv}</div>
                 <div class="bird-secondary-name">${item.nameEn}</div>
                 <div class="bird-scientific">${item.scientific}</div>
-                
-                <div class="sighting-details">
-                    <div class="detail-row"><i class="fa-regular fa-calendar"></i> ${sighting.date}</div>
-                    <div class="detail-row"><i class="fa-solid fa-map-pin"></i> ${sighting.location || 'Okänd plats'}</div>
-                    ${sighting.notes ? `<div class="notes-text">"${sighting.notes}"</div>` : ''}
+                <div class="bird-description">
+                    ${sighting.date} i ${sighting.location || 'Okänd plats'}
+                    ${sighting.notes ? `<br><i>"${sighting.notes}"</i>` : ''}
                 </div>
             </div>
-            </div>
         `;
+
+        // Bind delete button
+        const deleteBtn = card.querySelector(`#delete-btn-${sighting.id}`);
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteSighting(sighting.id);
+            });
+        }
 
         // Bind camera/edit image button
         const logEditBtn = card.querySelector(`#log-edit-btn-${item.id}`);
@@ -1761,6 +1814,20 @@ const CATEGORY_ICON_IMAGES = {
     'Svavelskivlingar': 'fungi_svavelskivlingar.png',
     'Tickor':           'fungi_tickor.png',
     'Vaxskivlingar':    'fungi_vaxskivlingar.png',
+    // Fish
+    'Alla_fish':        'fish_alla.png',
+    'Abborrfiskar':     'fish_abborrfiskar.png',
+    'Karpfiskar':       'fish_karpfiskar.png',
+    'Laxfiskar':        'fish_laxfiskar.png',
+    'Makrillfiskar':    'fish_makrillfiskar.png',
+    'Malartade fiskar': 'fish_malartade.png',
+    'Nålfiskar':        'fish_nalfiskar.png',
+    'Platfiskar':       'fish_platfiskar.png',
+    'Rovfisk':          'fish_rovfisk.png',
+    'Sillfiskar':       'fish_sillfiskar.png',
+    'Stickelfiskar':    'fish_stickelfiskar.png',
+    'Torskfiskar':      'fish_torskfiskar.png',
+    'Ålfiskar':         'fish_alfiskar.png',
 };
 
 // Helper for icons (used in Map view & Guide Categories)
@@ -2296,7 +2363,7 @@ function setupEventListeners() {
     });
 
     // 5. Form Submit
-    elements.form.addEventListener('submit', (e) => {
+    elements.form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         if (!elements.selectedBirdId.value) {
@@ -2306,13 +2373,50 @@ function setupEventListeners() {
 
         const latVal = document.getElementById('sighting-lat').value;
         const lngVal = document.getElementById('sighting-lng').value;
+        const dateVal = document.getElementById('sighting-date').value;
+        let notesVal = document.getElementById('sighting-notes').value;
+
+        const submitBtn = elements.form.querySelector('button[type="submit"]');
+        const originalBtnHTML = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sparar...';
+        submitBtn.disabled = true;
+
+        // Automatically fetch weather data if coordinates and date exist (Request 3)
+        if (latVal && lngVal && dateVal) {
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${latVal}&longitude=${lngVal}&daily=temperature_2m_max,weathercode&past_days=14&forecast_days=1&timezone=Europe%2FBerlin`;
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data && data.daily && data.daily.time) {
+                    const index = data.daily.time.indexOf(dateVal);
+                    if (index !== -1) {
+                        const temp = data.daily.temperature_2m_max[index];
+                        const code = data.daily.weathercode[index];
+                        let wDesc = '';
+                        if (code === 0) wDesc = 'Klart';
+                        else if (code >= 1 && code <= 3) wDesc = 'Växlande molnighet';
+                        else if (code >= 45 && code <= 48) wDesc = 'Dimma';
+                        else if (code >= 51 && code <= 67) wDesc = 'Regn';
+                        else if (code >= 71 && code <= 82) wDesc = 'Snö';
+                        else if (code >= 95) wDesc = 'Åska';
+                        
+                        if (temp !== null && temp !== undefined) {
+                            const wStr = `Väder: ${Math.round(temp)}°C${wDesc ? ', ' + wDesc : ''}`;
+                            notesVal = notesVal ? `${wStr}\n\n${notesVal}` : wStr;
+                        }
+                    }
+                }
+            } catch(e) {
+                console.warn('Weather fetch failed', e);
+            }
+        }
 
         const newSighting = {
             id: Date.now().toString(),
             birdId: elements.selectedBirdId.value,
-            date: document.getElementById('sighting-date').value,
+            date: dateVal,
             location: document.getElementById('sighting-location').value,
-            notes: document.getElementById('sighting-notes').value,
+            notes: notesVal,
             photo: null,
             lat: latVal ? parseFloat(latVal) : null,
             lng: lngVal ? parseFloat(lngVal) : null
@@ -2330,6 +2434,8 @@ function setupEventListeners() {
             saveSightings();
             setupYearFilter();
 
+            submitBtn.innerHTML = originalBtnHTML;
+            submitBtn.disabled = false;
             history.back(); // Close modal via history
         };
 
@@ -3268,6 +3374,10 @@ function _openSightingsMap() {
     const modal = document.getElementById('sightings-map-modal');
     if (!modal) return;
     modal.classList.add('active');
+    
+    // Automatically make it large (fullscreen) as requested
+    const content = modal.querySelector('.sightings-map-modal-content');
+    if (content) content.classList.add('fullscreen');
 
     setTimeout(() => {
         _renderSightingsOverviewMap();
