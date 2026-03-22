@@ -1834,6 +1834,24 @@ const CATEGORY_ICON_IMAGES = {
     'Skogsblommor':     'flower_skogsblommor.png',
     'Vattenblommor':    'flower_vattenblommor.png',
     'Vårblommor':       'flower_varblommor.png',
+    'Ängsblommor':      'flower_angsblommor.png',
+    'Alla_flowers':     'flower_alla.png',
+    // Trees
+    'Alla_trees':       'tree_alla.png',
+    'Barrträd':         'tree_barrtrad.png',
+    'Buskar':           'tree_buskar.png',
+    'Lövträd':          'tree_lovtrad.png',
+    'Ädla lövträd':     'tree_adla_lovtrad.png',
+    // Animals
+    'Fladdermöss':      'animal_fladdermoss.png',
+    'Gnagare':          'animal_gnagare.png',
+    'Groddjur':         'animal_groddjur.png',
+    'Harar':            'animal_harar.png',
+    'Hovdjur':          'animal_hovdjur.png',
+    'Insektsätare':     'animal_insektsatare.png',
+    'Kräldjur':         'animal_kraldjur.png',
+    'Mårddjur':         'animal_marddjur.png',
+    'Rovdjur':          'animal_rovdjur.png',
 };
 
 // Helper for icons (used in Map view & Guide Categories)
