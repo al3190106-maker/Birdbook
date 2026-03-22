@@ -1,20 +1,26 @@
 {
-  "name": "Svensk Fågelskådare",
-  "short_name": "Fågelboken",
-  "start_url": "./index.html",
+  "id": "/Birdbook/",
+  "name": "Naturboken – Svensk Naturguide",
+  "short_name": "Naturboken",
+  "description": "Din kompletta guide till svensk natur – fåglar, träd, fiskar, svampar, blommor och däggdjur.",
+  "start_url": "/Birdbook/index.html",
+  "scope": "/Birdbook/",
   "display": "standalone",
   "background_color": "#F0F4F1",
   "theme_color": "#2E5D4B",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
