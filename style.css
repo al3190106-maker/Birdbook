@@ -3150,6 +3150,14 @@ body.mode-trees .quiz-btn.primary {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
+.lib-icon-img {
+    width: 2.4rem;
+    height: 2.4rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    display: block;
+}
+
 .lib-label {
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
