@@ -3357,6 +3357,166 @@ body.mode-flowers .bird-secondary-name {
 }
 
 /* =============================================
+   Växtboken (Plants Mode) — Fresh Leaf Green
+   ============================================= */
+body.mode-plants {
+    --primary: #2e7d32;
+    --secondary: #4caf50;
+    --accent: #81c784;
+    --background: #f1f8e9;
+}
+
+body.mode-plants .app-header {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%);
+}
+
+body.mode-plants .nav-btn.active {
+    color: #2e7d32;
+}
+
+body.mode-plants .stat-value {
+    color: #2e7d32;
+}
+
+body.mode-plants .action-card {
+    background: linear-gradient(135deg, #2e7d32, #4caf50);
+}
+
+body.mode-plants .action-card:hover {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+}
+
+body.mode-plants .submit-btn {
+    background-color: #2e7d32;
+}
+
+body.mode-plants .submit-btn:hover {
+    background-color: #1b5e20;
+}
+
+body.mode-plants .form-group input:focus,
+body.mode-plants .form-group textarea:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+}
+
+body.mode-plants .modal-content h2 {
+    color: #2e7d32;
+}
+
+body.mode-plants .autocomplete-item strong {
+    color: #2e7d32;
+}
+
+body.mode-plants .quiz-btn.primary {
+    background-color: #2e7d32;
+}
+
+body.mode-plants .quiz-btn.primary:hover {
+    background-color: #1b5e20;
+}
+
+body.mode-plants .quiz-results-score strong {
+    color: #2e7d32;
+}
+
+body.mode-plants .add-sighting-detail-btn {
+    background-color: #2e7d32;
+}
+
+body.mode-plants #sound-recording-group {
+    display: none !important;
+}
+
+/* Växtboken Library Card: Lush Green */
+.library-card.mode-plants {
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    color: white;
+}
+
+.library-card.mode-plants .lib-icon {
+    color: white;
+}
+
+/* =============================================
+   Naturboken (Nature Mode) — Earth & Sky
+   ============================================= */
+body.mode-nature {
+    --primary: #1a3a2a;
+    --secondary: #2e6e50;
+    --accent: #6dbf8e;
+    --background: #f0f5f2;
+}
+
+body.mode-nature .app-header {
+    background: linear-gradient(135deg, #0d2a1a 0%, #1a3a2a 40%, #2e6e50 100%);
+}
+
+body.mode-nature .nav-btn.active {
+    color: #1a3a2a;
+}
+
+body.mode-nature .stat-value {
+    color: #1a3a2a;
+}
+
+body.mode-nature .action-card {
+    background: linear-gradient(135deg, #1a3a2a, #2e6e50);
+}
+
+body.mode-nature .action-card:hover {
+    background: linear-gradient(135deg, #0d2a1a, #1a3a2a);
+}
+
+body.mode-nature .submit-btn {
+    background-color: #1a3a2a;
+}
+
+body.mode-nature .submit-btn:hover {
+    background-color: #0d2a1a;
+}
+
+body.mode-nature .form-group input:focus,
+body.mode-nature .form-group textarea:focus {
+    border-color: #1a3a2a;
+    box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.12);
+}
+
+body.mode-nature .modal-content h2 {
+    color: #1a3a2a;
+}
+
+body.mode-nature .autocomplete-item strong {
+    color: #2e6e50;
+}
+
+body.mode-nature .quiz-btn.primary {
+    background-color: #1a3a2a;
+}
+
+body.mode-nature .quiz-btn.primary:hover {
+    background-color: #0d2a1a;
+}
+
+body.mode-nature .quiz-results-score strong {
+    color: #1a3a2a;
+}
+
+body.mode-nature .add-sighting-detail-btn {
+    background-color: #1a3a2a;
+}
+
+/* Naturboken Library Card: Deep Forest */
+.library-card.mode-nature {
+    background: linear-gradient(135deg, #1a3a2a 0%, #2e6e50 100%);
+    color: white;
+}
+
+.library-card.mode-nature .lib-icon {
+    color: white;
+}
+
+/* =============================================
    App Themes
    ============================================= */
 body.mode-fish {

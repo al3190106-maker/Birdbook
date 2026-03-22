@@ -193,6 +193,62 @@ const SUBJECT_CONFIG = {
             weight: { key: 'color', label: 'Färg', unit: '', hidden: false },
             lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
         }
+    },
+    plants: {
+        id: 'plants',
+        name: 'Växtboken',
+        icon: 'fa-leaf',
+        dataVar: 'swedishPlants',
+        themeClass: 'mode-plants',
+        texts: {
+            itemLabel: 'Växtart',
+            searchPlaceholder: 'Sök växt...',
+            locationPlaceholder: 'Var såg du växten?',
+            quizTitle: 'Växtquiz',
+            quizSubtitle: 'Testa dina växtkunskaper!',
+            quizGuessItem: 'Gissa Växten',
+            quizGuessItemDesc: 'Vilken växt är detta?',
+            quizGuessStats: 'Gissa Faktum',
+            quizGuessStatsDesc: 'Vad vet du om växten?',
+            detailBestTimeLabel: 'Blomningstid / Säsong',
+            emptyLog: 'Inga växter sedda än under',
+            addFirst: 'Logga din första växt',
+            guideTab: 'Växtguide',
+            quizTab: 'Växtquiz'
+        },
+        fields: {
+            size: { key: 'height', label: 'Höjd', unit: 'cm' },
+            weight: { key: 'color', label: 'Färg / Info', unit: '', hidden: false },
+            lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
+        }
+    },
+    nature: {
+        id: 'nature',
+        name: 'Naturboken',
+        icon: 'fa-earth-europe',
+        dataVar: 'swedishNature',
+        themeClass: 'mode-nature',
+        texts: {
+            itemLabel: 'Art',
+            searchPlaceholder: 'Sök art...',
+            locationPlaceholder: 'Var såg du arten?',
+            quizTitle: 'Naturquiz',
+            quizSubtitle: 'Testa dina naturkunskaper!',
+            quizGuessItem: 'Gissa Arten',
+            quizGuessItemDesc: 'Vilken art är detta?',
+            quizGuessStats: 'Gissa Fakta',
+            quizGuessStatsDesc: 'Vad vet du om arten?',
+            detailBestTimeLabel: 'Säsong',
+            emptyLog: 'Inga arter sedda än under',
+            addFirst: 'Logga din första observation',
+            guideTab: 'Naturguide',
+            quizTab: 'Naturquiz'
+        },
+        fields: {
+            size: { key: 'height', label: 'Storlek', unit: '' },
+            weight: { key: 'weight', label: 'Vikt / Info', unit: '', hidden: false },
+            lifespan: { key: 'type', label: 'Typ', unit: '', hidden: true }
+        }
     }
 };
 
@@ -1842,6 +1898,10 @@ const CATEGORY_ICON_IMAGES = {
     'Buskar':           'tree_buskar.png',
     'Lövträd':          'tree_lovtrad.png',
     'Ädla lövträd':     'tree_adla_lovtrad.png',
+    // Plants (combined – use tree_alla as fallback)
+    'Alla_plants':      'tree_alla.png',
+    // Nature (combined – use bird alla as fallback)
+    'Alla_nature':      'bird_alla.png',
     // Animals
     'Fladdermöss':      'animal_fladdermoss.png',
     'Gnagare':          'animal_gnagare.png',
@@ -2958,6 +3018,8 @@ function computeStats() {
 
     // --- Per subject unique species counts ---
     const subjectCounts = {};
+    // Atomic subjects only (no compound books, to avoid double-counting)
+    const atomicSubjects = ['birds', 'trees', 'fish', 'animals', 'fungi', 'flowers'];
     for (const key in SUBJECT_CONFIG) {
         const cfg = SUBJECT_CONFIG[key];
         const list = window[cfg.dataVar] || [];
@@ -2965,8 +3027,11 @@ function computeStats() {
         const seen = new Set(realSightings.filter(s => ids.has(s.birdId)).map(s => s.birdId));
         subjectCounts[key] = seen.size;
     }
+    // plants = flowers + trees combined (for display only)
+    subjectCounts.plants = (subjectCounts.flowers || 0) + (subjectCounts.trees || 0);
 
-    const totalUniq = Object.values(subjectCounts).reduce((a, b) => a + b, 0);
+    // totalUniq from atomic subjects only (no double-counting from compound books)
+    const totalUniq = atomicSubjects.reduce((sum, k) => sum + (subjectCounts[k] || 0), 0);
     const birdUniq = subjectCounts.birds || 0;
 
     // --- Determine rank ---
@@ -3075,8 +3140,8 @@ function computeStats() {
         { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en ugglor-observation', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && loggedBirds.some(lb => lb.id === b.id)) },
         { icon: '👑', name: '25 fågelarter', desc: 'Observera 25 unika fågelarter', earned: birdUniq >= 25 },
         { icon: '🦢', name: '50 fågelarter', desc: 'Observera 50 unika fågelarter', earned: birdUniq >= 50 },
-        { icon: '🌿', name: 'Naturälskare', desc: 'Logga i 3+ olika ämnesböcker', earned: Object.values(subjectCounts).filter(v => v > 0).length >= 3 },
-        { icon: '💐', name: 'Blomstervän', desc: 'Logga 5 blommor', earned: (subjectCounts.flowers || 0) >= 5 },
+        { icon: '🌿', name: 'Naturälskare', desc: 'Logga i 3+ olika ämnesböcker', earned: atomicSubjects.filter(k => (subjectCounts[k] || 0) > 0).length >= 3 },
+        { icon: '🌸', name: 'Växtälskaren', desc: 'Logga 5 växter (blommor/träd)', earned: (subjectCounts.plants || 0) >= 5 },
         { icon: '🍄', name: 'Svampplockaren', desc: 'Logga 5 svampar', earned: (subjectCounts.fungi || 0) >= 5 },
         { icon: '🐟', name: 'Fiskaren', desc: 'Logga 5 fiskar', earned: (subjectCounts.fish || 0) >= 5 },
         { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (subjectCounts.animals || 0) >= 5 },
@@ -3181,8 +3246,7 @@ function renderStatsView() {
     const subjects = [
         { key: 'birds', icon: '🐦', name: 'Fåglar', color: '#2E5D4B' },
         { key: 'animals', icon: '🐾', name: 'Vilt', color: '#795548' },
-        { key: 'flowers', icon: '🌸', name: 'Blommor', color: '#e91e63' },
-        { key: 'trees', icon: '🌲', name: 'Träd', color: '#388e3c' },
+        { key: 'plants', icon: '🌿', name: 'Växter', color: '#43a047' },
         { key: 'fish', icon: '🐟', name: 'Fisk', color: '#0288d1' },
         { key: 'fungi', icon: '🍄', name: 'Svamp', color: '#e64a19' },
     ];
@@ -3369,8 +3433,9 @@ function _showPhotographer(id, returnAction = null) {
                 if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
                 else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
                 else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
-                else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
+            else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
                 else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+                else if (window.swedishPlants && window.swedishPlants.some(p => p.id === subject.id)) subjectType = 'plants';
                 
                 if (state.currentSubject !== subjectType) {
                     switchSubject(subjectType);
@@ -3502,6 +3567,7 @@ function _renderSightingsOverviewMap() {
                             else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
                             else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
                             else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+                            else if (window.swedishPlants && window.swedishPlants.some(p => p.id === subject.id)) subjectType = 'plants';
 
                             if (state.currentSubject !== subjectType) switchSubject(subjectType);
 
