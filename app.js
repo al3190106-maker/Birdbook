@@ -1898,10 +1898,12 @@ const CATEGORY_ICON_IMAGES = {
     'Buskar':           'tree_buskar.png',
     'Lövträd':          'tree_lovtrad.png',
     'Ädla lövträd':     'tree_adla_lovtrad.png',
-    // Plants (combined – use tree_alla as fallback)
-    'Alla_plants':      'tree_alla.png',
-    // Nature (combined – use bird alla as fallback)
-    'Alla_nature':      'bird_alla.png',
+    // Plants (combined)
+    'Alla_plants':      'plants_alla.png',
+    // Nature (combined)
+    'Alla_nature':      'nature_alla.png',
+    // Animals
+    'Alla_animals':     'animal_alla.png',
     // Animals
     'Fladdermöss':      'animal_fladdermoss.png',
     'Gnagare':          'animal_gnagare.png',
