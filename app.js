@@ -3892,13 +3892,27 @@ Svara ENDAST med ett JSON-objekt i detta exakta format, inget annat:
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            const errMsg = errorData?.error?.message || `HTTP ${response.status}`;
-            // If 400/403 likely bad key
-            if (response.status === 400 || response.status === 403) {
-                document.getElementById('ai-error-text').textContent = 'Ogiltig API-nyckel. Kontrollera din nyckel i inställningarna.';
+            const status = response.status;
+            let userMsg = '';
+
+            if (status === 429) {
+                userMsg = 'Dagskvoten för AI-identifieringar är tillfälligt slut. Försök igen om en stund eller imorgon.';
+            } else if (status === 401 || status === 403) {
+                userMsg = 'Åtkomst nekad. API-nyckeln fungerar inte från denna domän just nu.';
+            } else if (status === 400) {
+                const apiErr = errorData?.error?.message || '';
+                if (apiErr.toLowerCase().includes('quota') || apiErr.toLowerCase().includes('billing')) {
+                    userMsg = 'Kvotgränsen är nådd. Försök igen lite senare.';
+                } else {
+                    userMsg = 'Bilden kunde inte analyseras. Försök med en tydligare bild.';
+                }
+            } else if (status >= 500) {
+                userMsg = 'Google AI är tillfälligt otillgängligt. Försök igen om en stund.';
             } else {
-                document.getElementById('ai-error-text').textContent = `Fel från AI: ${errMsg}`;
+                userMsg = `AI-tjänsten svarade med ett oväntat fel (${status}). Försök igen.`;
             }
+
+            document.getElementById('ai-error-text').textContent = userMsg;
             _aiShowPanel('error');
             if (analyzeBtn) analyzeBtn.disabled = false;
             return;
