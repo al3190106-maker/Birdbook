@@ -80,6 +80,10 @@
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span class="stat-label">Karta</span>
                 </div>
+                <div class="stat-card action-card ai-identify-card" id="ai-identify-btn" title="Identifiera med AI">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    <span class="stat-label">Identifiera</span>
+                </div>
             </section>
 
             <div class="list-controls">
@@ -741,6 +745,120 @@
 
             <button class="secondary-btn" onclick="document.getElementById('settings-modal').classList.remove('active')"
                 style="margin-top: 1.5rem; width: 100%;">Stäng</button>
+        </div>
+    </div>
+
+    <!-- AI Identify Modal -->
+    <div class="modal-overlay" id="ai-identify-modal" style="z-index: 3500;">
+        <div class="modal-content ai-identify-modal-content">
+            <button class="close-modal" id="close-ai-identify-modal"><i class="fa-solid fa-times"></i></button>
+
+            <!-- Header -->
+            <div class="ai-modal-header">
+                <div class="ai-modal-icon">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+                <h2>AI-Identifiering</h2>
+                <p class="ai-modal-subtitle">Ta ett foto eller ladda upp en bild för att identifiera arten</p>
+            </div>
+
+            <!-- Upload Zone -->
+            <div id="ai-upload-zone" class="ai-upload-zone">
+                <div class="ai-upload-inner" id="ai-upload-inner">
+                    <i class="fa-solid fa-camera ai-upload-icon"></i>
+                    <p class="ai-upload-text">Tryck för att ta foto eller välj bild</p>
+                    <p class="ai-upload-hint">Stöder JPG, PNG och HEIC</p>
+                </div>
+                <!-- Preview Image -->
+                <img id="ai-preview-img" class="ai-preview-img hidden" alt="Förhandsvisning" />
+                <button id="ai-change-photo-btn" class="ai-change-btn hidden">
+                    <i class="fa-solid fa-rotate"></i> Byt bild
+                </button>
+            </div>
+            <input type="file" id="ai-file-input" accept="image/*" style="display:none;" capture="environment">
+
+            <!-- Camera Button Row -->
+            <div class="ai-camera-row">
+                <button id="ai-camera-btn" class="ai-action-btn camera">
+                    <i class="fa-solid fa-camera"></i> Kamera
+                </button>
+                <button id="ai-gallery-btn" class="ai-action-btn gallery">
+                    <i class="fa-solid fa-image"></i> Galleri
+                </button>
+            </div>
+
+            <!-- Analyze Button -->
+            <button id="ai-analyze-btn" class="ai-analyze-btn" disabled>
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span id="ai-analyze-btn-text">Analysera bilden</span>
+            </button>
+
+            <!-- Loading State -->
+            <div id="ai-loading" class="ai-loading hidden">
+                <div class="ai-loading-spinner"></div>
+                <p class="ai-loading-text">AI analyserar bilden...</p>
+                <p class="ai-loading-sub">Identifierar art och egenskaper</p>
+            </div>
+
+            <!-- Results -->
+            <div id="ai-results" class="ai-results hidden">
+                <div class="ai-results-header">
+                    <i class="fa-solid fa-check-circle ai-results-check"></i>
+                    <h3>Identifiering klar!</h3>
+                </div>
+
+                <!-- Primary Result -->
+                <div class="ai-result-primary" id="ai-result-primary">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- AI Description -->
+                <div class="ai-description-box" id="ai-description-box">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- Match in Database -->
+                <div id="ai-db-match" class="ai-db-match hidden">
+                    <p class="ai-db-match-label"><i class="fa-solid fa-book-open"></i> Hittad i Naturboken</p>
+                    <div id="ai-db-match-card"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="ai-result-actions">
+                    <button id="ai-log-sighting-btn" class="ai-log-btn hidden">
+                        <i class="fa-solid fa-plus"></i> Logga observation
+                    </button>
+                    <button id="ai-new-photo-btn" class="ai-retry-btn">
+                        <i class="fa-solid fa-rotate"></i> Ny bild
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="ai-error" class="ai-error hidden">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p id="ai-error-text">Något gick fel. Försök igen.</p>
+                <button id="ai-retry-btn" class="ai-retry-btn">
+                    <i class="fa-solid fa-rotate"></i> Försök igen
+                </button>
+            </div>
+
+            <!-- API Key Setup -->
+            <div id="ai-api-setup" class="ai-api-setup hidden">
+                <div class="ai-api-icon"><i class="fa-solid fa-key"></i></div>
+                <h3>API-nyckel krävs</h3>
+                <p>För att använda AI-identifiering behöver du en gratis Gemini API-nyckel från Google.</p>
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" class="ai-api-link">
+                    <i class="fa-solid fa-external-link-alt"></i> Hämta gratis nyckel här
+                </a>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="ai-api-key-input">Klistra in din API-nyckel</label>
+                    <input type="password" id="ai-api-key-input" placeholder="AIza..." />
+                </div>
+                <button id="ai-save-key-btn" class="submit-btn">
+                    <i class="fa-solid fa-save"></i> Spara och aktivera
+                </button>
+            </div>
         </div>
     </div>
 

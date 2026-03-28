@@ -3664,7 +3664,438 @@ const _originalInit = init;
 init = async function() {
     await _originalInit();
     _setupMapEventListeners();
+    _initAIIdentify();
 };
 
 // Start
 document.addEventListener('DOMContentLoaded', init);
+
+// =============================================
+// AI IDENTIFICATION FEATURE (Gemini Vision)
+// =============================================
+
+const AI_KEY_STORAGE = 'naturboken_gemini_key';
+let _aiCurrentImage = null;      // base64 string (without prefix)
+let _aiCurrentMime   = null;      // e.g. 'image/jpeg'
+let _aiMatchedItem   = null;      // matched species object from DB
+
+function _initAIIdentify() {
+    const openBtn  = document.getElementById('ai-identify-btn');
+    const modal    = document.getElementById('ai-identify-modal');
+    const closeBtn = document.getElementById('close-ai-identify-modal');
+
+    if (!openBtn || !modal) return;
+
+    openBtn.addEventListener('click', () => {
+        _aiResetModal();
+        modal.classList.add('active');
+    });
+
+    closeBtn && closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+    });
+
+    // File input (shared for camera + gallery)
+    const fileInput = document.getElementById('ai-file-input');
+
+    // Camera button – uses capture="environment"
+    const cameraBtn = document.getElementById('ai-camera-btn');
+    if (cameraBtn) {
+        cameraBtn.addEventListener('click', () => {
+            fileInput.setAttribute('capture', 'environment');
+            fileInput.click();
+        });
+    }
+
+    // Gallery button – no capture
+    const galleryBtn = document.getElementById('ai-gallery-btn');
+    if (galleryBtn) {
+        galleryBtn.addEventListener('click', () => {
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+        });
+    }
+
+    // Clicking upload zone (no image) also triggers camera
+    const uploadZone = document.getElementById('ai-upload-zone');
+    if (uploadZone) {
+        uploadZone.addEventListener('click', (e) => {
+            if (e.target.classList.contains('ai-change-btn')) return;
+            if (_aiCurrentImage) return; // already has image, ignore
+            fileInput.setAttribute('capture', 'environment');
+            fileInput.click();
+        });
+    }
+
+    // Change photo button
+    const changeBtnEl = document.getElementById('ai-change-photo-btn');
+    if (changeBtnEl) {
+        changeBtnEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+        });
+    }
+
+    // File selected
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            if (!this.files || !this.files[0]) return;
+            const file = this.files[0];
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const dataUrl = ev.target.result;
+                _aiCurrentMime  = file.type || 'image/jpeg';
+                _aiCurrentImage = dataUrl.split(',')[1]; // strip prefix
+
+                // Show preview
+                const previewImg = document.getElementById('ai-preview-img');
+                const uploadInner = document.getElementById('ai-upload-inner');
+                const changeBtn  = document.getElementById('ai-change-photo-btn');
+                const zone       = document.getElementById('ai-upload-zone');
+
+                previewImg.src = dataUrl;
+                previewImg.classList.remove('hidden');
+                uploadInner.style.display = 'none';
+                changeBtn && changeBtn.classList.remove('hidden');
+                zone && zone.classList.add('has-image');
+
+                // Enable analyze button
+                const analyzeBtn = document.getElementById('ai-analyze-btn');
+                if (analyzeBtn) analyzeBtn.disabled = false;
+
+                // Reset result/error panels if re-picking image
+                _aiShowPanel('none');
+            };
+            reader.readAsDataURL(file);
+            this.value = ''; // allow picking same file again
+        });
+    }
+
+    // Analyze button
+    const analyzeBtn = document.getElementById('ai-analyze-btn');
+    if (analyzeBtn) {
+        analyzeBtn.addEventListener('click', _aiAnalyze);
+    }
+
+    // Save API key
+    const saveKeyBtn = document.getElementById('ai-save-key-btn');
+    if (saveKeyBtn) {
+        saveKeyBtn.addEventListener('click', () => {
+            const keyInput = document.getElementById('ai-api-key-input');
+            const key = keyInput ? keyInput.value.trim() : '';
+            if (!key) { alert('Ange en giltig API-nyckel.'); return; }
+            localStorage.setItem(AI_KEY_STORAGE, key);
+            _aiShowPanel('none');
+            alert('API-nyckel sparad! Analysera en bild för att testa.');
+        });
+    }
+
+    // Retry buttons
+    document.getElementById('ai-retry-btn')    && document.getElementById('ai-retry-btn').addEventListener('click', _aiResetToUpload);
+    document.getElementById('ai-new-photo-btn')&& document.getElementById('ai-new-photo-btn').addEventListener('click', _aiResetToUpload);
+}
+
+function _aiResetModal() {
+    _aiCurrentImage = null;
+    _aiCurrentMime  = null;
+    _aiMatchedItem  = null;
+
+    const previewImg  = document.getElementById('ai-preview-img');
+    const uploadInner = document.getElementById('ai-upload-inner');
+    const changeBtn   = document.getElementById('ai-change-photo-btn');
+    const zone        = document.getElementById('ai-upload-zone');
+    const analyzeBtn  = document.getElementById('ai-analyze-btn');
+
+    if (previewImg)  { previewImg.src = ''; previewImg.classList.add('hidden'); }
+    if (uploadInner) uploadInner.style.display = '';
+    if (changeBtn)   changeBtn.classList.add('hidden');
+    if (zone)        zone.classList.remove('has-image');
+    if (analyzeBtn)  analyzeBtn.disabled = true;
+
+    _aiShowPanel('none');
+}
+
+function _aiResetToUpload() {
+    _aiCurrentImage = null;
+    _aiMatchedItem  = null;
+
+    const previewImg  = document.getElementById('ai-preview-img');
+    const uploadInner = document.getElementById('ai-upload-inner');
+    const changeBtn   = document.getElementById('ai-change-photo-btn');
+    const zone        = document.getElementById('ai-upload-zone');
+    const analyzeBtn  = document.getElementById('ai-analyze-btn');
+
+    if (previewImg)  { previewImg.src = ''; previewImg.classList.add('hidden'); }
+    if (uploadInner) uploadInner.style.display = '';
+    if (changeBtn)   changeBtn.classList.add('hidden');
+    if (zone)        zone.classList.remove('has-image');
+    if (analyzeBtn)  analyzeBtn.disabled = true;
+
+    _aiShowPanel('none');
+}
+
+/** Show/hide the result panels inside the modal */
+function _aiShowPanel(panel) {
+    // panel: 'loading' | 'results' | 'error' | 'apisetup' | 'none'
+    document.getElementById('ai-loading')   && document.getElementById('ai-loading').classList.toggle('hidden',   panel !== 'loading');
+    document.getElementById('ai-results')   && document.getElementById('ai-results').classList.toggle('hidden',   panel !== 'results');
+    document.getElementById('ai-error')     && document.getElementById('ai-error').classList.toggle('hidden',     panel !== 'error');
+    document.getElementById('ai-api-setup') && document.getElementById('ai-api-setup').classList.toggle('hidden', panel !== 'apisetup');
+}
+
+async function _aiAnalyze() {
+    if (!_aiCurrentImage) return;
+
+    const apiKey = localStorage.getItem(AI_KEY_STORAGE);
+    if (!apiKey) {
+        _aiShowPanel('apisetup');
+        return;
+    }
+
+    // Show loading
+    _aiShowPanel('loading');
+    const analyzeBtn = document.getElementById('ai-analyze-btn');
+    if (analyzeBtn) analyzeBtn.disabled = true;
+
+    // Build prompt – contextual to current subject
+    const subjectConfig = SUBJECT_CONFIG[state.currentSubject] || SUBJECT_CONFIG['birds'];
+    const subjectLabel  = subjectConfig.name.replace('boken', '').toLowerCase() || 'fågel';
+
+    const prompt = `Du är en expert på svensk natur. Analysera bilden och:
+1. Identifiera vilken art (${subjectLabel}, djur, växt, svamp, fisk eller naturobjekt) som visas.
+2. Ge det svenska namnet, vetenskapliga namnet och om möjligt engelskt namn.
+3. Uppskatta din säkerhetsnivå på identifieringen i procent (0-100).
+4. Beskriv kort (2-3 meningar på svenska) varför du tror det är just denna art.
+
+Svara ENDAST med ett JSON-objekt i detta exakta format, inget annat:
+{
+  "nameSv": "Koltrast",
+  "nameEn": "Common Blackbird",
+  "scientific": "Turdus merula",
+  "confidence": 92,
+  "description": "Fågeln har karaktäristisk helsvart fjäderdräkt hos hanen med gult näbb..."
+}`;
+
+    try {
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [
+                            { text: prompt },
+                            {
+                                inline_data: {
+                                    mime_type: _aiCurrentMime,
+                                    data: _aiCurrentImage
+                                }
+                            }
+                        ]
+                    }],
+                    generationConfig: {
+                        temperature: 0.2,
+                        maxOutputTokens: 512
+                    }
+                })
+            }
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            const errMsg = errorData?.error?.message || `HTTP ${response.status}`;
+            // If 400/403 likely bad key
+            if (response.status === 400 || response.status === 403) {
+                document.getElementById('ai-error-text').textContent = 'Ogiltig API-nyckel. Kontrollera din nyckel i inställningarna.';
+            } else {
+                document.getElementById('ai-error-text').textContent = `Fel från AI: ${errMsg}`;
+            }
+            _aiShowPanel('error');
+            if (analyzeBtn) analyzeBtn.disabled = false;
+            return;
+        }
+
+        const data = await response.json();
+        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+        // Parse JSON from response (strip markdown code fences if any)
+        let cleaned = rawText.trim();
+        const fenceMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/i);
+        if (fenceMatch) cleaned = fenceMatch[1].trim();
+
+        let parsed;
+        try {
+            parsed = JSON.parse(cleaned);
+        } catch {
+            // Try to extract JSON manually
+            const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                try { parsed = JSON.parse(jsonMatch[0]); } catch { parsed = null; }
+            }
+        }
+
+        if (!parsed || !parsed.nameSv) {
+            document.getElementById('ai-error-text').textContent = 'Kunde inte tolka AI-svaret. Försök med en tydligare bild.';
+            _aiShowPanel('error');
+            if (analyzeBtn) analyzeBtn.disabled = false;
+            return;
+        }
+
+        _aiShowResults(parsed);
+    } catch (err) {
+        console.error('AI identify error:', err);
+        document.getElementById('ai-error-text').textContent = 'Nätverksfel. Kontrollera din anslutning och försök igen.';
+        _aiShowPanel('error');
+        if (analyzeBtn) analyzeBtn.disabled = false;
+    }
+
+    if (analyzeBtn) analyzeBtn.disabled = false;
+}
+
+function _aiShowResults(parsed) {
+    const { nameSv, nameEn, scientific, confidence, description } = parsed;
+    const pct = Math.min(100, Math.max(0, confidence || 0));
+
+    // Primary result card
+    const primaryEl = document.getElementById('ai-result-primary');
+    if (primaryEl) {
+        primaryEl.innerHTML = `
+            <div class="ai-result-name">${nameSv}</div>
+            <div class="ai-result-scientific">${scientific || ''}${nameEn ? ` · ${nameEn}` : ''}</div>
+            <div class="ai-confidence-bar-wrap">
+                <span class="ai-confidence-label">Säkerhet</span>
+                <div class="ai-confidence-bar">
+                    <div class="ai-confidence-fill" style="width: 0%"></div>
+                </div>
+                <span class="ai-confidence-pct">${pct}%</span>
+            </div>
+        `;
+        // Animate bar
+        setTimeout(() => {
+            const fill = primaryEl.querySelector('.ai-confidence-fill');
+            if (fill) fill.style.width = pct + '%';
+        }, 100);
+    }
+
+    // Description
+    const descEl = document.getElementById('ai-description-box');
+    if (descEl) {
+        descEl.textContent = description || '';
+        descEl.style.display = description ? '' : 'none';
+    }
+
+    // Try to match in the app database
+    const allLists = [
+        ...(window.swedishBirds   || []),
+        ...(window.swedishTrees   || []),
+        ...(window.swedishFish    || []),
+        ...(window.swedishAnimals || []),
+        ...(window.swedishFungi   || []),
+        ...(window.swedishFlowers || []),
+        ...(window.swedishPlants  || [])
+    ];
+
+    const normalize = s => (s || '').toLowerCase().replace(/[^a-zåäö]/gi, '');
+    const targetSv  = normalize(nameSv);
+    const targetSci = normalize(scientific);
+
+    let match = allLists.find(item => normalize(item.nameSv) === targetSv);
+    if (!match && targetSci) {
+        match = allLists.find(item => normalize(item.scientific) === targetSci);
+    }
+    if (!match) {
+        // Partial match fallback
+        match = allLists.find(item => {
+            const sv  = normalize(item.nameSv);
+            const sci = normalize(item.scientific || '');
+            return sv.includes(targetSv) || targetSv.includes(sv) ||
+                   (targetSci && (sci.includes(targetSci) || targetSci.includes(sci)));
+        });
+    }
+
+    _aiMatchedItem = match || null;
+
+    // DB match panel
+    const dbMatchEl     = document.getElementById('ai-db-match');
+    const dbMatchCardEl = document.getElementById('ai-db-match-card');
+
+    if (match && dbMatchEl && dbMatchCardEl) {
+        const imgSrc = getBirdImageSrc ? getBirdImageSrc(match.id) : '';
+        dbMatchCardEl.innerHTML = `
+            <div class="ai-db-mini-card" id="ai-db-mini-card-click">
+                <img class="ai-db-mini-img" src="${imgSrc}" alt="${match.nameSv}" onerror="this.style.background='#e8ede9';this.src=''">
+                <div class="ai-db-mini-info">
+                    <div class="ai-db-mini-name">${match.nameSv}</div>
+                    <div class="ai-db-mini-sci">${match.scientific || ''}</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ai-db-mini-arrow"></i>
+            </div>
+        `;
+        dbMatchEl.classList.remove('hidden');
+
+        // Click to open detail modal
+        document.getElementById('ai-db-mini-card-click').addEventListener('click', () => {
+            const aiModal = document.getElementById('ai-identify-modal');
+            if (aiModal) aiModal.classList.remove('active');
+
+            // Switch to the subject that contains this match
+            const subjectForMatch = _findSubjectForItem(match.id);
+            if (subjectForMatch && subjectForMatch !== state.currentSubject) {
+                switchSubject(subjectForMatch);
+            }
+
+            _renderBirdDetail(match);
+            elements.detailModal.classList.add('active');
+        });
+    } else {
+        dbMatchEl && dbMatchEl.classList.add('hidden');
+    }
+
+    // Log sighting button – only show if matched in DB
+    const logBtn = document.getElementById('ai-log-sighting-btn');
+    if (logBtn) {
+        if (match) {
+            logBtn.classList.remove('hidden');
+            // Remove old listeners
+            const newLogBtn = logBtn.cloneNode(true);
+            logBtn.replaceWith(newLogBtn);
+            newLogBtn.addEventListener('click', () => {
+                const aiModal = document.getElementById('ai-identify-modal');
+                if (aiModal) aiModal.classList.remove('active');
+                const subjectForMatch = _findSubjectForItem(match.id);
+                if (subjectForMatch && subjectForMatch !== state.currentSubject) {
+                    switchSubject(subjectForMatch);
+                }
+                _showSightingModal(match.id, match.nameSv);
+            });
+        } else {
+            logBtn.classList.add('hidden');
+        }
+    }
+
+    _aiShowPanel('results');
+}
+
+/** Find which SUBJECT_CONFIG key an item belongs to */
+function _findSubjectForItem(itemId) {
+    const lists = {
+        birds:   window.swedishBirds   || [],
+        trees:   window.swedishTrees   || [],
+        fish:    window.swedishFish    || [],
+        animals: window.swedishAnimals || [],
+        fungi:   window.swedishFungi   || [],
+        flowers: window.swedishFlowers || [],
+        plants:  window.swedishPlants  || []
+    };
+    for (const [subjectKey, list] of Object.entries(lists)) {
+        if (list.find(i => i.id === itemId)) return subjectKey;
+    }
+    return null;
+}
+
