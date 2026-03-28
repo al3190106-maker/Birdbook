@@ -3674,8 +3674,8 @@ document.addEventListener('DOMContentLoaded', init);
 // AI IDENTIFICATION FEATURE (Gemini Vision)
 // =============================================
 
-// Gemini API key (restricted to naturboken.se domain)
-const _GEMINI_API_KEY = 'AIzaSyBBKnQWq2SfFtCP-pfMUMK1Lkuq0X4EZHE';
+// Gemini API key (Birdbook project - restricted to al3190106-maker.github.io & naturboken.se)
+const _GEMINI_API_KEY = 'AIzaSyBGr9G0DOcmD7RL8pnZPe-OICTkgeAol6s';
 let _aiCurrentImage = null;      // base64 string (without prefix)
 let _aiCurrentMime   = null;      // e.g. 'image/jpeg'
 let _aiMatchedItem   = null;      // matched species object from DB
