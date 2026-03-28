@@ -3674,7 +3674,8 @@ document.addEventListener('DOMContentLoaded', init);
 // AI IDENTIFICATION FEATURE (Gemini Vision)
 // =============================================
 
-const AI_KEY_STORAGE = 'naturboken_gemini_key';
+// Gemini API key (restricted to naturboken.se domain)
+const _GEMINI_API_KEY = 'AIzaSyBBKnQWq2SfFtCP-pfMUMK1Lkuq0X4EZHE';
 let _aiCurrentImage = null;      // base64 string (without prefix)
 let _aiCurrentMime   = null;      // e.g. 'image/jpeg'
 let _aiMatchedItem   = null;      // matched species object from DB
@@ -3782,19 +3783,6 @@ function _initAIIdentify() {
         analyzeBtn.addEventListener('click', _aiAnalyze);
     }
 
-    // Save API key
-    const saveKeyBtn = document.getElementById('ai-save-key-btn');
-    if (saveKeyBtn) {
-        saveKeyBtn.addEventListener('click', () => {
-            const keyInput = document.getElementById('ai-api-key-input');
-            const key = keyInput ? keyInput.value.trim() : '';
-            if (!key) { alert('Ange en giltig API-nyckel.'); return; }
-            localStorage.setItem(AI_KEY_STORAGE, key);
-            _aiShowPanel('none');
-            alert('API-nyckel sparad! Analysera en bild för att testa.');
-        });
-    }
-
     // Retry buttons
     document.getElementById('ai-retry-btn')    && document.getElementById('ai-retry-btn').addEventListener('click', _aiResetToUpload);
     document.getElementById('ai-new-photo-btn')&& document.getElementById('ai-new-photo-btn').addEventListener('click', _aiResetToUpload);
@@ -3841,21 +3829,16 @@ function _aiResetToUpload() {
 
 /** Show/hide the result panels inside the modal */
 function _aiShowPanel(panel) {
-    // panel: 'loading' | 'results' | 'error' | 'apisetup' | 'none'
-    document.getElementById('ai-loading')   && document.getElementById('ai-loading').classList.toggle('hidden',   panel !== 'loading');
-    document.getElementById('ai-results')   && document.getElementById('ai-results').classList.toggle('hidden',   panel !== 'results');
-    document.getElementById('ai-error')     && document.getElementById('ai-error').classList.toggle('hidden',     panel !== 'error');
-    document.getElementById('ai-api-setup') && document.getElementById('ai-api-setup').classList.toggle('hidden', panel !== 'apisetup');
+    // panel: 'loading' | 'results' | 'error' | 'none'
+    document.getElementById('ai-loading') && document.getElementById('ai-loading').classList.toggle('hidden', panel !== 'loading');
+    document.getElementById('ai-results') && document.getElementById('ai-results').classList.toggle('hidden', panel !== 'results');
+    document.getElementById('ai-error')   && document.getElementById('ai-error').classList.toggle('hidden',   panel !== 'error');
 }
 
 async function _aiAnalyze() {
     if (!_aiCurrentImage) return;
 
-    const apiKey = localStorage.getItem(AI_KEY_STORAGE);
-    if (!apiKey) {
-        _aiShowPanel('apisetup');
-        return;
-    }
+    const apiKey = _GEMINI_API_KEY;
 
     // Show loading
     _aiShowPanel('loading');
