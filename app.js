@@ -3671,13 +3671,176 @@ init = async function() {
 document.addEventListener('DOMContentLoaded', init);
 
 // =============================================
-// AI IDENTIFICATION FEATURE (Gemini Vision)
+// GOOGLE LENS IDENTIFICATION FEATURE
 // =============================================
 
-// Gemini API key (Birdbook project - restricted to al3190106-maker.github.io & naturboken.se)
-const _GEMINI_API_KEY = 'AIzaSyBGr9G0DOcmD7RL8pnZPe-OICTkgeAol6s';
-let _aiCurrentImage = null;      // base64 string (without prefix)
-let _aiCurrentMime   = null;      // e.g. 'image/jpeg'
+let _lensCurrentBlob = null;
+let _lensCurrentMime = null;
+
+function _initAIIdentify() {
+    const openBtn  = document.getElementById('ai-identify-btn');
+    const modal    = document.getElementById('ai-identify-modal');
+    const closeBtn = document.getElementById('close-ai-identify-modal');
+
+    if (!openBtn || !modal) return;
+
+    openBtn.addEventListener('click', () => {
+        _lensReset();
+        modal.classList.add('active');
+    });
+
+    closeBtn && closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+    const fileInput = document.getElementById('ai-file-input');
+
+    // Camera button
+    const cameraBtn = document.getElementById('ai-camera-btn');
+    if (cameraBtn) {
+        cameraBtn.addEventListener('click', () => {
+            fileInput.setAttribute('capture', 'environment');
+            fileInput.click();
+        });
+    }
+
+    // Gallery button
+    const galleryBtn = document.getElementById('ai-gallery-btn');
+    if (galleryBtn) {
+        galleryBtn.addEventListener('click', () => {
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+        });
+    }
+
+    // Upload zone click (no image yet)
+    const uploadZone = document.getElementById('ai-upload-zone');
+    if (uploadZone) {
+        uploadZone.addEventListener('click', (e) => {
+            if (e.target.classList.contains('ai-change-btn')) return;
+            if (_lensCurrentBlob) return;
+            fileInput.setAttribute('capture', 'environment');
+            fileInput.click();
+        });
+    }
+
+    // Change photo
+    const changeBtn = document.getElementById('ai-change-photo-btn');
+    if (changeBtn) {
+        changeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+        });
+    }
+
+    // File selected
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            if (!this.files || !this.files[0]) return;
+            const file = this.files[0];
+            _lensCurrentMime = file.type || 'image/jpeg';
+            _lensCurrentBlob = file;
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const previewImg  = document.getElementById('ai-preview-img');
+                const uploadInner = document.getElementById('ai-upload-inner');
+                const changeBtnEl = document.getElementById('ai-change-photo-btn');
+                const zone        = document.getElementById('ai-upload-zone');
+                const lensBtn     = document.getElementById('ai-lens-btn');
+
+                previewImg.src = ev.target.result;
+                previewImg.classList.remove('hidden');
+                uploadInner.style.display = 'none';
+                changeBtnEl && changeBtnEl.classList.remove('hidden');
+                zone && zone.classList.add('has-image');
+                if (lensBtn) lensBtn.disabled = false;
+
+                // Hide tip if visible
+                const tip = document.getElementById('ai-tip');
+                if (tip) tip.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+            this.value = '';
+        });
+    }
+
+    // Open in Google Lens button
+    const lensBtn = document.getElementById('ai-lens-btn');
+    if (lensBtn) {
+        lensBtn.addEventListener('click', _openGoogleLens);
+    }
+}
+
+function _lensReset() {
+    _lensCurrentBlob = null;
+    _lensCurrentMime = null;
+
+    const previewImg  = document.getElementById('ai-preview-img');
+    const uploadInner = document.getElementById('ai-upload-inner');
+    const changeBtn   = document.getElementById('ai-change-photo-btn');
+    const zone        = document.getElementById('ai-upload-zone');
+    const lensBtn     = document.getElementById('ai-lens-btn');
+    const tip         = document.getElementById('ai-tip');
+
+    if (previewImg)  { previewImg.src = ''; previewImg.classList.add('hidden'); }
+    if (uploadInner) uploadInner.style.display = '';
+    if (changeBtn)   changeBtn.classList.add('hidden');
+    if (zone)        zone.classList.remove('has-image');
+    if (lensBtn)     lensBtn.disabled = true;
+    if (tip)         tip.style.display = 'none';
+}
+
+async function _openGoogleLens() {
+    if (!_lensCurrentBlob) return;
+
+    const lensBtn = document.getElementById('ai-lens-btn');
+    if (lensBtn) {
+        lensBtn.disabled = true;
+        lensBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Öppnar...';
+    }
+
+    try {
+        const ext  = _lensCurrentMime === 'image/png' ? 'png' : 'jpg';
+        const file = new File([_lensCurrentBlob], `naturboken-foto.${ext}`, { type: _lensCurrentMime });
+
+        // Try Web Share API (works on Android with Google app/Lens, and iOS)
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: 'Identifiera art med Google Lens',
+                text: 'Öppna i Google Lens för att identifiera arten'
+            });
+        } else {
+            // Fallback: download image + open Google Lens
+            const url = URL.createObjectURL(file);
+            const a   = document.createElement('a');
+            a.href     = url;
+            a.download = file.name;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // Show tip and open Lens
+            setTimeout(() => {
+                const tip = document.getElementById('ai-tip');
+                if (tip) tip.style.display = '';
+                window.open('https://lens.google.com/', '_blank');
+            }, 600);
+        }
+    } catch (err) {
+        // User cancelled share or error – just open Lens
+        if (err.name !== 'AbortError') {
+            window.open('https://lens.google.com/', '_blank');
+        }
+    } finally {
+        if (lensBtn) {
+            lensBtn.disabled = false;
+            lensBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Öppna i Google Lens';
+        }
+    }
+}
+
+
 let _aiMatchedItem   = null;      // matched species object from DB
 
 function _initAIIdentify() {
