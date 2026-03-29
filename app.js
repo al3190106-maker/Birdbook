@@ -776,6 +776,12 @@ function _renderBirdDetail(item, sighting = null) {
     const config = SUBJECT_CONFIG[state.currentSubject];
     const fields = config.fields;
 
+    // Reset visibility logic
+    if (elements.detailNameScEn) elements.detailNameScEn.style.display = '';
+    const descEl = document.getElementById('detail-description');
+    if (descEl) descEl.style.display = '';
+    document.querySelectorAll('.bird-facts-grid .fact-card').forEach(c => c.style.display = '');
+
     // Build image carousel
     currentCarouselBirdId = item.id;
     const galleryImages = (window.birdImages && window.birdImages[item.id]) || [];
@@ -813,7 +819,6 @@ function _renderBirdDetail(item, sighting = null) {
     elements.detailRarity.style.border = 'none';
     
     // 0. Description / Fun Fact
-    const descEl = document.getElementById('detail-description');
     if (descEl) {
         descEl.textContent = item.funFact || '';
         descEl.style.display = item.funFact ? 'block' : 'none';
@@ -965,6 +970,17 @@ function _renderBirdDetail(item, sighting = null) {
     });
     const actionsDiv2 = document.querySelector('.detail-actions');
     if (actionsDiv2) actionsDiv2.appendChild(cameraBtn);
+
+    // Apply specific logic for Min Logg: Hiding unnecessary info
+    if (sighting) {
+        if (elements.detailNameScEn) elements.detailNameScEn.style.display = 'none';
+        if (descEl) descEl.style.display = 'none';
+        document.querySelectorAll('.bird-facts-grid .fact-card').forEach(card => {
+            if (!card.querySelector('#detail-rarity')) {
+                card.style.display = 'none';
+            }
+        });
+    }
 }
 function getCurrentSpeciesList() {
     const config = SUBJECT_CONFIG[state.currentSubject];
