@@ -377,6 +377,7 @@ const elements = {
 };
 
 let editingBirdId = null;
+let editingSightingId = null;
 
 // --- History State Handler ---
 window.addEventListener('popstate', (event) => {
@@ -415,7 +416,7 @@ let _sightingMarker = null;
 
 // Toggle visibility of sighting sections
 window.toggleSightingSection = function(section) {
-    const sections = ['map', 'date', 'notes'];
+    const sections = ['map', 'date', 'notes', 'weather'];
     let openedElement = null;
 
     sections.forEach(s => {
@@ -448,8 +449,10 @@ window.toggleSightingSection = function(section) {
     }
 };
 
-function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
+function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sightingToEdit = null) {
     elements.form.reset();
+    editingSightingId = sightingToEdit ? sightingToEdit.id : null;
+
     const sightingDateEl = document.getElementById('sighting-date');
     const today = new Date();
     sightingDateEl.valueAsDate = today;
@@ -457,7 +460,7 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
     elements.imagePreviewContainer.innerHTML = '';
 
     // Reset hidden sections
-    ['map', 'date', 'notes'].forEach(s => {
+    ['map', 'date', 'notes', 'weather'].forEach(s => {
         const el = document.getElementById('sighting-section-' + s);
         const btn = document.getElementById('btn-toggle-' + s);
         if (el) el.classList.add('hidden');
@@ -473,6 +476,21 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null) {
         elements.birdSearchInput.value = prefillBirdName || '';
     } else {
         elements.selectedBirdId.value = '';
+    }
+
+    if (sightingToEdit) {
+        sightingDateEl.value = sightingToEdit.date || '';
+        document.getElementById('sighting-location').value = sightingToEdit.location || '';
+        document.getElementById('sighting-notes').value = sightingToEdit.notes || '';
+        if (document.getElementById('sighting-weather')) {
+            document.getElementById('sighting-weather').value = sightingToEdit.weather || '';
+        }
+        if (sightingToEdit.lat) document.getElementById('sighting-lat').value = sightingToEdit.lat;
+        if (sightingToEdit.lng) document.getElementById('sighting-lng').value = sightingToEdit.lng;
+        
+        elements.birdSearchInput.disabled = true; // Don't change species when editing
+    } else {
+        elements.birdSearchInput.disabled = false;
     }
 
     elements.modal.classList.add('active');
@@ -972,14 +990,55 @@ function _renderBirdDetail(item, sighting = null) {
     if (actionsDiv2) actionsDiv2.appendChild(cameraBtn);
 
     // Apply specific logic for Min Logg: Hiding unnecessary info
+    
+    // Elements added for Min Logg
+    const detailSightingPanel = document.getElementById('detail-sighting-panel');
+    const editSightingBtn = document.getElementById('detail-edit-sighting-btn');
+    
     if (sighting) {
         if (elements.detailNameScEn) elements.detailNameScEn.style.display = 'none';
         if (descEl) descEl.style.display = 'none';
-        document.querySelectorAll('.bird-facts-grid .fact-card').forEach(card => {
-            if (!card.querySelector('#detail-rarity')) {
+        document.querySelectorAll('.bird- तथ्यों-grid .fact-card, .bird-facts-grid .fact-card').forEach(card => {
+            if (!card.querySelector('#detail-rarity') && card.parentElement.id !== 'detail-sighting-panel') {
                 card.style.display = 'none';
             }
         });
+        
+        // Show Sighting Panel
+        if (detailSightingPanel) {
+            detailSightingPanel.classList.remove('hidden');
+            document.getElementById('ds-date').textContent = sighting.date || '--';
+            document.getElementById('ds-location').textContent = sighting.location || '--';
+            document.getElementById('ds-weather').textContent = sighting.weather || '--';
+            
+            const notesEl = document.getElementById('ds-notes');
+            if (sighting.notes) {
+                notesEl.textContent = sighting.notes;
+                document.getElementById('ds-notes-card').style.display = 'block';
+            } else {
+                document.getElementById('ds-notes-card').style.display = 'none';
+            }
+        }
+        
+        // Setup Edit Button
+        if (editSightingBtn) {
+            editSightingBtn.style.display = 'inline-flex';
+            
+            // Clean up old event listeners to prevent duplicate clicks
+            const newEditBtn = editSightingBtn.cloneNode(true);
+            editSightingBtn.replaceWith(newEditBtn);
+            
+            newEditBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                elements.detailModal.classList.remove('active');
+                history.pushState({ modal: 'sighting' }, '');
+                _showSightingModal(item.id, item.nameSv, sighting);
+            });
+        }
+        
+    } else {
+        if (detailSightingPanel) detailSightingPanel.classList.add('hidden');
+        if (editSightingBtn) editSightingBtn.style.display = 'none';
     }
 }
 function getCurrentSpeciesList() {
@@ -2118,6 +2177,7 @@ window.quickAddSighting = (birdId) => {
         date: new Date().toISOString().split('T')[0], // Today
         location: 'Snabbtillägg',
         notes: '',
+        weather: '',
         photo: null
     };
 
@@ -2477,14 +2537,22 @@ function setupEventListeners() {
         const lngVal = document.getElementById('sighting-lng').value;
         const dateVal = document.getElementById('sighting-date').value;
         let notesVal = document.getElementById('sighting-notes').value;
+        const weatherInput = document.getElementById('sighting-weather');
+        let weatherVal = weatherInput ? weatherInput.value : '';
 
         const submitBtn = elements.form.querySelector('button[type="submit"]');
         const originalBtnHTML = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sparar...';
         submitBtn.disabled = true;
 
-        // Automatically fetch weather data if coordinates and date exist (Request 3)
-        if (latVal && lngVal && dateVal) {
+        const isEditing = typeof editingSightingId !== 'undefined' && editingSightingId !== null;
+        let existingSighting = null;
+        if (isEditing) {
+            existingSighting = state.sightings.find(s => s.id === editingSightingId);
+        }
+
+        // Automatically fetch weather data if coordinates and date exist, and we don't already have weather
+        if (!weatherVal && latVal && lngVal && dateVal) {
             try {
                 const url = `https://api.open-meteo.com/v1/forecast?latitude=${latVal}&longitude=${lngVal}&daily=temperature_2m_max,weathercode&past_days=14&forecast_days=1&timezone=Europe%2FBerlin`;
                 const res = await fetch(url);
@@ -2503,8 +2571,7 @@ function setupEventListeners() {
                         else if (code >= 95) wDesc = 'Åska';
                         
                         if (temp !== null && temp !== undefined) {
-                            const wStr = `Väder: ${Math.round(temp)}°C${wDesc ? ', ' + wDesc : ''}`;
-                            notesVal = notesVal ? `${wStr}\n\n${notesVal}` : wStr;
+                            weatherVal = `${Math.round(temp)}°C${wDesc ? ', ' + wDesc : ''}`;
                         }
                     }
                 }
@@ -2514,18 +2581,25 @@ function setupEventListeners() {
         }
 
         const newSighting = {
-            id: Date.now().toString(),
+            id: isEditing ? editingSightingId : Date.now().toString(),
             birdId: elements.selectedBirdId.value,
             date: dateVal,
             location: document.getElementById('sighting-location').value,
             notes: notesVal,
-            photo: null,
+            weather: weatherVal,
+            photo: existingSighting ? existingSighting.photo : null,
             lat: latVal ? parseFloat(latVal) : null,
             lng: lngVal ? parseFloat(lngVal) : null
         };
 
         const finish = () => {
-            state.sightings.push(newSighting);
+            if (isEditing) {
+                const idx = state.sightings.findIndex(s => s.id === editingSightingId);
+                if (idx !== -1) state.sightings[idx] = newSighting;
+                editingSightingId = null;
+            } else {
+                state.sightings.push(newSighting);
+            }
 
             // Auto-switch year filter if needed
             const sYear = new Date(newSighting.date).getFullYear();
@@ -2538,6 +2612,11 @@ function setupEventListeners() {
 
             submitBtn.innerHTML = originalBtnHTML;
             submitBtn.disabled = false;
+            
+            // Clean up: Reset form state properly
+            editingSightingId = null;
+            elements.birdSearchInput.disabled = false;
+            
             history.back(); // Close modal via history
         };
 

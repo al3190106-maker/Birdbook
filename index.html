@@ -384,6 +384,9 @@
                     <button type="button" class="sighting-action-btn" id="btn-toggle-notes" title="Anteckningar" onclick="toggleSightingSection('notes')">
                         <i class="fa-regular fa-clipboard"></i>
                     </button>
+                    <button type="button" class="sighting-action-btn" id="btn-toggle-weather" title="Väder" onclick="toggleSightingSection('weather')">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                    </button>
                     <button type="button" class="sighting-action-btn" id="btn-toggle-photo" title="Kamera för bild" onclick="document.getElementById('sighting-photo').click()">
                         <i class="fa-solid fa-camera"></i>
                     </button>
@@ -407,6 +410,13 @@
                     <div class="form-group" style="margin-bottom: 0;">
                         <label for="sighting-date">Datum</label>
                         <input type="date" id="sighting-date" min="2020-01-01" required>
+                    </div>
+                </div>
+
+                <div id="sighting-section-weather" class="sighting-hidden-section hidden">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="sighting-weather">Väder</label>
+                        <input type="text" id="sighting-weather" placeholder="Soligt, molnigt, blåsigt...">
                     </div>
                 </div>
 
@@ -503,6 +513,27 @@
 
 
                 </div>
+                
+                <!-- Sighting Details (Only in Log View) -->
+                <div class="bird-facts-grid hidden" id="detail-sighting-panel" style="margin-top: 1rem;">
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-calendar-day"></i> Datum</div>
+                        <div class="fact-value" id="ds-date" style="font-size: 1rem;">--</div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-map-location-dot"></i> Plats</div>
+                        <div class="fact-value" id="ds-location" style="font-size: 1rem;">--</div>
+                        <div class="stat-label" style="font-size: 0.75rem; color: #888; overflow-wrap: break-word;"></div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-cloud-sun"></i> Väder</div>
+                        <div class="fact-value" id="ds-weather" style="font-size: 1rem;">--</div>
+                    </div>
+                    <div class="fact-card" style="grid-column: 1 / -1;" id="ds-notes-card">
+                        <div class="fact-title"><i class="fa-solid fa-clipboard"></i> Anteckningar</div>
+                        <div class="fact-value" id="ds-notes" style="font-size: 0.95rem; font-style: italic; white-space: pre-wrap; word-break: break-word;">--</div>
+                    </div>
+                </div>
 
 
 
@@ -517,6 +548,11 @@
                     <button class="add-sighting-detail-btn" id="detail-quick-add-btn"
                         style="padding: 0.8rem 1.5rem; font-size: 1rem;">
                         <i class="fa-solid fa-plus"></i> Snabbtillägg
+                    </button>
+                    
+                    <button class="add-sighting-detail-btn" id="detail-edit-sighting-btn"
+                        style="padding: 0.8rem 1.5rem; font-size: 1rem; display: none; background: #3b82f6; border-color: #3b82f6; color: white;">
+                        <i class="fa-solid fa-pen"></i> Redigera observation
                     </button>
                 </div>
 
