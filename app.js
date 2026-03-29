@@ -1371,6 +1371,25 @@ async function loadSightings() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             state.sightings = JSON.parse(stored);
+            
+            // Seamless migration: Move old text-based weather from 'notes' to the new 'weather' field
+            let migratedCount = 0;
+            state.sightings.forEach(s => {
+                if (s.notes && s.notes.includes('Väder:') && !s.weather) {
+                    const lines = s.notes.split('\n');
+                    const wIndex = lines.findIndex(l => l.startsWith('Väder:'));
+                    if (wIndex !== -1) {
+                        s.weather = lines[wIndex].replace('Väder:', '').trim();
+                        lines.splice(wIndex, 1);
+                        s.notes = lines.join('\n').trim();
+                        migratedCount++;
+                    }
+                }
+            });
+            if (migratedCount > 0) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+                console.log(`Migrerade väderdata för ${migratedCount} gamla observationer.`);
+            }
         }
         console.log('📂 Loaded', state.sightings.length, 'sightings from LocalStorage');
     } catch (e) {
