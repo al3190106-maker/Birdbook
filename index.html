@@ -713,7 +713,7 @@
                 <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; margin-top: 0.5rem;">Obs: Eftersom värdet är generellt för hela Sverige uppmärksammas inga lokala avvikelser i denna skala.</p>
                 <div style="margin-top: 1.2rem; padding: 0.6rem 1rem; background: #f0f4f1; border-radius: 8px; text-align: center; border: 1px solid #d0e5da;">
                     <span style="font-size: 0.78rem; color: var(--text-muted);">🕒 Senaste uppdatering</span><br>
-                    <strong style="font-size: 0.9rem; color: var(--primary);">2026-03-29 · 21:05</strong>
+                    <strong style="font-size: 0.9rem; color: var(--primary);">2026-03-29 · 21:17</strong>
                 </div>
             </div>
         </div>
@@ -763,64 +763,57 @@
                     <i class="fa-solid fa-magnifying-glass-plus"></i>
                 </div>
                 <h2>Identifiera art</h2>
-                <p class="ai-modal-subtitle">Ta ett foto och identifiera arten med Google Lens</p>
+                <p class="ai-modal-subtitle">Identifiera direkt i Google Lens</p>
             </div>
 
-            <!-- Upload Zone -->
-            <div id="ai-upload-zone" class="ai-upload-zone">
-                <div class="ai-upload-inner" id="ai-upload-inner">
-                    <i class="fa-solid fa-camera ai-upload-icon"></i>
-                    <p class="ai-upload-text">Tryck för att ta foto eller välj bild</p>
-                    <p class="ai-upload-hint">Stöder JPG, PNG och HEIC</p>
-                </div>
-                <img id="ai-preview-img" class="ai-preview-img hidden" alt="Förhandsvisning" />
-                <button id="ai-change-photo-btn" class="ai-change-btn hidden">
-                    <i class="fa-solid fa-rotate"></i> Byt bild
-                </button>
-            </div>
-            <input type="file" id="ai-file-input" accept="image/*" style="display:none;">
-
-            <!-- Camera / Gallery Row -->
-            <div class="ai-camera-row">
-                <button id="ai-camera-btn" class="ai-action-btn camera">
-                    <i class="fa-solid fa-camera"></i> Kamera
-                </button>
-                <button id="ai-gallery-btn" class="ai-action-btn gallery">
-                    <i class="fa-solid fa-image"></i> Galleri
-                </button>
-            </div>
-
-            <!-- Open Lens Button -->
-            <button id="ai-lens-btn" class="ai-analyze-btn" disabled>
+            <!-- Direct Lens Button -->
+            <a href="https://lens.google.com/" target="_blank" rel="noopener" class="ai-analyze-btn" id="ai-lens-btn"
+               style="display:flex; align-items:center; justify-content:center; gap:0.6rem; text-decoration:none; margin-bottom:1rem;">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                Öppna i Google Lens
-            </button>
+                Öppna Google Lens
+            </a>
 
             <!-- How it works -->
-            <div class="ai-steps" id="ai-steps">
+            <div class="ai-steps">
                 <div class="ai-step">
                     <div class="ai-step-num">1</div>
-                    <div class="ai-step-text">Ta eller välj ett foto av arten</div>
+                    <div class="ai-step-text">Tryck <strong>"Öppna Google Lens"</strong> ovan</div>
                 </div>
                 <div class="ai-step">
                     <div class="ai-step-num">2</div>
-                    <div class="ai-step-text">Tryck <strong>"Öppna i Google Lens"</strong></div>
+                    <div class="ai-step-text">Ta ett foto eller välj en bild i Google Lens</div>
                 </div>
                 <div class="ai-step">
                     <div class="ai-step-num">3</div>
-                    <div class="ai-step-text">På mobil: välj Google Lens i delningsmenyn.<br>På dator: bilden laddas ned, ladda upp den i Lens.</div>
+                    <div class="ai-step-text">Google Lens identifierar arten – kom sedan tillbaka och sök upp den i Naturboken!</div>
                 </div>
             </div>
 
-            <!-- Tip -->
-            <p class="ai-tip" id="ai-tip" style="display:none;">
-                <i class="fa-solid fa-circle-info"></i>
-                Bilden är sparad i din nedladdningsmapp. Ladda upp den på <strong>lens.google.com</strong>
-            </p>
+            <!-- Quick search tip -->
+            <div style="margin-top:1rem; padding:0.8rem 1rem; background:#f8faf9; border-radius:10px; border:1px solid #d0e5da;">
+                <p style="font-size:0.85rem; color:var(--text-muted); margin:0 0 0.6rem;"
+                   ><i class="fa-solid fa-lightbulb" style="color:#f39c12; margin-right:0.4rem;"></i>
+                   <strong>Tips:</strong> Sök direkt här i Naturboken när du fått ett artnamn:
+                </p>
+                <div style="display:flex; gap:0.5rem;">
+                    <input type="text" id="lens-search-input" placeholder="Skriv artnamn här..."
+                           style="flex:1; padding:0.6rem 0.8rem; border:1.5px solid #c8d8d0; border-radius:8px;
+                                  font-family:var(--font-stack); font-size:0.9rem; outline:none;"
+                           onkeydown="if(event.key==='Enter') _lensQuickSearch()">
+                    <button onclick="_lensQuickSearch()" 
+                            style="padding:0.6rem 0.9rem; background:var(--primary); color:white;
+                                   border:none; border-radius:8px; cursor:pointer; font-size:0.9rem;">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+                <p id="lens-search-result" style="font-size:0.83rem; color:var(--primary); margin:0.5rem 0 0; display:none;"></p>
+            </div>
         </div>
     </div>
 
+
     <!-- iOS Install Modal -->
+
     <div class="modal-overlay" id="ios-install-modal" style="z-index: 5000;">
         <div class="modal-content" style="max-width: 350px; text-align: center; border-radius: 20px; padding: 2rem;">
             <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">
