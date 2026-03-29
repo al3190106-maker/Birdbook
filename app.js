@@ -1567,6 +1567,16 @@ function renderSightingsList(sightings) {
                     <i class="fa-solid fa-trash"></i>
                 </button>
                 ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
+                <div class="bird-image-name">${item.nameSv}</div>
+            </div>
+            <div class="bird-info">
+                <div class="bird-primary-name">${item.nameSv}</div>
+                <div class="bird-secondary-name">${item.nameEn}</div>
+                <div class="bird-scientific">${item.scientific}</div>
+                <div class="bird-description">
+                    ${sighting.date} i ${sighting.location || 'Okänd plats'}
+                    ${sighting.notes ? `<br><i>"${sighting.notes}"</i>` : ''}
+                </div>
             </div>
         `;
 
