@@ -8,12 +8,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/knolsvan_familj.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/knolsvan_ung.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/knolsvan_pulli.jpg",
@@ -25,32 +25,32 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan1-2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan_par.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "pair"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan2-2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan_unge2.jpg",
@@ -65,24 +65,24 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sangsvan_flyg.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "canada_goose": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kanadagas.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kanadagas_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kanadagas_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kanadagas_pulli.jpg",
@@ -94,22 +94,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gragas.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gragas_flyg2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gragas_flyg.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gragas_bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gragas_ungar-1.jpg",
@@ -121,27 +121,27 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vitkindadgas.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vitkindadgas2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vitkindadgas3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vitkindadgas_med_en_dvargkanadagas.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vitkindadgas4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vitkindadgas_pulli.jpg",
@@ -239,7 +239,7 @@ window.birdImages = {
         {
             "src": "images/Fotografer/gustav gotthardsson/Anas_penelope.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blasand_hane_1.jpg",
@@ -291,7 +291,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vigg_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vigg_hane2.jpg",
@@ -301,7 +301,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/viggar.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/vigg_par.jpg",
@@ -355,12 +355,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/ejder_eklipsdrakt_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/ejder_hanne_eklipsdrakt.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         }
     ],
     "long_tailed_duck": [
@@ -404,7 +404,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/storskrake_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/storskrake_hane4.jpg",
@@ -463,7 +463,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/snatterand_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/snatterand_hane2.jpg",
@@ -478,14 +478,14 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/snatterand.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "mandarin_duck": [
         {
             "src": "images/Fotografer/gustav gotthardsson/Aix_galericulata.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         }
     ],
     "western_capercaillie": [
@@ -507,7 +507,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tjader_bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tjadertupp2.jpg",
@@ -519,7 +519,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/orre.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/orre_hona1.jpg",
@@ -529,7 +529,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/orre4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/orre_hona2.jpg",
@@ -539,7 +539,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/orre2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         }
     ],
     "common_pheasant": [
@@ -563,17 +563,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/storlom1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/storlom2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/storlom3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/storlom_med_unge.jpg",
@@ -732,7 +732,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sparvhok1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sparvhok_hona.jpg",
@@ -742,12 +742,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sparvhok_juvenil2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sparvhok_med_byte.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sparvhok_hane.jpg",
@@ -759,54 +759,54 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/duvhok_hanne.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/duvhok_ung_hona-2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/duvhok_ung_hona.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/duvhok_ung_hona2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/duvhok_ung_hanne.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         }
     ],
     "common_kestrel": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk5.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk6.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk_hona.jpg",
@@ -816,7 +816,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornfalk1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         }
     ],
     "peregrine_falcon": [
@@ -847,27 +847,27 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/larkfalk.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/larkfalk_5.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/larkfalk_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/larkfalk_4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/larkfalk_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_crane": [
@@ -906,12 +906,12 @@ window.birdImages = {
         {
             "src": "images/Fotografer/gustav gotthardsson/Fulica_atra_2.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "images/Fotografer/gustav gotthardsson/Fulica_atra.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sothona_hane.jpg",
@@ -921,7 +921,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sothona3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sothona_med_pulli.jpg",
@@ -931,12 +931,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sothona_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/sothona_bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "eurasian_oystercatcher": [
@@ -985,12 +985,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tofsvipa2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tofsvipa1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tofsvipa_pulli.jpg",
@@ -1005,14 +1005,14 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tofsvipa_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "eurasian_woodcock": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/morkulla.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_snipe": [
@@ -1137,12 +1137,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_ungfagel2.jpg",
@@ -1157,29 +1157,29 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_agg.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/fiskmas_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "herring_gull": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/gratrut.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/gratrut_vinter_1yearsold.jpg",
@@ -1189,17 +1189,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/gratrut_vinter_2-yersold.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/gratrut_vinter_3-yearsold.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/gratrut_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "great_black_backed_gull": [
@@ -1287,21 +1287,21 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/sillgrissla.jpg",
             "photographer": "Bertil Sundberg",
-            "gender": null
+            "gender": "same"
         }
     ],
     "razorbill": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/tordmule.jpg",
             "photographer": "Bertil Sundberg",
-            "gender": null
+            "gender": "same"
         }
     ],
     "black_guillemot": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/tobisgrissla2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "great_spotted_woodpecker": [
@@ -1383,12 +1383,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ringduva.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ringduva2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ringduva_pulli.jpg",
@@ -1400,22 +1400,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/gok_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/gok_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/gok_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/gok.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_swift": [
@@ -1493,7 +1493,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/svarthatta.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         }
     ],
     "goldcrest": [
@@ -1510,117 +1510,117 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfagel2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfagel3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfagel1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfagel_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "garden_warbler": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/tradgardssangare1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "lesser_whitethroat": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/artsangare.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/artsangare_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/artsangare_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/artsangare_bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/artsangare_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_whitethroat": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornsangare.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornsangare3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornsangare2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornsangare_bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_blackbird": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/koltrast_hane.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/koltrast_hona.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/koltrast_hona2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "song_thrush": [
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/taltrast1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/taltrast4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/taltrast3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/taltrast2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/taltrast_unge.jpg",
@@ -1713,7 +1713,7 @@ window.birdImages = {
         {
             "src": "images/Fotografer/gustav gotthardsson/Parus_major.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/talgoxe_hane.jpg",
@@ -1738,7 +1738,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/talgoxe_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/talgoxe_pulli.jpg",
@@ -1748,7 +1748,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/talgoxe_agg.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "eurasian_blue_tit": [
@@ -1804,7 +1804,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/tofsmes.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_chaffinch": [
@@ -1816,12 +1816,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/06/bofink_unge_ORG-1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/06/bofink_bo_ORG-1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/11/bofink_hona_3.jpg",
@@ -1919,17 +1919,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/steglits2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/steglits1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/steglits_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         }
     ],
     "eurasian_siskin": [
@@ -1951,12 +1951,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gronsiska_juvenil_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gronsiska_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         }
     ],
     "house_sparrow": [
@@ -2039,7 +2039,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/savsparv_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/savsparv2_hane.jpg",
@@ -2176,32 +2176,32 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ladusvala1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ladusvala5.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ladusvala3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ladusvala2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ladusvala_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ladusvala4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_house_martin": [
@@ -2277,12 +2277,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sadesarla_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sadesarla_leucistisk.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "eurasian_wren": [
@@ -2316,22 +2316,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stare2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stare_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stare_juvenil2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stare_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         }
     ],
     "bohemian_waxwing": [
@@ -2485,17 +2485,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blasgas_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blasgas_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blasgas_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blasgas_ungfagel.jpg",
@@ -2507,22 +2507,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hane2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hona-med-flera-hannar.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hona.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hane.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         }
     ],
     "common_shelduck": [
@@ -2602,17 +2602,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/Dalripa_sommar_hanne_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/Dalripa_sommar_hanne.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/dalripa_sommar_hona.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         }
     ],
     "rock_ptarmigan": [
@@ -2850,27 +2850,27 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_hane_honor.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_hona.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_flykt.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/brushannar.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "common_sandpiper": [
@@ -3582,22 +3582,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_6.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_5.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "red_footed_falcon": [
@@ -3650,12 +3650,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/hornuggla_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/hornuggla_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/hornuggla_unge.jpg",
@@ -3743,7 +3743,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/parluggla_juv2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/parluggla_pulli.jpg",
@@ -3772,7 +3772,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/sparvuggla.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "grey_headed_woodpecker": [
@@ -3801,7 +3801,7 @@ window.birdImages = {
         {
             "src": "images/Fotografer/gustav gotthardsson/Dendrocopos_minor.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/mindre_hackspett_hane3.jpg",
@@ -3811,22 +3811,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_vid-bo.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/06/mindreHS2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "eurasian_wryneck": [
@@ -3994,32 +3994,32 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blahake-1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/07/blahake-2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/blahake_hane.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/blahake07.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/blahake_3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/blahake_juv_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         }
     ],
     "whinchat": [
@@ -4063,7 +4063,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/forsarla_juv.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         }
     ],
     "yellow_wagtail": [
@@ -4075,27 +4075,27 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gularla_vinter.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gularla_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gularla_nordlig_ras2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gularla_nordlig_ras.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/gularla_nordlig.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "dunnock": [
@@ -4136,7 +4136,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/rodstjart1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/rodstjart_hona.jpg",
@@ -4146,17 +4146,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/rodstjart2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/rodstjart_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/rodstjart_juvenil2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "female"
         }
     ],
     "northern_wheatear": [
@@ -4173,12 +4173,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stenskvatta_host.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stenskvatta_juvenil2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "male"
         }
     ],
     "white_throated_dipper": [
@@ -4266,7 +4266,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfiskare.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         }
     ],
     "great_cormorant": [
@@ -4322,17 +4322,17 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/grasiska_1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/grasiska_ljus_ras.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/grasiska_vinter2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/grasiska_hane.jpg",
@@ -4398,7 +4398,7 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/stenknack.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/stenknack_hona.jpg",
@@ -4415,7 +4415,7 @@ window.birdImages = {
         {
             "src": "images/Fotografer/gustav gotthardsson/Pinicola_enucleator.jpg",
             "photographer": "gustav",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tallbit_hane.jpg",
@@ -4486,22 +4486,22 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/lavskrika2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/lavskrika1.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/lavskrika3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/lavskrika4.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/lavskrika_juvenil.jpg",
@@ -4582,12 +4582,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornskata_juvenil2.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornskata_juvenil.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "juvenile"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tornskata_medungar.jpg",
@@ -4881,12 +4881,12 @@ window.birdImages = {
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tretaighackspett3.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tretaighackspett_5.jpg",
             "photographer": "Steve Dahlfors",
-            "gender": null
+            "gender": "same"
         },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/10/tretaighackspatt_hona1.jpg",
