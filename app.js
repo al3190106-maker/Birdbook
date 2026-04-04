@@ -638,8 +638,8 @@ function _buildCarousel(images) {
         });
         slide.appendChild(img);
 
-        // Gender badge (bottom-left)
-        if (gender) {
+        // Gender badge (bottom-left) — skipped for juveniles
+        if (gender && gender !== 'juvenile') {
             const genderBadge = document.createElement('div');
             genderBadge.className = 'gender-badge ' + gender;
             const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀', same: '⚥' };
@@ -719,8 +719,8 @@ function _applyFullscreenItem(index) {
     let existingGender = elements.fsModal.querySelector('.gender-badge');
     if (existingGender) existingGender.remove();
     
-    // Add gender badge bottom-left of fullscreen
-    if (gender) {
+    // Add gender badge bottom-left of fullscreen — skipped for juveniles
+    if (gender && gender !== 'juvenile') {
         const genderBadge = document.createElement('div');
         genderBadge.className = 'gender-badge ' + gender;
         const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀', same: '⚥' };
