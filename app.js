@@ -833,6 +833,17 @@ function _renderBirdDetail(item, sighting = null) {
     const fallbackSrc = item.image || getBirdImageSrc(item.id);
     let imagesToShow = galleryImages.length > 0 ? [...galleryImages] : [];
     
+    // Sort images so male ('male') image is always first
+    if (imagesToShow.length > 1) {
+        imagesToShow.sort((a, b) => {
+            const genderA = typeof a === 'object' ? a.gender : null;
+            const genderB = typeof b === 'object' ? b.gender : null;
+            if (genderA === 'male' && genderB !== 'male') return -1;
+            if (genderA !== 'male' && genderB === 'male') return 1;
+            return 0;
+        });
+    }
+
     if (imagesToShow.length === 0) {
         if (item.photographer) {
             imagesToShow.push({ src: fallbackSrc, photographerName: item.photographer });
@@ -2165,7 +2176,16 @@ function getBirdImageSrc(birdId) {
     const fungiItem = (window.swedishFungi || []).find(f => f.id === birdId);
     if (fungiItem && fungiItem.image) return fungiItem.image;
 
-    // 2. Try the real image file (images/{bird_id}.jpg)
+    // 2. Priority check from bird_images for the primary view (males first)
+    if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
+        const arr = window.birdImages[birdId];
+        const male = arr.find(img => typeof img === 'object' && img.gender === 'male');
+        if (male) return male.src;
+        const first = arr[0];
+        return typeof first === 'object' ? first.src : first;
+    }
+
+    // 3. Try the real image file (images/{bird_id}.jpg)
     //    The onerror handler on the <img> will swap to the holder if this 404s
     return `images/${birdId}.jpg`;
 }
