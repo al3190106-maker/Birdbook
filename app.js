@@ -3837,79 +3837,9 @@ const _originalInit = init;
 init = async function() {
     await _originalInit();
     _setupMapEventListeners();
-    _initAIIdentify();
 };
 
 // Start
 document.addEventListener('DOMContentLoaded', init);
 
-// =============================================
-// GOOGLE LENS IDENTIFICATION FEATURE
-// =============================================
-
-function _initAIIdentify() {
-    const openBtn  = document.getElementById('ai-identify-btn');
-    const modal    = document.getElementById('ai-identify-modal');
-    const closeBtn = document.getElementById('close-ai-identify-modal');
-
-    if (!openBtn || !modal) return;
-
-    openBtn.addEventListener('click', () => {
-        // Clear previous search
-        const inp = document.getElementById('lens-search-input');
-        const res = document.getElementById('lens-search-result');
-        if (inp) inp.value = '';
-        if (res) { res.style.display = 'none'; res.textContent = ''; }
-        modal.classList.add('active');
-    });
-
-    closeBtn && closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-}
-
-function _lensQuickSearch() {
-    const inp   = document.getElementById('lens-search-input');
-    const resEl = document.getElementById('lens-search-result');
-    if (!inp || !resEl) return;
-
-    const query = inp.value.trim().toLowerCase();
-    if (!query) return;
-
-    // Search all species lists
-    const allLists = [
-        ...(window.swedishBirds   || []),
-        ...(window.swedishTrees   || []),
-        ...(window.swedishFish    || []),
-        ...(window.swedishAnimals || []),
-        ...(window.swedishFungi   || []),
-        ...(window.swedishFlowers || []),
-        ...(window.swedishPlants  || [])
-    ];
-
-    const normalize = s => (s || '').toLowerCase();
-    const match = allLists.find(item =>
-        normalize(item.nameSv).includes(query) ||
-        normalize(item.nameEn || '').includes(query) ||
-        normalize(item.scientific || '').includes(query)
-    );
-
-    resEl.style.display = '';
-    if (match) {
-        resEl.innerHTML = `✅ Hittad: <strong>${match.nameSv}</strong> – <a href="#" onclick="
-            document.getElementById('ai-identify-modal').classList.remove('active');
-            _renderBirdDetail(window.swedishBirds?.find(b=>b.id==='${match.id}') ||
-                              window.swedishTrees?.find(b=>b.id==='${match.id}') ||
-                              window.swedishFish?.find(b=>b.id==='${match.id}') ||
-                              window.swedishAnimals?.find(b=>b.id==='${match.id}') ||
-                              window.swedishFungi?.find(b=>b.id==='${match.id}') ||
-                              window.swedishFlowers?.find(b=>b.id==='${match.id}') ||
-                              window.swedishPlants?.find(b=>b.id==='${match.id}'));
-            elements.detailModal.classList.add('active');
-            return false;
-        " style="color:var(--primary); font-weight:700;">Visa i Naturboken →</a>`;
-    } else {
-        resEl.textContent = '❌ Arten hittades inte i Naturboken. Kontrollera stavningen.';
-        resEl.style.color = 'var(--text-muted)';
-    }
-}
 

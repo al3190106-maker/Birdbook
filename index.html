@@ -80,10 +80,7 @@
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span class="stat-label">Karta</span>
                 </div>
-                <div class="stat-card action-card ai-identify-card" id="ai-identify-btn" title="Identifiera med Google Lens">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                    <span class="stat-label">Identifiera</span>
-                </div>
+
             </section>
 
             <div class="list-controls">
@@ -796,65 +793,7 @@
         </div>
     </div>
 
-    <!-- Google Lens Identify Modal -->
-    <div class="modal-overlay" id="ai-identify-modal" style="z-index: 3500;">
-        <div class="modal-content ai-identify-modal-content">
-            <button class="close-modal" id="close-ai-identify-modal"><i class="fa-solid fa-times"></i></button>
 
-            <!-- Header -->
-            <div class="ai-modal-header">
-                <div class="ai-modal-icon" style="background: linear-gradient(135deg, #4285f4, #34a853);">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
-                <h2>Identifiera art</h2>
-                <p class="ai-modal-subtitle">Identifiera direkt i Google Lens</p>
-            </div>
-
-            <!-- Direct Lens Button -->
-            <a href="https://images.google.com/" target="_blank" rel="noopener" class="ai-analyze-btn" id="ai-lens-btn"
-               style="display:flex; align-items:center; justify-content:center; gap:0.6rem; text-decoration:none; margin-bottom:1rem;">
-                <i class="fa-solid fa-camera"></i>
-                Sök med Google Bilder
-            </a>
-
-            <!-- How it works -->
-            <div class="ai-steps">
-                <div class="ai-step">
-                    <div class="ai-step-num">1</div>
-                    <div class="ai-step-text">Tryck <strong>"Sök med Google Bilder"</strong> ovan</div>
-                </div>
-                <div class="ai-step">
-                    <div class="ai-step-num">2</div>
-                    <div class="ai-step-text">Tryck på <strong>kameraikonen</strong> 📸 i sökfältet</div>
-                </div>
-                <div class="ai-step">
-                    <div class="ai-step-num">3</div>
-                    <div class="ai-step-text">Ladda upp ett foto eller ta ett nytt – Google identifierar arten!
-                    <br><span style="font-size:0.8rem;color:var(--text-muted);">Fungerar i alla webbläsare utan att ladda ned någon app.</span></div>
-                </div>
-            </div>
-
-            <!-- Quick search tip -->
-            <div style="margin-top:1rem; padding:0.8rem 1rem; background:#f8faf9; border-radius:10px; border:1px solid #d0e5da;">
-                <p style="font-size:0.85rem; color:var(--text-muted); margin:0 0 0.6rem;"
-                   ><i class="fa-solid fa-lightbulb" style="color:#f39c12; margin-right:0.4rem;"></i>
-                   <strong>Tips:</strong> Sök direkt här i Naturboken när du fått ett artnamn:
-                </p>
-                <div style="display:flex; gap:0.5rem;">
-                    <input type="text" id="lens-search-input" placeholder="Skriv artnamn här..."
-                           style="flex:1; padding:0.6rem 0.8rem; border:1.5px solid #c8d8d0; border-radius:8px;
-                                  font-family:var(--font-stack); font-size:0.9rem; outline:none;"
-                           onkeydown="if(event.key==='Enter') _lensQuickSearch()">
-                    <button onclick="_lensQuickSearch()" 
-                            style="padding:0.6rem 0.9rem; background:var(--primary); color:white;
-                                   border:none; border-radius:8px; cursor:pointer; font-size:0.9rem;">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-                </div>
-                <p id="lens-search-result" style="font-size:0.83rem; color:var(--primary); margin:0.5rem 0 0; display:none;"></p>
-            </div>
-        </div>
-    </div>
 
 
     <!-- iOS Install Modal -->
