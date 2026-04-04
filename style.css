@@ -4363,6 +4363,13 @@ body.mode-fungi .quiz-results-score strong {
     letter-spacing: -1px;
 }
 
+.gender-badge.same {
+    background: rgba(100, 116, 139, 0.40);
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    font-size: 1.05rem;
+}
+
 @media (max-width: 600px) {
     .photographer-profile-header {
         flex-direction: column;

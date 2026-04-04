@@ -642,7 +642,7 @@ function _buildCarousel(images) {
         if (gender) {
             const genderBadge = document.createElement('div');
             genderBadge.className = 'gender-badge ' + gender;
-            const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀' };
+            const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀', same: '⚥' };
             genderBadge.textContent = genderSymbols[gender] || '';
             slide.appendChild(genderBadge);
         }
@@ -723,7 +723,7 @@ function _applyFullscreenItem(index) {
     if (gender) {
         const genderBadge = document.createElement('div');
         genderBadge.className = 'gender-badge ' + gender;
-        const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀' };
+        const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀', same: '⚥' };
         genderBadge.textContent = genderSymbols[gender] || '';
         genderBadge.style.bottom = '40px';
         elements.fsModal.querySelector('.fs-img-wrap') ? 
