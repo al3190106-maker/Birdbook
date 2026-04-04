@@ -1689,6 +1689,9 @@ function renderSightingsList(sightings) {
         const customImg = localStorage.getItem(`custom_img_${item.id}`);
         const imgSource = customImg || sighting.photo || getBirdImageSrc(item.id);
 
+        const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
+        const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
+
         card.innerHTML = `
             <div class="bird-image-container">
                 <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
@@ -1702,13 +1705,23 @@ function renderSightingsList(sightings) {
                 <div class="bird-image-name">${item.nameSv}</div>
             </div>
             <div class="bird-info">
-                <div class="bird-primary-name">${item.nameSv}</div>
-                <div class="bird-secondary-name">${item.nameEn}</div>
-                <div class="bird-scientific">${item.scientific}</div>
-                <div class="bird-description">
-                    ${sighting.date} i ${sighting.location || 'Okänd plats'}
-                    ${sighting.notes ? `<br><i>"${sighting.notes}"</i>` : ''}
-                </div>
+                <details class="bird-card-details" style="cursor: default;">
+                    <summary style="cursor: pointer; color: var(--primary); font-weight: 600; outline: none; padding-bottom: 0.5rem; font-size: 0.95rem; user-select: none;">Visa information</summary>
+                    <div style="padding-top: 0.5rem; border-top: 1px solid #eee;">
+                        <div class="bird-primary-name">${item.nameSv}</div>
+                        <div class="bird-secondary-name">${item.nameEn}</div>
+                        <div class="bird-scientific">${item.scientific}</div>
+                        ${item.funFact ? `<div class="bird-description" style="margin-top: 0.5rem;">${item.funFact}</div>` : ''}
+                        <div class="bird-card-rarity" style="color: ${rarityColors[(item.rarity || 1) - 1]}; ${(item.rarity || 1) === 1 ? 'background: #94a3b8; padding: 0.1rem 0.4rem; border-radius: 6px; display: inline-flex; width: max-content;' : ''}">
+                            <i class="fa-solid fa-star"></i> ${rarityLevels[(item.rarity || 1) - 1]}
+                        </div>
+                        <div class="bird-description" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed #eee;">
+                            <strong>Observation:</strong><br>
+                            ${sighting.date} i ${sighting.location || 'Okänd plats'}
+                            ${sighting.notes ? `<br><i>"${sighting.notes}"</i>` : ''}
+                        </div>
+                    </div>
+                </details>
             </div>
         `;
 
@@ -1732,6 +1745,7 @@ function renderSightingsList(sightings) {
 
         card.addEventListener('click', (e) => {
             if (e.target.closest('button')) return;
+            if (e.target.closest('details')) return;
             openBirdDetail(item, sighting);
         });
         card.style.cursor = 'pointer';

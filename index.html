@@ -40,7 +40,7 @@
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
-                <button class="nav-btn" data-tab="photographers-view">Fotografer</button>
+                <button class="nav-btn" data-tab="photographers-view" style="display: none;">Fotografer</button>
                 <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
                 <button class="nav-btn" data-tab="stats-view">Statistik</button>
             </nav>
@@ -715,38 +715,44 @@
             <div style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); text-align: center;">
                 <i class="fa-solid fa-circle-info"></i>
             </div>
-            <h2 style="margin-bottom: 1.5rem; text-align: center;">Om Datan & Sällsynthet</h2>
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Om Naturboken</h2>
             
             <div style="line-height: 1.6; color: var(--text-main); font-size: 0.95rem; margin-bottom: 2rem; max-height: 60vh; overflow-y: auto; padding-right: 0.5rem;">
                 <p style="margin-bottom: 1rem;">All fakta och biologisk data i denna app strävar efter att återspegla verkligheten, men bör ses som en generell vägledning snarare än absolut vetenskaplig sanning.</p>
-                <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Hur fungerar Sällsynthets-skalan?</h3>
-                <p style="margin-bottom: 1rem;">Skalan (1-5) är statiskt förutbestämd och bygger inte på realtidsdata, utan på allmän bedömning av hur spridda arterna är och hur lätt det är för allmänheten att se dem:</p>
-                <ul style="list-style-type: none; padding-left: 0; margin-bottom: 1rem;">
-                    <li style="margin-bottom: 0.5rem;">
-                        <span style="display:inline-block; background:#94a3b8; color:#fff; padding:0.1rem 0.4rem; border-radius:6px; font-weight:600; font-size:0.8em; margin-right:0.5rem; width:50px; text-align:center;">Allmän</span>
-                        Mkt vanligt förekommande / utbredd över stora områden.
-                    </li>
-                    <li style="margin-bottom: 0.5rem;">
-                        <span style="color:#16a34a; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Vanlig</span>
-                        Regelbunden, men knuten till mer specifika miljöer.
-                    </li>
-                    <li style="margin-bottom: 0.5rem;">
-                        <span style="color:#2563eb; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Ovanlig</span>
-                        Relativt sparsamt förekommande eller svårare att upptäcka.
-                    </li>
-                    <li style="margin-bottom: 0.5rem;">
-                        <span style="color:#9333ea; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Sällsynt</span>
-                        Verkligt få individer i landet; ses mycket sällan.
-                    </li>
-                    <li style="margin-bottom: 0.5rem;">
-                        <span style="color:#ea580c; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Mycket sällsynt</span>
-                        Tillfälliga gäster (rariteter) och extremt sällsynta fynd.
-                    </li>
-                </ul>
+                <details style="margin-bottom: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <summary style="margin-bottom: 0; color: var(--primary); font-size: 1.17em; font-weight: 600; cursor: pointer; outline: none;">
+                        Hur fungerar Sällsynthets-skalan?
+                    </summary>
+                    <div style="padding-top: 1rem;">
+                        <p style="margin-bottom: 1rem;">Skalan (1-5) är statiskt förutbestämd och bygger inte på realtidsdata, utan på allmän bedömning av hur spridda arterna är och hur lätt det är för allmänheten att se dem:</p>
+                        <ul style="list-style-type: none; padding-left: 0; margin-bottom: 1rem;">
+                            <li style="margin-bottom: 0.5rem;">
+                                <span style="display:inline-block; background:#94a3b8; color:#fff; padding:0.1rem 0.4rem; border-radius:6px; font-weight:600; font-size:0.8em; margin-right:0.5rem; width:50px; text-align:center;">Allmän</span>
+                                Mkt vanligt förekommande / utbredd över stora områden.
+                            </li>
+                            <li style="margin-bottom: 0.5rem;">
+                                <span style="color:#16a34a; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Vanlig</span>
+                                Regelbunden, men knuten till mer specifika miljöer.
+                            </li>
+                            <li style="margin-bottom: 0.5rem;">
+                                <span style="color:#2563eb; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Ovanlig</span>
+                                Relativt sparsamt förekommande eller svårare att upptäcka.
+                            </li>
+                            <li style="margin-bottom: 0.5rem;">
+                                <span style="color:#9333ea; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Sällsynt</span>
+                                Verkligt få individer i landet; ses mycket sällan.
+                            </li>
+                            <li style="margin-bottom: 0.5rem;">
+                                <span style="color:#ea580c; font-weight:600; font-size:0.9em; margin-right:0.5rem; width:50px; display:inline-block; text-align:center;">Mycket sällsynt</span>
+                                Tillfälliga gäster (rariteter) och extremt sällsynta fynd.
+                            </li>
+                        </ul>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; margin-top: 0.5rem;">Obs: Eftersom värdet är generellt för hela Sverige uppmärksammas inga lokala avvikelser i denna skala.</p>
+                    </div>
+                </details>
                 <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-main); text-align: center; border-top: 1px solid #eee; padding-top: 1rem;">
                     <strong>Skapad av:</strong> Alexander Larsson & Theia Skoog
                 </p>
-                <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; margin-top: 0.5rem;">Obs: Eftersom värdet är generellt för hela Sverige uppmärksammas inga lokala avvikelser i denna skala.</p>
                 <div style="margin-top: 1.2rem; padding: 0.6rem 1rem; background: #f0f4f1; border-radius: 8px; text-align: center; border: 1px solid #d0e5da;">
                     <span style="font-size: 0.78rem; color: var(--text-muted);">🕒 Senaste uppdatering</span><br>
                     <strong style="font-size: 0.9rem; color: var(--primary);">2026-03-29 · 21:17</strong>
