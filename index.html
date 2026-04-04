@@ -466,8 +466,9 @@
                 <span class="bird-detail-scientific" id="detail-name-sc-en">Scientific (English)</span>
                 <p class="bird-detail-description" id="detail-description"></p>
 
-                <div class="bird-facts-grid">
-                    <!-- Rarity -->
+                <details id="detail-facts-accordion" open style="margin-top: 0.5rem;">
+                    <summary style="cursor: pointer; color: var(--primary); font-weight: 600; outline: none; padding-bottom: 0.5rem; font-size: 1.05rem; user-select: none;"><i class="fa-solid fa-circle-info"></i> Artfakta</summary>
+                    <div class="bird-facts-grid">
                     <div class="fact-card">
                         <div class="fact-title"><i class="fa-solid fa-star"></i> Sällsynthet</div>
                         <div class="rarity-text" id="detail-rarity"
@@ -513,6 +514,7 @@
 
 
                 </div>
+                </details>
                 
                 <!-- Sighting Details (Only in Log View) -->
                 <div class="bird-facts-grid hidden" id="detail-sighting-panel" style="margin-top: 1rem;">

@@ -1033,10 +1033,11 @@ function _renderBirdDetail(item, sighting = null) {
     const detailSightingPanel = document.getElementById('detail-sighting-panel');
     const editSightingBtn = document.getElementById('detail-edit-sighting-btn');
     
+    const detailFactsAccordion = document.getElementById('detail-facts-accordion');
     if (sighting) {
         if (elements.detailNameScEn) elements.detailNameScEn.style.display = 'none';
         if (descEl) descEl.style.display = 'none';
-        
+        if (detailFactsAccordion) detailFactsAccordion.removeAttribute('open');
         
         // Show Sighting Panel
         if (detailSightingPanel) {
@@ -1073,6 +1074,7 @@ function _renderBirdDetail(item, sighting = null) {
     } else {
         if (detailSightingPanel) detailSightingPanel.classList.add('hidden');
         if (editSightingBtn) editSightingBtn.style.display = 'none';
+        if (detailFactsAccordion) detailFactsAccordion.setAttribute('open', '');
     }
 }
 function getCurrentSpeciesList() {
