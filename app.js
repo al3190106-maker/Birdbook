@@ -1036,11 +1036,7 @@ function _renderBirdDetail(item, sighting = null) {
     if (sighting) {
         if (elements.detailNameScEn) elements.detailNameScEn.style.display = 'none';
         if (descEl) descEl.style.display = 'none';
-        document.querySelectorAll('.bird- तथ्यों-grid .fact-card, .bird-facts-grid .fact-card').forEach(card => {
-            if (!card.querySelector('#detail-rarity') && card.parentElement.id !== 'detail-sighting-panel') {
-                card.style.display = 'none';
-            }
-        });
+        
         
         // Show Sighting Panel
         if (detailSightingPanel) {
