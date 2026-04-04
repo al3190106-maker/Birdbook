@@ -398,11 +398,26 @@ window.birdImages = {
         }
     ],
     "western_capercaillie": [
-        "https://fageln.se/wp-content/uploads/2025/10/tjader_tupp2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/tjader_hona2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/tjadertupp.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/tjader_bo.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/tjadertupp2.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/tjader_tupp2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/tjader_hona2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/tjadertupp.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/tjader_bo.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/tjadertupp2.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "black_grouse": [
         {
@@ -553,7 +568,10 @@ window.birdImages = {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ormvrak_ljus_fas.jpg",
             "photographer": "Steve Dahlfors"
         },
-        "https://fageln.se/wp-content/uploads/2025/10/ormvrak.jpg",
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/ormvrak.jpg",
+            "photographer": "Steve Dahlfors"
+        },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/09/ormvrak7.jpg",
             "photographer": "Steve Dahlfors"
@@ -804,7 +822,10 @@ window.birdImages = {
         }
     ],
     "eurasian_woodcock": [
-        "https://fageln.se/wp-content/uploads/2025/07/morkulla.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/morkulla.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "common_snipe": [
         {
@@ -1025,22 +1046,46 @@ window.birdImages = {
         }
     ],
     "common_murre": [
-        "https://fageln.se/wp-content/uploads/2025/07/sillgrissla.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/sillgrissla.jpg",
+            "photographer": "Bertil Sundberg"
+        }
     ],
     "razorbill": [
-        "https://fageln.se/wp-content/uploads/2025/07/tordmule.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/tordmule.jpg",
+            "photographer": "Bertil Sundberg"
+        }
     ],
     "black_guillemot": [
-        "https://fageln.se/wp-content/uploads/2025/07/tobisgrissla2.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/tobisgrissla2.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "great_spotted_woodpecker": [
-        "https://fageln.se/wp-content/uploads/2025/10/storre_hackspett_hona.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/storre_hackspett_hane.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/storre_hackspatt_hane2.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/storre_hackspett_hona.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/storre_hackspett_hane.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/storre_hackspatt_hane2.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "black_woodpecker": [
-        "https://fageln.se/wp-content/uploads/2025/10/spillkraka_hane.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/spillkraka_hona.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/spillkraka_hane.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/spillkraka_hona.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "european_green_woodpecker": [
         {
@@ -1061,8 +1106,14 @@ window.birdImages = {
         }
     ],
     "tawny_owl": [
-        "https://fageln.se/wp-content/uploads/2025/09/kattuggla2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/09/kattuggla.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/09/kattuggla2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/09/kattuggla.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "eurasian_eagle_owl": [
         {
@@ -1089,10 +1140,22 @@ window.birdImages = {
         }
     ],
     "common_cuckoo": [
-        "https://fageln.se/wp-content/uploads/2025/07/gok_3.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/gok_1.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/gok_2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/gok.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/gok_3.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/gok_1.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/gok_2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/gok.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "common_swift": [
         {
@@ -1153,7 +1216,10 @@ window.birdImages = {
         }
     ],
     "eurasian_blackcap": [
-        "https://fageln.se/wp-content/uploads/2025/09/svarthatta.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/09/svarthatta.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "goldcrest": [
         {
@@ -1182,7 +1248,10 @@ window.birdImages = {
         }
     ],
     "garden_warbler": [
-        "https://fageln.se/wp-content/uploads/2025/08/tradgardssangare1.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/08/tradgardssangare1.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "lesser_whitethroat": [
         {
@@ -1401,7 +1470,10 @@ window.birdImages = {
         }
     ],
     "crested_tit": [
-        "https://fageln.se/wp-content/uploads/2025/09/tofsmes.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/09/tofsmes.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "common_chaffinch": [
         {
@@ -1852,12 +1924,30 @@ window.birdImages = {
         }
     ],
     "meadow_pipit": [
-        "https://fageln.se/wp-content/uploads/2025/10/angspiplarka1.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/angspiplarka2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/angspiplarka3.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/angspiplarka4.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/angspiplarka5.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/angspiplarka_bo.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/angspiplarka1.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/angspiplarka2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/angspiplarka3.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/angspiplarka4.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/angspiplarka5.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/angspiplarka_bo.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "tree_pipit": [
         {
@@ -1886,9 +1976,18 @@ window.birdImages = {
         }
     ],
     "european_pied_flycatcher": [
-        "https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane3.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/svartvit_flugsnappare_hane3.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "spotted_flycatcher": [
         {
@@ -1945,10 +2044,22 @@ window.birdImages = {
         }
     ],
     "common_pochard": [
-        "https://fageln.se/wp-content/uploads/2025/07/brunand_hane2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brunand_hona-med-flera-hannar.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brunand_hona.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brunand_hane.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hane2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hona-med-flera-hannar.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hona.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brunand_hane.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "common_shelduck": [
         {
@@ -2011,9 +2122,18 @@ window.birdImages = {
         }
     ],
     "willow_ptarmigan": [
-        "https://fageln.se/wp-content/uploads/2025/07/Dalripa_sommar_hanne_2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/Dalripa_sommar_hanne.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/dalripa_sommar_hona.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/Dalripa_sommar_hanne_2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/Dalripa_sommar_hanne.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/dalripa_sommar_hona.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "rock_ptarmigan": [
         {
@@ -2204,11 +2324,26 @@ window.birdImages = {
         }
     ],
     "ruff": [
-        "https://fageln.se/wp-content/uploads/2025/07/brushane_hane_honor.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brushane_vinter.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brushane_hona.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brushane_flykt.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/brushannar.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_hane_honor.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_vinter.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_hona.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brushane_flykt.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/brushannar.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "common_sandpiper": [
         {
@@ -2655,7 +2790,10 @@ window.birdImages = {
         }
     ],
     "little_gull": [
-        "https://fageln.se/wp-content/uploads/2025/07/dvargmas_vuxen.jpg",
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/dvargmas_vuxen.jpg",
+            "photographer": "Steve Dahlfors"
+        },
         {
             "src": "https://fageln.se/wp-content/uploads/2025/08/dvargmas.jpg",
             "photographer": "Steve Dahlfors"
@@ -2802,8 +2940,14 @@ window.birdImages = {
         }
     ],
     "red_footed_falcon": [
-        "https://fageln.se/wp-content/uploads/2025/10/Falco_vespertinus_2_Martin_Mecnarowski.jpg",
-        "https://fageln.se/wp-content/uploads/2025/10/Falco_vespertinus_3_Martin_Mecnarowski.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/Falco_vespertinus_2_Martin_Mecnarowski.jpg",
+            "photographer": "Martin Mecnarowski"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/10/Falco_vespertinus_3_Martin_Mecnarowski.jpg",
+            "photographer": "Martin Mecnarowski"
+        }
     ],
     "gyrfalcon": [
         {
@@ -2934,7 +3078,10 @@ window.birdImages = {
         }
     ],
     "eurasian_pygmy_owl": [
-        "https://fageln.se/wp-content/uploads/2025/09/sparvuggla.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/09/sparvuggla.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "grey_headed_woodpecker": [
         {
@@ -2963,10 +3110,22 @@ window.birdImages = {
             "src": "https://fageln.se/wp-content/uploads/2025/09/mindre_hackspett_hane3.jpg",
             "photographer": "Steve Dahlfors"
         },
-        "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_2.jpg",
-        "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_vid-bo.jpg",
-        "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_1.jpg",
-        "https://fageln.se/wp-content/uploads/2025/06/mindreHS2.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_2.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_vid-bo.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/06/mindrehackspett_1.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/06/mindreHS2.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "eurasian_wryneck": [
         {
@@ -3323,7 +3482,10 @@ window.birdImages = {
         }
     ],
     "common_kingfisher": [
-        "https://fageln.se/wp-content/uploads/2025/09/kungsfiskare.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfiskare.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "great_cormorant": [
         {
@@ -3352,9 +3514,18 @@ window.birdImages = {
         }
     ],
     "two_barred_crossbill": [
-        "https://fageln.se/wp-content/uploads/2025/07/bandelkorsnabb_hanne1.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/bandelkorsnabb_hanne.jpg",
-        "https://fageln.se/wp-content/uploads/2025/07/bandelkorsnabb_hona.jpg"
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/bandelkorsnabb_hanne1.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/bandelkorsnabb_hanne.jpg",
+            "photographer": "Steve Dahlfors"
+        },
+        {
+            "src": "https://fageln.se/wp-content/uploads/2025/07/bandelkorsnabb_hona.jpg",
+            "photographer": "Steve Dahlfors"
+        }
     ],
     "common_redpoll": [
         {
