@@ -1655,21 +1655,6 @@ window.swedishBirds = [
         "bestTime": "Dag"
     },
     {
-        "id": "taiga_bean_goose",
-        "type": "Andfåglar",
-        "nameEn": "Taiga Bean Goose",
-        "nameSv": "Skogsgås",
-        "scientific": "Anser fabalis fabalis",
-        "rarity": 3,
-        "funFact": "Skogsgåsen häckar i den nordliga tajgan.",
-        "seasonDistribution": "Vinter/Genomflyttare",
-        "wingspan": 155,
-        "eggs": 5,
-        "weight": 3100,
-        "color": "Brun",
-        "bestTime": "Dag"
-    },
-    {
         "id": "pink_footed_goose",
         "type": "Andfåglar",
         "nameEn": "Pink-footed Goose",
@@ -3858,21 +3843,6 @@ window.swedishBirds = [
         "weight": 5,
         "color": "Grön",
         "bestTime": "Morgon"
-    },
-    {
-        "id": "bean_goose_tundra",
-        "type": "Andfåglar",
-        "nameEn": "Tundra Bean Goose",
-        "nameSv": "Sädgås",
-        "scientific": "Anser serrirostris",
-        "rarity": 3,
-        "funFact": "Sädgåsen rastar i stora flockar på åkerfält.",
-        "seasonDistribution": "Vinter/Genomflyttare",
-        "wingspan": 155,
-        "eggs": 5,
-        "weight": 3000,
-        "color": "Brun",
-        "bestTime": "Dag"
     },
     {
         "id": "lesser_white_fronted_goose",
