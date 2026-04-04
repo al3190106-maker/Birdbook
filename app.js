@@ -615,6 +615,7 @@ function _buildCarousel(images) {
     images.forEach((item, i) => {
         const src = typeof item === 'object' ? item.src : item;
         const photographerId = typeof item === 'object' ? item.photographer : null;
+        const gender = typeof item === 'object' ? item.gender : null;
         let photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
 
         if (typeof item === 'object' && item.photographerName) {
@@ -636,6 +637,15 @@ function _buildCarousel(images) {
             _openFullscreenSlide(i);
         });
         slide.appendChild(img);
+
+        // Gender badge (bottom-left)
+        if (gender) {
+            const genderBadge = document.createElement('div');
+            genderBadge.className = 'gender-badge ' + gender;
+            const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀' };
+            genderBadge.textContent = genderSymbols[gender] || '';
+            slide.appendChild(genderBadge);
+        }
 
         if (photographer) {
             const tag = document.createElement('div');
@@ -693,6 +703,7 @@ function _applyFullscreenItem(index) {
     const item = carouselImages[index];
     const src = typeof item === 'object' ? item.src : item;
     const photographerId = typeof item === 'object' ? item.photographer : null;
+    const gender = typeof item === 'object' ? item.gender : null;
     let photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
     
     if (typeof item === 'object' && item.photographerName) {
@@ -703,6 +714,22 @@ function _applyFullscreenItem(index) {
     
     let existingTag = elements.fsModal.querySelector('.photographer-tag');
     if (existingTag) existingTag.remove();
+    
+    // Remove old gender badge if any
+    let existingGender = elements.fsModal.querySelector('.gender-badge');
+    if (existingGender) existingGender.remove();
+    
+    // Add gender badge bottom-left of fullscreen
+    if (gender) {
+        const genderBadge = document.createElement('div');
+        genderBadge.className = 'gender-badge ' + gender;
+        const genderSymbols = { male: '♂', female: '♀', juvenile: '🐣', pair: '♂♀' };
+        genderBadge.textContent = genderSymbols[gender] || '';
+        genderBadge.style.bottom = '40px';
+        elements.fsModal.querySelector('.fs-img-wrap') ? 
+            elements.fsModal.querySelector('.fs-img-wrap').appendChild(genderBadge) :
+            elements.fsModal.appendChild(genderBadge);
+    }
     
     if (photographer) {
         const tag = document.createElement('div');
