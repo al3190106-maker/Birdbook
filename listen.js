@@ -1,77 +1,83 @@
 // listen.js – BirdNET realtidsidentifiering
-// OBS: Alla funktionsnamn är prefixade med "listen_" för att undvika krockar med app.js
+// Alla funktioner prefixade med listen_ för att undvika krockar med app.js
 
 const listenEl = {
-    startBtn: document.getElementById('listen-start-btn'),
-    statusText: document.getElementById('listen-status'),
-    resultsList: document.getElementById('listen-results'),
-    spinner: document.getElementById('listen-spinner')
+    startBtn:     document.getElementById('listen-start-btn'),
+    statusText:   document.getElementById('listen-status'),
+    resultsList:  document.getElementById('listen-results'),
+    spinner:      document.getElementById('listen-spinner'),
+    waveWrap:     document.getElementById('listen-waveform-wrap'),
+    waveCanvas:   document.getElementById('listen-waveform'),
+    sessionWrap:  document.getElementById('listen-session-wrap'),
+    sessionList:  document.getElementById('listen-session-list'),
 };
 
-let listen_worker = null;
-let listen_audioCtx = null;
-let listen_workletNode = null;
-let listen_stream = null;
+let listen_worker       = null;
+let listen_audioCtx     = null;
+let listen_workletNode  = null;
+let listen_stream       = null;
 let listen_isWorkerReady = false;
-let listen_isListening = false;
+let listen_isListening  = false;
+let listen_analyser     = null;
+let listen_waveAnimId   = null;
+
+// Session state
+let listen_session = {}; // { scientificName: { name, scientificName, confidence, imgSrc, dbBird, time } }
 
 // Audio constants
-const LISTEN_SAMPLE_RATE = 48000;
-const LISTEN_WINDOW_SAMPLES = 144000; // 3 seconds at 48kHz
+const LISTEN_SAMPLE_RATE   = 48000;
+const LISTEN_WINDOW_SAMPLES = 144000; // 3 seconds
 let listen_circularBuffer, listen_circularWriteIdx;
 
+/* ---------------------------------------------------------------
+   INIT WORKER
+--------------------------------------------------------------- */
 async function initBirdnet() {
-    if (listen_worker) return; // Redan startad
+    if (listen_worker) return;
 
-    listenEl.statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Laddar AI-modell... (detta tar ca 10-30 sek)';
+    listenEl.statusText.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Laddar AI-modell... (10–30 sek)';
     listenEl.spinner.style.display = 'inline-block';
 
     try {
-        // Använd lokal TF-fil, undviker CDN-blockering
-        const workerUrl = 'birdnet-worker.js?tf=tfjs-4.14.0.min.js&root=models&lang=sv';
-        listen_worker = new Worker(workerUrl);
+        listen_worker = new Worker('birdnet-worker.js?tf=tfjs-4.14.0.min.js&root=models&lang=sv');
 
         listen_worker.onmessage = (e) => {
             const data = e.data;
-            if (data.message === 'load_model' || data.message === 'warmup' || data.message === 'load_geomodel' || data.message === 'load_labels') {
-                const pct = data.progress || 0;
-                listenEl.statusText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Laddar modell... ${pct}%`;
+            if (['load_model','warmup','load_geomodel','load_labels'].includes(data.message)) {
+                listenEl.statusText.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Laddar modell... ${data.progress || 0}%`;
             } else if (data.message === 'loaded') {
                 listen_isWorkerReady = true;
-                listenEl.statusText.innerHTML = '<i class="fa-solid fa-check" style="color:green"></i> AI redo! Tryck på knappen för att lyssna.';
                 listenEl.startBtn.disabled = false;
                 listenEl.spinner.style.display = 'none';
+                listenEl.statusText.innerHTML = '<i class="fa-solid fa-check" style="color:green"></i> AI redo! Tryck på knappen för att börja lyssna.';
             } else if (data.message === 'pooled') {
                 listen_handlePredictions(data.pooled || []);
             } else if (data.message === 'error') {
                 listenEl.statusText.innerHTML = '<i class="fa-solid fa-bug" style="color:red"></i> Fel: ' + data.error;
                 listenEl.spinner.style.display = 'none';
-                console.error('BirdNET worker error:', data.error);
             }
         };
 
         listen_worker.onerror = (e) => {
-            const msg = e.message || 'okänt worker-fel';
-            listenEl.statusText.innerHTML = '<i class="fa-solid fa-bug" style="color:red"></i> Worker-fel: ' + msg;
+            listenEl.statusText.innerHTML = '<i class="fa-solid fa-bug" style="color:red"></i> Worker-fel: ' + (e.message || 'okänt');
             listenEl.spinner.style.display = 'none';
-            console.error('Worker error event:', e);
         };
-    } catch(err) {
+    } catch (err) {
         listenEl.statusText.innerHTML = '<i class="fa-solid fa-bug" style="color:red"></i> Kunde inte starta AI: ' + err.message;
         listenEl.spinner.style.display = 'none';
-        console.error(err);
     }
 }
 
+/* ---------------------------------------------------------------
+   HANDLE PREDICTIONS
+--------------------------------------------------------------- */
 function listen_handlePredictions(preds) {
     if (!listen_isListening) return;
 
-    // Only show results above 30% confidence AND that exist in our Swedish bird database
     const threshold = 0.30;
     const active = preds
         .filter(p => {
             if (p.confidence < threshold) return false;
-            // Only show if the bird exists in our Swedish database
             if (typeof swedishBirds !== 'undefined') {
                 return swedishBirds.some(b => b.scientific === p.scientificName);
             }
@@ -80,57 +86,111 @@ function listen_handlePredictions(preds) {
         .sort((a, b) => b.confidence - a.confidence)
         .slice(0, 5);
 
+    // ----- Live results panel -----
     if (active.length === 0) {
-        listenEl.resultsList.innerHTML = `<p style="text-align:center; color:#888; margin-top:2rem;">Lyssnar... hittade inget just nu.</p>`;
-        return;
+        listenEl.resultsList.innerHTML = `<p style="text-align:center;color:#888;margin-top:1rem;">Lyssnar... hittade inget just nu.</p>`;
+    } else {
+        listenEl.resultsList.innerHTML = active.map(pred => listen_buildCard(pred)).join('');
     }
 
-    let html = '';
+    // ----- Session log -----
     active.forEach(pred => {
-        const dbBird = (typeof swedishBirds !== 'undefined')
-            ? swedishBirds.find(b => b.scientific === pred.scientificName)
-            : null;
-
-        const nameToUse = dbBird ? dbBird.name : (pred.commonNameI18n || pred.commonName || pred.scientificName);
-        const subToUse  = pred.scientificName;
-        const pct = Math.round(pred.confidence * 100);
-
-        let imgHtml = `<div style="width:50px;height:50px;border-radius:8px;background:#e2e8f0;margin-right:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-dove" style="color:#aaa"></i></div>`;
-        if (dbBird && typeof localBirdImages !== 'undefined') {
-            const imageObj = localBirdImages[dbBird.id];
-            const imgSrc = imageObj && imageObj.images && imageObj.images.length > 0
-                ? imageObj.images[0].src
+        const existing = listen_session[pred.scientificName];
+        if (!existing || pred.confidence > existing.confidence) {
+            const dbBird = (typeof swedishBirds !== 'undefined')
+                ? swedishBirds.find(b => b.scientific === pred.scientificName)
                 : null;
-            if (imgSrc) {
-                imgHtml = `<img src="${imgSrc}" style="width:50px;height:50px;border-radius:8px;object-fit:cover;margin-right:15px;flex-shrink:0;">`;
+            let imgSrc = null;
+            if (dbBird && typeof localBirdImages !== 'undefined') {
+                const io = localBirdImages[dbBird.id];
+                if (io && io.images && io.images.length > 0) imgSrc = io.images[0].src;
             }
+            listen_session[pred.scientificName] = {
+                name: dbBird ? dbBird.name : (pred.commonNameI18n || pred.scientificName),
+                scientificName: pred.scientificName,
+                confidence: pred.confidence,
+                imgSrc,
+                dbBird,
+                time: new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+            };
+            listen_renderSession();
         }
-
-        const clickAttr = dbBird ? `onclick="window.listen_openBird('${dbBird.id}')" style="cursor:pointer"` : '';
-
-        html += `
-        <div class="fact-card" ${clickAttr} style="display:flex;align-items:center;margin-bottom:10px;">
-            ${imgHtml}
-            <div style="flex:1;min-width:0;">
-                <div style="font-weight:700;font-size:1rem;color:var(--text-main);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${nameToUse}</div>
-                <div style="font-size:0.8rem;color:var(--text-muted);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${subToUse}</div>
-            </div>
-            <div style="text-align:right;margin-left:10px;flex-shrink:0;">
-                <div style="font-weight:900;font-size:1.1rem;color:var(--primary);">${pct}%</div>
-            </div>
-        </div>`;
     });
-
-    listenEl.resultsList.innerHTML = html;
 }
 
-window.listen_openBird = function(birdId) {
-    // Delegate to the main app's bird detail function if available
-    if (typeof window.showBirdDetail === 'function') {
-        window.showBirdDetail(birdId);
+function listen_buildCard(pred) {
+    const dbBird = (typeof swedishBirds !== 'undefined')
+        ? swedishBirds.find(b => b.scientific === pred.scientificName)
+        : null;
+    const name    = dbBird ? dbBird.name : (pred.commonNameI18n || pred.scientificName);
+    const sci     = pred.scientificName;
+    const pct     = Math.round(pred.confidence * 100);
+    const clickAttr = dbBird ? `onclick="window.listen_openBird('${dbBird.id}')" style="cursor:pointer"` : '';
+
+    let imgHtml = `<div style="width:48px;height:48px;border-radius:8px;background:#e2e8f0;margin-right:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-dove" style="color:#aaa"></i></div>`;
+    if (dbBird && typeof localBirdImages !== 'undefined') {
+        const io = localBirdImages[dbBird.id];
+        if (io && io.images && io.images.length > 0) {
+            imgHtml = `<img src="${io.images[0].src}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;margin-right:14px;flex-shrink:0;">`;
+        }
     }
+
+    // Confidence bar color
+    const col = pct >= 60 ? '#16a34a' : pct >= 40 ? '#f59e0b' : '#94a3b8';
+
+    return `
+    <div class="fact-card" ${clickAttr} style="display:flex;align-items:center;margin-bottom:10px;padding:10px 14px;">
+        ${imgHtml}
+        <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${sci}</div>
+            <div style="margin-top:5px;background:#e2e8f0;border-radius:99px;height:5px;overflow:hidden;">
+                <div style="width:${pct}%;height:100%;background:${col};border-radius:99px;transition:width 0.4s;"></div>
+            </div>
+        </div>
+        <div style="margin-left:12px;text-align:right;flex-shrink:0;">
+            <div style="font-weight:900;font-size:1.1rem;color:${col};">${pct}%</div>
+        </div>
+    </div>`;
+}
+
+/* ---------------------------------------------------------------
+   SESSION LOG
+--------------------------------------------------------------- */
+function listen_renderSession() {
+    const entries = Object.values(listen_session).sort((a, b) => b.confidence - a.confidence);
+    if (entries.length === 0) {
+        listenEl.sessionWrap.style.display = 'none';
+        return;
+    }
+    listenEl.sessionWrap.style.display = 'block';
+    listenEl.sessionList.innerHTML = entries.map(e => {
+        const pct = Math.round(e.confidence * 100);
+        const col = pct >= 60 ? '#16a34a' : pct >= 40 ? '#f59e0b' : '#94a3b8';
+        const thumb = e.imgSrc
+            ? `<img src="${e.imgSrc}" style="width:40px;height:40px;border-radius:6px;object-fit:cover;margin-right:12px;flex-shrink:0;">`
+            : `<div style="width:40px;height:40px;border-radius:6px;background:#e2e8f0;margin-right:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-dove" style="color:#aaa;font-size:0.9rem;"></i></div>`;
+        const clickAttr = e.dbBird ? `onclick="window.listen_openBird('${e.dbBird.id}')" style="cursor:pointer"` : '';
+        return `
+        <div class="fact-card" ${clickAttr} style="display:flex;align-items:center;padding:8px 12px;margin-bottom:8px;">
+            ${thumb}
+            <div style="flex:1;min-width:0;">
+                <div style="font-weight:600;font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${e.name}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">${e.time} · bäst ${pct}%</div>
+            </div>
+            <div style="margin-left:10px;width:10px;height:10px;border-radius:50%;background:${col};flex-shrink:0;"></div>
+        </div>`;
+    }).join('');
+}
+
+window.listen_clearSession = function() {
+    listen_session = {};
+    listenEl.sessionWrap.style.display = 'none';
 };
 
+/* ---------------------------------------------------------------
+   START / STOP
+--------------------------------------------------------------- */
 async function listen_start() {
     if (!listen_isWorkerReady) return;
 
@@ -149,7 +209,7 @@ async function listen_start() {
         if (listen_audioCtx.state === 'suspended') await listen_audioCtx.resume();
 
         const source = listen_audioCtx.createMediaStreamSource(listen_stream);
-        listen_circularBuffer = new Float32Array(LISTEN_WINDOW_SAMPLES);
+        listen_circularBuffer   = new Float32Array(LISTEN_WINDOW_SAMPLES);
         listen_circularWriteIdx = 0;
 
         await listen_audioCtx.audioWorklet.addModule('audio-processor.js');
@@ -163,13 +223,21 @@ async function listen_start() {
             }
         };
 
+        // Analyser for waveform
+        listen_analyser = listen_audioCtx.createAnalyser();
+        listen_analyser.fftSize = 1024;
+
+        source.connect(listen_analyser);
         source.connect(listen_workletNode);
         listen_workletNode.connect(listen_audioCtx.destination);
 
-        setTimeout(listen_inferenceLoop, 2000); // Vänta 2 sek innan första analys
+        // Show waveform
+        listenEl.waveWrap.style.display = 'block';
+        listen_drawWaveform();
+
+        setTimeout(listen_inferenceLoop, 2000);
 
     } catch (err) {
-        console.error(err);
         listenEl.statusText.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:orange"></i> Mikrofon nekades eller stöds ej.';
         listen_stop();
     }
@@ -179,27 +247,67 @@ function listen_stop() {
     listen_isListening = false;
     listenEl.startBtn.classList.remove('recording');
     listenEl.startBtn.innerHTML = '<i class="fa-solid fa-microphone"></i> Lyssna';
-    if (!listen_isWorkerReady) {
-        listenEl.statusText.innerHTML = 'Pausad.';
-    } else {
-        listenEl.statusText.innerHTML = '<i class="fa-solid fa-check" style="color:green"></i> AI redo! Tryck på knappen för att lyssna.';
-    }
     listenEl.spinner.style.display = 'none';
+    listenEl.waveWrap.style.display = 'none';
 
-    if (listen_stream) {
-        listen_stream.getTracks().forEach(t => t.stop());
-        listen_stream = null;
+    if (listen_isWorkerReady) {
+        listenEl.statusText.innerHTML = '<i class="fa-solid fa-check" style="color:green"></i> AI redo! Tryck på knappen för att börja lyssna.';
+    } else {
+        listenEl.statusText.innerHTML = 'Pausad.';
     }
-    if (listen_workletNode) {
-        listen_workletNode.disconnect();
-        listen_workletNode = null;
-    }
-    if (listen_audioCtx) {
-        listen_audioCtx.close();
-        listen_audioCtx = null;
-    }
+
+    if (listen_waveAnimId) { cancelAnimationFrame(listen_waveAnimId); listen_waveAnimId = null; }
+    if (listen_analyser)   { listen_analyser.disconnect(); listen_analyser = null; }
+    if (listen_stream)     { listen_stream.getTracks().forEach(t => t.stop()); listen_stream = null; }
+    if (listen_workletNode){ listen_workletNode.disconnect(); listen_workletNode = null; }
+    if (listen_audioCtx)   { listen_audioCtx.close(); listen_audioCtx = null; }
 }
 
+/* ---------------------------------------------------------------
+   WAVEFORM VISUALIZER
+--------------------------------------------------------------- */
+function listen_drawWaveform() {
+    if (!listen_analyser || !listenEl.waveCanvas) return;
+
+    const canvas = listenEl.waveCanvas;
+    canvas.width  = canvas.offsetWidth * (window.devicePixelRatio || 1);
+    canvas.height = 60  * (window.devicePixelRatio || 1);
+    canvas.style.height = '60px';
+
+    const ctx = canvas.getContext('2d');
+    const buf = new Uint8Array(listen_analyser.fftSize);
+
+    function draw() {
+        if (!listen_isListening) return;
+        listen_waveAnimId = requestAnimationFrame(draw);
+
+        listen_analyser.getByteTimeDomainData(buf);
+        const W = canvas.width, H = canvas.height;
+
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.beginPath();
+        ctx.lineWidth = 2 * (window.devicePixelRatio || 1);
+        ctx.strokeStyle = '#38bdf8';
+
+        const sliceW = W / buf.length;
+        let x = 0;
+        for (let i = 0; i < buf.length; i++) {
+            const v = buf[i] / 128.0;
+            const y = (v * H) / 2;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            x += sliceW;
+        }
+        ctx.lineTo(W, H / 2);
+        ctx.stroke();
+    }
+    draw();
+}
+
+/* ---------------------------------------------------------------
+   INFERENCE LOOP
+--------------------------------------------------------------- */
 function listen_inferenceLoop() {
     if (!listen_isListening || !listen_isWorkerReady || !listen_circularBuffer) return;
 
@@ -218,14 +326,15 @@ function listen_inferenceLoop() {
     if (listen_isListening) setTimeout(listen_inferenceLoop, 2000);
 }
 
-// Koppla knappen
-listenEl.startBtn.addEventListener('click', () => {
-    if (listen_isListening) {
-        listen_stop();
-    } else {
-        listen_start();
-    }
-});
+/* ---------------------------------------------------------------
+   MISC
+--------------------------------------------------------------- */
+window.listen_openBird = function(birdId) {
+    if (typeof window.showBirdDetail === 'function') window.showBirdDetail(birdId);
+};
 
-// Exportera stop-funktion med nytt namn för tab-switcher
 window.listen_stopOnTabChange = listen_stop;
+
+listenEl.startBtn.addEventListener('click', () => {
+    listen_isListening ? listen_stop() : listen_start();
+});

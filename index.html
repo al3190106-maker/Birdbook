@@ -144,8 +144,23 @@
                 }
             </style>
 
-            <div id="listen-results" style="margin-top: 2.5rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+            <div id="listen-results" style="margin-top: 2rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
                 <p class="text-muted" style="text-align: center;">Resultat dyker upp här när en fågel hörs.</p>
+            </div>
+
+            <!-- Live waveform -->
+            <div id="listen-waveform-wrap" style="max-width:500px; margin: 1.5rem auto 0; display:none;">
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;"><i class="fa-solid fa-wave-square"></i> Mikrofon</p>
+                <canvas id="listen-waveform" height="60" style="width:100%; border-radius:10px; background:#0f172a; display:block;"></canvas>
+            </div>
+
+            <!-- Session log -->
+            <div id="listen-session-wrap" style="max-width:500px; margin: 2rem auto 0; display:none;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+                    <h3 style="margin:0; font-size:1rem;"><i class="fa-solid fa-list-check" style="color:var(--primary);"></i> Hörda under sessionen</h3>
+                    <button onclick="listen_clearSession()" style="background:none; border:none; color:var(--text-muted); font-size:0.8rem; cursor:pointer;"><i class="fa-solid fa-trash"></i> Rensa</button>
+                </div>
+                <div id="listen-session-list"></div>
             </div>
         </section>
 
