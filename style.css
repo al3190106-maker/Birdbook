@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --primary: #2E5D4B;
     --secondary: #8FBC8F;
     --accent: #D4A373;
@@ -134,6 +134,24 @@ body {
 
 .logo i {
     color: var(--secondary);
+}
+
+.logo-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    .logo-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 }
 
 .actions-right {

@@ -30,6 +30,7 @@ const SUBJECT_CONFIG = {
         id: 'birds',
         name: 'Fågelboken',
         icon: 'fa-dove',
+        iconImg: 'alla.png',
         dataVar: 'swedishBirds',
         themeClass: 'mode-birds',
         texts: {
@@ -58,6 +59,7 @@ const SUBJECT_CONFIG = {
         id: 'trees',
         name: 'Trädboken',
         icon: 'fa-tree',
+        iconImg: 'tree_alla.png',
         dataVar: 'swedishTrees',
         themeClass: 'mode-trees',
         texts: {
@@ -86,6 +88,7 @@ const SUBJECT_CONFIG = {
         id: 'fish',
         name: 'Fiskboken',
         icon: 'fa-fish',
+        iconImg: 'fish_alla.png',
         dataVar: 'swedishFish',
         themeClass: 'mode-fish',
         texts: {
@@ -114,6 +117,7 @@ const SUBJECT_CONFIG = {
         id: 'animals',
         name: 'Däggdjursboken',
         icon: 'fa-paw',
+        iconImg: 'animal_alla.png',
         dataVar: 'swedishAnimals',
         themeClass: 'mode-animals',
         texts: {
@@ -142,6 +146,7 @@ const SUBJECT_CONFIG = {
         id: 'fungi',
         name: 'Svampboken',
         icon: 'fa-circle',
+        iconImg: 'fungi_alla.png',
         dataVar: 'swedishFungi',
         themeClass: 'mode-fungi',
         texts: {
@@ -170,6 +175,7 @@ const SUBJECT_CONFIG = {
         id: 'flowers',
         name: 'Blomboken',
         icon: 'fa-seedling',
+        iconImg: 'flower_alla.png',
         dataVar: 'swedishFlowers',
         themeClass: 'mode-flowers',
         texts: {
@@ -198,6 +204,7 @@ const SUBJECT_CONFIG = {
         id: 'plants',
         name: 'Växtboken',
         icon: 'fa-leaf',
+        iconImg: 'plants_alla.png',
         dataVar: 'swedishPlants',
         themeClass: 'mode-plants',
         texts: {
@@ -226,6 +233,7 @@ const SUBJECT_CONFIG = {
         id: 'nature',
         name: 'Naturboken',
         icon: 'fa-earth-europe',
+        iconImg: 'nature_alla.png',
         dataVar: 'swedishNature',
         themeClass: 'mode-nature',
         texts: {
@@ -381,19 +389,40 @@ const elements = {
 let editingBirdId = null;
 let editingSightingId = null;
 
+window.openModal = function(id, pushState = true) {
+    if (pushState) history.pushState({ modal: id }, '');
+    const m = document.getElementById(id);
+    if (m) m.classList.add('active');
+};
+
 // --- History State Handler ---
 window.addEventListener('popstate', (event) => {
     // 1. Close all modals visually first
-    elements.modal.classList.remove('active');
-    elements.detailModal.classList.remove('active');
+    document.querySelectorAll('.modal-overlay').forEach(m => {
+        if (m.id !== 'password-modal' && m.id !== 'welcome-modal') {
+            m.classList.remove('active');
+        }
+    });
+
     if (elements.detailAudioPlayer) {
         elements.detailAudioPlayer.pause();
         elements.detailAudioPlayer.currentTime = 0;
     }
-    const fsModal = document.getElementById('fullscreen-image-modal');
-    if (fsModal) fsModal.classList.remove('active');
 
-    // 2. Restore state
+    // Close photographer detail visually
+    const photoDetail = document.getElementById('photographer-detail');
+    if (photoDetail) { photoDetail.classList.add('hidden'); photoDetail.style.display = 'none'; }
+    const photoGrid = document.getElementById('photographers-grid');
+    if (photoGrid) { photoGrid.classList.remove('hidden'); photoGrid.style.display = 'grid'; }
+
+    // 2. Handle category navigation
+    if (!event.state || event.state.modal !== 'guide-category') {
+        if (state.activeCategory) {
+            renderGuideCategories();
+        }
+    }
+
+    // 3. Restore state
     if (event.state) {
         if (event.state.modal === 'detail' && event.state.birdId) {
             const list = getCurrentSpeciesList();
@@ -413,6 +442,12 @@ window.addEventListener('popstate', (event) => {
                 }
             }
             elements.modal.classList.add('active');
+        } else if (event.state.modal === 'guide-category') {
+            selectCategory(event.state.category, false);
+        } else if (event.state.modal === 'photographer-detail' && event.state.id) {
+            _showPhotographer(event.state.id, null, false);
+        } else if (document.getElementById(event.state.modal)) {
+            document.getElementById(event.state.modal).classList.add('active');
         }
     }
 });
@@ -1109,9 +1144,34 @@ function switchSubject(subjectId) {
 
     // 2. Update Header Title & Icon
     const titleText = document.getElementById('app-title-text');
-    const titleIcon = document.getElementById('app-logo-icon');
+    let titleIcon = document.getElementById('app-logo-icon');
     if (titleText) titleText.textContent = config.name;
-    if (titleIcon) titleIcon.className = `fa-solid ${config.icon}`;
+
+    if (titleIcon) {
+        if (config.iconImg) {
+            // Replace FontAwesome <i> with <img> if needed
+            if (titleIcon.tagName === 'I') {
+                const img = document.createElement('img');
+                img.id = 'app-logo-icon';
+                img.src = `images/category_icons/${config.iconImg}`;
+                img.className = 'logo-icon';
+                titleIcon.replaceWith(img);
+            } else {
+                titleIcon.src = `images/category_icons/${config.iconImg}`;
+                titleIcon.className = 'logo-icon';
+            }
+        } else {
+            // Fallback to FontAwesome <i>
+            if (titleIcon.tagName === 'IMG') {
+                const i = document.createElement('i');
+                i.id = 'app-logo-icon';
+                i.className = `fa-solid ${config.icon} logo-icon`;
+                titleIcon.replaceWith(i);
+            } else {
+                titleIcon.className = `fa-solid ${config.icon} logo-icon`;
+            }
+        }
+    }
 
     // 3. Update Placeholders & Text
     const place = (id, p) => { const el = document.getElementById(id); if (el) el.placeholder = p; };
@@ -1291,6 +1351,13 @@ async function init() {
         console.error('Render failed:', e);
         alert('Ett fel uppstod vid start. Se konsolen.');
     }
+
+    // Library Modal
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('#app-title')) {
+            openModal('library-modal');
+        }
+    });
 
     // Event Listeners
     setupEventListeners();
@@ -1966,9 +2033,13 @@ function matchTimeFilter(item) {
     return false;
 }
 
-function selectCategory(category) {
+function selectCategory(category, pushState = true) {
     state.activeCategory = category;
     const config = SUBJECT_CONFIG[state.currentSubject];
+
+    if (pushState && category) {
+        history.pushState({ modal: 'guide-category', category: category }, '');
+    }
 
     // UI Update
     elements.guideCategories.classList.add('hidden');
@@ -2298,7 +2369,7 @@ function setupEventListeners() {
     // Settings Modal Open
     if (elements.settingsBtn) {
         elements.settingsBtn.addEventListener('click', () => {
-            if (elements.settingsModal) elements.settingsModal.classList.add('active');
+            if (elements.settingsModal) openModal('settings-modal');
         });
     }
 
@@ -2786,7 +2857,7 @@ function setupEventListeners() {
         } else {
             // Show categories again
             if (state.activeCategory) {
-                selectCategory(state.activeCategory);
+                selectCategory(state.activeCategory, false);
             } else {
                 // Show categories
                 elements.guideCategories.classList.remove('hidden');
@@ -2799,7 +2870,7 @@ function setupEventListeners() {
     // 9. Back to Categories
     if (elements.backToCategoriesBtn) {
         elements.backToCategoriesBtn.addEventListener('click', () => {
-            renderGuideCategories();
+            history.back();
         });
     }
 
@@ -3560,13 +3631,17 @@ function _renderPhotographersView() {
     }
 }
 
-function _showPhotographer(id, returnAction = null) {
+function _showPhotographer(id, returnAction = null, pushState = true) {
     if (!window.photographers || !window.photographers[id]) return;
     
     // Switch to tab if not already there
     const btn = document.querySelector('.nav-btn[data-tab="photographers-view"]');
     if (btn && !btn.classList.contains('active')) {
         btn.click();
+    }
+    
+    if (pushState) {
+        history.pushState({ modal: 'photographer-detail', id: id }, '');
     }
     
     const photographer = window.photographers[id];
@@ -3594,8 +3669,7 @@ function _showPhotographer(id, returnAction = null) {
         if (returnAction) {
             returnAction();
         } else {
-            detail.style.display = 'none';
-            grid.style.display = 'grid';
+            history.back();
         }
     };
     
@@ -3661,9 +3735,12 @@ function _showPhotographer(id, returnAction = null) {
 // --- Sightings Overview Map ---
 let _overviewMap = null;
 
-function _openSightingsMap() {
+function _openSightingsMap(pushState = true) {
     const modal = document.getElementById('sightings-map-modal');
     if (!modal) return;
+    if (pushState) {
+        history.pushState({ modal: 'sightings-map-modal' }, '');
+    }
     modal.classList.add('active');
     
     // Automatically make it large (fullscreen) as requested
@@ -3801,11 +3878,7 @@ function _setupMapEventListeners() {
     const closeMapBtn = document.getElementById('close-sightings-map');
     if (closeMapBtn) {
         closeMapBtn.addEventListener('click', () => {
-            const modal = document.getElementById('sightings-map-modal');
-            if (modal) modal.classList.remove('active');
-            // Reset fullscreen
-            const content = modal.querySelector('.sightings-map-modal-content');
-            if (content) content.classList.remove('fullscreen');
+            history.back();
         });
     }
 

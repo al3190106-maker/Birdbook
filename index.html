@@ -31,7 +31,7 @@
                 <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem; opacity: 0.7;"></i>
             </div>
             <div class="top-actions" style="display: flex; gap: 0.5rem;">
-                <button id="info-btn" class="icon-btn" title="Information" onclick="document.getElementById('info-modal').classList.add('active')"><i class="fa-solid fa-circle-info"></i></button>
+                <button id="info-btn" class="icon-btn" title="Information" onclick="openModal('info-modal')"><i class="fa-solid fa-circle-info"></i></button>
                 <button id="settings-btn" class="icon-btn" title="Inställningar"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
@@ -722,46 +722,46 @@
             <div class="library-grid"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; padding: 1rem 0;">
                 <button class="library-card mode-nature"
-                    onclick="switchSubject('nature'); document.getElementById('library-modal').classList.remove('active')">
+                    onclick="switchSubject('nature'); history.back()">
                     <div class="lib-icon"><img src="images/category_icons/nature_alla.png" alt="Natur" class="lib-icon-img"></div>
                     <span class="lib-label">Naturboken</span>
                 </button>
                 <button class="library-card mode-birds"
-                    onclick="switchSubject('birds'); document.getElementById('library-modal').classList.remove('active')">
+                    onclick="switchSubject('birds'); history.back()">
                     <div class="lib-icon"><img src="images/category_icons/alla.png" alt="Fåglar" class="lib-icon-img"></div>
                     <span class="lib-label">Fågelboken</span>
                 </button>
                 <button class="library-card mode-plants"
-                    onclick="switchSubject('plants'); document.getElementById('library-modal').classList.remove('active')">
+                    onclick="switchSubject('plants'); history.back()">
                     <div class="lib-icon"><img src="images/category_icons/plants_alla.png" alt="Växter" class="lib-icon-img"></div>
                     <span class="lib-label">Växtboken</span>
                 </button>
                 <button class="library-card mode-fish"
-                    onclick="switchSubject('fish'); document.getElementById('library-modal').classList.remove('active')">
+                    onclick="switchSubject('fish'); history.back()">
                     <div class="lib-icon"><img src="images/category_icons/fish_alla.png" alt="Fisk" class="lib-icon-img"></div>
                     <span class="lib-label">Fiskboken</span>
                 </button>
                 <button class="library-card mode-animals"
-                    onclick="switchSubject('animals'); document.getElementById('library-modal').classList.remove('active')">
+                    onclick="switchSubject('animals'); history.back()">
                     <div class="lib-icon"><img src="images/category_icons/animal_alla.png" alt="Däggdjur" class="lib-icon-img"></div>
                     <span class="lib-label">Däggdjursboken</span>
                 </button>
                 <button class="library-card mode-fungi"
-                    onclick="switchSubject('fungi'); document.getElementById('library-modal').classList.remove('active')">
+                    onclick="switchSubject('fungi'); history.back()">
                     <div class="lib-icon"><img src="images/category_icons/fungi_alla.png" alt="Svamp" class="lib-icon-img"></div>
                     <span class="lib-label">Svampboken</span>
                 </button>
             </div>
 
-            <button class="secondary-btn" onclick="document.getElementById('library-modal').classList.remove('active')"
+            <button class="secondary-btn" onclick="history.back()"
                 style="margin-top: 2rem; width: 100%;">Stäng</button>
         </div>
     </div>
     
     <!-- Info Modal -->
-    <div class="modal-overlay" id="info-modal" style="z-index: 2800;" onclick="if(event.target === this) this.classList.remove('active')">
+    <div class="modal-overlay" id="info-modal" style="z-index: 2800;">
         <div class="modal-content" style="max-width: 500px;">
-            <button class="close-modal" onclick="document.getElementById('info-modal').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-modal" onclick="history.back()"><i class="fa-solid fa-xmark"></i></button>
             <div style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); text-align: center;">
                 <i class="fa-solid fa-circle-info"></i>
             </div>
