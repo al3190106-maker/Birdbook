@@ -17,7 +17,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 11209,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Cygnus%20olor%20-%20Mute%20Swan%20XC434964.mp3"
     },
     {
         "id": "whooper_swan",
@@ -32,7 +33,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 10723,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Whooper%20Swan%20%28Cygnus%20cygnus%29%20%28W%20CYGNUS%20CYGNUS%20R1%20C6%29.ogg"
     },
     {
         "id": "canada_goose",
@@ -47,7 +49,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 4310,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Canada%20Geese%20%28Branta%20canadensis%29%20%28W1CDR0001421%20BD11%29.ogg"
     },
     {
         "id": "greylag_goose",
@@ -62,7 +65,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 4993,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Anser%20anser%20-%20Greylag%20Goose%20XC436358.mp3"
     },
     {
         "id": "barnacle_goose",
@@ -77,7 +81,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 2535,
         "color": "Vit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Branta%20leucopsis%20-%20Barnacle%20Goose%20XC433386.mp3"
     },
     {
         "id": "brent_goose",
@@ -92,7 +97,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 2359,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Brent%20Goose%20%28Branta%20bernicla%29%20%28W%20BRANTA%20BERNICLA%20R1%20C11%29.ogg"
     },
     {
         "id": "mallard",
@@ -122,7 +128,8 @@ window.swedishBirds = [
         "eggs": 9,
         "weight": 525,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Eurasian%20Teal%20%28Anas%20crecca%29%20%28W1CDR0001378%20BD3%29.ogg"
     },
     {
         "id": "eurasian_wigeon",
@@ -152,7 +159,8 @@ window.swedishBirds = [
         "eggs": 9,
         "weight": 859,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Tufted%20Duck.ogg"
     },
     {
         "id": "common_goldeneye",
@@ -182,7 +190,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 2591,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Eider%20%28Somateria%20mollissima%29%20%28W1CDR0001491%20BD11%29.ogg"
     },
     {
         "id": "long_tailed_duck",
@@ -242,7 +251,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 639,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Mareca%20strepera%20-%20Gadwall%20XC436359.mp3"
     },
     {
         "id": "mandarin_duck",
@@ -272,7 +282,8 @@ window.swedishBirds = [
         "eggs": 7,
         "weight": 3344,
         "color": "Blandad",
-        "bestTime": "Gryning"
+        "bestTime": "Gryning",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Western%20Capercaillie%20%28Tetrao%20urogallus%29%20%28W1CDR0001418%20BD47%29.ogg"
     },
     {
         "id": "black_grouse",
@@ -287,7 +298,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 1286,
         "color": "Blandad",
-        "bestTime": "Gryning"
+        "bestTime": "Gryning",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Black%20Grouse%20%28Tetrao%20tetrix%29%20%28W1CDR0001396%20BD3%29.ogg"
     },
     {
         "id": "common_pheasant",
@@ -302,7 +314,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 1006,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/PhasianusColchicusSlovakia.ogg"
     },
     {
         "id": "black_throated_loon",
@@ -332,7 +345,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 1781,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Great%20Crested%20Grebe%20%28Podiceps%20cristatus%29%20%28W1CDR0001488%20BD4%29.ogg"
     },
     {
         "id": "grey_heron",
@@ -347,7 +361,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 1843,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Grey%20Heron%20%28Ardea%20cinerea%29%20%28W%20ARDEA%20CINEREA%20R1%20C19%29.ogg"
     },
     {
         "id": "white_tailed_eagle",
@@ -377,7 +392,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 5345,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Golden%20Eagle%20%28Aquila%20chrysaetos%29%20%28W1CDR0001387%20BD6%29.ogg"
     },
     {
         "id": "western_osprey",
@@ -392,7 +408,8 @@ window.swedishBirds = [
         "eggs": 3,
         "weight": 1740,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Osprey%20%28Pandion%20haliaetus%29%20%28W1CDR0001434%20BD8%29.ogg"
     },
     {
         "id": "common_buzzard",
@@ -422,7 +439,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 283,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Accipiter%20nisus%20-%20Eurasian%20Sparrowhawk%20XC380491.mp3"
     },
     {
         "id": "northern_goshawk",
@@ -527,7 +545,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 770,
         "color": "Svart",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Fulica%20atra%20-%20Eurasian%20Coot%20XC432890.mp3"
     },
     {
         "id": "eurasian_oystercatcher",
@@ -557,7 +576,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 199,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Northern%20Lapwing%20%28Vanellus%20vanellus%29%20%28W1CDR0001471%20BD4%29.ogg"
     },
     {
         "id": "eurasian_woodcock",
@@ -587,7 +607,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 342,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Snipe%20%28Gallinago%20gallinago%29%20%28W%20GALLINAGO%20GALLINAGO%20R3%20C5%29.ogg"
     },
     {
         "id": "eurasian_curlew",
@@ -602,7 +623,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 819,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Eurasian%20Curlew%20%28Numenius%20arquata%29%20%28W1CDR0001389%20BD26%29.ogg"
     },
     {
         "id": "common_redshank",
@@ -617,7 +639,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 133,
         "color": "Röd",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Tringa%20totanus%20-%20Common%20Redshank%20XC432923.mp3"
     },
     {
         "id": "black_headed_gull",
@@ -632,7 +655,8 @@ window.swedishBirds = [
         "eggs": 3,
         "weight": 389,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Black-headed%20Gulls%20%28Larus%20ridibundus%29%20%28W1CDR0001402%20BD19%29.ogg"
     },
     {
         "id": "common_gull",
@@ -662,7 +686,8 @@ window.swedishBirds = [
         "eggs": 3,
         "weight": 1219,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Herring%20Gull%20%28Larus%20argentatus%29%20%28W1CDR0001420%20BD12%29.ogg"
     },
     {
         "id": "great_black_backed_gull",
@@ -677,7 +702,8 @@ window.swedishBirds = [
         "eggs": 3,
         "weight": 1981,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Larus%20marinus.ogg"
     },
     {
         "id": "arctic_tern",
@@ -692,7 +718,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 132,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Sterna%20paradisaea%20-%20Arctic%20Tern%20XC564600.mp3"
     },
     {
         "id": "common_tern",
@@ -707,7 +734,8 @@ window.swedishBirds = [
         "eggs": 3,
         "weight": 103,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Sterna-hirundo-002.ogg"
     },
     {
         "id": "common_murre",
@@ -722,7 +750,8 @@ window.swedishBirds = [
         "eggs": 1,
         "weight": 807,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Guillemot%20%28Uria%20aalge%29%20%28W1CDR0001424%20BD6%29.ogg"
     },
     {
         "id": "razorbill",
@@ -737,7 +766,8 @@ window.swedishBirds = [
         "eggs": 1,
         "weight": 617,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Razorbill%20%28Alca%20torda%29%20%28W1CDR0001424%20BD7%29.ogg"
     },
     {
         "id": "black_guillemot",
@@ -782,7 +812,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 146,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Dryocopus%20martius%20spring%20call%20kuikuikuikui.ogg"
     },
     {
         "id": "european_green_woodpecker",
@@ -797,7 +828,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 229,
         "color": "Grön",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Green%20Woodpecker%20%28Picus%20viridis%29%20%28W1CDR0001497%20BD6%29.ogg"
     },
     {
         "id": "tawny_owl",
@@ -812,7 +844,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 460,
         "color": "Blandad",
-        "bestTime": "Natt"
+        "bestTime": "Natt",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Waldkauz.ogg"
     },
     {
         "id": "eurasian_eagle_owl",
@@ -842,7 +875,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 503,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Columba%20palumbus%20birdsong.ogg"
     },
     {
         "id": "common_cuckoo",
@@ -857,7 +891,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 41,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Cuckoo%20%28Cuculus%20canorus%29%20%28W1CDR0001463%20BD1%29.ogg"
     },
     {
         "id": "common_swift",
@@ -872,7 +907,8 @@ window.swedishBirds = [
         "eggs": 3,
         "weight": 61,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Mauersegler.ogg"
     },
     {
         "id": "willow_warbler",
@@ -887,7 +923,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 20,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Willow%20Warbler%20%28Phylloscopus%20trochilus%29%20%28W1CDR0001510%20BD23%29.ogg"
     },
     {
         "id": "common_chiffchaff",
@@ -902,7 +939,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 32,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Phylloscopus%20collybita.ogg"
     },
     {
         "id": "eurasian_blackcap",
@@ -917,7 +955,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 27,
         "color": "Svart",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Blackcap%20%28Sylvia%20atricapilla%29%20%28W1CDR0001539%20BD11%29.ogg"
     },
     {
         "id": "goldcrest",
@@ -932,7 +971,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 8,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Regulus%20regulus%20-%20Goldcrest%20XC108347.mp3"
     },
     {
         "id": "garden_warbler",
@@ -947,7 +987,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 26,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Garden%20Warbler%20%28Sylvia%20borin%29%20%28W1CDR0001463%20BD12%29.ogg"
     },
     {
         "id": "lesser_whitethroat",
@@ -977,7 +1018,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 20,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Whitethroat%20%28Sylvia%20communis%29%20%28W1CDR0001503%20BD6%29.ogg"
     },
     {
         "id": "common_blackbird",
@@ -992,7 +1034,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 108,
         "color": "Blandad",
-        "bestTime": "Gryning/Skymning"
+        "bestTime": "Gryning/Skymning",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Turdus%20merula%202.ogg"
     },
     {
         "id": "song_thrush",
@@ -1037,7 +1080,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 86,
         "color": "Röd",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Turdus%20iliacus.ogg"
     },
     {
         "id": "european_robin",
@@ -1052,7 +1096,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 79,
         "color": "Röd",
-        "bestTime": "Gryning/Skymning"
+        "bestTime": "Gryning/Skymning",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/European%20Robin%20%28Erithacus%20rubecula%29%20%28W1CDR0001425%20BD16%29.ogg"
     },
     {
         "id": "great_tit",
@@ -1067,7 +1112,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 21,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Parus%20major.ogg"
     },
     {
         "id": "eurasian_blue_tit",
@@ -1082,7 +1128,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 12,
         "color": "Blå",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://xeno-canto.org/125793/download"
     },
     {
         "id": "coal_tit",
@@ -1097,7 +1144,8 @@ window.swedishBirds = [
         "eggs": 9,
         "weight": 23,
         "color": "Svart",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Periparus%20ater.ogg"
     },
     {
         "id": "crested_tit",
@@ -1112,7 +1160,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 32,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Lophophanes%20cristatus%20mitratus%20crested%20tit.ogg"
     },
     {
         "id": "common_chaffinch",
@@ -1127,7 +1176,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 16,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Chaffinch%20%28Fringilla%20coelebs%29%20%28W1CDR0001527%20BD14%29.ogg"
     },
     {
         "id": "brambling",
@@ -1157,7 +1207,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 35,
         "color": "Röd",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Bullfinch%20%28Pyrrhula%20pyrrhula%29%20%28W1CDR0001509%20BD14%29.ogg"
     },
     {
         "id": "european_greenfinch",
@@ -1172,7 +1223,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 35,
         "color": "Grön",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Carduelis%20chloris.ogg"
     },
     {
         "id": "european_goldfinch",
@@ -1187,7 +1239,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 15,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/European%20Goldfinch%20%28Carduelis%20carduelis%29%20%28W1CDR0001491%20BD15%29.ogg"
     },
     {
         "id": "eurasian_siskin",
@@ -1202,7 +1255,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 20,
         "color": "Grön",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Eurasian%20Siskin%20%28Carduelis%20spinus%29%20%28W1CDR0001494%20BD4%29.ogg"
     },
     {
         "id": "house_sparrow",
@@ -1217,7 +1271,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 22,
         "color": "Grå",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/House%20Sparrows%20%28Passer%20domesticus%29%20%28W1CDR0001537%20BD13%29.ogg"
     },
     {
         "id": "eurasian_tree_sparrow",
@@ -1232,7 +1287,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 17,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Passer%20montanus.ogg"
     },
     {
         "id": "yellowhammer",
@@ -1247,7 +1303,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 35,
         "color": "Gul",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Yellowhammer%20%28Emberiza%20citrinella%29%20%28W1CDR0001422%20BD1%29.ogg"
     },
     {
         "id": "reed_bunting",
@@ -1262,7 +1319,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 24,
         "color": "Blandad",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Reed%20Bunting%20%28Emberiza%20schoeniclus%29%20%28W1CDR0001379%20BD4%29.ogg"
     },
     {
         "id": "hooded_crow",
@@ -1277,7 +1335,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 550,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%B0%D1%80%D0%BA%D0%B0%D0%BD%D0%BD%D1%8F.ogg"
     },
     {
         "id": "eurasian_jackdaw",
@@ -1292,7 +1351,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 311,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/European%20Jackdaw%27s%20croaking.ogg"
     },
     {
         "id": "eurasian_magpie",
@@ -1307,7 +1367,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 247,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Pica%20pica.ogg"
     },
     {
         "id": "eurasian_jay",
@@ -1322,7 +1383,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 248,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Garrulus%20glandarius%20iphigenia.ogg"
     },
     {
         "id": "common_raven",
@@ -1337,7 +1399,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 1240,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Corvus%20corax%20-%20Northern%20Raven%20-%20XC110257.ogg"
     },
     {
         "id": "barn_swallow",
@@ -1352,7 +1415,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 15,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Hirundo%20rustica%20-%20Barn%20Swallow%20-%20XC83449.ogg"
     },
     {
         "id": "common_house_martin",
@@ -1367,7 +1431,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 25,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Delichon%20urbicum%20contact%20call.ogg"
     },
     {
         "id": "sand_martin",
@@ -1412,7 +1477,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 69,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Troglodytes%20troglodytes%20song.ogg"
     },
     {
         "id": "common_starling",
@@ -1427,7 +1493,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 18,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Starling%20%28Sturnus%20vulgaris%29%20%28W1CDR0001431%20BD8%29.ogg"
     },
     {
         "id": "bohemian_waxwing",
@@ -1442,7 +1509,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 94,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Bombycilla%20garrulus%20-%20Bohemian%20Waxwing%20XC132884.ogg"
     },
     {
         "id": "meadow_pipit",
@@ -1457,7 +1525,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 19,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Meadow%20Pipit%20%28Anthus%20pratensis%29%20%28W1CDR0001526%20BD4%29.ogg"
     },
     {
         "id": "tree_pipit",
@@ -1472,7 +1541,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 54,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Tree%20Pipit%20%28Anthus%20trivialis%29%20%28W1CDR0001425%20BD8%29.ogg"
     },
     {
         "id": "european_pied_flycatcher",
@@ -1487,7 +1557,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 87,
         "color": "Svart",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Pied%20Flycatcher%20%28Ficedula%20hypoleuca%29%20%28W1CDR0001423%20BD1%29.ogg"
     },
     {
         "id": "spotted_flycatcher",
@@ -1502,7 +1573,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 30,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Muscicapa%20striata%20-%20Spotted%20Flycatcher%20XC342793.mp3"
     },
     {
         "id": "greater_scaup",
@@ -1532,7 +1604,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 2500,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Anser%20albifrons%20-%20Greater%20White-fronted%20Goose%20-%20XC96532.ogg"
     },
     {
         "id": "common_pochard",
@@ -1562,7 +1635,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 1200,
         "color": "Blandad",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Shelduck%20%28Tadorna%20tadorna%29%20%28W1CDR0001430%20BD7%29.ogg"
     },
     {
         "id": "smew",
@@ -1622,7 +1696,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 850,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Anas%20acuta.ogg"
     },
     {
         "id": "common_scoter",
@@ -1667,7 +1742,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 2700,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Pink-footed%20Geese%20%28Anser%20brachyrhynchus%29%20%28W1CDR0001376%20BD33%29.ogg"
     },
     {
         "id": "bar_headed_goose",
@@ -1682,7 +1758,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 2500,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Bar-headed%20geese%20%28Call%29.wav"
     },
     {
         "id": "garganey",
@@ -1727,7 +1804,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 450,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Ptarmigan%20%28Lagopus%20mutus%29%20%28W1CDR0001418%20BD38%29.ogg"
     },
     {
         "id": "hazel_grouse",
@@ -1742,7 +1820,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 400,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/CallHazelGrouseSlovakia.ogg"
     },
     {
         "id": "grey_partridge",
@@ -1772,7 +1851,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 100,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Quail%20%28Coturnix%20coturnix%29%20%28W1CDR0001390%20BD1%29.ogg"
     },
     {
         "id": "red_necked_grebe",
@@ -1802,7 +1882,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 200,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Tachybaptus%20ruficollis%20%28call%29.wav"
     },
     {
         "id": "horned_grebe",
@@ -1847,7 +1928,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 1600,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Red-throated%20Diver%20%28Gavia%20stellata%29%20%28W%20GAVIA%20STELLATA%20R3%20C8%29.ogg"
     },
     {
         "id": "stock_dove",
@@ -1862,7 +1944,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 310,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Columba%20oenas%20-%20Stock%20Dove%20XC489891.mp3"
     },
     {
         "id": "rock_dove",
@@ -1892,7 +1975,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 190,
         "color": "Beige",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%BE%D0%BB%D1%8C%D1%87%D0%B0%D1%82%D0%B0%D1%8F%20%D0%93%D0%BE%D1%80%D0%BB%D0%B8%D1%86%D0%B0.ogg"
     },
     {
         "id": "european_turtle_dove",
@@ -1907,7 +1991,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 150,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Streptopelia%20turtur%20-%20European%20Turtle%20Dove%20XC582028.mp3"
     },
     {
         "id": "corn_crake",
@@ -1937,7 +2022,8 @@ window.swedishBirds = [
         "eggs": 7,
         "weight": 320,
         "color": "Svart",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Gallinula%20chloropus%20-%20Common%20Moorhen%20XC432931.mp3"
     },
     {
         "id": "spotted_crake",
@@ -1952,7 +2038,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 80,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Spotted%20Crake%20%28Porzana%20porzana%29%20%28W1CDR0001382%20BD3%29.ogg"
     },
     {
         "id": "water_rail",
@@ -1967,7 +2054,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 120,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Rallus%20aquaticus%20-%20Water%20Rail%20XC387327.mp3"
     },
     {
         "id": "ruff",
@@ -2012,7 +2100,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 50,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Sandpiper%20%28Actitis%20hypoleucos%29%20%28W1CDR0001405%20BD3%29.ogg"
     },
     {
         "id": "great_snipe",
@@ -2072,7 +2161,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 190,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Greenshank%20%28Tringa%20nebularia%29%20%28W%20TRINGA%20NEBULARIA%20R1%20C4%29.ogg"
     },
     {
         "id": "wood_sandpiper",
@@ -2087,7 +2177,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 65,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Tringa%20glareola%20-%20Wood%20Sandpiper%20XC128179.ogg"
     },
     {
         "id": "dunlin",
@@ -2102,7 +2193,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 50,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Dunlin%20%28Calidris%20alpina%29%20%28W%20CALIDRIS%20ALPINA%20R1%20C13%29.ogg"
     },
     {
         "id": "grey_plover",
@@ -2147,7 +2239,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 210,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Pluvialis%20apricaria%20-%20European%20Golden%20Plover%20XC132878.ogg"
     },
     {
         "id": "little_ringed_plover",
@@ -2177,7 +2270,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 25,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Calidris%20temminckii%20song.ogg"
     },
     {
         "id": "little_stint",
@@ -2237,7 +2331,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 300,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Limosa%20limosa%20-%20Black-tailed%20Godwit%20XC129138.ogg"
     },
     {
         "id": "turnstone",
@@ -2282,7 +2377,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 310,
         "color": "Svartvit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Avocet%20%28Recurvirostra%20avosetta%29%20%28W1CDR0001419%20BD20%29.ogg"
     },
     {
         "id": "rock_pipit",
@@ -2297,7 +2393,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 23,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Rock%20Pipit%20%28Anthus%20petrosus%29%20%28W1CDR0001427%20BD6%29.ogg"
     },
     {
         "id": "purple_sandpiper",
@@ -2342,7 +2439,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 400,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Numenius%20phaeopus%20-%20Whimbrel%20XC551246.mp3"
     },
     {
         "id": "little_tern",
@@ -2402,7 +2500,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 60,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Ringed%20Plover%20%28Charadrius%20hiaticula%29%20%28W1CDR0001530%20BD2%29.ogg"
     },
     {
         "id": "green_sandpiper",
@@ -2417,7 +2516,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 80,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Tringa%20ochropus%20-%20Green%20Sandpiper%20XC432903.mp3"
     },
     {
         "id": "little_gull",
@@ -2447,7 +2547,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 450,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Stercorarius%20parasiticus%20-%20Parasitic%20Jaeger%20XC609518.mp3"
     },
     {
         "id": "sandwich_tern",
@@ -2462,7 +2563,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 250,
         "color": "Vit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Sandwich%20Tern%20%28Thalasseus%20sandvicensis%29%20%28W1CDR0001504%20BD9%29.ogg"
     },
     {
         "id": "great_skua",
@@ -2507,7 +2609,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 650,
         "color": "Vit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Hydroprogne%20caspia%20-%20Caspian%20Tern%20XC432881.mp3"
     },
     {
         "id": "little_auk",
@@ -2642,7 +2745,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 1400,
         "color": "Grå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Falco%20rusticolus.ogg"
     },
     {
         "id": "merlin",
@@ -2687,7 +2791,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 280,
         "color": "Brun",
-        "bestTime": "Natt"
+        "bestTime": "Natt",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Asio%20otus%20-%20Long-eared%20Owl%20XC513606.mp3"
     },
     {
         "id": "northern_hawk_owl",
@@ -2747,7 +2852,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 120,
         "color": "Brun",
-        "bestTime": "Natt"
+        "bestTime": "Natt",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Aegolius%20funereus%20-%20Boreal%20Owl%20XC103673.mp3"
     },
     {
         "id": "ural_owl",
@@ -2792,7 +2898,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 350,
         "color": "Vit",
-        "bestTime": "Natt"
+        "bestTime": "Natt",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Barn%20Owl%20%28Tyto%20alba%29%20%28W%20TYTO%20ALBA%20R1%20C16%29.ogg"
     },
     {
         "id": "grey_headed_woodpecker",
@@ -2837,7 +2944,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 65,
         "color": "Svartvit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Picoides%20tridactylus%20-%20Eurasian%20Three-toed%20Woodpecker%20XC103682.mp3"
     },
     {
         "id": "eurasian_wryneck",
@@ -2852,7 +2960,8 @@ window.swedishBirds = [
         "eggs": 9,
         "weight": 35,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4%C3%A4nkael%20audio.wav"
     },
     {
         "id": "river_warbler",
@@ -2867,7 +2976,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 18,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Locustella%20fluviatilis%20song.ogg"
     },
     {
         "id": "grasshopper_warbler",
@@ -2882,7 +2992,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 14,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Grasshopper%20Warbler%20%28Locustella%20naevia%29%20%28W1CDR0001411%20BD9%29.ogg"
     },
     {
         "id": "wood_warbler",
@@ -2897,7 +3008,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 10,
         "color": "Grön",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/20080510%201117%20Phylloscopus%20sibilatrix.ogg"
     },
     {
         "id": "icterine_warbler",
@@ -2912,7 +3024,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 13,
         "color": "Gul",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Hippolais%20icterina01.ogg"
     },
     {
         "id": "barred_warbler",
@@ -2957,7 +3070,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 13,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Marsh%20Warbler%20%28Acrocephalus%20palustris%29%20%28W%20ACROCEPHALUS%20PALUSTRIS%20R10%20C2%29.ogg"
     },
     {
         "id": "greenish_warbler",
@@ -2972,7 +3086,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 9,
         "color": "Grön",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/181014%200009%20Greenish%20Warbler%20song.wav"
     },
     {
         "id": "arctic_warbler",
@@ -3002,7 +3117,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 12,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Reed%20Warbler%20%28Acrocephalus%20scirpaceus%29%20%28W1CDR0001533%20BD12%29.ogg"
     },
     {
         "id": "sedge_warbler",
@@ -3017,7 +3133,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 12,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Sedge%20Warbler%20%28Acrocephalus%20schoenobaenus%29%20%28W1CDR0001431%20BD22%29.ogg"
     },
     {
         "id": "blyth_reed_warbler",
@@ -3032,7 +3149,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 12,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Acrocephalus%20dumetorum%20-%20Blyth%27s%20Reed%20Warbler%20XC565991.mp3"
     },
     {
         "id": "moustached_warbler",
@@ -3062,7 +3180,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 13,
         "color": "Svartvit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Ficedula%20albicollis%20-%20Collared%20Flycatcher%20XC314783.mp3"
     },
     {
         "id": "red_breasted_flycatcher",
@@ -3092,7 +3211,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 120,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Mistle%20Thrush%20%28Turdus%20viscivorus%29%20%28W1CDR0000636%20BD11%29.ogg"
     },
     {
         "id": "ring_ouzel",
@@ -3107,7 +3227,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 100,
         "color": "Svart",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/TurdusTorquatusSongSlovakiaOlympusLS11file0206.ogg"
     },
     {
         "id": "bluethroat",
@@ -3122,7 +3243,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 18,
         "color": "Blå",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Luscinia%20svecica.ogg"
     },
     {
         "id": "whinchat",
@@ -3137,7 +3259,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 17,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Saxicola%20rubetra%20-%20Whinchat%20XC486281.mp3"
     },
     {
         "id": "grey_wagtail",
@@ -3152,7 +3275,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 18,
         "color": "Gul",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Motacilla%20cinerea%20-%20Grey%20Wagtail%20XC128136.ogg"
     },
     {
         "id": "yellow_wagtail",
@@ -3182,7 +3306,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 20,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Dunnock%20%28Prunella%20modularis%29%20%28W1CDR0001422%20BD6%29.ogg"
     },
     {
         "id": "european_nightjar",
@@ -3197,7 +3322,8 @@ window.swedishBirds = [
         "eggs": 2,
         "weight": 75,
         "color": "Brun",
-        "bestTime": "Natt"
+        "bestTime": "Natt",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/European%20Nightjar%20%28Caprimulgus%20europaeus%29%20%28W1CDR0001526%20BD23%29.ogg"
     },
     {
         "id": "thrush_nightingale",
@@ -3227,7 +3353,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 15,
         "color": "Röd",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Common%20Redstart%20%28Phoenicurus%20phoenicurus%29%20%28W1CDR0001505%20BD3%29.ogg"
     },
     {
         "id": "black_redstart",
@@ -3242,7 +3369,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 16,
         "color": "Svart",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Black%20Redstart%20%28Phoenicurus%20ochruros%29%20%28W1CDR0000253%20BD17%29.ogg"
     },
     {
         "id": "northern_wheatear",
@@ -3257,7 +3385,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 24,
         "color": "Grå",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Northern%20Wheatear%20%28Oenanthe%20oenanthe%29%20%28W1CDR0001421%20BD16%29.ogg"
     },
     {
         "id": "white_throated_dipper",
@@ -3272,7 +3401,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 60,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/European%20Dipper%20%28Cinclus%20cinclus%29%20%28W1CDR0001383%20BD8%29.ogg"
     },
     {
         "id": "eurasian_skylark",
@@ -3287,7 +3417,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 38,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/XN%20Alauda%20arvensis.ogg"
     },
     {
         "id": "eurasian_treecreeper",
@@ -3302,7 +3433,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 9,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Eurasian%20Treecreeper%20%28Certhia%20familiaris%29%20%28W1CDR0001463%20BD5%29.ogg"
     },
     {
         "id": "woodlark",
@@ -3317,7 +3449,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 28,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Woodlark%20%28Lullula%20arborea%29%20%28W1CDR0001500%20BD8%29.ogg"
     },
     {
         "id": "eurasian_nuthatch",
@@ -3332,7 +3465,8 @@ window.swedishBirds = [
         "eggs": 7,
         "weight": 23,
         "color": "Blågrå",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Eurasian%20Nuthatch%20%28Sitta%20europaea%29%20%28W1CDR0001532%20BD13%29.ogg"
     },
     {
         "id": "golden_oriole",
@@ -3347,7 +3481,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 70,
         "color": "Gul",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Pirol%20N%C3%A4he%20Dahme-Mark%20%28Andreas%20Plank%2C%2021.05.2011%29.ogg"
     },
     {
         "id": "red_throated_pipit",
@@ -3392,7 +3527,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 3400,
         "color": "Svartvit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Klapperstorch.ogg"
     },
     {
         "id": "eurasian_bittern",
@@ -3407,7 +3543,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 1100,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Eurasian%20Bittern%20%28Botaurus%20stellaris%29%20%28W%20BOTAURUS%20STELLARIS%20R1%20C1%29.ogg"
     },
     {
         "id": "great_cormorant",
@@ -3437,7 +3574,8 @@ window.swedishBirds = [
         "eggs": 1,
         "weight": 3000,
         "color": "Vit",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Northern%20Gannet%20%28Morus%20bassanus%29%20%28W1CDR0001422%20BD11%29.ogg"
     },
     {
         "id": "two_barred_crossbill",
@@ -3467,7 +3605,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 13,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Acanthis%20flammea%20-%20Common%20Redpoll%20XC118265.ogg"
     },
     {
         "id": "common_linnet",
@@ -3512,7 +3651,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 22,
         "color": "Röd",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Carpodacus%20erythrinus%20-%20Common%20Rosefinch%20XC446039.mp3"
     },
     {
         "id": "hawfinch",
@@ -3602,7 +3742,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 45,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Corn%20Bunting%20%28Emberiza%20calandra%29%20%28W1CDR0001392%20BD1%29.ogg"
     },
     {
         "id": "lapland_bunting",
@@ -3647,7 +3788,8 @@ window.swedishBirds = [
         "eggs": 5,
         "weight": 35,
         "color": "Vit",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Plectrophenax%20nivalis%20song.ogg"
     },
     {
         "id": "rustic_bunting",
@@ -3692,7 +3834,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 180,
         "color": "Brun",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Nucifraga%20caryocatactes%20-%20Spotted%20Nutcracker%20XC441534.mp3"
     },
     {
         "id": "rook",
@@ -3707,7 +3850,8 @@ window.swedishBirds = [
         "eggs": 4,
         "weight": 450,
         "color": "Svart",
-        "bestTime": "Dag"
+        "bestTime": "Dag",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Corvus%20frugilegus.ogg"
     },
     {
         "id": "red_backed_shrike",
@@ -3782,7 +3926,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 11,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Poecile%20montanus%20-%20Willow%20Tit%20XC462898.mp3"
     },
     {
         "id": "bearded_reedling",
@@ -3797,7 +3942,8 @@ window.swedishBirds = [
         "eggs": 6,
         "weight": 15,
         "color": "Brun",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Bearded%20Tit%20%28Panurus%20biarmicus%29%20%28W1CDR0001379%20BD5%29.ogg"
     },
     {
         "id": "penduline_tit",
@@ -3827,7 +3973,8 @@ window.swedishBirds = [
         "eggs": 10,
         "weight": 8,
         "color": "Svartvit",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Aegithalos%20caudatus%20-%20Long-tailed%20Tit%20-%20XC114614.ogg"
     },
     {
         "id": "firecrest",
@@ -3842,7 +3989,8 @@ window.swedishBirds = [
         "eggs": 8,
         "weight": 5,
         "color": "Grön",
-        "bestTime": "Morgon"
+        "bestTime": "Morgon",
+        "audio": "https://commons.wikimedia.org/wiki/Special:FilePath/Regulus%20ignicapilla%20-%20Common%20Firecrest%20XC432208.mp3"
     },
     {
         "id": "lesser_white_fronted_goose",

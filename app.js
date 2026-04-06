@@ -361,6 +361,8 @@ const elements = {
     detailWingspan: document.getElementById('detail-wingspan'),
     detailEggs: document.getElementById('detail-eggs'),
     detailArtportalenLink: document.getElementById('detail-artportalen-link'),
+    detailAudioContainer: document.getElementById('detail-audio-container'),
+    detailAudioPlayer: document.getElementById('detail-audio-player'),
 
     // Fullscreen Modal Elements
     fsModal: document.getElementById('fullscreen-image-modal'),
@@ -384,6 +386,10 @@ window.addEventListener('popstate', (event) => {
     // 1. Close all modals visually first
     elements.modal.classList.remove('active');
     elements.detailModal.classList.remove('active');
+    if (elements.detailAudioPlayer) {
+        elements.detailAudioPlayer.pause();
+        elements.detailAudioPlayer.currentTime = 0;
+    }
     const fsModal = document.getElementById('fullscreen-image-modal');
     if (fsModal) fsModal.classList.remove('active');
 
@@ -878,6 +884,16 @@ function _renderBirdDetail(item, sighting = null) {
     if (descEl) {
         descEl.textContent = item.funFact || '';
         descEl.style.display = item.funFact ? 'block' : 'none';
+    }
+
+    if (elements.detailAudioContainer && elements.detailAudioPlayer) {
+        if (item.audio) {
+            elements.detailAudioPlayer.src = item.audio;
+            elements.detailAudioContainer.style.display = 'block';
+        } else {
+            elements.detailAudioPlayer.src = '';
+            elements.detailAudioContainer.style.display = 'none';
+        }
     }
 
 
@@ -2483,6 +2499,13 @@ function setupEventListeners() {
             if (btn.dataset.tab === 'stats-view') {
                 renderStatsView();
             }
+            
+            // Init AI Listen module
+            if (btn.dataset.tab === 'listen-view' && typeof initBirdnet === 'function') {
+                initBirdnet();
+            } else if (btn.dataset.tab !== 'listen-view' && typeof window.listen_stopOnTabChange === 'function') {
+                window.listen_stopOnTabChange();
+            }
 
             // Render photographers view
             if (btn.dataset.tab === 'photographers-view') {
@@ -2504,6 +2527,10 @@ function setupEventListeners() {
 
     if (elements.closeDetailModal) {
         elements.closeDetailModal.addEventListener('click', () => {
+            if (elements.detailAudioPlayer) {
+                elements.detailAudioPlayer.pause();
+                elements.detailAudioPlayer.currentTime = 0;
+            }
             history.back();
         });
     }

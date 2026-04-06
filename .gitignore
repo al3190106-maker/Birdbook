@@ -12,3 +12,13 @@ desktop.ini
 
 # Gemini/AI
 .gemini/
+
+# Temp/scratch scripts
+apply_audio.js
+fetch_audio.js
+fetch.js
+test_api.js
+wikidata_audio.json
+
+# Cloned BirdNET repo (temp)
+birdnet-pwa-temp/

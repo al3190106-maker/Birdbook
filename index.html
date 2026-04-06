@@ -39,6 +39,7 @@
         <div class="header-center">
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
+                <button class="nav-btn" data-tab="listen-view">Lyssna</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="photographers-view" style="display: none;">Fotografer</button>
                 <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
@@ -115,6 +116,36 @@
                     <i class="fa-solid fa-binoculars"></i>
                     <p>Inga fåglar sedda än under <span class="highlight">denna period</span>.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Listen View -->
+        <section id="listen-view" class="view-section" style="text-align: center; padding-top: 2rem;">
+            <div style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-ear-listen" style="color: var(--primary);"></i> Identifiera fåglar</h2>
+                <p id="listen-status" style="color: var(--text-muted); font-size: 0.95rem;">Laddar inställningar...</p>
+                <div id="listen-spinner" class="spinner" style="display:none; margin: 10px auto; width:30px; height:30px; border:3px solid #eee; border-top-color:var(--primary); border-radius:50%; animation:spin 1s linear infinite;"></div>
+            </div>
+            
+            <button id="listen-start-btn" class="primary-btn" disabled style="padding: 1rem 3rem; font-size: 1.2rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 250px;">
+                <i class="fa-solid fa-microphone"></i> Lyssna
+            </button>
+            <style>
+                @keyframes spin { 100% { transform:rotate(360deg); } }
+                .recording {
+                    background-color: #ef4444 !important;
+                    border-color: #ef4444 !important;
+                    animation: pulse-red 1.5s infinite;
+                }
+                @keyframes pulse-red {
+                    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+                    70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+                }
+            </style>
+
+            <div id="listen-results" style="margin-top: 2.5rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+                <p class="text-muted" style="text-align: center;">Resultat dyker upp här när en fågel hörs.</p>
             </div>
         </section>
 
@@ -462,9 +493,14 @@
                 <h2 class="bird-detail-title" id="detail-name-sv">Svenskt Namn</h2>
                 <span class="bird-detail-scientific" id="detail-name-sc-en">Scientific (English)</span>
                 <p class="bird-detail-description" id="detail-description"></p>
-
                 <details id="detail-facts-accordion" open style="margin-top: 0.5rem;">
                     <summary style="cursor: pointer; color: var(--primary); font-weight: 600; outline: none; padding-bottom: 0.5rem; font-size: 1.05rem; user-select: none;"><i class="fa-solid fa-circle-info"></i> Artfakta</summary>
+                    <div id="detail-audio-container" style="display: none; margin-bottom: 15px; text-align: center; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <audio id="detail-audio-player" controls preload="none" style="width: 100%; height: 40px; border-radius: 8px; outline: none;">
+                            <source src="" type="audio/mpeg">
+                            Din webbläsare stöder inte ljudspelaren.
+                        </audio>
+                    </div>
                     <div class="bird-facts-grid">
                     <div class="fact-card">
                         <div class="fact-title"><i class="fa-solid fa-star"></i> Sällsynthet</div>
@@ -855,6 +891,7 @@
     <script src="bird_images.js"></script>
     <script src="photographers.js"></script>
     <script src="app.js"></script>
+    <script src="listen.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
