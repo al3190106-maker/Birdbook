@@ -66,9 +66,17 @@ async function initBirdnet() {
 function listen_handlePredictions(preds) {
     if (!listen_isListening) return;
 
-    const threshold = 0.05;
+    // Only show results above 30% confidence AND that exist in our Swedish bird database
+    const threshold = 0.30;
     const active = preds
-        .filter(p => p.confidence > threshold)
+        .filter(p => {
+            if (p.confidence < threshold) return false;
+            // Only show if the bird exists in our Swedish database
+            if (typeof swedishBirds !== 'undefined') {
+                return swedishBirds.some(b => b.scientific === p.scientificName);
+            }
+            return true;
+        })
         .sort((a, b) => b.confidence - a.confidence)
         .slice(0, 5);
 
