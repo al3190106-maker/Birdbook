@@ -1,6 +1,8 @@
 // listen.js – BirdNET realtidsidentifiering
 // Alla funktioner prefixade med listen_ för att undvika krockar med app.js
 
+
+
 const listenEl = {
     startBtn:     document.getElementById('listen-start-btn'),
     statusText:   document.getElementById('listen-status'),
@@ -183,7 +185,7 @@ function listen_renderSession() {
             : `<div class="listen-scard-placeholder${observedClass}"><i class="fa-solid fa-dove"></i></div>`;
 
         const activeClass = isActive ? ' is-active' : '';
-        const addBtnHtml = (e.dbBird && !isObserved) 
+        const addBtnHtml = e.dbBird 
             ? `<button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name}')" title="Rapportera observation"><i class="fa-solid fa-plus"></i></button>`
             : '';
 
@@ -196,6 +198,7 @@ function listen_renderSession() {
             </div>
             ${addBtnHtml}
         </div>`;
+
 
     }).join('');
 

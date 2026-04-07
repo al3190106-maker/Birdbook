@@ -16,6 +16,8 @@ const state = {
     timeFilter: 'all',
     currentSubject: 'birds' // Replaces appMode
 };
+window.state = state;
+
 
 const appStateMeta = {
     isInitialized: false,
