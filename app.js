@@ -494,6 +494,7 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
     elements.form.reset();
     editingSightingId = sightingToEdit ? sightingToEdit.id : null;
 
+
     const sightingDateEl = document.getElementById('sighting-date');
     const today = new Date();
     sightingDateEl.valueAsDate = today;
@@ -541,6 +542,8 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
         _initSightingMap();
     }, 150);
 }
+window.showSightingModal = _showSightingModal;
+
 
 function _initSightingMap() {
     const mapContainer = document.getElementById('sighting-map');
@@ -1627,6 +1630,7 @@ function openBirdDetail(item, sighting = null) {
     elements.detailModal.classList.add('active');
     history.pushState({ modal: 'detail', birdId: item.id }, '');
 }
+window.openBirdDetail = openBirdDetail;
 
 function quickAddSighting(birdId) {
     const list = getCurrentSpeciesList();

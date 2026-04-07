@@ -39,7 +39,7 @@
         <div class="header-center">
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
-                <button class="nav-btn" data-tab="listen-view">Lyssna</button>
+                <button class="nav-btn" data-tab="listen-view">Identifiera</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="photographers-view" style="display: none;">Fotografer</button>
                 <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
@@ -442,6 +442,27 @@
                     border-radius: 50%;
                     flex-shrink: 0;
                     margin-left: auto;
+                }
+                .listen-scard-add-btn {
+                    width: 30px; height: 30px;
+                    border-radius: 50%;
+                    border: 1px solid rgba(46,93,75,0.2);
+                    background: white;
+                    color: var(--primary);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    margin-left: auto;
+                    transition: all 0.2s;
+                    font-size: 0.9rem;
+                    flex-shrink: 0;
+                }
+                .listen-scard-add-btn:hover {
+                    background: var(--primary);
+                    color: white;
+                    transform: scale(1.1);
+                    border-color: var(--primary);
                 }
 
                 /* --- Responsive --- */

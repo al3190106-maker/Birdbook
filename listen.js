@@ -71,7 +71,7 @@ async function initBirdnet() {
             } else if (data.message === 'loaded') {
                 listen_isWorkerReady = true;
                 listenEl.startBtn.disabled = false;
-                listen_setStatus('<i class="fa-solid fa-check" style="color:#8FBC8F"></i> AI redo – tryck för att börja lyssna');
+                listen_setStatus('');
             } else if (data.message === 'pooled') {
                 listen_handlePredictions(data.pooled || []);
             } else if (data.message === 'error') {
@@ -178,6 +178,9 @@ function listen_renderSession() {
             : `<div class="listen-scard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
 
         const activeClass = isActive ? ' is-active' : '';
+        const addBtnHtml = e.dbBird 
+            ? `<button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name}')" title="Rapportera observation"><i class="fa-solid fa-plus"></i></button>`
+            : '';
 
         return `
         <div class="listen-scard${activeClass}" onclick="${clickJs}">
@@ -186,6 +189,7 @@ function listen_renderSession() {
                 <div class="listen-scard-name">${e.name}</div>
                 <div class="listen-scard-meta">${pct}% säkerhet</div>
             </div>
+            ${addBtnHtml}
         </div>`;
     }).join('');
 
@@ -265,7 +269,7 @@ function listen_stop() {
     listenEl.waveWrap.style.display = 'none';
 
     if (listen_isWorkerReady) {
-        listen_setStatus('<i class="fa-solid fa-check" style="color:#8FBC8F"></i> AI redo – tryck för att börja lyssna');
+        listen_setStatus('');
     } else {
         listen_setStatus('Pausad.');
     }
@@ -450,7 +454,17 @@ function listen_startSim() {
    MISC
 --------------------------------------------------------------- */
 window.listen_openBird = function(birdId) {
-    if (typeof window.showBirdDetail === 'function') window.showBirdDetail(birdId);
+    if (typeof window.openBirdDetail === 'function') {
+        const list = (typeof getCurrentSpeciesList === 'function') ? getCurrentSpeciesList() : swedishBirds;
+        const b = list.find(x => x.id === birdId);
+        if (b) window.openBirdDetail(b);
+    }
+};
+
+window.listen_reportSighting = function(birdId, birdName) {
+    if (typeof window.showSightingModal === 'function') {
+        window.showSightingModal(birdId, birdName);
+    }
 };
 
 window.listen_stopOnTabChange = listen_stop;
