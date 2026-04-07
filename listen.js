@@ -184,7 +184,7 @@ function listen_renderSession() {
             ${imgHtml}
             <div class="listen-scard-body">
                 <div class="listen-scard-name">${e.name}</div>
-                <div class="listen-scard-meta">${e.time} &middot; ${pct}% säkerhet</div>
+                <div class="listen-scard-meta">${pct}% säkerhet</div>
             </div>
         </div>`;
     }).join('');
