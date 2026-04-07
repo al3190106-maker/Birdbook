@@ -3,16 +3,14 @@
 
 const listenEl = {
     startBtn:     document.getElementById('listen-start-btn'),
-    btnLabel:     document.getElementById('listen-btn-label'),
     statusText:   document.getElementById('listen-status'),
-    resultsList:  document.getElementById('listen-results'),
     spinner:      document.getElementById('listen-spinner'),
     waveWrap:     document.getElementById('listen-waveform-wrap'),
     waveCanvas:   document.getElementById('listen-waveform'),
     sessionWrap:  document.getElementById('listen-session-wrap'),
     sessionList:  document.getElementById('listen-session-list'),
     simBtn:       document.getElementById('listen-sim-btn'),
-    emptyMsg:     document.getElementById('listen-empty-msg'),
+    sessionEmpty: document.getElementById('listen-session-empty'),
 };
 
 let listen_worker        = null;
@@ -107,17 +105,6 @@ function listen_handlePredictions(preds) {
     // track which birds are active this round
     const newActiveSet = new Set(active.map(p => p.scientificName));
 
-    // ---- "Now Hearing" section ----
-    if (active.length === 0) {
-        listenEl.resultsList.innerHTML = `
-            <div class="listen-empty-now">
-                <i class="fa-solid fa-leaf fa-lg" style="color:var(--secondary);opacity:0.5;"></i>
-                Lyssnar... inget hörs just nu.
-            </div>`;
-    } else {
-        listenEl.resultsList.innerHTML = active.map(pred => listen_buildNowCard(pred)).join('');
-    }
-
     // ---- Session log: add/update + glow if re-heard ----
     active.forEach(pred => {
         const existing = listen_session[pred.scientificName];
@@ -127,21 +114,15 @@ function listen_handlePredictions(preds) {
         const name     = dbBird ? dbBird.nameSv : (pred.commonNameI18n || pred.scientificName);
 
         if (!existing) {
-            // New bird – add to session
-            listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }) };
-        } else if (pred.confidence > existing.confidence) {
-            // Known bird, better confidence
-            existing.confidence = pred.confidence;
+            listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }), isNew: true };
+        } else {
+            if (pred.confidence > existing.confidence) existing.confidence = pred.confidence;
         }
-        // Mark as currently singing
-        existing && (listen_session[pred.scientificName].isActive = true);
+        listen_session[pred.scientificName].isActive = true;
     });
 
-    // Mark previously active birds as no longer active
     Object.keys(listen_session).forEach(sci => {
-        if (!newActiveSet.has(sci)) {
-            listen_session[sci].isActive = false;
-        }
+        if (!newActiveSet.has(sci)) listen_session[sci].isActive = false;
     });
 
     listen_currentlyActive = newActiveSet;
@@ -181,13 +162,13 @@ function listen_buildNowCard(pred) {
 --------------------------------------------------------------- */
 function listen_renderSession() {
     const entries = Object.values(listen_session).sort((a, b) => b.confidence - a.confidence);
-    if (entries.length === 0) {
-        listenEl.sessionWrap.style.display = 'none';
-        return;
-    }
-    listenEl.sessionWrap.style.display = 'block';
 
-    listenEl.sessionList.innerHTML = entries.map(e => {
+    // Show/hide placeholder
+    if (listenEl.sessionEmpty) {
+        listenEl.sessionEmpty.style.display = entries.length === 0 ? 'flex' : 'none';
+    }
+
+    const cards = entries.map(e => {
         const pct      = Math.round(e.confidence * 100);
         const col      = listen_colFor(pct);
         const isActive = e.isActive;
@@ -197,26 +178,34 @@ function listen_renderSession() {
             : `<div class="listen-scard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
 
         const activeClass = isActive ? ' is-active' : '';
-        const activeBadge = isActive
-            ? `<span style="font-size:0.68rem;background:rgba(46,93,75,0.1);color:var(--primary);border-radius:99px;padding:1px 7px;font-weight:700;margin-left:4px;">sjunger</span>`
+        const badge = isActive
+            ? `<span style="font-size:0.65rem;background:rgba(46,93,75,0.12);color:var(--primary);border-radius:99px;padding:1px 7px;font-weight:700;margin-left:5px;vertical-align:middle;"><i class="fa-solid fa-music" style="font-size:0.6rem"></i> sjunger</span>`
             : '';
 
         return `
-        <div class="listen-scard${activeClass}" onclick="${clickJs}" data-sci="${e.scientificName}">
+        <div class="listen-scard${activeClass}" onclick="${clickJs}">
             ${imgHtml}
             <div style="flex:1;min-width:0;">
-                <div class="listen-scard-name">${e.name}${activeBadge}</div>
-                <div class="listen-scard-meta">${e.time} · bäst ${pct}%</div>
+                <div class="listen-scard-name">${e.name}${badge}</div>
+                <div class="listen-scard-meta">${e.time} &middot; ${pct}% säkerhet</div>
             </div>
             <div class="listen-scard-dot" style="background:${col};"></div>
         </div>`;
     }).join('');
+
+    // Inject cards without clobbering the empty placeholder
+    const existing = listenEl.sessionList.querySelectorAll('.listen-scard');
+    existing.forEach(el => el.remove());
+    listenEl.sessionList.insertAdjacentHTML('beforeend', cards);
 }
 
 window.listen_clearSession = function() {
     listen_session = {};
     listen_currentlyActive = new Set();
-    listenEl.sessionWrap.style.display = 'none';
+    // Restore empty state placeholder
+    const sessionList = listenEl.sessionList;
+    sessionList.querySelectorAll('.listen-scard').forEach(el => el.remove());
+    if (listenEl.sessionEmpty) listenEl.sessionEmpty.style.display = 'flex';
 };
 
 /* ---------------------------------------------------------------
@@ -228,8 +217,7 @@ async function listen_start() {
     listen_isListening = true;
     listenEl.startBtn.classList.add('is-listening');
     listenEl.startBtn.innerHTML = '<i class="fa-solid fa-stop"></i>';
-    if (listenEl.btnLabel) listenEl.btnLabel.textContent = 'Stoppa';
-    listen_setStatus('<i class="fa-solid fa-circle" style="color:#f87171;font-size:0.6em;"></i> Lyssnar aktivt på naturen...');
+    listen_setStatus('<i class="fa-solid fa-circle" style="color:#f87171;font-size:0.7em;"></i> Lyssnar aktivt...');
 
     try {
         listen_stream = await navigator.mediaDevices.getUserMedia({
