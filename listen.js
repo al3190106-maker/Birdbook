@@ -114,10 +114,9 @@ function listen_handlePredictions(preds) {
         const name     = dbBird ? dbBird.nameSv : (pred.commonNameI18n || pred.scientificName);
 
         if (!existing) {
-            listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }), isNew: true, heardAt: Date.now() };
+            listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }), isNew: true, firstHeardAt: Date.now() };
         } else {
             if (pred.confidence > existing.confidence) existing.confidence = pred.confidence;
-            existing.heardAt = Date.now(); // update timestamp each time heard
         }
         listen_session[pred.scientificName].isActive = true;
     });
@@ -162,8 +161,8 @@ function listen_buildNowCard(pred) {
    SESSION LOG
 --------------------------------------------------------------- */
 function listen_renderSession() {
-    // Sort by most recently heard (latest time first)
-    const entries = Object.values(listen_session).sort((a, b) => b.heardAt - a.heardAt);
+    // Sortera efter när de först dök upp, så de behåller sin plats i listan
+    const entries = Object.values(listen_session).sort((a, b) => b.firstHeardAt - a.firstHeardAt);
 
     // Show/hide placeholder
     if (listenEl.sessionEmpty) {
@@ -185,7 +184,7 @@ function listen_renderSession() {
             ${imgHtml}
             <div class="listen-scard-body">
                 <div class="listen-scard-name">${e.name}</div>
-                <div class="listen-scard-meta">${e.time}</div>
+                <div class="listen-scard-meta">${e.time} &middot; ${pct}% säkerhet</div>
             </div>
         </div>`;
     }).join('');
