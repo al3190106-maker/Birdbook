@@ -142,7 +142,7 @@ function listen_buildCard(pred) {
     const col = pct >= 60 ? '#16a34a' : pct >= 40 ? '#f59e0b' : '#94a3b8';
 
     return `
-    <div class="fact-card" ${clickAttr} style="display:flex;align-items:center;margin-bottom:10px;padding:10px 14px;">
+    <div class="fact-card" ${clickAttr} style="animation: fade-in-card 0.3s ease-out; display:flex;align-items:center;margin-bottom:10px;padding:10px 14px;">
         ${imgHtml}
         <div style="flex:1;min-width:0;">
             <div style="font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
