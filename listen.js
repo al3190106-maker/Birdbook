@@ -10,6 +10,7 @@ const listenEl = {
     waveCanvas:   document.getElementById('listen-waveform'),
     sessionWrap:  document.getElementById('listen-session-wrap'),
     sessionList:  document.getElementById('listen-session-list'),
+    simBtn:       document.getElementById('listen-sim-btn')
 };
 
 let listen_worker       = null;
@@ -18,8 +19,10 @@ let listen_workletNode  = null;
 let listen_stream       = null;
 let listen_isWorkerReady = false;
 let listen_isListening  = false;
+let listen_isSimulating = false;
 let listen_analyser     = null;
 let listen_waveAnimId   = null;
+let listen_simInterval  = null;
 
 // Session state
 let listen_session = {}; // { scientificName: { name, scientificName, confidence, imgSrc, dbBird, time } }
@@ -101,12 +104,12 @@ function listen_handlePredictions(preds) {
                 ? swedishBirds.find(b => b.scientific === pred.scientificName)
                 : null;
             let imgSrc = null;
-            if (dbBird && typeof localBirdImages !== 'undefined') {
-                const io = localBirdImages[dbBird.id];
-                if (io && io.images && io.images.length > 0) imgSrc = io.images[0].src;
+            if (dbBird && typeof window.birdImages !== 'undefined') {
+                const io = window.birdImages[dbBird.id];
+                if (io && io.length > 0) imgSrc = io[0].src;
             }
             listen_session[pred.scientificName] = {
-                name: dbBird ? dbBird.name : (pred.commonNameI18n || pred.scientificName),
+                name: dbBird ? dbBird.nameSv : (pred.commonNameI18n || pred.scientificName),
                 scientificName: pred.scientificName,
                 confidence: pred.confidence,
                 imgSrc,
@@ -122,16 +125,16 @@ function listen_buildCard(pred) {
     const dbBird = (typeof swedishBirds !== 'undefined')
         ? swedishBirds.find(b => b.scientific === pred.scientificName)
         : null;
-    const name    = dbBird ? dbBird.name : (pred.commonNameI18n || pred.scientificName);
+    const name    = dbBird ? dbBird.nameSv : (pred.commonNameI18n || pred.scientificName);
     const sci     = pred.scientificName;
     const pct     = Math.round(pred.confidence * 100);
     const clickAttr = dbBird ? `onclick="window.listen_openBird('${dbBird.id}')" style="cursor:pointer"` : '';
 
     let imgHtml = `<div style="width:48px;height:48px;border-radius:8px;background:#e2e8f0;margin-right:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-dove" style="color:#aaa"></i></div>`;
-    if (dbBird && typeof localBirdImages !== 'undefined') {
-        const io = localBirdImages[dbBird.id];
-        if (io && io.images && io.images.length > 0) {
-            imgHtml = `<img src="${io.images[0].src}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;margin-right:14px;flex-shrink:0;">`;
+    if (dbBird && typeof window.birdImages !== 'undefined') {
+        const io = window.birdImages[dbBird.id];
+        if (io && io.length > 0) {
+            imgHtml = `<img src="${io[0].src}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;margin-right:14px;flex-shrink:0;">`;
         }
     }
 
@@ -327,6 +330,98 @@ function listen_inferenceLoop() {
 }
 
 /* ---------------------------------------------------------------
+   SIMULATION OVERRIDE
+--------------------------------------------------------------- */
+function listen_toggleSimulation() {
+    if (listen_isListening || listen_isSimulating) {
+        listen_stop();
+    } else {
+        listen_startSim();
+    }
+}
+
+function listen_startSim() {
+    listen_isSimulating = true;
+    listen_isListening = true; // Enables handlePredictions to work
+    
+    listenEl.startBtn.classList.add('recording');
+    listenEl.startBtn.innerHTML = '<i class="fa-solid fa-stop"></i> Sluta lyssna';
+    listenEl.simBtn.innerHTML = '<i class="fa-solid fa-stop"></i> Avsluta simulering';
+    listenEl.statusText.innerHTML = '<i class="fa-solid fa-flask" style="color:var(--primary)"></i> Simulerar offline-läge...';
+    listenEl.spinner.style.display = 'inline-block';
+    
+    // Fake waveform canvas since we have no mic
+    listenEl.waveWrap.style.display = 'block';
+    const canvas = listenEl.waveCanvas;
+    canvas.width  = canvas.offsetWidth * (window.devicePixelRatio || 1);
+    canvas.height = 60  * (window.devicePixelRatio || 1);
+    const ctx = canvas.getContext('2d');
+    
+    function drawFakeWave() {
+        if (!listen_isSimulating) return;
+        listen_waveAnimId = requestAnimationFrame(drawFakeWave);
+        
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.lineWidth = 2 * (window.devicePixelRatio || 1);
+        ctx.strokeStyle = '#38bdf8';
+        
+        const sliceW = canvas.width / 50;
+        let x = 0;
+        for (let i = 0; i < 50; i++) {
+            const v = 0.5 + (Math.random() * 0.3 - 0.15); // jittery line
+            const y = v * canvas.height;
+            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            x += sliceW;
+        }
+        ctx.stroke();
+    }
+    drawFakeWave();
+
+    // Fake birds to inject
+    const fakeBirds = [
+        { scientificName: 'Turdus merula', commonNameI18n: 'Koltrast' },
+        { scientificName: 'Erithacus rubecula', commonNameI18n: 'Rödhake' },
+        { scientificName: 'Cyanistes caeruleus', commonNameI18n: 'Blåmes' },
+        { scientificName: 'Fringilla coelebs', commonNameI18n: 'Bofink' },
+        { scientificName: 'Parus major', commonNameI18n: 'Talgoxe' }
+    ];
+
+    listen_simInterval = setInterval(() => {
+        // Generate 30 fake background noises with ~1% confidence
+        const fakes = Array(30).fill(0).map(() => ({
+            scientificName: 'Noisus backgroundus',
+            confidence: Math.random() * 0.05
+        }));
+        
+        // 50% chance to hear a real bird
+        if (Math.random() > 0.5) {
+            const numBirds = 1 + Math.floor(Math.random() * 2); // 1 or 2 birds at once
+            for(let i=0; i<numBirds; i++) {
+                const b = fakeBirds[Math.floor(Math.random() * fakeBirds.length)];
+                fakes.push({
+                    scientificName: b.scientificName,
+                    commonNameI18n: b.commonNameI18n,
+                    confidence: 0.35 + (Math.random() * 0.60) // 35% - 95% certainty
+                });
+            }
+        }
+        
+        listen_handlePredictions(fakes);
+    }, 2000);
+}
+
+// Update stop logic to also handle stopping simulation
+const original_listen_stop = listen_stop;
+listen_stop = function() {
+    original_listen_stop();
+    listen_isSimulating = false;
+    listenEl.simBtn.innerHTML = '<i class="fa-solid fa-flask"></i> Simulera offline-träffar';
+    if(listen_simInterval) { clearInterval(listen_simInterval); listen_simInterval = null; }
+};
+
+/* ---------------------------------------------------------------
    MISC
 --------------------------------------------------------------- */
 window.listen_openBird = function(birdId) {
@@ -336,5 +431,9 @@ window.listen_openBird = function(birdId) {
 window.listen_stopOnTabChange = listen_stop;
 
 listenEl.startBtn.addEventListener('click', () => {
-    listen_isListening ? listen_stop() : listen_start();
+    (listen_isListening || listen_isSimulating) ? listen_stop() : listen_start();
+});
+
+listenEl.simBtn.addEventListener('click', () => {
+    listen_toggleSimulation();
 });
