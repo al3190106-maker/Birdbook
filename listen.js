@@ -287,12 +287,13 @@ function listen_drawWaveform() {
         listen_analyser.getByteTimeDomainData(buf);
         const W = canvas.width, H = canvas.height;
 
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(0, 0, W, H);
+        ctx.clearRect(0, 0, W, H);
 
         ctx.beginPath();
-        ctx.lineWidth = 2 * (window.devicePixelRatio || 1);
-        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3 * (window.devicePixelRatio || 1);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#2E5D4B';
 
         const sliceW = W / buf.length;
         let x = 0;
@@ -361,11 +362,12 @@ function listen_startSim() {
         if (!listen_isSimulating) return;
         listen_waveAnimId = requestAnimationFrame(drawFakeWave);
         
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.lineWidth = 2 * (window.devicePixelRatio || 1);
-        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3 * (window.devicePixelRatio || 1);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#2E5D4B';
         
         const sliceW = canvas.width / 50;
         let x = 0;

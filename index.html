@@ -156,7 +156,9 @@
             <!-- Live waveform -->
             <div id="listen-waveform-wrap" style="max-width:500px; margin: 1.5rem auto 0; display:none;">
                 <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;"><i class="fa-solid fa-wave-square"></i> Ljudupptagning</p>
-                <canvas id="listen-waveform" height="60" style="width:100%; border-radius:10px; background:#0f172a; display:block;"></canvas>
+                <div style="background:var(--card-bg); border-radius:var(--border-radius); padding:10px; box-shadow:var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05);">
+                    <canvas id="listen-waveform" height="60" style="width:100%; display:block; height:60px;"></canvas>
+                </div>
             </div>
 
             <div id="listen-results" style="margin-top: 1.5rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; min-height: 400px;">
