@@ -173,12 +173,17 @@ function listen_renderSession() {
         const pct      = Math.round(e.confidence * 100);
         const isActive = e.isActive;
         const clickJs  = e.dbBird ? `window.listen_openBird('${e.dbBird.id}')` : '';
+        
+        // Check if bird is already in log
+        const isObserved = e.dbBird && (window.state && window.state.sightings && window.state.sightings.some(s => s.birdId === e.dbBird.id));
+        const observedClass = isObserved ? ' is-observed' : '';
+
         const imgHtml  = e.imgSrc
-            ? `<img class="listen-scard-img" src="${e.imgSrc}" alt="${e.name}">`
-            : `<div class="listen-scard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
+            ? `<img class="listen-scard-img${observedClass}" src="${e.imgSrc}" alt="${e.name}">`
+            : `<div class="listen-scard-placeholder${observedClass}"><i class="fa-solid fa-dove"></i></div>`;
 
         const activeClass = isActive ? ' is-active' : '';
-        const addBtnHtml = e.dbBird 
+        const addBtnHtml = (e.dbBird && !isObserved) 
             ? `<button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name}')" title="Rapportera observation"><i class="fa-solid fa-plus"></i></button>`
             : '';
 
@@ -191,6 +196,7 @@ function listen_renderSession() {
             </div>
             ${addBtnHtml}
         </div>`;
+
     }).join('');
 
     // Inject cards without clobbering the empty placeholder

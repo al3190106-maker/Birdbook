@@ -415,6 +415,7 @@
                     border-radius: 8px;
                     object-fit: cover;
                     flex-shrink: 0;
+                    box-sizing: border-box;
                 }
                 .listen-scard-placeholder {
                     width: 44px; height: 44px;
@@ -425,7 +426,14 @@
                     justify-content: center;
                     flex-shrink: 0;
                     color: var(--secondary);
+                    box-sizing: border-box;
                 }
+                .listen-scard-img.is-observed,
+                .listen-scard-placeholder.is-observed {
+                    border: 2.5px solid #16a34a;
+                    box-shadow: 0 0 8px rgba(22, 163, 74, 0.2);
+                }
+
                 .listen-scard-name {
                     font-weight: 600;
                     font-size: 0.95rem;
