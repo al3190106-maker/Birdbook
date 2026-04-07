@@ -260,7 +260,7 @@ function listen_stop() {
     listen_isListening  = false;
     listen_isSimulating = false;
     listenEl.startBtn.classList.remove('is-listening');
-    listenEl.startBtn.innerHTML = '<img src="images/bird_mic_icon.png" style="width:46px;height:46px;object-fit:contain;" id="listen-mic-img">';
+    listenEl.startBtn.innerHTML = '<img src="images/ovriga_ikoner/bird_mic_icon.png" style="width:46px;height:46px;object-fit:contain;" id="listen-mic-img">';
     if (listenEl.simBtn) listenEl.simBtn.innerHTML = '<i class="fa-solid fa-flask"></i>';
 
     listenEl.waveWrap.style.display = 'none';
