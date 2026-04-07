@@ -120,60 +120,397 @@
         </section>
 
         <!-- Listen View -->
-        <section id="listen-view" class="view-section" style="text-align: center; padding-top: 2rem;">
-            <div style="margin-bottom: 2rem;">
-                <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-ear-listen" style="color: var(--primary);"></i> Identifiera fåglar</h2>
-                <p id="listen-status" style="color: var(--text-muted); font-size: 0.95rem;">Laddar inställningar...</p>
-                <div id="listen-spinner" class="spinner" style="display:none; margin: 10px auto; width:30px; height:30px; border:3px solid #eee; border-top-color:var(--primary); border-radius:50%; animation:spin 1s linear infinite;"></div>
-            </div>
-            
-            <button id="listen-start-btn" class="primary-btn" disabled style="padding: 1rem 3rem; font-size: 1.2rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 250px;">
-                <i class="fa-solid fa-microphone"></i> Lyssna
-            </button>
-            <div style="margin-top: 1rem;">
-                <button id="listen-sim-btn" class="secondary-btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem; border-radius: 50px;">
-                    <i class="fa-solid fa-flask"></i> Simulera offline-träffar
-                </button>
-            </div>
+        <section id="listen-view" class="view-section">
+
             <style>
-                @keyframes spin { 100% { transform:rotate(360deg); } }
-                .recording {
-                    background-color: #ef4444 !important;
-                    border-color: #ef4444 !important;
-                    animation: pulse-red 1.5s infinite;
+                /* --- Listen Tab Core --- */
+                .listen-hero {
+                    background: linear-gradient(135deg, var(--primary) 0%, #1a3d2f 100%);
+                    border-radius: 20px;
+                    padding: 2.5rem 2rem 2rem;
+                    color: white;
+                    text-align: center;
+                    position: relative;
+                    overflow: hidden;
+                    margin-bottom: 1.5rem;
+                    box-shadow: 0 8px 32px rgba(46, 93, 75, 0.25);
                 }
-                @keyframes pulse-red {
-                    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-                    70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
-                    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+                .listen-hero::before {
+                    content: '';
+                    position: absolute;
+                    top: -60px; right: -60px;
+                    width: 200px; height: 200px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.05);
                 }
+                .listen-hero::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -40px; left: -40px;
+                    width: 150px; height: 150px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.04);
+                }
+                .listen-hero-icon {
+                    font-size: 2.5rem;
+                    margin-bottom: 0.5rem;
+                    opacity: 0.9;
+                }
+                .listen-hero h2 {
+                    font-size: 1.6rem;
+                    font-weight: 800;
+                    margin-bottom: 0.4rem;
+                    letter-spacing: -0.3px;
+                }
+                .listen-hero p {
+                    font-size: 0.95rem;
+                    opacity: 0.75;
+                    margin-bottom: 0;
+                }
+
+                /* --- Status Pill --- */
+                .listen-status-pill {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background: rgba(255,255,255,0.12);
+                    border: 1px solid rgba(255,255,255,0.2);
+                    border-radius: 99px;
+                    padding: 0.4rem 1rem;
+                    font-size: 0.85rem;
+                    margin: 1rem 0 0;
+                    backdrop-filter: blur(4px);
+                    transition: all 0.3s;
+                    min-width: 240px;
+                    justify-content: center;
+                }
+
+                /* --- Control Area --- */
+                .listen-controls {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 1.5rem 0;
+                }
+                .listen-mic-btn {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    border: none;
+                    background: var(--primary);
+                    color: white;
+                    font-size: 1.8rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 4px 20px rgba(46, 93, 75, 0.35);
+                    transition: all 0.3s ease;
+                    position: relative;
+                }
+                .listen-mic-btn:disabled {
+                    background: #ccc;
+                    cursor: not-allowed;
+                    box-shadow: none;
+                }
+                .listen-mic-btn:not(:disabled):hover {
+                    transform: scale(1.07);
+                    box-shadow: 0 6px 28px rgba(46, 93, 75, 0.45);
+                }
+                .listen-mic-btn.is-listening {
+                    background: #dc2626;
+                    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6);
+                    animation: listen-pulse 1.8s ease-out infinite;
+                }
+                @keyframes listen-pulse {
+                    0%   { box-shadow: 0 0 0 0 rgba(220,38,38,0.55); }
+                    70%  { box-shadow: 0 0 0 18px rgba(220,38,38,0); }
+                    100% { box-shadow: 0 0 0 0 rgba(220,38,38,0); }
+                }
+                .listen-mic-label {
+                    font-size: 0.8rem;
+                    color: var(--text-muted);
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                }
+                .listen-sim-btn {
+                    background: none;
+                    border: 1.5px dashed var(--secondary);
+                    color: var(--primary);
+                    border-radius: 99px;
+                    padding: 0.4rem 1.2rem;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                    font-family: var(--font-stack);
+                    font-weight: 600;
+                    transition: all 0.2s;
+                    opacity: 0.7;
+                }
+                .listen-sim-btn:hover { opacity: 1; background: rgba(46,93,75,0.06); }
+
+                /* --- Waveform --- */
+                .listen-wave-card {
+                    background: var(--card-bg);
+                    border-radius: var(--border-radius);
+                    box-shadow: var(--shadow-sm);
+                    border: 1px solid rgba(0,0,0,0.05);
+                    padding: 12px 16px 10px;
+                    margin-bottom: 1.5rem;
+                }
+                .listen-wave-label {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    margin-bottom: 8px;
+                }
+                .listen-wave-label .listen-rec-dot {
+                    width: 7px; height: 7px;
+                    border-radius: 50%;
+                    background: #dc2626;
+                    animation: blink-dot 1.2s ease infinite;
+                }
+                @keyframes blink-dot {
+                    0%,100% { opacity:1; } 50% { opacity:0.2; }
+                }
+                #listen-waveform { width:100%; display:block; }
+
+                /* --- Now Hearing --- */
+                .listen-now-section {
+                    margin-bottom: 1.5rem;
+                }
+                .listen-section-title {
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    letter-spacing: 0.8px;
+                    margin-bottom: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                .listen-nowcard {
+                    background: var(--card-bg);
+                    border-radius: var(--border-radius);
+                    box-shadow: var(--shadow-sm);
+                    border: 1px solid rgba(0,0,0,0.05);
+                    padding: 12px 14px;
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+                    margin-bottom: 8px;
+                    cursor: pointer;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                    animation: fade-in-card 0.3s ease-out;
+                }
+                .listen-nowcard:hover {
+                    transform: translateY(-1px);
+                    box-shadow: var(--shadow-md);
+                }
+                .listen-nowcard-img {
+                    width: 52px; height: 52px;
+                    border-radius: 10px;
+                    object-fit: cover;
+                    flex-shrink: 0;
+                }
+                .listen-nowcard-placeholder {
+                    width: 52px; height: 52px;
+                    border-radius: 10px;
+                    background: var(--background);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    color: var(--secondary);
+                    font-size: 1.4rem;
+                }
+                .listen-nowcard-body { flex: 1; min-width: 0; }
+                .listen-nowcard-name {
+                    font-weight: 700;
+                    font-size: 1rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .listen-nowcard-sci {
+                    font-size: 0.78rem;
+                    color: var(--text-muted);
+                    font-style: italic;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-bottom: 5px;
+                }
+                .listen-bar-wrap {
+                    background: var(--background);
+                    border-radius: 99px;
+                    height: 5px;
+                    overflow: hidden;
+                }
+                .listen-bar {
+                    height: 100%;
+                    border-radius: 99px;
+                    transition: width 0.5s ease;
+                }
+                .listen-nowcard-pct {
+                    font-weight: 900;
+                    font-size: 1.15rem;
+                    flex-shrink: 0;
+                    min-width: 46px;
+                    text-align: right;
+                }
+                .listen-empty-now {
+                    text-align: center;
+                    color: var(--text-muted);
+                    font-size: 0.9rem;
+                    padding: 1.5rem 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                /* --- Session Log --- */
+                .listen-session-section { margin-bottom: 2rem; }
+                .listen-scard {
+                    background: var(--card-bg);
+                    border-radius: var(--border-radius);
+                    box-shadow: var(--shadow-sm);
+                    border: 1px solid rgba(0,0,0,0.05);
+                    padding: 10px 14px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-bottom: 8px;
+                    cursor: pointer;
+                    transition: all 0.25s;
+                }
+                .listen-scard:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+                .listen-scard.is-active {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(46,93,75,0.12), var(--shadow-sm);
+                    animation: glow-card 0.6s ease;
+                }
+                @keyframes glow-card {
+                    0%   { box-shadow: 0 0 0 0 rgba(46,93,75,0.45); }
+                    100% { box-shadow: 0 0 0 6px rgba(46,93,75,0); }
+                }
+                .listen-scard-img {
+                    width: 44px; height: 44px;
+                    border-radius: 8px;
+                    object-fit: cover;
+                    flex-shrink: 0;
+                }
+                .listen-scard-placeholder {
+                    width: 44px; height: 44px;
+                    border-radius: 8px;
+                    background: var(--background);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    color: var(--secondary);
+                }
+                .listen-scard-name {
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .listen-scard-meta {
+                    font-size: 0.74rem;
+                    color: var(--text-muted);
+                }
+                .listen-scard-dot {
+                    width: 10px; height: 10px;
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                    margin-left: auto;
+                }
+
+                /* --- Responsive --- */
+                @media (max-width: 600px) {
+                    .listen-hero { padding: 2rem 1.25rem 1.5rem; }
+                    .listen-hero h2 { font-size: 1.3rem; }
+                }
+
                 @keyframes fade-in-card {
-                    from { opacity: 0; transform: translateY(5px); }
+                    from { opacity: 0; transform: translateY(6px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
             </style>
 
-            <!-- Live waveform -->
-            <div id="listen-waveform-wrap" style="max-width:500px; margin: 1.5rem auto 0; display:none;">
-                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;"><i class="fa-solid fa-wave-square"></i> Ljudupptagning</p>
-                <div style="background:var(--card-bg); border-radius:var(--border-radius); padding:10px; box-shadow:var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05);">
-                    <canvas id="listen-waveform" height="60" style="width:100%; display:block; height:60px;"></canvas>
+            <!-- Hero / Header -->
+            <div class="listen-hero">
+                <div class="listen-hero-icon"><i class="fa-solid fa-ear-listen"></i></div>
+                <h2>Identifiera fågelsång</h2>
+                <p>Aktivera mikrofonen och låt AI:n lyssna på naturen runt dig</p>
+                <div id="listen-status" class="listen-status-pill">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Laddar inställningar...
                 </div>
             </div>
 
-            <div id="listen-results" style="margin-top: 1.5rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; min-height: 400px;">
-                <p class="text-muted" style="text-align: center;">Resultat dyker upp här när en fågel hörs.</p>
+            <!-- Controls -->
+            <div class="listen-controls">
+                <div id="listen-spinner" style="display:none; width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink-dot 1s infinite;"></div>
+                <button id="listen-start-btn" class="listen-mic-btn" disabled title="Starta/stoppa lyssning">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <div class="listen-mic-label" id="listen-btn-label">Tryck för att lyssna</div>
+                <button id="listen-sim-btn" class="listen-sim-btn">
+                    <i class="fa-solid fa-flask"></i> Simulera offline-träffar
+                </button>
             </div>
 
-            <!-- Session log -->
-            <div id="listen-session-wrap" style="max-width:500px; margin: 2rem auto 0; display:none;">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
-                    <h3 style="margin:0; font-size:1rem;"><i class="fa-solid fa-list-check" style="color:var(--primary);"></i> Hörda under sessionen</h3>
-                    <button onclick="listen_clearSession()" style="background:none; border:none; color:var(--text-muted); font-size:0.8rem; cursor:pointer;"><i class="fa-solid fa-trash"></i> Rensa</button>
+            <div style="max-width:520px; margin:0 auto; padding: 0 0.5rem;">
+
+                <!-- Waveform -->
+                <div class="listen-wave-card" id="listen-waveform-wrap" style="display:none;">
+                    <div class="listen-wave-label">
+                        <span class="listen-rec-dot"></span> Mikrofon aktiv
+                    </div>
+                    <canvas id="listen-waveform" height="56"></canvas>
                 </div>
-                <div id="listen-session-list"></div>
+
+                <!-- Now Hearing -->
+                <div class="listen-now-section">
+                    <div class="listen-section-title">
+                        <i class="fa-solid fa-volume-high" style="color:var(--primary)"></i>
+                        Hörs just nu
+                    </div>
+                    <div id="listen-results">
+                        <div class="listen-empty-now" id="listen-empty-msg">
+                            <i class="fa-solid fa-leaf fa-lg" style="color:var(--secondary);opacity:0.5;"></i>
+                            Resultat dyker upp här när en fågel hörs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Log -->
+                <div class="listen-session-section" id="listen-session-wrap" style="display:none;">
+                    <div class="listen-section-title" style="justify-content:space-between;">
+                        <span>
+                            <i class="fa-solid fa-list-check" style="color:var(--primary)"></i>
+                            Hörda under sessionen
+                        </span>
+                        <button onclick="listen_clearSession()" style="background:none;border:none;color:var(--text-muted);font-size:0.75rem;cursor:pointer;font-family:var(--font-stack);display:flex;align-items:center;gap:4px;">
+                            <i class="fa-solid fa-rotate-left"></i> Rensa
+                        </button>
+                    </div>
+                    <div id="listen-session-list"></div>
+                </div>
+
             </div>
         </section>
+
 
         <!-- Guide View -->
         <section id="guide-view" class="view-section">
