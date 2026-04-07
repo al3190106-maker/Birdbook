@@ -114,9 +114,10 @@ function listen_handlePredictions(preds) {
         const name     = dbBird ? dbBird.nameSv : (pred.commonNameI18n || pred.scientificName);
 
         if (!existing) {
-            listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }), isNew: true };
+            listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }), isNew: true, heardAt: Date.now() };
         } else {
             if (pred.confidence > existing.confidence) existing.confidence = pred.confidence;
+            existing.heardAt = Date.now(); // update timestamp each time heard
         }
         listen_session[pred.scientificName].isActive = true;
     });
@@ -161,7 +162,8 @@ function listen_buildNowCard(pred) {
    SESSION LOG
 --------------------------------------------------------------- */
 function listen_renderSession() {
-    const entries = Object.values(listen_session).sort((a, b) => b.confidence - a.confidence);
+    // Sort by most recently heard (latest time first)
+    const entries = Object.values(listen_session).sort((a, b) => b.heardAt - a.heardAt);
 
     // Show/hide placeholder
     if (listenEl.sessionEmpty) {
@@ -170,7 +172,6 @@ function listen_renderSession() {
 
     const cards = entries.map(e => {
         const pct      = Math.round(e.confidence * 100);
-        const col      = listen_colFor(pct);
         const isActive = e.isActive;
         const clickJs  = e.dbBird ? `window.listen_openBird('${e.dbBird.id}')` : '';
         const imgHtml  = e.imgSrc
@@ -178,18 +179,14 @@ function listen_renderSession() {
             : `<div class="listen-scard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
 
         const activeClass = isActive ? ' is-active' : '';
-        const badge = isActive
-            ? `<span style="font-size:0.65rem;background:rgba(46,93,75,0.12);color:var(--primary);border-radius:99px;padding:1px 7px;font-weight:700;margin-left:5px;vertical-align:middle;"><i class="fa-solid fa-music" style="font-size:0.6rem"></i> sjunger</span>`
-            : '';
 
         return `
         <div class="listen-scard${activeClass}" onclick="${clickJs}">
             ${imgHtml}
-            <div style="flex:1;min-width:0;">
-                <div class="listen-scard-name">${e.name}${badge}</div>
-                <div class="listen-scard-meta">${e.time} &middot; ${pct}% säkerhet</div>
+            <div class="listen-scard-body">
+                <div class="listen-scard-name">${e.name}</div>
+                <div class="listen-scard-meta">${e.time}</div>
             </div>
-            <div class="listen-scard-dot" style="background:${col};"></div>
         </div>`;
     }).join('');
 
@@ -216,7 +213,9 @@ async function listen_start() {
 
     listen_isListening = true;
     listenEl.startBtn.classList.add('is-listening');
-    listenEl.startBtn.innerHTML = '<i class="fa-solid fa-stop"></i>';
+    const micImg = document.getElementById('listen-mic-img');
+    if (micImg) micImg.style.display = 'none';
+    listenEl.startBtn.innerHTML = '<i class="fa-solid fa-stop" style="font-size:1.6rem"></i>';
     listen_setStatus('<i class="fa-solid fa-circle" style="color:#f87171;font-size:0.7em;"></i> Lyssnar aktivt...');
 
     try {
@@ -261,9 +260,8 @@ function listen_stop() {
     listen_isListening  = false;
     listen_isSimulating = false;
     listenEl.startBtn.classList.remove('is-listening');
-    listenEl.startBtn.innerHTML = '<i class="fa-solid fa-microphone"></i>';
-    if (listenEl.btnLabel) listenEl.btnLabel.textContent = listen_isWorkerReady ? 'Tryck för att lyssna' : 'Laddar AI...';
-    if (listenEl.simBtn) listenEl.simBtn.innerHTML = '<i class="fa-solid fa-flask"></i> Simulera offline-träffar';
+    listenEl.startBtn.innerHTML = '<img src="images/bird_mic_icon.png" style="width:46px;height:46px;object-fit:contain;" id="listen-mic-img">';
+    if (listenEl.simBtn) listenEl.simBtn.innerHTML = '<i class="fa-solid fa-flask"></i>';
 
     listenEl.waveWrap.style.display = 'none';
 

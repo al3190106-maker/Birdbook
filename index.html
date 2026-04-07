@@ -379,6 +379,14 @@
 
                 /* --- Session Log --- */
                 .listen-session-section { margin-bottom: 2rem; }
+                #listen-session-list {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 8px;
+                }
+                #listen-session-empty {
+                    grid-column: 1 / -1;
+                }
                 .listen-scard {
                     background: var(--card-bg);
                     border-radius: var(--border-radius);
@@ -388,7 +396,7 @@
                     display: flex;
                     align-items: center;
                     gap: 12px;
-                    margin-bottom: 8px;
+                    margin-bottom: 0;
                     cursor: pointer;
                     transition: all 0.25s;
                 }
@@ -448,27 +456,23 @@
                 }
             </style>
 
-            <!-- Hero / Header -->
-            <div class="listen-hero">
-                <div class="listen-hero-icon"><i class="fa-solid fa-ear-listen"></i></div>
-                <h2>Identifiera fågelsång</h2>
+            <!-- Controls -->
+            <div class="listen-controls">
                 <div id="listen-status" class="listen-status-pill">
                     <i class="fa-solid fa-spinner fa-spin"></i> Laddar AI...
                 </div>
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <div id="listen-spinner" style="display:none;"></div>
+                    <button id="listen-start-btn" class="listen-mic-btn" disabled title="Starta/stoppa lyssning">
+                        <img src="images/bird_mic_icon.png" alt="" style="width:46px;height:46px;object-fit:contain;" id="listen-mic-img">
+                    </button>
+                    <button id="listen-sim-btn" class="listen-sim-btn" title="Simulera fågelljud">
+                        <i class="fa-solid fa-flask"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Controls -->
-            <div class="listen-controls">
-                <div id="listen-spinner" style="display:none;"></div>
-                <button id="listen-start-btn" class="listen-mic-btn" disabled title="Starta/stoppa lyssning">
-                    <i class="fa-solid fa-microphone"></i>
-                </button>
-                <button id="listen-sim-btn" class="listen-sim-btn" title="Simulera fågelljud">
-                    <i class="fa-solid fa-flask"></i>
-                </button>
-            </div>
-
-            <div style="max-width:520px; margin:0 auto; padding: 0 0.5rem;">
+            <div style="max-width:600px; margin:0 auto; padding: 0 0.5rem;">
 
                 <!-- Waveform -->
                 <div class="listen-wave-card" id="listen-waveform-wrap" style="display:none;">
