@@ -879,13 +879,15 @@ function _renderBirdDetail(item, sighting = null) {
     const fallbackSrc = item.image || getBirdImageSrc(item.id);
     let imagesToShow = galleryImages.length > 0 ? [...galleryImages] : [];
     
-    // Sort images so male ('male') image is always first
+    // Sort images: Hane (male) -> Unisex (same) -> Hona (female)
     if (imagesToShow.length > 1) {
         imagesToShow.sort((a, b) => {
+            const priority = { 'male': 1, 'same': 2, 'female': 3 };
             const genderA = typeof a === 'object' ? a.gender : null;
             const genderB = typeof b === 'object' ? b.gender : null;
-            if (genderA === 'male' && genderB !== 'male') return -1;
-            if (genderA !== 'male' && genderB === 'male') return 1;
+            const pA = priority[genderA] || 99;
+            const pB = priority[genderB] || 99;
+            if (pA !== pB) return pA - pB;
             return 0;
         });
     }
@@ -1583,28 +1585,6 @@ function saveSightings() {
 
 // --- Logic Helpers ---
 
-function getBirdImageSrc(birdId) {
-    // 1. Check LocalStorage for custom override
-    const custom = localStorage.getItem(`custom_img_${birdId}`);
-    if (custom) return custom;
-    
-    // Check if it's fungi
-    const fungiItem = (window.swedishFungi || []).find(f => f.id === birdId);
-    if (fungiItem && fungiItem.image) return fungiItem.image;
-
-    // 2. Default
-    return `images/${birdId}.jpg`;
-}
-
-function handleImageError(img) {
-    const birdId = img.dataset.birdId;
-    if (!birdId) return;
-    const svg = generateHolderSvg(birdId);
-    img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-    img.onerror = null;
-    img.classList.add('placeholder-active');
-}
-
 function triggerImageUpload(birdId) {
     editingBirdId = birdId;
     elements.customImageInput.click();
@@ -2281,11 +2261,25 @@ function getBirdImageSrc(birdId) {
     const fungiItem = (window.swedishFungi || []).find(f => f.id === birdId);
     if (fungiItem && fungiItem.image) return fungiItem.image;
 
-    // 2. Priority check from bird_images for the primary view (males first)
+    // 2. Priority check from bird_images for the primary view (Hane -> Unisex -> Hona)
     if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
         const arr = window.birdImages[birdId];
-        const male = arr.find(img => typeof img === 'object' && img.gender === 'male');
-        if (male) return male.src;
+        const priority = { 'male': 1, 'same': 2, 'female': 3 };
+        
+        let bestImg = null;
+        let bestPrio = 100;
+
+        arr.forEach(img => {
+            const gender = typeof img === 'object' ? img.gender : null;
+            const prio = priority[gender] || 99;
+            if (prio < bestPrio) {
+                bestPrio = prio;
+                bestImg = img;
+            }
+        });
+
+        if (bestImg) return typeof bestImg === 'object' ? bestImg.src : bestImg;
+        
         const first = arr[0];
         return typeof first === 'object' ? first.src : first;
     }

@@ -232,13 +232,29 @@ async function listen_start() {
 
     try {
         listen_stream = await navigator.mediaDevices.getUserMedia({
-            audio: { channelCount: 1, sampleRate: LISTEN_SAMPLE_RATE, echoCancellation: false, noiseSuppression: false }
+            audio: { 
+                channelCount: 1, 
+                sampleRate: LISTEN_SAMPLE_RATE, 
+                echoCancellation: false, 
+                noiseSuppression: false,
+                autoGainControl: true
+            }
         });
 
         listen_audioCtx = new AudioContext({ sampleRate: LISTEN_SAMPLE_RATE });
         if (listen_audioCtx.state === 'suspended') await listen_audioCtx.resume();
 
         const source = listen_audioCtx.createMediaStreamSource(listen_stream);
+        
+        // --- Compressor for quiet sounds ---
+        // Just like in a music mix, we lift the quiet parts to help the AI "hear" better.
+        const compressor = listen_audioCtx.createDynamicsCompressor();
+        compressor.threshold.setValueAtTime(-50, listen_audioCtx.currentTime); // Boost starts at -50dB
+        compressor.knee.setValueAtTime(40, listen_audioCtx.currentTime);      // Soft knee
+        compressor.ratio.setValueAtTime(12, listen_audioCtx.currentTime);     // 12:1 compression
+        compressor.attack.setValueAtTime(0, listen_audioCtx.currentTime);
+        compressor.release.setValueAtTime(0.25, listen_audioCtx.currentTime);
+
         listen_circularBuffer   = new Float32Array(LISTEN_WINDOW_SAMPLES);
         listen_circularWriteIdx = 0;
 
@@ -254,9 +270,14 @@ async function listen_start() {
 
         listen_analyser = listen_audioCtx.createAnalyser();
         listen_analyser.fftSize = 1024;
-        source.connect(listen_analyser);
-        source.connect(listen_workletNode);
-        listen_workletNode.connect(listen_audioCtx.destination);
+        
+        // Connect: source -> compressor -> (analyser & worklet)
+        source.connect(compressor);
+        compressor.connect(listen_analyser);
+        compressor.connect(listen_workletNode);
+        
+        // We don't want to hear the mic output (feedback)
+        // listen_workletNode.connect(listen_audioCtx.destination);
 
         listenEl.waveWrap.style.display = 'block';
         listen_drawWaveform();
@@ -304,46 +325,58 @@ function listen_drawWaveform() {
 
     const canvas = listenEl.waveCanvas;
     const dpr    = window.devicePixelRatio || 1;
-    canvas.width  = canvas.offsetWidth * dpr;
-    canvas.height = 56 * dpr;
-    canvas.style.height = '56px';
+    const W = canvas.offsetWidth * dpr;
+    const H = 120 * dpr;
+    
+    canvas.width  = W;
+    canvas.height = H;
+    canvas.style.height = '120px';
 
-    const ctx = canvas.getContext('2d');
-    const buf = new Uint8Array(listen_analyser.fftSize);
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const freqData = new Uint8Array(listen_analyser.frequencyBinCount);
+    
+    // Create an offscreen canvas to hold the history for smooth scrolling
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = W;
+    tempCanvas.height = H;
+    const tempCtx = tempCanvas.getContext('2d', { alpha: false });
+    tempCtx.fillStyle = '#000';
+    tempCtx.fillRect(0, 0, W, H);
+
+    function getSpectrogramColor(v) {
+        if (v < 20)  return `rgb(0,0,${v/4})`;
+        if (v < 80)  return `rgb(${v-20}, 0, ${100-v})`;
+        if (v < 180) return `rgb(${v}, ${v/4}, 0)`;
+        return `rgb(255, ${v}, ${v/2})`;
+    }
 
     function draw() {
         if (!listen_isListening) return;
         listen_waveAnimId = requestAnimationFrame(draw);
-        listen_analyser.getByteTimeDomainData(buf);
-        const W = canvas.width, H = canvas.height;
+        
+        listen_analyser.getByteFrequencyData(freqData);
+        
+        // 1. Shift existing visualization left
+        tempCtx.drawImage(tempCanvas, -2 * dpr, 0);
+        
+        // 2. Draw new frequency column on the right
+        // Bird range focus: ~500Hz to ~12kHz
+        // With 48kHz SR and 2048 FFT, bins are ~23Hz each.
+        // Bin 20 (~460Hz) to Bin 500 (~11.5kHz)
+        const startBin = 15;
+        const endBin   = 450;
+        const numBins  = endBin - startBin;
+        const binH     = H / numBins;
 
-        ctx.clearRect(0, 0, W, H);
-
-        // Subtle centre line
-        ctx.strokeStyle = 'rgba(46,93,75,0.12)';
-        ctx.lineWidth   = 1;
-        ctx.beginPath();
-        ctx.moveTo(0, H / 2);
-        ctx.lineTo(W, H / 2);
-        ctx.stroke();
-
-        // Waveform
-        ctx.beginPath();
-        ctx.lineWidth   = 2.5 * dpr;
-        ctx.lineCap     = 'round';
-        ctx.lineJoin    = 'round';
-        ctx.strokeStyle = '#2E5D4B';
-
-        const sliceW = W / buf.length;
-        let x = 0;
-        for (let i = 0; i < buf.length; i++) {
-            const v = buf[i] / 128.0;
-            const y = (v * H) / 2;
-            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-            x += sliceW;
+        for (let i = 0; i < numBins; i++) {
+            const val = freqData[startBin + i];
+            // Invert Y so high freq is at top
+            tempCtx.fillStyle = getSpectrogramColor(val);
+            tempCtx.fillRect(W - (2 * dpr), H - (i * binH) - binH, 2 * dpr, binH + 1);
         }
-        ctx.lineTo(W, H / 2);
-        ctx.stroke();
+        
+        // 3. Render offscreen to main
+        ctx.drawImage(tempCanvas, 0, 0);
     }
     draw();
 }
@@ -400,31 +433,18 @@ function listen_startSim() {
         listen_waveAnimId = requestAnimationFrame(drawFakeWave);
         const W = canvas.width, H = canvas.height;
 
-        ctx.clearRect(0, 0, W, H);
+        // Shift and draw random noise columns for simulation
+        ctx.drawImage(canvas, -2 * dpr, 0);
+        ctx.fillStyle = '#000';
+        ctx.fillRect(W - 2 * dpr, 0, 2 * dpr, H);
 
-        ctx.strokeStyle = 'rgba(46,93,75,0.12)';
-        ctx.lineWidth   = 1;
-        ctx.beginPath();
-        ctx.moveTo(0, H / 2);
-        ctx.lineTo(W, H / 2);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.lineWidth   = 2.5 * dpr;
-        ctx.lineCap     = 'round';
-        ctx.lineJoin    = 'round';
-        ctx.strokeStyle = '#2E5D4B';
-
-        const sliceW = W / 100;
-        let x = 0;
-        for (let i = 0; i < 100; i++) {
-            const amp = 0.15 + Math.random() * 0.15;
-            const y   = H / 2 + Math.sin(i * 0.4 + phase) * amp * H + (Math.random() - 0.5) * 0.03 * H;
-            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-            x += sliceW;
+        for (let i = 0; i < H; i += 4 * dpr) {
+            const val = Math.random() < 0.1 ? Math.random() * 255 : Math.random() * 50;
+            if (val > 40) {
+                ctx.fillStyle = `rgb(${val}, ${val/2}, ${255-val})`;
+                ctx.fillRect(W - 2 * dpr, H - i, 2 * dpr, 4 * dpr);
+            }
         }
-        ctx.stroke();
-        phase += 0.08;
     }
     drawFakeWave();
 
