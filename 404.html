@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Omdirigerar / Uppdaterar...</title>
+    <script>
+      // Github Pages 404 Redirect
+      // If the URL contains the old /Birdbook/ path (e.g. from an old PWA shortcut or cache),
+      // we redirect it to the root of the new domain.
+      
+      var path = window.location.pathname;
+      if (path.includes('/Birdbook')) {
+          window.location.replace(window.location.href.replace('/Birdbook', ''));
+      } else {
+          // Send any other 404s to the main app interface
+          window.location.replace('/');
+      }
+    </script>
+  </head>
+  <body>
+    <p>Omdirigerar till Naturboken...</p>
+  </body>
+</html>
