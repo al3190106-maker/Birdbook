@@ -2392,18 +2392,20 @@ function setupEventListeners() {
             // Extract all custom images
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.startsWith('custom_img_')) {
+                if (key && key.startsWith('custom_img_')) {
                     backup.customImages[key] = localStorage.getItem(key);
                 }
             }
 
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup));
+            const blob = new Blob([JSON.stringify(backup)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
             const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("href", url);
             downloadAnchorNode.setAttribute("download", "naturboken_backup_" + new Date().toISOString().split('T')[0] + ".json");
             document.body.appendChild(downloadAnchorNode); // required for firefox
             downloadAnchorNode.click();
             downloadAnchorNode.remove();
+            URL.revokeObjectURL(url);
         });
     }
 
@@ -2443,11 +2445,11 @@ function setupEventListeners() {
                             location.reload();
                         }
                     } else {
-                        alert('Ogiltig backup-fil.');
+                        alert('Ogiltig backup-fil: Saknar observationer (sightings).');
                     }
                 } catch (err) {
                     console.error('Import error', err);
-                    alert('Något gick fel när filen skulle läsas. Är det verkligen en korrekt backup-fil?');
+                    alert('Något gick fel när filen skulle läsas: ' + err.message + '\nÄr det verkligen en korrekt, hel backup-fil?');
                 }
             };
             reader.readAsText(file);
