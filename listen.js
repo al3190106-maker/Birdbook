@@ -31,6 +31,11 @@ let listen_session = {};
 // Track which birds are "active" right now
 let listen_currentlyActive = new Set();
 
+// Audio constants
+const LISTEN_SAMPLE_RATE    = 48000;
+const LISTEN_WINDOW_SAMPLES = 144000; // 3 seconds
+let listen_circularBuffer_proc, listen_circularBuffer_raw, listen_circularWriteIdx;
+
 // Settings State
 let listen_settings = {
     threshold: 0.50
