@@ -368,7 +368,7 @@ async function handlePredict(data) {
   emitSegments(predictionList, hopSamples, WINDOW_SAMPLES);
 
   // 6. Pool Results (Log-Mean-Exp) & Emit
-  emitPooled(predictionList);
+  emitPooled(predictionList, data.track);
 }
 
 function emitSegments(predictionList, hopSamples, windowSize) {
@@ -389,7 +389,7 @@ function emitSegments(predictionList, hopSamples, windowSize) {
   postMessage({ message: 'segments', segments });
 }
 
-function emitPooled(predictionList) {
+function emitPooled(predictionList, track) {
   const numClasses = predictionList[0]?.length || 0;
   const numFrames = predictionList.length;
   const ALPHA = 5.0; // Pooling factor
@@ -413,7 +413,7 @@ function emitPooled(predictionList) {
     geoscore: birds[i].geoscore
   }));
   
-  postMessage({ message: 'pooled', pooled });
+  postMessage({ message: 'pooled', pooled, track });
 }
 
 /**

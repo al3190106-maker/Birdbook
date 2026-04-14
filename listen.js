@@ -31,10 +31,15 @@ let listen_session = {};
 // Track which birds are "active" right now
 let listen_currentlyActive = new Set();
 
-// Audio constants
-const LISTEN_SAMPLE_RATE    = 48000;
-const LISTEN_WINDOW_SAMPLES = 144000; // 3 seconds
-let listen_circularBuffer, listen_circularWriteIdx;
+// Settings State
+let listen_settings = {
+    threshold: 0.50
+};
+let listen_hpfNode  = null;
+let listen_results_proc = [];
+let listen_results_raw  = [];
+let listen_isCalibrated = false;
+let listen_consecutiveSilence = 0;
 
 /* ---------------------------------------------------------------
    HELPERS
@@ -75,7 +80,9 @@ async function initBirdnet() {
                 listenEl.startBtn.disabled = false;
                 listen_setStatus('');
             } else if (data.message === 'pooled') {
-                listen_handlePredictions(data.pooled || []);
+                if (data.track === 'proc') listen_results_proc = data.pooled;
+                if (data.track === 'raw')  listen_results_raw  = data.pooled;
+                listen_mergeAndHandle();
             } else if (data.message === 'error') {
                 listen_setStatus('<i class="fa-solid fa-bug" style="color:#f87171"></i> Fel: ' + data.error);
             }
@@ -92,10 +99,36 @@ async function initBirdnet() {
 /* ---------------------------------------------------------------
    HANDLE PREDICTIONS
 --------------------------------------------------------------- */
+function listen_mergeAndHandle() {
+    const mergedMap = new Map();
+    // Merge processed and raw tracks by taking the max confidence for each bird
+    [...listen_results_proc, ...listen_results_raw].forEach(p => {
+        const existing = mergedMap.get(p.scientificName);
+        if (!existing || p.confidence > existing.confidence) {
+            mergedMap.set(p.scientificName, p);
+        }
+    });
+    const merged = Array.from(mergedMap.values());
+
+    // --- Adaptive Calibration Logic ---
+    // If no birds are detected across tracks for multiple intervals, we recalibrate the filter
+    if (merged.length === 0) {
+        listen_consecutiveSilence++;
+        if (listen_consecutiveSilence >= 3) { // After ~6 seconds of silence
+            listen_autoCalibrate();
+            listen_consecutiveSilence = 0;
+        }
+    } else {
+        listen_consecutiveSilence = 0;
+    }
+
+    listen_handlePredictions(merged);
+}
+
 function listen_handlePredictions(preds) {
     if (!listen_isListening) return;
 
-    const threshold = 0.30;
+    const threshold = listen_settings.threshold;
     const active = preds
         .filter(p => {
             if (p.confidence < threshold) return false;
@@ -163,50 +196,68 @@ function listen_buildNowCard(pred) {
    SESSION LOG
 --------------------------------------------------------------- */
 function listen_renderSession() {
-    // Sortera efter när de först dök upp, så de behåller sin plats i listan
+    const list = listenEl.sessionList;
+    if (!list) return;
+
     const entries = Object.values(listen_session).sort((a, b) => b.firstHeardAt - a.firstHeardAt);
 
-    // Show/hide placeholder
     if (listenEl.sessionEmpty) {
         listenEl.sessionEmpty.style.display = entries.length === 0 ? 'flex' : 'none';
     }
 
-    const cards = entries.map(e => {
-        const pct      = Math.round(e.confidence * 100);
-        const isActive = e.isActive;
-        const clickJs  = e.dbBird ? `window.listen_openBird('${e.dbBird.id}')` : '';
-        
-        // Check if bird is already in log
+    entries.forEach(e => {
+        const pct        = Math.round(e.confidence * 100);
+        const isActive   = e.isActive;
         const isObserved = e.dbBird && (window.state && window.state.sightings && window.state.sightings.some(s => s.birdId === e.dbBird.id));
-        const observedClass = isObserved ? ' is-observed' : '';
+        const isFirst    = !isObserved;
+        
+        const cardId = e.scientificName;
+        let cardEl   = list.querySelector(`.listen-scard[data-id="${cardId}"]`);
+        const isNewEntry = !cardEl;
 
-        const imgHtml  = e.imgSrc
-            ? `<img class="listen-scard-img${observedClass}" src="${e.imgSrc}" alt="${e.name}">`
-            : `<div class="listen-scard-placeholder${observedClass}"><i class="fa-solid fa-dove"></i></div>`;
+        if (isNewEntry) {
+            const temp = document.createElement('div');
+            const clickJs = e.dbBird ? `window.listen_openBird('${e.dbBird.id}')` : '';
+            temp.innerHTML = `
+                <div class="listen-scard new-entry" onclick="${clickJs}" data-id="${cardId}">
+                    <div class="listen-scard-img-wrap"></div>
+                    <div class="listen-scard-body">
+                        <div class="listen-scard-name">${e.name}</div>
+                        <div class="listen-scard-meta"></div>
+                    </div>
+                    <div class="listen-scard-actions"></div>
+                </div>`;
+            cardEl = temp.firstElementChild;
+            
+            const imgWrap = cardEl.querySelector('.listen-scard-img-wrap');
+            imgWrap.innerHTML = e.imgSrc
+                ? `<img class="listen-scard-img" src="${e.imgSrc}" alt="${e.name}">`
+                : `<div class="listen-scard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
+        } else {
+            // Remove animation class for existing elements to prevent re-triggering
+            cardEl.classList.remove('new-entry');
+        }
 
-        const activeClass = isActive ? ' is-active' : '';
-        const addBtnHtml = e.dbBird 
-            ? `<button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name}')" title="Rapportera observation"><i class="fa-solid fa-plus"></i></button>`
-            : '';
+        // Update state
+        cardEl.classList.toggle('is-active', isActive);
+        cardEl.classList.toggle('is-observed', isObserved);
+        cardEl.classList.toggle('is-first-time', isFirst);
 
-        return `
-        <div class="listen-scard${activeClass}" onclick="${clickJs}">
-            ${imgHtml}
-            <div class="listen-scard-body">
-                <div class="listen-scard-name">${e.name}</div>
-                <div class="listen-scard-meta">${pct}% säkerhet</div>
-            </div>
-            ${addBtnHtml}
-        </div>`;
+        const metaEl = cardEl.querySelector('.listen-scard-meta');
+        const badgeHtml = isFirst ? `<div class="listen-scard-badge">Ny</div>` : '';
+        metaEl.innerHTML = `${pct}% säkerhet ${badgeHtml}`;
 
+        const actionsEl = cardEl.querySelector('.listen-scard-actions');
+        if (e.dbBird && !actionsEl.innerHTML) {
+            actionsEl.innerHTML = `<button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name}')" title="Rapportera observation"><i class="fa-solid fa-plus"></i></button>`;
+        }
 
-    }).join('');
-
-    // Inject cards without clobbering the empty placeholder
-    const existing = listenEl.sessionList.querySelectorAll('.listen-scard');
-    existing.forEach(el => el.remove());
-    listenEl.sessionList.insertAdjacentHTML('beforeend', cards);
+        list.appendChild(cardEl);
+    });
 }
+
+
+
 
 window.listen_clearSession = function() {
     listen_session = {};
@@ -222,6 +273,9 @@ window.listen_clearSession = function() {
 --------------------------------------------------------------- */
 async function listen_start() {
     if (!listen_isWorkerReady) return;
+    
+    // Ensure settings listeners are ready
+    if (!window.listen_settings_init) listen_initSettingsUI();
 
     listen_isListening = true;
     listenEl.startBtn.classList.add('is-listening');
@@ -235,9 +289,10 @@ async function listen_start() {
             audio: { 
                 channelCount: 1, 
                 sampleRate: LISTEN_SAMPLE_RATE, 
+                // Disable browser filters to prevent them from suppressing distant bird calls
                 echoCancellation: false, 
                 noiseSuppression: false,
-                autoGainControl: true
+                autoGainControl: false
             }
         });
 
@@ -246,35 +301,51 @@ async function listen_start() {
 
         const source = listen_audioCtx.createMediaStreamSource(listen_stream);
         
-        // --- Compressor for quiet sounds ---
-        // Just like in a music mix, we lift the quiet parts to help the AI "hear" better.
+        // 1. High Pass Filter (Adaptive Noise reduction)
+        listen_hpfNode = listen_audioCtx.createBiquadFilter();
+        listen_hpfNode.type = 'highpass';
+        listen_hpfNode.frequency.setValueAtTime(400, listen_audioCtx.currentTime); // Start low
+        
+        // 2. Compressor for quiet sounds
         const compressor = listen_audioCtx.createDynamicsCompressor();
-        compressor.threshold.setValueAtTime(-50, listen_audioCtx.currentTime); // Boost starts at -50dB
-        compressor.knee.setValueAtTime(40, listen_audioCtx.currentTime);      // Soft knee
-        compressor.ratio.setValueAtTime(12, listen_audioCtx.currentTime);     // 12:1 compression
+        compressor.threshold.setValueAtTime(-50, listen_audioCtx.currentTime); 
+        compressor.knee.setValueAtTime(40, listen_audioCtx.currentTime);
+        compressor.ratio.setValueAtTime(12, listen_audioCtx.currentTime);
         compressor.attack.setValueAtTime(0, listen_audioCtx.currentTime);
         compressor.release.setValueAtTime(0.25, listen_audioCtx.currentTime);
 
-        listen_circularBuffer   = new Float32Array(LISTEN_WINDOW_SAMPLES);
+        listen_circularBuffer_proc = new Float32Array(LISTEN_WINDOW_SAMPLES);
+        listen_circularBuffer_raw  = new Float32Array(LISTEN_WINDOW_SAMPLES);
         listen_circularWriteIdx = 0;
 
         await listen_audioCtx.audioWorklet.addModule('audio-processor.js');
-        listen_workletNode = new AudioWorkletNode(listen_audioCtx, 'audio-processor');
+        listen_workletNode = new AudioWorkletNode(listen_audioCtx, 'audio-processor', {
+            numberOfInputs: 2,
+            numberOfOutputs: 1
+        });
+        
         listen_workletNode.port.onmessage = (e) => {
-            const input = e.data;
-            for (let i = 0; i < input.length; i++) {
-                listen_circularBuffer[listen_circularWriteIdx] = input[i];
-                listen_circularWriteIdx = (listen_circularWriteIdx + 1) % listen_circularBuffer.length;
+            const { processed, raw } = e.data;
+            for (let i = 0; i < processed.length; i++) {
+                listen_circularBuffer_proc[listen_circularWriteIdx] = processed[i];
+                listen_circularBuffer_raw[listen_circularWriteIdx] = raw[i];
+                listen_circularWriteIdx = (listen_circularWriteIdx + 1) % LISTEN_WINDOW_SAMPLES;
             }
         };
 
         listen_analyser = listen_audioCtx.createAnalyser();
         listen_analyser.fftSize = 1024;
         
-        // Connect: source -> compressor -> (analyser & worklet)
-        source.connect(compressor);
-        compressor.connect(listen_analyser);
-        compressor.connect(listen_workletNode);
+        // Connect track 0: Filtered
+        source.connect(listen_hpfNode);
+        listen_hpfNode.connect(compressor);
+        compressor.connect(listen_workletNode, 0, 0);
+
+        // Connect track 1: Raw
+        source.connect(listen_workletNode, 0, 1);
+
+        // Connect analyser to source (raw) for better calibration scanning
+        source.connect(listen_analyser);
         
         // We don't want to hear the mic output (feedback)
         // listen_workletNode.connect(listen_audioCtx.destination);
@@ -300,6 +371,12 @@ function listen_stop() {
 
     if (listen_isWorkerReady) {
         listen_setStatus('');
+        listen_results_proc = [];
+        listen_results_raw  = [];
+        listen_isCalibrated = false;
+        listen_consecutiveSilence = 0;
+        const calibEl = document.getElementById('listen-calib-status');
+        if (calibEl) calibEl.style.display = 'none';
     } else {
         listen_setStatus('Pausad.');
     }
@@ -340,14 +417,14 @@ function listen_drawWaveform() {
     tempCanvas.width = W;
     tempCanvas.height = H;
     const tempCtx = tempCanvas.getContext('2d', { alpha: false });
-    tempCtx.fillStyle = '#000';
+    tempCtx.fillStyle = '#0a1410';
     tempCtx.fillRect(0, 0, W, H);
 
     function getSpectrogramColor(v) {
-        if (v < 20)  return `rgb(0,0,${v/4})`;
-        if (v < 80)  return `rgb(${v-20}, 0, ${100-v})`;
-        if (v < 180) return `rgb(${v}, ${v/4}, 0)`;
-        return `rgb(255, ${v}, ${v/2})`;
+        if (v < 20)  return `rgb(10, ${20 + v/2}, 16)`;
+        if (v < 80)  return `rgb(${10 + (v-20)}, ${20 + (v-20)}, ${16 + (v-20)/2})`;
+        if (v < 180) return `rgb(${46 + (v-80)}, ${93 + (v-80)/2}, ${75})`;
+        return `rgb(${143 + (v-180)}, ${188 + (v-180)/3}, ${143 + (v-180)/2})`;
     }
 
     function draw() {
@@ -385,21 +462,126 @@ function listen_drawWaveform() {
    INFERENCE LOOP
 --------------------------------------------------------------- */
 function listen_inferenceLoop() {
-    if (!listen_isListening || !listen_isWorkerReady || !listen_circularBuffer) return;
+    if (!listen_isListening || !listen_isWorkerReady || !listen_circularBuffer_proc) return;
 
-    const windowed = new Float32Array(LISTEN_WINDOW_SAMPLES);
+    const windowed_proc = new Float32Array(LISTEN_WINDOW_SAMPLES);
+    const windowed_raw  = new Float32Array(LISTEN_WINDOW_SAMPLES);
     let idx = listen_circularWriteIdx;
+    
     for (let i = 0; i < LISTEN_WINDOW_SAMPLES; i++) {
-        windowed[i] = Math.max(-1, Math.min(1, listen_circularBuffer[idx]));
-        idx = (idx + 1) % listen_circularBuffer.length;
+        windowed_proc[i] = Math.max(-1, Math.min(1, listen_circularBuffer_proc[idx]));
+        windowed_raw[i]  = Math.max(-1, Math.min(1, listen_circularBuffer_raw[idx]));
+        idx = (idx + 1) % LISTEN_WINDOW_SAMPLES;
     }
 
-    listen_worker.postMessage(
-        { message: 'predict', pcmAudio: windowed, overlapSec: 0, sensitivity: 1.0 },
-        [windowed.buffer]
-    );
+    // 3. Normalization: Scale audio so peak reaches 0.9
+    // This dramatically improves detection for distant birds.
+    listen_normalizeBuffer(windowed_proc);
+    listen_normalizeBuffer(windowed_raw);
+
+    // Run both tracks
+    listen_worker.postMessage({ 
+        message: 'predict', 
+        pcmAudio: windowed_proc, 
+        track: 'proc',
+        sensitivity: 1.0 // Automatic
+    }, [windowed_proc.buffer]);
+
+    listen_worker.postMessage({ 
+        message: 'predict', 
+        pcmAudio: windowed_raw, 
+        track: 'raw',
+        sensitivity: 1.0 // Automatic
+    }, [windowed_raw.buffer]);
 
     if (listen_isListening) setTimeout(listen_inferenceLoop, 2000);
+}
+
+/* ---------------------------------------------------------------
+   SETTINGS UI
+--------------------------------------------------------------- */
+window.listen_settings_init = false;
+function listen_initSettingsUI() {
+    const toggle = document.getElementById('listen-settings-toggle');
+    const overlay = document.getElementById('listen-settings-overlay');
+    const close = document.getElementById('listen-settings-close');
+    if (!toggle || !overlay || !close) return;
+
+    toggle.onclick = () => overlay.classList.add('active');
+    close.onclick  = () => overlay.classList.remove('active');
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.classList.remove('active'); };
+
+    const ctrls = [
+        { id: 'set-threshold',   val: 'val-threshold',   key: 'threshold',   unit: '%',   mult: 0.01 }
+    ];
+
+    ctrls.forEach(c => {
+        const input = document.getElementById(c.id);
+        const label = document.getElementById(c.val);
+        if (!input || !label) return;
+
+        input.oninput = () => {
+            let v = parseFloat(input.value);
+            listen_settings[c.key] = v * c.mult;
+            label.textContent = v + c.unit;
+        };
+    });
+
+    window.listen_settings_init = true;
+}
+
+/**
+ * Automatically adjusts the high-pass filter based on ambient noise
+ */
+function listen_autoCalibrate() {
+    if (!listen_analyser || !listen_hpfNode) return;
+
+    const dataArray = new Uint8Array(listen_analyser.frequencyBinCount);
+    listen_analyser.getByteFrequencyData(dataArray);
+
+    // Find the highest noise peak in the low-frequency range (up to 2000Hz)
+    // 48000Hz / 1024 bins = ~47Hz per bin
+    let maxBin = 0;
+    let maxVal = 0;
+    for (let i = 0; i < 40; i++) { // Check up to ~1800Hz
+        if (dataArray[i] > maxVal) {
+            maxVal = dataArray[i];
+            maxBin = i;
+        }
+    }
+
+    // Set filter just above the noise peak
+    const newFreq = Math.min(1200, Math.max(300, maxBin * 47 + 100));
+    
+    listen_hpfNode.frequency.setTargetAtTime(newFreq, listen_audioCtx.currentTime, 0.5);
+    
+    // UI Feedback
+    const calibEl = document.getElementById('listen-calib-status');
+    if (calibEl && !listen_isCalibrated) {
+        calibEl.style.display = 'flex';
+        setTimeout(() => { if (calibEl) calibEl.style.opacity = '0.6'; }, 3000);
+    }
+    listen_isCalibrated = true;
+    console.log("Auto-calibrated filter to:", newFreq, "Hz (Noise peak at bin", maxBin, ")");
+}
+
+/**
+ * Peak Normalization: Scales the buffer so the loudest point hits 0.9.
+ * This helps the AI see patterns in quiet recordings.
+ */
+function listen_normalizeBuffer(buf) {
+    let max = 0;
+    for (let i = 0; i < buf.length; i++) {
+        const abs = Math.abs(buf[i]);
+        if (abs > max) max = abs;
+    }
+    // Only normalize if there's a signal but it's not already loud
+    if (max > 0.01 && max < 0.8) {
+        const factor = 0.9 / max;
+        for (let i = 0; i < buf.length; i++) {
+            buf[i] *= factor;
+        }
+    }
 }
 
 /* ---------------------------------------------------------------
@@ -435,7 +617,7 @@ function listen_startSim() {
 
         // Shift and draw random noise columns for simulation
         ctx.drawImage(canvas, -2 * dpr, 0);
-        ctx.fillStyle = '#000';
+        ctx.fillStyle = '#0a1410';
         ctx.fillRect(W - 2 * dpr, 0, 2 * dpr, H);
 
         for (let i = 0; i < H; i += 4 * dpr) {

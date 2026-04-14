@@ -1,10 +1,10 @@
 {
-  "id": "/Birdbook/",
+  "id": "/",
   "name": "Naturboken – Svensk Naturguide",
   "short_name": "Naturboken",
   "description": "Din kompletta guide till svensk natur – fåglar, träd, fiskar, svampar, blommor och däggdjur.",
-  "start_url": "/Birdbook/index.html",
-  "scope": "/Birdbook/",
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#F0F4F1",
   "theme_color": "#2E5D4B",

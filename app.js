@@ -1,5 +1,4 @@
 // --- Configuration & State ---
-// --- Configuration & State ---
 const state = {
     sightings: [],
     yearFilter: new Date().getFullYear(),
@@ -401,9 +400,7 @@ window.openModal = function(id, pushState = true) {
 window.addEventListener('popstate', (event) => {
     // 1. Close all modals visually first
     document.querySelectorAll('.modal-overlay').forEach(m => {
-        if (m.id !== 'password-modal' && m.id !== 'welcome-modal') {
-            m.classList.remove('active');
-        }
+        m.classList.remove('active');
     });
 
     if (elements.detailAudioPlayer) {
