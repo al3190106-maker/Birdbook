@@ -1282,49 +1282,14 @@ function switchSubject(subjectId) {
 async function init() {
     console.log('App Initializing...');
 
-    // --- Password Protection ---
-    const isAuthenticated = localStorage.getItem('birdfinder_auth_token') === 'valid';
+    // --- Welcome Screen ---
     const hasSeenWelcome = localStorage.getItem('birdfinder_welcome_shown') === 'true';
-    const passwordModal = document.getElementById('password-modal');
-    const passwordForm = document.getElementById('password-form');
-    const passwordInput = document.getElementById('password-input');
-    const passwordError = document.getElementById('password-error');
     const welcomeModal = document.getElementById('welcome-modal');
 
-    if (!isAuthenticated) {
-        // Show modal
-        passwordModal.classList.add('active');
-
-        // Handle Submit
-        passwordForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const input = passwordInput.value.trim();
-            if (input === 'apa') {
-                // Correct
-                localStorage.setItem('birdfinder_auth_token', 'valid');
-                passwordModal.classList.remove('active');
-
-                // Show Welcome screen if never seen
-                if (!hasSeenWelcome && welcomeModal) {
-                    welcomeModal.classList.add('active');
-                    localStorage.setItem('birdfinder_welcome_shown', 'true');
-                }
-            } else {
-                // Incorrect
-                passwordError.style.display = 'block';
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        });
-    } else {
-        // Already authenticated
-        if (passwordModal) passwordModal.classList.remove('active');
-
-        // Show Welcome screen if they haven't seen it yet
-        if (!hasSeenWelcome && welcomeModal) {
-            welcomeModal.classList.add('active');
-            localStorage.setItem('birdfinder_welcome_shown', 'true');
-        }
+    // Show Welcome screen if they haven't seen it yet
+    if (!hasSeenWelcome && welcomeModal) {
+        welcomeModal.classList.add('active');
+        localStorage.setItem('birdfinder_welcome_shown', 'true');
     }
 
     // Check for data dependency
@@ -2883,8 +2848,8 @@ function setupEventListeners() {
     // Close modals when clicking outside the modal content
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal-overlay')) {
-            // Do not close password modal or welcome modal by clicking outside
-            if (e.target.id === 'password-modal' || e.target.id === 'welcome-modal') return;
+            // Do not close welcome modal by clicking outside
+            if (e.target.id === 'welcome-modal') return;
 
             // These modals use HTML5 history state for navigation
             if (e.target.id === 'sighting-modal' || e.target.id === 'bird-detail-modal-overlay' || e.target.id === 'fullscreen-image-modal') {
