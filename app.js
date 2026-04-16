@@ -926,9 +926,11 @@ function _renderBirdDetail(item, sighting = null) {
     }
 
     if (elements.detailAudioContainer && elements.detailAudioPlayer) {
+        const attributionLink = document.getElementById('detail-audio-attribution');
         if (item.audio) {
             elements.detailAudioPlayer.src = item.audio;
             elements.detailAudioContainer.style.display = 'block';
+            if (attributionLink) attributionLink.href = item.audio;
         } else {
             elements.detailAudioPlayer.src = '';
             elements.detailAudioContainer.style.display = 'none';

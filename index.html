@@ -5,17 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Svensk Fågelskådare | BirdFinder Sweden</title>
-    <!-- Use Preconnect for Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts Outfit (Local) -->
+    <link href="assets/vendor/fonts/outfit/index.css" rel="stylesheet">
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome (Local) -->
+    <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
 
-    <!-- Leaflet Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet Map (Local) -->
+    <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css" />
+    <script src="assets/vendor/leaflet/leaflet.js"></script>
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
@@ -1017,6 +1015,9 @@
                             <source src="" type="audio/mpeg">
                             Din webbläsare stöder inte ljudspelaren.
                         </audio>
+                        <div style="margin-top: 5px; font-size: 0.75rem; color: #64748b;">
+                            <a id="detail-audio-attribution" href="#" target="_blank" style="color: #3b82f6; text-decoration: none;">Källa & Licens (Creative Commons)</a>
+                        </div>
                     </div>
                     <div class="bird-facts-grid">
                     <div class="fact-card">
@@ -1277,6 +1278,14 @@
                             </li>
                         </ul>
                         <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; text-align: center; margin-top: 0.5rem;">Obs: Eftersom värdet är generellt för hela Sverige uppmärksammas inga lokala avvikelser i denna skala.</p>
+                    </div>
+                </details>
+                <details style="margin-bottom: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <summary style="margin-bottom: 0; color: var(--primary); font-size: 1.17em; font-weight: 600; cursor: pointer; outline: none;">
+                        Integritet och Data
+                    </summary>
+                    <div style="padding-top: 1rem;">
+                        <p style="font-size: 0.9rem; margin-bottom: 0;"><strong>Din integritet:</strong> Appen sparar all din data, inklusive platsinformation och bilder, enbart lokalt på din egen enhet. Vi varken samlar in, analyserar eller delar din data till några externa servrar eller tredje part.</p>
                     </div>
                 </details>
                 <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-main); text-align: center; border-top: 1px solid #eee; padding-top: 1rem;">
