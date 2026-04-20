@@ -2095,6 +2095,7 @@ const CATEGORY_ICON_IMAGES = {
     'Kräldjur':         'animal_kraldjur.png',
     'Mårddjur':         'animal_marddjur.png',
     'Rovdjur':          'animal_rovdjur.png',
+    'Sälar':            'salar.png',
 };
 
 // Helper for icons (used in Map view & Guide Categories)

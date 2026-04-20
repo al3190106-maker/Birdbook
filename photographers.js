@@ -16,7 +16,7 @@ window.photographers = {
     'Jan Joråd': {
         id: 'Jan Joråd',
         name: 'Jan Joråd',
-        image: null,
+        image: 'images/Fotografer/Jan Jorad/Profil_Jan-Jorad.png',
         description: 'Naturfotograf vars bilder publiceras på fageln.se.',
         donationLink: null
     }
