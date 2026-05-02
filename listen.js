@@ -403,6 +403,9 @@ async function listen_start() {
         listen_drawWaveform();
         setTimeout(listen_inferenceLoop, 1000); // Starta loopen snabbare för mer överlappning
 
+        const listenNavBtn = document.querySelector('.nav-btn[data-tab="listen-view"]');
+        if (listenNavBtn) listenNavBtn.classList.add('is-recording');
+
     } catch (err) {
         listen_setStatus('<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b"></i> Mikrofon nekades eller stöds ej.');
         listen_stop();
@@ -417,6 +420,9 @@ function listen_stop() {
     if (listenEl.simBtn) listenEl.simBtn.innerHTML = '<i class="fa-solid fa-flask"></i>';
 
     listenEl.waveWrap.style.display = 'none';
+
+    const listenNavBtn = document.querySelector('.nav-btn[data-tab="listen-view"]');
+    if (listenNavBtn) listenNavBtn.classList.remove('is-recording');
 
     if (listen_isWorkerReady) {
         listen_setStatus('');

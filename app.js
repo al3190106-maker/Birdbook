@@ -2714,8 +2714,6 @@ function setupEventListeners() {
             // Init AI Listen module
             if (btn.dataset.tab === 'listen-view' && typeof initBirdnet === 'function') {
                 initBirdnet();
-            } else if (btn.dataset.tab !== 'listen-view' && typeof window.listen_stopOnTabChange === 'function') {
-                window.listen_stopOnTabChange();
             }
 
             // Render photographers view
