@@ -266,9 +266,6 @@ function listen_renderSession() {
         if (e.dbBird && !actionsEl.innerHTML) {
             actionsEl.innerHTML = `
                 <button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_quickAddSighting('${e.dbBird.id}', '${e.name.replace(/'/g, '')}')" title="Snabbtillägg med automatisk plats och väder">
-                    <i class="fa-solid fa-bolt"></i>
-                </button>
-                <button class="listen-scard-add-btn" style="margin-left:4px;" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name.replace(/'/g, '')}')" title="Öppna formulär">
                     <i class="fa-solid fa-plus"></i>
                 </button>`;
         }
