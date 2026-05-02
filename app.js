@@ -2715,6 +2715,9 @@ function setupEventListeners() {
             if (btn.dataset.tab === 'listen-view' && typeof initBirdnet === 'function') {
                 initBirdnet();
             }
+            if (typeof window.listen_checkWakeLock === 'function') {
+                window.listen_checkWakeLock();
+            }
 
             // Render photographers view
             if (btn.dataset.tab === 'photographers-view') {

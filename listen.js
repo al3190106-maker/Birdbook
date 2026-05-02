@@ -303,7 +303,7 @@ async function listen_start() {
     listen_setStatus('<i class="fa-solid fa-circle" style="color:#f87171;font-size:0.7em;"></i> Lyssnar aktivt...');
 
     // --- Wake Lock (håll skärmen tänd) ---
-    listen_requestWakeLock();
+    if (typeof window.listen_checkWakeLock === 'function') window.listen_checkWakeLock();
 
     // --- Notifikationsrättigheter ---
     listen_requestNotificationPermission();
@@ -445,8 +445,8 @@ function listen_stop() {
 
     if (typeof window.resetListenIdleTimer === 'function') window.resetListenIdleTimer();
 
-    // --- Frigör Wake Lock ---
-    if (listen_wakeLock) { listen_wakeLock.release().catch(() => {}); listen_wakeLock = null; }
+    // --- Kontrollera Wake Lock (behålls om vi stannar på identifieringsfliken) ---
+    if (typeof window.listen_checkWakeLock === 'function') window.listen_checkWakeLock();
 
     // --- återställ Media Session ---
     if ('mediaSession' in navigator) {
@@ -467,19 +467,41 @@ function listen_stop() {
 /* ---------------------------------------------------------------
    WAKE LOCK – håller skärmen tänd under lyssning
 --------------------------------------------------------------- */
-async function listen_requestWakeLock() {
+window.listen_requestWakeLock = async function() {
     if (!('wakeLock' in navigator)) return;
+    if (listen_wakeLock) return; // Redan aktiv
     try {
         listen_wakeLock = await navigator.wakeLock.request('screen');
-        // Återta wake lock om skärmen låstes upp (Android)
         listen_wakeLock.addEventListener('release', () => {
-            if (listen_isListening) listen_requestWakeLock();
+            listen_wakeLock = null;
         });
-        console.log('Wake Lock aktiv');
     } catch (e) {
         console.warn('Wake Lock nekades:', e.message);
     }
-}
+};
+
+window.listen_releaseWakeLock = function() {
+    if (listen_wakeLock) {
+        listen_wakeLock.release().catch(() => {});
+        listen_wakeLock = null;
+    }
+};
+
+window.listen_checkWakeLock = function() {
+    const isListenTab = document.querySelector('.nav-btn[data-tab="listen-view"]')?.classList.contains('active');
+    if (isListenTab || listen_isListening) {
+        window.listen_requestWakeLock();
+    } else {
+        window.listen_releaseWakeLock();
+    }
+};
+
+// Återta wake lock om skärmen låstes upp eller webbläsaren minimerades
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        window.listen_checkWakeLock();
+    }
+});
 
 /* ---------------------------------------------------------------
    MEDIA SESSION – visas på låst skärm
