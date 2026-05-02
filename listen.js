@@ -898,27 +898,58 @@ function listen_startSim() {
     listenEl.waveWrap.style.display = 'block';
     const canvas = listenEl.waveCanvas;
     const dpr    = window.devicePixelRatio || 1;
-    canvas.width  = canvas.offsetWidth * dpr;
-    canvas.height = 56 * dpr;
-    const ctx    = canvas.getContext('2d');
-    let phase    = 0;
+    const W = canvas.offsetWidth * dpr;
+    const H = 120 * dpr;
+    canvas.width  = W;
+    canvas.height = H;
+    canvas.style.height = '120px';
+    const ctx    = canvas.getContext('2d', { alpha: false });
+    
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = W;
+    tempCanvas.height = H;
+    const tempCtx = tempCanvas.getContext('2d', { alpha: false });
+    tempCtx.fillStyle = '#0a1410';
+    tempCtx.fillRect(0, 0, W, H);
 
     function drawFakeWave() {
         if (!listen_isSimulating) return;
         listen_waveAnimId = requestAnimationFrame(drawFakeWave);
-        const W = canvas.width, H = canvas.height;
 
-        // Shift and draw random noise columns for simulation
-        ctx.drawImage(canvas, -2 * dpr, 0);
-        ctx.fillStyle = '#0a1410';
-        ctx.fillRect(W - 2 * dpr, 0, 2 * dpr, H);
+        // Shift temp left
+        tempCtx.drawImage(tempCanvas, -2 * dpr, 0);
+        
+        // Draw new column
+        tempCtx.fillStyle = '#0a1410';
+        tempCtx.fillRect(W - 2 * dpr, 0, 2 * dpr, H);
 
         for (let i = 0; i < H; i += 4 * dpr) {
             const val = Math.random() < 0.1 ? Math.random() * 255 : Math.random() * 50;
             if (val > 40) {
-                ctx.fillStyle = `rgb(${val}, ${val/2}, ${255-val})`;
-                ctx.fillRect(W - 2 * dpr, H - i, 2 * dpr, 4 * dpr);
+                tempCtx.fillStyle = `rgb(${val}, ${val/2}, ${255-val})`;
+                tempCtx.fillRect(W - 2 * dpr, H - i, 2 * dpr, 4 * dpr);
             }
+        }
+        
+        // Render to main
+        ctx.drawImage(tempCanvas, 0, 0);
+        
+        // Draw labels
+        ctx.font = 'bold ' + (11 * dpr) + 'px "Inter", sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        
+        for (let i = listen_spectrogram_labels.length - 1; i >= 0; i--) {
+            let label = listen_spectrogram_labels[i];
+            label.x -= (2 * dpr);
+            
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+            ctx.shadowBlur = 4 * dpr;
+            ctx.fillText(label.text, label.x, label.y);
+            ctx.shadowBlur = 0;
+            
+            if (label.x < -100 * dpr) listen_spectrogram_labels.splice(i, 1);
         }
     }
     drawFakeWave();
