@@ -4588,3 +4588,76 @@ body.mode-fungi .quiz-results-score strong {
     }
 }
 
+/* --- Idle Dark Mode (Power Saver) --- */
+body.idle-dark-mode {
+    background-color: #000 !important;
+    color: #666 !important;
+}
+body.idle-dark-mode .app-header {
+    background: #000 !important;
+    border-bottom: 1px solid #111 !important;
+    box-shadow: none !important;
+}
+body.idle-dark-mode .logo,
+body.idle-dark-mode .logo i {
+    color: #444 !important;
+}
+body.idle-dark-mode .top-actions .icon-btn {
+    color: #444 !important;
+}
+body.idle-dark-mode .nav-btn {
+    color: #444 !important;
+    background: transparent !important;
+}
+body.idle-dark-mode .nav-btn.active {
+    color: #888 !important;
+    background: #111 !important;
+    box-shadow: none !important;
+}
+body.idle-dark-mode .listen-controls {
+    background: #000 !important;
+    border-bottom: 1px solid #111 !important;
+}
+body.idle-dark-mode .listen-status-pill {
+    background: #111 !important;
+    color: #555 !important;
+}
+body.idle-dark-mode .listen-mic-btn,
+body.idle-dark-mode .listen-settings-btn,
+body.idle-dark-mode .listen-sim-btn {
+    background: #111 !important;
+    border-color: #222 !important;
+    color: #555 !important;
+}
+body.idle-dark-mode .listen-wave-card {
+    background: #000 !important;
+    border: 1px solid #111 !important;
+    box-shadow: none !important;
+}
+body.idle-dark-mode .listen-wave-label {
+    color: #444 !important;
+}
+body.idle-dark-mode .listen-scard {
+    background: #0a0a0a !important;
+    border-color: #222 !important;
+    box-shadow: none !important;
+}
+body.idle-dark-mode .listen-scard h3 {
+    color: #ddd !important; /* Keep detected birds very visible */
+}
+body.idle-dark-mode .listen-scard-conf,
+body.idle-dark-mode .listen-scard-meta {
+    color: #888 !important;
+}
+body.idle-dark-mode .listen-scard-img-placeholder {
+    filter: brightness(0.6);
+}
+body.idle-dark-mode .listen-scard-badge {
+    background: #222 !important;
+    color: #888 !important;
+}
+body.idle-dark-mode .listen-scard-add-btn {
+    border-color: #333 !important;
+    color: #666 !important;
+    background: #111 !important;
+}

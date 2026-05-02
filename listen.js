@@ -406,6 +406,8 @@ async function listen_start() {
         const listenNavBtn = document.querySelector('.nav-btn[data-tab="listen-view"]');
         if (listenNavBtn) listenNavBtn.classList.add('is-recording');
 
+        if (typeof window.resetListenIdleTimer === 'function') window.resetListenIdleTimer();
+
     } catch (err) {
         listen_setStatus('<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b"></i> Mikrofon nekades eller stöds ej.');
         listen_stop();
@@ -440,6 +442,8 @@ function listen_stop() {
     Object.values(listen_session).forEach(e => e.isActive = false);
     listen_currentlyActive = new Set();
     listen_renderSession();
+
+    if (typeof window.resetListenIdleTimer === 'function') window.resetListenIdleTimer();
 
     // --- Frigör Wake Lock ---
     if (listen_wakeLock) { listen_wakeLock.release().catch(() => {}); listen_wakeLock = null; }
@@ -1036,3 +1040,38 @@ listenEl.startBtn.addEventListener('click', () => {
 listenEl.simBtn.addEventListener('click', () => {
     listen_toggleSimulation();
 });
+
+// --- Idle Dark Mode (Power Saver) ---
+let listen_idleTimer = null;
+
+window.resetListenIdleTimer = function() {
+    clearTimeout(listen_idleTimer);
+    document.body.classList.remove('idle-dark-mode');
+    
+    // Starta bara timern om vi lyssnar OCH är på identifiera-fliken
+    const isActiveTab = document.querySelector('.nav-btn[data-tab="listen-view"]')?.classList.contains('active');
+    if ((listen_isListening || listen_isSimulating) && isActiveTab) {
+        listen_idleTimer = setTimeout(() => {
+            document.body.classList.add('idle-dark-mode');
+        }, 60000); // 1 minut
+    }
+};
+
+// Återställ timer vid all interaktion i appen
+['touchstart', 'click', 'mousemove', 'scroll'].forEach(evt => {
+    document.addEventListener(evt, window.resetListenIdleTimer, { passive: true });
+});
+
+// Testknapp för mörkläge
+const darkBtn = document.getElementById('listen-dark-btn');
+if (darkBtn) {
+    darkBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Förhindra att document-klick direkt tar bort det igen
+        document.body.classList.toggle('idle-dark-mode');
+        if (document.body.classList.contains('idle-dark-mode')) {
+            clearTimeout(listen_idleTimer);
+        } else {
+            window.resetListenIdleTimer();
+        }
+    });
+}
