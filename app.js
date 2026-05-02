@@ -610,30 +610,14 @@ async function _autoFillSightingContext() {
         }
         if (locationInput) locationInput.placeholder = 'Var såg du fågeln?';
 
-        // 2. Väder via Open-Meteo
-        if (weatherInput && !weatherInput.value && date) {
-            try {
-                const url  = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,weathercode&past_days=14&forecast_days=1&timezone=Europe%2FBerlin`;
-                const res  = await fetch(url);
-                const data = await res.json();
-                if (data && data.daily && data.daily.time) {
-                    const idx = data.daily.time.indexOf(date);
-                    if (idx !== -1) {
-                        const temp = data.daily.temperature_2m_max[idx];
-                        const code = data.daily.weathercode[idx];
-                        let wDesc = 'Molnigt';
-                        if (code === 0) wDesc = 'Klart';
-                        else if (code <= 3) wDesc = 'Växlande molnighet';
-                        else if (code <= 48) wDesc = 'Dimma';
-                        else if (code <= 67) wDesc = 'Regn';
-                        else if (code <= 82) wDesc = 'Snö';
-                        else if (code >= 95) wDesc = 'Åska';
-                        if (temp != null) weatherInput.value = `${Math.round(temp)}°C, ${wDesc}`;
-                    }
-                }
-            } catch (_) { /* tyst */ }
+        // 2. Väder baserat på plats, datum och aktuell tid
+        if (weatherInput) {
+            const hour = new Date().getHours();
+            const result = await _fetchWeatherForCoords(lat, lng, date, hour);
+            if (result) weatherInput.value = result;
+            weatherInput.placeholder = 'Soligt, molnigt, blåsigt...';
         }
-        if (weatherInput) weatherInput.placeholder = 'Soligt, molnigt, blåsigt...';
+
         _updateSightingHasData();
 
     }, () => {
@@ -642,6 +626,85 @@ async function _autoFillSightingContext() {
         _updateSightingHasData();
     }, { timeout: 8000, maximumAge: 60000 });
 }
+
+/**
+ * Hämtar väder från Open-Meteo för exakt plats, datum och timme.
+ * Returnerar en färdig sträng, t.ex. "18°C, Klart, vind 3 m/s" eller null vid fel.
+ */
+async function _fetchWeatherForCoords(lat, lng, date, hour = new Date().getHours()) {
+    try {
+        const url = `https://api.open-meteo.com/v1/forecast` +
+            `?latitude=${lat}&longitude=${lng}` +
+            `&hourly=temperature_2m,weathercode,windspeed_10m,precipitation` +
+            `&past_days=14&forecast_days=2&timezone=Europe%2FBerlin`;
+        const res  = await fetch(url);
+        const data = await res.json();
+
+        if (!data || !data.hourly || !data.hourly.time) return null;
+
+        // Hitta index för rätt datum + timme (format: "2026-05-02T14:00")
+        const target = `${date}T${String(hour).padStart(2, '0')}:00`;
+        let idx = data.hourly.time.indexOf(target);
+
+        // Fortsätt till närmaste tillgängliga timme om exakt inte finns
+        if (idx === -1) {
+            idx = data.hourly.time.findIndex(t => t.startsWith(date));
+        }
+        if (idx === -1) return null;
+
+        const temp  = data.hourly.temperature_2m[idx];
+        const code  = data.hourly.weathercode[idx];
+        const wind  = data.hourly.windspeed_10m[idx];
+        const prec  = data.hourly.precipitation[idx];
+
+        // WMO väderkoder
+        let wDesc;
+        if      (code === 0)              wDesc = 'Klart';
+        else if (code <= 2)               wDesc = 'Delvis molnigt';
+        else if (code === 3)              wDesc = 'Mulet';
+        else if (code <= 48)              wDesc = 'Dimma';
+        else if (code <= 55)              wDesc = 'Duggregn';
+        else if (code <= 65)              wDesc = prec > 2 ? 'Kraftigt regn' : 'Regn';
+        else if (code <= 75)              wDesc = 'Snöfall';
+        else if (code <= 82)              wDesc = 'Regnskurar';
+        else if (code <= 86)              wDesc = 'Snöbyar';
+        else                              wDesc = 'Åska';
+
+        const parts = [];
+        if (temp != null) parts.push(`${Math.round(temp)}°C`);
+        if (wDesc)        parts.push(wDesc);
+        if (wind != null && wind > 3) parts.push(`vind ${Math.round(wind)} m/s`);
+
+        return parts.join(', ') || null;
+    } catch (_) {
+        return null;
+    }
+}
+
+// Exponera till listen.js och andra moduler
+window._fetchWeatherForCoords = _fetchWeatherForCoords;
+
+// Auto-hämta väder när användaren byter datum (om koordinater redan finns)
+document.addEventListener('change', async (e) => {
+    if (e.target.id !== 'sighting-date') return;
+    const latVal  = document.getElementById('sighting-lat')?.value;
+    const lngVal  = document.getElementById('sighting-lng')?.value;
+    const dateVal = e.target.value;
+    if (!latVal || !lngVal || !dateVal) return;
+
+    const weatherInput = document.getElementById('sighting-weather');
+    if (!weatherInput) return;
+
+    // Använd kl.12 som standardtid när vi inte vet exakt tid för ett historiskt datum
+    const isToday = dateVal === new Date().toISOString().split('T')[0];
+    const hour    = isToday ? new Date().getHours() : 12;
+
+    weatherInput.placeholder = 'Hämtar väder...';
+    const result = await _fetchWeatherForCoords(parseFloat(latVal), parseFloat(lngVal), dateVal, hour);
+    if (result) weatherInput.value = result;
+    weatherInput.placeholder = 'Soligt, molnigt, blåsigt...';
+    _updateSightingHasData();
+});
 
 
 function _initSightingMap() {
@@ -2810,33 +2873,12 @@ function setupEventListeners() {
             existingSighting = state.sightings.find(s => s.id === editingSightingId);
         }
 
-        // Automatically fetch weather data if coordinates and date exist, and we don't already have weather
+        // Hämta väder med hourly-precision baserat på exakt datum + tid
         if (!weatherVal && latVal && lngVal && dateVal) {
-            try {
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${latVal}&longitude=${lngVal}&daily=temperature_2m_max,weathercode&past_days=14&forecast_days=1&timezone=Europe%2FBerlin`;
-                const res = await fetch(url);
-                const data = await res.json();
-                if (data && data.daily && data.daily.time) {
-                    const index = data.daily.time.indexOf(dateVal);
-                    if (index !== -1) {
-                        const temp = data.daily.temperature_2m_max[index];
-                        const code = data.daily.weathercode[index];
-                        let wDesc = '';
-                        if (code === 0) wDesc = 'Klart';
-                        else if (code >= 1 && code <= 3) wDesc = 'Växlande molnighet';
-                        else if (code >= 45 && code <= 48) wDesc = 'Dimma';
-                        else if (code >= 51 && code <= 67) wDesc = 'Regn';
-                        else if (code >= 71 && code <= 82) wDesc = 'Snö';
-                        else if (code >= 95) wDesc = 'Åska';
-                        
-                        if (temp !== null && temp !== undefined) {
-                            weatherVal = `${Math.round(temp)}°C${wDesc ? ', ' + wDesc : ''}`;
-                        }
-                    }
-                }
-            } catch(e) {
-                console.warn('Weather fetch failed', e);
-            }
+            const isToday = dateVal === new Date().toISOString().split('T')[0];
+            const hour    = isToday ? new Date().getHours() : 12;
+            const result  = await _fetchWeatherForCoords(parseFloat(latVal), parseFloat(lngVal), dateVal, hour);
+            if (result) weatherVal = result;
         }
 
         const newSighting = {
