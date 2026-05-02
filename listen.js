@@ -40,7 +40,11 @@ let listen_circularBuffer_proc, listen_circularBuffer_raw, listen_circularWriteI
 let listen_settings = {
     threshold: 0.50
 };
-let listen_hpfNode  = null;
+let listen_hpfNode    = null;
+let listen_preAmpNode = null;   // AGC gain node
+let listen_agcInterval = null;  // AGC update timer
+let listen_wakeLock   = null;   // Wake Lock (håller skärmen tänd)
+let listen_keepAlive  = null;   // Silent audio node (håller AudioContext vid liv vid låst skärm)
 let listen_results_proc = [];
 let listen_results_raw  = [];
 let listen_isCalibrated = false;
@@ -155,6 +159,8 @@ function listen_handlePredictions(preds) {
 
         if (!existing) {
             listen_session[pred.scientificName] = { name, scientificName: pred.scientificName, confidence: pred.confidence, imgSrc, dbBird, time: new Date().toLocaleTimeString('sv-SE', { hour:'2-digit', minute:'2-digit' }), isNew: true, firstHeardAt: Date.now() };
+            // ---- Push-notifikation: ny fågel hörd ----
+            listen_notifyNewBird(name, pred.confidence, imgSrc);
         } else {
             if (pred.confidence > existing.confidence) existing.confidence = pred.confidence;
         }
@@ -166,6 +172,10 @@ function listen_handlePredictions(preds) {
     });
 
     listen_currentlyActive = newActiveSet;
+
+    // ---- Uppdatera Media Session med aktiva fåglar (låst skärm) ----
+    listen_updateMediaSession();
+
     listen_renderSession();
 }
 
@@ -289,6 +299,15 @@ async function listen_start() {
     listenEl.startBtn.innerHTML = '<i class="fa-solid fa-stop" style="font-size:1.6rem"></i>';
     listen_setStatus('<i class="fa-solid fa-circle" style="color:#f87171;font-size:0.7em;"></i> Lyssnar aktivt...');
 
+    // --- Wake Lock (håll skärmen tänd) ---
+    listen_requestWakeLock();
+
+    // --- Notifikationsrättigheter ---
+    listen_requestNotificationPermission();
+
+    // --- Media Session (låst skärm) ---
+    listen_setupMediaSession();
+
     try {
         listen_stream = await navigator.mediaDevices.getUserMedia({
             audio: { 
@@ -309,11 +328,15 @@ async function listen_start() {
         // 1. High Pass Filter (Adaptive Noise reduction)
         listen_hpfNode = listen_audioCtx.createBiquadFilter();
         listen_hpfNode.type = 'highpass';
-        listen_hpfNode.frequency.setValueAtTime(400, listen_audioCtx.currentTime); // Start low
-        
-        // 2. Compressor for quiet sounds
+        listen_hpfNode.frequency.setValueAtTime(400, listen_audioCtx.currentTime);
+
+        // 1.5 AGC (Automatic Gain Control) – adaptiv förstärkning
+        listen_preAmpNode = listen_audioCtx.createGain();
+        listen_preAmpNode.gain.setValueAtTime(2.0, listen_audioCtx.currentTime); // Startvärde
+
+        // 2. Kompressor som skyddar mot klippning efter AGC
         const compressor = listen_audioCtx.createDynamicsCompressor();
-        compressor.threshold.setValueAtTime(-50, listen_audioCtx.currentTime); 
+        compressor.threshold.setValueAtTime(-55, listen_audioCtx.currentTime);
         compressor.knee.setValueAtTime(40, listen_audioCtx.currentTime);
         compressor.ratio.setValueAtTime(12, listen_audioCtx.currentTime);
         compressor.attack.setValueAtTime(0, listen_audioCtx.currentTime);
@@ -341,23 +364,41 @@ async function listen_start() {
         listen_analyser = listen_audioCtx.createAnalyser();
         listen_analyser.fftSize = 1024;
         
-        // Connect track 0: Filtered
+        // Connect track 0: Filtered & AGC-boosted
         source.connect(listen_hpfNode);
-        listen_hpfNode.connect(compressor);
+        listen_hpfNode.connect(listen_preAmpNode);
+        listen_preAmpNode.connect(compressor);
         compressor.connect(listen_workletNode, 0, 0);
 
-        // Connect track 1: Raw
+        // Connect track 1: Raw (ingen boost, för jämförelse)
         source.connect(listen_workletNode, 0, 1);
 
-        // Connect analyser to source (raw) for better calibration scanning
+        // Connect analyser to source (raw)
         source.connect(listen_analyser);
-        
+
+        // Starta AGC-loopen
+        listen_startAGC();
+
+        // --- Silent keepalive: spelar tyst ljud så att AudioContext inte pausas vid låst skärm (Android) ---
+        const silentBuf = listen_audioCtx.createBuffer(1, 1, listen_audioCtx.sampleRate);
+        listen_keepAlive = listen_audioCtx.createBufferSource();
+        listen_keepAlive.buffer = silentBuf;
+        listen_keepAlive.loop = true;
+        const muteGain = listen_audioCtx.createGain();
+        muteGain.gain.setValueAtTime(0.001, listen_audioCtx.currentTime); // Nästan inhörbart
+        listen_keepAlive.connect(muteGain);
+        muteGain.connect(listen_audioCtx.destination);
+        listen_keepAlive.start();
+
+        // --- Geolokation → sänd till Area Model i workern ---
+        listen_sendGeoToWorker();
+
         // We don't want to hear the mic output (feedback)
         // listen_workletNode.connect(listen_audioCtx.destination);
 
         listenEl.waveWrap.style.display = 'block';
         listen_drawWaveform();
-        setTimeout(listen_inferenceLoop, 2000);
+        setTimeout(listen_inferenceLoop, 1000); // Starta loopen snabbare för mer överlappning
 
     } catch (err) {
         listen_setStatus('<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b"></i> Mikrofon nekades eller stöds ej.');
@@ -391,12 +432,135 @@ function listen_stop() {
     listen_currentlyActive = new Set();
     listen_renderSession();
 
+    // --- Frigör Wake Lock ---
+    if (listen_wakeLock) { listen_wakeLock.release().catch(() => {}); listen_wakeLock = null; }
+
+    // --- återställ Media Session ---
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = 'none';
+        navigator.mediaSession.metadata = null;
+    }
+
     if (listen_waveAnimId)  { cancelAnimationFrame(listen_waveAnimId); listen_waveAnimId = null; }
     if (listen_simInterval) { clearInterval(listen_simInterval); listen_simInterval = null; }
+    if (listen_agcInterval) { clearInterval(listen_agcInterval); listen_agcInterval = null; }
     if (listen_analyser)    { listen_analyser.disconnect(); listen_analyser = null; }
     if (listen_stream)      { listen_stream.getTracks().forEach(t => t.stop()); listen_stream = null; }
     if (listen_workletNode) { listen_workletNode.disconnect(); listen_workletNode = null; }
     if (listen_audioCtx)    { listen_audioCtx.close(); listen_audioCtx = null; }
+    listen_preAmpNode = null;
+}
+
+/* ---------------------------------------------------------------
+   WAKE LOCK – håller skärmen tänd under lyssning
+--------------------------------------------------------------- */
+async function listen_requestWakeLock() {
+    if (!('wakeLock' in navigator)) return;
+    try {
+        listen_wakeLock = await navigator.wakeLock.request('screen');
+        // Återta wake lock om skärmen låstes upp (Android)
+        listen_wakeLock.addEventListener('release', () => {
+            if (listen_isListening) listen_requestWakeLock();
+        });
+        console.log('Wake Lock aktiv');
+    } catch (e) {
+        console.warn('Wake Lock nekades:', e.message);
+    }
+}
+
+/* ---------------------------------------------------------------
+   MEDIA SESSION – visas på låst skärm
+--------------------------------------------------------------- */
+function listen_setupMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: 'Fågelidentifiering aktiv',
+        artist: 'Lyssnar efter fåglar...',
+        album: 'Naturboken',
+        artwork: [
+            { src: 'images/ovriga_ikoner/bird_mic_icon.png', sizes: '512x512', type: 'image/png' }
+        ]
+    });
+    navigator.mediaSession.playbackState = 'playing';
+
+    // Hantera paus/spela-knappar på headset och låst skärm
+    navigator.mediaSession.setActionHandler('pause', () => listen_stop());
+    navigator.mediaSession.setActionHandler('stop',  () => listen_stop());
+    navigator.mediaSession.setActionHandler('play',  () => {
+        if (!listen_isListening && listen_isWorkerReady) listen_start();
+    });
+}
+
+function listen_updateMediaSession() {
+    if (!('mediaSession' in navigator) || !navigator.mediaSession.metadata) return;
+
+    const activeNames = Object.values(listen_session)
+        .filter(e => e.isActive)
+        .map(e => e.name);
+
+    const sessionCount = Object.keys(listen_session).length;
+
+    if (activeNames.length > 0) {
+        navigator.mediaSession.metadata.artist = '🐦 Hör just nu: ' + activeNames.join(', ');
+    } else if (sessionCount > 0) {
+        const names = Object.values(listen_session).slice(0, 3).map(e => e.name);
+        navigator.mediaSession.metadata.artist = `Hittade ${sessionCount} fåglar: ${names.join(', ')}`;
+    } else {
+        navigator.mediaSession.metadata.artist = 'Lyssnar efter fåglar...';
+    }
+}
+
+/* ---------------------------------------------------------------
+   PUSH-NOTIFIKATIONER – ny fågel hörd
+--------------------------------------------------------------- */
+async function listen_requestNotificationPermission() {
+    if (!('Notification' in window)) return;
+    if (Notification.permission === 'default') {
+        await Notification.requestPermission();
+    }
+}
+
+function listen_notifyNewBird(name, confidence, imgSrc) {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    // Skicka inte notis om appen är i förgrunden och skärmen är aktiv
+    if (document.visibilityState === 'visible' && listen_wakeLock) return;
+
+    const pct = Math.round(confidence * 100);
+    const body = `${pct}% säkerhet · Tryck för att se mer`;
+
+    try {
+        const n = new Notification(`🐦 Ny fågel: ${name}`, {
+            body,
+            icon: imgSrc || 'images/ovriga_ikoner/bird_mic_icon.png',
+            tag:  `bird-${name}`, // Ersätter föregående notis för samma fågel
+            renotify: false,
+            silent: true
+        });
+        n.onclick = () => { window.focus(); n.close(); };
+    } catch (e) {
+        console.warn('Notifikation misslyckades:', e);
+    }
+}
+
+/* ---------------------------------------------------------------
+   GEOLOKATION → AREA MODEL
+--------------------------------------------------------------- */
+function listen_sendGeoToWorker() {
+    if (!listen_worker || !navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            listen_worker.postMessage({
+                message:   'area-scores',
+                latitude:  pos.coords.latitude,
+                longitude: pos.coords.longitude
+            });
+            console.log(`Geo skickat till AI: ${pos.coords.latitude.toFixed(3)}, ${pos.coords.longitude.toFixed(3)}`);
+        },
+        (err) => console.warn('Geolokation misslyckades:', err.message),
+        { timeout: 8000, maximumAge: 300000 } // Cachelagra position 5 min
+    );
 }
 
 /* ---------------------------------------------------------------
@@ -489,17 +653,17 @@ function listen_inferenceLoop() {
         message: 'predict', 
         pcmAudio: windowed_proc, 
         track: 'proc',
-        sensitivity: 1.0 // Automatic
+        sensitivity: 1.25 // Ökad känslighet för tysta/avlägsna fåglar
     }, [windowed_proc.buffer]);
 
     listen_worker.postMessage({ 
         message: 'predict', 
         pcmAudio: windowed_raw, 
         track: 'raw',
-        sensitivity: 1.0 // Automatic
+        sensitivity: 1.25 // Ökad känslighet för tysta/avlägsna fåglar
     }, [windowed_raw.buffer]);
 
-    if (listen_isListening) setTimeout(listen_inferenceLoop, 2000);
+    if (listen_isListening) setTimeout(listen_inferenceLoop, 1000); // 1 sek intervall för max överlappning och snabbhet
 }
 
 /* ---------------------------------------------------------------
@@ -533,6 +697,50 @@ function listen_initSettingsUI() {
     });
 
     window.listen_settings_init = true;
+}
+
+/**
+ * AGC – Automatic Gain Control
+ * Mäter RMS (energinivå) i den råa cirkulärbufferten var 500ms och
+ * justerar förstärkarnodens gain smidigt baserat på hur tyst/högt det är.
+ *
+ * Gain-tabell:
+ *   RMS < 0.005  → gain 5.0  (extremt tyst, avlägsen fågel)
+ *   RMS < 0.02   → gain 3.5  (tyst)
+ *   RMS < 0.06   → gain 2.0  (normalt)
+ *   RMS < 0.15   → gain 1.2  (lite högt)
+ *   RMS >= 0.15  → gain 0.7  (högt – skydda mot klippning)
+ */
+function listen_startAGC() {
+    if (listen_agcInterval) clearInterval(listen_agcInterval);
+
+    listen_agcInterval = setInterval(() => {
+        if (!listen_isListening || !listen_preAmpNode || !listen_circularBuffer_raw || !listen_audioCtx) return;
+
+        // Beräkna RMS på de senaste 0.5 sekunderna av råbufferten
+        const lookback = Math.min(listen_circularBuffer_raw.length, Math.round(LISTEN_SAMPLE_RATE * 0.5));
+        let sumSq = 0;
+        let idx = (listen_circularWriteIdx - lookback + listen_circularBuffer_raw.length) % listen_circularBuffer_raw.length;
+        for (let i = 0; i < lookback; i++) {
+            const s = listen_circularBuffer_raw[idx];
+            sumSq += s * s;
+            idx = (idx + 1) % listen_circularBuffer_raw.length;
+        }
+        const rms = Math.sqrt(sumSq / lookback);
+
+        // Välj mål-gain baserat på RMS-nivå
+        let targetGain;
+        if      (rms < 0.005) targetGain = 5.0;
+        else if (rms < 0.02)  targetGain = 3.5;
+        else if (rms < 0.06)  targetGain = 2.0;
+        else if (rms < 0.15)  targetGain = 1.2;
+        else                  targetGain = 0.7;
+
+        // Mjuk övergång (ramp 300ms) för att undvika knastrande artefakter
+        listen_preAmpNode.gain.setTargetAtTime(targetGain, listen_audioCtx.currentTime, 0.3);
+
+        console.log(`AGC: RMS=${rms.toFixed(4)} → Gain=${targetGain}`);
+    }, 500);
 }
 
 /**
@@ -581,7 +789,8 @@ function listen_normalizeBuffer(buf) {
         if (abs > max) max = abs;
     }
     // Only normalize if there's a signal but it's not already loud
-    if (max > 0.01 && max < 0.8) {
+    // Sänkt från 0.01 till 0.003 för att förstärka extremt avlägsna ljud
+    if (max > 0.003 && max < 0.9) {
         const factor = 0.9 / max;
         for (let i = 0; i < buf.length; i++) {
             buf[i] *= factor;
