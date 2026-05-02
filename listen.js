@@ -165,6 +165,24 @@ function listen_handlePredictions(preds) {
             if (pred.confidence > existing.confidence) existing.confidence = pred.confidence;
         }
         listen_session[pred.scientificName].isActive = true;
+
+        // --- Spectrogram bird label ---
+        if (pred.confidence > 0.1 && listenEl.waveCanvas) {
+            const dpr = window.devicePixelRatio || 1;
+            const canvasW = listenEl.waveCanvas.offsetWidth * dpr;
+            const canvasH = listenEl.waveCanvas.offsetHeight * dpr;
+            const jitter = (name.length * 7) % Math.max(10, (canvasH - 40));
+            
+            // Prevent spamming the same bird on the right edge
+            const recentlyAdded = listen_spectrogram_labels.some(lbl => lbl.text === name && lbl.x > canvasW - (100 * dpr));
+            if (!recentlyAdded) {
+                listen_spectrogram_labels.push({
+                    text: name,
+                    x: canvasW,
+                    y: 20 * dpr + jitter
+                });
+            }
+        }
     });
 
     Object.keys(listen_session).forEach(sci => {
@@ -430,6 +448,7 @@ function listen_stop() {
         listen_setStatus('');
         listen_results_proc = [];
         listen_results_raw  = [];
+        listen_spectrogram_labels = [];
         listen_isCalibrated = false;
         listen_consecutiveSilence = 0;
         const calibEl = document.getElementById('listen-calib-status');
@@ -598,6 +617,8 @@ function listen_sendGeoToWorker() {
     );
 }
 
+let listen_spectrogram_labels = [];
+
 /* ---------------------------------------------------------------
    WAVEFORM VISUALIZER
 --------------------------------------------------------------- */
@@ -658,7 +679,30 @@ function listen_drawWaveform() {
         
         // 3. Render offscreen to main
         ctx.drawImage(tempCanvas, 0, 0);
+        
+        // 4. Draw bird names rolling with the spectrogram
+        ctx.font = 'bold ' + (11 * dpr) + 'px "Inter", sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        
+        for (let i = listen_spectrogram_labels.length - 1; i >= 0; i--) {
+            let label = listen_spectrogram_labels[i];
+            label.x -= (2 * dpr); // Move left at same speed as spectrogram
+            
+            // Draw a subtle shadow/glow for readability
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+            ctx.shadowBlur = 4 * dpr;
+            ctx.fillText(label.text, label.x, label.y);
+            ctx.shadowBlur = 0; // reset
+            
+            // Remove if off screen
+            if (label.x < -100 * dpr) {
+                listen_spectrogram_labels.splice(i, 1);
+            }
+        }
     }
+
     draw();
 }
 
