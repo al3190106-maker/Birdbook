@@ -917,19 +917,40 @@
                     </div>
                 </div>
 
+                <!-- Auto-filled Context Fields (Always Visible) -->
+                <div class="form-row" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="sighting-date">Datum</label>
+                        <input type="date" id="sighting-date" min="2020-01-01" required>
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="sighting-weather">Väder</label>
+                        <input type="text" id="sighting-weather" placeholder="Hämtar...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sighting-location">Plats</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="text" id="sighting-location" placeholder="Hämtar plats..." style="flex: 1; margin-bottom: 0;">
+                        <button type="button" class="sighting-action-btn" onclick="toggleSightingSection('map')" title="Välj på karta" style="padding: 0.5rem 1rem; flex: none; height: 100%; border-radius: 8px;">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="sighting-section-map" class="sighting-hidden-section hidden">
+                    <div class="sighting-map-wrapper">
+                        <div id="sighting-map" class="sighting-map"></div>
+                        <button type="button" id="sighting-map-gps-btn" class="map-gps-btn" title="Använd min position">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                        </button>
+                    </div>
+                    <input type="hidden" id="sighting-lat">
+                    <input type="hidden" id="sighting-lng">
+                </div>
+
                 <div class="sighting-actions-row" id="sighting-actions-row">
-                    <button type="button" class="sighting-action-btn" id="btn-toggle-map" title="Karta för plats" onclick="toggleSightingSection('map')">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                        <span>Plats</span>
-                    </button>
-                    <button type="button" class="sighting-action-btn" id="btn-toggle-date" title="Datum" onclick="toggleSightingSection('date')">
-                        <i class="fa-regular fa-calendar"></i>
-                        <span>Datum</span>
-                    </button>
-                    <button type="button" class="sighting-action-btn" id="btn-toggle-weather" title="Väder" onclick="toggleSightingSection('weather')">
-                        <i class="fa-solid fa-cloud-sun"></i>
-                        <span>Väder</span>
-                    </button>
                     <button type="button" class="sighting-action-btn" id="btn-toggle-notes" title="Anteckningar" onclick="toggleSightingSection('notes')">
                         <i class="fa-regular fa-clipboard"></i>
                         <span>Notering</span>
@@ -938,34 +959,6 @@
                         <i class="fa-solid fa-camera"></i>
                         <span>Foto</span>
                     </button>
-                </div>
-
-                <div id="sighting-section-map" class="sighting-hidden-section hidden">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <input type="hidden" id="sighting-location">
-                        <div class="sighting-map-wrapper">
-                            <div id="sighting-map" class="sighting-map"></div>
-                            <button type="button" id="sighting-map-gps-btn" class="map-gps-btn" title="Använd min position">
-                                <i class="fa-solid fa-location-crosshairs"></i>
-                            </button>
-                        </div>
-                        <input type="hidden" id="sighting-lat">
-                        <input type="hidden" id="sighting-lng">
-                    </div>
-                </div>
-
-                <div id="sighting-section-date" class="sighting-hidden-section hidden">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label for="sighting-date">Datum</label>
-                        <input type="date" id="sighting-date" min="2020-01-01" required>
-                    </div>
-                </div>
-
-                <div id="sighting-section-weather" class="sighting-hidden-section hidden">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label for="sighting-weather">Väder</label>
-                        <input type="text" id="sighting-weather" placeholder="Soligt, molnigt, blåsigt...">
-                    </div>
                 </div>
 
                 <div id="sighting-section-notes" class="sighting-hidden-section hidden">

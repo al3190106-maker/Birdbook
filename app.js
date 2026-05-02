@@ -456,7 +456,7 @@ let _sightingMarker = null;
 
 // Toggle visibility of sighting sections
 window.toggleSightingSection = function(section) {
-    const sections = ['map', 'date', 'notes', 'weather'];
+    const sections = ['map', 'notes'];
     let openedElement = null;
 
     sections.forEach(s => {
@@ -493,22 +493,16 @@ window.toggleSightingSection = function(section) {
  * Uppdaterar "has-data" pricken på action-knapparna baserat på om fälten har värden.
  */
 function _updateSightingHasData() {
-    const checks = {
-        map:     () => !!document.getElementById('sighting-lat')?.value,
-        date:    () => !!document.getElementById('sighting-date')?.value,
-        weather: () => !!document.getElementById('sighting-weather')?.value,
-        notes:   () => !!document.getElementById('sighting-notes')?.value
-    };
-    Object.entries(checks).forEach(([key, fn]) => {
-        const btn = document.getElementById('btn-toggle-' + key);
-        if (btn) btn.classList.toggle('has-data', fn());
-    });
+    const btn = document.getElementById('btn-toggle-notes');
+    if (btn) {
+        const hasNotes = !!document.getElementById('sighting-notes')?.value;
+        btn.classList.toggle('has-data', hasNotes);
+    }
 }
 
 // Lyssna på fältinput för att uppdatera has-data i realtid
 document.addEventListener('input', (e) => {
-    const watched = ['sighting-date', 'sighting-weather', 'sighting-notes', 'sighting-location'];
-    if (watched.includes(e.target.id)) _updateSightingHasData();
+    if (e.target.id === 'sighting-notes') _updateSightingHasData();
 });
 
 function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sightingToEdit = null) {
@@ -523,7 +517,7 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
     elements.imagePreviewContainer.innerHTML = '';
 
     // Reset hidden sections
-    ['map', 'date', 'notes', 'weather'].forEach(s => {
+    ['map', 'notes'].forEach(s => {
         const el = document.getElementById('sighting-section-' + s);
         const btn = document.getElementById('btn-toggle-' + s);
         if (el) el.classList.add('hidden');
