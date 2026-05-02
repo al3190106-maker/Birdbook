@@ -532,6 +532,8 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
         elements.birdSearchInput.disabled = true; // Don't change species when editing
     } else {
         elements.birdSearchInput.disabled = false;
+        // --- Auto-fyll plats, datum och väder för nya observationer ---
+        _autoFillSightingContext();
     }
 
     elements.modal.classList.add('active');
@@ -542,6 +544,80 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
     }, 150);
 }
 window.showSightingModal = _showSightingModal;
+
+/**
+ * Auto-fyller plats, koordinater och väder när en ny observation skapas.
+ * Körs i bakgrunden utan att blockera UI.
+ */
+async function _autoFillSightingContext() {
+    if (!navigator.geolocation) return;
+
+    const locationInput = document.getElementById('sighting-location');
+    const weatherInput  = document.getElementById('sighting-weather');
+    const latInput      = document.getElementById('sighting-lat');
+    const lngInput      = document.getElementById('sighting-lng');
+    const dateInput     = document.getElementById('sighting-date');
+
+    if (locationInput && !locationInput.value) locationInput.placeholder = 'Hämtar position...';
+    if (weatherInput  && !weatherInput.value)  weatherInput.placeholder  = 'Hämtar väder...';
+
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+        const lat  = pos.coords.latitude;
+        const lng  = pos.coords.longitude;
+        const date = dateInput ? dateInput.value : new Date().toISOString().split('T')[0];
+
+        if (latInput) latInput.value = lat;
+        if (lngInput) lngInput.value = lng;
+
+        // Placera kartnål om kartan är initierad
+        if (typeof _placeSightingPin === 'function') {
+            _placeSightingPin(lat, lng);
+        }
+
+        // 1. Platsnamn via Nominatim
+        if (locationInput && !locationInput.value) {
+            try {
+                const r    = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`, { headers: { 'Accept-Language': 'sv' } });
+                const data = await r.json();
+                if (data && data.address) {
+                    const a     = data.address;
+                    const parts = [a.village || a.town || a.city || a.municipality, a.county || a.state].filter(Boolean);
+                    locationInput.value = parts.join(', ') || data.display_name || '';
+                }
+            } catch (_) { /* användaren kan fylla i manuellt */ }
+        }
+        if (locationInput) locationInput.placeholder = 'Var såg du fågeln?';
+
+        // 2. Väder via Open-Meteo
+        if (weatherInput && !weatherInput.value && date) {
+            try {
+                const url  = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,weathercode&past_days=14&forecast_days=1&timezone=Europe%2FBerlin`;
+                const res  = await fetch(url);
+                const data = await res.json();
+                if (data && data.daily && data.daily.time) {
+                    const idx = data.daily.time.indexOf(date);
+                    if (idx !== -1) {
+                        const temp = data.daily.temperature_2m_max[idx];
+                        const code = data.daily.weathercode[idx];
+                        let wDesc = 'Molnigt';
+                        if (code === 0) wDesc = 'Klart';
+                        else if (code <= 3) wDesc = 'Växlande molnighet';
+                        else if (code <= 48) wDesc = 'Dimma';
+                        else if (code <= 67) wDesc = 'Regn';
+                        else if (code <= 82) wDesc = 'Snö';
+                        else if (code >= 95) wDesc = 'Åska';
+                        if (temp != null) weatherInput.value = `${Math.round(temp)}°C, ${wDesc}`;
+                    }
+                }
+            } catch (_) { /* tyst */ }
+        }
+        if (weatherInput) weatherInput.placeholder = 'Soligt, molnigt, blåsigt...';
+
+    }, () => {
+        if (locationInput) locationInput.placeholder = 'Var såg du fågeln?';
+        if (weatherInput)  weatherInput.placeholder  = 'Soligt, molnigt, blåsigt...';
+    }, { timeout: 8000, maximumAge: 60000 });
+}
 
 
 function _initSightingMap() {
@@ -1546,6 +1622,22 @@ function saveSightings() {
     checkAchievements();
     renderApp();
 }
+
+/**
+ * Exponerad funktion för listen.js (och andra moduler) att spara en observation
+ * direkt utan att öppna modalen.
+ */
+window.addSightingDirect = function(sighting) {
+    if (!sighting || !sighting.birdId) return;
+    state.sightings.push(sighting);
+    const sYear = new Date().getFullYear();
+    if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
+        state.yearFilter = sYear;
+    }
+    saveSightings();
+    setupYearFilter();
+};
+
 
 // --- Logic Helpers ---
 

@@ -264,7 +264,13 @@ function listen_renderSession() {
 
         const actionsEl = cardEl.querySelector('.listen-scard-actions');
         if (e.dbBird && !actionsEl.innerHTML) {
-            actionsEl.innerHTML = `<button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name}')" title="Rapportera observation"><i class="fa-solid fa-plus"></i></button>`;
+            actionsEl.innerHTML = `
+                <button class="listen-scard-add-btn" onclick="event.stopPropagation(); window.listen_quickAddSighting('${e.dbBird.id}', '${e.name.replace(/'/g, '')}')" title="Snabbtillägg med automatisk plats och väder">
+                    <i class="fa-solid fa-bolt"></i>
+                </button>
+                <button class="listen-scard-add-btn" style="margin-left:4px;" onclick="event.stopPropagation(); window.listen_reportSighting('${e.dbBird.id}', '${e.name.replace(/'/g, '')}')" title="Öppna formulär">
+                    <i class="fa-solid fa-plus"></i>
+                </button>`;
         }
 
         list.appendChild(cardEl);
@@ -891,6 +897,121 @@ window.listen_reportSighting = function(birdId, birdName) {
         window.showSightingModal(birdId, birdName);
     }
 };
+
+/**
+ * Snabbtillägg: sparar observationen direkt med automatisk plats och väder.
+ * Ingen modal behövs – användaren får en bekräftelse-toast.
+ */
+window.listen_quickAddSighting = async function(birdId, birdName) {
+    if (!birdId || typeof window.state === 'undefined') return;
+
+    listen_showToast(`⏳ Sparar ${birdName}...`, 'info');
+
+    const today = new Date().toISOString().split('T')[0];
+    let lat = '', lng = '', location = '', weather = '';
+
+    // Hämta GPS och plats
+    try {
+        const pos = await new Promise((resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 6000, maximumAge: 60000 })
+        );
+        lat = pos.coords.latitude;
+        lng = pos.coords.longitude;
+
+        // Platsnamn (Nominatim)
+        try {
+            const r    = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`, { headers: { 'Accept-Language': 'sv' } });
+            const data = await r.json();
+            if (data && data.address) {
+                const a     = data.address;
+                const parts = [a.village || a.town || a.city || a.municipality, a.county || a.state].filter(Boolean);
+                location = parts.join(', ') || '';
+            }
+        } catch (_) {}
+
+        // Väder (Open-Meteo)
+        try {
+            const url  = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,weathercode&past_days=14&forecast_days=1&timezone=Europe%2FBerlin`;
+            const res  = await fetch(url);
+            const data = await res.json();
+            if (data && data.daily && data.daily.time) {
+                const idx = data.daily.time.indexOf(today);
+                if (idx !== -1) {
+                    const temp = data.daily.temperature_2m_max[idx];
+                    const code = data.daily.weathercode[idx];
+                    let wDesc = 'Molnigt';
+                    if (code === 0) wDesc = 'Klart';
+                    else if (code <= 3)  wDesc = 'Växlande molnighet';
+                    else if (code <= 48) wDesc = 'Dimma';
+                    else if (code <= 67) wDesc = 'Regn';
+                    else if (code <= 82) wDesc = 'Snö';
+                    else if (code >= 95) wDesc = 'Åska';
+                    if (temp != null) weather = `${Math.round(temp)}°C, ${wDesc}`;
+                }
+            }
+        } catch (_) {}
+
+    } catch (_) {
+        // Ingen GPS – spara ändå utan plats
+    }
+
+    // Bygg observation och spara
+    const sighting = {
+        id:       Date.now().toString(),
+        birdId,
+        date:     today,
+        location,
+        weather,
+        notes:    'Identifierad via lyssningsfunktionen',
+        lat:      lat ? String(lat) : '',
+        lng:      lng ? String(lng) : '',
+        customImage: null
+    };
+
+    if (typeof window.addSightingDirect === 'function') {
+        window.addSightingDirect(sighting);
+    } else {
+        // Fallback: lägg direkt i state
+        window.state.sightings.push(sighting);
+        if (typeof window.saveState === 'function') window.saveState();
+        if (typeof window.renderSightings === 'function') window.renderSightings();
+    }
+
+    listen_showToast(`✅ ${birdName} sparad!${location ? ' · ' + location : ''}`, 'success');
+    listen_renderSession(); // Uppdatera badges (is-observed)
+};
+
+/**
+ * Visar en liten toast-notis längst ner på skärmen.
+ */
+function listen_showToast(message, type = 'info') {
+    let toast = document.getElementById('listen-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'listen-toast';
+        toast.style.cssText = `
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: #1e3a2f; color: white; padding: 0.65rem 1.2rem;
+            border-radius: 99px; font-size: 0.9rem; font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3); z-index: 9999;
+            opacity: 0; transition: all 0.3s ease; pointer-events: none;
+            max-width: 90vw; text-align: center;
+        `;
+        document.body.appendChild(toast);
+    }
+    if (type === 'success') toast.style.background = '#16a34a';
+    else if (type === 'error') toast.style.background = '#dc2626';
+    else toast.style.background = '#1e3a2f';
+
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 3500);
+}
 
 window.listen_stopOnTabChange = listen_stop;
 
