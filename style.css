@@ -4663,3 +4663,8 @@ body.idle-dark-mode .listen-scard-add-btn {
 }
 . o b s e r v a t i o n - t y p e - b t n   i n p u t : c h e c k e d   +   . o b s - b t n - c o n t e n t   {   b a c k g r o u n d - c o l o r :   v a r ( - - p r i m a r y ) ;   b o r d e r - c o l o r :   v a r ( - - p r i m a r y ) ;   c o l o r :   w h i t e ;   }  
  
+.observation-type-btn input:checked + .obs-btn-content {
+    background-color: rgba(46, 204, 113, 0.15) !important;
+    border-color: #2ecc71 !important;
+    color: #27ae60 !important;
+}
