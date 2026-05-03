@@ -1,16 +1,13 @@
 
+import re
+
 with open('app.js', 'r', encoding='utf-8') as f:
     content = f.read()
 
-old = '<i class=\\"fa-solid fa-check\\"></i> Hittad</div>'
-new = '<i class=\\"fa-solid fa-check\\"></i></div>'
-
-if old in content:
-    content = content.replace(old, new, 1)
-    with open('app.js', 'w', encoding='utf-8') as f:
-        f.write(content)
-    print('OK')
-else:
-    print('NOT FOUND')
-    idx = content.find('fa-check')
-    print(repr(content[idx-30:idx+80]))
+patterns = ['quick.add', 'sighting-count', 'count-badge', '+1']
+for pat in patterns:
+    matches = [m.start() for m in re.finditer(re.escape(pat), content)]
+    for pos in matches[:5]:
+        print(f"--- [{pat}] at {pos} ---")
+        print(repr(content[max(0,pos-40):pos+100]))
+        print()

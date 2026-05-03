@@ -1930,7 +1930,6 @@ function renderSightingsList(sightings) {
                 <button class="delete-sighting-btn" id="delete-btn-${sighting.id}" title="Ta bort observation">
                     <i class="fa-solid fa-trash"></i>
                 </button>
-                ${group.count > 1 ? `<div class="sighting-count-badge">+${group.count - 1} till</div>` : ''}
                 <div class="bird-image-name">${item.nameSv}</div>
             </div>
             <div class="bird-info">
