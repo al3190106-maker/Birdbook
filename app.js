@@ -828,9 +828,15 @@ function _buildCarousel(images) {
         img.src = src;
         img.alt = 'Bild ' + (i + 1);
         img.className = 'carousel-img';
+        img.loading = 'lazy';
         img.onerror = function () {
-            this.src = `images/${currentCarouselBirdId}.jpg`;
-            this.onerror = null;
+            const localFallback = `images/${currentCarouselBirdId}.jpg`;
+            if (this.src.indexOf(localFallback) === -1) {
+                this.src = localFallback;
+            } else {
+                this.src = getHolderImage(currentCarouselBirdId);
+                this.onerror = null;
+            }
         };
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => {
@@ -2431,7 +2437,12 @@ function getBirdImageSrc(birdId) {
 window.handleImageError = function (imgEl) {
     const birdId = imgEl.dataset.birdId;
     if (birdId && imgEl.src.indexOf('data:image/svg') === -1) {
-        imgEl.src = getHolderImage(birdId);
+        const localImgSrc = `images/${birdId}.jpg`;
+        if (imgEl.src.indexOf(localImgSrc) === -1) {
+            imgEl.src = localImgSrc;
+        } else {
+            imgEl.src = getHolderImage(birdId);
+        }
     }
 };
 
@@ -3810,6 +3821,7 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
     allImages.forEach(img => {
         const imgEl = document.createElement('img');
         imgEl.className = 'photographer-gallery-item';
+        imgEl.loading = 'lazy';
         imgEl.src = img.src;
         imgEl.title = 'Klicka för att visa i guiden';
         

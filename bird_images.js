@@ -1491,7 +1491,7 @@ window.birdImages = {
     ],
     "eurasian_blackcap": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/09/svarthatta.jpg",
+            "src": "images/eurasian_blackcap.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "male"
         }
