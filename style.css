@@ -4663,7 +4663,7 @@ body.idle-dark-mode .listen-scard-add-btn {
 }
 
 .observation-type-btn input:checked + .obs-btn-content {
-    background-color: rgba(46, 204, 113, 0.15) !important;
+    background-color: transparent !important;
     border-color: #2ecc71 !important;
     color: #27ae60 !important;
 }
