@@ -545,9 +545,20 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
         if (sightingToEdit.lat) document.getElementById('sighting-lat').value = sightingToEdit.lat;
         if (sightingToEdit.lng) document.getElementById('sighting-lng').value = sightingToEdit.lng;
         
+        if (document.getElementById('sighting-seen')) {
+            document.getElementById('sighting-seen').checked = sightingToEdit.seen !== false;
+        }
+        if (document.getElementById('sighting-heard')) {
+            document.getElementById('sighting-heard').checked = sightingToEdit.heard === true;
+        }
+        
         elements.birdSearchInput.disabled = true; // Don't change species when editing
     } else {
         elements.birdSearchInput.disabled = false;
+        
+        if (document.getElementById('sighting-seen')) document.getElementById('sighting-seen').checked = true;
+        if (document.getElementById('sighting-heard')) document.getElementById('sighting-heard').checked = false;
+        
         // --- Auto-fyll plats, datum och väder för nya observationer ---
         _autoFillSightingContext();
     }
@@ -1265,6 +1276,14 @@ function _renderBirdDetail(item, sighting = null) {
             document.getElementById('ds-date').textContent = sighting.date || '--';
             document.getElementById('ds-location').textContent = sighting.location || '--';
             document.getElementById('ds-weather').textContent = sighting.weather || '--';
+            
+            const dsTypeEl = document.getElementById('ds-type');
+            if (dsTypeEl) {
+                const types = [];
+                if (sighting.seen !== false) types.push('Sedd');
+                if (sighting.heard === true) types.push('Hörd');
+                dsTypeEl.textContent = types.join(' & ') || 'Okänd';
+            }
             
             const notesEl = document.getElementById('ds-notes');
             if (sighting.notes) {
@@ -2492,7 +2511,9 @@ window.quickAddSighting = (birdId) => {
         location: 'Snabbtillägg',
         notes: '',
         weather: '',
-        photo: null
+        photo: null,
+        seen: true,
+        heard: false
     };
 
     // 2. Save
@@ -2896,7 +2917,9 @@ function setupEventListeners() {
             weather: weatherVal,
             photo: existingSighting ? existingSighting.photo : null,
             lat: latVal ? parseFloat(latVal) : null,
-            lng: lngVal ? parseFloat(lngVal) : null
+            lng: lngVal ? parseFloat(lngVal) : null,
+            seen: document.getElementById('sighting-seen') ? document.getElementById('sighting-seen').checked : true,
+            heard: document.getElementById('sighting-heard') ? document.getElementById('sighting-heard').checked : false
         };
 
         const finish = () => {

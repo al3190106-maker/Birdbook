@@ -927,6 +927,24 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Observationstyp</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <label class="observation-type-btn" style="flex: 1; text-align: center; cursor: pointer;">
+                            <input type="checkbox" id="sighting-seen" style="display: none;" checked>
+                            <div class="obs-btn-content" style="padding: 0.6rem; border: 1px solid var(--border-color, #ddd); border-radius: 8px; font-weight: 600; color: var(--text-muted, #666); transition: all 0.2s; user-select: none; background: var(--card-bg, white);">
+                                <i class="fa-solid fa-eye" style="margin-right: 5px;"></i> Sedd
+                            </div>
+                        </label>
+                        <label class="observation-type-btn" style="flex: 1; text-align: center; cursor: pointer;">
+                            <input type="checkbox" id="sighting-heard" style="display: none;">
+                            <div class="obs-btn-content" style="padding: 0.6rem; border: 1px solid var(--border-color, #ddd); border-radius: 8px; font-weight: 600; color: var(--text-muted, #666); transition: all 0.2s; user-select: none; background: var(--card-bg, white);">
+                                <i class="fa-solid fa-ear-listen" style="margin-right: 5px;"></i> Hörd
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="sighting-location">Plats</label>
                     <div style="display: flex; gap: 0.5rem; align-items: center;">
                         <input type="text" id="sighting-location" placeholder="Hämtar plats..." style="flex: 1; margin-bottom: 0;">
@@ -1072,6 +1090,10 @@
                         <div class="fact-title"><i class="fa-solid fa-map-location-dot"></i> Plats</div>
                         <div class="fact-value" id="ds-location" style="font-size: 1rem;">--</div>
                         <div class="stat-label" style="font-size: 0.75rem; color: #888; overflow-wrap: break-word;"></div>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-title"><i class="fa-solid fa-eye"></i> Typ</div>
+                        <div class="fact-value" id="ds-type" style="font-size: 1rem;">--</div>
                     </div>
                     <div class="fact-card">
                         <div class="fact-title"><i class="fa-solid fa-cloud-sun"></i> Väder</div>
