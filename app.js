@@ -2016,12 +2016,20 @@ function renderGuideList(birdList) {
 
     elements.guideList.innerHTML = '';
 
+    // Build set of all-time caught species (all subjects, no year filter)
+    const caughtIds = new Set(
+        state.sightings
+            .filter(s => s.id !== 'SYSTEM_INIT_BIRD' && s.birdId)
+            .map(s => s.birdId)
+    );
+
     const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
     const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
 
     birdList.forEach(bird => {
         const card = document.createElement('div');
-        card.className = 'bird-card';
+        const isCaught = caughtIds.has(bird.id);
+        card.className = 'bird-card' + (isCaught ? ' is-caught' : '');
         // Make the whole card clickable for details
         card.style.cursor = 'pointer';
 
@@ -2038,6 +2046,7 @@ function renderGuideList(birdList) {
                     <i class="fa-solid fa-plus"></i>
                 </button>
                 <div class="bird-image-name">${bird.nameSv}</div>
+                ${isCaught ? '<div class=\"caught-badge\"><i class=\"fa-solid fa-check\"></i> Hittad</div>' : ''}
             </div>
             <div class="bird-info">
                  <div class="bird-primary-name">${bird.nameSv}</div>
