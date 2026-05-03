@@ -2046,7 +2046,7 @@ function renderGuideList(birdList) {
                     <i class="fa-solid fa-plus"></i>
                 </button>
                 <div class="bird-image-name">${bird.nameSv}</div>
-                ${isCaught ? '<div class=\"caught-badge\"><i class=\"fa-solid fa-check\"></i> Hittad</div>' : ''}
+                ${isCaught ? '<div class=\"caught-badge\"><i class=\"fa-solid fa-check\"></i></div>' : ''}
             </div>
             <div class="bird-info">
                  <div class="bird-primary-name">${bird.nameSv}</div>
