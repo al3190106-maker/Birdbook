@@ -609,6 +609,19 @@
                 }
             </style>
 
+            <!-- Sub-tabs -->
+            <div class="listen-subtabs" id="listen-subtabs">
+                <button class="listen-subtab active" id="subtab-audio" onclick="switchListenTab('audio')">
+                    <i class="fa-solid fa-microphone"></i> Ljud-ID
+                </button>
+                <button class="listen-subtab" id="subtab-visual" onclick="switchListenTab('visual')">
+                    <i class="fa-solid fa-magnifying-glass"></i> Visuella guider
+                </button>
+            </div>
+
+            <!-- AUDIO PANEL -->
+            <div id="listen-audio-panel">
+
             <!-- Controls -->
             <div class="listen-controls">
                 <div id="listen-status" class="listen-status-pill">
@@ -659,9 +672,10 @@
 
             </div>
 
-            <!-- =====================================================
-                 BILDGUIDER – Svåra arter att skilja åt
-                 ===================================================== -->
+            </div><!-- end #listen-audio-panel -->
+
+            <!-- VISUAL PANEL -->
+            <div id="listen-visual-panel" style="display:none;">
             <div style="max-width:600px; margin:0 auto; padding: 0 0.5rem 2rem;">
 
                 <style>
@@ -1126,7 +1140,66 @@
                     </div>
 
                 </div><!-- end idguide-section -->
-            </div><!-- end bildguider wrapper -->
+            </div><!-- end inner wrapper -->
+            </div><!-- end #listen-visual-panel -->
+
+            <style>
+                .listen-subtabs {
+                    display: flex;
+                    gap: 0.5rem;
+                    padding: 0.75rem 1rem 0;
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+                .listen-subtab {
+                    flex: 1;
+                    padding: 0.6rem 1rem;
+                    border: 2px solid rgba(46,93,75,0.15);
+                    border-radius: 99px;
+                    background: transparent;
+                    color: var(--text-muted);
+                    font-weight: 700;
+                    font-size: 0.85rem;
+                    cursor: pointer;
+                    font-family: var(--font-stack);
+                    transition: all 0.25s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.4rem;
+                }
+                .listen-subtab.active {
+                    background: var(--primary);
+                    border-color: var(--primary);
+                    color: white;
+                    box-shadow: 0 4px 14px rgba(46,93,75,0.3);
+                }
+                .listen-subtab:not(.active):hover {
+                    border-color: var(--primary);
+                    color: var(--primary);
+                    background: rgba(46,93,75,0.05);
+                }
+            </style>
+
+            <script>
+                function switchListenTab(tab) {
+                    const audioPanel  = document.getElementById('listen-audio-panel');
+                    const visualPanel = document.getElementById('listen-visual-panel');
+                    const btnAudio    = document.getElementById('subtab-audio');
+                    const btnVisual   = document.getElementById('subtab-visual');
+                    if (tab === 'audio') {
+                        audioPanel.style.display  = '';
+                        visualPanel.style.display = 'none';
+                        btnAudio.classList.add('active');
+                        btnVisual.classList.remove('active');
+                    } else {
+                        audioPanel.style.display  = 'none';
+                        visualPanel.style.display = '';
+                        btnVisual.classList.add('active');
+                        btnAudio.classList.remove('active');
+                    }
+                }
+            </script>
 
         </section>
 
