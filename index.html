@@ -658,6 +658,476 @@
                 </div>
 
             </div>
+
+            <!-- =====================================================
+                 BILDGUIDER – Svåra arter att skilja åt
+                 ===================================================== -->
+            <div style="max-width:600px; margin:0 auto; padding: 0 0.5rem 2rem;">
+
+                <style>
+                    .idguide-section { margin-top: 2rem; }
+                    .idguide-header {
+                        font-size: 0.75rem; font-weight: 700;
+                        color: var(--text-muted); text-transform: uppercase;
+                        letter-spacing: 0.8px; margin-bottom: 0.75rem;
+                        display: flex; align-items: center; gap: 0.5rem;
+                    }
+                    .idguide-card {
+                        background: var(--card-bg);
+                        border-radius: 16px;
+                        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+                        border: 1px solid rgba(0,0,0,0.06);
+                        overflow: hidden;
+                        margin-bottom: 1rem;
+                    }
+                    .idguide-card-title {
+                        background: linear-gradient(135deg, var(--primary) 0%, #1a3d2f 100%);
+                        color: white;
+                        padding: 0.9rem 1.2rem;
+                        font-weight: 800;
+                        font-size: 1rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.6rem;
+                    }
+                    .idguide-scroll {
+                        display: flex;
+                        overflow-x: auto;
+                        gap: 0.75rem;
+                        padding: 1rem;
+                        scroll-snap-type: x mandatory;
+                        -webkit-overflow-scrolling: touch;
+                        scrollbar-width: none;
+                    }
+                    .idguide-scroll::-webkit-scrollbar { display: none; }
+                    .idguide-bird-col {
+                        flex: 0 0 160px;
+                        scroll-snap-align: start;
+                        background: #f8faf9;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        border: 1px solid rgba(0,0,0,0.06);
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    .idguide-bird-col img {
+                        width: 160px; height: 130px;
+                        object-fit: cover;
+                        display: block;
+                        flex-shrink: 0;
+                    }
+                    .idguide-bird-body { padding: 0.65rem 0.7rem; flex: 1; }
+                    .idguide-bird-name {
+                        font-weight: 800; font-size: 0.88rem;
+                        color: var(--text-main); margin-bottom: 1px;
+                    }
+                    .idguide-bird-sci {
+                        font-style: italic; font-size: 0.68rem;
+                        color: var(--text-muted); margin-bottom: 0.5rem;
+                    }
+                    .idguide-bird-size {
+                        font-size: 0.72rem; font-weight: 700;
+                        color: var(--primary);
+                        background: rgba(46,93,75,0.08);
+                        display: inline-block;
+                        padding: 1px 6px;
+                        border-radius: 4px;
+                        margin-bottom: 0.5rem;
+                    }
+                    .idguide-trait-group { margin-bottom: 0.4rem; }
+                    .idguide-trait-label {
+                        font-size: 0.65rem; font-weight: 800;
+                        text-transform: uppercase; letter-spacing: 0.5px;
+                        color: var(--primary); margin-bottom: 2px;
+                    }
+                    .idguide-trait-list {
+                        list-style: none; padding: 0; margin: 0;
+                        font-size: 0.7rem; color: var(--text-main);
+                        line-height: 1.55;
+                    }
+                    .idguide-trait-list li::before {
+                        content: '• '; color: var(--secondary);
+                    }
+                    .idguide-scroll-hint {
+                        text-align: center;
+                        font-size: 0.7rem;
+                        color: var(--text-muted);
+                        padding: 0 1rem 0.6rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.4rem;
+                    }
+                </style>
+
+                <div class="idguide-section">
+                    <div class="idguide-header">
+                        <i class="fa-solid fa-magnifying-glass" style="color:var(--primary)"></i>
+                        Bildguider – Svåra arter att skilja åt
+                    </div>
+
+                    <!-- MESAR DEL 1 -->
+                    <div class="idguide-card">
+                        <div class="idguide-card-title">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                            Sveriges mesfåglar – Vanliga arter
+                        </div>
+                        <div class="idguide-scroll">
+                            <div class="idguide-bird-col">
+                                <img src="images/great_tit.jpg" alt="Talgoxe" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Talgoxe</div>
+                                    <div class="idguide-bird-sci">Parus major</div>
+                                    <div class="idguide-bird-size">14–15 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Svart huvud, vita kinder</li>
+                                            <li>Gul undersida, svart mittstreck</li>
+                                            <li>Störst av våra mesfåglar</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"ti-ti-tit"</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/eurasian_blue_tit.jpg" alt="Blåmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Blåmes</div>
+                                    <div class="idguide-bird-sci">Cyanistes caeruleus</div>
+                                    <div class="idguide-bird-size">11–12 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Blå hjässa och vinge</li>
+                                            <li>Vita kinder, mörk ögonrand</li>
+                                            <li>Gul undersida</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"si-si-si"</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/coal_tit.jpg" alt="Svartmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Svartmes</div>
+                                    <div class="idguide-bird-sci">Periparus ater</div>
+                                    <div class="idguide-bird-size">11–12 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Svart hjässa, vit nackfläck</li>
+                                            <li>Vita kinder</li>
+                                            <li>Gråsvart ovansida</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tji-tji-tji"</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/marsh_tit_entita.jpg" alt="Entita" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Entita</div>
+                                    <div class="idguide-bird-sci">Poecile palustris</div>
+                                    <div class="idguide-bird-size">12–13 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Svart hjässa utan nackfläck</li>
+                                            <li>Vitaktiga kinder</li>
+                                            <li>Långt vitt på kinden</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tjuu" (mjukt)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/crested_tit.jpg" alt="Tofsmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Tofsmes</div>
+                                    <div class="idguide-bird-sci">Lophophanes cristatus</div>
+                                    <div class="idguide-bird-size">11–12 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Tydlig tofs på huvudet</li>
+                                            <li>Svart-vit ansiktsmask</li>
+                                            <li>Unik – lätt att känna igen</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tjipp" eller "tsip"</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="idguide-scroll-hint">
+                            <i class="fa-solid fa-arrow-right"></i> Svep för fler
+                        </div>
+                    </div>
+
+                    <!-- MESAR DEL 2 -->
+                    <div class="idguide-card">
+                        <div class="idguide-card-title">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                            Ovanligare mesfåglar
+                        </div>
+                        <div class="idguide-scroll">
+                            <div class="idguide-bird-col">
+                                <img src="images/siberian_tit.jpg" alt="Lappmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Lappmes</div>
+                                    <div class="idguide-bird-sci">Poecile cinctus</div>
+                                    <div class="idguide-bird-size">11–12 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Svart hjässa &amp; haklapp</li>
+                                            <li>Vita kinder</li>
+                                            <li>Gråbrun ovansida</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Miljö</div>
+                                        <ul class="idguide-trait-list"><li>Barrskogar i norr</li></ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tjäpp" eller "tsip"</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/penduline_tit.jpg" alt="Pungmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Pungmes</div>
+                                    <div class="idguide-bird-sci">Remiz pendulinus</div>
+                                    <div class="idguide-bird-size">10–11 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Vit hjässa</li>
+                                            <li>Svart mask över ögonen</li>
+                                            <li>Varmbrun rygg</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Miljö</div>
+                                        <ul class="idguide-trait-list"><li>Vassbälten, vattendrag</li></ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tsrih" (gnissligt)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/bearded_reedling.jpg" alt="Skäggmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Skäggmes</div>
+                                    <div class="idguide-bird-sci">Panurus biarmicus</div>
+                                    <div class="idguide-bird-size">15–17 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Gråblå hjässa (hane)</li>
+                                            <li>Svarta "skägg" på kinderna</li>
+                                            <li>Varmbrun kropp, lång stjärt</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Miljö</div>
+                                        <ul class="idguide-trait-list"><li>Vassbälten vid sjöar</li></ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tjui-tjui" (vasslande)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/long_tailed_tit.jpg" alt="Stjärtmes" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Stjärtmes</div>
+                                    <div class="idguide-bird-sci">Aegithalos caudatus</div>
+                                    <div class="idguide-bird-size">13–15 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Vitt ansikte, ljus hjässa</li>
+                                            <li>Rosaaktig på sidorna</li>
+                                            <li>Mycket lång stjärt</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Miljö</div>
+                                        <ul class="idguide-trait-list"><li>Löv- &amp; blandskogar, i flock</li></ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tsi-di-di" (nasalt)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/willow_tit.jpg" alt="Talltita" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Talltita</div>
+                                    <div class="idguide-bird-sci">Poecile montanus</div>
+                                    <div class="idguide-bird-size">11–12 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Svart hjässa, liten haklapp</li>
+                                            <li>Vit kind utan tydlig kontrast</li>
+                                            <li>Gråbrun ovansida</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Miljö</div>
+                                        <ul class="idguide-trait-list"><li>Barrskogar &amp; parker</li></ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"tsi-t" eller "tit"</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="idguide-scroll-hint">
+                            <i class="fa-solid fa-arrow-right"></i> Svep för fler
+                        </div>
+                    </div>
+
+                    <!-- DUVOR -->
+                    <div class="idguide-card">
+                        <div class="idguide-card-title">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                            Skillnaden mellan duvor
+                        </div>
+                        <div class="idguide-scroll">
+                            <div class="idguide-bird-col">
+                                <img src="images/common_wood_pigeon.jpg" alt="Ringduva" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Ringduva</div>
+                                    <div class="idguide-bird-sci">Columba palumbus</div>
+                                    <div class="idguide-bird-size">38–43 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Stor &amp; kraftig</li>
+                                            <li>Vit halsfläck på sidorna</li>
+                                            <li>Vit ovansida på vingarna</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"o-o-o-o" (dovt)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/eurasian_collared_dove.jpg" alt="Turkduva" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Turkduva</div>
+                                    <div class="idguide-bird-sci">Streptopelia decaocto</div>
+                                    <div class="idguide-bird-size">31–33 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Ljusbeige till gråbeige</li>
+                                            <li>Svart halvkrage i nacken</li>
+                                            <li>Smalare än ringduvan</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"ku-ru, ku-ru" (rytmiskt)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/stock_dove.jpg" alt="Skogsduva" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Skogsduva</div>
+                                    <div class="idguide-bird-sci">Columba oenas</div>
+                                    <div class="idguide-bird-size">31–34 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Mörkare än ringduvan</li>
+                                            <li>Grön/lila halsglans</li>
+                                            <li>Saknar vit halsfläck</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>Högre, mer visslande</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/rock_dove.jpg" alt="Tamduva" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Tamduva</div>
+                                    <div class="idguide-bird-sci">Columba livia f. domestica</div>
+                                    <div class="idguide-bird-size">30–36 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Mycket varierande färg</li>
+                                            <li>Ofta kraftigare kropp</li>
+                                            <li>Många raser</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"ku-ru" eller kuttrande</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idguide-bird-col">
+                                <img src="images/european_turtle_dove.jpg" alt="Turturduva" loading="lazy">
+                                <div class="idguide-bird-body">
+                                    <div class="idguide-bird-name">Turturduva</div>
+                                    <div class="idguide-bird-sci">Streptopelia turtur</div>
+                                    <div class="idguide-bird-size">26–28 cm</div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Utseende</div>
+                                        <ul class="idguide-trait-list">
+                                            <li>Brunaktig, prickigt mönster</li>
+                                            <li>Grått huvud, svartvita halsfläckar</li>
+                                            <li>Spetsigare stjärt</li>
+                                        </ul>
+                                    </div>
+                                    <div class="idguide-trait-group">
+                                        <div class="idguide-trait-label">Läte</div>
+                                        <ul class="idguide-trait-list"><li>"turr-turr-turr" (sorgset)</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="idguide-scroll-hint">
+                            <i class="fa-solid fa-arrow-right"></i> Svep för fler
+                        </div>
+                    </div>
+
+                </div><!-- end idguide-section -->
+            </div><!-- end bildguider wrapper -->
+
         </section>
 
 
