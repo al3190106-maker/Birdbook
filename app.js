@@ -2191,53 +2191,52 @@ function matchTimeFilter(item) {
 // Maps category names to their identification image folders and files
 const IDENTIFY_IMAGES = {
     'Mesar': [
-        { file: 'images/identifiera/mesar/talgoxe.png',   label: 'Talgoxe' },
-        { file: 'images/identifiera/mesar/blames.png',    label: 'Blåmes' },
-        { file: 'images/identifiera/mesar/svartmes.png',  label: 'Svartmes' },
-        { file: 'images/identifiera/mesar/entita.png',    label: 'Entita' },
-        { file: 'images/identifiera/mesar/talltita.png',  label: 'Talltita' },
-        { file: 'images/identifiera/mesar/tofsmes.png',   label: 'Tofsmes' },
-        { file: 'images/identifiera/mesar/lappmes.png',   label: 'Lappmes' },
-        { file: 'images/identifiera/mesar/pungmes.png',   label: 'Pungmes' },
-        { file: 'images/identifiera/mesar/skaggmes.png',  label: 'Skäggmes' },
-        { file: 'images/identifiera/mesar/stjartmes.png', label: 'Stjärtmes' },
+        { file: 'images/identifiera/mesar/talgoxe.png',   label: 'Talgoxe',   similarTo: ['Blåmes', 'Svartmes', 'Tofsmes'] },
+        { file: 'images/identifiera/mesar/blames.png',    label: 'Blåmes',    similarTo: ['Talgoxe', 'Svartmes', 'Tofsmes'] },
+        { file: 'images/identifiera/mesar/svartmes.png',  label: 'Svartmes',  similarTo: ['Entita', 'Talltita', 'Blåmes'] },
+        { file: 'images/identifiera/mesar/entita.png',    label: 'Entita',    similarTo: ['Talltita', 'Svartmes', 'Lappmes'] },
+        { file: 'images/identifiera/mesar/talltita.png',  label: 'Talltita',  similarTo: ['Entita', 'Svartmes', 'Lappmes'] },
+        { file: 'images/identifiera/mesar/tofsmes.png',   label: 'Tofsmes',   similarTo: ['Talgoxe', 'Blåmes', 'Svartmes'] },
+        { file: 'images/identifiera/mesar/lappmes.png',   label: 'Lappmes',   similarTo: ['Entita', 'Talltita', 'Svartmes'] },
+        { file: 'images/identifiera/mesar/pungmes.png',   label: 'Pungmes',   similarTo: ['Skäggmes', 'Stjärtmes', 'Lappmes'] },
+        { file: 'images/identifiera/mesar/skaggmes.png',  label: 'Skäggmes',  similarTo: ['Pungmes', 'Stjärtmes', 'Lappmes'] },
+        { file: 'images/identifiera/mesar/stjartmes.png', label: 'Stjärtmes', similarTo: ['Pungmes', 'Skäggmes', 'Tofsmes'] },
     ],
     'Sångare': [
-        { file: 'images/identifiera/sangare/lovsangare.png',        label: 'Lövsångare' },
-        { file: 'images/identifiera/sangare/lundsangare.png',       label: 'Lundsångare' },
-        { file: 'images/identifiera/sangare/gransangare.png',       label: 'Gransångare' },
-        { file: 'images/identifiera/sangare/nordsangare.png',       label: 'Nordsångare' },
-        { file: 'images/identifiera/sangare/gronsangare.png',       label: 'Grönssångare' },
-        { file: 'images/identifiera/sangare/kungsfagelsangare.png', label: 'Kungsfågelsångare' },
-        { file: 'images/identifiera/sangare/brandkronadkungsfagel.png', label: 'Brandkronad Kungsfågel' },
-        { file: 'images/identifiera/sangare/kungsfagel.png',        label: 'Kungsfågel' },
-        { file: 'images/identifiera/sangare/svarthatta.png',        label: 'Svarthätta' },
-        { file: 'images/identifiera/sangare/hoksangare.png',        label: 'Höksångare' },
-        { file: 'images/identifiera/sangare/harmsangare.png',       label: 'Härmsångare' },
-        { file: 'images/identifiera/sangare/tradgardssangare.png',  label: 'Trädgårdssångare' },
-        { file: 'images/identifiera/sangare/artsangare.png',        label: 'Ärtsångare' },
-        { file: 'images/identifiera/sangare/tornsangare.png',       label: 'Tornsångare' },
-        { file: 'images/identifiera/sangare/flodsangare.png',       label: 'Flodsångare' },
-        { file: 'images/identifiera/sangare/grashoppsangare.png',   label: 'Gräshoppsångare' },
-        { file: 'images/identifiera/sangare/trastsangare.png',      label: 'Trastsångare' },
-        { file: 'images/identifiera/sangare/vassangare.png',        label: 'Vassångare' },
-        { file: 'images/identifiera/sangare/savsangare.png',        label: 'Sävsångare' },
-        { file: 'images/identifiera/sangare/rorsangare.png',        label: 'Rörsångare' },
-        { file: 'images/identifiera/sangare/karrsangare.png',       label: 'Kärrsångare' },
+        { file: 'images/identifiera/sangare/lovsangare.png',        label: 'Lövsångare',          similarTo: ['Lundsångare', 'Gransångare', 'Nordsångare'] },
+        { file: 'images/identifiera/sangare/lundsangare.png',       label: 'Lundsångare',          similarTo: ['Lövsångare', 'Gransångare', 'Nordsångare'] },
+        { file: 'images/identifiera/sangare/gransangare.png',       label: 'Gransångare',          similarTo: ['Lövsångare', 'Lundsångare', 'Nordsångare'] },
+        { file: 'images/identifiera/sangare/nordsangare.png',       label: 'Nordsångare',          similarTo: ['Lövsångare', 'Lundsångare', 'Grönssångare'] },
+        { file: 'images/identifiera/sangare/gronsangare.png',       label: 'Grönssångare',         similarTo: ['Kungsfågelsångare', 'Nordsångare', 'Lövsångare'] },
+        { file: 'images/identifiera/sangare/kungsfagelsangare.png', label: 'Kungsfågelsångare',    similarTo: ['Brandkronad Kungsfågel', 'Kungsfågel', 'Grönssångare'] },
+        { file: 'images/identifiera/sangare/brandkronadkungsfagel.png', label: 'Brandkronad Kungsfågel', similarTo: ['Kungsfågelsångare', 'Kungsfågel', 'Grönssångare'] },
+        { file: 'images/identifiera/sangare/kungsfagel.png',        label: 'Kungsfågel',           similarTo: ['Kungsfågelsångare', 'Brandkronad Kungsfågel', 'Lövsångare'] },
+        { file: 'images/identifiera/sangare/svarthatta.png',        label: 'Svarthätta',           similarTo: ['Härmsångare', 'Trädgårdssångare', 'Höksångare'] },
+        { file: 'images/identifiera/sangare/hoksangare.png',        label: 'Höksångare',           similarTo: ['Svarthätta', 'Härmsångare', 'Trädgårdssångare'] },
+        { file: 'images/identifiera/sangare/harmsangare.png',       label: 'Härmsångare',          similarTo: ['Svarthätta', 'Trädgårdssångare', 'Höksångare'] },
+        { file: 'images/identifiera/sangare/tradgardssangare.png',  label: 'Trädgårdssångare',     similarTo: ['Svarthätta', 'Härmsångare', 'Ärtsångare'] },
+        { file: 'images/identifiera/sangare/artsangare.png',        label: 'Ärtsångare',           similarTo: ['Tornsångare', 'Flodsångare', 'Trädgårdssångare'] },
+        { file: 'images/identifiera/sangare/tornsangare.png',       label: 'Tornsångare',          similarTo: ['Ärtsångare', 'Flodsångare', 'Gräshoppsångare'] },
+        { file: 'images/identifiera/sangare/flodsangare.png',       label: 'Flodsångare',          similarTo: ['Gräshoppsångare', 'Tornsångare', 'Ärtsångare'] },
+        { file: 'images/identifiera/sangare/grashoppsangare.png',   label: 'Gräshoppsångare',      similarTo: ['Flodsångare', 'Trastsångare', 'Tornsångare'] },
+        { file: 'images/identifiera/sangare/trastsangare.png',      label: 'Trastsångare',         similarTo: ['Vassångare', 'Sävsångare', 'Rörsångare'] },
+        { file: 'images/identifiera/sangare/vassangare.png',        label: 'Vassångare',           similarTo: ['Sävsångare', 'Rörsångare', 'Kärrsångare'] },
+        { file: 'images/identifiera/sangare/savsangare.png',        label: 'Sävsångare',           similarTo: ['Vassångare', 'Rörsångare', 'Kärrsångare'] },
+        { file: 'images/identifiera/sangare/rorsangare.png',        label: 'Rörsångare',           similarTo: ['Sävsångare', 'Kärrsångare', 'Vassångare'] },
+        { file: 'images/identifiera/sangare/karrsangare.png',       label: 'Kärrsångare',          similarTo: ['Rörsångare', 'Sävsångare', 'Vassångare'] },
     ],
     'Trastar': [
-        { file: 'images/identifiera/trastar/koltrast.png',      label: 'Koltrast' },
-        { file: 'images/identifiera/trastar/taltrast.png',      label: 'Taltrast' },
-        { file: 'images/identifiera/trastar/bjorktrast.png',    label: 'Björktrast' },
-        { file: 'images/identifiera/trastar/rodvingetrast.png', label: 'Rödvingetrast' },
-        { file: 'images/identifiera/trastar/dubbeltrast.png',   label: 'Dubbeltrast' },
-        { file: 'images/identifiera/trastar/ringtrast.png',     label: 'Ringtrast' },
-        { file: 'images/identifiera/trastar/rodhake.png',       label: 'Rödhake' },
+        { file: 'images/identifiera/trastar/koltrast.png',      label: 'Koltrast',      similarTo: ['Ringtrast', 'Björktrast', 'Taltrast'] },
+        { file: 'images/identifiera/trastar/taltrast.png',      label: 'Taltrast',      similarTo: ['Björktrast', 'Rödvingetrast', 'Dubbeltrast'] },
+        { file: 'images/identifiera/trastar/bjorktrast.png',    label: 'Björktrast',    similarTo: ['Taltrast', 'Rödvingetrast', 'Dubbeltrast'] },
+        { file: 'images/identifiera/trastar/rodvingetrast.png', label: 'Rödvingetrast', similarTo: ['Björktrast', 'Taltrast', 'Dubbeltrast'] },
+        { file: 'images/identifiera/trastar/dubbeltrast.png',   label: 'Dubbeltrast',   similarTo: ['Taltrast', 'Björktrast', 'Ringtrast'] },
+        { file: 'images/identifiera/trastar/ringtrast.png',     label: 'Ringtrast',     similarTo: ['Koltrast', 'Dubbeltrast', 'Björktrast'] },
+        { file: 'images/identifiera/trastar/rodhake.png',       label: 'Rödhake',       similarTo: ['Rödvingetrast', 'Ringtrast', 'Koltrast'] },
     ],
 };
 
 function renderIdentifyGallery(category) {
-    // Remove any existing gallery
     const existing = document.getElementById('identify-gallery-wrap');
     if (existing) existing.remove();
 
@@ -2261,10 +2260,8 @@ function renderIdentifyGallery(category) {
         </div>
     `;
 
-    // Insert before the guide list
     elements.guideList.parentNode.insertBefore(wrap, elements.guideList);
 
-    // Lightbox logic
     wrap.querySelectorAll('.idgallery-thumb').forEach(thumb => {
         thumb.addEventListener('click', () => {
             const idx = parseInt(thumb.dataset.index);
@@ -2289,19 +2286,49 @@ function openIdentifyLightbox(images, startIndex) {
             </div>
             <div class="idlb-label"></div>
             <div class="idlb-counter"></div>
+            <div class="idlb-similar">
+                <div class="idlb-similar-title">Kan förväxlas med</div>
+                <div class="idlb-similar-row" id="idlb-similar-row"></div>
+            </div>
         </div>
     `;
     document.body.appendChild(lb);
 
-    const img = lb.querySelector('.idlb-img');
-    const label = lb.querySelector('.idlb-label');
-    const counter = lb.querySelector('.idlb-counter');
+    const img      = lb.querySelector('.idlb-img');
+    const label    = lb.querySelector('.idlb-label');
+    const counter  = lb.querySelector('.idlb-counter');
+    const simRow   = lb.querySelector('#idlb-similar-row');
+
+    function renderSimilar(bird) {
+        simRow.innerHTML = '';
+        const similar = (bird.similarTo || []).slice(0, 3);
+        similar.forEach(simLabel => {
+            // Find in same images array
+            const simBird = images.find(b => b.label === simLabel);
+            if (!simBird) return;
+            const simIdx = images.indexOf(simBird);
+            const chip = document.createElement('div');
+            chip.className = 'idlb-sim-chip';
+            chip.innerHTML = `
+                <img src="${simBird.file}" alt="${simBird.label}">
+                <span>${simBird.label}</span>
+            `;
+            chip.addEventListener('click', (e) => {
+                e.stopPropagation();
+                show(simIdx);
+            });
+            simRow.appendChild(chip);
+        });
+        // Hide section if no suggestions
+        lb.querySelector('.idlb-similar').style.display = similar.length ? '' : 'none';
+    }
 
     function show(i) {
         current = (i + images.length) % images.length;
         img.src = images[current].file;
         label.textContent = images[current].label;
         counter.textContent = `${current + 1} / ${images.length}`;
+        renderSimilar(images[current]);
     }
 
     show(current);
@@ -2311,7 +2338,6 @@ function openIdentifyLightbox(images, startIndex) {
     lb.querySelector('.idlb-prev').addEventListener('click', () => show(current - 1));
     lb.querySelector('.idlb-next').addEventListener('click', () => show(current + 1));
 
-    // Swipe support
     let touchStartX = 0;
     lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
     lb.addEventListener('touchend', e => {
@@ -2319,14 +2345,16 @@ function openIdentifyLightbox(images, startIndex) {
         if (Math.abs(dx) > 40) show(dx < 0 ? current + 1 : current - 1);
     });
 
-    // Keyboard
     const keyHandler = e => {
         if (e.key === 'ArrowRight') show(current + 1);
-        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'ArrowLeft')  show(current - 1);
         if (e.key === 'Escape') { lb.remove(); document.removeEventListener('keydown', keyHandler); }
     };
     document.addEventListener('keydown', keyHandler);
 }
+
+
+
 
 function selectCategory(category, pushState = true) {
     state.activeCategory = category;

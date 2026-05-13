@@ -4819,3 +4819,63 @@ body.idle-dark-mode .listen-scard-add-btn {
 .idlb-prev:hover,
 .idlb-next:hover { background: rgba(255,255,255,0.25); }
 
+/* Similar species in lightbox */
+.idlb-similar {
+    margin-top: 1.1rem;
+    text-align: center;
+    width: 100%;
+}
+.idlb-similar-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.55rem;
+    font-family: var(--font-stack);
+}
+.idlb-similar-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+.idlb-sim-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: pointer;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 0.4rem 0.5rem;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    width: 80px;
+}
+.idlb-sim-chip:hover {
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.4);
+    transform: translateY(-2px);
+}
+.idlb-sim-chip img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 7px;
+    display: block;
+}
+.idlb-sim-chip span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    font-family: var(--font-stack);
+    text-align: center;
+    line-height: 1.2;
+    max-width: 72px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
