@@ -2188,6 +2188,146 @@ function matchTimeFilter(item) {
     return false;
 }
 
+// Maps category names to their identification image folders and files
+const IDENTIFY_IMAGES = {
+    'Mesar': [
+        { file: 'images/identifiera/mesar/talgoxe.png',   label: 'Talgoxe' },
+        { file: 'images/identifiera/mesar/blames.png',    label: 'Blåmes' },
+        { file: 'images/identifiera/mesar/svartmes.png',  label: 'Svartmes' },
+        { file: 'images/identifiera/mesar/entita.png',    label: 'Entita' },
+        { file: 'images/identifiera/mesar/talltita.png',  label: 'Talltita' },
+        { file: 'images/identifiera/mesar/tofsmes.png',   label: 'Tofsmes' },
+        { file: 'images/identifiera/mesar/lappmes.png',   label: 'Lappmes' },
+        { file: 'images/identifiera/mesar/pungmes.png',   label: 'Pungmes' },
+        { file: 'images/identifiera/mesar/skaggmes.png',  label: 'Skäggmes' },
+        { file: 'images/identifiera/mesar/stjartmes.png', label: 'Stjärtmes' },
+    ],
+    'Sångare': [
+        { file: 'images/identifiera/sangare/lovsangare.png',        label: 'Lövsångare' },
+        { file: 'images/identifiera/sangare/lundsangare.png',       label: 'Lundsångare' },
+        { file: 'images/identifiera/sangare/gransangare.png',       label: 'Gransångare' },
+        { file: 'images/identifiera/sangare/nordsangare.png',       label: 'Nordsångare' },
+        { file: 'images/identifiera/sangare/gronsangare.png',       label: 'Grönssångare' },
+        { file: 'images/identifiera/sangare/kungsfagelsangare.png', label: 'Kungsfågelsångare' },
+        { file: 'images/identifiera/sangare/brandkronadkungsfagel.png', label: 'Brandkronad Kungsfågel' },
+        { file: 'images/identifiera/sangare/kungsfagel.png',        label: 'Kungsfågel' },
+        { file: 'images/identifiera/sangare/svarthatta.png',        label: 'Svarthätta' },
+        { file: 'images/identifiera/sangare/hoksangare.png',        label: 'Höksångare' },
+        { file: 'images/identifiera/sangare/harmsangare.png',       label: 'Härmsångare' },
+        { file: 'images/identifiera/sangare/tradgardssangare.png',  label: 'Trädgårdssångare' },
+        { file: 'images/identifiera/sangare/artsangare.png',        label: 'Ärtsångare' },
+        { file: 'images/identifiera/sangare/tornsangare.png',       label: 'Tornsångare' },
+        { file: 'images/identifiera/sangare/flodsangare.png',       label: 'Flodsångare' },
+        { file: 'images/identifiera/sangare/grashoppsangare.png',   label: 'Gräshoppsångare' },
+        { file: 'images/identifiera/sangare/trastsangare.png',      label: 'Trastsångare' },
+        { file: 'images/identifiera/sangare/vassangare.png',        label: 'Vassångare' },
+        { file: 'images/identifiera/sangare/savsangare.png',        label: 'Sävsångare' },
+        { file: 'images/identifiera/sangare/rorsangare.png',        label: 'Rörsångare' },
+        { file: 'images/identifiera/sangare/karrsangare.png',       label: 'Kärrsångare' },
+    ],
+    'Trastar': [
+        { file: 'images/identifiera/trastar/koltrast.png',      label: 'Koltrast' },
+        { file: 'images/identifiera/trastar/taltrast.png',      label: 'Taltrast' },
+        { file: 'images/identifiera/trastar/bjorktrast.png',    label: 'Björktrast' },
+        { file: 'images/identifiera/trastar/rodvingetrast.png', label: 'Rödvingetrast' },
+        { file: 'images/identifiera/trastar/dubbeltrast.png',   label: 'Dubbeltrast' },
+        { file: 'images/identifiera/trastar/ringtrast.png',     label: 'Ringtrast' },
+        { file: 'images/identifiera/trastar/rodhake.png',       label: 'Rödhake' },
+    ],
+};
+
+function renderIdentifyGallery(category) {
+    // Remove any existing gallery
+    const existing = document.getElementById('identify-gallery-wrap');
+    if (existing) existing.remove();
+
+    const images = IDENTIFY_IMAGES[category];
+    if (!images || images.length === 0) return;
+
+    const wrap = document.createElement('div');
+    wrap.id = 'identify-gallery-wrap';
+    wrap.innerHTML = `
+        <div class="idgallery-header">
+            <i class="fa-solid fa-book-open" style="color:var(--primary)"></i>
+            Identifieringsguide
+        </div>
+        <div class="idgallery-strip" id="idgallery-strip">
+            ${images.map((img, i) => `
+                <div class="idgallery-thumb" data-index="${i}" data-src="${img.file}" title="${img.label}">
+                    <img src="${img.file}" alt="${img.label}" loading="lazy">
+                    <span class="idgallery-label">${img.label}</span>
+                </div>
+            `).join('')}
+        </div>
+    `;
+
+    // Insert before the guide list
+    elements.guideList.parentNode.insertBefore(wrap, elements.guideList);
+
+    // Lightbox logic
+    wrap.querySelectorAll('.idgallery-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            const idx = parseInt(thumb.dataset.index);
+            openIdentifyLightbox(images, idx);
+        });
+    });
+}
+
+function openIdentifyLightbox(images, startIndex) {
+    let current = startIndex;
+
+    const lb = document.createElement('div');
+    lb.id = 'identify-lightbox';
+    lb.innerHTML = `
+        <div class="idlb-backdrop"></div>
+        <div class="idlb-container">
+            <button class="idlb-close"><i class="fa-solid fa-xmark"></i></button>
+            <button class="idlb-prev"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="idlb-next"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="idlb-img-wrap">
+                <img class="idlb-img" src="" alt="">
+            </div>
+            <div class="idlb-label"></div>
+            <div class="idlb-counter"></div>
+        </div>
+    `;
+    document.body.appendChild(lb);
+
+    const img = lb.querySelector('.idlb-img');
+    const label = lb.querySelector('.idlb-label');
+    const counter = lb.querySelector('.idlb-counter');
+
+    function show(i) {
+        current = (i + images.length) % images.length;
+        img.src = images[current].file;
+        label.textContent = images[current].label;
+        counter.textContent = `${current + 1} / ${images.length}`;
+    }
+
+    show(current);
+
+    lb.querySelector('.idlb-close').addEventListener('click', () => lb.remove());
+    lb.querySelector('.idlb-backdrop').addEventListener('click', () => lb.remove());
+    lb.querySelector('.idlb-prev').addEventListener('click', () => show(current - 1));
+    lb.querySelector('.idlb-next').addEventListener('click', () => show(current + 1));
+
+    // Swipe support
+    let touchStartX = 0;
+    lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) show(dx < 0 ? current + 1 : current - 1);
+    });
+
+    // Keyboard
+    const keyHandler = e => {
+        if (e.key === 'ArrowRight') show(current + 1);
+        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'Escape') { lb.remove(); document.removeEventListener('keydown', keyHandler); }
+    };
+    document.addEventListener('keydown', keyHandler);
+}
+
 function selectCategory(category, pushState = true) {
     state.activeCategory = category;
     const config = SUBJECT_CONFIG[state.currentSubject];
@@ -2206,9 +2346,14 @@ function selectCategory(category, pushState = true) {
         const list = getCurrentSpeciesList();
         const items = list.filter(b => b.type === category && matchTimeFilter(b));
         renderGuideList(items);
+        renderIdentifyGallery(category);
     } else {
-        elements.currentCategoryTitle.textContent = 'Alla ' + config.texts.itemLabel + 'er'; // Or "Alla Arter"
-        if (elements.currentCategoryTitle.textContent.includes('arterer')) elements.currentCategoryTitle.textContent = 'Alla Arter'; // Fix double suffix if any
+        elements.currentCategoryTitle.textContent = 'Alla ' + config.texts.itemLabel + 'er';
+        if (elements.currentCategoryTitle.textContent.includes('arterer')) elements.currentCategoryTitle.textContent = 'Alla Arter';
+
+        // Remove any gallery when showing "Alla"
+        const existing = document.getElementById('identify-gallery-wrap');
+        if (existing) existing.remove();
 
         const list = getCurrentSpeciesList();
         const items = list.filter(b => matchTimeFilter(b));
