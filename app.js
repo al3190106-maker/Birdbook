@@ -421,8 +421,10 @@ window.addEventListener('popstate', (event) => {
         }
     }
 
-    // 3. Restore state — NOTE: 'detail' is intentionally excluded.
-    //    Going back from a bird detail should just close it, never reopen another bird.
+    // 3. Restore state — NOTE: 'detail' and 'sightings-map-modal' are intentionally excluded.
+    //    Going back should close these, not reopen them.
+    const CLOSE_ONLY_STATES = new Set(['detail', 'sightings-map-modal', 'fullscreen']);
+
     if (event.state) {
         if (event.state.modal === 'sighting') {
             if (event.state.birdId) {
@@ -438,7 +440,7 @@ window.addEventListener('popstate', (event) => {
             selectCategory(event.state.category, false);
         } else if (event.state.modal === 'photographer-detail' && event.state.id) {
             _showPhotographer(event.state.id, null, false);
-        } else if (event.state.modal !== 'detail' && document.getElementById(event.state.modal)) {
+        } else if (!CLOSE_ONLY_STATES.has(event.state.modal) && document.getElementById(event.state.modal)) {
             document.getElementById(event.state.modal).classList.add('active');
         }
     }
