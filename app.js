@@ -2364,6 +2364,9 @@ function selectCategory(category, pushState = true) {
         history.pushState({ modal: 'guide-category', category: category }, '');
     }
 
+    // Always start at the top of the page
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
     // UI Update
     elements.guideCategories.classList.add('hidden');
     elements.guideNavigation.classList.remove('hidden');
