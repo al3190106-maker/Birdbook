@@ -2070,23 +2070,12 @@ function renderGuideList(birdList) {
             });
         }
 
-        // Bind Quick Add Button
+        // Bind Quick Add Button — opens full modal with auto-fill (GPS, weather, date)
         const quickAddBtn = card.querySelector(`#quick-add-${bird.id}`);
         if (quickAddBtn) {
             quickAddBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-
-                quickAddSighting(bird.id);
-
-                // Visual feedback
-                const originalIcon = quickAddBtn.innerHTML;
-                quickAddBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-                quickAddBtn.style.backgroundColor = '#2ecc71';
-
-                setTimeout(() => {
-                    quickAddBtn.innerHTML = originalIcon;
-                    quickAddBtn.style.backgroundColor = '';
-                }, 1500);
+                _showSightingModal(bird.id, bird.nameSv);
             });
         }
 
