@@ -421,17 +421,10 @@ window.addEventListener('popstate', (event) => {
         }
     }
 
-    // 3. Restore state
+    // 3. Restore state — NOTE: 'detail' is intentionally excluded.
+    //    Going back from a bird detail should just close it, never reopen another bird.
     if (event.state) {
-        if (event.state.modal === 'detail' && event.state.birdId) {
-            const list = getCurrentSpeciesList();
-            const bird = list.find(b => b.id === event.state.birdId);
-            if (bird) {
-                _renderBirdDetail(bird);
-                elements.detailModal.classList.add('active');
-            }
-        } else if (event.state.modal === 'sighting') {
-            // If we have prefill data in state, use it
+        if (event.state.modal === 'sighting') {
             if (event.state.birdId) {
                 const list = getCurrentSpeciesList();
                 const bird = list.find(b => b.id === event.state.birdId);
@@ -445,7 +438,7 @@ window.addEventListener('popstate', (event) => {
             selectCategory(event.state.category, false);
         } else if (event.state.modal === 'photographer-detail' && event.state.id) {
             _showPhotographer(event.state.id, null, false);
-        } else if (document.getElementById(event.state.modal)) {
+        } else if (event.state.modal !== 'detail' && document.getElementById(event.state.modal)) {
             document.getElementById(event.state.modal).classList.add('active');
         }
     }
