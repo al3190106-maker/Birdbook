@@ -4250,27 +4250,49 @@ function _setupMapEventListeners() {
         });
     }
 
-    // Compact view toggle
+    // View mode toggle (3 states: normal → compact → text-only → normal)
     const compactBtn = document.getElementById('compact-view-toggle');
     if (compactBtn) {
-        // Restore saved preference
-        const saved = localStorage.getItem('birdfinder_compact_view');
-        if (saved === 'true') {
-            document.getElementById('sightings-list').classList.add('compact');
-            compactBtn.classList.add('active');
-            compactBtn.querySelector('i').className = 'fa-solid fa-list';
+        const MODES = ['normal', 'compact', 'text-only'];
+        const ICONS = {
+            'normal':    'fa-solid fa-grip',
+            'compact':   'fa-solid fa-list',
+            'text-only': 'fa-solid fa-align-justify'
+        };
+        const TITLES = {
+            'normal':    'Kompakt vy',
+            'compact':   'Textvy',
+            'text-only': 'Normal vy'
+        };
+
+        function applyViewMode(mode) {
+            const grid = document.getElementById('sightings-list');
+            if (!grid) return;
+            grid.classList.remove('compact', 'text-only');
+            if (mode === 'compact')   grid.classList.add('compact');
+            if (mode === 'text-only') grid.classList.add('text-only');
+
+            const icon = compactBtn.querySelector('i');
+            const nextMode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+            icon.className = ICONS[nextMode];
+            compactBtn.title = TITLES[mode];
+            compactBtn.classList.toggle('active', mode !== 'normal');
+            localStorage.setItem('birdfinder_view_mode', mode);
         }
+
+        // Restore saved preference (backwards-compat with old 'compact_view' key)
+        const savedOld = localStorage.getItem('birdfinder_compact_view');
+        const savedNew = localStorage.getItem('birdfinder_view_mode');
+        const initialMode = savedNew || (savedOld === 'true' ? 'compact' : 'normal');
+        applyViewMode(initialMode);
 
         compactBtn.addEventListener('click', () => {
             const grid = document.getElementById('sightings-list');
-            grid.classList.toggle('compact');
-            const isCompact = grid.classList.contains('compact');
-
-            compactBtn.classList.toggle('active', isCompact);
-            const icon = compactBtn.querySelector('i');
-            icon.className = isCompact ? 'fa-solid fa-list' : 'fa-solid fa-grip';
-
-            localStorage.setItem('birdfinder_compact_view', isCompact);
+            const currentMode = grid.classList.contains('text-only') ? 'text-only'
+                              : grid.classList.contains('compact')   ? 'compact'
+                              : 'normal';
+            const nextMode = MODES[(MODES.indexOf(currentMode) + 1) % MODES.length];
+            applyViewMode(nextMode);
         });
     }
 }

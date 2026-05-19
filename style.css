@@ -395,6 +395,64 @@ body {
     display: none;
 }
 
+/* Text-only view mode */
+.sightings-grid.text-only {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.sightings-grid.text-only .bird-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 10px;
+    box-shadow: none;
+    border: 1px solid #e8e8e8;
+}
+
+.sightings-grid.text-only .bird-image-container {
+    display: none;
+}
+
+.sightings-grid.text-only .bird-image-name {
+    display: none;
+}
+
+.sightings-grid.text-only .bird-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    flex: 1;
+}
+
+.sightings-grid.text-only .bird-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.sightings-grid.text-only .sighting-meta {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    flex: 1;
+}
+
+.sightings-grid.text-only .edit-image-btn {
+    display: none;
+}
+
+.sightings-grid.text-only .delete-sighting-btn,
+.sightings-grid.text-only .sighting-actions {
+    display: none;
+}
+
 
 /* Bird Card */
 .bird-card {
