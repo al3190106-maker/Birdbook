@@ -1222,6 +1222,29 @@ body {
     font-size: 1.2rem;
 }
 
+.search-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, transform 0.2s;
+    flex-shrink: 0;
+}
+
+.search-icon-btn:hover {
+    color: var(--primary);
+    transform: scale(1.15);
+}
+
+.search-icon-btn.has-text {
+    color: var(--primary);
+}
+
 .search-bar-container input {
     border: none;
     flex-grow: 1;

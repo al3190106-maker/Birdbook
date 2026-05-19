@@ -660,7 +660,14 @@
         <!-- Guide View -->
         <section id="guide-view" class="view-section">
             <div class="search-bar-container">
-                <i class="fa-solid fa-search"></i>
+                <button id="guide-search-icon-btn" class="search-icon-btn" tabindex="-1" aria-label="Rensa sökning" onclick="
+                    var inp = document.getElementById('guide-search');
+                    if (inp.value) {
+                        inp.value = '';
+                        inp.dispatchEvent(new Event('input'));
+                        inp.focus();
+                    }
+                "><i id="guide-search-icon" class="fa-solid fa-search"></i></button>
                 <input type="text" id="guide-search" placeholder="Sök svenska fåglar...">
 
                 <div class="sort-controls compact"

@@ -3156,6 +3156,19 @@ function setupEventListeners() {
     elements.guideSearch.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
 
+        // Toggle search icon ↔ clear icon
+        const iconBtn = document.getElementById('guide-search-icon-btn');
+        const icon = document.getElementById('guide-search-icon');
+        if (iconBtn && icon) {
+            if (term.length > 0) {
+                icon.className = 'fa-solid fa-xmark';
+                iconBtn.classList.add('has-text');
+            } else {
+                icon.className = 'fa-solid fa-search';
+                iconBtn.classList.remove('has-text');
+            }
+        }
+
         // If search term exists, switch to list view automatically
         if (term.length > 0) {
             state.activeCategory = null; // Reset category context
