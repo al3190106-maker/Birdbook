@@ -430,27 +430,28 @@ body {
 }
 
 .sightings-grid.text-only .bird-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.4rem 1rem;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
     flex: 1;
+    padding: 0.2rem 0;
 }
 
 .sightings-grid.text-only .bird-name {
+    display: block !important;
     font-size: 0.95rem;
     font-weight: 700;
+    color: var(--text-main);
     flex-shrink: 0;
 }
 
 .sightings-grid.text-only .sighting-meta {
-    display: flex;
+    display: flex !important;
     gap: 0.6rem;
     flex-wrap: wrap;
     font-size: 0.78rem;
     color: var(--text-muted);
-    flex: 1;
 }
 
 .sightings-grid.text-only .edit-image-btn {
@@ -3245,6 +3246,11 @@ body.mode-trees .quiz-btn.primary {
 /* View Modes Fixed */
 #log-view .bird-info {
     display: none !important;
+}
+
+/* Text-only mode exception — must show bird-info */
+#log-view .sightings-grid.text-only .bird-info {
+    display: flex !important;
 }
 
 #log-view .bird-image-container img {
