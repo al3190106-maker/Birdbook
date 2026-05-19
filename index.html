@@ -508,17 +508,9 @@
 
                 /* Observed state (Already in log) */
                 .listen-scard.is-observed {
-                    background: #f1f5f9;
+                    background: #f0fdf4;
                     border-color: transparent;
-                }
-
-                .listen-scard.is-observed .listen-scard-name::after {
-                    content: '\f058';
-                    font-family: 'Font Awesome 6 Free';
-                    font-weight: 900;
-                    color: #16a34a;
-                    margin-left: 6px;
-                    font-size: 0.8rem;
+                    border-left: 4px solid #16a34a;
                 }
 
                 .listen-scard-img {
@@ -568,6 +560,10 @@
                 }
                 .is-first-time {
                     border-left: 4px solid #fbbf24;
+                }
+                .listen-scard-badge.observed {
+                    background: #dcfce7;
+                    color: #15803d;
                 }
                 .listen-scard-dot {
                     width: 10px; height: 10px;
