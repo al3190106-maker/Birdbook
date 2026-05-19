@@ -453,6 +453,16 @@ body {
     display: none;
 }
 
+.sightings-grid.text-only .bird-card-details {
+    display: none;
+}
+
+/* Hide text-only elements in normal/compact mode */
+.sightings-grid:not(.text-only) .bird-name,
+.sightings-grid:not(.text-only) .sighting-meta {
+    display: none;
+}
+
 
 /* Bird Card */
 .bird-card {

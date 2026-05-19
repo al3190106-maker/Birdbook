@@ -1928,6 +1928,12 @@ function renderSightingsList(sightings) {
                 <div class="bird-image-name">${item.nameSv}</div>
             </div>
             <div class="bird-info">
+                <div class="bird-name">${item.nameSv}</div>
+                <div class="sighting-meta">
+                    <span><i class="fa-regular fa-calendar" style="color:var(--primary);margin-right:3px;"></i>${sighting.date}</span>
+                    ${sighting.location ? `<span><i class="fa-solid fa-location-dot" style="color:var(--primary);margin-right:3px;"></i>${sighting.location}</span>` : ''}
+                    ${group.count > 1 ? `<span style="color:var(--primary);font-weight:700;">×${group.count}</span>` : ''}
+                </div>
                 <details class="bird-card-details" style="cursor: default;">
                     <summary style="cursor: pointer; color: var(--primary); font-weight: 600; outline: none; padding-bottom: 0.5rem; font-size: 0.95rem; user-select: none;">Visa information</summary>
                     <div style="padding-top: 0.5rem; border-top: 1px solid #eee;">
