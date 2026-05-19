@@ -423,7 +423,7 @@ window.addEventListener('popstate', (event) => {
 
     // 3. Restore state — NOTE: 'detail' and 'sightings-map-modal' are intentionally excluded.
     //    Going back should close these, not reopen them.
-    const CLOSE_ONLY_STATES = new Set(['detail', 'sightings-map-modal', 'fullscreen']);
+    const CLOSE_ONLY_STATES = new Set(['detail', 'sightings-map-modal', 'fullscreen', 'settings-modal', 'info-modal']);
 
     if (event.state) {
         if (event.state.modal === 'sighting') {
@@ -3208,8 +3208,16 @@ function setupEventListeners() {
             // Do not close welcome modal by clicking outside
             if (e.target.id === 'welcome-modal') return;
 
-            // These modals use HTML5 history state for navigation
-            if (e.target.id === 'sighting-modal' || e.target.id === 'bird-detail-modal-overlay' || e.target.id === 'fullscreen-image-modal') {
+            // These modals use HTML5 history state for navigation (history.back cleans up the stack)
+            const historyManagedModals = new Set([
+                'sighting-modal',
+                'bird-detail-modal-overlay',
+                'fullscreen-image-modal',
+                'settings-modal',
+                'sightings-map-modal'
+            ]);
+
+            if (historyManagedModals.has(e.target.id)) {
                 history.back();
             } else {
                 e.target.classList.remove('active');
