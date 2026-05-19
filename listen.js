@@ -277,9 +277,7 @@ function listen_renderSession() {
         cardEl.classList.toggle('is-first-time', isFirst);
 
         const metaEl = cardEl.querySelector('.listen-scard-meta');
-        const badgeHtml = isFirst
-            ? `<div class="listen-scard-badge">Ny</div>`
-            : `<div class="listen-scard-badge observed">Sedd</div>`;
+        const badgeHtml = isFirst ? `<div class="listen-scard-badge">Ny</div>` : '';
         metaEl.innerHTML = `${pct}% säkerhet ${badgeHtml}`;
 
         const actionsEl = cardEl.querySelector('.listen-scard-actions');
