@@ -360,11 +360,13 @@ body {
 
 .sightings-grid.compact .bird-card {
     border-radius: 10px;
+    background: #1a2e26; /* Dark fallback so name always readable */
 }
 
 .sightings-grid.compact .bird-image-container {
     height: 0;
     padding-bottom: 100%; /* Square aspect ratio */
+    position: relative; /* Required for absolute children */
 }
 
 .sightings-grid.compact .bird-image-container img {
@@ -378,8 +380,15 @@ body {
 }
 
 .sightings-grid.compact .bird-image-name {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.4rem;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.35rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 100%);
+    /* Fallback: always readable even on white/broken images */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    min-height: 1.6em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .sightings-grid.compact .bird-card:not(.log-card) .bird-info {
