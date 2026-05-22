@@ -3052,23 +3052,51 @@ function setupEventListeners() {
     // 4. Autocomplete
     elements.birdSearchInput.addEventListener('input', function () {
         const val = this.value.toLowerCase();
+        const rawVal = this.value.trim();
         elements.autocompleteList.innerHTML = '';
+
+        // Clear any previous custom selection when user types again
+        if (elements.selectedBirdId.value.startsWith('custom_')) {
+            elements.selectedBirdId.value = '';
+        }
+
         if (!val) return;
 
         const list = getCurrentSpeciesList();
-        list.forEach(bird => {
-            if (bird.nameEn.toLowerCase().includes(val) || bird.nameSv.toLowerCase().includes(val)) {
-                const item = document.createElement('div');
-                item.className = 'autocomplete-item';
-                item.innerHTML = `<strong>${bird.nameSv}</strong> <small>(${bird.nameEn})</small>`;
-                item.addEventListener('click', () => {
-                    elements.birdSearchInput.value = bird.nameSv;
-                    elements.selectedBirdId.value = bird.id;
-                    elements.autocompleteList.innerHTML = '';
-                });
-                elements.autocompleteList.appendChild(item);
-            }
+        const matches = list.filter(bird =>
+            bird.nameEn.toLowerCase().includes(val) || bird.nameSv.toLowerCase().includes(val)
+        );
+
+        matches.forEach(bird => {
+            const item = document.createElement('div');
+            item.className = 'autocomplete-item';
+            item.innerHTML = `<strong>${bird.nameSv}</strong> <small>(${bird.nameEn})</small>`;
+            item.addEventListener('click', () => {
+                elements.birdSearchInput.value = bird.nameSv;
+                elements.selectedBirdId.value = bird.id;
+                elements.autocompleteList.innerHTML = '';
+            });
+            elements.autocompleteList.appendChild(item);
         });
+
+        // If no matches → show "add as custom" hint
+        if (matches.length === 0 && rawVal.length > 0) {
+            const hint = document.createElement('div');
+            hint.className = 'autocomplete-item autocomplete-custom-hint';
+            hint.innerHTML = `
+                <span class="custom-hint-icon"><i class="fa-solid fa-circle-plus"></i></span>
+                <span><em>"${rawVal}"</em> finns inte i databasen</span>
+                <span class="custom-hint-tag">Lägg till ändå</span>`;
+            hint.addEventListener('click', () => {
+                const customId = 'custom_' + Date.now();
+                elements.birdSearchInput.value = rawVal;
+                elements.selectedBirdId.value = customId;
+                window._customSpeciesNames = window._customSpeciesNames || {};
+                window._customSpeciesNames[customId] = rawVal;
+                elements.autocompleteList.innerHTML = '';
+            });
+            elements.autocompleteList.appendChild(hint);
+        }
     });
 
     // Close autocomplete on outside click
