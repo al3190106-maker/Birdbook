@@ -3137,8 +3137,8 @@ function setupEventListeners() {
             elements.autocompleteList.appendChild(item);
         });
 
-        // If no matches → show "add as custom" hint
-        if (matches.length === 0 && rawVal.length > 0) {
+        // If no matches → show "add as custom" hint (not in Naturboken)
+        if (matches.length === 0 && rawVal.length > 0 && state.currentSubject !== 'nature') {
             const hint = document.createElement('div');
             hint.className = 'autocomplete-item autocomplete-custom-hint';
             hint.innerHTML = `
@@ -3323,8 +3323,8 @@ function setupEventListeners() {
             );
             renderGuideList(filtered);
 
-            // If no results → show "add anyway" button
-            if (filtered.length === 0) {
+            // If no results → show "add anyway" button (not in Naturboken)
+            if (filtered.length === 0 && state.currentSubject !== 'nature') {
                 const rawTerm = e.target.value.trim();
                 elements.guideList.innerHTML = `
                     <div class="custom-add-prompt">
