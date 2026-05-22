@@ -330,6 +330,7 @@ const elements = {
     yearFilterContainer: document.querySelector('.year-filter-container'),
     currentYearDisplay: document.getElementById('current-year-display'),
     sightingsList: document.getElementById('sightings-list'),
+    bookStrip: document.getElementById('book-strip'),
     guideList: document.getElementById('guide-list'),
     birdSearchInput: document.getElementById('bird-search-input'),
     autocompleteList: document.getElementById('autocomplete-list'),
@@ -1854,7 +1855,63 @@ function deleteSighting(id) {
 }
 
 // --- Rendering ---
+function renderBookStrip() {
+    if (!elements.bookStrip) return;
+    elements.bookStrip.innerHTML = '';
+
+    Object.keys(SUBJECT_CONFIG).forEach(subjectId => {
+        const config = SUBJECT_CONFIG[subjectId];
+        const card = document.createElement('div');
+        card.className = `book-strip-card${state.currentSubject === subjectId ? ' active' : ''}`;
+        
+        let count = 0;
+        if (subjectId === 'nature') {
+            count = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD').length;
+        } else {
+            const list = window[config.dataVar] || [];
+            count = state.sightings.filter(s => {
+                if (s.id === 'SYSTEM_INIT_BIRD') return false;
+                const isCustom = s.birdId && s.birdId.startsWith('custom_');
+                if (isCustom) {
+                    const customSubject = s.subject || 'birds';
+                    return customSubject === subjectId;
+                }
+                return list.some(item => item.id === s.birdId);
+            }).length;
+        }
+
+        const badgeHTML = count > 0 ? `<div class="book-strip-badge">${count}</div>` : '';
+        const nameShort = config.name.replace('boken', '');
+
+        let iconHTML = '';
+        if (config.iconImg) {
+            iconHTML = `<img src="images/category_icons/${config.iconImg}" alt="${nameShort}">`;
+        } else {
+            iconHTML = `<i class="fa-solid ${config.icon} book-strip-icon"></i>`;
+        }
+
+        card.innerHTML = `
+            ${badgeHTML}
+            <div class="book-strip-icon-wrapper" style="display:flex; align-items:center; justify-content:center; height:24px;">
+                ${iconHTML}
+            </div>
+            <div class="book-strip-name">${nameShort}</div>
+        `;
+
+        card.addEventListener('click', () => {
+            if (state.currentSubject !== subjectId) {
+                switchSubject(subjectId);
+            }
+        });
+
+        elements.bookStrip.appendChild(card);
+    });
+}
+
 function renderApp() {
+    // Render Book Strip
+    renderBookStrip();
+
     // 1. Apply Filters
     const filteredSightings = getFilteredSightings();
 
