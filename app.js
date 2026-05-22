@@ -1790,8 +1790,9 @@ function getFilteredSightings() {
         const isCustom = s.birdId && s.birdId.startsWith('custom_');
         if (isCustom) {
             // Filter by subject — custom obs belongs to the book they were created in
+            // Exception: Naturboken shows everything (it's a compilation of all books)
             const customSubject = s.subject || 'birds';
-            if (customSubject !== state.currentSubject) return false;
+            if (state.currentSubject !== 'nature' && customSubject !== state.currentSubject) return false;
             if (state.yearFilter !== 'all') {
                 const y = new Date(s.date).getFullYear();
                 if (y !== state.yearFilter) return false;
