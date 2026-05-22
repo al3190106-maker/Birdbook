@@ -1658,6 +1658,13 @@ async function loadSightings() {
                 console.log(`Migrerade väderdata för ${migratedCount} gamla observationer.`);
             }
         }
+        // Rebuild custom species name map from stored sightings
+        window._customSpeciesNames = window._customSpeciesNames || {};
+        state.sightings.forEach(s => {
+            if (s.birdId && s.birdId.startsWith('custom_') && s.customName) {
+                window._customSpeciesNames[s.birdId] = s.customName;
+            }
+        });
         console.log('📂 Loaded', state.sightings.length, 'sightings from LocalStorage');
     } catch (e) {
         console.error('Data corruption detected', e);
@@ -1751,6 +1758,16 @@ function getFilteredSightings() {
     const currentList = getCurrentSpeciesList();
     return state.sightings.filter(s => {
         if (s.id === 'SYSTEM_INIT_BIRD') return false;
+
+        // Allow custom observations (not tied to any species list)
+        const isCustom = s.birdId && s.birdId.startsWith('custom_');
+        if (isCustom) {
+            if (state.yearFilter !== 'all') {
+                const y = new Date(s.date).getFullYear();
+                if (y !== state.yearFilter) return false;
+            }
+            return true;
+        }
 
         // Filter by Current Mode (Bird vs Tree)
         const belongsToMode = currentList.some(item => item.id === s.birdId);
@@ -1902,7 +1919,22 @@ function renderSightingsList(sightings) {
     groups.forEach(group => {
         const sighting = group.latestSighting;
         const list = getCurrentSpeciesList();
-        const item = list.find(b => b.id === sighting.birdId);
+        let item = list.find(b => b.id === sighting.birdId);
+
+        // Handle custom (user-added) species not in any database
+        if (!item && sighting.birdId && sighting.birdId.startsWith('custom_')) {
+            const customName = (window._customSpeciesNames && window._customSpeciesNames[sighting.birdId])
+                || sighting.customName || sighting.birdId.replace('custom_', '');
+            item = {
+                id: sighting.birdId,
+                nameSv: customName,
+                nameEn: customName,
+                scientific: '',
+                funFact: '',
+                rarity: 1,
+                _isCustom: true
+            };
+        }
 
         if (!item) return;
 
@@ -3051,8 +3083,14 @@ function setupEventListeners() {
         e.preventDefault();
 
         if (!elements.selectedBirdId.value) {
-            alert('Vänligen välj en fågel från listan!');
+            alert('Vänligen välj en art från listan!');
             return;
+        }
+        // Store custom name on sighting if it's a custom entry
+        const isCustomEntry = elements.selectedBirdId.value.startsWith('custom_');
+        if (isCustomEntry) {
+            window._customSpeciesNames = window._customSpeciesNames || {};
+            window._customSpeciesNames[elements.selectedBirdId.value] = elements.birdSearchInput.value;
         }
 
         const latVal = document.getElementById('sighting-lat').value;
@@ -3084,6 +3122,7 @@ function setupEventListeners() {
         const newSighting = {
             id: isEditing ? editingSightingId : Date.now().toString(),
             birdId: elements.selectedBirdId.value,
+            customName: isCustomEntry ? elements.birdSearchInput.value : undefined,
             date: dateVal,
             location: document.getElementById('sighting-location').value,
             notes: notesVal,
@@ -3194,6 +3233,28 @@ function setupEventListeners() {
                 matchTimeFilter(b)
             );
             renderGuideList(filtered);
+
+            // If no results → show "add anyway" button
+            if (filtered.length === 0) {
+                const rawTerm = e.target.value.trim();
+                elements.guideList.innerHTML = `
+                    <div class="custom-add-prompt">
+                        <div class="custom-add-icon"><i class="fa-solid fa-circle-question"></i></div>
+                        <p class="custom-add-text"><strong>"${rawTerm}"</strong> finns inte i databasen.</p>
+                        <button class="custom-add-btn" id="custom-add-anyway-btn">
+                            <i class="fa-solid fa-plus"></i> Lägg till "${rawTerm}" som observation ändå
+                        </button>
+                    </div>`;
+                document.getElementById('custom-add-anyway-btn').addEventListener('click', () => {
+                    const customId = 'custom_' + Date.now();
+                    elements.selectedBirdId.value = customId;
+                    elements.birdSearchInput.value = rawTerm;
+                    _showSightingModal(customId, rawTerm);
+                    // Store the custom name so renderSightingsList can use it
+                    window._customSpeciesNames = window._customSpeciesNames || {};
+                    window._customSpeciesNames[customId] = rawTerm;
+                });
+            }
         } else {
             // Show categories again
             if (state.activeCategory) {
