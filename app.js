@@ -1949,7 +1949,7 @@ function renderApp() {
     if (state.currentSubject === 'birds') {
         const uniqueSeen = new Set(validSightings.filter(s => s.seen !== false).map(s => s.birdId)).size;
         const uniqueHeard = new Set(validSightings.filter(s => s.heard === true).map(s => s.birdId)).size;
-        elements.uniqueSpeciesLabel.innerHTML = `Unika arter<br><span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: inline-block; margin-top: 0.15rem;">${uniqueSeen} sedda · ${uniqueHeard} hörda</span>`;
+        elements.uniqueSpeciesLabel.innerHTML = `Unika arter<br><span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: inline-block; margin-top: 0.15rem; line-height: 1.35;">${uniqueSeen} sedda<br>${uniqueHeard} hörda</span>`;
     } else {
         elements.uniqueSpeciesLabel.textContent = 'Unika arter';
     }
