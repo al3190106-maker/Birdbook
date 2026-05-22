@@ -13,7 +13,8 @@ const state = {
     quizScore: 0,
     quizAnswered: false,
     timeFilter: 'all',
-    currentSubject: 'birds' // Replaces appMode
+    currentSubject: 'birds', // Replaces appMode
+    showBookStrip: localStorage.getItem('birdfinder_show_book_strip') !== 'false'
 };
 window.state = state;
 
@@ -342,6 +343,7 @@ const elements = {
     resetBtn: document.getElementById('reset-app-btn'),
     settingsBtn: document.getElementById('settings-btn'),
     settingsModal: document.getElementById('settings-modal'),
+    toggleBookStrip: document.getElementById('toggle-book-strip'),
     exportDataBtn: document.getElementById('export-data-btn'),
     importDataBtn: document.getElementById('import-data-btn'),
     importDataInput: document.getElementById('import-data-input'),
@@ -1857,6 +1859,13 @@ function deleteSighting(id) {
 // --- Rendering ---
 function renderBookStrip() {
     if (!elements.bookStrip) return;
+    
+    if (!state.showBookStrip) {
+        elements.bookStrip.style.display = 'none';
+        return;
+    }
+    
+    elements.bookStrip.style.display = 'flex';
     elements.bookStrip.innerHTML = '';
 
     Object.keys(SUBJECT_CONFIG).forEach(subjectId => {
@@ -2859,7 +2868,20 @@ function setupEventListeners() {
     // Settings Modal Open
     if (elements.settingsBtn) {
         elements.settingsBtn.addEventListener('click', () => {
-            if (elements.settingsModal) openModal('settings-modal');
+            if (elements.settingsModal) {
+                if (elements.toggleBookStrip) {
+                    elements.toggleBookStrip.checked = state.showBookStrip;
+                }
+                openModal('settings-modal');
+            }
+        });
+    }
+
+    if (elements.toggleBookStrip) {
+        elements.toggleBookStrip.addEventListener('change', (e) => {
+            state.showBookStrip = e.target.checked;
+            localStorage.setItem('birdfinder_show_book_strip', state.showBookStrip);
+            renderApp();
         });
     }
 
