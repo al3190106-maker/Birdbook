@@ -1072,7 +1072,32 @@ function _renderBirdDetail(item, sighting = null) {
         imagesToShow = [userCustomImg, ...imagesToShow];
     }
 
-    _buildCarousel(imagesToShow);
+    // For custom (non-database) species with no images → show themed placeholder
+    if (item._isCustom && !userCustomImg && !sighting?.photo) {
+        const THEME_COLORS = {
+            birds:   { bg: '#1a3d2b', light: '#2d6a4f' },
+            trees:   { bg: '#3b2a1a', light: '#6b4c2a' },
+            fish:    { bg: '#1a2a3d', light: '#2a4a6d' },
+            animals: { bg: '#2d1f3d', light: '#5a3d6b' },
+            fungi:   { bg: '#3d2a1a', light: '#7a4f2a' },
+            flowers: { bg: '#3d1a2d', light: '#6b2a4f' },
+            plants:  { bg: '#1a3d1a', light: '#2d6b2d' },
+            nature:  { bg: '#1a3a2a', light: '#2a5a3a' },
+        };
+        const tc = THEME_COLORS[state.currentSubject] || THEME_COLORS.birds;
+        const sIcon = SUBJECT_CONFIG[state.currentSubject]?.icon || 'fa-book';
+        elements.carouselSlides.innerHTML = `
+            <div class="carousel-slide active">
+                <div class="custom-species-placeholder detail-placeholder"
+                     style="background: linear-gradient(135deg, ${tc.bg} 0%, ${tc.light} 100%);">
+                    <i class="fa-solid ${sIcon} custom-placeholder-icon" style="font-size:5rem;"></i>
+                    <i class="fa-solid fa-book custom-placeholder-book"></i>
+                </div>
+            </div>`;
+        elements.carouselDots.innerHTML = '';
+    } else {
+        _buildCarousel(imagesToShow);
+    }
 
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
