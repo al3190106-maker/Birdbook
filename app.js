@@ -1683,11 +1683,13 @@ async function loadSightings() {
                 console.log(`Migrerade väderdata för ${migratedCount} gamla observationer.`);
             }
         }
-        // Rebuild custom species name map from stored sightings
+        // Rebuild custom species name + subject map from stored sightings
         window._customSpeciesNames = window._customSpeciesNames || {};
+        window._customSpeciesSubjects = window._customSpeciesSubjects || {};
         state.sightings.forEach(s => {
-            if (s.birdId && s.birdId.startsWith('custom_') && s.customName) {
-                window._customSpeciesNames[s.birdId] = s.customName;
+            if (s.birdId && s.birdId.startsWith('custom_')) {
+                if (s.customName) window._customSpeciesNames[s.birdId] = s.customName;
+                if (s.subject)     window._customSpeciesSubjects[s.birdId] = s.subject;
             }
         });
         console.log('📂 Loaded', state.sightings.length, 'sightings from LocalStorage');
@@ -1787,6 +1789,9 @@ function getFilteredSightings() {
         // Allow custom observations (not tied to any species list)
         const isCustom = s.birdId && s.birdId.startsWith('custom_');
         if (isCustom) {
+            // Filter by subject — custom obs belongs to the book they were created in
+            const customSubject = s.subject || 'birds';
+            if (customSubject !== state.currentSubject) return false;
             if (state.yearFilter !== 'all') {
                 const y = new Date(s.date).getFullYear();
                 if (y !== state.yearFilter) return false;
@@ -3171,6 +3176,8 @@ function setupEventListeners() {
         if (isCustomEntry) {
             window._customSpeciesNames = window._customSpeciesNames || {};
             window._customSpeciesNames[elements.selectedBirdId.value] = elements.birdSearchInput.value;
+            window._customSpeciesSubjects = window._customSpeciesSubjects || {};
+            window._customSpeciesSubjects[elements.selectedBirdId.value] = state.currentSubject;
         }
 
         const latVal = document.getElementById('sighting-lat').value;
@@ -3203,6 +3210,7 @@ function setupEventListeners() {
             id: isEditing ? editingSightingId : Date.now().toString(),
             birdId: elements.selectedBirdId.value,
             customName: isCustomEntry ? elements.birdSearchInput.value : undefined,
+            subject: isCustomEntry ? state.currentSubject : undefined,
             date: dateVal,
             location: document.getElementById('sighting-location').value,
             notes: notesVal,
@@ -3330,9 +3338,11 @@ function setupEventListeners() {
                     elements.selectedBirdId.value = customId;
                     elements.birdSearchInput.value = rawTerm;
                     _showSightingModal(customId, rawTerm);
-                    // Store the custom name so renderSightingsList can use it
+                    // Store the custom name and subject so renderSightingsList can use it
                     window._customSpeciesNames = window._customSpeciesNames || {};
                     window._customSpeciesNames[customId] = rawTerm;
+                    window._customSpeciesSubjects = window._customSpeciesSubjects || {};
+                    window._customSpeciesSubjects[customId] = state.currentSubject;
                 });
             }
         } else {
