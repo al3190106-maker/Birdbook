@@ -1941,16 +1941,43 @@ function renderSightingsList(sightings) {
         const card = document.createElement('div');
         card.className = 'bird-card';
 
-        // Custom image takes priority
+        // Themed placeholder colors per subject
+        const THEME_COLORS = {
+            birds:   { bg: '#1a3d2b', light: '#2d6a4f' },
+            trees:   { bg: '#3b2a1a', light: '#6b4c2a' },
+            fish:    { bg: '#1a2a3d', light: '#2a4a6d' },
+            animals: { bg: '#2d1f3d', light: '#5a3d6b' },
+            fungi:   { bg: '#3d2a1a', light: '#7a4f2a' },
+            flowers: { bg: '#3d1a2d', light: '#6b2a4f' },
+            plants:  { bg: '#1a3d1a', light: '#2d6b2d' },
+            nature:  { bg: '#1a3a2a', light: '#2a5a3a' },
+        };
+        const themeColor = THEME_COLORS[state.currentSubject] || THEME_COLORS.birds;
+        const subjectIcon = SUBJECT_CONFIG[state.currentSubject]?.icon || 'fa-book';
+
+        // Build image container content
         const customImg = localStorage.getItem(`custom_img_${item.id}`);
-        const imgSource = customImg || sighting.photo || getBirdImageSrc(item.id);
+        const userPhoto = sighting.photo;
+
+        let imageContainerContent;
+        if (item._isCustom && !customImg && !userPhoto) {
+            // Themed placeholder for custom species
+            imageContainerContent = `
+                <div class="custom-species-placeholder" style="background: linear-gradient(135deg, ${themeColor.bg} 0%, ${themeColor.light} 100%);">
+                    <i class="fa-solid ${subjectIcon} custom-placeholder-icon"></i>
+                    <i class="fa-solid fa-book custom-placeholder-book"></i>
+                </div>`;
+        } else {
+            const imgSource = customImg || userPhoto || getBirdImageSrc(item.id);
+            imageContainerContent = `<img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">`;
+        }
 
         const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
         const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
 
         card.innerHTML = `
             <div class="bird-image-container">
-                <img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">
+                ${imageContainerContent}
                 <button class="edit-image-btn" id="log-edit-btn-${item.id}" title="Lägg till egen bild">
                     <i class="fa-solid fa-camera"></i>
                 </button>
