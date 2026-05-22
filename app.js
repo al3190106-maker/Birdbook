@@ -323,6 +323,7 @@ const CATEGORY_THEMES = {
 const elements = {
     totalSightings: document.getElementById('total-sightings'),
     uniqueSpecies: document.getElementById('unique-species'),
+    uniqueSpeciesLabel: document.getElementById('unique-species-label'),
     addSightingBtn: document.getElementById('add-sighting-btn'),
     modal: document.getElementById('sighting-modal'),
     closeModal: document.getElementById('close-modal'),
@@ -1944,6 +1945,14 @@ function renderApp() {
     if (elements.totalSightings) elements.totalSightings.textContent = validSightings.length;
     const uniqueBirds = new Set(validSightings.map(s => s.birdId));
     elements.uniqueSpecies.textContent = uniqueBirds.size;
+
+    if (state.currentSubject === 'birds') {
+        const uniqueSeen = new Set(validSightings.filter(s => s.seen !== false).map(s => s.birdId)).size;
+        const uniqueHeard = new Set(validSightings.filter(s => s.heard === true).map(s => s.birdId)).size;
+        elements.uniqueSpeciesLabel.innerHTML = `Unika arter<br><span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: inline-block; margin-top: 0.15rem;">${uniqueSeen} sedda · ${uniqueHeard} hörda</span>`;
+    } else {
+        elements.uniqueSpeciesLabel.textContent = 'Unika arter';
+    }
 
     // 3. Update Text
     if (state.yearFilter === 'all') {
