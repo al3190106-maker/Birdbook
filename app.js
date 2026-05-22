@@ -1349,6 +1349,20 @@ function switchSubject(subjectId) {
     state.currentSubject = subjectId;
     const config = SUBJECT_CONFIG[subjectId];
 
+    // Update "Identifiera" (listen-view) tab visibility: only visible in Fågelboken (birds)
+    const listenTabBtn = document.querySelector('.nav-btn[data-tab="listen-view"]');
+    if (listenTabBtn) {
+        if (subjectId === 'birds') {
+            listenTabBtn.style.display = '';
+        } else {
+            listenTabBtn.style.display = 'none';
+            if (state.view === 'listen-view') {
+                const logBtn = document.querySelector('.nav-btn[data-tab="log-view"]');
+                if (logBtn) logBtn.click();
+            }
+        }
+    }
+
     // 1. Update Body Theme
     document.body.className = ''; // Reset
     document.body.classList.add(config.themeClass);
