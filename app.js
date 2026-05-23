@@ -2781,16 +2781,6 @@ function selectIdentifyBird(index) {
         }
     });
 
-    // Auto-collapse list container on selection
-    const container = document.getElementById('modal-idgallery-strip-container');
-    if (container && !container.classList.contains('collapsed')) {
-        container.classList.add('collapsed');
-        const tText = document.getElementById('idgallery-toggle-text');
-        const tIcon = document.getElementById('idgallery-toggle-icon');
-        if (tText) tText.textContent = `Visa alla arter (${currentIdentifyGallery.length})`;
-        if (tIcon) tIcon.className = 'fa-solid fa-chevron-down';
-    }
-
     // Show image
     const img = document.getElementById('idmodal-selected-img');
     img.src = item.file;
