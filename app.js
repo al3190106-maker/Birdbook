@@ -2785,6 +2785,9 @@ function selectIdentifyBird(index) {
     const img = document.getElementById('idmodal-selected-img');
     img.src = item.file;
     img.alt = item.label;
+    
+    const nameEl = document.getElementById('idmodal-selected-name');
+    if (nameEl) nameEl.textContent = item.label;
 
     // Update buttons
     const prevBtn = document.getElementById('idmodal-prev');

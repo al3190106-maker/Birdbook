@@ -5429,9 +5429,20 @@ body.idle-dark-mode .listen-scard-add-btn {
 .idmodal-img-wrap {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-height: 50vh;
+    max-height: 55vh;
+    gap: 0.5rem;
+}
+
+.idmodal-selected-name {
+    font-family: var(--font-stack);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-align: center;
+    margin-top: 0.25rem;
 }
 
 #idmodal-selected-img {
