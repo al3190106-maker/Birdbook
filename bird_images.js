@@ -1292,14 +1292,14 @@ window.birdImages = {
     ],
     "razorbill": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/07/tordmule.jpg",
+            "src": "images/razorbill.jpg",
             "photographer": "Bertil Sundberg",
             "gender": "same"
         }
     ],
     "black_guillemot": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/07/tobisgrissla2.jpg",
+            "src": "images/black_guillemot.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "same"
         }
@@ -1530,7 +1530,7 @@ window.birdImages = {
     ],
     "garden_warbler": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/08/tradgardssangare1.jpg",
+            "src": "images/garden_warbler.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "same"
         }
@@ -1802,7 +1802,7 @@ window.birdImages = {
     ],
     "crested_tit": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/09/tofsmes.jpg",
+            "src": "images/crested_tit.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "same"
         }
@@ -3741,14 +3741,9 @@ window.birdImages = {
     ],
     "tengmalm_owl": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/09/parluggla_juv2.jpg",
+            "src": "images/tengmalm_owl.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "same"
-        },
-        {
-            "src": "https://fageln.se/wp-content/uploads/2025/09/parluggla_pulli.jpg",
-            "photographer": "Steve Dahlfors",
-            "gender": "juvenile"
         }
     ],
     "ural_owl": [
@@ -3770,7 +3765,7 @@ window.birdImages = {
     ],
     "eurasian_pygmy_owl": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/09/sparvuggla.jpg",
+            "src": "images/eurasian_pygmy_owl.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "same"
         }
@@ -4264,7 +4259,7 @@ window.birdImages = {
     ],
     "common_kingfisher": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/09/kungsfiskare.jpg",
+            "src": "images/common_kingfisher.jpg",
             "photographer": "Steve Dahlfors",
             "gender": "same"
         }
