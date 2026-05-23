@@ -708,6 +708,13 @@
                 <h3 id="current-category-title">Kategori</h3>
             </div>
 
+            <!-- Trigger Button for Identification / Comparison Gallery -->
+            <div id="identify-btn-wrap" class="identify-btn-wrap hidden">
+                <button id="guide-identify-btn" class="guide-identify-btn">
+                    <i class="fa-solid fa-book-open"></i> IDENTIFIERING MESAR
+                </button>
+            </div>
+
             <div class="birds-grid hidden" id="guide-list">
                 <!-- Injected via JS -->
             </div>
@@ -997,6 +1004,45 @@
                     <button type="submit" class="submit-btn">Spara observation</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Comparison/Identify Modal -->
+    <div class="modal-overlay" id="identify-modal">
+        <div class="modal-content identify-modal-content">
+            <button class="close-modal" id="close-identify-modal" title="Stäng"><i class="fa-solid fa-times"></i></button>
+            <div class="identify-modal-header">
+                <h2 id="identify-modal-title">Identifieringsguide</h2>
+                <p id="identify-modal-subtitle">Klicka på en fågel för att jämföra</p>
+            </div>
+            
+            <!-- Horizontal Thumbnail Strip -->
+            <div class="idgallery-strip-container">
+                <div class="idgallery-strip" id="modal-idgallery-strip">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </div>
+            
+            <!-- Selected Card Detail View -->
+            <div class="identify-selected-card-wrap">
+                <button class="idmodal-nav-btn idmodal-prev" id="idmodal-prev" aria-label="Föregående fågel">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="idmodal-img-wrap">
+                    <img id="idmodal-selected-img" src="" alt="Vald fågel">
+                </div>
+                <button class="idmodal-nav-btn idmodal-next" id="idmodal-next" aria-label="Nästa fågel">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Similar Species Section -->
+            <div class="idmodal-similar-section">
+                <div class="idmodal-similar-title">Kan förväxlas med</div>
+                <div class="idmodal-similar-row" id="idmodal-similar-row">
+                    <!-- Chips injected dynamically via JS -->
+                </div>
+            </div>
         </div>
     </div>
 

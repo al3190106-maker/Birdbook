@@ -1070,6 +1070,12 @@ function _renderBirdDetail(item, sighting = null) {
         }
     }
 
+    // Prepend the watercolor guide card as the first default image (if available)
+    const guideImg = getGuideImageSrc(item.id);
+    if (guideImg) {
+        imagesToShow = [guideImg, ...imagesToShow];
+    }
+
     // If user has a custom image, prepend it as the primary image
     const userCustomImg = localStorage.getItem(`custom_img_${item.id}`);
     if (userCustomImg) {
@@ -2213,7 +2219,9 @@ function renderGuideList(birdList) {
         card.style.cursor = 'pointer';
 
         const obj = (window.swedishFungi || []).find(f => f.id === bird.id);
-        const imgSource = (obj && obj.image) || getBirdImageSrc(bird.id);
+        const customImg = localStorage.getItem(`custom_img_${bird.id}`);
+        const guideImg = getGuideImageSrc(bird.id);
+        const imgSource = customImg || guideImg || (obj && obj.image) || getBirdImageSrc(bird.id);
 
         card.innerHTML = `
             <div class="bird-image-container">
@@ -2313,6 +2321,9 @@ function renderGuideCategories() {
     elements.guideCategories.classList.remove('hidden');
     elements.guideNavigation.classList.add('hidden');
     elements.guideList.classList.add('hidden');
+    
+    const identifyBtnWrap = document.getElementById('identify-btn-wrap');
+    if (identifyBtnWrap) identifyBtnWrap.classList.add('hidden');
 }
 
 function createCategoryCard(cat) {
@@ -2355,6 +2366,50 @@ function matchTimeFilter(item) {
     if (filter === 'natt') return bt.includes('natt');
 
     return false;
+}
+
+function getGuideImageSrc(birdId) {
+    const list = getCurrentSpeciesList();
+    const bird = list.find(b => b.id === birdId);
+    if (!bird || state.currentSubject !== 'birds') return null;
+    
+    const catMap = {
+        'Mesar': 'mesar',
+        'Sångare': 'sangare',
+        'Trastar': 'trastar',
+        'Rovfåglar': 'rovfaglar'
+    };
+    const catDir = catMap[bird.type];
+    if (!catDir) return null;
+    
+    const normalizedName = bird.nameSv.toLowerCase()
+        .replace(/å/g, 'a')
+        .replace(/ä/g, 'a')
+        .replace(/ö/g, 'o')
+        .replace(/[^a-z0-9]/g, '');
+        
+    const path = `images/identifiera/${catDir}/${normalizedName}.png`;
+    
+    const completedBirds = new Set([
+        // Mesar
+        'talgoxe', 'talltita', 'entita', 'svartmes', 'blames', 'tofsmes', 'lappmes', 'skaggmes', 'pungmes', 'stjartmes',
+        // Sångare
+        'lovsangare', 'gransangare', 'svarthatta', 'gronsangare', 'tornsangare', 'artsangare', 'tradgardssangare',
+        'rorsangare', 'savsangare', 'harmsangare', 'kungsfagel', 'flodsangare', 'hoksangare', 'kungsfagelsangare',
+        'karrsangare', 'lundsangare', 'nordsangare', 'trastsangare', 'vassangare', 'brandkronadkungsfagel',
+        'grashoppsangare',
+        // Trastar
+        'koltrast', 'taltrast', 'bjorktrast', 'rodvingetrast', 'rodhake', 'dubbeltrast', 'ringtrast', 'blahake',
+        'buskskvatta', 'naktergal', 'rodstjart', 'svartrodstjart', 'stenskvatta',
+        // Rovfåglar
+        'ormvrak', 'havsorn', 'kungsorn', 'fiskgjuse', 'sparvhok', 'duvhok', 'tornfalk', 'pilgrimsfalk', 'brunkarrhok',
+        'larkfalk'
+    ]);
+    
+    if (completedBirds.has(normalizedName)) {
+        return path;
+    }
+    return null;
 }
 
 // Maps category names to their identification image folders and files
@@ -2402,7 +2457,25 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/trastar/dubbeltrast.png',   label: 'Dubbeltrast',   similarTo: ['Taltrast', 'Björktrast', 'Ringtrast'] },
         { file: 'images/identifiera/trastar/ringtrast.png',     label: 'Ringtrast',     similarTo: ['Koltrast', 'Dubbeltrast', 'Björktrast'] },
         { file: 'images/identifiera/trastar/rodhake.png',       label: 'Rödhake',       similarTo: ['Rödvingetrast', 'Ringtrast', 'Koltrast'] },
+        { file: 'images/identifiera/trastar/blahake.png',       label: 'Blåhake',       similarTo: ['Rödhake', 'Rödstjärt', 'Näktergal'] },
+        { file: 'images/identifiera/trastar/buskskvatta.png',   label: 'Buskskvätta',   similarTo: ['Stenskvätta', 'Rödstjärt', 'Svart rödstjärt'] },
+        { file: 'images/identifiera/trastar/naktergal.png',     label: 'Näktergal',     similarTo: ['Taltrast', 'Rödhake', 'Rödstjärt'] },
+        { file: 'images/identifiera/trastar/rodstjart.png',     label: 'Rödstjärt',     similarTo: ['Svart rödstjärt', 'Buskskvätta', 'Blåhake'] },
+        { file: 'images/identifiera/trastar/svartrodstjart.png', label: 'Svart rödstjärt', similarTo: ['Rödstjärt', 'Buskskvätta', 'Stenskvätta'] },
+        { file: 'images/identifiera/trastar/stenskvatta.png',   label: 'Stenskvätta',   similarTo: ['Buskskvätta', 'Svart rödstjärt', 'Rödstjärt'] },
     ],
+    'Rovfåglar': [
+        { file: 'images/identifiera/rovfaglar/ormvrak.png',       label: 'Ormvråk',       similarTo: ['Havsörn', 'Kungsörn', 'Sparvhök'] },
+        { file: 'images/identifiera/rovfaglar/havsorn.png',       label: 'Havsörn',       similarTo: ['Kungsörn', 'Ormvråk', 'Fiskgjuse'] },
+        { file: 'images/identifiera/rovfaglar/kungsorn.png',      label: 'Kungsörn',      similarTo: ['Havsörn', 'Ormvråk', 'Duvhök'] },
+        { file: 'images/identifiera/rovfaglar/fiskgjuse.png',     label: 'Fiskgjuse',     similarTo: ['Havsörn', 'Ormvråk', 'Sparvhök'] },
+        { file: 'images/identifiera/rovfaglar/sparvhok.png',      label: 'Sparvhök',      similarTo: ['Duvhök', 'Tornfalk', 'Pilgrimsfalk'] },
+        { file: 'images/identifiera/rovfaglar/duvhok.png',        label: 'Duvhök',        similarTo: ['Sparvhök', 'Kungsörn', 'Ormvråk'] },
+        { file: 'images/identifiera/rovfaglar/tornfalk.png',      label: 'Tornfalk',      similarTo: ['Pilgrimsfalk', 'Sparvhök', 'Lärkfalk'] },
+        { file: 'images/identifiera/rovfaglar/pilgrimsfalk.png',  label: 'Pilgrimsfalk',  similarTo: ['Tornfalk', 'Lärkfalk', 'Sparvhök'] },
+        { file: 'images/identifiera/rovfaglar/brunkarrhok.png',   label: 'Brun kärrhök',   similarTo: ['Havsörn', 'Ormvråk', 'Fiskgjuse'] },
+        { file: 'images/identifiera/rovfaglar/larkfalk.png',      label: 'Lärkfalk',      similarTo: ['Pilgrimsfalk', 'Tornfalk', 'Sparvhök'] },
+    ]
 };
 
 function renderIdentifyGallery(category) {
@@ -2541,23 +2614,193 @@ function selectCategory(category, pushState = true) {
     elements.guideNavigation.classList.remove('hidden');
     elements.guideList.classList.remove('hidden');
 
+    const identifyBtnWrap = document.getElementById('identify-btn-wrap');
+    const guideIdentifyBtn = document.getElementById('guide-identify-btn');
+    if (identifyBtnWrap) identifyBtnWrap.classList.add('hidden');
+
     if (category) {
         elements.currentCategoryTitle.textContent = category;
         const list = getCurrentSpeciesList();
         const items = list.filter(b => b.type === category && matchTimeFilter(b));
         renderGuideList(items);
-        renderIdentifyGallery(category);
+        
+        // Show identification button if this category has guide images
+        if (IDENTIFY_IMAGES[category] && identifyBtnWrap && guideIdentifyBtn) {
+            identifyBtnWrap.classList.remove('hidden');
+            guideIdentifyBtn.innerHTML = `<i class="fa-solid fa-book-open"></i> IDENTIFIERING ${category.toUpperCase()}`;
+            
+            const newBtn = guideIdentifyBtn.cloneNode(true);
+            guideIdentifyBtn.parentNode.replaceChild(newBtn, guideIdentifyBtn);
+            newBtn.addEventListener('click', () => {
+                openIdentifyModal(category);
+            });
+        }
     } else {
         elements.currentCategoryTitle.textContent = 'Alla ' + config.texts.itemLabel + 'er';
         if (elements.currentCategoryTitle.textContent.includes('arterer')) elements.currentCategoryTitle.textContent = 'Alla Arter';
 
-        // Remove any gallery when showing "Alla"
-        const existing = document.getElementById('identify-gallery-wrap');
-        if (existing) existing.remove();
-
         const list = getCurrentSpeciesList();
         const items = list.filter(b => matchTimeFilter(b));
         renderGuideList(items);
+    }
+}
+
+let currentIdentifyGallery = [];
+let currentIdentifyIndex = 0;
+
+function openIdentifyModal(category) {
+    const modal = document.getElementById('identify-modal');
+    if (!modal) return;
+
+    currentIdentifyGallery = IDENTIFY_IMAGES[category] || [];
+    if (currentIdentifyGallery.length === 0) return;
+
+    currentIdentifyIndex = 0;
+    
+    // Push history state
+    history.pushState({ modal: 'identify', category: category }, '');
+
+    // Show modal
+    modal.classList.add('active');
+
+    // Build strip
+    const strip = document.getElementById('modal-idgallery-strip');
+    strip.innerHTML = '';
+    
+    currentIdentifyGallery.forEach((item, index) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'idgallery-thumb';
+        thumb.dataset.index = index;
+        
+        thumb.innerHTML = `
+            <img src="${item.file}" alt="${item.label}" loading="lazy">
+            <div class="idgallery-label">${item.label}</div>
+        `;
+        
+        thumb.addEventListener('click', () => {
+            selectIdentifyBird(index);
+        });
+        
+        strip.appendChild(thumb);
+    });
+
+    // Initialize first bird
+    selectIdentifyBird(0);
+
+    // Setup navigation listeners once
+    const prevBtn = document.getElementById('idmodal-prev');
+    const nextBtn = document.getElementById('idmodal-next');
+    const closeBtn = document.getElementById('close-identify-modal');
+
+    // Clone to remove previous event listeners
+    const newPrev = prevBtn.cloneNode(true);
+    const newNext = nextBtn.cloneNode(true);
+    const newClose = closeBtn.cloneNode(true);
+
+    prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+    nextBtn.parentNode.replaceChild(newNext, nextBtn);
+    closeBtn.parentNode.replaceChild(newClose, closeBtn);
+
+    newPrev.addEventListener('click', () => {
+        if (currentIdentifyIndex > 0) {
+            selectIdentifyBird(currentIdentifyIndex - 1);
+        }
+    });
+
+    newNext.addEventListener('click', () => {
+        if (currentIdentifyIndex < currentIdentifyGallery.length - 1) {
+            selectIdentifyBird(currentIdentifyIndex + 1);
+        }
+    });
+
+    newClose.addEventListener('click', () => {
+        history.back();
+    });
+
+    // Keydown handler
+    const keyHandler = (e) => {
+        if (!modal.classList.contains('active')) {
+            document.removeEventListener('keydown', keyHandler);
+            return;
+        }
+        if (e.key === 'ArrowLeft' && currentIdentifyIndex > 0) {
+            selectIdentifyBird(currentIdentifyIndex - 1);
+        } else if (e.key === 'ArrowRight' && currentIdentifyIndex < currentIdentifyGallery.length - 1) {
+            selectIdentifyBird(currentIdentifyIndex + 1);
+        } else if (e.key === 'Escape') {
+            history.back();
+            document.removeEventListener('keydown', keyHandler);
+        }
+    };
+    document.addEventListener('keydown', keyHandler);
+}
+
+function selectIdentifyBird(index) {
+    currentIdentifyIndex = index;
+    const item = currentIdentifyGallery[index];
+    if (!item) return;
+
+    // Highlight thumbnail
+    const thumbs = document.querySelectorAll('#modal-idgallery-strip .idgallery-thumb');
+    thumbs.forEach((t, i) => {
+        if (i === index) {
+            t.classList.add('active');
+            t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+            t.classList.remove('active');
+        }
+    });
+
+    // Show image
+    const img = document.getElementById('idmodal-selected-img');
+    img.src = item.file;
+    img.alt = item.label;
+
+    // Update buttons
+    const prevBtn = document.getElementById('idmodal-prev');
+    const nextBtn = document.getElementById('idmodal-next');
+    if (index === 0) prevBtn.setAttribute('disabled', 'true');
+    else prevBtn.removeAttribute('disabled');
+
+    if (index === currentIdentifyGallery.length - 1) nextBtn.setAttribute('disabled', 'true');
+    else nextBtn.removeAttribute('disabled');
+
+    // Similar species chips
+    const chipRow = document.getElementById('idmodal-similar-row');
+    chipRow.innerHTML = '';
+
+    if (item.similarTo && item.similarTo.length > 0) {
+        item.similarTo.forEach(similarLabel => {
+            const matchIndex = currentIdentifyGallery.findIndex(g => g.label === similarLabel);
+            const list = getCurrentSpeciesList();
+            const birdObj = list.find(b => b.nameSv === similarLabel);
+            
+            if (birdObj) {
+                const chip = document.createElement('div');
+                chip.className = 'idlb-sim-chip';
+                
+                const guideImg = getGuideImageSrc(birdObj.id);
+                const imgSrc = guideImg || getBirdImageSrc(birdObj.id);
+
+                chip.innerHTML = `
+                    <img src="${imgSrc}" alt="${similarLabel}">
+                    <span>${similarLabel}</span>
+                `;
+                
+                if (matchIndex !== -1) {
+                    chip.addEventListener('click', () => {
+                        selectIdentifyBird(matchIndex);
+                    });
+                } else {
+                    chip.addEventListener('click', () => {
+                        openBirdDetail(birdObj);
+                    });
+                }
+                chipRow.appendChild(chip);
+            }
+        });
+    } else {
+        chipRow.innerHTML = '<div style="color: var(--text-muted); font-size: 0.8rem;">Inga kända förväxlingsrisker listade.</div>';
     }
 }
 // Maps bird category names to PNG icon filenames in images/category_icons/
