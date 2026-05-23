@@ -421,6 +421,7 @@ window.addEventListener('popstate', (event) => {
     // 2. Handle category navigation
     if (!event.state || event.state.modal !== 'guide-category') {
         if (state.activeCategory) {
+            state.activeCategory = null;
             renderGuideCategories();
         }
     }
@@ -3740,7 +3741,12 @@ function setupEventListeners() {
     // 9. Back to Categories
     if (elements.backToCategoriesBtn) {
         elements.backToCategoriesBtn.addEventListener('click', () => {
-            history.back();
+            if (history.state && history.state.modal === 'guide-category') {
+                history.back();
+            } else {
+                state.activeCategory = null;
+                renderGuideCategories();
+            }
         });
     }
 
