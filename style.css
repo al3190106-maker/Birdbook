@@ -5281,13 +5281,35 @@ body.idle-dark-mode .listen-scard-add-btn {
     margin: 0;
 }
 
-.identify-modal-header p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0.2rem 0 0 0;
+/* Toggle Button style */
+.idgallery-toggle-btn {
+    background: #f0ede4;
+    border: 1px solid #e2ded5;
+    border-radius: 20px;
+    padding: 0.4rem 1.25rem;
+    color: var(--primary);
+    font-family: var(--font-stack);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.45rem;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
 }
 
-/* Horizontal Strip */
+.idgallery-toggle-btn:hover {
+    background: #e9e5db;
+    border-color: #d4cfc4;
+}
+
+.idgallery-toggle-btn:active {
+    transform: scale(0.97);
+}
+
+/* Collapsible Strip/Grid Container */
 .idgallery-strip-container {
     width: 100%;
     overflow: hidden;
@@ -5295,13 +5317,37 @@ body.idle-dark-mode .listen-scard-add-btn {
     border-bottom: 1px solid #e9e5db;
     padding-bottom: 0.75rem;
     padding-top: 0.25rem;
+    max-height: 420px; /* Big enough to wrap all thumbnails */
+    opacity: 1;
+    flex-shrink: 0; /* Prevent flexbox from shrinking the container */
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease, 
+                padding 0.3s ease, 
+                margin 0.3s ease,
+                border-color 0.3s ease;
 }
 
+.idgallery-strip-container.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    border-bottom-color: transparent;
+    pointer-events: none;
+}
+
+/* Wrap thumbnail grid when expanded, support vertical scroll if too many */
 #modal-idgallery-strip {
     display: flex;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.75rem;
     padding-bottom: 0.25rem;
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: none;
     scrollbar-width: thin;
     scrollbar-color: var(--primary) #e9e5db;
 }

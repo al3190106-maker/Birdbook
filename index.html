@@ -1013,11 +1013,13 @@
             <button class="close-modal" id="close-identify-modal" title="Stäng"><i class="fa-solid fa-times"></i></button>
             <div class="identify-modal-header">
                 <h2 id="identify-modal-title">Identifieringsguide</h2>
-                <p id="identify-modal-subtitle">Klicka på en fågel för att jämföra</p>
+                <button id="idgallery-toggle-btn" class="idgallery-toggle-btn">
+                    <span id="idgallery-toggle-text">Visa alla arter (0)</span> <i id="idgallery-toggle-icon" class="fa-solid fa-chevron-down"></i>
+                </button>
             </div>
             
-            <!-- Horizontal Thumbnail Strip -->
-            <div class="idgallery-strip-container">
+            <!-- Collapsible Thumbnail Strip/Grid -->
+            <div class="idgallery-strip-container collapsed" id="modal-idgallery-strip-container">
                 <div class="idgallery-strip" id="modal-idgallery-strip">
                     <!-- Injected dynamically via JS -->
                 </div>

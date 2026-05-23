@@ -2663,6 +2663,36 @@ function openIdentifyModal(category) {
     // Show modal
     modal.classList.add('active');
 
+    // Collapse list by default when opening
+    const container = document.getElementById('modal-idgallery-strip-container');
+    if (container) container.classList.add('collapsed');
+    
+    const toggleText = document.getElementById('idgallery-toggle-text');
+    const toggleIcon = document.getElementById('idgallery-toggle-icon');
+    if (toggleText) toggleText.textContent = `Visa alla arter (${currentIdentifyGallery.length})`;
+    if (toggleIcon) toggleIcon.className = 'fa-solid fa-chevron-down';
+
+    // Setup toggle button listener
+    const toggleBtn = document.getElementById('idgallery-toggle-btn');
+    if (toggleBtn && container) {
+        const newToggle = toggleBtn.cloneNode(true);
+        toggleBtn.parentNode.replaceChild(newToggle, toggleBtn);
+        newToggle.addEventListener('click', () => {
+            const isCollapsed = container.classList.contains('collapsed');
+            const tText = document.getElementById('idgallery-toggle-text');
+            const tIcon = document.getElementById('idgallery-toggle-icon');
+            if (isCollapsed) {
+                container.classList.remove('collapsed');
+                if (tText) tText.textContent = 'Dölj artlista';
+                if (tIcon) tIcon.className = 'fa-solid fa-chevron-up';
+            } else {
+                container.classList.add('collapsed');
+                if (tText) tText.textContent = `Visa alla arter (${currentIdentifyGallery.length})`;
+                if (tIcon) tIcon.className = 'fa-solid fa-chevron-down';
+            }
+        });
+    }
+
     // Build strip
     const strip = document.getElementById('modal-idgallery-strip');
     strip.innerHTML = '';
@@ -2750,6 +2780,16 @@ function selectIdentifyBird(index) {
             t.classList.remove('active');
         }
     });
+
+    // Auto-collapse list container on selection
+    const container = document.getElementById('modal-idgallery-strip-container');
+    if (container && !container.classList.contains('collapsed')) {
+        container.classList.add('collapsed');
+        const tText = document.getElementById('idgallery-toggle-text');
+        const tIcon = document.getElementById('idgallery-toggle-icon');
+        if (tText) tText.textContent = `Visa alla arter (${currentIdentifyGallery.length})`;
+        if (tIcon) tIcon.className = 'fa-solid fa-chevron-down';
+    }
 
     // Show image
     const img = document.getElementById('idmodal-selected-img');
