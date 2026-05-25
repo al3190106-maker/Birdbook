@@ -2404,7 +2404,8 @@ function getGuideImageSrc(birdId) {
         'buskskvatta', 'naktergal', 'rodstjart', 'svartrodstjart', 'stenskvatta',
         // Rovfåglar
         'ormvrak', 'havsorn', 'kungsorn', 'fiskgjuse', 'sparvhok', 'duvhok', 'tornfalk', 'pilgrimsfalk', 'brunkarrhok',
-        'larkfalk'
+        'larkfalk', 'bivrak', 'blakarrhok', 'brunglada', 'fjallvrak', 'rodglada', 'angshok', 'aftonfalk', 'jaktfalk',
+        'stenfalk'
     ]);
     
     if (completedBirds.has(normalizedName)) {
