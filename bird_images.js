@@ -3580,23 +3580,8 @@ window.birdImages = {
     ],
     "red_kite": [
         {
-            "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_3.jpg",
-            "photographer": "Steve Dahlfors",
-            "gender": "same"
-        },
-        {
-            "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_2.jpg",
-            "photographer": "Steve Dahlfors",
-            "gender": "same"
-        },
-        {
-            "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_6.jpg",
-            "photographer": "Steve Dahlfors",
-            "gender": "same"
-        },
-        {
-            "src": "https://fageln.se/wp-content/uploads/2025/10/rod_glada_5.jpg",
-            "photographer": "Steve Dahlfors",
+            "src": "images/red_kite.jpg",
+            "photographer": "Gemini AI",
             "gender": "same"
         }
     ],
