@@ -2378,7 +2378,8 @@ function getGuideImageSrc(birdId) {
         'Mesar': 'mesar',
         'Sångare': 'sangare',
         'Trastar': 'trastar',
-        'Rovfåglar': 'rovfaglar'
+        'Rovfåglar': 'rovfaglar',
+        'Andfåglar': 'andfaglar'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2405,7 +2406,9 @@ function getGuideImageSrc(birdId) {
         // Rovfåglar
         'ormvrak', 'havsorn', 'kungsorn', 'fiskgjuse', 'sparvhok', 'duvhok', 'tornfalk', 'pilgrimsfalk', 'brunkarrhok',
         'larkfalk', 'bivrak', 'blakarrhok', 'brunglada', 'fjallvrak', 'rodglada', 'angshok', 'aftonfalk', 'jaktfalk',
-        'stenfalk'
+        'stenfalk',
+        // Andfåglar
+        'knolsvan', 'sangsvan', 'kanadagas'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2486,6 +2489,11 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/rovfaglar/aftonfalk.png',     label: 'Aftonfalk',      similarTo: ['Stenfalk', 'Lärkfalk', 'Tornfalk'] },
         { file: 'images/identifiera/rovfaglar/jaktfalk.png',      label: 'Jaktfalk',       similarTo: ['Pilgrimsfalk', 'Duvhök'] },
         { file: 'images/identifiera/rovfaglar/stenfalk.png',      label: 'Stenfalk',       similarTo: ['Aftonfalk', 'Tornfalk', 'Lärkfalk'] },
+    ],
+    'Andfåglar': [
+        { file: 'images/identifiera/andfaglar/knolsvan.png', label: 'Knölsvan', similarTo: ['Sångsvan', 'Kanadagås'] },
+        { file: 'images/identifiera/andfaglar/sangsvan.png', label: 'Sångsvan', similarTo: ['Knölsvan', 'Kanadagås'] },
+        { file: 'images/identifiera/andfaglar/kanadagas.png', label: 'Kanadagås', similarTo: ['Grågås', 'Vitkindad gås'] }
     ]
 };
 
