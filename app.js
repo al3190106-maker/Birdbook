@@ -2408,7 +2408,9 @@ function getGuideImageSrc(birdId) {
         'larkfalk', 'bivrak', 'blakarrhok', 'brunglada', 'fjallvrak', 'rodglada', 'angshok', 'aftonfalk', 'jaktfalk',
         'stenfalk',
         // Andfåglar
-        'knolsvan', 'sangsvan', 'kanadagas'
+        'knolsvan', 'sangsvan', 'kanadagas', 'gragas', 'vitkindadgas', 'prutgas', 'grasand', 'kricka',
+        'blasand', 'vigg', 'knipa', 'ejder', 'alfagel', 'storskrake', 'skedand', 'snatterand', 'mandarinand',
+        'bergand', 'blasgas', 'brunand'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2493,7 +2495,24 @@ const IDENTIFY_IMAGES = {
     'Andfåglar': [
         { file: 'images/identifiera/andfaglar/knolsvan.png', label: 'Knölsvan', similarTo: ['Sångsvan', 'Kanadagås'] },
         { file: 'images/identifiera/andfaglar/sangsvan.png', label: 'Sångsvan', similarTo: ['Knölsvan', 'Kanadagås'] },
-        { file: 'images/identifiera/andfaglar/kanadagas.png', label: 'Kanadagås', similarTo: ['Grågås', 'Vitkindad gås'] }
+        { file: 'images/identifiera/andfaglar/kanadagas.png', label: 'Kanadagås', similarTo: ['Grågås', 'Vitkindad gås'] },
+        { file: 'images/identifiera/andfaglar/gragas.png', label: 'Grågås', similarTo: ['Sädgås', 'Spetsbergsgås'] },
+        { file: 'images/identifiera/andfaglar/vitkindadgas.png', label: 'Vitkindad gås', similarTo: ['Prutgås', 'Kanadagås'] },
+        { file: 'images/identifiera/andfaglar/prutgas.png', label: 'Prutgås', similarTo: ['Vitkindad gås'] },
+        { file: 'images/identifiera/andfaglar/grasand.png', label: 'Gräsand', similarTo: ['Snatterand', 'Stjärtand'] },
+        { file: 'images/identifiera/andfaglar/kricka.png', label: 'Kricka', similarTo: ['Årta'] },
+        { file: 'images/identifiera/andfaglar/blasand.png', label: 'Bläsand', similarTo: ['Brunand'] },
+        { file: 'images/identifiera/andfaglar/vigg.png', label: 'Vigg', similarTo: ['Bergand'] },
+        { file: 'images/identifiera/andfaglar/knipa.png', label: 'Knipa', similarTo: ['Alfågel'] },
+        { file: 'images/identifiera/andfaglar/ejder.png', label: 'Ejder', similarTo: [] },
+        { file: 'images/identifiera/andfaglar/alfagel.png', label: 'Alfågel', similarTo: ['Knipa'] },
+        { file: 'images/identifiera/andfaglar/storskrake.png', label: 'Storskrake', similarTo: ['Småskrake', 'Salskrake'] },
+        { file: 'images/identifiera/andfaglar/skedand.png', label: 'Skedand', similarTo: ['Gräsand'] },
+        { file: 'images/identifiera/andfaglar/snatterand.png', label: 'Snatterand', similarTo: ['Gräsand'] },
+        { file: 'images/identifiera/andfaglar/mandarinand.png', label: 'Mandarinand', similarTo: [] },
+        { file: 'images/identifiera/andfaglar/bergand.png', label: 'Bergand', similarTo: ['Vigg'] },
+        { file: 'images/identifiera/andfaglar/blasgas.png', label: 'Bläsgås', similarTo: ['Fjällgås'] },
+        { file: 'images/identifiera/andfaglar/brunand.png', label: 'Brunand', similarTo: ['Bläsand'] }
     ]
 };
 
