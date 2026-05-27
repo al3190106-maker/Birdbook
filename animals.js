@@ -340,19 +340,6 @@ window.swedishAnimals = [
         "bestTime": "Vinter/Vår"
     },
     {
-        "id": "white_tailed_eagle",
-        "type": "Rovfåglar",
-        "nameEn": "White-tailed Eagle",
-        "nameSv": "Havsörn",
-        "scientific": "Haliaeetus albicilla",
-        "rarity": 3,
-        "funFact": "Sveriges nationsfågelstatus till trots räknas havsörnen som ett viltdjur och har gjort en enastående comeback.",
-        "seasonDistribution": "Hela landet (kuster och sjöar)",
-        "height": 40,
-        "weight": 6000,
-        "bestTime": "Dag"
-    },
-    {
         "id": "bat_common",
         "type": "Fladdermöss",
         "nameEn": "Common Pipistrelle",

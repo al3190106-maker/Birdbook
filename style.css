@@ -638,12 +638,6 @@ body {
     background: rgba(220, 53, 69, 0.8);
 }
 
-.quick-add-btn {
-    bottom: 10px;
-    right: 10px;
-    background: var(--primary);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
 
 .bird-card:hover .edit-image-btn,
 .bird-card:hover .delete-sighting-btn,
@@ -676,10 +670,6 @@ body {
     opacity: 0;
     transition: opacity 0.2s, background 0.2s, transform 0.2s;
     font-size: 1rem;
-}
-
-.bird-card:hover .quick-add-btn {
-    opacity: 1;
 }
 
 .quick-add-btn:hover {

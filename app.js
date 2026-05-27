@@ -4117,7 +4117,7 @@ function showQuizResults() {
 }
 
 // --- Quiz Event Listeners ---
-document.addEventListener('DOMContentLoaded', () => {
+function initQuizListeners() {
     // Difficulty cards
     document.querySelectorAll('.difficulty-card').forEach(card => {
         card.addEventListener('click', () => {
@@ -4164,7 +4164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (quizMenuBtn) {
         quizMenuBtn.addEventListener('click', showQuizMenu);
     }
-});
+}
 
 // ============================================================
 //  STATISTICS TAB
@@ -4876,11 +4876,12 @@ function _setupMapEventListeners() {
     }
 }
 
-// Extend init to include map event listeners
+// Extend init to include map and quiz event listeners
 const _originalInit = init;
 init = async function() {
     await _originalInit();
     _setupMapEventListeners();
+    initQuizListeners();
 };
 
 // Start
