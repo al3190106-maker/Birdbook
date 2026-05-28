@@ -2410,7 +2410,8 @@ function getGuideImageSrc(birdId) {
         // Andfåglar
         'knolsvan', 'sangsvan', 'kanadagas', 'gragas', 'vitkindadgas', 'prutgas', 'grasand', 'kricka',
         'blasand', 'vigg', 'knipa', 'ejder', 'alfagel', 'storskrake', 'skedand', 'snatterand', 'mandarinand',
-        'bergand', 'blasgas', 'brunand'
+        'bergand', 'blasgas', 'brunand', 'gravand', 'salskrake', 'sjoorre', 'smaskrake', 'stjartand',
+        'svarta', 'sadgas', 'spetsbergsgas', 'stripgas', 'arta', 'fjallgas'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2512,7 +2513,18 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/andfaglar/mandarinand.png', label: 'Mandarinand', similarTo: [] },
         { file: 'images/identifiera/andfaglar/bergand.png', label: 'Bergand', similarTo: ['Vigg'] },
         { file: 'images/identifiera/andfaglar/blasgas.png', label: 'Bläsgås', similarTo: ['Fjällgås'] },
-        { file: 'images/identifiera/andfaglar/brunand.png', label: 'Brunand', similarTo: ['Bläsand'] }
+        { file: 'images/identifiera/andfaglar/brunand.png', label: 'Brunand', similarTo: ['Bläsand'] },
+        { file: 'images/identifiera/andfaglar/gravand.png', label: 'Gravand', similarTo: [] },
+        { file: 'images/identifiera/andfaglar/salskrake.png', label: 'Salskrake', similarTo: ['Storskrake'] },
+        { file: 'images/identifiera/andfaglar/sjoorre.png', label: 'Sjöorre', similarTo: ['Svärta'] },
+        { file: 'images/identifiera/andfaglar/smaskrake.png', label: 'Småskrake', similarTo: ['Storskrake'] },
+        { file: 'images/identifiera/andfaglar/stjartand.png', label: 'Stjärtand', similarTo: ['Gräsand'] },
+        { file: 'images/identifiera/andfaglar/svarta.png', label: 'Svärta', similarTo: ['Sjöorre'] },
+        { file: 'images/identifiera/andfaglar/sadgas.png', label: 'Sädgås', similarTo: ['Grågås', 'Spetsbergsgås'] },
+        { file: 'images/identifiera/andfaglar/spetsbergsgas.png', label: 'Spetsbergsgås', similarTo: ['Sädgås'] },
+        { file: 'images/identifiera/andfaglar/stripgas.png', label: 'Stripgås', similarTo: [] },
+        { file: 'images/identifiera/andfaglar/arta.png', label: 'Årta', similarTo: ['Kricka'] },
+        { file: 'images/identifiera/andfaglar/fjallgas.png', label: 'Fjällgås', similarTo: ['Bläsgås'] }
     ]
 };
 
