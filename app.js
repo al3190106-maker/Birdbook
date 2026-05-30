@@ -2380,7 +2380,8 @@ function getGuideImageSrc(birdId) {
         'Trastar': 'trastar',
         'Rovfåglar': 'rovfaglar',
         'Andfåglar': 'andfaglar',
-        'Hönsfåglar': 'honsfaglar'
+        'Hönsfåglar': 'honsfaglar',
+        'Lommar & Doppingar': 'lommardoppingar'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2414,7 +2415,9 @@ function getGuideImageSrc(birdId) {
         'bergand', 'blasgas', 'brunand', 'gravand', 'salskrake', 'sjoorre', 'smaskrake', 'stjartand',
         'svarta', 'sadgas', 'spetsbergsgas', 'stripgas', 'arta', 'fjallgas',
         // Hönsfåglar
-        'tjader', 'orre', 'fasan', 'dalripa', 'fjallripa', 'jarpe', 'rapphona', 'vaktel'
+        'tjader', 'orre', 'fasan', 'dalripa', 'fjallripa', 'jarpe', 'rapphona', 'vaktel',
+        // Lommar & Doppingar
+        'storlom', 'skaggdopping', 'grahakedopping', 'smadopping', 'svarthakedopping', 'svarthalsaddopping', 'smalom'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2538,6 +2541,15 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/honsfaglar/jarpe.png', label: 'Järpe', similarTo: ['Rapphöna', 'Vaktel'] },
         { file: 'images/identifiera/honsfaglar/rapphona.png', label: 'Rapphöna', similarTo: ['Järpe', 'Vaktel'] },
         { file: 'images/identifiera/honsfaglar/vaktel.png', label: 'Vaktel', similarTo: ['Rapphöna', 'Järpe'] }
+    ],
+    'Lommar & Doppingar': [
+        { file: 'images/identifiera/lommardoppingar/storlom.png', label: 'Storlom', similarTo: ['Smålom'] },
+        { file: 'images/identifiera/lommardoppingar/skaggdopping.png', label: 'Skäggdopping', similarTo: ['Gråhakedopping', 'Svarthakedopping'] },
+        { file: 'images/identifiera/lommardoppingar/grahakedopping.png', label: 'Gråhakedopping', similarTo: ['Skäggdopping', 'Svarthakedopping'] },
+        { file: 'images/identifiera/lommardoppingar/smadopping.png', label: 'Smådopping', similarTo: [] },
+        { file: 'images/identifiera/lommardoppingar/svarthakedopping.png', label: 'Svarthakedopping', similarTo: ['Svarthalsad dopping'] },
+        { file: 'images/identifiera/lommardoppingar/svarthalsaddopping.png', label: 'Svarthalsad dopping', similarTo: ['Svarthakedopping'] },
+        { file: 'images/identifiera/lommardoppingar/smalom.png', label: 'Smålom', similarTo: ['Storlom'] }
     ]
 };
 
