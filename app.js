@@ -395,61 +395,17 @@ let editingBirdId = null;
 let editingSightingId = null;
 
 window.openModal = function(id, pushState = true) {
-    if (pushState) history.pushState({ modal: id }, '');
-    const m = document.getElementById(id);
-    if (m) m.classList.add('active');
+    if (pushState) {
+        nav.openModal(id);
+    } else {
+        const m = document.getElementById(id);
+        if (m) m.classList.add('active');
+    }
 };
 
 // --- History State Handler ---
-window.addEventListener('popstate', (event) => {
-    // 1. Close all modals visually first
-    document.querySelectorAll('.modal-overlay').forEach(m => {
-        m.classList.remove('active');
-    });
-
-    if (elements.detailAudioPlayer) {
-        elements.detailAudioPlayer.pause();
-        elements.detailAudioPlayer.currentTime = 0;
-    }
-
-    // Close photographer detail visually
-    const photoDetail = document.getElementById('photographer-detail');
-    if (photoDetail) { photoDetail.classList.add('hidden'); photoDetail.style.display = 'none'; }
-    const photoGrid = document.getElementById('photographers-grid');
-    if (photoGrid) { photoGrid.classList.remove('hidden'); photoGrid.style.display = 'grid'; }
-
-    // 2. Handle category navigation
-    if (!event.state || event.state.modal !== 'guide-category') {
-        if (state.activeCategory) {
-            state.activeCategory = null;
-            renderGuideCategories();
-        }
-    }
-
-    // 3. Restore state — NOTE: 'detail' and 'sightings-map-modal' are intentionally excluded.
-    //    Going back should close these, not reopen them.
-    const CLOSE_ONLY_STATES = new Set(['detail', 'sightings-map-modal', 'fullscreen', 'settings-modal', 'info-modal']);
-
-    if (event.state) {
-        if (event.state.modal === 'sighting') {
-            if (event.state.birdId) {
-                const list = getCurrentSpeciesList();
-                const bird = list.find(b => b.id === event.state.birdId);
-                if (bird) {
-                    elements.selectedBirdId.value = bird.id;
-                    elements.birdSearchInput.value = bird.nameSv;
-                }
-            }
-            elements.modal.classList.add('active');
-        } else if (event.state.modal === 'guide-category') {
-            selectCategory(event.state.category, false);
-        } else if (event.state.modal === 'photographer-detail' && event.state.id) {
-            _showPhotographer(event.state.id, null, false);
-        } else if (!CLOSE_ONLY_STATES.has(event.state.modal) && document.getElementById(event.state.modal)) {
-            document.getElementById(event.state.modal).classList.add('active');
-        }
-    }
-});
+// Navigation is now managed by NavigationManager in navigation.js
+// All popstate handling is done there via registered open/close handlers.
 
 let _sightingMap = null;
 let _sightingMarker = null;
@@ -1017,7 +973,7 @@ function _openFullscreenSlide(index) {
     _goToSlide(index);
     _applyFullscreenItem(carouselIndex);
     elements.fsModal.classList.add('active');
-    history.pushState({ modal: 'fullscreen' }, '');
+    nav.openModal('fullscreen-image-modal');
     _updateFullscreenNav();
 }
 
@@ -1336,7 +1292,7 @@ function _renderBirdDetail(item, sighting = null) {
             newEditBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 elements.detailModal.classList.remove('active');
-                history.pushState({ modal: 'sighting' }, '');
+                nav.openModal('sighting-modal');
                 _showSightingModal(item.id, item.nameSv, sighting);
             });
         }
@@ -1840,7 +1796,7 @@ function getFilteredSightings() {
 function openBirdDetail(item, sighting = null) {
     _renderBirdDetail(item, sighting);
     elements.detailModal.classList.add('active');
-    history.pushState({ modal: 'detail', birdId: item.id }, '');
+    nav.openModal('bird-detail-modal-overlay', { birdId: item.id });
 }
 window.openBirdDetail = openBirdDetail;
 
@@ -2678,7 +2634,7 @@ function selectCategory(category, pushState = true) {
     const config = SUBJECT_CONFIG[state.currentSubject];
 
     if (pushState && category) {
-        history.pushState({ modal: 'guide-category', category: category }, '');
+        nav.openSubview('guide-category', { category: category });
     }
 
     // Always start at the top of the page
@@ -2733,7 +2689,7 @@ function openIdentifyModal(category) {
     currentIdentifyIndex = 0;
     
     // Push history state
-    history.pushState({ modal: 'identify', category: category }, '');
+    nav.openModal('identify-modal', { category: category });
 
     // Show modal
     modal.classList.add('active');
@@ -2819,7 +2775,7 @@ function openIdentifyModal(category) {
     });
 
     newClose.addEventListener('click', () => {
-        history.back();
+        nav.back();
     });
 
     // Keydown handler
@@ -2833,7 +2789,7 @@ function openIdentifyModal(category) {
         } else if (e.key === 'ArrowRight' && currentIdentifyIndex < currentIdentifyGallery.length - 1) {
             selectIdentifyBird(currentIdentifyIndex + 1);
         } else if (e.key === 'Escape') {
-            history.back();
+            nav.back();
             document.removeEventListener('keydown', keyHandler);
         }
     };
@@ -3363,6 +3319,7 @@ function setupEventListeners() {
             if (elements.yearFilterContainer) {
                 elements.yearFilterContainer.style.display = '';
             }
+            // Don't push to history from logo click - just visual switch
         });
     }
 
@@ -3431,58 +3388,19 @@ function setupEventListeners() {
     // 2. View Switching
     elements.navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // UI Toggle
-            elements.navBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            elements.viewSections.forEach(s => s.classList.remove('active'));
-            document.getElementById(btn.dataset.tab).classList.add('active');
-
-            state.view = btn.dataset.tab;
-
-            // Toggle year filter visibility (Only show in log-view)
-            if (elements.yearFilterContainer) {
-                elements.yearFilterContainer.style.display = (state.view === 'log-view') ? '' : 'none';
-            }
-
-            // Initialize Sweden map on first visit
-            if (btn.dataset.tab === 'sweden-view' && typeof renderSwedenMap === 'function') {
-                const mapRoot = document.getElementById('sweden-map-root');
-                if (mapRoot && !mapRoot.dataset.initialized) {
-                    renderSwedenMap('sweden-map-root');
-                    mapRoot.dataset.initialized = 'true';
-                }
-            }
-
-            // Render statistics tab
-            if (btn.dataset.tab === 'stats-view') {
-                renderStatsView();
-            }
-            
-            // Init AI Listen module
-            if (btn.dataset.tab === 'listen-view' && typeof initBirdnet === 'function') {
-                initBirdnet();
-            }
-            if (typeof window.listen_checkWakeLock === 'function') {
-                window.listen_checkWakeLock();
-            }
-
-            // Render photographers view
-            if (btn.dataset.tab === 'photographers-view') {
-                _renderPhotographersView();
-            }
+            nav.switchTab(btn.dataset.tab);
         });
     });
 
 
     // 3. Modal Controls
     elements.addSightingBtn.addEventListener('click', () => {
-        history.pushState({ modal: 'sighting' }, '');
+        nav.openModal('sighting-modal');
         _showSightingModal();
     });
 
     elements.closeModal.addEventListener('click', () => {
-        history.back();
+        nav.back();
     });
 
     if (elements.closeDetailModal) {
@@ -3491,7 +3409,7 @@ function setupEventListeners() {
                 elements.detailAudioPlayer.pause();
                 elements.detailAudioPlayer.currentTime = 0;
             }
-            history.back();
+            nav.back();
         });
     }
 
@@ -3701,7 +3619,7 @@ function setupEventListeners() {
             editingSightingId = null;
             elements.birdSearchInput.disabled = false;
             
-            history.back(); // Close modal via history
+            nav.back(); // Close modal via history
         };
 
         // Check for photo
@@ -3815,8 +3733,8 @@ function setupEventListeners() {
     // 9. Back to Categories
     if (elements.backToCategoriesBtn) {
         elements.backToCategoriesBtn.addEventListener('click', () => {
-            if (history.state && history.state.modal === 'guide-category') {
-                history.back();
+            if (nav.hasSubview) {
+                nav.back();
             } else {
                 state.activeCategory = null;
                 renderGuideCategories();
@@ -3837,27 +3755,15 @@ function setupEventListeners() {
             // Do not close welcome modal by clicking outside
             if (e.target.id === 'welcome-modal') return;
 
-            // These modals use HTML5 history state for navigation (history.back cleans up the stack)
-            const historyManagedModals = new Set([
-                'sighting-modal',
-                'bird-detail-modal-overlay',
-                'fullscreen-image-modal',
-                'settings-modal',
-                'sightings-map-modal'
-            ]);
-
-            if (historyManagedModals.has(e.target.id)) {
-                history.back();
-            } else {
-                e.target.classList.remove('active');
-            }
+            // All modals now use nav for history management
+            nav.back();
         }
     });
 
     const fsCloseBtn = document.getElementById('close-fullscreen-img');
     if (fsCloseBtn) {
         fsCloseBtn.addEventListener('click', () => {
-            history.back();
+            nav.back();
         });
     }
 }
@@ -4599,7 +4505,7 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
     }
     
     if (pushState) {
-        history.pushState({ modal: 'photographer-detail', id: id }, '');
+        nav.openSubview('photographer-detail', { id: id });
     }
     
     const photographer = window.photographers[id];
@@ -4627,7 +4533,7 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
         if (returnAction) {
             returnAction();
         } else {
-            history.back();
+            nav.back();
         }
     };
     
@@ -4698,7 +4604,7 @@ function _openSightingsMap(pushState = true) {
     const modal = document.getElementById('sightings-map-modal');
     if (!modal) return;
     if (pushState) {
-        history.pushState({ modal: 'sightings-map-modal' }, '');
+        nav.openModal('sightings-map-modal');
     }
     modal.classList.add('active');
     
@@ -4837,7 +4743,7 @@ function _setupMapEventListeners() {
     const closeMapBtn = document.getElementById('close-sightings-map');
     if (closeMapBtn) {
         closeMapBtn.addEventListener('click', () => {
-            history.back();
+            nav.back();
         });
     }
 
@@ -4913,12 +4819,130 @@ function _setupMapEventListeners() {
     }
 }
 
-// Extend init to include map and quiz event listeners
+// --- Centralized Tab Activation ---
+function activateTab(tabId) {
+    // Update nav buttons
+    elements.navBtns.forEach(b => b.classList.remove('active'));
+    const btn = document.querySelector('[data-tab="' + tabId + '"]');
+    if (btn) btn.classList.add('active');
+
+    // Show view section
+    elements.viewSections.forEach(s => s.classList.remove('active'));
+    const section = document.getElementById(tabId);
+    if (section) section.classList.add('active');
+
+    // Update state
+    state.view = tabId;
+
+    // Year filter only in log-view
+    if (elements.yearFilterContainer) {
+        elements.yearFilterContainer.style.display = (tabId === 'log-view') ? '' : 'none';
+    }
+
+    // Tab-specific initialization
+    if (tabId === 'sweden-view' && typeof renderSwedenMap === 'function') {
+        const mapRoot = document.getElementById('sweden-map-root');
+        if (mapRoot && !mapRoot.dataset.initialized) {
+            renderSwedenMap('sweden-map-root');
+            mapRoot.dataset.initialized = 'true';
+        }
+    }
+    if (tabId === 'stats-view') renderStatsView();
+    if (tabId === 'listen-view' && typeof initBirdnet === 'function') initBirdnet();
+    if (typeof window.listen_checkWakeLock === 'function') window.listen_checkWakeLock();
+    if (tabId === 'photographers-view') _renderPhotographersView();
+}
+
+// --- Navigation Registration ---
+function _registerNavHandlers() {
+    // Register all tabs
+    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'quiz-view', 'stats-view', 'sweden-view'];
+    tabs.forEach(function(tabId) {
+        nav.register(tabId, {
+            type: 'tab',
+            open: function() { activateTab(tabId); },
+            close: function() { /* tabs close by another tab opening */ }
+        });
+    });
+
+    // Register sub-views
+    nav.register('guide-category', {
+        type: 'subview',
+        open: function(data) {
+            selectCategory(data.category, false);
+        },
+        close: function() {
+            state.activeCategory = null;
+            renderGuideCategories();
+        }
+    });
+
+    nav.register('photographer-detail', {
+        type: 'subview',
+        open: function(data) {
+            _showPhotographer(data.id, null, false);
+        },
+        close: function() {
+            var detail = document.getElementById('photographer-detail');
+            var grid = document.getElementById('photographers-grid');
+            if (detail) { detail.classList.add('hidden'); detail.style.display = 'none'; }
+            if (grid) { grid.classList.remove('hidden'); grid.style.display = 'grid'; }
+        }
+    });
+
+    // Register modals
+    var simpleModals = [
+        'sighting-modal', 'identify-modal', 'fullscreen-image-modal',
+        'sightings-map-modal', 'settings-modal', 'info-modal',
+        'library-modal', 'ios-install-modal'
+    ];
+    simpleModals.forEach(function(id) {
+        nav.register(id, {
+            type: 'modal',
+            open: function() {
+                var m = document.getElementById(id);
+                if (m) m.classList.add('active');
+            },
+            close: function() {
+                var m = document.getElementById(id);
+                if (m) m.classList.remove('active');
+                // Extra cleanup for specific modals
+                if (id === 'sightings-map-modal') {
+                    var content = m && m.querySelector('.sightings-map-modal-content');
+                    if (content) content.classList.remove('fullscreen');
+                }
+            }
+        });
+    });
+
+    // Detail modal needs audio cleanup on close
+    nav.register('bird-detail-modal-overlay', {
+        type: 'modal',
+        open: function(data) {
+            // If data has birdId and detail is not already rendered, render it
+            // Usually already rendered before push, so just show
+            elements.detailModal.classList.add('active');
+        },
+        close: function() {
+            elements.detailModal.classList.remove('active');
+            if (elements.detailAudioPlayer) {
+                elements.detailAudioPlayer.pause();
+                elements.detailAudioPlayer.currentTime = 0;
+            }
+        }
+    });
+
+    // Initialize nav with the current tab
+    nav.init('log-view');
+}
+
+// Extend init to include map, quiz, and navigation
 const _originalInit = init;
 init = async function() {
     await _originalInit();
     _setupMapEventListeners();
     initQuizListeners();
+    _registerNavHandlers();
 };
 
 // Start

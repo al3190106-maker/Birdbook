@@ -1274,38 +1274,38 @@
             <div class="library-grid"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; padding: 1rem 0;">
                 <button class="library-card mode-nature"
-                    onclick="switchSubject('nature'); history.back()">
+                    onclick="switchSubject('nature'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/nature_alla.png" alt="Natur" class="lib-icon-img"></div>
                     <span class="lib-label">Naturboken</span>
                 </button>
                 <button class="library-card mode-birds"
-                    onclick="switchSubject('birds'); history.back()">
+                    onclick="switchSubject('birds'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/alla.png" alt="Fåglar" class="lib-icon-img"></div>
                     <span class="lib-label">Fågelboken</span>
                 </button>
                 <button class="library-card mode-plants"
-                    onclick="switchSubject('plants'); history.back()">
+                    onclick="switchSubject('plants'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/plants_alla.png" alt="Växter" class="lib-icon-img"></div>
                     <span class="lib-label">Växtboken</span>
                 </button>
                 <button class="library-card mode-fish"
-                    onclick="switchSubject('fish'); history.back()">
+                    onclick="switchSubject('fish'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/fish_alla.png" alt="Fisk" class="lib-icon-img"></div>
                     <span class="lib-label">Fiskboken</span>
                 </button>
                 <button class="library-card mode-animals"
-                    onclick="switchSubject('animals'); history.back()">
+                    onclick="switchSubject('animals'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/animal_alla.png" alt="Däggdjur" class="lib-icon-img"></div>
                     <span class="lib-label">Däggdjursboken</span>
                 </button>
                 <button class="library-card mode-fungi"
-                    onclick="switchSubject('fungi'); history.back()">
+                    onclick="switchSubject('fungi'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/fungi_alla.png" alt="Svamp" class="lib-icon-img"></div>
                     <span class="lib-label">Svampboken</span>
                 </button>
             </div>
 
-            <button class="secondary-btn" onclick="history.back()"
+            <button class="secondary-btn" onclick="nav.back()"
                 style="margin-top: 2rem; width: 100%;">Stäng</button>
         </div>
     </div>
@@ -1313,7 +1313,7 @@
     <!-- Info Modal -->
     <div class="modal-overlay" id="info-modal" style="z-index: 2800;">
         <div class="modal-content" style="max-width: 500px;">
-            <button class="close-modal" onclick="history.back()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-modal" onclick="nav.back()"><i class="fa-solid fa-xmark"></i></button>
             <div style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); text-align: center;">
                 <i class="fa-solid fa-circle-info"></i>
             </div>
@@ -1407,7 +1407,7 @@
                 </button>
             </div>
 
-            <button class="secondary-btn" onclick="history.back()"
+            <button class="secondary-btn" onclick="nav.back()"
                 style="margin-top: 1.5rem; width: 100%;">Stäng</button>
         </div>
     </div>
@@ -1503,6 +1503,7 @@
     <script src="sweden-map.js"></script>
     <script src="bird_images.js"></script>
     <script src="photographers.js"></script>
+    <script src="navigation.js"></script>
     <script src="app.js"></script>
     <script src="listen.js"></script>
 
