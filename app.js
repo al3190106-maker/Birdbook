@@ -2379,7 +2379,8 @@ function getGuideImageSrc(birdId) {
         'Sångare': 'sangare',
         'Trastar': 'trastar',
         'Rovfåglar': 'rovfaglar',
-        'Andfåglar': 'andfaglar'
+        'Andfåglar': 'andfaglar',
+        'Hönsfåglar': 'honsfaglar'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2411,7 +2412,9 @@ function getGuideImageSrc(birdId) {
         'knolsvan', 'sangsvan', 'kanadagas', 'gragas', 'vitkindadgas', 'prutgas', 'grasand', 'kricka',
         'blasand', 'vigg', 'knipa', 'ejder', 'alfagel', 'storskrake', 'skedand', 'snatterand', 'mandarinand',
         'bergand', 'blasgas', 'brunand', 'gravand', 'salskrake', 'sjoorre', 'smaskrake', 'stjartand',
-        'svarta', 'sadgas', 'spetsbergsgas', 'stripgas', 'arta', 'fjallgas'
+        'svarta', 'sadgas', 'spetsbergsgas', 'stripgas', 'arta', 'fjallgas',
+        // Hönsfåglar
+        'tjader', 'orre', 'fasan', 'dalripa', 'fjallripa', 'jarpe', 'rapphona', 'vaktel'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2525,6 +2528,16 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/andfaglar/stripgas.png', label: 'Stripgås', similarTo: [] },
         { file: 'images/identifiera/andfaglar/arta.png', label: 'Årta', similarTo: ['Kricka'] },
         { file: 'images/identifiera/andfaglar/fjallgas.png', label: 'Fjällgås', similarTo: ['Bläsgås'] }
+    ],
+    'Hönsfåglar': [
+        { file: 'images/identifiera/honsfaglar/tjader.png', label: 'Tjäder', similarTo: ['Orre'] },
+        { file: 'images/identifiera/honsfaglar/orre.png', label: 'Orre', similarTo: ['Tjäder', 'Fasan'] },
+        { file: 'images/identifiera/honsfaglar/fasan.png', label: 'Fasan', similarTo: ['Orre'] },
+        { file: 'images/identifiera/honsfaglar/dalripa.png', label: 'Dalripa', similarTo: ['Fjällripa'] },
+        { file: 'images/identifiera/honsfaglar/fjallripa.png', label: 'Fjällripa', similarTo: ['Dalripa'] },
+        { file: 'images/identifiera/honsfaglar/jarpe.png', label: 'Järpe', similarTo: ['Rapphöna', 'Vaktel'] },
+        { file: 'images/identifiera/honsfaglar/rapphona.png', label: 'Rapphöna', similarTo: ['Järpe', 'Vaktel'] },
+        { file: 'images/identifiera/honsfaglar/vaktel.png', label: 'Vaktel', similarTo: ['Rapphöna', 'Järpe'] }
     ]
 };
 
