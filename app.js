@@ -5,7 +5,7 @@ const state = {
     view: 'log-view',
     activeCategory: null,
     guideSearchTerm: '',
-    guideSortBy: 'name',
+    guideSortBy: 'taxonomy',
     quizMode: null,
     quizDifficulty: null,
     quizQuestions: [],
@@ -1440,7 +1440,7 @@ function switchSubject(subjectId) {
 
         // Reset sort if selected is disabled
         if (sortSelect.selectedOptions[0].disabled) {
-            sortSelect.value = 'name';
+            sortSelect.value = 'taxonomy';
             sortSelect.dispatchEvent(new Event('change'));
         }
     }
@@ -2140,6 +2140,10 @@ function renderGuideList(birdList) {
         };
 
         switch (state.guideSortBy) {
+            case 'taxonomy': {
+                const list = window[config.dataVar] || [];
+                return list.findIndex(x => x.id === a.id) - list.findIndex(x => x.id === b.id);
+            }
             case 'name': return a.nameSv.localeCompare(b.nameSv);
             case 'wingspan': return getVal(b, 'wingspan') - getVal(a, 'wingspan');
             case 'weight': return getVal(b, 'weight') - getVal(a, 'weight');
@@ -2373,7 +2377,9 @@ function getGuideImageSrc(birdId) {
         // Hönsfåglar
         'tjader', 'orre', 'fasan', 'dalripa', 'fjallripa', 'jarpe', 'rapphona', 'vaktel',
         // Lommar & Doppingar
-        'storlom', 'skaggdopping', 'grahakedopping', 'smadopping', 'svarthakedopping', 'svarthalsaddopping', 'smalom'
+        'storlom', 'skaggdopping', 'grahakedopping', 'smadopping', 'svarthakedopping', 'svarthalsaddopping', 'smalom',
+        // Vadare
+        'strandskata', 'kustpipare', 'ljungpipare', 'fjallpipare', 'storrestrandpipare', 'mindrestrandpipare', 'tofsvipa', 'gluttsnappa', 'svartsnappa', 'dammsnappa', 'kustsnappa', 'skarsnappa', 'spovsnappa', 'skogssnappa', 'karrsnappa', 'drillsnappa', 'myrsnappa', 'smalnabbadsimsnappa', 'mosnappa', 'smasnappa', 'storspov', 'smaspov', 'myrspov', 'rodspov', 'morkulla', 'dubbelbeckasin', 'enkelbeckasin', 'dvargbeckasin', 'skarflacka', 'rodbena', 'brushane', 'roskarl', 'smatarna', 'sandlopare', 'gronbena', 'skarpiplarka'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2506,6 +2512,44 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/lommardoppingar/svarthakedopping.png', label: 'Svarthakedopping', similarTo: ['Svarthalsad dopping'] },
         { file: 'images/identifiera/lommardoppingar/svarthalsaddopping.png', label: 'Svarthalsad dopping', similarTo: ['Svarthakedopping'] },
         { file: 'images/identifiera/lommardoppingar/smalom.png', label: 'Smålom', similarTo: ['Storlom'] }
+    ],
+    'Vadare': [
+        { file: 'images/identifiera/vadare/strandskata.png', label: 'Strandskata', similarTo: [] },
+        { file: 'images/identifiera/vadare/kustpipare.png', label: 'Kustpipare', similarTo: [] },
+        { file: 'images/identifiera/vadare/ljungpipare.png', label: 'Ljungpipare', similarTo: [] },
+        { file: 'images/identifiera/vadare/fjallpipare.png', label: 'Fjällpipare', similarTo: [] },
+        { file: 'images/identifiera/vadare/storrestrandpipare.png', label: 'Större strandpipare', similarTo: [] },
+        { file: 'images/identifiera/vadare/mindrestrandpipare.png', label: 'Mindre strandpipare', similarTo: [] },
+        { file: 'images/identifiera/vadare/tofsvipa.png', label: 'Tofsvipa', similarTo: [] },
+        { file: 'images/identifiera/vadare/gluttsnappa.png', label: 'Gluttsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/svartsnappa.png', label: 'Svartsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/dammsnappa.png', label: 'Dammsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/kustsnappa.png', label: 'Kustsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/skarsnappa.png', label: 'Skärsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/spovsnappa.png', label: 'Spovsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/skogssnappa.png', label: 'Skogssnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/karrsnappa.png', label: 'Kärrsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/drillsnappa.png', label: 'Drillsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/myrsnappa.png', label: 'Myrsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/smalnabbadsimsnappa.png', label: 'Smalnäbbad simsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/mosnappa.png', label: 'Mosnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/smasnappa.png', label: 'Småsnäppa', similarTo: [] },
+        { file: 'images/identifiera/vadare/storspov.png', label: 'Storspov', similarTo: [] },
+        { file: 'images/identifiera/vadare/smaspov.png', label: 'Småspov', similarTo: [] },
+        { file: 'images/identifiera/vadare/myrspov.png', label: 'Myrspov', similarTo: [] },
+        { file: 'images/identifiera/vadare/rodspov.png', label: 'Rödspov', similarTo: [] },
+        { file: 'images/identifiera/vadare/morkulla.png', label: 'Morkulla', similarTo: [] },
+        { file: 'images/identifiera/vadare/dubbelbeckasin.png', label: 'Dubbelbeckasin', similarTo: [] },
+        { file: 'images/identifiera/vadare/enkelbeckasin.png', label: 'Enkelbeckasin', similarTo: [] },
+        { file: 'images/identifiera/vadare/dvargbeckasin.png', label: 'Dvärgbeckasin', similarTo: [] },
+        { file: 'images/identifiera/vadare/skarflacka.png', label: 'Skärfläcka', similarTo: [] },
+        { file: 'images/identifiera/vadare/rodbena.png', label: 'Rödbena', similarTo: [] },
+        { file: 'images/identifiera/vadare/brushane.png', label: 'Brushane', similarTo: [] },
+        { file: 'images/identifiera/vadare/roskarl.png', label: 'Roskarl', similarTo: [] },
+        { file: 'images/identifiera/vadare/smatarna.png', label: 'Småtärna', similarTo: [] },
+        { file: 'images/identifiera/vadare/sandlopare.png', label: 'Sandlöpare', similarTo: [] },
+        { file: 'images/identifiera/vadare/gronbena.png', label: 'Grönbena', similarTo: [] },
+        { file: 'images/identifiera/vadare/skarpiplarka.png', label: 'Skärpiplärka', similarTo: [] }
     ]
 };
 
@@ -2876,6 +2920,7 @@ const CATEGORY_ICON_IMAGES = {
     'Andfåglar': 'andfaglar.png',
     'Duvor': 'duvor.png',
     'Finkar': 'finkar.png',
+    'Flugsnappare': 'flugsnappare.png',
     'Hackspettar': 'hackspettar.png',
     'Hägrar': 'hagrar.png',
     'Hönsfåglar': 'honsfaglar.png',
