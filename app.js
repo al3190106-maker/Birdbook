@@ -2341,7 +2341,11 @@ function getGuideImageSrc(birdId) {
         'Rovfåglar': 'rovfaglar',
         'Andfåglar': 'andfaglar',
         'Hönsfåglar': 'honsfaglar',
-        'Lommar & Doppingar': 'lommardoppingar'
+        'Lommar & Doppingar': 'lommardoppingar',
+        'Vadare': 'vadare',
+        'Hägrar': 'hagrar',
+        'Tranor & Rallar': 'tranorochrallar',
+        'Ugglor': 'ugglor'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
