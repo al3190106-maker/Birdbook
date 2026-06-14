@@ -656,6 +656,76 @@
                     </div>
                 </div>
 
+                <!-- ═══════════ Senaste Fågelfynd (GBIF) ═══════════ -->
+                <div class="rs-section" id="recent-sightings-container">
+
+                    <!-- Hero/Header -->
+                    <div class="rs-hero" id="recent-sightings-hero">
+                        <div class="rs-hero-bg"></div>
+                        <div class="rs-hero-content">
+                            <div class="rs-hero-icon">
+                                <i class="fa-solid fa-binoculars"></i>
+                            </div>
+                            <h3 class="rs-hero-title">Senaste fågelfynd</h3>
+                            <p class="rs-hero-subtitle">Rapporterade observationer från hela Sverige</p>
+                            <div class="rs-hero-meta">
+                                <span class="rs-hero-badge" id="recent-sightings-count">
+                                    <i class="fa-solid fa-feather-pointed"></i> Laddar...
+                                </span>
+                                <span class="rs-hero-badge rs-hero-badge-time" id="recent-sightings-updated">
+                                    <i class="fa-regular fa-clock"></i> –
+                                </span>
+                            </div>
+                        </div>
+                        <button class="rs-refresh-btn" id="recent-sightings-refresh-btn" title="Uppdatera data">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sök & Filter -->
+                    <div class="rs-toolbar">
+                        <div class="rs-search-wrap">
+                            <i class="fa-solid fa-search rs-search-icon"></i>
+                            <input type="text" id="recent-sightings-search" class="rs-search-input" placeholder="Sök art...">
+                        </div>
+                    </div>
+
+                    <!-- Regionfilter -->
+                    <div class="rs-filters-scroll" id="recent-sightings-filters">
+                        <!-- Fylls av JS -->
+                    </div>
+
+                    <!-- Laddning -->
+                    <div class="rs-loading" id="recent-sightings-loading" style="display:none;">
+                        <div class="rs-loading-spinner"></div>
+                        <span>Hämtar observationer från GBIF...</span>
+                    </div>
+
+                    <!-- Felmeddelande -->
+                    <div class="rs-error" id="recent-sightings-error" style="display:none;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span class="rs-error-text">Kunde inte hämta data</span>
+                        <button class="rs-error-retry" onclick="RecentSightings.refresh()">Försök igen</button>
+                    </div>
+
+                    <!-- Tomt -->
+                    <div class="rs-empty" id="recent-sightings-empty" style="display:none;">
+                        <i class="fa-solid fa-binoculars" style="font-size:2rem;opacity:0.3;"></i>
+                        <span>Inga fynd hittade för det valda filtret.</span>
+                    </div>
+
+                    <!-- Observationslista -->
+                    <div class="rs-list" id="recent-sightings-list">
+                        <!-- Fylls av sightings.js -->
+                    </div>
+
+                    <!-- Attribution -->
+                    <div class="rs-attribution">
+                        <span>Data från <a href="https://www.gbif.org" target="_blank" rel="noopener">GBIF.org</a> · Källa: Artportalen m.fl.</span>
+                    </div>
+
+                </div>
+
             </div>
         </section>
 
@@ -1507,6 +1577,7 @@
     <script src="navigation.js"></script>
     <script src="app.js"></script>
     <script src="listen.js"></script>
+    <script src="sightings.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {

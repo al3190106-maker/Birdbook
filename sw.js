@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v4.4.1-naturboken';
+const CACHE_NAME = 'birdfinder-v4.5.0-naturboken';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -12,7 +12,8 @@ const ASSETS_TO_CACHE = [
     './assets/vendor/fontawesome/css/all.min.css',
     './assets/vendor/fonts/outfit/index.css',
     './assets/vendor/leaflet/leaflet.css',
-    './assets/vendor/leaflet/leaflet.js'
+    './assets/vendor/leaflet/leaflet.js',
+    './sightings.js'
 ];
 
 self.addEventListener('install', (event) => {

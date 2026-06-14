@@ -5537,3 +5537,504 @@ body.idle-dark-mode .listen-scard-add-btn {
     }
 }
 
+
+/* ═══════════════════════════════════════════════════
+   SENASTE FÅGELFYND (GBIF) – Recent Sightings
+   ═══════════════════════════════════════════════════ */
+
+/* --- Section wrapper --- */
+.rs-section {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid rgba(46, 93, 75, 0.08);
+}
+
+/* --- Hero Header --- */
+.rs-hero {
+    position: relative;
+    border-radius: 20px;
+    padding: 2rem 1.5rem 1.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #1a3d2f 0%, #2E5D4B 50%, #3a7a5e 100%);
+    color: white;
+    box-shadow: 0 8px 32px rgba(26, 61, 47, 0.25);
+}
+
+.rs-hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.rs-hero-bg::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.rs-hero-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.rs-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.rs-hero-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+}
+
+.rs-hero-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin-bottom: 0.3rem;
+}
+
+.rs-hero-subtitle {
+    font-size: 0.88rem;
+    opacity: 0.7;
+    margin-bottom: 0.8rem;
+}
+
+.rs-hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.rs-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 99px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.rs-hero-badge i {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.rs-refresh-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+}
+
+.rs-refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.08);
+}
+
+/* --- Sök-toolbar --- */
+.rs-toolbar {
+    margin-bottom: 0.75rem;
+}
+
+.rs-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.rs-search-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+.rs-search-input {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    background: var(--card-bg);
+    font-family: var(--font-stack);
+    font-size: 0.9rem;
+    color: var(--text-main);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.rs-search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(46, 93, 75, 0.1);
+}
+
+.rs-search-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* --- Regionfilter (horisontell scroll) --- */
+.rs-filters-scroll {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding: 0.25rem 0 0.75rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.rs-filters-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.rs-filter-btn {
+    flex-shrink: 0;
+    padding: 0.35rem 0.85rem;
+    border: 1.5px solid rgba(46, 93, 75, 0.15);
+    border-radius: 99px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.rs-filter-btn:hover {
+    border-color: var(--primary);
+    background: rgba(46, 93, 75, 0.04);
+}
+
+.rs-filter-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(46, 93, 75, 0.25);
+}
+
+/* --- Laddning --- */
+.rs-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2.5rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.rs-loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(46, 93, 75, 0.15);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: rs-spin 0.8s linear infinite;
+}
+
+@keyframes rs-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Felmeddelande --- */
+.rs-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 1rem;
+    color: #b91c1c;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.rs-error i {
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.rs-error-retry {
+    margin-top: 0.5rem;
+    padding: 0.4rem 1rem;
+    border: 1.5px solid #b91c1c;
+    border-radius: 99px;
+    background: transparent;
+    color: #b91c1c;
+    font-family: var(--font-stack);
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.rs-error-retry:hover {
+    background: #b91c1c;
+    color: white;
+}
+
+/* --- Tomt-tillstånd --- */
+.rs-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- Observationslista --- */
+.rs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* --- Observationskort --- */
+.rs-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-bg);
+    padding: 10px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: rs-card-in 0.35s ease-out both;
+}
+
+@keyframes rs-card-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rs-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Matchade arter får en subtil grön vänsterkant */
+.rs-card-matched-border {
+    border-left: 3px solid var(--primary);
+}
+
+/* --- Kort-bild --- */
+.rs-card-img {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--background);
+}
+
+.rs-card-placeholder {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e8f0ed 0%, #d4e4dc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--secondary);
+    font-size: 1.2rem;
+}
+
+/* --- Kort-body --- */
+.rs-card-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.rs-card-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rs-card-name-sci {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.rs-card-sci {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+.rs-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+
+.rs-card-meta i {
+    color: var(--secondary);
+    margin-right: 2px;
+    font-size: 0.65rem;
+}
+
+.rs-card-date,
+.rs-card-region {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+}
+
+/* --- Kort-footer badges --- */
+.rs-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+.rs-card-obs-badge {
+    background: rgba(46, 93, 75, 0.08);
+    color: var(--primary);
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+.rs-card-matched {
+    color: var(--primary);
+    font-size: 0.65rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.rs-card-matched i {
+    font-size: 0.6rem;
+}
+
+.rs-card-rarity {
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.rs-rarity-rare {
+    background: #f3e8ff;
+    color: #7c3aed;
+}
+
+.rs-rarity-very-rare {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+/* --- Attribution --- */
+.rs-attribution {
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.rs-attribution a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.rs-attribution a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .rs-hero {
+        padding: 1.5rem 1rem 1.2rem;
+        border-radius: 16px;
+    }
+
+    .rs-hero-title {
+        font-size: 1.2rem;
+    }
+
+    .rs-hero-subtitle {
+        font-size: 0.82rem;
+    }
+
+    .rs-card {
+        padding: 8px 10px;
+        gap: 10px;
+    }
+
+    .rs-card-img,
+    .rs-card-placeholder {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+    }
+
+    .rs-card-name {
+        font-size: 0.88rem;
+    }
+}

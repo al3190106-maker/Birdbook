@@ -4930,6 +4930,22 @@ function activateTab(tabId) {
     }
     if (tabId === 'stats-view') renderStatsView();
     if (tabId === 'listen-view' && typeof initBirdnet === 'function') initBirdnet();
+    if (tabId === 'listen-view' && window.RecentSightings) {
+        RecentSightings.init();
+        // Wire up refresh button (idempotent)
+        var refreshBtn = document.getElementById('recent-sightings-refresh-btn');
+        if (refreshBtn && !refreshBtn._wired) {
+            refreshBtn._wired = true;
+            refreshBtn.addEventListener('click', function () {
+                refreshBtn.querySelector('i').classList.add('fa-spin');
+                RecentSightings.refresh().then(function () {
+                    setTimeout(function () {
+                        refreshBtn.querySelector('i').classList.remove('fa-spin');
+                    }, 600);
+                });
+            });
+        }
+    }
     if (typeof window.listen_checkWakeLock === 'function') window.listen_checkWakeLock();
     if (tabId === 'photographers-view') _renderPhotographersView();
 }
