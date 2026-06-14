@@ -2379,7 +2379,13 @@ function getGuideImageSrc(birdId) {
         // Lommar & Doppingar
         'storlom', 'skaggdopping', 'grahakedopping', 'smadopping', 'svarthakedopping', 'svarthalsaddopping', 'smalom',
         // Vadare
-        'strandskata', 'kustpipare', 'ljungpipare', 'fjallpipare', 'storrestrandpipare', 'mindrestrandpipare', 'tofsvipa', 'gluttsnappa', 'svartsnappa', 'dammsnappa', 'kustsnappa', 'skarsnappa', 'spovsnappa', 'skogssnappa', 'karrsnappa', 'drillsnappa', 'myrsnappa', 'smalnabbadsimsnappa', 'mosnappa', 'smasnappa', 'storspov', 'smaspov', 'myrspov', 'rodspov', 'morkulla', 'dubbelbeckasin', 'enkelbeckasin', 'dvargbeckasin', 'skarflacka', 'rodbena', 'brushane', 'roskarl', 'smatarna', 'sandlopare', 'gronbena', 'skarpiplarka'
+        'strandskata', 'kustpipare', 'ljungpipare', 'fjallpipare', 'storrestrandpipare', 'mindrestrandpipare', 'tofsvipa', 'gluttsnappa', 'svartsnappa', 'dammsnappa', 'kustsnappa', 'skarsnappa', 'spovsnappa', 'skogssnappa', 'karrsnappa', 'drillsnappa', 'myrsnappa', 'smalnabbadsimsnappa', 'mosnappa', 'smasnappa', 'storspov', 'smaspov', 'myrspov', 'rodspov', 'morkulla', 'dubbelbeckasin', 'enkelbeckasin', 'dvargbeckasin', 'skarflacka', 'rodbena', 'brushane', 'roskarl', 'smatarna', 'sandlopare', 'gronbena', 'skarpiplarka',
+        // Hägrar
+        'vitstork', 'grahager', 'rordrom',
+        // Tranor & Rallar
+        'trana', 'sothona', 'rorhona', 'kornknarr', 'vattenrall', 'smaflackigsumphona',
+        // Ugglor
+        'berguv', 'fjalluggla', 'lappuggla', 'slaguggla', 'jorduggla', 'kattuggla', 'hornuggla', 'tornuggla', 'hokuggla', 'parluggla', 'sparvuggla'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2550,6 +2556,32 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/vadare/sandlopare.png', label: 'Sandlöpare', similarTo: [] },
         { file: 'images/identifiera/vadare/gronbena.png', label: 'Grönbena', similarTo: [] },
         { file: 'images/identifiera/vadare/skarpiplarka.png', label: 'Skärpiplärka', similarTo: [] }
+    ],
+    'Hägrar': [
+        { file: 'images/identifiera/hagrar/vitstork.png', label: 'Vit stork', similarTo: [] },
+        { file: 'images/identifiera/hagrar/grahager.png', label: 'Gråhäger', similarTo: [] },
+        { file: 'images/identifiera/hagrar/rordrom.png', label: 'Rördrom', similarTo: [] }
+    ],
+    'Tranor & Rallar': [
+        { file: 'images/identifiera/tranorochrallar/trana.png', label: 'Trana', similarTo: [] },
+        { file: 'images/identifiera/tranorochrallar/sothona.png', label: 'Sothöna', similarTo: [] },
+        { file: 'images/identifiera/tranorochrallar/rorhona.png', label: 'Rörhöna', similarTo: [] },
+        { file: 'images/identifiera/tranorochrallar/kornknarr.png', label: 'Kornknarr', similarTo: [] },
+        { file: 'images/identifiera/tranorochrallar/vattenrall.png', label: 'Vattenrall', similarTo: [] },
+        { file: 'images/identifiera/tranorochrallar/smaflackigsumphona.png', label: 'Småfläckig sumphöna', similarTo: [] }
+    ],
+    'Ugglor': [
+        { file: 'images/identifiera/ugglor/berguv.png', label: 'Berguv', similarTo: [] },
+        { file: 'images/identifiera/ugglor/fjalluggla.png', label: 'Fjälluggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/lappuggla.png', label: 'Lappuggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/slaguggla.png', label: 'Slaguggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/jorduggla.png', label: 'Jorduggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/kattuggla.png', label: 'Kattuggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/hornuggla.png', label: 'Hornuggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/tornuggla.png', label: 'Tornuggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/hokuggla.png', label: 'Hökuggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/parluggla.png', label: 'Pärluggla', similarTo: [] },
+        { file: 'images/identifiera/ugglor/sparvuggla.png', label: 'Sparvuggla', similarTo: [] }
     ]
 };
 
