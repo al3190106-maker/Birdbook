@@ -20,6 +20,7 @@ window.RecentSightings = (function () {
         CACHE_KEY: 'naturboken_recent_sightings',
         CACHE_TTL: 30 * 60 * 1000,  // 30 minuter cache
         MAX_DISPLAY: 80,        // Max att visa i UI
+        RADIUS_KM: 50,          // 5 mil = 50 km radie
     };
 
     // --- Svenska län-namn (för filtrering) ---
@@ -106,6 +107,10 @@ window.RecentSightings = (function () {
     let _lastFetch = null;
     let _activeRegion = null;   // Aktivt länsfilter
     let _searchTerm = '';
+    let _nearbyMode = false;    // true = visa bara inom 5 mil
+    let _userLat = null;
+    let _userLng = null;
+    let _locationError = null;
 
     // --- Bygg scientific name lookup från birds.js ---
     let _sciNameMap = null;     // lowercase scientific -> bird object
@@ -147,12 +152,59 @@ window.RecentSightings = (function () {
         return REGION_MAP[lower] || stateProvince;
     }
 
+    // --- Geolocation ---
+
+    /**
+     * Hämta användarens GPS-position.
+     * Returnerar { lat, lng } eller null vid fel.
+     */
+    function _getPosition() {
+        return new Promise(function (resolve) {
+            if (!navigator.geolocation) {
+                _locationError = 'Geolocation stöds inte i din webbläsare';
+                resolve(null);
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                function (pos) {
+                    _userLat = pos.coords.latitude;
+                    _userLng = pos.coords.longitude;
+                    _locationError = null;
+                    resolve({ lat: _userLat, lng: _userLng });
+                },
+                function (err) {
+                    _locationError = err.code === 1
+                        ? 'Platsåtkomst nekad – tillåt i webbläsarinställningar'
+                        : 'Kunde inte hämta din position';
+                    resolve(null);
+                },
+                { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+            );
+        });
+    }
+
+    /**
+     * Beräkna bounding box runt en punkt (lat, lng) med radie i km.
+     * Returnerar { minLat, maxLat, minLng, maxLng }
+     */
+    function _boundingBox(lat, lng, radiusKm) {
+        var latDelta = radiusKm / 111.32;
+        var lngDelta = radiusKm / (111.32 * Math.cos(lat * Math.PI / 180));
+        return {
+            minLat: (lat - latDelta).toFixed(4),
+            maxLat: (lat + latDelta).toFixed(4),
+            minLng: (lng - lngDelta).toFixed(4),
+            maxLng: (lng + lngDelta).toFixed(4)
+        };
+    }
+
     // --- API-anrop ---
 
     /**
      * Bygger API-URL med datumfilter.
      * GBIF har ~2-4 veckors fördröjning jämfört med Artportalen,
      * så vi söker 60 dagar bakåt för att alltid hitta resultat.
+     * Om _nearbyMode är aktiv, begränsar till bounding box runt användaren.
      */
     function _buildUrl() {
         const now = new Date();
@@ -173,6 +225,13 @@ window.RecentSightings = (function () {
             orderBy: 'eventDate',
             desc: 'true'
         });
+
+        // Lägg till bounding box om nära-mig-läge
+        if (_nearbyMode && _userLat !== null && _userLng !== null) {
+            var box = _boundingBox(_userLat, _userLng, CONFIG.RADIUS_KM);
+            params.set('decimalLatitude', box.minLat + ',' + box.maxLat);
+            params.set('decimalLongitude', box.minLng + ',' + box.maxLng);
+        }
 
         return CONFIG.API_BASE + '?' + params.toString();
     }
@@ -566,11 +625,13 @@ window.RecentSightings = (function () {
             // Redan initialiserad, bara rendera om
             _render();
             _renderRegionFilters();
+            _updateNearbyBtn();
             return;
         }
 
         _setupSearch();
         _renderRegionFilters();
+        _updateNearbyBtn();
 
         var result = await fetchData(false);
         _renderRegionFilters(); // Uppdatera efter data laddats
@@ -585,16 +646,96 @@ window.RecentSightings = (function () {
         return result;
     }
 
+    /**
+     * Växla "Nära mig" (5 mil radie) läge.
+     * Hämtar GPS-position vid aktivering, sedan hämtar ny data.
+     */
+    async function toggleNearby() {
+        if (_nearbyMode) {
+            // Stäng av nära-mig
+            _nearbyMode = false;
+            _updateNearbyBtn();
+            _updateSubtitle();
+            // Rensa cache och hämta hela Sverige
+            localStorage.removeItem(CONFIG.CACHE_KEY);
+            await fetchData(true);
+            _renderRegionFilters();
+            return;
+        }
+
+        // Aktivera nära-mig: hämta position först
+        _updateNearbyBtn('loading');
+        var pos = await _getPosition();
+
+        if (!pos) {
+            _updateNearbyBtn();
+            // Visa felmeddelande
+            var errorEl = document.getElementById('recent-sightings-error');
+            if (errorEl) {
+                errorEl.style.display = 'flex';
+                var errText = errorEl.querySelector('.rs-error-text');
+                if (errText) errText.textContent = _locationError || 'Kunde inte hämta position';
+            }
+            return;
+        }
+
+        _nearbyMode = true;
+        _updateNearbyBtn();
+        _updateSubtitle();
+        // Rensa cache och hämta med koordinater
+        localStorage.removeItem(CONFIG.CACHE_KEY);
+        await fetchData(true);
+        _renderRegionFilters();
+    }
+
+    /**
+     * Uppdatera "Nära mig"-knappens utseende
+     */
+    function _updateNearbyBtn(state) {
+        var btn = document.getElementById('rs-nearby-btn');
+        if (!btn) return;
+
+        if (state === 'loading') {
+            btn.classList.add('loading');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Söker position...';
+            return;
+        }
+
+        btn.classList.remove('loading');
+        if (_nearbyMode) {
+            btn.classList.add('active');
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig · 5 mil';
+        } else {
+            btn.classList.remove('active');
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig';
+        }
+    }
+
+    /**
+     * Uppdatera hero-subtitle beroende på läge
+     */
+    function _updateSubtitle() {
+        var el = document.querySelector('.rs-hero-subtitle');
+        if (!el) return;
+        if (_nearbyMode) {
+            el.textContent = 'Visar fynd inom 5 mil från din position';
+        } else {
+            el.textContent = 'Observationer rapporterade de senaste veckorna via GBIF';
+        }
+    }
+
     // --- Public API ---
     return {
         init: init,
         refresh: refresh,
         fetchData: fetchData,
+        toggleNearby: toggleNearby,
         get isLoading() { return _isLoading; },
         get error() { return _error; },
         get sightings() { return _sightings; },
         get grouped() { return _grouped; },
         get lastFetch() { return _lastFetch; },
+        get nearbyMode() { return _nearbyMode; },
         REGIONS: REGIONS,
     };
 })();

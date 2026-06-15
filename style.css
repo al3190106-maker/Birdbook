@@ -5667,6 +5667,9 @@ body.idle-dark-mode .listen-scard-add-btn {
 
 /* --- Sök-toolbar --- */
 .rs-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 0.75rem;
 }
 
@@ -5674,6 +5677,8 @@ body.idle-dark-mode .listen-scard-add-btn {
     position: relative;
     display: flex;
     align-items: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .rs-search-icon {
@@ -5706,6 +5711,55 @@ body.idle-dark-mode .listen-scard-add-btn {
 .rs-search-input::placeholder {
     color: var(--text-muted);
     opacity: 0.6;
+}
+
+/* --- Nära mig-knapp --- */
+.rs-nearby-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 1rem;
+    border: 1.5px solid rgba(46, 93, 75, 0.2);
+    border-radius: 14px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.rs-nearby-btn i {
+    font-size: 0.85rem;
+    color: var(--primary);
+    transition: color 0.25s;
+}
+
+.rs-nearby-btn:hover {
+    border-color: var(--primary);
+    background: rgba(46, 93, 75, 0.04);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(46, 93, 75, 0.1);
+}
+
+.rs-nearby-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(46, 93, 75, 0.3);
+}
+
+.rs-nearby-btn.active i {
+    color: white;
+}
+
+.rs-nearby-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 /* --- Regionfilter (horisontell scroll) --- */
