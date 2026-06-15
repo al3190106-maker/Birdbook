@@ -2347,7 +2347,10 @@ function getGuideImageSrc(birdId) {
         'Tranor & Rallar': 'tranorochrallar',
         'Ugglor': 'ugglor',
         'Måsar & Tärnor': 'masarochtarnor',
-        'Alkfåglar': 'alkfaglar'
+        'Alkfåglar': 'alkfaglar',
+        'Hackspettar': 'hackspettar',
+        'Duvor': 'duvor',
+        'Flugsnappare': 'flugsnappare'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2395,7 +2398,13 @@ function getGuideImageSrc(birdId) {
         // Måsar & Tärnor
         'kustlabb', 'fjallabb', 'havstrut', 'gratrut', 'silltrut', 'fiskmas', 'skrattmas', 'dvargmas', 'skrantarna', 'kentsktarna', 'silvertarna', 'fisktarna',
         // Alkfåglar
-        'sillgrissla', 'tordmule', 'tobisgrissla', 'alkekung'
+        'sillgrissla', 'tordmule', 'tobisgrissla', 'alkekung',
+        // Hackspettar
+        'goktyta', 'spillkraka', 'storrehackspett', 'graspett', 'grongoling', 'tretaighackspett', 'mindrehackspett',
+        // Duvor
+        'ringduva', 'tamduva', 'skogsduva', 'turkduva', 'turturduva',
+        // Flugsnappare
+        'graflugsnappare', 'halsbandsflugsnappare', 'svartvitflugsnappare', 'mindreflugsnappare'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2612,6 +2621,28 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/alkfaglar/tordmule.png', label: 'Tordmule', similarTo: [] },
         { file: 'images/identifiera/alkfaglar/tobisgrissla.png', label: 'Tobisgrissla', similarTo: [] },
         { file: 'images/identifiera/alkfaglar/alkekung.png', label: 'Alkekung', similarTo: [] }
+    ],
+    'Hackspettar': [
+        { file: 'images/identifiera/hackspettar/goktyta.png', label: 'Göktyta', similarTo: [] },
+        { file: 'images/identifiera/hackspettar/spillkraka.png', label: 'Spillkråka', similarTo: [] },
+        { file: 'images/identifiera/hackspettar/storrehackspett.png', label: 'Större hackspett', similarTo: [] },
+        { file: 'images/identifiera/hackspettar/graspett.png', label: 'Gråspett', similarTo: [] },
+        { file: 'images/identifiera/hackspettar/grongoling.png', label: 'Gröngöling', similarTo: [] },
+        { file: 'images/identifiera/hackspettar/tretaighackspett.png', label: 'Tretåig hackspett', similarTo: [] },
+        { file: 'images/identifiera/hackspettar/mindrehackspett.png', label: 'Mindre hackspett', similarTo: [] }
+    ],
+    'Duvor': [
+        { file: 'images/identifiera/duvor/ringduva.png', label: 'Ringduva', similarTo: [] },
+        { file: 'images/identifiera/duvor/tamduva.png', label: 'Tamduva', similarTo: [] },
+        { file: 'images/identifiera/duvor/skogsduva.png', label: 'Skogsduva', similarTo: [] },
+        { file: 'images/identifiera/duvor/turkduva.png', label: 'Turkduva', similarTo: [] },
+        { file: 'images/identifiera/duvor/turturduva.png', label: 'Turturduva', similarTo: [] }
+    ],
+    'Flugsnappare': [
+        { file: 'images/identifiera/flugsnappare/graflugsnappare.png', label: 'Grå flugsnappare', similarTo: [] },
+        { file: 'images/identifiera/flugsnappare/halsbandsflugsnappare.png', label: 'Halsbandsflugsnappare', similarTo: [] },
+        { file: 'images/identifiera/flugsnappare/svartvitflugsnappare.png', label: 'Svartvit flugsnappare', similarTo: [] },
+        { file: 'images/identifiera/flugsnappare/mindreflugsnappare.png', label: 'Mindre flugsnappare', similarTo: [] }
     ]
 };
 
