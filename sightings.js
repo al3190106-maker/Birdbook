@@ -16,7 +16,7 @@ window.RecentSightings = (function () {
         API_BASE: 'https://api.gbif.org/v1/occurrence/search',
         TAXON_KEY: 212,         // Aves (fåglar) i GBIF:s taxonomi
         COUNTRY: 'SE',          // Sverige
-        LIMIT: 100,             // Max antal per hämtning
+        LIMIT: 300,             // Max antal per hämtning (GBIF max per sida)
         CACHE_KEY: 'naturboken_recent_sightings',
         CACHE_TTL: 30 * 60 * 1000,  // 30 minuter cache
         MAX_DISPLAY: 80,        // Max att visa i UI
@@ -150,11 +150,13 @@ window.RecentSightings = (function () {
     // --- API-anrop ---
 
     /**
-     * Bygger API-URL med datumfilter (senaste 7 dagarna för att täcka GBIF-fördröjning)
+     * Bygger API-URL med datumfilter.
+     * GBIF har ~2-4 veckors fördröjning jämfört med Artportalen,
+     * så vi söker 60 dagar bakåt för att alltid hitta resultat.
      */
     function _buildUrl() {
         const now = new Date();
-        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const startDate = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
 
         const fmt = function (d) {
             return d.toISOString().split('T')[0];
@@ -167,7 +169,7 @@ window.RecentSightings = (function () {
             hasGeospatialIssue: 'false',
             occurrenceStatus: 'PRESENT',
             limit: CONFIG.LIMIT,
-            eventDate: fmt(weekAgo) + ',' + fmt(now),
+            eventDate: fmt(startDate) + ',' + fmt(now),
             orderBy: 'eventDate',
             desc: 'true'
         });

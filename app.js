@@ -2345,7 +2345,9 @@ function getGuideImageSrc(birdId) {
         'Vadare': 'vadare',
         'Hägrar': 'hagrar',
         'Tranor & Rallar': 'tranorochrallar',
-        'Ugglor': 'ugglor'
+        'Ugglor': 'ugglor',
+        'Måsar & Tärnor': 'masarochtarnor',
+        'Alkfåglar': 'alkfaglar'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2389,7 +2391,11 @@ function getGuideImageSrc(birdId) {
         // Tranor & Rallar
         'trana', 'sothona', 'rorhona', 'kornknarr', 'vattenrall', 'smaflackigsumphona',
         // Ugglor
-        'berguv', 'fjalluggla', 'lappuggla', 'slaguggla', 'jorduggla', 'kattuggla', 'hornuggla', 'tornuggla', 'hokuggla', 'parluggla', 'sparvuggla'
+        'berguv', 'fjalluggla', 'lappuggla', 'slaguggla', 'jorduggla', 'kattuggla', 'hornuggla', 'tornuggla', 'hokuggla', 'parluggla', 'sparvuggla',
+        // Måsar & Tärnor
+        'kustlabb', 'fjallabb', 'havstrut', 'gratrut', 'silltrut', 'fiskmas', 'skrattmas', 'dvargmas', 'skrantarna', 'kentsktarna', 'silvertarna', 'fisktarna',
+        // Alkfåglar
+        'sillgrissla', 'tordmule', 'tobisgrissla', 'alkekung'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2586,6 +2592,26 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/ugglor/hokuggla.png', label: 'Hökuggla', similarTo: [] },
         { file: 'images/identifiera/ugglor/parluggla.png', label: 'Pärluggla', similarTo: [] },
         { file: 'images/identifiera/ugglor/sparvuggla.png', label: 'Sparvuggla', similarTo: [] }
+    ],
+    'Måsar & Tärnor': [
+        { file: 'images/identifiera/masarochtarnor/kustlabb.png', label: 'Kustlabb', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/fjallabb.png', label: 'Fjällabb', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/havstrut.png', label: 'Havstrut', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/gratrut.png', label: 'Gråtrut', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/silltrut.png', label: 'Silltrut', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/fiskmas.png', label: 'Fiskmås', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/skrattmas.png', label: 'Skrattmås', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/dvargmas.png', label: 'Dvärgmås', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/skrantarna.png', label: 'Skräntärna', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/kentsktarna.png', label: 'Kentsk tärna', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/silvertarna.png', label: 'Silvertärna', similarTo: [] },
+        { file: 'images/identifiera/masarochtarnor/fisktarna.png', label: 'Fisktärna', similarTo: [] }
+    ],
+    'Alkfåglar': [
+        { file: 'images/identifiera/alkfaglar/sillgrissla.png', label: 'Sillgrissla', similarTo: [] },
+        { file: 'images/identifiera/alkfaglar/tordmule.png', label: 'Tordmule', similarTo: [] },
+        { file: 'images/identifiera/alkfaglar/tobisgrissla.png', label: 'Tobisgrissla', similarTo: [] },
+        { file: 'images/identifiera/alkfaglar/alkekung.png', label: 'Alkekung', similarTo: [] }
     ]
 };
 
