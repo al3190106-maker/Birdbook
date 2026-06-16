@@ -2350,7 +2350,8 @@ function getGuideImageSrc(birdId) {
         'Alkfåglar': 'alkfaglar',
         'Hackspettar': 'hackspettar',
         'Duvor': 'duvor',
-        'Flugsnappare': 'flugsnappare'
+        'Flugsnappare': 'flugsnappare',
+        'Finkar': 'finkar'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2404,7 +2405,9 @@ function getGuideImageSrc(birdId) {
         // Duvor
         'ringduva', 'tamduva', 'skogsduva', 'turkduva', 'turturduva',
         // Flugsnappare
-        'graflugsnappare', 'halsbandsflugsnappare', 'svartvitflugsnappare', 'mindreflugsnappare'
+        'graflugsnappare', 'halsbandsflugsnappare', 'svartvitflugsnappare', 'mindreflugsnappare',
+        // Finkar
+        'tallbit', 'steglits', 'storrekorsnabb', 'mindrekorsnabb', 'bandelkorsnabb', 'bofink', 'bergfink', 'gronfink', 'rosenfink', 'grasiska', 'gronsiska', 'hampling', 'vinterhampling', 'stenknack', 'domherre'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2643,6 +2646,23 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/flugsnappare/halsbandsflugsnappare.png', label: 'Halsbandsflugsnappare', similarTo: [] },
         { file: 'images/identifiera/flugsnappare/svartvitflugsnappare.png', label: 'Svartvit flugsnappare', similarTo: [] },
         { file: 'images/identifiera/flugsnappare/mindreflugsnappare.png', label: 'Mindre flugsnappare', similarTo: [] }
+    ],
+    'Finkar': [
+        { file: 'images/identifiera/finkar/tallbit.png', label: 'Tallbit', similarTo: [] },
+        { file: 'images/identifiera/finkar/steglits.png', label: 'Steglits', similarTo: [] },
+        { file: 'images/identifiera/finkar/storrekorsnabb.png', label: 'Större korsnäbb', similarTo: [] },
+        { file: 'images/identifiera/finkar/mindrekorsnabb.png', label: 'Mindre korsnäbb', similarTo: [] },
+        { file: 'images/identifiera/finkar/bandelkorsnabb.png', label: 'Bändelkorsnäbb', similarTo: [] },
+        { file: 'images/identifiera/finkar/bofink.png', label: 'Bofink', similarTo: [] },
+        { file: 'images/identifiera/finkar/bergfink.png', label: 'Bergfink', similarTo: [] },
+        { file: 'images/identifiera/finkar/gronfink.png', label: 'Grönfink', similarTo: [] },
+        { file: 'images/identifiera/finkar/rosenfink.png', label: 'Rosenfink', similarTo: [] },
+        { file: 'images/identifiera/finkar/grasiska.png', label: 'Gråsiska', similarTo: [] },
+        { file: 'images/identifiera/finkar/gronsiska.png', label: 'Grönsiska', similarTo: [] },
+        { file: 'images/identifiera/finkar/hampling.png', label: 'Hämpling', similarTo: [] },
+        { file: 'images/identifiera/finkar/vinterhampling.png', label: 'Vinterhämpling', similarTo: [] },
+        { file: 'images/identifiera/finkar/stenknack.png', label: 'Stenknäck', similarTo: [] },
+        { file: 'images/identifiera/finkar/domherre.png', label: 'Domherre', similarTo: [] }
     ]
 };
 
