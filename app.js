@@ -2351,7 +2351,9 @@ function getGuideImageSrc(birdId) {
         'Hackspettar': 'hackspettar',
         'Duvor': 'duvor',
         'Flugsnappare': 'flugsnappare',
-        'Finkar': 'finkar'
+        'Finkar': 'finkar',
+        'Sparvar': 'sparvar',
+        'Svalor': 'svalor'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2407,7 +2409,11 @@ function getGuideImageSrc(birdId) {
         // Flugsnappare
         'graflugsnappare', 'halsbandsflugsnappare', 'svartvitflugsnappare', 'mindreflugsnappare',
         // Finkar
-        'tallbit', 'steglits', 'storrekorsnabb', 'mindrekorsnabb', 'bandelkorsnabb', 'bofink', 'bergfink', 'gronfink', 'rosenfink', 'grasiska', 'gronsiska', 'hampling', 'vinterhampling', 'stenknack', 'domherre'
+        'tallbit', 'steglits', 'storrekorsnabb', 'mindrekorsnabb', 'bandelkorsnabb', 'bofink', 'bergfink', 'gronfink', 'rosenfink', 'grasiska', 'gronsiska', 'hampling', 'vinterhampling', 'stenknack', 'domherre',
+        // Sparvar
+        'snosparv', 'kornsparv', 'lappsparv', 'gulsparv', 'ortolansparv', 'grasparv', 'savsparv', 'videsparv', 'pilfink', 'dvargsparv',
+        // Svalor
+        'ladusvala', 'hussvala', 'backsvala'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2663,6 +2669,23 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/finkar/vinterhampling.png', label: 'Vinterhämpling', similarTo: [] },
         { file: 'images/identifiera/finkar/stenknack.png', label: 'Stenknäck', similarTo: [] },
         { file: 'images/identifiera/finkar/domherre.png', label: 'Domherre', similarTo: [] }
+    ],
+    'Sparvar': [
+        { file: 'images/identifiera/sparvar/snosparv.png', label: 'Snösparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/kornsparv.png', label: 'Kornsparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/lappsparv.png', label: 'Lappsparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/gulsparv.png', label: 'Gulsparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/ortolansparv.png', label: 'Ortolansparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/grasparv.png', label: 'Gråsparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/savsparv.png', label: 'Sävsparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/videsparv.png', label: 'Videsparv', similarTo: [] },
+        { file: 'images/identifiera/sparvar/pilfink.png', label: 'Pilfink', similarTo: [] },
+        { file: 'images/identifiera/sparvar/dvargsparv.png', label: 'Dvärgsparv', similarTo: [] }
+    ],
+    'Svalor': [
+        { file: 'images/identifiera/svalor/ladusvala.png', label: 'Ladusvala', similarTo: [] },
+        { file: 'images/identifiera/svalor/hussvala.png', label: 'Hussvala', similarTo: [] },
+        { file: 'images/identifiera/svalor/backsvala.png', label: 'Backsvala', similarTo: [] }
     ]
 };
 
