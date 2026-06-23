@@ -202,13 +202,12 @@ window.RecentSightings = (function () {
 
     /**
      * Bygger API-URL med datumfilter.
-     * GBIF har ~2-4 veckors fördröjning jämfört med Artportalen,
-     * så vi söker 60 dagar bakåt för att alltid hitta resultat.
-     * Om _nearbyMode är aktiv, begränsar till bounding box runt användaren.
+     * GBIF har ~10-14 dagars fördröjning jämfört med Artportalen,
+     * så vi söker 14 dagar bakåt för att fånga senaste tillgängliga data.
      */
     function _buildUrl() {
         const now = new Date();
-        const startDate = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
+        const startDate = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
 
         const fmt = function (d) {
             return d.toISOString().split('T')[0];
