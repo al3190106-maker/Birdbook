@@ -2353,7 +2353,8 @@ function getGuideImageSrc(birdId) {
         'Flugsnappare': 'flugsnappare',
         'Finkar': 'finkar',
         'Sparvar': 'sparvar',
-        'Svalor': 'svalor'
+        'Svalor': 'svalor',
+        'Kråkfåglar': 'krakfaglar'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2413,7 +2414,9 @@ function getGuideImageSrc(birdId) {
         // Sparvar
         'snosparv', 'kornsparv', 'lappsparv', 'gulsparv', 'ortolansparv', 'grasparv', 'savsparv', 'videsparv', 'pilfink', 'dvargsparv',
         // Svalor
-        'ladusvala', 'hussvala', 'backsvala'
+        'ladusvala', 'hussvala', 'backsvala',
+        // Kråkfåglar
+        'notskrika', 'lavskrika', 'skata', 'korp', 'grakraka', 'raka', 'kaja', 'notkraka'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2686,6 +2689,16 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/svalor/ladusvala.png', label: 'Ladusvala', similarTo: [] },
         { file: 'images/identifiera/svalor/hussvala.png', label: 'Hussvala', similarTo: [] },
         { file: 'images/identifiera/svalor/backsvala.png', label: 'Backsvala', similarTo: [] }
+    ],
+    'Kråkfåglar': [
+        { file: 'images/identifiera/krakfaglar/notskrika.png', label: 'Nötskrika', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/lavskrika.png', label: 'Lavskrika', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/skata.png', label: 'Skata', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/korp.png', label: 'Korp', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/grakraka.png', label: 'Gråkråka', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/raka.png', label: 'Råka', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/kaja.png', label: 'Kaja', similarTo: [] },
+        { file: 'images/identifiera/krakfaglar/notkraka.png', label: 'Nötkråka', similarTo: [] }
     ]
 };
 
