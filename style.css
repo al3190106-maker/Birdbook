@@ -6092,3 +6092,152 @@ body.idle-dark-mode .listen-scard-add-btn {
         font-size: 0.88rem;
     }
 }
+
+/* --- Kartknapp på kort --- */
+.rs-card {
+    position: relative;
+}
+
+.rs-card-map-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(46, 93, 75, 0.15);
+    background: var(--background);
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.rs-card-map-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 3px 10px rgba(46, 93, 75, 0.25);
+}
+
+/* Extra padding på kort för kartknappen */
+.rs-card:has(.rs-card-map-btn) {
+    padding-right: 52px;
+}
+
+/* --- Kartmodal --- */
+.rs-map-modal-content {
+    max-width: 700px;
+    width: 94%;
+    max-height: 85vh;
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.rs-map-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem 0.8rem;
+    background: var(--card-bg);
+}
+
+.rs-map-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.rs-map-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0.15rem 0 0;
+}
+
+.rs-map-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--background);
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.rs-map-close:hover {
+    background: #e8e8e8;
+}
+
+.rs-map-container {
+    width: 100%;
+    height: 400px;
+    background: var(--background);
+}
+
+.rs-map-legend {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--card-bg);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rs-map-legend i {
+    color: var(--primary);
+    margin-right: 0.3rem;
+}
+
+/* Popup-stilar */
+.rs-map-popup strong {
+    font-size: 0.88rem;
+    color: var(--text-main);
+}
+
+.rs-popup-muni {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.rs-popup-date {
+    font-size: 0.72rem;
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .rs-map-container {
+        height: 300px;
+    }
+
+    .rs-map-modal-content {
+        width: 98%;
+        max-height: 80vh;
+        border-radius: 16px;
+    }
+
+    .rs-card-map-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+
+    .rs-card:has(.rs-card-map-btn) {
+        padding-right: 46px;
+    }
+}

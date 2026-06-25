@@ -265,12 +265,18 @@ window.RecentSightings = (function () {
 
             const json = await response.json();
             _sightings = (json.results || []).map(function (occ) {
+                // Extrahera kommun från gadm
+                var municipality = '';
+                if (occ.gadm && occ.gadm.level2 && occ.gadm.level2.name) {
+                    municipality = occ.gadm.level2.name;
+                }
                 return {
                     key: occ.key,
                     scientificName: occ.scientificName || occ.species || '',
                     species: occ.species || '',
                     eventDate: occ.eventDate || '',
                     region: _normalizeRegion(occ.stateProvince),
+                    municipality: municipality,
                     locality: occ.locality || '',
                     lat: occ.decimalLatitude,
                     lng: occ.decimalLongitude,
@@ -320,6 +326,7 @@ window.RecentSightings = (function () {
                     matchedBird: s.matchedBird,
                     observations: [],
                     regions: new Set(),
+                    localities: [],
                     totalCount: 0,
                     latestDate: s.eventDate,
                 };
@@ -327,6 +334,11 @@ window.RecentSightings = (function () {
             groups[key].observations.push(s);
             groups[key].totalCount += s.individualCount || 1;
             if (s.region && s.region !== 'Okänt') groups[key].regions.add(s.region);
+            // Samla unika platser med koordinater
+            if (s.lat && s.lng) {
+                var locName = s.locality || s.municipality || s.region || 'Okänd plats';
+                groups[key].localities.push({ name: locName, municipality: s.municipality, region: s.region, lat: s.lat, lng: s.lng, date: s.eventDate });
+            }
             if (s.eventDate > groups[key].latestDate) {
                 groups[key].latestDate = s.eventDate;
             }
@@ -486,11 +498,8 @@ window.RecentSightings = (function () {
         // Datum
         var dateStr = _formatDate(group.latestDate);
 
-        // Regioner
-        var regionArr = Array.from(group.regions);
-        var regionText = regionArr.length > 2
-            ? regionArr.slice(0, 2).join(', ') + ' +' + (regionArr.length - 2)
-            : regionArr.join(', ') || 'Okänd plats';
+        // Specifik plats – visa locality/kommun istället för bara län
+        var locationText = _formatLocation(group);
 
         // Antal observationer
         var obsCountBadge = group.observations.length > 1
@@ -506,20 +515,35 @@ window.RecentSightings = (function () {
                 '<i class="fa-solid fa-star"></i> ' + rarityLabels[bird.rarity - 1] + '</span>';
         }
 
+        // Kartknapp (om koordinater finns)
+        var mapBtnHTML = group.localities.length > 0
+            ? '<button class="rs-card-map-btn" title="Visa på karta"><i class="fa-solid fa-map-location-dot"></i></button>'
+            : '';
+
         card.innerHTML =
             imgHTML +
             '<div class="rs-card-body">' +
             nameHTML +
             '<div class="rs-card-meta">' +
             '<span class="rs-card-date"><i class="fa-regular fa-calendar"></i> ' + dateStr + '</span>' +
-            '<span class="rs-card-region"><i class="fa-solid fa-location-dot"></i> ' + regionText + '</span>' +
+            '<span class="rs-card-region"><i class="fa-solid fa-location-dot"></i> ' + locationText + '</span>' +
             '</div>' +
             '<div class="rs-card-footer">' +
             obsCountBadge +
             rarityBadge +
             (isMatched ? '<span class="rs-card-matched"><i class="fa-solid fa-check-circle"></i> I Fågelboken</span>' : '') +
             '</div>' +
-            '</div>';
+            '</div>' +
+            mapBtnHTML;
+
+        // Kartknapp-klick
+        var mapBtn = card.querySelector('.rs-card-map-btn');
+        if (mapBtn) {
+            mapBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                _openMap(group);
+            });
+        }
 
         // Klick öppnar detaljmodal om matchad
         if (isMatched) {
@@ -561,6 +585,185 @@ window.RecentSightings = (function () {
             return d.toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
         } catch (e) {
             return dateStr.split('T')[0];
+        }
+    }
+
+    /**
+     * Formatera platsvisning – visa mest specifik tillgänglig plats.
+     * Prioritet: locality → kommun → län
+     */
+    function _formatLocation(group) {
+        if (group.localities.length === 0) {
+            // Fallback till regioner
+            var regionArr = Array.from(group.regions);
+            return regionArr.join(', ') || 'Okänd plats';
+        }
+
+        // Samla unika platsbeskrivningar
+        var places = [];
+        var seen = new Set();
+        group.localities.forEach(function (loc) {
+            // Bygg specifik platstext
+            var parts = [];
+            if (loc.name && loc.name !== loc.municipality && loc.name !== loc.region) {
+                parts.push(loc.name);
+            }
+            if (loc.municipality) {
+                parts.push(loc.municipality);
+            }
+            var text = parts.join(', ') || loc.region || 'Okänd';
+            if (!seen.has(text)) {
+                seen.add(text);
+                places.push(text);
+            }
+        });
+
+        if (places.length === 0) {
+            var regionArr = Array.from(group.regions);
+            return regionArr.join(', ') || 'Okänd plats';
+        }
+
+        if (places.length === 1) return places[0];
+        if (places.length === 2) return places[0] + ', ' + places[1];
+        return places[0] + ' +' + (places.length - 1) + ' platser';
+    }
+
+    // --- Karta ---
+
+    var _mapInstance = null;
+    var _mapMarkers = [];
+
+    /**
+     * Öppna kartmodal med observationspunkter för en artgrupp
+     */
+    function _openMap(group) {
+        var modal = document.getElementById('rs-map-modal');
+        if (!modal) {
+            _createMapModal();
+            modal = document.getElementById('rs-map-modal');
+        }
+
+        // Uppdatera rubrik
+        var title = modal.querySelector('.rs-map-title');
+        if (title) {
+            var bird = group.matchedBird;
+            title.textContent = bird ? bird.nameSv : group.species;
+        }
+
+        var subtitle = modal.querySelector('.rs-map-subtitle');
+        if (subtitle) {
+            subtitle.textContent = group.localities.length + ' observationer med platsdata';
+        }
+
+        modal.classList.add('active');
+
+        // Initiera/uppdatera karta
+        setTimeout(function () {
+            _renderMap(group);
+        }, 100);
+    }
+
+    function _createMapModal() {
+        var modal = document.createElement('div');
+        modal.id = 'rs-map-modal';
+        modal.className = 'modal-overlay';
+        modal.style.zIndex = '2600';
+        modal.innerHTML =
+            '<div class="modal-content rs-map-modal-content">' +
+            '  <div class="rs-map-header">' +
+            '    <div>' +
+            '      <h3 class="rs-map-title">Fågelfynd</h3>' +
+            '      <p class="rs-map-subtitle"></p>' +
+            '    </div>' +
+            '    <button class="rs-map-close" id="rs-map-close"><i class="fa-solid fa-times"></i></button>' +
+            '  </div>' +
+            '  <div id="rs-map-container" class="rs-map-container"></div>' +
+            '  <div id="rs-map-legend" class="rs-map-legend"></div>' +
+            '</div>';
+        document.body.appendChild(modal);
+
+        // Stäng-knapp
+        modal.querySelector('#rs-map-close').addEventListener('click', function () {
+            modal.classList.remove('active');
+            if (_mapInstance) {
+                _mapInstance.remove();
+                _mapInstance = null;
+            }
+        });
+
+        // Stäng vid klick utanför
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                if (_mapInstance) {
+                    _mapInstance.remove();
+                    _mapInstance = null;
+                }
+            }
+        });
+    }
+
+    function _renderMap(group) {
+        var container = document.getElementById('rs-map-container');
+        if (!container) return;
+
+        // Rensa gammal karta
+        if (_mapInstance) {
+            _mapInstance.remove();
+            _mapInstance = null;
+        }
+
+        // Skapa Leaflet-karta
+        _mapInstance = L.map(container, { zoomControl: true });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap',
+            maxZoom: 18
+        }).addTo(_mapInstance);
+
+        // Lägg till markörer
+        var bounds = L.latLngBounds();
+        _mapMarkers = [];
+
+        group.localities.forEach(function (loc) {
+            if (!loc.lat || !loc.lng) return;
+
+            var popupContent =
+                '<div class="rs-map-popup">' +
+                '<strong>' + (loc.name || 'Okänd plats') + '</strong>' +
+                (loc.municipality ? '<br><span class="rs-popup-muni">' + loc.municipality + ', ' + loc.region + '</span>' : '') +
+                (loc.date ? '<br><span class="rs-popup-date">' + _formatDate(loc.date) + '</span>' : '') +
+                '</div>';
+
+            var marker = L.circleMarker([loc.lat, loc.lng], {
+                radius: 8,
+                fillColor: '#2E5D4B',
+                color: '#fff',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.85
+            }).bindPopup(popupContent).addTo(_mapInstance);
+
+            _mapMarkers.push(marker);
+            bounds.extend([loc.lat, loc.lng]);
+        });
+
+        // Anpassa vyn
+        if (_mapMarkers.length > 0) {
+            if (_mapMarkers.length === 1) {
+                _mapInstance.setView([group.localities[0].lat, group.localities[0].lng], 10);
+            } else {
+                _mapInstance.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
+            }
+        } else {
+            _mapInstance.setView([62, 16], 4); // Sverige centralt
+        }
+
+        // Legend
+        var legend = document.getElementById('rs-map-legend');
+        if (legend) {
+            var regionArr = Array.from(group.regions);
+            legend.innerHTML = '<i class="fa-solid fa-map-pin"></i> ' +
+                _mapMarkers.length + ' platser i ' + regionArr.join(', ');
         }
     }
 
