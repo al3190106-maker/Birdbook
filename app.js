@@ -2354,7 +2354,8 @@ function getGuideImageSrc(birdId) {
         'Finkar': 'finkar',
         'Sparvar': 'sparvar',
         'Svalor': 'svalor',
-        'Kråkfåglar': 'krakfaglar'
+        'Kråkfåglar': 'krakfaglar',
+        'Övriga': 'ovriga'
     };
     const catDir = catMap[bird.type];
     if (!catDir) return null;
@@ -2416,7 +2417,9 @@ function getGuideImageSrc(birdId) {
         // Svalor
         'ladusvala', 'hussvala', 'backsvala',
         // Kråkfåglar
-        'notskrika', 'lavskrika', 'skata', 'korp', 'grakraka', 'raka', 'kaja', 'notkraka'
+        'notskrika', 'lavskrika', 'skata', 'korp', 'grakraka', 'raka', 'kaja', 'notkraka',
+        // Övriga
+        'havssula', 'storskarv', 'gok', 'nattskarra', 'sommargylling', 'tornseglare', 'stare', 'varfagel', 'sanglarka', 'sidensvans', 'tradlarka', 'sadesarla', 'stromstare', 'forsarla', 'notvacka', 'tornskata', 'tradpiplarka', 'rodstrupigpiplarka', 'gularla', 'kungsfiskare', 'angspiplarka', 'jarnsparv', 'tradkrypare', 'gardsmyg'
     ]);
     
     if (completedBirds.has(normalizedName)) {
@@ -2699,6 +2702,32 @@ const IDENTIFY_IMAGES = {
         { file: 'images/identifiera/krakfaglar/raka.png', label: 'Råka', similarTo: [] },
         { file: 'images/identifiera/krakfaglar/kaja.png', label: 'Kaja', similarTo: [] },
         { file: 'images/identifiera/krakfaglar/notkraka.png', label: 'Nötkråka', similarTo: [] }
+    ],
+    'Övriga': [
+        { file: 'images/identifiera/ovriga/havssula.png', label: 'Havssula', similarTo: [] },
+        { file: 'images/identifiera/ovriga/storskarv.png', label: 'Storskarv', similarTo: [] },
+        { file: 'images/identifiera/ovriga/gok.png', label: 'Gök', similarTo: [] },
+        { file: 'images/identifiera/ovriga/nattskarra.png', label: 'Nattskärra', similarTo: [] },
+        { file: 'images/identifiera/ovriga/sommargylling.png', label: 'Sommargylling', similarTo: [] },
+        { file: 'images/identifiera/ovriga/tornseglare.png', label: 'Tornseglare', similarTo: [] },
+        { file: 'images/identifiera/ovriga/stare.png', label: 'Stare', similarTo: [] },
+        { file: 'images/identifiera/ovriga/varfagel.png', label: 'Varfågel', similarTo: [] },
+        { file: 'images/identifiera/ovriga/sanglarka.png', label: 'Sånglärka', similarTo: [] },
+        { file: 'images/identifiera/ovriga/sidensvans.png', label: 'Sidensvans', similarTo: [] },
+        { file: 'images/identifiera/ovriga/tradlarka.png', label: 'Trädlärka', similarTo: [] },
+        { file: 'images/identifiera/ovriga/sadesarla.png', label: 'Sädesärla', similarTo: [] },
+        { file: 'images/identifiera/ovriga/stromstare.png', label: 'Strömstare', similarTo: [] },
+        { file: 'images/identifiera/ovriga/forsarla.png', label: 'Forsärla', similarTo: [] },
+        { file: 'images/identifiera/ovriga/notvacka.png', label: 'Nötväcka', similarTo: [] },
+        { file: 'images/identifiera/ovriga/tornskata.png', label: 'Törnskata', similarTo: [] },
+        { file: 'images/identifiera/ovriga/tradpiplarka.png', label: 'Trädpiplärka', similarTo: [] },
+        { file: 'images/identifiera/ovriga/rodstrupigpiplarka.png', label: 'Rödstrupig piplärka', similarTo: [] },
+        { file: 'images/identifiera/ovriga/gularla.png', label: 'Gulärla', similarTo: [] },
+        { file: 'images/identifiera/ovriga/kungsfiskare.png', label: 'Kungsfiskare', similarTo: [] },
+        { file: 'images/identifiera/ovriga/angspiplarka.png', label: 'Ängspiplärka', similarTo: [] },
+        { file: 'images/identifiera/ovriga/jarnsparv.png', label: 'Järnsparv', similarTo: [] },
+        { file: 'images/identifiera/ovriga/tradkrypare.png', label: 'Trädkrypare', similarTo: [] },
+        { file: 'images/identifiera/ovriga/gardsmyg.png', label: 'Gärdsmyg', similarTo: [] }
     ]
 };
 
