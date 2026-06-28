@@ -1709,6 +1709,31 @@ function showAchievementToast(icon, title, desc) {
     }, 5000); // Display time
 }
 
+function showGlobalToast(message, type = 'info') {
+    let toast = document.getElementById('global-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'global-toast';
+        toast.className = 'global-toast';
+        document.body.appendChild(toast);
+    }
+    
+    // Reset classes
+    toast.className = 'global-toast ' + type;
+    toast.textContent = message;
+    
+    // Trigger transition
+    requestAnimationFrame(() => {
+        toast.classList.add('show');
+    });
+
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3500);
+}
+window.showGlobalToast = showGlobalToast;
+
 function checkAchievements() {
     if (!appStateMeta.isInitialized) return;
     const stats = computeStats();
@@ -1800,18 +1825,56 @@ function openBirdDetail(item, sighting = null) {
 }
 window.openBirdDetail = openBirdDetail;
 
-function quickAddSighting(birdId) {
+async function quickAddSighting(birdId) {
     const list = getCurrentSpeciesList();
     const bird = list.find(b => b.id === birdId);
     if (!bird) return;
 
+    showGlobalToast(`⏳ Sparar ${bird.nameSv}...`, 'info');
+
+    const today = new Date().toISOString().split('T')[0];
+    let lat = '', lng = '', location = '', weather = '';
+
+    // Hämta GPS och plats
+    try {
+        const pos = await new Promise((resolve, reject) =>
+            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 6000, maximumAge: 60000 })
+        );
+        lat = pos.coords.latitude;
+        lng = pos.coords.longitude;
+
+        // Platsnamn (Nominatim)
+        try {
+            const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`, { headers: { 'Accept-Language': 'sv' } });
+            const data = await r.json();
+            if (data && data.address) {
+                const a = data.address;
+                const parts = [a.village || a.town || a.city || a.municipality, a.county || a.state].filter(Boolean);
+                location = parts.join(', ') || '';
+            }
+        } catch (_) {}
+
+        // Väder
+        try {
+            const hour = new Date().getHours();
+            weather = await _fetchWeatherForCoords(lat, lng, today, hour) || '';
+        } catch (_) {}
+    } catch (_) {
+        // Ingen GPS
+    }
+
     const newSighting = {
         id: Date.now().toString(),
         birdId: bird.id,
-        date: new Date().toISOString().split('T')[0],
-        location: 'Snabbtillägg',
-        notes: '',
-        photo: null
+        date: today,
+        location: location || 'Snabbtillägg',
+        weather: weather || '',
+        notes: 'Snabbtillägg via fågelguiden',
+        lat: lat ? String(lat) : '',
+        lng: lng ? String(lng) : '',
+        photo: null,
+        seen: true,
+        heard: false
     };
 
     state.sightings.push(newSighting);
@@ -1824,7 +1887,8 @@ function quickAddSighting(birdId) {
 
     saveSightings();
     setupYearFilter();
-    alert(`+1 observation av ${bird.nameSv} tillagd!`);
+
+    showGlobalToast(`✅ ${bird.nameSv} sparad!${location ? ' · ' + location : ''}`, 'success');
 }
 
 function deleteSighting(id) {
@@ -2224,12 +2288,12 @@ function renderGuideList(birdList) {
             });
         }
 
-        // Bind Quick Add Button — opens full modal with auto-fill (GPS, weather, date)
+        // Bind Quick Add Button — saves directly in background (GPS, weather, location)
         const quickAddBtn = card.querySelector(`#quick-add-${bird.id}`);
         if (quickAddBtn) {
             quickAddBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                _showSightingModal(bird.id, bird.nameSv);
+                quickAddSighting(bird.id);
             });
         }
 
@@ -3384,36 +3448,7 @@ window.triggerImageUpload = (birdId) => {
     elements.customImageInput.click();
 };
 
-window.quickAddSighting = (birdId) => {
-    // 1. Create a minimal sighting
-    const newSighting = {
-        id: Date.now().toString(),
-        birdId: birdId,
-        date: new Date().toISOString().split('T')[0], // Today
-        location: 'Snabbtillägg',
-        notes: '',
-        weather: '',
-        photo: null,
-        seen: true,
-        heard: false
-    };
-
-    // 2. Save
-    state.sightings.push(newSighting);
-
-    // Auto-update year filter if needed (edge case where user views old year but adds for today)
-    const currentYear = new Date().getFullYear();
-    if (state.yearFilter !== 'all' && state.yearFilter !== currentYear) {
-        // Optionally switch to current year, or just let it be added in background
-        // Let's switch so they see it
-        state.yearFilter = currentYear;
-    }
-
-    saveSightings();
-    setupYearFilter();
-
-    // Feedback? Not strictly needed as UI updates immediately
-};
+window.quickAddSighting = quickAddSighting;
 
 // --- Event Listeners ---
 

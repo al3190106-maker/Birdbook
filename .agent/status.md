@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-06-28 | 🐛 Buggar & Fix | Synkroniserade snabbtillägg i Fågelguide med Identifiera (asynkron GPS/plats/väder och toast-notiser) |
 | 2026-05-27 | 🧭 Planering | Kodgranskning: fixat dubbletter (CSS, JS, data), skiftlägesfel i svampbilder, korsfilduplicering av havsörn |
 | 2026-05-25 | 🧭 Planering | Skapat AGENTS.md och status.md för delad projektkontext |
 | 2026-04-08 | – | Städning av kod och filstruktur (se `cleanup_log.md`) |
