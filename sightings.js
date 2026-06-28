@@ -107,10 +107,21 @@ window.RecentSightings = (function () {
     let _lastFetch = null;
     let _activeRegion = null;   // Aktivt länsfilter
     let _searchTerm = '';
-    let _nearbyMode = false;    // true = visa bara inom 5 mil
+    let _nearbyMode = false;    // true = visa bara inom radie
+    let _radiusKm = CONFIG.RADIUS_KM; // Aktuell radie i km
     let _userLat = null;
     let _userLng = null;
     let _locationError = null;
+
+    // Tillgängliga avstånd (km → visningstext)
+    const DISTANCE_OPTIONS = [
+        { km: 10, label: '1 mil' },
+        { km: 20, label: '2 mil' },
+        { km: 30, label: '3 mil' },
+        { km: 50, label: '5 mil' },
+        { km: 100, label: '10 mil' },
+        { km: 200, label: '20 mil' },
+    ];
 
     // --- Bygg scientific name lookup från birds.js ---
     let _sciNameMap = null;     // lowercase scientific -> bird object
@@ -227,7 +238,7 @@ window.RecentSightings = (function () {
 
         // Lägg till bounding box om nära-mig-läge
         if (_nearbyMode && _userLat !== null && _userLng !== null) {
-            var box = _boundingBox(_userLat, _userLng, CONFIG.RADIUS_KM);
+            var box = _boundingBox(_userLat, _userLng, _radiusKm);
             params.set('decimalLatitude', box.minLat + ',' + box.maxLat);
             params.set('decimalLongitude', box.minLng + ',' + box.maxLng);
         }
@@ -906,10 +917,77 @@ window.RecentSightings = (function () {
         btn.classList.remove('loading');
         if (_nearbyMode) {
             btn.classList.add('active');
-            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig · 5 mil';
+            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig · ' + _getRadiusLabel();
         } else {
             btn.classList.remove('active');
             btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig';
+        }
+
+        // Visa/göm avståndväljaren
+        _updateDistancePicker();
+    }
+
+    /**
+     * Hämta visningstext för aktuell radie
+     */
+    function _getRadiusLabel() {
+        for (var i = 0; i < DISTANCE_OPTIONS.length; i++) {
+            if (DISTANCE_OPTIONS[i].km === _radiusKm) return DISTANCE_OPTIONS[i].label;
+        }
+        return _radiusKm + ' km';
+    }
+
+    /**
+     * Rendera avståndväljaren (visas under toolbaren när nearby är aktivt)
+     */
+    function _updateDistancePicker() {
+        var picker = document.getElementById('rs-distance-picker');
+
+        if (!_nearbyMode) {
+            if (picker) picker.style.display = 'none';
+            return;
+        }
+
+        if (!picker) {
+            // Skapa picker-elementet
+            picker = document.createElement('div');
+            picker.id = 'rs-distance-picker';
+            picker.className = 'rs-distance-picker';
+            var toolbar = document.querySelector('.rs-toolbar');
+            if (toolbar && toolbar.parentNode) {
+                toolbar.parentNode.insertBefore(picker, toolbar.nextSibling);
+            } else {
+                return;
+            }
+        }
+
+        picker.style.display = 'flex';
+        picker.innerHTML = '<span class="rs-distance-label"><i class="fa-solid fa-ruler"></i> Avstånd:</span>';
+
+        DISTANCE_OPTIONS.forEach(function (opt) {
+            var btn = document.createElement('button');
+            btn.className = 'rs-distance-btn' + (opt.km === _radiusKm ? ' active' : '');
+            btn.textContent = opt.label;
+            btn.addEventListener('click', function () {
+                setRadius(opt.km);
+            });
+            picker.appendChild(btn);
+        });
+    }
+
+    /**
+     * Ändra sökradie och hämta ny data
+     */
+    async function setRadius(km) {
+        if (km === _radiusKm && _nearbyMode) return; // Ingen ändring
+        _radiusKm = km;
+
+        if (_nearbyMode) {
+            _updateNearbyBtn();
+            _updateSubtitle();
+            localStorage.removeItem(CONFIG.CACHE_KEY);
+            await fetchData(true);
+            _renderRegionFilters();
         }
     }
 
@@ -920,7 +998,7 @@ window.RecentSightings = (function () {
         var el = document.querySelector('.rs-hero-subtitle');
         if (!el) return;
         if (_nearbyMode) {
-            el.textContent = 'Visar fynd inom 5 mil från din position';
+            el.textContent = 'Visar fynd inom ' + _getRadiusLabel() + ' från din position';
         } else {
             el.textContent = 'Observationer rapporterade de senaste veckorna via GBIF';
         }
@@ -932,6 +1010,7 @@ window.RecentSightings = (function () {
         refresh: refresh,
         fetchData: fetchData,
         toggleNearby: toggleNearby,
+        setRadius: setRadius,
         get isLoading() { return _isLoading; },
         get error() { return _error; },
         get sightings() { return _sightings; },

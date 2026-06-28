@@ -5762,6 +5762,65 @@ body.idle-dark-mode .listen-scard-add-btn {
     pointer-events: none;
 }
 
+/* --- Avståndväljare --- */
+.rs-distance-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.6rem;
+    padding: 0.45rem 0.6rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid rgba(46, 93, 75, 0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
+    animation: rs-fadeIn 0.25s ease;
+}
+
+.rs-distance-picker::-webkit-scrollbar {
+    display: none;
+}
+
+.rs-distance-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: 0.15rem;
+}
+
+.rs-distance-label i {
+    margin-right: 0.2rem;
+    font-size: 0.68rem;
+}
+
+.rs-distance-btn {
+    flex-shrink: 0;
+    padding: 0.3rem 0.65rem;
+    border: 1.5px solid rgba(46, 93, 75, 0.12);
+    border-radius: 20px;
+    background: var(--background);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.rs-distance-btn:hover {
+    border-color: var(--primary);
+    background: rgba(46, 93, 75, 0.05);
+}
+
+.rs-distance-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(46, 93, 75, 0.25);
+}
+
 /* --- Regionfilter (horisontell scroll) --- */
 .rs-filters-scroll {
     display: flex;
