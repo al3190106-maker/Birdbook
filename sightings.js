@@ -485,6 +485,16 @@ window.RecentSightings = (function () {
         var bird = group.matchedBird;
         var isMatched = !!bird;
 
+        // Kolla om användaren har loggat denna art
+        var userStatus = _getUserSightingStatus(bird);
+
+        // Applicera färgkodning
+        if (userStatus === 'seen') {
+            card.classList.add('rs-card-seen');
+        } else if (userStatus === 'heard') {
+            card.classList.add('rs-card-heard');
+        }
+
         // Bild
         var imgHTML;
         if (isMatched) {
@@ -526,6 +536,16 @@ window.RecentSightings = (function () {
                 '<i class="fa-solid fa-star"></i> ' + rarityLabels[bird.rarity - 1] + '</span>';
         }
 
+        // Status-badge (sedd/hörd/ej sedd)
+        var statusBadge = '';
+        if (userStatus === 'seen') {
+            statusBadge = '<span class="rs-card-status rs-status-seen"><i class="fa-solid fa-eye"></i> Sedd</span>';
+        } else if (userStatus === 'heard') {
+            statusBadge = '<span class="rs-card-status rs-status-heard"><i class="fa-solid fa-ear-listen"></i> Hörd</span>';
+        } else if (isMatched) {
+            statusBadge = '<span class="rs-card-status rs-status-unseen"><i class="fa-regular fa-eye-slash"></i> Ej sedd</span>';
+        }
+
         // Kartknapp (om koordinater finns)
         var mapBtnHTML = group.localities.length > 0
             ? '<button class="rs-card-map-btn" title="Visa på karta"><i class="fa-solid fa-map-location-dot"></i></button>'
@@ -542,7 +562,7 @@ window.RecentSightings = (function () {
             '<div class="rs-card-footer">' +
             obsCountBadge +
             rarityBadge +
-            (isMatched ? '<span class="rs-card-matched"><i class="fa-solid fa-check-circle"></i> I Fågelboken</span>' : '') +
+            statusBadge +
             '</div>' +
             '</div>' +
             mapBtnHTML;
@@ -571,6 +591,34 @@ window.RecentSightings = (function () {
     }
 
     // --- Hjälpfunktioner ---
+
+    /**
+     * Kolla om användaren har loggat en fågel.
+     * Returnerar 'seen', 'heard' eller null.
+     */
+    function _getUserSightingStatus(bird) {
+        if (!bird || !bird.id) return null;
+        if (!window.state || !window.state.sightings) return null;
+
+        var userSightings = window.state.sightings.filter(function (s) {
+            return s.birdId === bird.id && s.id !== 'SYSTEM_INIT_BIRD';
+        });
+
+        if (userSightings.length === 0) return null;
+
+        // Kolla om någon observation är "sedd" (inte bara hörd)
+        var hasSeen = userSightings.some(function (s) {
+            return s.seen !== false;
+        });
+        if (hasSeen) return 'seen';
+
+        var hasHeard = userSightings.some(function (s) {
+            return s.heard === true;
+        });
+        if (hasHeard) return 'heard';
+
+        return 'seen'; // Default om loggad men inga flaggor
+    }
 
     function _formatSciName(name) {
         if (!name) return 'Okänd';
