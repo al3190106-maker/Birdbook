@@ -3,6 +3,7 @@
 window.swedishFish = [
     {
         "id": "northern_pike",
+        "image": "images/fiskboken_bilder/northern_pike.jpg",
         "type": "Rovfisk",
         "nameEn": "Northern Pike",
         "nameSv": "Gädda",
@@ -16,6 +17,7 @@ window.swedishFish = [
     },
     {
         "id": "european_perch",
+        "image": "images/fiskboken_bilder/european_perch.jpg",
         "type": "Abborrfiskar",
         "nameEn": "European Perch",
         "nameSv": "Abborre",
@@ -29,6 +31,7 @@ window.swedishFish = [
     },
     {
         "id": "atlantic_herring",
+        "image": "images/fiskboken_bilder/atlantic_herring.jpg",
         "type": "Sillfiskar",
         "nameEn": "Atlantic Herring",
         "nameSv": "Sill",
@@ -42,6 +45,7 @@ window.swedishFish = [
     },
     {
         "id": "atlantic_cod",
+        "image": "images/fiskboken_bilder/atlantic_cod.jpg",
         "type": "Torskfiskar",
         "nameEn": "Atlantic Cod",
         "nameSv": "Torsk",
@@ -55,6 +59,7 @@ window.swedishFish = [
     },
     {
         "id": "brown_trout",
+        "image": "images/fiskboken_bilder/brown_trout.jpg",
         "type": "Laxfiskar",
         "nameEn": "Brown Trout",
         "nameSv": "Öring",
@@ -68,6 +73,7 @@ window.swedishFish = [
     },
     {
         "id": "atlantic_salmon",
+        "image": "images/fiskboken_bilder/atlantic_salmon.jpg",
         "type": "Laxfiskar",
         "nameEn": "Atlantic Salmon",
         "nameSv": "Lax",
@@ -81,6 +87,7 @@ window.swedishFish = [
     },
     {
         "id": "arctic_char",
+        "image": "images/fiskboken_bilder/arctic_char.jpg",
         "type": "Laxfiskar",
         "nameEn": "Arctic Char",
         "nameSv": "Röding",
@@ -94,6 +101,7 @@ window.swedishFish = [
     },
     {
         "id": "whitefish",
+        "image": "images/fiskboken_bilder/whitefish.jpg",
         "type": "Laxfiskar",
         "nameEn": "Vendace / Whitefish",
         "nameSv": "Siklöja",
@@ -107,6 +115,7 @@ window.swedishFish = [
     },
     {
         "id": "common_bream",
+        "image": "images/fiskboken_bilder/common_bream.jpg",
         "type": "Karpfiskar",
         "nameEn": "Common Bream",
         "nameSv": "Braxen",
@@ -120,6 +129,7 @@ window.swedishFish = [
     },
     {
         "id": "roach",
+        "image": "images/fiskboken_bilder/roach.jpg",
         "type": "Karpfiskar",
         "nameEn": "Roach",
         "nameSv": "Mört",
@@ -133,6 +143,7 @@ window.swedishFish = [
     },
     {
         "id": "rudd",
+        "image": "images/fiskboken_bilder/rudd.jpg",
         "type": "Karpfiskar",
         "nameEn": "Rudd",
         "nameSv": "Sarv",
@@ -146,6 +157,7 @@ window.swedishFish = [
     },
     {
         "id": "common_carp",
+        "image": "images/fiskboken_bilder/common_carp.jpg",
         "type": "Karpfiskar",
         "nameEn": "Common Carp",
         "nameSv": "Karp",
@@ -159,6 +171,7 @@ window.swedishFish = [
     },
     {
         "id": "tench",
+        "image": "images/fiskboken_bilder/tench.jpg",
         "type": "Karpfiskar",
         "nameEn": "Tench",
         "nameSv": "Sutare",
@@ -172,6 +185,7 @@ window.swedishFish = [
     },
     {
         "id": "pike_perch",
+        "image": "images/fiskboken_bilder/pike_perch.jpg",
         "type": "Abborrfiskar",
         "nameEn": "Pike-perch / Zander",
         "nameSv": "Gös",
@@ -185,6 +199,7 @@ window.swedishFish = [
     },
     {
         "id": "burbot",
+        "image": "images/fiskboken_bilder/burbot.jpg",
         "type": "Torskfiskar",
         "nameEn": "Burbot",
         "nameSv": "Lake",
@@ -198,6 +213,7 @@ window.swedishFish = [
     },
     {
         "id": "wels_catfish",
+        "image": "images/fiskboken_bilder/wels_catfish.jpg",
         "type": "Malartade fiskar",
         "nameEn": "Wels Catfish",
         "nameSv": "Mal",
@@ -211,6 +227,7 @@ window.swedishFish = [
     },
     {
         "id": "asp",
+        "image": "images/fiskboken_bilder/asp.jpg",
         "type": "Karpfiskar",
         "nameEn": "Asp",
         "nameSv": "Asp",
@@ -224,6 +241,7 @@ window.swedishFish = [
     },
     {
         "id": "ide",
+        "image": "images/fiskboken_bilder/ide.jpg",
         "type": "Karpfiskar",
         "nameEn": "Ide / Orfe",
         "nameSv": "Id",
@@ -237,6 +255,7 @@ window.swedishFish = [
     },
     {
         "id": "european_eel",
+        "image": "images/fiskboken_bilder/european_eel.jpg",
         "type": "Ålfiskar",
         "nameEn": "European Eel",
         "nameSv": "Ål",
@@ -250,6 +269,7 @@ window.swedishFish = [
     },
     {
         "id": "sprat",
+        "image": "images/fiskboken_bilder/sprat.jpg",
         "type": "Sillfiskar",
         "nameEn": "Sprat",
         "nameSv": "Skarpsill",
@@ -263,6 +283,7 @@ window.swedishFish = [
     },
     {
         "id": "mackerel",
+        "image": "images/fiskboken_bilder/mackerel.jpg",
         "type": "Makrillfiskar",
         "nameEn": "Atlantic Mackerel",
         "nameSv": "Makrill",
@@ -276,6 +297,7 @@ window.swedishFish = [
     },
     {
         "id": "three_spined_stickleback",
+        "image": "images/fiskboken_bilder/three_spined_stickleback.jpg",
         "type": "Stickelfiskar",
         "nameEn": "Three-spined Stickleback",
         "nameSv": "Storspigg",
@@ -289,6 +311,7 @@ window.swedishFish = [
     },
     {
         "id": "sea_trout",
+        "image": "images/fiskboken_bilder/sea_trout.jpg",
         "type": "Laxfiskar",
         "nameEn": "Sea Trout",
         "nameSv": "Havsöring",
@@ -302,6 +325,7 @@ window.swedishFish = [
     },
     {
         "id": "garfish",
+        "image": "images/fiskboken_bilder/garfish.jpg",
         "type": "Nålfiskar",
         "nameEn": "Garfish",
         "nameSv": "Hornfisk",
@@ -315,6 +339,7 @@ window.swedishFish = [
     },
     {
         "id": "plaice",
+        "image": "images/fiskboken_bilder/plaice.jpg",
         "type": "Platfiskar",
         "nameEn": "European Plaice",
         "nameSv": "Rödspätta",
@@ -328,6 +353,7 @@ window.swedishFish = [
     },
     {
         "id": "flounder",
+        "image": "images/fiskboken_bilder/flounder.jpg",
         "type": "Platfiskar",
         "nameEn": "European Flounder",
         "nameSv": "Skrubbskädda",
@@ -341,6 +367,7 @@ window.swedishFish = [
     },
     {
         "id": "vendace",
+        "image": "images/fiskboken_bilder/vendace.jpg",
         "type": "Laxfiskar",
         "nameEn": "Vendace",
         "nameSv": "Sik",
@@ -354,6 +381,7 @@ window.swedishFish = [
     },
     {
         "id": "rainbow_trout",
+        "image": "images/fiskboken_bilder/rainbow_trout.jpg",
         "type": "Laxfiskar",
         "nameEn": "Rainbow Trout",
         "nameSv": "Regnbågslax",

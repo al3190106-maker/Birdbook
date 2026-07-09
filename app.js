@@ -3366,9 +3366,16 @@ function getBirdImageSrc(birdId) {
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
     
-    // Check if it's fungi
-    const fungiItem = (window.swedishFungi || []).find(f => f.id === birdId);
-    if (fungiItem && fungiItem.image) return fungiItem.image;
+    // Check if item has explicit image property (fungi, fish, etc)
+    const allItems = [
+        ...(window.swedishFungi || []),
+        ...(window.swedishFish || []),
+        ...(window.swedishTrees || []),
+        ...(window.swedishFlowers || []),
+        ...(window.swedishAnimals || [])
+    ];
+    const explicitItem = allItems.find(item => item.id === birdId);
+    if (explicitItem && explicitItem.image) return explicitItem.image;
 
     // 2. Priority check from bird_images for the primary view (Hane -> Unisex -> Hona)
     if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
