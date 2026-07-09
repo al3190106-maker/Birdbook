@@ -5951,6 +5951,7 @@ body.idle-dark-mode .listen-scard-add-btn {
     border: 1px solid rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     animation: rs-card-in 0.35s ease-out both;
+    overflow: hidden;
 }
 
 @keyframes rs-card-in {
@@ -6077,21 +6078,32 @@ body.idle-dark-mode .listen-scard-add-btn {
     gap: 10px;
     font-size: 0.72rem;
     color: var(--text-muted);
-    flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .rs-card-meta i {
     color: var(--secondary);
     margin-right: 2px;
     font-size: 0.65rem;
+    flex-shrink: 0;
 }
 
-.rs-card-date,
+.rs-card-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 .rs-card-region {
     display: inline-flex;
     align-items: center;
     gap: 3px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 /* --- Kort-footer badges --- */

@@ -648,43 +648,27 @@ window.RecentSightings = (function () {
     }
 
     /**
-     * Formatera platsvisning – visa mest specifik tillgänglig plats.
-     * Prioritet: locality → kommun → län
+     * Formatera platsvisning – kort och koncist.
+     * Visar kommun eller län. Detaljer finns via kartknappen.
      */
     function _formatLocation(group) {
         if (group.localities.length === 0) {
-            // Fallback till regioner
             var regionArr = Array.from(group.regions);
-            return regionArr.join(', ') || 'Okänd plats';
+            if (regionArr.length === 0) return 'Okänd plats';
+            if (regionArr.length <= 2) return regionArr.join(', ');
+            return regionArr[0] + ' +' + (regionArr.length - 1);
         }
 
-        // Samla unika platsbeskrivningar
-        var places = [];
-        var seen = new Set();
+        // Samla unika kommuner, fallback till regioner
+        var places = new Set();
         group.localities.forEach(function (loc) {
-            // Bygg specifik platstext
-            var parts = [];
-            if (loc.name && loc.name !== loc.municipality && loc.name !== loc.region) {
-                parts.push(loc.name);
-            }
-            if (loc.municipality) {
-                parts.push(loc.municipality);
-            }
-            var text = parts.join(', ') || loc.region || 'Okänd';
-            if (!seen.has(text)) {
-                seen.add(text);
-                places.push(text);
-            }
+            places.add(loc.municipality || loc.region || 'Okänd');
         });
 
-        if (places.length === 0) {
-            var regionArr = Array.from(group.regions);
-            return regionArr.join(', ') || 'Okänd plats';
-        }
-
-        if (places.length === 1) return places[0];
-        if (places.length === 2) return places[0] + ', ' + places[1];
-        return places[0] + ' +' + (places.length - 1) + ' platser';
+        var arr = Array.from(places);
+        if (arr.length === 1) return arr[0];
+        if (arr.length === 2) return arr[0] + ', ' + arr[1];
+        return arr[0] + ' +' + (arr.length - 1);
     }
 
     // --- Karta ---
