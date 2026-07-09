@@ -6334,6 +6334,44 @@ body.idle-dark-mode .listen-scard-add-btn {
     font-weight: 600;
 }
 
+/* --- Användarposition på kartan --- */
+.rs-user-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.rs-user-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: #3b82f6;
+    border: 2.5px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 6px rgba(59, 130, 246, 0.5);
+    z-index: 2;
+}
+
+.rs-user-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: rgba(59, 130, 246, 0.25);
+    border-radius: 50%;
+    z-index: 1;
+    animation: rs-pulse 2s ease-out infinite;
+}
+
+@keyframes rs-pulse {
+    0% { width: 12px; height: 12px; opacity: 1; }
+    100% { width: 40px; height: 40px; opacity: 0; }
+}
+
 @media (max-width: 600px) {
     .rs-map-container {
         height: 300px;

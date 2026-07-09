@@ -801,12 +801,56 @@ window.RecentSightings = (function () {
             _mapInstance.setView([62, 16], 4); // Sverige centralt
         }
 
+        // Lägg till användarens position
+        _addUserMarker(bounds);
+
         // Legend
         var legend = document.getElementById('rs-map-legend');
         if (legend) {
             var regionArr = Array.from(group.regions);
+            var userText = (_userLat !== null) ? ' · <i class="fa-solid fa-person-walking"></i> Din position' : '';
             legend.innerHTML = '<i class="fa-solid fa-map-pin"></i> ' +
-                _mapMarkers.length + ' platser i ' + regionArr.join(', ');
+                _mapMarkers.length + ' platser i ' + regionArr.join(', ') + userText;
+        }
+    }
+
+    /**
+     * Lägg till användarens position på kartan.
+     * Använder cachade koordinater om tillgängliga, annars hämtar nya.
+     */
+    function _addUserMarker(bounds) {
+        if (!_mapInstance) return;
+
+        function _placeMarker(lat, lng) {
+            // Blå pulsande markör
+            var userIcon = L.divIcon({
+                className: 'rs-user-marker',
+                html: '<div class="rs-user-dot"></div><div class="rs-user-pulse"></div>',
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+            });
+
+            L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
+                .bindPopup('<div class="rs-map-popup"><strong>Din position</strong></div>')
+                .addTo(_mapInstance);
+
+            // Utöka bounds för att inkludera användaren
+            if (bounds && bounds.isValid()) {
+                bounds.extend([lat, lng]);
+                _mapInstance.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+            }
+        }
+
+        if (_userLat !== null && _userLng !== null) {
+            // Använd cachade koordinater
+            _placeMarker(_userLat, _userLng);
+        } else {
+            // Hämta position i bakgrunden
+            _getPosition().then(function (pos) {
+                if (pos && _mapInstance) {
+                    _placeMarker(pos.lat, pos.lng);
+                }
+            });
         }
     }
 
