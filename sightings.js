@@ -112,9 +112,16 @@ window.RecentSightings = (function () {
     let _userLat = null;
     let _userLng = null;
     let _locationError = null;
+    let _settingsOpen = false;
+
+    // Filterinställningar
+    let _filterRarity = 0;          // 0 = alla, 1-5 = minsta raritet att visa
+    let _filterSeenStatus = 'all';  // 'all', 'seen', 'unseen'
 
     // Tillgängliga avstånd (km → visningstext)
     const DISTANCE_OPTIONS = [
+        { km: 1, label: '1 km' },
+        { km: 5, label: '5 km' },
         { km: 10, label: '1 mil' },
         { km: 20, label: '2 mil' },
         { km: 30, label: '3 mil' },
@@ -403,6 +410,24 @@ window.RecentSightings = (function () {
         if (_activeRegion) {
             result = result.filter(function (g) {
                 return g.regions.has(_activeRegion);
+            });
+        }
+
+        // Raritetsfilter
+        if (_filterRarity > 0) {
+            result = result.filter(function (g) {
+                if (!g.matchedBird) return false;
+                return (g.matchedBird.rarity || 1) >= _filterRarity;
+            });
+        }
+
+        // Sedd-status filter
+        if (_filterSeenStatus !== 'all') {
+            result = result.filter(function (g) {
+                var status = _getUserSightingStatus(g.matchedBird);
+                if (_filterSeenStatus === 'seen') return status === 'seen' || status === 'heard';
+                if (_filterSeenStatus === 'unseen') return !status;
+                return true;
             });
         }
 
@@ -955,19 +980,25 @@ window.RecentSightings = (function () {
 
     async function init() {
         if (_initialized && _sightings.length > 0) {
-            // Redan initialiserad, bara rendera om
             _render();
             _renderRegionFilters();
-            _updateNearbyBtn();
             return;
         }
 
         _setupSearch();
-        _renderRegionFilters();
-        _updateNearbyBtn();
+
+        // Alltid starta i nearby-mode
+        if (!_nearbyMode) {
+            var pos = await _getPosition();
+            if (pos) {
+                _nearbyMode = true;
+            }
+        }
+        _updateDistancePicker();
+        _updateSubtitle();
 
         var result = await fetchData(false);
-        _renderRegionFilters(); // Uppdatera efter data laddats
+        _renderRegionFilters();
 
         _initialized = true;
         console.log('[Sightings] Init complete:', result);
@@ -980,71 +1011,91 @@ window.RecentSightings = (function () {
     }
 
     /**
-     * Växla "Nära mig" (5 mil radie) läge.
-     * Hämtar GPS-position vid aktivering, sedan hämtar ny data.
+     * Visa/göm inställningspanelen
      */
-    async function toggleNearby() {
-        if (_nearbyMode) {
-            // Stäng av nära-mig
-            _nearbyMode = false;
-            _updateNearbyBtn();
-            _updateSubtitle();
-            // Rensa cache och hämta hela Sverige
-            localStorage.removeItem(CONFIG.CACHE_KEY);
-            await fetchData(true);
-            _renderRegionFilters();
-            return;
-        }
+    function toggleSettings() {
+        _settingsOpen = !_settingsOpen;
+        _renderSettingsPanel();
 
-        // Aktivera nära-mig: hämta position först
-        _updateNearbyBtn('loading');
-        var pos = await _getPosition();
-
-        if (!pos) {
-            _updateNearbyBtn();
-            // Visa felmeddelande
-            var errorEl = document.getElementById('recent-sightings-error');
-            if (errorEl) {
-                errorEl.style.display = 'flex';
-                var errText = errorEl.querySelector('.rs-error-text');
-                if (errText) errText.textContent = _locationError || 'Kunde inte hämta position';
-            }
-            return;
-        }
-
-        _nearbyMode = true;
-        _updateNearbyBtn();
-        _updateSubtitle();
-        // Rensa cache och hämta med koordinater
-        localStorage.removeItem(CONFIG.CACHE_KEY);
-        await fetchData(true);
-        _renderRegionFilters();
+        var btn = document.getElementById('rs-settings-btn');
+        if (btn) btn.classList.toggle('active', _settingsOpen);
     }
 
     /**
-     * Uppdatera "Nära mig"-knappens utseende
+     * Rendera inställningspanelen
      */
-    function _updateNearbyBtn(state) {
-        var btn = document.getElementById('rs-nearby-btn');
-        if (!btn) return;
+    function _renderSettingsPanel() {
+        var panel = document.getElementById('rs-settings-panel');
 
-        if (state === 'loading') {
-            btn.classList.add('loading');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Söker position...';
+        if (!_settingsOpen) {
+            if (panel) panel.style.display = 'none';
             return;
         }
 
-        btn.classList.remove('loading');
-        if (_nearbyMode) {
-            btn.classList.add('active');
-            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig · ' + _getRadiusLabel();
-        } else {
-            btn.classList.remove('active');
-            btn.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Nära mig';
+        if (!panel) {
+            panel = document.createElement('div');
+            panel.id = 'rs-settings-panel';
+            panel.className = 'rs-settings-panel';
+            var toolbar = document.querySelector('.rs-toolbar');
+            if (toolbar && toolbar.parentNode) {
+                toolbar.parentNode.insertBefore(panel, toolbar.nextSibling);
+            } else {
+                return;
+            }
         }
 
-        // Visa/göm avståndväljaren
-        _updateDistancePicker();
+        panel.style.display = 'block';
+
+        // Raritets-labels
+        var rarityLabels = [
+            { val: 0, label: 'Alla', icon: '' },
+            { val: 3, label: 'Ovanlig+', icon: 'fa-feather' },
+            { val: 4, label: 'Sällsynt+', icon: 'fa-star' },
+            { val: 5, label: 'Mycket sällsynt', icon: 'fa-gem' },
+        ];
+
+        var seenLabels = [
+            { val: 'all', label: 'Alla', icon: 'fa-list' },
+            { val: 'unseen', label: 'Ej sedda', icon: 'fa-eye-slash' },
+            { val: 'seen', label: 'Sedda', icon: 'fa-eye' },
+        ];
+
+        var html = '<div class="rs-settings-group">' +
+            '<span class="rs-settings-label"><i class="fa-solid fa-star"></i> Raritet</span>' +
+            '<div class="rs-settings-options">';
+        rarityLabels.forEach(function (r) {
+            html += '<button class="rs-settings-opt' + (r.val === _filterRarity ? ' active' : '') +
+                '" data-type="rarity" data-val="' + r.val + '">' +
+                (r.icon ? '<i class="fa-solid ' + r.icon + '"></i> ' : '') + r.label + '</button>';
+        });
+        html += '</div></div>';
+
+        html += '<div class="rs-settings-group">' +
+            '<span class="rs-settings-label"><i class="fa-solid fa-binoculars"></i> Status</span>' +
+            '<div class="rs-settings-options">';
+        seenLabels.forEach(function (s) {
+            html += '<button class="rs-settings-opt' + (s.val === _filterSeenStatus ? ' active' : '') +
+                '" data-type="seen" data-val="' + s.val + '">' +
+                '<i class="fa-solid ' + s.icon + '"></i> ' + s.label + '</button>';
+        });
+        html += '</div></div>';
+
+        panel.innerHTML = html;
+
+        // Event listeners
+        panel.querySelectorAll('.rs-settings-opt').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var type = btn.dataset.type;
+                var val = btn.dataset.val;
+                if (type === 'rarity') {
+                    _filterRarity = parseInt(val, 10);
+                } else if (type === 'seen') {
+                    _filterSeenStatus = val;
+                }
+                _renderSettingsPanel();
+                _render();
+            });
+        });
     }
 
     /**
@@ -1058,15 +1109,10 @@ window.RecentSightings = (function () {
     }
 
     /**
-     * Rendera avståndväljaren (visas under toolbaren när nearby är aktivt)
+     * Rendera avståndväljaren (visas alltid)
      */
     function _updateDistancePicker() {
         var picker = document.getElementById('rs-distance-picker');
-
-        if (!_nearbyMode) {
-            if (picker) picker.style.display = 'none';
-            return;
-        }
 
         if (!picker) {
             // Skapa picker-elementet
@@ -1117,11 +1163,7 @@ window.RecentSightings = (function () {
     function _updateSubtitle() {
         var el = document.querySelector('.rs-hero-subtitle');
         if (!el) return;
-        if (_nearbyMode) {
-            el.textContent = 'Visar fynd inom ' + _getRadiusLabel() + ' från din position';
-        } else {
-            el.textContent = 'Observationer rapporterade de senaste veckorna via GBIF';
-        }
+        el.textContent = 'Visar fynd inom ' + _getRadiusLabel() + ' från din position';
     }
 
     // --- Public API ---
@@ -1129,7 +1171,7 @@ window.RecentSightings = (function () {
         init: init,
         refresh: refresh,
         fetchData: fetchData,
-        toggleNearby: toggleNearby,
+        toggleSettings: toggleSettings,
         setRadius: setRadius,
         get isLoading() { return _isLoading; },
         get error() { return _error; },
