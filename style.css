@@ -6334,6 +6334,16 @@ body.idle-dark-mode .listen-scard-add-btn {
     font-weight: 600;
 }
 
+.rs-popup-dist {
+    font-size: 0.72rem;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+.rs-popup-dist i {
+    margin-right: 0.15rem;
+}
+
 /* --- Användarposition på kartan --- */
 .rs-user-marker {
     background: none !important;

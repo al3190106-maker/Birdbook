@@ -815,8 +815,31 @@ window.RecentSightings = (function () {
     }
 
     /**
+     * Beräkna avstånd (km) mellan två lat/lng-punkter (Haversine)
+     */
+    function _haversineDistance(lat1, lng1, lat2, lng2) {
+        var R = 6371;
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLng = (lng2 - lng1) * Math.PI / 180;
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    /**
+     * Formatera avstånd till läsbar text
+     */
+    function _formatDistance(km) {
+        if (km < 1) return Math.round(km * 1000) + ' m';
+        if (km < 10) return km.toFixed(1) + ' km';
+        return Math.round(km) + ' km';
+    }
+
+    /**
      * Lägg till användarens position på kartan.
-     * Använder cachade koordinater om tillgängliga, annars hämtar nya.
+     * Uppdaterar även observationsmarkörer med avstånd.
      */
     function _addUserMarker(bounds) {
         if (!_mapInstance) return;
@@ -831,21 +854,42 @@ window.RecentSightings = (function () {
             });
 
             L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
-                .bindPopup('<div class="rs-map-popup"><strong>Din position</strong></div>')
+                .bindPopup('<div class="rs-map-popup"><strong><i class="fa-solid fa-person-walking"></i> Din position</strong></div>')
                 .addTo(_mapInstance);
+
+            // Uppdatera observationsmarkörer med avstånd
+            _mapMarkers.forEach(function (marker) {
+                var mLatLng = marker.getLatLng();
+                var dist = _haversineDistance(lat, lng, mLatLng.lat, mLatLng.lng);
+                var currentPopup = marker.getPopup().getContent();
+                // Lägg till avstånd i popup
+                var distHTML = '<br><span class="rs-popup-dist"><i class="fa-solid fa-route"></i> ' + _formatDistance(dist) + ' från dig</span>';
+                marker.setPopupContent(currentPopup.replace('</div>', distHTML + '</div>'));
+            });
 
             // Utöka bounds för att inkludera användaren
             if (bounds && bounds.isValid()) {
                 bounds.extend([lat, lng]);
                 _mapInstance.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
             }
+
+            // Uppdatera legend med närmaste avstånd
+            if (_mapMarkers.length > 0) {
+                var nearest = Infinity;
+                _mapMarkers.forEach(function (m) {
+                    var d = _haversineDistance(lat, lng, m.getLatLng().lat, m.getLatLng().lng);
+                    if (d < nearest) nearest = d;
+                });
+                var legend = document.getElementById('rs-map-legend');
+                if (legend) {
+                    legend.innerHTML += ' · <i class="fa-solid fa-location-arrow"></i> Närmast: ' + _formatDistance(nearest);
+                }
+            }
         }
 
         if (_userLat !== null && _userLng !== null) {
-            // Använd cachade koordinater
             _placeMarker(_userLat, _userLng);
         } else {
-            // Hämta position i bakgrunden
             _getPosition().then(function (pos) {
                 if (pos && _mapInstance) {
                     _placeMarker(pos.lat, pos.lng);
