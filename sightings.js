@@ -105,7 +105,6 @@ window.RecentSightings = (function () {
     let _isLoading = false;
     let _error = null;
     let _lastFetch = null;
-    let _activeRegion = null;   // Aktivt länsfilter
     let _searchTerm = '';
     let _nearbyMode = false;    // true = visa bara inom radie
     let _radiusKm = CONFIG.RADIUS_KM; // Aktuell radie i km
@@ -406,12 +405,6 @@ window.RecentSightings = (function () {
 
     function _getFiltered() {
         var result = _grouped;
-
-        if (_activeRegion) {
-            result = result.filter(function (g) {
-                return g.regions.has(_activeRegion);
-            });
-        }
 
         // Raritetsfilter
         if (_filterRarity > 0) {
@@ -923,45 +916,6 @@ window.RecentSightings = (function () {
         }
     }
 
-    // --- Regionfilter-rendering ---
-
-    function _renderRegionFilters() {
-        var filtersEl = document.getElementById('recent-sightings-filters');
-        if (!filtersEl) return;
-
-        filtersEl.innerHTML = '';
-
-        // "Alla" knapp
-        var allBtn = document.createElement('button');
-        allBtn.className = 'rs-filter-btn' + (!_activeRegion ? ' active' : '');
-        allBtn.textContent = 'Alla';
-        allBtn.addEventListener('click', function () {
-            _activeRegion = null;
-            _renderRegionFilters();
-            _render();
-        });
-        filtersEl.appendChild(allBtn);
-
-        // Unika regioner som finns i datan
-        var availableRegions = new Set();
-        _sightings.forEach(function (s) {
-            if (s.region && s.region !== 'Okänt') availableRegions.add(s.region);
-        });
-
-        // Sortera och skapa knappar
-        Array.from(availableRegions).sort().forEach(function (region) {
-            var btn = document.createElement('button');
-            btn.className = 'rs-filter-btn' + (_activeRegion === region ? ' active' : '');
-            btn.textContent = region;
-            btn.addEventListener('click', function () {
-                _activeRegion = (_activeRegion === region) ? null : region;
-                _renderRegionFilters();
-                _render();
-            });
-            filtersEl.appendChild(btn);
-        });
-    }
-
     // --- Sökfälthantering ---
 
     function _setupSearch() {
@@ -981,7 +935,7 @@ window.RecentSightings = (function () {
     async function init() {
         if (_initialized && _sightings.length > 0) {
             _render();
-            _renderRegionFilters();
+
             return;
         }
 
@@ -998,7 +952,6 @@ window.RecentSightings = (function () {
         _updateSubtitle();
 
         var result = await fetchData(false);
-        _renderRegionFilters();
 
         _initialized = true;
         console.log('[Sightings] Init complete:', result);
@@ -1006,7 +959,6 @@ window.RecentSightings = (function () {
 
     async function refresh() {
         var result = await fetchData(true);
-        _renderRegionFilters();
         return result;
     }
 
@@ -1153,7 +1105,6 @@ window.RecentSightings = (function () {
             _updateSubtitle();
             localStorage.removeItem(CONFIG.CACHE_KEY);
             await fetchData(true);
-            _renderRegionFilters();
         }
     }
 
