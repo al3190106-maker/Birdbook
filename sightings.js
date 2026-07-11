@@ -1101,7 +1101,7 @@ window.RecentSightings = (function () {
         _radiusKm = km;
 
         if (_nearbyMode) {
-            _updateNearbyBtn();
+            _updateDistancePicker();
             _updateSubtitle();
             localStorage.removeItem(CONFIG.CACHE_KEY);
             await fetchData(true);
