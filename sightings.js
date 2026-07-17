@@ -256,13 +256,33 @@ window.RecentSightings = (function () {
      * Hämta data från GBIF API (eller cache)
      */
     async function fetchData(forceRefresh) {
-        // Kolla cache först
+        _isLoading = true;
+        _error = null;
+        _render();
+
+        // Se till att vi har GPS-position först
+        if (_userLat === null || _userLng === null) {
+            var pos = await _getPosition();
+            if (!pos) {
+                _isLoading = false;
+                _error = _locationError || 'Platsbehörighet krävs för att visa fågelfynd nära dig.';
+                _render();
+                return { success: false, error: _error };
+            }
+            _nearbyMode = true;
+            _updateDistancePicker();
+            _updateSubtitle();
+        }
+
+        // Kolla cache efter vi fått position och radie
         if (!forceRefresh) {
             const cached = _loadCache();
             if (cached) {
                 _sightings = cached.data;
                 _lastFetch = new Date(cached.timestamp);
                 _processData();
+                _isLoading = false;
+                _render();
                 return { success: true, fromCache: true };
             }
         }
@@ -369,12 +389,13 @@ window.RecentSightings = (function () {
         });
     }
 
-    // --- Cache ---
-
     function _saveCache() {
         try {
             const payload = {
                 timestamp: Date.now(),
+                lat: _userLat,
+                lng: _userLng,
+                radius: _radiusKm,
                 data: _sightings,
             };
             localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify(payload));
@@ -390,6 +411,13 @@ window.RecentSightings = (function () {
             const parsed = JSON.parse(raw);
             if (!ignoreExpiry && (Date.now() - parsed.timestamp > CONFIG.CACHE_TTL)) {
                 return null; // Cache utgått
+            }
+            // Kontrollera att sparad cache stämmer överens med nuvarande radie och position (max 2 km skillnad)
+            if (parsed.radius !== _radiusKm) return null;
+            if (_userLat !== null && _userLng !== null) {
+                if (parsed.lat === null || parsed.lng === null) return null;
+                var dist = _haversineDistance(_userLat, _userLng, parsed.lat, parsed.lng);
+                if (dist > 2) return null; // Har flyttat sig mer än 2 km
             }
             // Återskapa matchedBird-referenserna
             parsed.data.forEach(function (s) {
@@ -451,7 +479,17 @@ window.RecentSightings = (function () {
         if (!container) return;
 
         // Loading
-        if (loadingEl) loadingEl.style.display = _isLoading ? 'flex' : 'none';
+        if (loadingEl) {
+            loadingEl.style.display = _isLoading ? 'flex' : 'none';
+            var loadingSpan = loadingEl.querySelector('span');
+            if (loadingSpan && _isLoading) {
+                if (_userLat === null || _userLng === null) {
+                    loadingSpan.textContent = 'Söker din GPS-position...';
+                } else {
+                    loadingSpan.textContent = 'Hämtar observationer nära dig...';
+                }
+            }
+        }
         if (errorEl) {
             errorEl.style.display = _error ? 'flex' : 'none';
             if (_error) {
@@ -935,21 +973,10 @@ window.RecentSightings = (function () {
     async function init() {
         if (_initialized && _sightings.length > 0) {
             _render();
-
             return;
         }
 
         _setupSearch();
-
-        // Alltid starta i nearby-mode
-        if (!_nearbyMode) {
-            var pos = await _getPosition();
-            if (pos) {
-                _nearbyMode = true;
-            }
-        }
-        _updateDistancePicker();
-        _updateSubtitle();
 
         var result = await fetchData(false);
 
