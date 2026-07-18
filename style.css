@@ -5815,8 +5815,161 @@ body.idle-dark-mode .listen-scard-add-btn {
     margin-right: 0.15rem;
 }
 
+/* ═══════════════════════════════════════════════
+   Identifiera – sub-flikar
+═══════════════════════════════════════════════ */
+.listen-sub-tabs {
+    display: flex;
+    gap: 0.4rem;
+    margin: 0 0 1rem 0;
+    padding: 0.3rem;
+    background: var(--card-bg);
+    border-radius: 14px;
+    border: 1px solid rgba(46, 93, 75, 0.08);
+}
+.listen-sub-btn {
+    flex: 1;
+    padding: 0.55rem 0.75rem;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-stack);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+}
+.listen-sub-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(46, 93, 75, 0.3);
+}
+.listen-sub-btn:not(.active):hover {
+    background: rgba(46, 93, 75, 0.06);
+    color: var(--primary);
+}
+.listen-sub-panel { animation: nr-fadeIn 0.2s ease; }
+
+/* ═══════════════════════════════════════════════
+   Naturreservat
+═══════════════════════════════════════════════ */
+.nr-hero {
+    background: linear-gradient(135deg, #1a4731 0%, #2e5d4b 60%, #3d7a60 100%);
+    border-radius: 20px;
+    padding: 2rem 1.5rem 1.5rem;
+    color: white;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(26, 71, 49, 0.3);
+}
+.nr-hero-bg { position: absolute; inset: 0; }
+.nr-hero-content { position: relative; z-index: 1; margin-bottom: 1rem; }
+.nr-hero-icon { font-size: 2rem; margin-bottom: 0.4rem; opacity: 0.9; }
+.nr-hero-title { font-size: 1.6rem; font-weight: 800; margin: 0 0 0.3rem; letter-spacing: -0.3px; }
+.nr-hero-subtitle { font-size: 0.9rem; opacity: 0.75; margin: 0 0 0.75rem; }
+.nr-hero-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 99px; padding: 0.3rem 0.9rem; font-size: 0.8rem; font-weight: 600;
+}
+.nr-radius-picker { display: flex; gap: 0.35rem; flex-wrap: wrap; position: relative; z-index: 1; }
+.nr-radius-btn {
+    padding: 0.3rem 0.75rem;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 99px; background: rgba(255,255,255,0.1);
+    color: white; font-family: var(--font-stack);
+    font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.nr-radius-btn.active { background: white; color: #1a4731; border-color: white; }
+.nr-radius-btn:not(.active):hover { background: rgba(255,255,255,0.2); }
+.nr-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.nr-card {
+    display: flex; align-items: center; gap: 0.85rem;
+    background: var(--card-bg); border-radius: 14px; padding: 0.9rem 1rem;
+    border: 1px solid rgba(46,93,75,0.07); cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.nr-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,93,75,0.1); border-color: rgba(46,93,75,0.15); }
+.nr-card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(46,93,75,0.08); color: var(--primary);
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+}
+.nr-card-icon.nr-icon-visited { background: rgba(74,222,128,0.15); color: #16a34a; }
+.nr-card-body { flex: 1; min-width: 0; }
+.nr-card-name { font-weight: 700; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.2rem; }
+.nr-card-meta { display: flex; gap: 0.75rem; font-size: 0.75rem; color: var(--text-muted); }
+.nr-card-meta span { display: flex; align-items: center; gap: 0.25rem; }
+.nr-card-dist { font-size: 0.8rem; font-weight: 700; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
+.nr-card-arrow { color: var(--text-muted); font-size: 0.75rem; flex-shrink: 0; }
+.nr-loading { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.9rem; }
+.nr-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid rgba(46,93,75,0.15); border-top-color: var(--primary);
+    border-radius: 50%; animation: nr-spin 0.8s linear infinite;
+}
+.nr-spinner-sm {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(46,93,75,0.15); border-top-color: var(--primary);
+    border-radius: 50%; animation: nr-spin 0.8s linear infinite;
+    display: inline-block; vertical-align: middle; margin-right: 0.4rem;
+}
+@keyframes nr-spin { to { transform: rotate(360deg); } }
+@keyframes nr-fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.nr-error, .nr-empty { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 3rem 1.5rem; text-align: center; color: var(--text-muted); }
+.nr-retry-btn {
+    margin-top: 0.5rem; padding: 0.6rem 1.4rem;
+    border: 1.5px solid var(--primary); border-radius: 99px;
+    background: none; color: var(--primary);
+    font-family: var(--font-stack); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.nr-retry-btn:hover { background: var(--primary); color: white; }
+.nr-detail-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 1rem; }
+.nr-back-btn {
+    width: 40px; height: 40px; border: 1.5px solid rgba(46,93,75,0.15);
+    border-radius: 12px; background: var(--card-bg); color: var(--primary);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; transition: all 0.2s;
+}
+.nr-back-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.nr-detail-title { flex: 1; min-width: 0; }
+.nr-detail-title h2 { font-size: 1.15rem; font-weight: 800; margin: 0 0 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nr-detail-title p { font-size: 0.75rem; color: var(--text-muted); margin: 0; }
+.nr-map { height: 220px; border-radius: 16px; overflow: hidden; margin-bottom: 1.2rem; border: 1px solid rgba(46,93,75,0.1); }
+.nr-birds-section { background: var(--card-bg); border-radius: 16px; padding: 1rem; border: 1px solid rgba(46,93,75,0.07); }
+.nr-birds-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; font-weight: 700; font-size: 0.9rem; }
+.nr-birds-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; margin-left: auto; }
+.nr-birds-count { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(46,93,75,0.07); }
+.nr-birds-loading { padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+.nr-birds-empty { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+.nr-birds-grid { display: flex; flex-direction: column; gap: 0.45rem; }
+.nr-bird-card {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.5rem 0.6rem; border-radius: 10px;
+    border: 1px solid rgba(46,93,75,0.06); background: var(--background);
+    cursor: pointer; transition: all 0.18s;
+}
+.nr-bird-card:hover { background: rgba(46,93,75,0.04); border-color: rgba(46,93,75,0.12); }
+.nr-bird-card.nr-bird-seen { border-left: 3px solid #4ade80; }
+.nr-bird-img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+.nr-bird-img-placeholder {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: rgba(46,93,75,0.08); display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 1.1rem; flex-shrink: 0;
+}
+.nr-bird-info { flex: 1; min-width: 0; }
+.nr-bird-name { font-size: 0.85rem; font-weight: 700; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nr-bird-sci { font-size: 0.7rem; color: var(--text-muted); font-style: italic; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nr-bird-check { color: #16a34a; font-size: 0.8rem; flex-shrink: 0; }
+
 /* --- Avståndväljare --- */
 .rs-distance-picker {
+
     display: flex;
     align-items: center;
     gap: 0.35rem;

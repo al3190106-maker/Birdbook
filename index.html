@@ -38,6 +38,7 @@
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="listen-view">Identifiera</button>
+                <button class="nav-btn" data-tab="nature-reserve-view">Naturreservat</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="photographers-view" style="display: none;">Fotografer</button>
                 <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
@@ -605,58 +606,73 @@
                 @keyframes fade-in-card {
                     from { opacity: 0; transform: translateY(6px); }
                     to { opacity: 1; transform: translateY(0); }
-                }
-            </style>
+                 </style>
 
-            <!-- Controls -->
-            <div class="listen-controls">
-                <div id="listen-status" class="listen-status-pill">
-                    <i class="fa-solid fa-spinner fa-spin"></i> Laddar AI...
-                </div>
-                <div style="display:flex;align-items:center;gap:1rem;">
-                    <div id="listen-spinner" style="display:none;"></div>
-                    <button id="listen-start-btn" class="listen-mic-btn" disabled title="Starta/stoppa lyssning">
-                        <img src="images/ovriga_ikoner/bird_mic_icon.png" alt="" style="width:46px;height:46px;object-fit:contain;" id="listen-mic-img">
-                    </button>
-                    <button id="listen-sim-btn" class="listen-sim-btn" title="Simulera fågelljud">
-                        <i class="fa-solid fa-flask"></i>
-                    </button>
-                </div>
+            <!-- Sub-flikar -->
+            <div class="listen-sub-tabs">
+                <button class="listen-sub-btn active" id="sub-btn-sound" onclick="switchListenSubTab('sound')">
+                    <i class="fa-solid fa-microphone"></i> Ljudinspelning
+                </button>
+                <button class="listen-sub-btn" id="sub-btn-nearby" onclick="switchListenSubTab('nearby')">
+                    <i class="fa-solid fa-location-crosshairs"></i> Nära mig
+                </button>
             </div>
 
-            <div style="max-width:600px; margin:0 auto; padding: 0 0.5rem;">
+            <!-- Panel: Ljudinspelning -->
+            <div id="sub-panel-sound" class="listen-sub-panel active">
 
-                <!-- Waveform -->
-                <div class="listen-wave-card" id="listen-waveform-wrap" style="display:none;">
-                    <div class="listen-wave-label">
-                        <span class="listen-rec-dot"></span> Spektrogram (Tid & Frekvens)
+                <!-- Controls -->
+                <div class="listen-controls">
+                    <div id="listen-status" class="listen-status-pill">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Laddar AI...
                     </div>
-                    <div id="listen-calib-status" class="listen-calib-status">
-                         <i class="fa-solid fa-check"></i> Filter kalibrerat
-                    </div>
-                    <canvas id="listen-waveform" height="56"></canvas>
-                </div>
-
-                <!-- Session Log -->
-                <div class="listen-session-section" id="listen-session-wrap">
-                    <div class="listen-section-title" style="justify-content:space-between;">
-                        <span>
-                            <i class="fa-solid fa-dove" style="color:var(--primary)"></i>
-                            Hittade fåglar
-                        </span>
-                        <button onclick="listen_clearSession()" title="Rensa listan" style="background:none;border:none;color:var(--text-muted);font-size:0.9rem;cursor:pointer;padding:4px;">
-                            <i class="fa-solid fa-rotate-left"></i>
+                    <div style="display:flex;align-items:center;gap:1rem;">
+                        <div id="listen-spinner" style="display:none;"></div>
+                        <button id="listen-start-btn" class="listen-mic-btn" disabled title="Starta/stoppa lyssning">
+                            <img src="images/ovriga_ikoner/bird_mic_icon.png" alt="" style="width:46px;height:46px;object-fit:contain;" id="listen-mic-img">
+                        </button>
+                        <button id="listen-sim-btn" class="listen-sim-btn" title="Simulera fågelljud">
+                            <i class="fa-solid fa-flask"></i>
                         </button>
                     </div>
-                    <div id="listen-session-list">
-                        <div class="listen-empty-now" id="listen-session-empty">
-                            <i class="fa-solid fa-leaf fa-lg" style="color:var(--secondary);opacity:0.4;"></i>
-                            Fåglar du hör sparas automatiskt här.
+                </div>
+
+                <div style="max-width:600px; margin:0 auto; padding: 0 0.5rem;">
+
+                    <!-- Waveform -->
+                    <div class="listen-wave-card" id="listen-waveform-wrap" style="display:none;">
+                        <div class="listen-wave-label">
+                            <span class="listen-rec-dot"></span> Spektrogram (Tid &amp; Frekvens)
+                        </div>
+                        <div id="listen-calib-status" class="listen-calib-status">
+                             <i class="fa-solid fa-check"></i> Filter kalibrerat
+                        </div>
+                        <canvas id="listen-waveform" height="56"></canvas>
+                    </div>
+
+                    <!-- Session Log -->
+                    <div class="listen-session-section" id="listen-session-wrap">
+                        <div class="listen-section-title" style="justify-content:space-between;">
+                            <span>
+                                <i class="fa-solid fa-dove" style="color:var(--primary)"></i>
+                                Hittade fåglar
+                            </span>
+                            <button onclick="listen_clearSession()" title="Rensa listan" style="background:none;border:none;color:var(--text-muted);font-size:0.9rem;cursor:pointer;padding:4px;">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                        <div id="listen-session-list">
+                            <div class="listen-empty-now" id="listen-session-empty">
+                                <i class="fa-solid fa-leaf fa-lg" style="color:var(--secondary);opacity:0.4;"></i>
+                                Fåglar du hör sparas automatiskt här.
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- ═══════════ Senaste Fågelfynd (GBIF) ═══════════ -->
+            <!-- Panel: Nära mig (GBIF) -->
+            <div id="sub-panel-nearby" class="listen-sub-panel" style="display:none;">
                 <div class="rs-section" id="recent-sightings-container">
 
                     <!-- Hero/Header -->
@@ -723,10 +739,18 @@
                     </div>
 
                 </div>
-
             </div>
+
         </section>
 
+
+
+        <!-- Naturreservat View -->
+        <section id="nature-reserve-view" class="view-section">
+            <div id="nr-container">
+                <!-- Fylls av nature-reserve.js -->
+            </div>
+        </section>
 
         <!-- Guide View -->
         <section id="guide-view" class="view-section">
@@ -1576,6 +1600,7 @@
     <script src="app.js"></script>
     <script src="listen.js"></script>
     <script src="sightings.js"></script>
+    <script src="nature-reserve.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {

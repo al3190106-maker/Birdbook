@@ -5085,7 +5085,49 @@ function _setupMapEventListeners() {
 }
 
 // --- Centralized Tab Activation ---
+// --- Sub-tab: Identifiera ---
+function switchListenSubTab(which) {
+    var soundPanel = document.getElementById('sub-panel-sound');
+    var nearbyPanel = document.getElementById('sub-panel-nearby');
+    var soundBtn = document.getElementById('sub-btn-sound');
+    var nearbyBtn = document.getElementById('sub-btn-nearby');
+
+    if (which === 'sound') {
+        if (soundPanel) soundPanel.style.display = '';
+        if (nearbyPanel) nearbyPanel.style.display = 'none';
+        if (soundBtn) soundBtn.classList.add('active');
+        if (nearbyBtn) nearbyBtn.classList.remove('active');
+    } else {
+        if (soundPanel) soundPanel.style.display = 'none';
+        if (nearbyPanel) nearbyPanel.style.display = '';
+        if (nearbyBtn) nearbyBtn.classList.add('active');
+        if (soundBtn) soundBtn.classList.remove('active');
+        // Initiera RecentSightings vid första visning
+        _initRecentSightings();
+    }
+}
+
+function _initRecentSightings() {
+    if (!window.RecentSightings) return;
+    RecentSightings.init();
+    // Wire up refresh button (idempotent)
+    var refreshBtn = document.getElementById('recent-sightings-refresh-btn');
+    if (refreshBtn && !refreshBtn._wired) {
+        refreshBtn._wired = true;
+        refreshBtn.addEventListener('click', function () {
+            var icon = refreshBtn.querySelector('i');
+            if (icon) icon.classList.add('fa-spin');
+            RecentSightings.refresh().then(function () {
+                setTimeout(function () {
+                    if (icon) icon.classList.remove('fa-spin');
+                }, 600);
+            });
+        });
+    }
+}
+
 function activateTab(tabId) {
+
     // Update nav buttons
     elements.navBtns.forEach(b => b.classList.remove('active'));
     const btn = document.querySelector('[data-tab="' + tabId + '"]');
@@ -5115,20 +5157,14 @@ function activateTab(tabId) {
     if (tabId === 'stats-view') renderStatsView();
     if (tabId === 'listen-view' && typeof initBirdnet === 'function') initBirdnet();
     if (tabId === 'listen-view' && window.RecentSightings) {
-        RecentSightings.init();
-        // Wire up refresh button (idempotent)
-        var refreshBtn = document.getElementById('recent-sightings-refresh-btn');
-        if (refreshBtn && !refreshBtn._wired) {
-            refreshBtn._wired = true;
-            refreshBtn.addEventListener('click', function () {
-                refreshBtn.querySelector('i').classList.add('fa-spin');
-                RecentSightings.refresh().then(function () {
-                    setTimeout(function () {
-                        refreshBtn.querySelector('i').classList.remove('fa-spin');
-                    }, 600);
-                });
-            });
+        // Bara init Nära mig om sub-panelen är aktiv
+        var nearbyPanel = document.getElementById('sub-panel-nearby');
+        if (nearbyPanel && nearbyPanel.style.display !== 'none') {
+            _initRecentSightings();
         }
+    }
+    if (tabId === 'nature-reserve-view' && window.NatureReserves) {
+        NatureReserves.init();
     }
     if (typeof window.listen_checkWakeLock === 'function') window.listen_checkWakeLock();
     if (tabId === 'photographers-view') _renderPhotographersView();
@@ -5137,7 +5173,7 @@ function activateTab(tabId) {
 // --- Navigation Registration ---
 function _registerNavHandlers() {
     // Register all tabs
-    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'quiz-view', 'stats-view', 'sweden-view'];
+    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'quiz-view', 'stats-view', 'sweden-view', 'nature-reserve-view'];
     tabs.forEach(function(tabId) {
         nav.register(tabId, {
             type: 'tab',
