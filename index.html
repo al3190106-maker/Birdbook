@@ -615,9 +615,6 @@
                 <button class="listen-sub-btn" id="sub-btn-nearby" onclick="switchListenSubTab('nearby')">
                     <i class="fa-solid fa-location-crosshairs"></i> Nära mig
                 </button>
-                <button class="listen-sub-btn" id="sub-btn-reserves" onclick="switchListenSubTab('reserves')">
-                    <i class="fa-solid fa-tree"></i> Naturreservat
-                </button>
             </div>
 
             <!-- Panel: Ljudinspelning -->
@@ -743,12 +740,6 @@
                 </div>
             </div>
 
-            <!-- Panel: Naturreservat -->
-            <div id="sub-panel-reserves" class="listen-sub-panel" style="display:none;">
-                <div id="nr-container">
-                    <!-- Fylls av nature-reserve.js -->
-                </div>
-            </div>
 
         </section>
 
@@ -1595,12 +1586,12 @@
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
 
+    <script src="bird_images.js"></script>
     <script src="photographers.js"></script>
     <script src="navigation.js"></script>
     <script src="app.js"></script>
     <script src="listen.js"></script>
     <script src="sightings.js"></script>
-    <script src="nature-reserve.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {

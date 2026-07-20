@@ -1019,11 +1019,12 @@ function _renderBirdDetail(item, sighting = null) {
         });
     }
 
-    if (imagesToShow.length === 0) {
-        if (item.photographer) {
-            imagesToShow.push({ src: fallbackSrc, photographerName: item.photographer });
-        } else {
-            imagesToShow.push(fallbackSrc);
+    // Always prepend the fallbackSrc (which is the main v2 image) if it exists
+    if (fallbackSrc) {
+        if (item.photographer && !imagesToShow.find(img => img.src === fallbackSrc || img === fallbackSrc)) {
+            imagesToShow.unshift({ src: fallbackSrc, photographerName: item.photographer });
+        } else if (!imagesToShow.find(img => img === fallbackSrc || (typeof img === 'object' && img.src === fallbackSrc))) {
+            imagesToShow.unshift(fallbackSrc);
         }
     }
 
@@ -5090,14 +5091,11 @@ function _setupMapEventListeners() {
 function switchListenSubTab(which) {
     var soundPanel = document.getElementById('sub-panel-sound');
     var nearbyPanel = document.getElementById('sub-panel-nearby');
-    var reservesPanel = document.getElementById('sub-panel-reserves');
     var soundBtn = document.getElementById('sub-btn-sound');
     var nearbyBtn = document.getElementById('sub-btn-nearby');
-    var reservesBtn = document.getElementById('sub-btn-reserves');
 
-    // Dölj alla paneler
-    [soundPanel, nearbyPanel, reservesPanel].forEach(function(p) { if (p) p.style.display = 'none'; });
-    [soundBtn, nearbyBtn, reservesBtn].forEach(function(b) { if (b) b.classList.remove('active'); });
+    [soundPanel, nearbyPanel].forEach(function(p) { if (p) p.style.display = 'none'; });
+    [soundBtn, nearbyBtn].forEach(function(b) { if (b) b.classList.remove('active'); });
 
     if (which === 'sound') {
         if (soundPanel) soundPanel.style.display = '';
@@ -5106,10 +5104,6 @@ function switchListenSubTab(which) {
         if (nearbyPanel) nearbyPanel.style.display = '';
         if (nearbyBtn) nearbyBtn.classList.add('active');
         _initRecentSightings();
-    } else if (which === 'reserves') {
-        if (reservesPanel) reservesPanel.style.display = '';
-        if (reservesBtn) reservesBtn.classList.add('active');
-        if (window.NatureReserves) NatureReserves.init();
     }
 }
 
