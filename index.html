@@ -1472,6 +1472,46 @@
                     <input type="checkbox" id="toggle-book-strip" style="width: 1.2rem; height: 1.2rem; cursor: pointer; accent-color: var(--primary);">
                 </label>
 
+            <div style="text-align: left; margin-bottom: 1.5rem; margin-top: 1.5rem; background: #f9f9f9; padding: 1rem; border-radius: 12px;">
+                <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--primary);"><i class="fa-solid fa-image"></i> Bildkällor</h3>
+                
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="img-pref-guide" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">Huvudlista (Guidevy)</label>
+                    <select id="img-pref-guide" class="img-pref-select" data-context="guide" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
+                        <option value="v1">Genererad bild (v1)</option>
+                        <option value="v2">Genererad bild (v2)</option>
+                        <option value="foto">Fotografi</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="img-pref-detail" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">Detaljvy (Huvudbild)</label>
+                    <select id="img-pref-detail" class="img-pref-select" data-context="detail" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
+                        <option value="v1">Genererad bild (v1)</option>
+                        <option value="v2">Genererad bild (v2)</option>
+                        <option value="foto">Fotografi</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="img-pref-identify" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">Identifieringsguide</label>
+                    <select id="img-pref-identify" class="img-pref-select" data-context="identify" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
+                        <option value="v1">Genererad bild (v1)</option>
+                        <option value="v2">Genererad bild (v2)</option>
+                        <option value="foto">Fotografi</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 0.3rem;">
+                    <label for="img-pref-log" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">Loggboken (Mina Fynd)</label>
+                    <select id="img-pref-log" class="img-pref-select" data-context="log" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
+                        <option value="v1">Genererad bild (v1)</option>
+                        <option value="v2">Genererad bild (v2)</option>
+                        <option value="foto">Fotografi</option>
+                    </select>
+                </div>
+            </div>
+
                 <button id="export-data-btn" class="secondary-btn"
                     style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
                     <i class="fa-solid fa-download"></i> Exportera Backup

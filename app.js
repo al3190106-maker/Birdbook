@@ -14,7 +14,11 @@ const state = {
     quizAnswered: false,
     timeFilter: 'all',
     currentSubject: 'birds', // Replaces appMode
-    showBookStrip: localStorage.getItem('birdfinder_show_book_strip') !== 'false'
+    showBookStrip: localStorage.getItem('birdfinder_show_book_strip') !== 'false',
+    imgPrefGuide: localStorage.getItem('birdfinder_img_pref_guide') || 'v1',
+    imgPrefDetail: localStorage.getItem('birdfinder_img_pref_detail') || 'v2',
+    imgPrefIdentify: localStorage.getItem('birdfinder_img_pref_identify') || 'v2',
+    imgPrefLog: localStorage.getItem('birdfinder_img_pref_log') || 'foto'
 };
 window.state = state;
 
@@ -345,6 +349,10 @@ const elements = {
     settingsBtn: document.getElementById('settings-btn'),
     settingsModal: document.getElementById('settings-modal'),
     toggleBookStrip: document.getElementById('toggle-book-strip'),
+    imgPrefGuide: document.getElementById('img-pref-guide'),
+    imgPrefDetail: document.getElementById('img-pref-detail'),
+    imgPrefIdentify: document.getElementById('img-pref-identify'),
+    imgPrefLog: document.getElementById('img-pref-log'),
     exportDataBtn: document.getElementById('export-data-btn'),
     importDataBtn: document.getElementById('import-data-btn'),
     importDataInput: document.getElementById('import-data-input'),
@@ -1003,7 +1011,7 @@ function _renderBirdDetail(item, sighting = null) {
     // Build image carousel
     currentCarouselBirdId = item.id;
     const galleryImages = (window.birdImages && window.birdImages[item.id]) || [];
-    const fallbackSrc = item.image || getBirdImageSrc(item.id);
+    const fallbackSrc = getBirdImageSrc(item.id, 'detail');
     let imagesToShow = galleryImages.length > 0 ? [...galleryImages] : [];
     
     // Sort images: Hane (male) -> Unisex (same) -> Hona (female)
@@ -1029,10 +1037,7 @@ function _renderBirdDetail(item, sighting = null) {
     }
 
     // Prepend the watercolor guide card as the first default image (if available)
-    const guideImg = getGuideImageSrc(item.id);
-    if (guideImg) {
-        imagesToShow = [guideImg, ...imagesToShow];
-    }
+    // removed per user request: using v2 instead
 
     // If user has a custom image, prepend it as the primary image
     const userCustomImg = localStorage.getItem(`custom_img_${item.id}`);
@@ -2116,7 +2121,7 @@ function renderSightingsList(sightings) {
                     <i class="fa-solid fa-book custom-placeholder-book"></i>
                 </div>`;
         } else {
-            const imgSource = customImg || userPhoto || getBirdImageSrc(item.id);
+            const imgSource = customImg || userPhoto || getBirdImageSrc(item.id, 'log');
             imageContainerContent = `<img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">`;
         }
 
@@ -2246,8 +2251,7 @@ function renderGuideList(birdList) {
 
         const obj = (window.swedishFungi || []).find(f => f.id === bird.id);
         const customImg = localStorage.getItem(`custom_img_${bird.id}`);
-        const guideImg = getGuideImageSrc(bird.id);
-        const imgSource = customImg || guideImg || (obj && obj.image) || getBirdImageSrc(bird.id);
+        const imgSource = customImg || getBirdImageSrc(bird.id, 'guide');
 
         card.innerHTML = `
             <div class="bird-image-container">
@@ -3130,8 +3134,7 @@ function selectIdentifyBird(index) {
                 const chip = document.createElement('div');
                 chip.className = 'idlb-sim-chip';
                 
-                const guideImg = getGuideImageSrc(birdObj.id);
-                const imgSrc = guideImg || getBirdImageSrc(birdObj.id);
+                const imgSrc = getBirdImageSrc(birdObj.id, 'guide');
 
                 chip.innerHTML = `
                     <img src="${imgSrc}" alt="${similarLabel}">
@@ -3362,12 +3365,19 @@ function getHolderImage(birdId) {
     return _holderCache[birdId];
 }
 
-function getBirdImageSrc(birdId) {
+function getBirdImageSrc(birdId, context = 'guide') {
     // 1. Check LocalStorage for custom override
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
     
-    // Check if item has explicit image property (fungi, fish, etc)
+    // Get the preference for this context
+    let pref = 'v2'; // default
+    if (context === 'guide') pref = state.imgPrefGuide || 'v1';
+    else if (context === 'detail') pref = state.imgPrefDetail || 'v2';
+    else if (context === 'identify') pref = state.imgPrefIdentify || 'v2';
+    else if (context === 'log') pref = state.imgPrefLog || 'foto';
+    else if (context === 'quiz') pref = 'v2'; // Quiz is always v2
+    
     const allItems = [
         ...(window.swedishBirds || []),
         ...(window.swedishFungi || []),
@@ -3377,33 +3387,43 @@ function getBirdImageSrc(birdId) {
         ...(window.swedishAnimals || [])
     ];
     const explicitItem = allItems.find(item => item.id === birdId);
-    if (explicitItem && explicitItem.image) return explicitItem.image;
 
-    // 2. Priority check from bird_images for the primary view (Hane -> Unisex -> Hona)
-    if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
-        const arr = window.birdImages[birdId];
-        const priority = { 'male': 1, 'same': 2, 'female': 3 };
-        
-        let bestImg = null;
-        let bestPrio = 100;
-
-        arr.forEach(img => {
-            const gender = typeof img === 'object' ? img.gender : null;
-            const prio = priority[gender] || 99;
-            if (prio < bestPrio) {
-                bestPrio = prio;
-                bestImg = img;
-            }
-        });
-
-        if (bestImg) return typeof bestImg === 'object' ? bestImg.src : bestImg;
-        
-        const first = arr[0];
-        return typeof first === 'object' ? first.src : first;
+    // If preference is 'v1', return local image
+    if (pref === 'v1') {
+        return `images/${birdId}.jpg`;
     }
 
-    // 3. Try the real image file (images/{bird_id}.jpg)
-    //    The onerror handler on the <img> will swap to the holder if this 404s
+    // If preference is 'foto', try to get from birdImages
+    if (pref === 'foto') {
+        if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
+            const arr = window.birdImages[birdId];
+            const priority = { 'male': 1, 'same': 2, 'female': 3 };
+            
+            let bestImg = null;
+            let bestPrio = 100;
+
+            arr.forEach(img => {
+                const gender = typeof img === 'object' ? img.gender : null;
+                const prio = priority[gender] || 99;
+                if (prio < bestPrio) {
+                    bestPrio = prio;
+                    bestImg = img;
+                }
+            });
+
+            if (bestImg) return typeof bestImg === 'object' ? bestImg.src : bestImg;
+            
+            const first = arr[0];
+            return typeof first === 'object' ? first.src : first;
+        }
+        // Fallback to v2 if no photo exists
+        pref = 'v2';
+    }
+
+    // Default 'v2' handling (fallback)
+    if (explicitItem && explicitItem.image) return explicitItem.image;
+
+    // Ultimate fallback
     return `images/${birdId}.jpg`;
 }
 
@@ -3469,6 +3489,13 @@ function setupEventListeners() {
                 if (elements.toggleBookStrip) {
                     elements.toggleBookStrip.checked = state.showBookStrip;
                 }
+                
+                // Set current values for image preferences
+                if (elements.imgPrefGuide) elements.imgPrefGuide.value = state.imgPrefGuide;
+                if (elements.imgPrefDetail) elements.imgPrefDetail.value = state.imgPrefDetail;
+                if (elements.imgPrefIdentify) elements.imgPrefIdentify.value = state.imgPrefIdentify;
+                if (elements.imgPrefLog) elements.imgPrefLog.value = state.imgPrefLog;
+                
                 openModal('settings-modal');
             }
         });
@@ -3481,6 +3508,24 @@ function setupEventListeners() {
             renderApp();
         });
     }
+
+    // Handle Image Preference changes
+    ['Guide', 'Detail', 'Identify', 'Log'].forEach(ctx => {
+        const el = elements[`imgPref${ctx}`];
+        if (el) {
+            el.addEventListener('change', (e) => {
+                state[`imgPref${ctx}`] = e.target.value;
+                localStorage.setItem(`birdfinder_img_pref_${ctx.toLowerCase()}`, e.target.value);
+                
+                // Re-render everything to apply changes
+                if (state.view === 'guide-view') {
+                    renderGuideList(getCurrentSpeciesList());
+                } else if (state.view === 'log-view') {
+                    renderSightingList();
+                }
+            });
+        }
+    });
 
     // 1. Reset App (Inside Settings)
     if (elements.resetBtn) {
@@ -4221,8 +4266,7 @@ function renderQuizQuestion() {
 
     let imageHtml = '';
     if (q.image) {
-        const obj = (window.swedishFungi || []).find(f => f.id === q.image);
-        const imgSrc = (obj && obj.image) || getBirdImageSrc(q.image);
+        const imgSrc = getBirdImageSrc(q.image, 'quiz');
         imageHtml = `<div class="quiz-image-container">
             <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" onerror="handleImageError(this)" class="quiz-bird-image">
         </div>`;
@@ -4938,7 +4982,7 @@ function _renderSightingsOverviewMap() {
         if (!item) return;
 
         const obj = (window.swedishFungi || []).find(f => f.id === item.id);
-        const imgSrc = (obj && obj.image) || getBirdImageSrc(item.id);
+        const imgSrc = getBirdImageSrc(item.id, 'identify');
         const popupContent = `
             <div class="sighting-popup-square" data-bird-id="${item.id}" data-sighting-id="${s.id}">
                 <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img-square" data-bird-id="${item.id}" onerror="this.style.display='none'">
