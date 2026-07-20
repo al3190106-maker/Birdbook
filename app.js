@@ -3368,6 +3368,7 @@ function getBirdImageSrc(birdId) {
     
     // Check if item has explicit image property (fungi, fish, etc)
     const allItems = [
+        ...(window.swedishBirds || []),
         ...(window.swedishFungi || []),
         ...(window.swedishFish || []),
         ...(window.swedishTrees || []),
