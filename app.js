@@ -5089,21 +5089,26 @@ function _setupMapEventListeners() {
 function switchListenSubTab(which) {
     var soundPanel = document.getElementById('sub-panel-sound');
     var nearbyPanel = document.getElementById('sub-panel-nearby');
+    var reservesPanel = document.getElementById('sub-panel-reserves');
     var soundBtn = document.getElementById('sub-btn-sound');
     var nearbyBtn = document.getElementById('sub-btn-nearby');
+    var reservesBtn = document.getElementById('sub-btn-reserves');
+
+    // Dölj alla paneler
+    [soundPanel, nearbyPanel, reservesPanel].forEach(function(p) { if (p) p.style.display = 'none'; });
+    [soundBtn, nearbyBtn, reservesBtn].forEach(function(b) { if (b) b.classList.remove('active'); });
 
     if (which === 'sound') {
         if (soundPanel) soundPanel.style.display = '';
-        if (nearbyPanel) nearbyPanel.style.display = 'none';
         if (soundBtn) soundBtn.classList.add('active');
-        if (nearbyBtn) nearbyBtn.classList.remove('active');
-    } else {
-        if (soundPanel) soundPanel.style.display = 'none';
+    } else if (which === 'nearby') {
         if (nearbyPanel) nearbyPanel.style.display = '';
         if (nearbyBtn) nearbyBtn.classList.add('active');
-        if (soundBtn) soundBtn.classList.remove('active');
-        // Initiera RecentSightings vid första visning
         _initRecentSightings();
+    } else if (which === 'reserves') {
+        if (reservesPanel) reservesPanel.style.display = '';
+        if (reservesBtn) reservesBtn.classList.add('active');
+        if (window.NatureReserves) NatureReserves.init();
     }
 }
 
@@ -5163,9 +5168,6 @@ function activateTab(tabId) {
             _initRecentSightings();
         }
     }
-    if (tabId === 'nature-reserve-view' && window.NatureReserves) {
-        NatureReserves.init();
-    }
     if (typeof window.listen_checkWakeLock === 'function') window.listen_checkWakeLock();
     if (tabId === 'photographers-view') _renderPhotographersView();
 }
@@ -5173,7 +5175,7 @@ function activateTab(tabId) {
 // --- Navigation Registration ---
 function _registerNavHandlers() {
     // Register all tabs
-    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'quiz-view', 'stats-view', 'sweden-view', 'nature-reserve-view'];
+    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'quiz-view', 'stats-view', 'sweden-view'];
     tabs.forEach(function(tabId) {
         nav.register(tabId, {
             type: 'tab',

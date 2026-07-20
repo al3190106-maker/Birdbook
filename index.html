@@ -38,7 +38,6 @@
             <nav class="view-nav">
                 <button class="nav-btn active" data-tab="log-view">Min Logg</button>
                 <button class="nav-btn" data-tab="listen-view">Identifiera</button>
-                <button class="nav-btn" data-tab="nature-reserve-view">Naturreservat</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="photographers-view" style="display: none;">Fotografer</button>
                 <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
@@ -616,6 +615,9 @@
                 <button class="listen-sub-btn" id="sub-btn-nearby" onclick="switchListenSubTab('nearby')">
                     <i class="fa-solid fa-location-crosshairs"></i> Nära mig
                 </button>
+                <button class="listen-sub-btn" id="sub-btn-reserves" onclick="switchListenSubTab('reserves')">
+                    <i class="fa-solid fa-tree"></i> Naturreservat
+                </button>
             </div>
 
             <!-- Panel: Ljudinspelning -->
@@ -741,15 +743,13 @@
                 </div>
             </div>
 
-        </section>
-
-
-
-        <!-- Naturreservat View -->
-        <section id="nature-reserve-view" class="view-section">
-            <div id="nr-container">
-                <!-- Fylls av nature-reserve.js -->
+            <!-- Panel: Naturreservat -->
+            <div id="sub-panel-reserves" class="listen-sub-panel" style="display:none;">
+                <div id="nr-container">
+                    <!-- Fylls av nature-reserve.js -->
+                </div>
             </div>
+
         </section>
 
         <!-- Guide View -->
