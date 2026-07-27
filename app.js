@@ -4978,66 +4978,115 @@ function _renderSightingsOverviewMap() {
     }
 
     const bounds = [];
-
+    const groupedSightings = {};
     geoSightings.forEach(s => {
-        const item = allSpecies.find(sp => sp.id === s.birdId);
-        if (!item) return;
+        // Round coordinates to 4 decimal places (approx 11m grid) to group overlapping or very close pins
+        const latRounded = Math.round(s.lat * 10000) / 10000;
+        const lngRounded = Math.round(s.lng * 10000) / 10000;
+        const key = `${latRounded},${lngRounded}`;
+        if (!groupedSightings[key]) {
+            groupedSightings[key] = {
+                lat: s.lat,
+                lng: s.lng,
+                sightings: []
+            };
+        }
+        groupedSightings[key].sightings.push(s);
+    });
 
-        const obj = (window.swedishFungi || []).find(f => f.id === item.id);
-        const imgSrc = getBirdImageSrc(item.id, 'identify');
-        const popupContent = `
-            <div class="sighting-popup-square" data-bird-id="${item.id}" data-sighting-id="${s.id}">
-                <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img-square" data-bird-id="${item.id}" onerror="this.style.display='none'">
-                <div class="sighting-popup-overlay">
-                    <span class="sighting-popup-label">${item.nameSv}</span>
+    Object.values(groupedSightings).forEach(group => {
+        bounds.push([group.lat, group.lng]);
+
+        if (group.sightings.length === 1) {
+            const s = group.sightings[0];
+            let item = allSpecies.find(sp => sp.id === s.birdId);
+            
+            // Build item for custom species
+            if (!item && s.birdId && s.birdId.startsWith('custom_')) {
+                const customName = (window._customSpeciesNames && window._customSpeciesNames[s.birdId])
+                    || s.customName || s.birdId.replace('custom_', '');
+                item = {
+                    id: s.birdId,
+                    nameSv: customName,
+                    nameEn: customName,
+                    scientific: '',
+                    funFact: '',
+                    rarity: 1,
+                    _isCustom: true
+                };
+            }
+            if (!item) return;
+
+            const customImg = localStorage.getItem(`custom_img_${item.id}`);
+            const userPhoto = s.photo;
+            const imgSrc = customImg || userPhoto || getBirdImageSrc(item.id, 'identify');
+            
+            const popupContent = `
+                <div class="sighting-popup-square" style="cursor: pointer;" onclick="window.showSightingFromMap('${item.id}', '${s.id}')">
+                    <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-popup-img-square" onerror="this.style.display='none'">
+                    <div class="sighting-popup-overlay">
+                        <span class="sighting-popup-label">${item.nameSv}</span>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
 
-        const marker = L.marker([s.lat, s.lng]).addTo(_overviewMap);
-        marker.bindPopup(popupContent, { maxWidth: 160, minWidth: 120, className: 'square-popup', closeButton: false });
+            const marker = L.marker([group.lat, group.lng]).addTo(_overviewMap);
+            marker.bindPopup(popupContent, { maxWidth: 160, minWidth: 120, className: 'square-popup', closeButton: false });
+        } else {
+            // Multiple sightings: build clustered list
+            const headerText = `${group.sightings.length} observationer`;
+            let listContent = `
+                <div class="sighting-cluster-popup">
+                    <div class="sighting-cluster-header">
+                        <span>${headerText}</span>
+                    </div>
+            `;
 
-        // On popup open, wire up click to detail
-        marker.on('popupopen', () => {
-            const popupEl = marker.getPopup().getElement();
-            if (popupEl) {
-                const imgEl = popupEl.querySelector('.sighting-popup-square');
-                if (imgEl) {
-                    imgEl.style.cursor = 'pointer';
-                    imgEl.onclick = () => {
-                        // Close map modal
-                        const modal = document.getElementById('sightings-map-modal');
-                        if (modal) modal.classList.remove('active');
-                        modal.querySelector('.sightings-map-modal-content').classList.remove('fullscreen');
-
-                        // Find the species and determine subject type
-                        const allData = [
-                            ...(window.swedishBirds || []), ...(window.swedishTrees || []),
-                            ...(window.swedishFish || []), ...(window.swedishAnimals || []),
-                            ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
-                        ];
-                        const subject = allData.find(d => d.id === item.id);
-                        if (subject) {
-                            let subjectType = 'birds';
-                            if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
-                            else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
-                            else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
-                            else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
-                            else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
-                            else if (window.swedishPlants && window.swedishPlants.some(p => p.id === subject.id)) subjectType = 'plants';
-
-                            if (state.currentSubject !== subjectType) switchSubject(subjectType);
-
-                            // Find the sighting to pass to detail
-                            const sighting = state.sightings.find(si => si.id === s.id);
-                            openBirdDetail(subject, sighting || null);
-                        }
+            group.sightings.forEach(s => {
+                let item = allSpecies.find(sp => sp.id === s.birdId);
+                
+                // Build item for custom species
+                if (!item && s.birdId && s.birdId.startsWith('custom_')) {
+                    const customName = (window._customSpeciesNames && window._customSpeciesNames[s.birdId])
+                        || s.customName || s.birdId.replace('custom_', '');
+                    item = {
+                        id: s.birdId,
+                        nameSv: customName,
+                        nameEn: customName,
+                        scientific: '',
+                        funFact: '',
+                        rarity: 1,
+                        _isCustom: true
                     };
                 }
-            }
-        });
+                if (!item) return;
 
-        bounds.push([s.lat, s.lng]);
+                const customImg = localStorage.getItem(`custom_img_${item.id}`);
+                const userPhoto = s.photo;
+                const imgSrc = customImg || userPhoto || getBirdImageSrc(item.id, 'identify');
+                
+                const badgeHTML = s.heard === true
+                    ? `<span class="sighting-cluster-badge heard"><i class="fa-solid fa-ear-listen"></i> Hörd</span>`
+                    : `<span class="sighting-cluster-badge"><i class="fa-solid fa-eye"></i> Sedd</span>`;
+
+                listContent += `
+                    <div class="sighting-cluster-item" onclick="window.showSightingFromMap('${item.id}', '${s.id}')">
+                        <img src="${imgSrc}" alt="${item.nameSv}" class="sighting-cluster-img" onerror="this.style.display='none'">
+                        <div class="sighting-cluster-info">
+                            <div class="sighting-cluster-name">${item.nameSv}</div>
+                            <div class="sighting-cluster-meta">
+                                ${badgeHTML} ${s.date}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            listContent += `</div>`;
+
+            const marker = L.marker([group.lat, group.lng]).addTo(_overviewMap);
+            marker.bindPopup(listContent, { maxWidth: 280, minWidth: 240, className: 'cluster-popup', closeButton: true });
+        }
     });
 
     // Fit bounds if we have markers
@@ -5045,6 +5094,37 @@ function _renderSightingsOverviewMap() {
         _overviewMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
     }
 }
+
+// Global handler to open sighting from map popup click
+window.showSightingFromMap = function(birdId, sightingId) {
+    const modal = document.getElementById('sightings-map-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        const content = modal.querySelector('.sightings-map-modal-content');
+        if (content) content.classList.remove('fullscreen');
+    }
+
+    const allData = [
+        ...(window.swedishBirds || []), ...(window.swedishTrees || []),
+        ...(window.swedishFish || []), ...(window.swedishAnimals || []),
+        ...(window.swedishFungi || []), ...(window.swedishFlowers || [])
+    ];
+    const subject = allData.find(d => d.id === birdId);
+    if (subject) {
+        let subjectType = 'birds';
+        if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
+        else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
+        else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
+        else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
+        else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+        else if (window.swedishPlants && window.swedishPlants.some(p => p.id === subject.id)) subjectType = 'plants';
+
+        if (state.currentSubject !== subjectType) switchSubject(subjectType);
+
+        const sighting = state.sightings.find(si => si.id === sightingId);
+        openBirdDetail(subject, sighting || null);
+    }
+};
 
 // Wire up map button and close button after DOM loads
 function _setupMapEventListeners() {
