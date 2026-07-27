@@ -4912,52 +4912,34 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
 
 // --- Sightings Overview Map ---
 let _overviewMap = null;
-
-function _openSightingsMap(pushState = true) {
-    const modal = document.getElementById('sightings-map-modal');
-    if (!modal) return;
-    if (pushState) {
-        nav.openModal('sightings-map-modal');
-    }
-    modal.classList.add('active');
-    
-    // Automatically make it large (fullscreen) as requested
-    const content = modal.querySelector('.sightings-map-modal-content');
-    if (content) content.classList.add('fullscreen');
-
-    setTimeout(() => {
-        _renderSightingsOverviewMap();
-    }, 200);
-}
+let _overviewMarkerGroup = null;
 
 function _renderSightingsOverviewMap() {
     const container = document.getElementById('sightings-overview-map');
     if (!container) return;
 
-    // Destroy previous
-    if (_overviewMap) {
-        _overviewMap.remove();
-        _overviewMap = null;
+    if (!_overviewMap) {
+        _overviewMap = L.map('sightings-overview-map', {
+            zoomControl: true,
+            attributionControl: false
+        }).setView([62.0, 15.5], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(_overviewMap);
+
+        _overviewMarkerGroup = L.layerGroup().addTo(_overviewMap);
+
+        // Bind zoomend to dynamically re-cluster markers when zoom changes
+        _overviewMap.on('zoomend', () => {
+            _updateOverviewMarkers();
+        });
+    } else {
+        // Just clear the layer group
+        _overviewMarkerGroup.clearLayers();
+        // Trigger Leaflet to invalidate size in case container size changed
+        _overviewMap.invalidateSize();
     }
-
-    _overviewMap = L.map('sightings-overview-map', {
-        zoomControl: true,
-        attributionControl: false
-    }).setView([62.0, 15.5], 5);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18
-    }).addTo(_overviewMap);
-
-    // Collect ALL sightings with coordinates (across all subjects)
-    const allSpecies = [
-        ...(window.swedishBirds || []),
-        ...(window.swedishTrees || []),
-        ...(window.swedishFish || []),
-        ...(window.swedishAnimals || []),
-        ...(window.swedishFungi || []),
-        ...(window.swedishFlowers || [])
-    ];
 
     const geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD');
 
@@ -4977,26 +4959,64 @@ function _renderSightingsOverviewMap() {
         return;
     }
 
-    const bounds = [];
-    const groupedSightings = {};
+    // Render initially
+    _updateOverviewMarkers();
+
+    // Fit bounds on initial opening
+    const bounds = geoSightings.map(s => [s.lat, s.lng]);
+    if (bounds.length > 0) {
+        _overviewMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
+    }
+}
+
+function _updateOverviewMarkers() {
+    if (!_overviewMap || !_overviewMarkerGroup) return;
+
+    _overviewMarkerGroup.clearLayers();
+
+    const allSpecies = [
+        ...(window.swedishBirds || []),
+        ...(window.swedishTrees || []),
+        ...(window.swedishFish || []),
+        ...(window.swedishAnimals || []),
+        ...(window.swedishFungi || []),
+        ...(window.swedishFlowers || [])
+    ];
+
+    const geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD');
+    if (geoSightings.length === 0) return;
+
+    const clusters = [];
+    const clusterRadiusPx = 40; // Group markers if they are within 40 pixels of each other
+
     geoSightings.forEach(s => {
-        // Round coordinates to 4 decimal places (approx 11m grid) to group overlapping or very close pins
-        const latRounded = Math.round(s.lat * 10000) / 10000;
-        const lngRounded = Math.round(s.lng * 10000) / 10000;
-        const key = `${latRounded},${lngRounded}`;
-        if (!groupedSightings[key]) {
-            groupedSightings[key] = {
+        const latLng = L.latLng(s.lat, s.lng);
+        const point = _overviewMap.latLngToLayerPoint(latLng);
+
+        // Find close cluster
+        let foundCluster = null;
+        for (const cluster of clusters) {
+            const dist = Math.hypot(point.x - cluster.x, point.y - cluster.y);
+            if (dist < clusterRadiusPx) {
+                foundCluster = cluster;
+                break;
+            }
+        }
+
+        if (foundCluster) {
+            foundCluster.sightings.push(s);
+        } else {
+            clusters.push({
                 lat: s.lat,
                 lng: s.lng,
-                sightings: []
-            };
+                x: point.x,
+                y: point.y,
+                sightings: [s]
+            });
         }
-        groupedSightings[key].sightings.push(s);
     });
 
-    Object.values(groupedSightings).forEach(group => {
-        bounds.push([group.lat, group.lng]);
-
+    clusters.forEach(group => {
         if (group.sightings.length === 1) {
             const s = group.sightings[0];
             let item = allSpecies.find(sp => sp.id === s.birdId);
@@ -5030,8 +5050,9 @@ function _renderSightingsOverviewMap() {
                 </div>
             `;
 
-            const marker = L.marker([group.lat, group.lng]).addTo(_overviewMap);
+            const marker = L.marker([group.lat, group.lng]);
             marker.bindPopup(popupContent, { maxWidth: 160, minWidth: 120, className: 'square-popup', closeButton: false });
+            _overviewMarkerGroup.addLayer(marker);
         } else {
             // Multiple sightings: build clustered list
             const headerText = `${group.sightings.length} observationer`;
@@ -5084,15 +5105,11 @@ function _renderSightingsOverviewMap() {
 
             listContent += `</div>`;
 
-            const marker = L.marker([group.lat, group.lng]).addTo(_overviewMap);
+            const marker = L.marker([group.lat, group.lng]);
             marker.bindPopup(listContent, { maxWidth: 280, minWidth: 240, className: 'cluster-popup', closeButton: true });
+            _overviewMarkerGroup.addLayer(marker);
         }
     });
-
-    // Fit bounds if we have markers
-    if (bounds.length > 0) {
-        _overviewMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
-    }
 }
 
 // Global handler to open sighting from map popup click
@@ -5124,7 +5141,7 @@ window.showSightingFromMap = function(birdId, sightingId) {
         const sighting = state.sightings.find(si => si.id === sightingId);
         openBirdDetail(subject, sighting || null);
     }
-};
+};;
 
 // Wire up map button and close button after DOM loads
 function _setupMapEventListeners() {

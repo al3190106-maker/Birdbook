@@ -79,6 +79,11 @@ Projektet använder dedikerade konversationer – **inte separata projekt**. All
 - Läs relevanta filer för att förstå befintlig struktur
 - Kontrollera `.agent/status.md` för pågående arbete i andra konversationer
 
+### 🔁 Krav på Kodåteranvändning (Obligatoriskt för ALLA flikar)
+- **Sök innan du skapar nytt:** Innan du skriver en ny funktion, hjälpklass, modal, CSS-stil eller rendering, MÅSTE du söka i koden (`app.js`, `style.css`, etc.) efter befintlig funktionalitet.
+- **Återanvänd befintliga komponenter:** Använd alltid befintliga helpers och UI-komponenter (t.ex. `getBirdImageSrc()`, `showToast()`, `nav.openModal()`, `getCurrentSpeciesList()`, `.category-card`, m.fl.) istället för att bygga duplicerade lösningar.
+- **Ingen kodduplicering:** Om liknande logik finns ska den återanvändas eller utökas – skapa ALDRIG parallella dubblett-funktioner för samma ändamål.
+
 ### Efter kodändringar
 - Kör `/after_changes` workflow för att pusha till GitHub
 - Uppdatera `.agent/status.md` om ändringen påverkar andra konversationer
