@@ -33,7 +33,7 @@
 <!-- Skriv uppgifter här under respektive flik. Ändra [ ] till [/] när påbörjad, och [x] när klar -->
 
 ### 🎨 Bildgenerering
-- [x] Skapa en ny ikonbild för flugsnappare (`images/category_icons/flugsnappare.png`)
+- [ ] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`) — *Väntar på fliken **Generera bilder***
 
 ### 🐛 Buggar & Fix
 - [ ] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
