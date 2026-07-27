@@ -4885,9 +4885,10 @@ body.mode-fungi .quiz-results-score strong {
         border-radius: 16px 16px 0 0;
     }
 
-    .sightings-map-modal-content.fullscreen {
-        border-radius: 0;
-        padding: 0.5rem;
+    .sightings-map-modal-content.fullscreen .sightings-overview-map {
+        height: calc(100vh - 70px) !important;
+        min-height: unset;
+        border-radius: 8px;
     }
 
     .sightings-overview-map {
