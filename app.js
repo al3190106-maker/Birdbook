@@ -4914,6 +4914,22 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
 let _overviewMap = null;
 let _overviewMarkerGroup = null;
 
+function _openSightingsMap(pushState = true) {
+    const modal = document.getElementById('sightings-map-modal');
+    if (!modal) return;
+    if (pushState) {
+        nav.openModal('sightings-map-modal');
+    }
+    modal.classList.add('active');
+    
+    const content = modal.querySelector('.sightings-map-modal-content');
+    if (content) content.classList.add('fullscreen');
+
+    setTimeout(() => {
+        _renderSightingsOverviewMap();
+    }, 200);
+}
+
 function _renderSightingsOverviewMap() {
     const container = document.getElementById('sightings-overview-map');
     if (!container) return;
@@ -5141,7 +5157,7 @@ window.showSightingFromMap = function(birdId, sightingId) {
         const sighting = state.sightings.find(si => si.id === sightingId);
         openBirdDetail(subject, sighting || null);
     }
-};;
+};
 
 // Wire up map button and close button after DOM loads
 function _setupMapEventListeners() {
