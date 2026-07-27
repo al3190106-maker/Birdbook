@@ -41,6 +41,7 @@
 
 ### 🐛 Bugg och fix
 - [ ] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
+- [ ] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
