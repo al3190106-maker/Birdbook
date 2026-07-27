@@ -57,11 +57,13 @@ Projektet använder dedikerade konversationer – **inte separata projekt**. All
 
 | Konversation | Scope | Beskrivning |
 |---|---|---|
-| 🎨 **Bildgenerering** | Bilder | Artbilder, identifieringsbilder, fotografstilar |
-| 🐛 **Buggar & Fix** | Felsökning | CSS, JS, prestanda, PWA-problem |
-| ✨ **Features & UI** | Utveckling | Nya funktioner, design, UX, navigering |
-| 📊 **Artdata & Innehåll** | Data | Artdatabas, texter, taxonomi |
-| 🚀 **Deploy & Infra** | Ops | GitHub Pages, PWA, caching, optimering |
+| 💼 **Arbetsgivaren** | Samordning | Projektledare, kravställning, diskussioner & delegering |
+| 🎨 **Generera bilder** | Bilder | Artbilder, kategori-ikoner, fotografstilar |
+| 🐛 **Bugg och fix** | Felsökning | CSS, JS, prestanda, PWA-problem |
+| ✨ **Features & UI** | Utveckling | Nya funktioner, design, UX, navigering, inställningar |
+| 📊 **Artdata & Innehåll** | Data | Artdatabas, texter, taxonomi, böcker |
+| 🚀 **Deploy & Infra** | Ops | GitHub Pages, PWA, caching, optimering, ikoner |
+| 🔍 **Identifiera** | AI & Kamera | Bildidentifiering, BirdNET-ljudigenkänning |
 | 🧭 **Planering** | Strategi | Roadmap, prioritering, arkitektur |
 
 ### Regler för konversationer
