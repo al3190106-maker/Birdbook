@@ -287,6 +287,7 @@ const CATEGORY_THEMES = {
     'Sparvar': { bg: ['#4a3a1a', '#7a6a2a'], accent: '#d0c04a', icon: '🐦' },
     'Kråkfåglar': { bg: ['#1a1a2a', '#2a2a3a'], accent: '#7070a0', icon: '🐦‍⬛' },
     'Svalor': { bg: ['#2a4a6a', '#3a6a8a'], accent: '#70b0e0', icon: '💨' },
+    'Flugsnappare': { bg: ['#1b4d2e', '#2e7d46'], accent: '#70e08c', icon: '🪶' },
     'Övriga': { bg: ['#2a3a2a', '#4a6a4a'], accent: '#80c080', icon: '🐦' },
     // Tree Themes
     'Lövträd': { bg: ['#385a3c', '#5e8c61'], accent: '#a7c1a8', icon: '🍃' },
@@ -3269,6 +3270,7 @@ function getCategoryIcon(type) {
         'Sångare': 'fa-microphone-lines',
         'Kråkfåglar': 'fa-crow',
         'Svalor': 'fa-wind',
+        'Flugsnappare': 'fa-feather',
         'Övriga': 'fa-kiwi-bird',
 
         // Trees
