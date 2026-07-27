@@ -4913,6 +4913,7 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
 // --- Sightings Overview Map ---
 let _overviewMap = null;
 let _overviewMarkerGroup = null;
+let _overviewUserMarker = null;
 
 function _openSightingsMap(pushState = true) {
     const modal = document.getElementById('sightings-map-modal');
@@ -4978,11 +4979,49 @@ function _renderSightingsOverviewMap() {
     // Render initially
     _updateOverviewMarkers();
 
-    // Fit bounds on initial opening
+    // Fit bounds on initial opening (fallback)
     const bounds = geoSightings.map(s => [s.lat, s.lng]);
     if (bounds.length > 0) {
         _overviewMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
     }
+
+    // Fetch and show user marker, extending bounds to include user
+    _addUserMarkerToOverviewMap(bounds);
+}
+
+function _addUserMarkerToOverviewMap(bounds) {
+    if (!_overviewMap) return;
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        if (_overviewUserMarker) {
+            _overviewMap.removeLayer(_overviewUserMarker);
+            _overviewUserMarker = null;
+        }
+
+        const userIcon = L.divIcon({
+            className: 'rs-user-marker',
+            html: '<div class="rs-user-dot"></div><div class="rs-user-pulse"></div>',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+
+        _overviewUserMarker = L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
+            .bindPopup('<div class="rs-map-popup"><strong><i class="fa-solid fa-person-walking"></i> Din position</strong></div>')
+            .addTo(_overviewMap);
+
+        // Extend map bounds to include user location
+        if (bounds && bounds.length > 0) {
+            const leafletBounds = L.latLngBounds(bounds);
+            leafletBounds.extend([lat, lng]);
+            _overviewMap.fitBounds(leafletBounds, { padding: [40, 40], maxZoom: 12 });
+        }
+    }, (err) => {
+        console.warn("Could not get user position for overview map:", err);
+    }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 });
 }
 
 function _updateOverviewMarkers() {

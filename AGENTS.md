@@ -68,10 +68,11 @@ Projektet använder dedikerade konversationer – **inte separata projekt**. All
 
 ### Regler för konversationer
 
-- **Stanna inom scope** – en buggfix-konversation ska inte börja bygga nya features
-- **Referera till andra konversationer** – om du stöter på arbete utanför ditt scope, notera det och hänvisa användaren till rätt konversation
-- **Uppdatera status** – efter betydande arbete, uppdatera `.agent/status.md`
-- **Konflikter** – om två konversationer riskerar att redigera samma fil, koordinera via `.agent/status.md`
+- **Arbetsgivaren styr projektet:** Konversationen 💼 **Arbetsgivaren** är huvudledare. Den för alla kravdiskussioner med användaren, estimerar svårighet och lägger upp specifikationer i `.agent/status.md` och `task.md`.
+- **Kolla anslagstavlan (.agent/status.md):** När du som flik (t.ex. *Generera bilder*, *Bugg och fix*, *Features & UI*, m.fl.) påbörjar ett arbete, MÅSTE du läsa `.agent/status.md` för att ta del av din tilldelade uppgift och specifikation från Arbetsgivaren.
+- **Uppdatera vid färdigställande:** När du har utfört din uppgift ska du bocka av med `[x]` i `.agent/status.md` och logga ändringen under *✅ Nyligen avslutat*, så att Arbetsgivaren kan arkivera uppgiften.
+- **Stanna inom scope** – en buggfix-konversation ska inte börja bygga nya features utanför sitt område.
+- **Konflikter** – om två konversationer riskerar att redigera samma fil, koordinera via `.agent/status.md`.
 
 ## Arbetsregler
 
