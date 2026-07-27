@@ -5306,4 +5306,12 @@ init = async function() {
 // Start
 document.addEventListener('DOMContentLoaded', init);
 
-
+// Förladda BirdNET-modellen i bakgrunden 4 sek efter appstart
+// så att den är klar när användaren öppnar Identifiera-fliken
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function () {
+        if (typeof initBirdnet === 'function') {
+            initBirdnet();
+        }
+    }, 4000);
+});
