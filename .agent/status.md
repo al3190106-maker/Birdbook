@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-07-29 | 🔍 Identifiera | Quiz: Återinfört Quiz som en egen underflik (`sub-btn-quiz`) i Identifiera-vyn i `app.js` |
 | 2026-07-29 | 🐛 Bugg och fix | Robust dataskydd: Persisted Storage API + AutoBackup (IndexedDB, 3 rullande snapshots) + ny backup-panel i Inställningar |
 | 2026-07-27 | ✨ Features & UI | Kartklustring: Slagit ihop överlappande/nära GPS-markörer till en sammanställd lista i `app.js` |
 | 2026-07-27 | 🎨 Bildgenerering | Skapat den gröna kategori-ikonen `images/category_icons/flugsnappare.png` samt uppdaterat `app.js` med `Flugsnappare`-tema |
@@ -60,7 +61,7 @@
 - [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 
 ### 🔍 Identifiera
-- [ ] Lägga till Quiz-läget igen under Identifiera
+- [x] Lägga till Quiz-läget igen under Identifiera
 
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
