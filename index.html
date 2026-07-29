@@ -1536,9 +1536,19 @@
                 <div class="backup-section-title" style="margin-top:1rem;">
                     <i class="fa-solid fa-file-export"></i> Manuell backup (JSON-fil)
                 </div>
+
+                <!-- Spara till enhet (Web Share API) -->
+                <button id="share-backup-btn" class="backup-btn-share">
+                    <i class="fa-solid fa-share-from-square"></i>
+                    <span>
+                        <strong>Spara till enhet / dela</strong>
+                        <small>Öppnar dela-menyn &ndash; spara i Filer, Drive, iCloud&hellip;</small>
+                    </span>
+                </button>
+
                 <div class="backup-manual-row">
                     <button id="export-data-btn" class="backup-btn backup-btn-export">
-                        <i class="fa-solid fa-download"></i> Exportera
+                        <i class="fa-solid fa-download"></i> Ladda ner
                     </button>
                     <button id="import-data-btn" class="backup-btn backup-btn-import">
                         <i class="fa-solid fa-upload"></i> Importera

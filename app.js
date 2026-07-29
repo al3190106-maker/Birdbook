@@ -170,40 +170,19 @@ const AutoBackup = (function () {
         if (!container) return;
 
         const snaps = await list();
-        
-        // --- Manuell backup sektion ---
-        const manualBackupHtml = `
-            <div class="backup-section-title" style="margin-top:1rem;">
-                <i class="fa-solid fa-file-export"></i> Manuell backup (JSON-fil)
-            </div>
-            <button id="share-backup-btn" class="backup-btn-share">
-                <i class="fa-solid fa-share-from-square"></i>
-                <span><strong>Spara till enhet / dela</strong><small>Öppnar dela-menyn – spara i Filer, Drive, iCloud&hellip;</small></span>
-            </button>
-            <div class="backup-manual-row">
-                <button id="export-data-btn" class="backup-btn backup-btn-export">
-                    <i class="fa-solid fa-download"></i> Ladda ner
-                </button>
-                <button id="import-data-btn" class="backup-btn backup-btn-import">
-                    <i class="fa-solid fa-upload"></i> Importera
-                </button>
-            </div>
-            <input type="file" id="import-data-input" accept=".json" style="display: none;">
-        `;
 
         if (snaps.length === 0) {
-            container.innerHTML = '<p class="backup-empty-text">Inga auto-backups ännu. En skapas automatiskt nästa gång du loggar en observation.</p>' + manualBackupHtml;
-        } else {
-            container.innerHTML = snaps.slice().reverse().map(s => `
-                <div class="backup-snapshot-row">
-                    <div class="backup-snapshot-info">
-                        <span class="backup-snapshot-date">${s.label}</span>
-                        <span class="backup-snapshot-count">${s.count} observationer</span>
-                    </div>
-                    <button class="backup-restore-btn" onclick="AutoBackup.restore('${s.id}')">
-                        <i class="fa-solid fa-rotate-left"></i> Återställ
-                    </button>
+            container.innerHTML = '<p class="backup-empty-text">Inga auto-backups ännu. En skapas automatiskt nästa gång du loggar en observation.</p>';
+            return;
+        }
+
+        container.innerHTML = snaps.slice().reverse().map(s => `
+            <div class="backup-snapshot-row">
+                <div class="backup-snapshot-info">
+                    <span class="backup-snapshot-date">${s.label}</span>
+                    <span class="backup-snapshot-count">${s.count} observationer</span>
                 </div>
+                <button class="backup-restore-btn" onclick="AutoBackup.restore('${s.id}')">
                     <i class="fa-solid fa-rotate-left"></i> Återställ
                 </button>
             </div>
