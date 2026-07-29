@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-07-29 | 🐛 Bugg och fix | Robust dataskydd: Persisted Storage API + AutoBackup (IndexedDB, 3 rullande snapshots) + ny backup-panel i Inställningar |
 | 2026-07-27 | ✨ Features & UI | Kartklustring: Slagit ihop överlappande/nära GPS-markörer till en sammanställd lista i `app.js` |
 | 2026-07-27 | 🎨 Bildgenerering | Skapat den gröna kategori-ikonen `images/category_icons/flugsnappare.png` samt uppdaterat `app.js` med `Flugsnappare`-tema |
 | 2026-07-20 | 🎨 Bildgenerering | Ersatte lokalt genererade bilder med länkar till naturboken.alt-qq.com för fåglar och träd, tog bort bird_images.js |
@@ -41,7 +42,7 @@
 
 ### 🐛 Bugg och fix
 - [ ] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
-- [ ] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
+- [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
