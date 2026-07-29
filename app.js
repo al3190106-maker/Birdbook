@@ -1656,7 +1656,7 @@ function switchSubject(subjectId) {
     renderApp();
     renderGuideCategories();
 
-    if (state.view === 'quiz-view') {
+    if (state.view === 'quiz-view' || (state.view === 'listen-view' && document.getElementById('sub-panel-quiz') && document.getElementById('sub-panel-quiz').style.display !== 'none')) {
         showQuizMenu();
     }
 }
@@ -4473,9 +4473,18 @@ function generateQuizQuestions(mode, count = 10) {
 }
 
 function showQuizMenu() {
-    document.getElementById('quiz-menu').classList.remove('hidden');
-    document.getElementById('quiz-area').classList.add('hidden');
-    document.getElementById('quiz-results').classList.add('hidden');
+    const config = SUBJECT_CONFIG[state.currentSubject] || SUBJECT_CONFIG.birds;
+    const titleEl = document.getElementById('quiz-main-title');
+    const subtitleEl = document.getElementById('quiz-subtitle');
+    if (titleEl && config && config.texts && config.texts.quizTitle) titleEl.textContent = config.texts.quizTitle;
+    if (subtitleEl && config && config.texts && config.texts.quizSubtitle) subtitleEl.textContent = config.texts.quizSubtitle;
+
+    const quizMenu = document.getElementById('quiz-menu');
+    const quizArea = document.getElementById('quiz-area');
+    const quizResults = document.getElementById('quiz-results');
+    if (quizMenu) quizMenu.classList.remove('hidden');
+    if (quizArea) quizArea.classList.add('hidden');
+    if (quizResults) quizResults.classList.add('hidden');
 }
 
 function initQuiz(mode, difficulty = 'nyborjare') {
@@ -5531,11 +5540,13 @@ function _setupMapEventListeners() {
 function switchListenSubTab(which) {
     var soundPanel = document.getElementById('sub-panel-sound');
     var nearbyPanel = document.getElementById('sub-panel-nearby');
+    var quizPanel = document.getElementById('sub-panel-quiz');
     var soundBtn = document.getElementById('sub-btn-sound');
     var nearbyBtn = document.getElementById('sub-btn-nearby');
+    var quizBtn = document.getElementById('sub-btn-quiz');
 
-    [soundPanel, nearbyPanel].forEach(function(p) { if (p) p.style.display = 'none'; });
-    [soundBtn, nearbyBtn].forEach(function(b) { if (b) b.classList.remove('active'); });
+    [soundPanel, nearbyPanel, quizPanel].forEach(function(p) { if (p) p.style.display = 'none'; });
+    [soundBtn, nearbyBtn, quizBtn].forEach(function(b) { if (b) b.classList.remove('active'); });
 
     if (which === 'sound') {
         if (soundPanel) soundPanel.style.display = '';
@@ -5544,6 +5555,10 @@ function switchListenSubTab(which) {
         if (nearbyPanel) nearbyPanel.style.display = '';
         if (nearbyBtn) nearbyBtn.classList.add('active');
         _initRecentSightings();
+    } else if (which === 'quiz') {
+        if (quizPanel) quizPanel.style.display = '';
+        if (quizBtn) quizBtn.classList.add('active');
+        showQuizMenu();
     }
 }
 
@@ -5610,7 +5625,7 @@ function activateTab(tabId) {
 // --- Navigation Registration ---
 function _registerNavHandlers() {
     // Register all tabs
-    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'quiz-view', 'stats-view', 'sweden-view'];
+    var tabs = ['log-view', 'listen-view', 'guide-view', 'photographers-view', 'stats-view', 'sweden-view'];
     tabs.forEach(function(tabId) {
         nav.register(tabId, {
             type: 'tab',

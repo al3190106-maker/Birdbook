@@ -40,7 +40,6 @@
                 <button class="nav-btn" data-tab="listen-view">Identifiera</button>
                 <button class="nav-btn" data-tab="guide-view">Fågelguide</button>
                 <button class="nav-btn" data-tab="photographers-view" style="display: none;">Fotografer</button>
-                <button class="nav-btn" data-tab="quiz-view" style="display: none;">Fågelquiz</button>
                 <button class="nav-btn" data-tab="stats-view">Statistik</button>
             </nav>
         </div>
@@ -615,6 +614,9 @@
                 <button class="listen-sub-btn" id="sub-btn-nearby" onclick="switchListenSubTab('nearby')">
                     <i class="fa-solid fa-location-crosshairs"></i> Nära mig
                 </button>
+                <button class="listen-sub-btn" id="sub-btn-quiz" onclick="switchListenSubTab('quiz')">
+                    <i class="fa-solid fa-circle-question"></i> Quiz
+                </button>
             </div>
 
             <!-- Panel: Ljudinspelning -->
@@ -740,6 +742,80 @@
                 </div>
             </div>
 
+            <!-- Panel: Quiz -->
+            <div id="sub-panel-quiz" class="listen-sub-panel" style="display:none; padding: 0.5rem 0;">
+                <!-- Quiz Mode Selection -->
+                <div id="quiz-menu" class="quiz-menu">
+                    <h2 class="quiz-title" id="quiz-main-title">Fågelquiz</h2>
+                    <p class="quiz-subtitle" id="quiz-subtitle">Välj en svårighetsgrad för att starta quizen!</p>
+
+                    <div class="difficulty-grid">
+                        <div class="difficulty-card" data-difficulty="nyborjare">
+                            <div class="diff-icon">🐣</div>
+                            <h3>Nybörjaren</h3>
+                            <p>Allmänna arter</p>
+                        </div>
+                        <div class="difficulty-card" data-difficulty="intresserad">
+                            <div class="diff-icon">🐦</div>
+                            <h3>Fågelintresserad</h3>
+                            <p>Allmänna & Vanliga</p>
+                        </div>
+                        <div class="difficulty-card" data-difficulty="skadare">
+                            <div class="diff-icon">🔭</div>
+                            <h3>Fågelskådare</h3>
+                            <p>Ovanliga & Sällsynta</p>
+                        </div>
+                        <div class="difficulty-card" data-difficulty="orakel">
+                            <div class="diff-icon">🦉</div>
+                            <h3>Fågelorakel</h3>
+                            <p>Ovanliga till Mycket Sällsynta</p>
+                        </div>
+                    </div>
+
+                    <!-- Hidden for now, simplified to direct difficulty choice -->
+                    <div class="quiz-modes-grid hidden">
+                        <div class="quiz-mode-card" data-mode="image">
+                            <div class="quiz-mode-icon"><i class="fa-solid fa-image"></i></div>
+                            <h3>Gissa Fågeln</h3>
+                            <p>Se bilden, gissa rätt fågel</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Quiz Area -->
+                <div id="quiz-area" class="quiz-area hidden">
+                    <div class="quiz-header">
+                        <button id="quiz-back-btn" class="nav-back-btn"><i class="fa-solid fa-arrow-left"></i> Tillbaka</button>
+                        <div class="quiz-score-display">
+                            <span id="quiz-score">0</span> / <span id="quiz-total">10</span>
+                        </div>
+                        <button id="quiz-quit-btn" class="quiz-btn secondary quiz-quit-btn"><i class="fa-solid fa-xmark"></i> Avsluta</button>
+                    </div>
+                    <div class="quiz-progress-bar">
+                        <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                    </div>
+                    <div id="quiz-question-container" class="quiz-question-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Quiz Results -->
+                <div id="quiz-results" class="quiz-results hidden">
+                    <div class="quiz-results-card">
+                        <div class="quiz-results-icon" id="quiz-results-icon">🎉</div>
+                        <h2 id="quiz-results-title">Bra jobbat!</h2>
+                        <p class="quiz-results-difficulty" id="quiz-results-difficulty">Nivå: Nybörjaren</p>
+                        <p class="quiz-results-score">Du fick <strong id="quiz-final-score">0</strong> av <strong id="quiz-final-total">10</strong> rätt</p>
+                        <div class="quiz-results-bar">
+                            <div class="quiz-results-bar-fill" id="quiz-results-bar-fill"></div>
+                        </div>
+                        <div class="quiz-results-actions">
+                            <button id="quiz-retry-btn" class="quiz-btn primary"><i class="fa-solid fa-rotate-right"></i> Spela igen</button>
+                            <button id="quiz-menu-btn" class="quiz-btn secondary"><i class="fa-solid fa-list"></i> Välj quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </section>
 
@@ -804,86 +880,6 @@
             </div>
         </section>
 
-        <!-- Quiz View -->
-        <section id="quiz-view" class="view-section">
-            <!-- Quiz Mode Selection -->
-            <div id="quiz-menu" class="quiz-menu">
-                <h2 class="quiz-title" id="quiz-main-title">Fågelquiz</h2>
-                <p class="quiz-subtitle" id="quiz-subtitle">Välj en svårighetsgrad för att starta quizen!</p>
-
-                <div class="difficulty-grid">
-                    <div class="difficulty-card" data-difficulty="nyborjare">
-                        <div class="diff-icon">🐣</div>
-                        <h3>Nybörjaren</h3>
-                        <p>Allmänna arter</p>
-                    </div>
-                    <div class="difficulty-card" data-difficulty="intresserad">
-                        <div class="diff-icon">🐦</div>
-                        <h3>Fågelintresserad</h3>
-                        <p>Allmänna & Vanliga</p>
-                    </div>
-                    <div class="difficulty-card" data-difficulty="skadare">
-                        <div class="diff-icon">🔭</div>
-                        <h3>Fågelskådare</h3>
-                        <p>Ovanliga & Sällsynta</p>
-                    </div>
-                    <div class="difficulty-card" data-difficulty="orakel">
-                        <div class="diff-icon">🦉</div>
-                        <h3>Fågelorakel</h3>
-                        <p>Ovanliga till Mycket Sällsynta</p>
-                    </div>
-                </div>
-
-                <!-- Hidden for now, simplified to direct difficulty choice -->
-                <div class="quiz-modes-grid hidden">
-                    <div class="quiz-mode-card" data-mode="image">
-                        <div class="quiz-mode-icon"><i class="fa-solid fa-image"></i></div>
-                        <h3>Gissa Fågeln</h3>
-                        <p>Se bilden, gissa rätt fågel</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Active Quiz Area -->
-            <div id="quiz-area" class="quiz-area hidden">
-                <div class="quiz-header">
-                    <button id="quiz-back-btn" class="nav-back-btn"><i class="fa-solid fa-arrow-left"></i>
-                        Tillbaka</button>
-                    <div class="quiz-score-display">
-                        <span id="quiz-score">0</span> / <span id="quiz-total">10</span>
-                    </div>
-                    <button id="quiz-quit-btn" class="quiz-btn secondary quiz-quit-btn"><i
-                            class="fa-solid fa-xmark"></i>
-                        Avsluta</button>
-                </div>
-                <div class="quiz-progress-bar">
-                    <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
-                </div>
-                <div id="quiz-question-container" class="quiz-question-container">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-
-            <!-- Quiz Results -->
-            <div id="quiz-results" class="quiz-results hidden">
-                <div class="quiz-results-card">
-                    <div class="quiz-results-icon" id="quiz-results-icon">🎉</div>
-                    <h2 id="quiz-results-title">Bra jobbat!</h2>
-                    <p class="quiz-results-difficulty" id="quiz-results-difficulty">Nivå: Nybörjaren</p>
-                    <p class="quiz-results-score">Du fick <strong id="quiz-final-score">0</strong> av <strong
-                            id="quiz-final-total">10</strong> rätt</p>
-                    <div class="quiz-results-bar">
-                        <div class="quiz-results-bar-fill" id="quiz-results-bar-fill"></div>
-                    </div>
-                    <div class="quiz-results-actions">
-                        <button id="quiz-retry-btn" class="quiz-btn primary"><i class="fa-solid fa-rotate-right"></i>
-                            Spela igen</button>
-                        <button id="quiz-menu-btn" class="quiz-btn secondary"><i class="fa-solid fa-list"></i> Välj
-                            quiz</button>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Stats View -->
         <section id="stats-view" class="view-section">
