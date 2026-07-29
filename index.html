@@ -1511,15 +1511,39 @@
                     </select>
                 </div>
             </div>
+            <!-- ===== DATASKYDD & BACKUP ===== -->
+            <div class="backup-panel">
+                <div class="backup-panel-header">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Dataskydd & Backup</span>
+                </div>
 
-                <button id="export-data-btn" class="secondary-btn"
-                    style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                    <i class="fa-solid fa-download"></i> Exportera Backup
-                </button>
-                <button id="import-data-btn" class="secondary-btn"
-                    style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                    <i class="fa-solid fa-upload"></i> Importera Backup
-                </button>
+                <!-- Persisted Storage-indikator -->
+                <div id="storage-persist-indicator" class="storage-persist-indicator">
+                    <i class="fa-solid fa-spinner fa-spin" style="color:#94a3b8"></i> Kontrollerar dataskydd...
+                </div>
+
+                <!-- Auto-backup sektion -->
+                <div class="backup-section-title">
+                    <i class="fa-solid fa-rotate"></i> Automatiska säkerhetskopior
+                    <span class="backup-section-subtitle">Sparas automatiskt i bakgrunden</span>
+                </div>
+                <div id="auto-backup-list" class="auto-backup-list">
+                    <p class="backup-empty-text">Laddar...</p>
+                </div>
+
+                <!-- Manuell backup -->
+                <div class="backup-section-title" style="margin-top:1rem;">
+                    <i class="fa-solid fa-file-export"></i> Manuell backup (JSON-fil)
+                </div>
+                <div class="backup-manual-row">
+                    <button id="export-data-btn" class="backup-btn backup-btn-export">
+                        <i class="fa-solid fa-download"></i> Exportera
+                    </button>
+                    <button id="import-data-btn" class="backup-btn backup-btn-import">
+                        <i class="fa-solid fa-upload"></i> Importera
+                    </button>
+                </div>
                 <!-- Hidden file input for import -->
                 <input type="file" id="import-data-input" accept=".json" style="display: none;">
             </div>

@@ -31,6 +31,197 @@ const appStateMeta = {
 
 const STORAGE_KEY = 'birdfinder_sightings';
 
+/* ================================================================
+   AUTO-BACKUP  –  IndexedDB-baserad rullande säkerhetskopiering
+   Sparar automatiskt 3 snapshots i bakgrunden. Kräver ingen
+   användarinteraktion och påverkar inte prestanda.
+================================================================ */
+const AutoBackup = (function () {
+    const DB_NAME    = 'naturboken_backup';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'snapshots';
+    const MAX_SNAPSHOTS = 3;
+    const MIN_INTERVAL_MS = 5 * 60 * 1000; // minst 5 min mellan snapshots
+
+    let _db = null;
+    let _lastSaveTime = 0;
+
+    /** Öppna/skapa IndexedDB-databasen */
+    function _openDB() {
+        return new Promise((resolve, reject) => {
+            if (_db) { resolve(_db); return; }
+            const req = indexedDB.open(DB_NAME, DB_VERSION);
+            req.onupgradeneeded = (e) => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains(STORE_NAME)) {
+                    db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                }
+            };
+            req.onsuccess  = (e) => { _db = e.target.result; resolve(_db); };
+            req.onerror    = (e) => { console.error('[AutoBackup] DB open error', e); reject(e); };
+        });
+    }
+
+    /** Hämta alla snapshots sorterade efter ålder (äldst först) */
+    function list() {
+        return new Promise(async (resolve) => {
+            try {
+                const db = await _openDB();
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const req = tx.objectStore(STORE_NAME).getAll();
+                req.onsuccess = () => {
+                    const all = (req.result || []).sort((a, b) => a.timestamp - b.timestamp);
+                    resolve(all);
+                };
+                req.onerror = () => resolve([]);
+            } catch (_) { resolve([]); }
+        });
+    }
+
+    /** Spara en ny snapshot (throttlad, max 1 var 5:e minut) */
+    async function save(sightings) {
+        const now = Date.now();
+        if (now - _lastSaveTime < MIN_INTERVAL_MS) return;
+        _lastSaveTime = now;
+
+        try {
+            const db = await _openDB();
+            const existing = await list();
+
+            // Rotera ut den äldsta om vi redan har MAX_SNAPSHOTS
+            if (existing.length >= MAX_SNAPSHOTS) {
+                const toDelete = existing[0].id;
+                await new Promise((res) => {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    tx.objectStore(STORE_NAME).delete(toDelete);
+                    tx.oncomplete = res;
+                });
+            }
+
+            // Samla egna bilder (kompakt – vi sparar bara nycklar som har data)
+            const customImages = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('custom_img_')) {
+                    customImages[key] = localStorage.getItem(key);
+                }
+            }
+
+            const snapshot = {
+                id:        'snap_' + now,
+                timestamp: now,
+                label:     new Date(now).toLocaleString('sv-SE'),
+                count:     sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD').length,
+                sightings: JSON.parse(JSON.stringify(sightings)), // djup kopia
+                customImages
+            };
+
+            await new Promise((res, rej) => {
+                const tx = db.transaction(STORE_NAME, 'readwrite');
+                tx.objectStore(STORE_NAME).put(snapshot);
+                tx.oncomplete = res;
+                tx.onerror    = rej;
+            });
+
+            console.log('[AutoBackup] Snapshot sparad –', snapshot.label, '·', snapshot.count, 'obs');
+            _renderBackupStatus(); // Uppdatera UI
+        } catch (err) {
+            console.warn('[AutoBackup] Kunde inte spara snapshot:', err);
+        }
+    }
+
+    /** Återställ data från en snapshot med givet id */
+    async function restore(snapshotId) {
+        try {
+            const db = await _openDB();
+            const snap = await new Promise((res, rej) => {
+                const tx = db.transaction(STORE_NAME, 'readonly');
+                const req = tx.objectStore(STORE_NAME).get(snapshotId);
+                req.onsuccess = () => res(req.result);
+                req.onerror   = rej;
+            });
+
+            if (!snap || !snap.sightings) {
+                showGlobalToast('❌ Kunde inte hitta backup-snapshot', 'error');
+                return;
+            }
+
+            // Återställ egna bilder
+            if (snap.customImages) {
+                Object.entries(snap.customImages).forEach(([k, v]) => {
+                    localStorage.setItem(k, v);
+                });
+            }
+
+            // Återställ observationer
+            state.sightings = snap.sightings;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+            showGlobalToast(`✅ Återställd från ${snap.label}`, 'success');
+            setTimeout(() => location.reload(), 1200);
+        } catch (err) {
+            console.error('[AutoBackup] Restore failed:', err);
+            showGlobalToast('❌ Återställning misslyckades', 'error');
+        }
+    }
+
+    /** Rendera backup-status i inställnings-panelen */
+    async function _renderBackupStatus() {
+        const container = document.getElementById('auto-backup-list');
+        if (!container) return;
+
+        const snaps = await list();
+        if (snaps.length === 0) {
+            container.innerHTML = '<p class="backup-empty-text">Inga auto-backups ännu. En skapas automatiskt nästa gång du loggar en observation.</p>';
+            return;
+        }
+
+        container.innerHTML = snaps.slice().reverse().map(s => `
+            <div class="backup-snapshot-row">
+                <div class="backup-snapshot-info">
+                    <span class="backup-snapshot-date">${s.label}</span>
+                    <span class="backup-snapshot-count">${s.count} observationer</span>
+                </div>
+                <button class="backup-restore-btn" onclick="AutoBackup.restore('${s.id}')">
+                    <i class="fa-solid fa-rotate-left"></i> Återställ
+                </button>
+            </div>
+        `).join('');
+    }
+
+    /** Anropas vid app-start för att visa status direkt */
+    async function init() {
+        await _renderBackupStatus();
+    }
+
+    // Exponera publikt
+    return { save, list, restore, init, renderStatus: _renderBackupStatus };
+})();
+
+window.AutoBackup = AutoBackup;
+
+/* ================================================================
+   PERSISTED STORAGE  –  Skyddar data mot auto-rensning
+================================================================ */
+async function initPersistedStorage() {
+    if (!navigator.storage || !navigator.storage.persist) return;
+
+    let persisted = await navigator.storage.persisted();
+    if (!persisted) {
+        persisted = await navigator.storage.persist();
+        console.log('[Storage] Persisted storage granted:', persisted);
+    }
+
+    // Uppdatera UI-indikator i inställningar
+    const indicator = document.getElementById('storage-persist-indicator');
+    if (indicator) {
+        if (persisted) {
+            indicator.innerHTML = '<i class="fa-solid fa-shield-halved" style="color:#22c55e"></i> Dataskydd aktivt – webbläsaren skyddar dina observationer.';
+        } else {
+            indicator.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b"></i> Dataskydd ej beviljat – data kan rensas av webbläsaren. <a href="https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persist" target="_blank" style="font-size:0.75rem;color:var(--primary)">Läs mer</a>';
+        }
+    }
+}
+
 const SUBJECT_CONFIG = {
     birds: {
         id: 'birds',
@@ -1496,6 +1687,10 @@ async function init() {
     // Load Data (local first, then merge with cloud)
     await loadSightings();
 
+    // Dataskydd: begär eviction-skydd och initiera auto-backup UI
+    initPersistedStorage();
+    AutoBackup.init();
+
     const initStats = computeStats();
     appStateMeta.lastRank = initStats.activeRank ? initStats.activeRank.title : null;
     initStats.badges.filter(b => b.earned).forEach(b => appStateMeta.lastBadges.add(b.name));
@@ -1766,6 +1961,9 @@ function checkAchievements() {
 function saveSightings() {
     // 1. Always save to localStorage (instant)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+
+    // 2. Auto-backup till IndexedDB (throttlad, icke-blockerande)
+    AutoBackup.save(state.sightings);
 
     checkAchievements();
     renderApp();
@@ -3586,7 +3784,10 @@ function setupEventListeners() {
                 try {
                     const backup = JSON.parse(event.target.result);
                     if (backup && backup.sightings) {
-                        if (confirm('Vill du skriva över din nuvarande data med denna backup? Detta går inte att ångra.')) {
+                        // Visa bekräftelsedialog via toast + inline confirm
+                        const count = backup.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD').length;
+                        const doRestore = confirm(`Importera backup?\n\nFilen innehåller ${count} observationer.\n\nDin nuvarande data skrivs ÖVER. Vill du fortsätta?`);
+                        if (doRestore) {
                             // Clear basic storage that might conflict
                             localStorage.removeItem('birdfinder_sightings');
 
@@ -3600,15 +3801,15 @@ function setupEventListeners() {
                             // Overwrite sightings
                             state.sightings = backup.sightings;
                             saveSightings();
-                            alert('Backup inläst! Appen laddas nu om.');
-                            location.reload();
+                            showGlobalToast(`✅ Backup inläst – ${count} observationer återställda!`, 'success');
+                            setTimeout(() => location.reload(), 1400);
                         }
                     } else {
-                        alert('Ogiltig backup-fil: Saknar observationer (sightings).');
+                        showGlobalToast('❌ Ogiltig backup-fil: saknar observationer', 'error');
                     }
                 } catch (err) {
                     console.error('Import error', err);
-                    alert('Något gick fel när filen skulle läsas: ' + err.message + '\nÄr det verkligen en korrekt, hel backup-fil?');
+                    showGlobalToast('❌ Kunde inte läsa filen – är det en giltig backup?', 'error');
                 }
             };
             reader.readAsText(file);
