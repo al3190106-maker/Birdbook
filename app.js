@@ -170,18 +170,40 @@ const AutoBackup = (function () {
         if (!container) return;
 
         const snaps = await list();
-        if (snaps.length === 0) {
-            container.innerHTML = '<p class="backup-empty-text">Inga auto-backups ännu. En skapas automatiskt nästa gång du loggar en observation.</p>';
-            return;
-        }
+        
+        // --- Manuell backup sektion ---
+        const manualBackupHtml = `
+            <div class="backup-section-title" style="margin-top:1rem;">
+                <i class="fa-solid fa-file-export"></i> Manuell backup (JSON-fil)
+            </div>
+            <button id="share-backup-btn" class="backup-btn-share">
+                <i class="fa-solid fa-share-from-square"></i>
+                <span><strong>Spara till enhet / dela</strong><small>Öppnar dela-menyn – spara i Filer, Drive, iCloud&hellip;</small></span>
+            </button>
+            <div class="backup-manual-row">
+                <button id="export-data-btn" class="backup-btn backup-btn-export">
+                    <i class="fa-solid fa-download"></i> Ladda ner
+                </button>
+                <button id="import-data-btn" class="backup-btn backup-btn-import">
+                    <i class="fa-solid fa-upload"></i> Importera
+                </button>
+            </div>
+            <input type="file" id="import-data-input" accept=".json" style="display: none;">
+        `;
 
-        container.innerHTML = snaps.slice().reverse().map(s => `
-            <div class="backup-snapshot-row">
-                <div class="backup-snapshot-info">
-                    <span class="backup-snapshot-date">${s.label}</span>
-                    <span class="backup-snapshot-count">${s.count} observationer</span>
+        if (snaps.length === 0) {
+            container.innerHTML = '<p class="backup-empty-text">Inga auto-backups ännu. En skapas automatiskt nästa gång du loggar en observation.</p>' + manualBackupHtml;
+        } else {
+            container.innerHTML = snaps.slice().reverse().map(s => `
+                <div class="backup-snapshot-row">
+                    <div class="backup-snapshot-info">
+                        <span class="backup-snapshot-date">${s.label}</span>
+                        <span class="backup-snapshot-count">${s.count} observationer</span>
+                    </div>
+                    <button class="backup-restore-btn" onclick="AutoBackup.restore('${s.id}')">
+                        <i class="fa-solid fa-rotate-left"></i> Återställ
+                    </button>
                 </div>
-                <button class="backup-restore-btn" onclick="AutoBackup.restore('${s.id}')">
                     <i class="fa-solid fa-rotate-left"></i> Återställ
                 </button>
             </div>
@@ -3737,33 +3759,73 @@ function setupEventListeners() {
         });
     }
 
-    // Export Data
-    if (elements.exportDataBtn) {
-        elements.exportDataBtn.addEventListener('click', () => {
-            // Generate a backup object containing sightings and custom images
-            const backup = {
-                sightings: state.sightings,
-                customImages: {}
-            };
+    // --- Hjälp: bygg backup-objekt och Blob ---
+    function _buildBackupBlob() {
+        const backup = { sightings: state.sightings, customImages: {} };
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('custom_img_')) {
+                backup.customImages[key] = localStorage.getItem(key);
+            }
+        }
+        const json = JSON.stringify(backup);
+        const filename = 'naturboken_backup_' + new Date().toISOString().split('T')[0] + '.json';
+        const blob = new Blob([json], { type: 'application/json' });
+        return { blob, filename };
+    }
 
-            // Extract all custom images
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key && key.startsWith('custom_img_')) {
-                    backup.customImages[key] = localStorage.getItem(key);
+    // --- Ladda ner backup (klassisk download) ---
+    function _downloadBackup() {
+        const { blob, filename } = _buildBackupBlob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showGlobalToast('✅ Backup nedladdad!', 'success');
+    }
+
+    // --- Spara till enhet via Web Share API ---
+    async function _shareBackup() {
+        const { blob, filename } = _buildBackupBlob();
+        const count = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD').length;
+
+        if (navigator.share && navigator.canShare) {
+            const file = new File([blob], filename, { type: 'application/json' });
+            if (navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        title: 'Naturboken – backup',
+                        text: `Backup med ${count} observationer – ${new Date().toLocaleDateString('sv-SE')}`,
+                        files: [file]
+                    });
+                    showGlobalToast('✅ Backup delad/sparad!', 'success');
+                    return;
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        // Dela misslyckades – fall tillbaka på download
+                        _downloadBackup();
+                    }
+                    return;
                 }
             }
+        }
+        // Fallback: vanlig download
+        _downloadBackup();
+    }
 
-            const blob = new Blob([JSON.stringify(backup)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", url);
-            downloadAnchorNode.setAttribute("download", "naturboken_backup_" + new Date().toISOString().split('T')[0] + ".json");
-            document.body.appendChild(downloadAnchorNode); // required for firefox
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
-            URL.revokeObjectURL(url);
-        });
+    // Export Data (ladda ner)
+    if (elements.exportDataBtn) {
+        elements.exportDataBtn.addEventListener('click', _downloadBackup);
+    }
+
+    // Spara till enhet / dela
+    const shareBackupBtn = document.getElementById('share-backup-btn');
+    if (shareBackupBtn) {
+        shareBackupBtn.addEventListener('click', _shareBackup);
     }
 
     // Import Data Trigger

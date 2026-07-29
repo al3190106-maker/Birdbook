@@ -50,6 +50,8 @@
 - [x] Karta: Slå ihop överlappande markörer till en sammanställd lista (clustering)
 - [ ] Förbättra namngivning och etiketter i Inställningar (Settings) för bättre förståelse
 - [ ] Lägga till informationsavsnitt/hjälp i Inställningar
+- [ ] Skapa användarkonto-system (användarprofil & ID)
+- [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
 
 ### 📊 Artdata & Innehåll
 - [ ] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
@@ -58,7 +60,7 @@
 - [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 
 ### 🔍 Identifiera
-- [ ] *(Inga aktiva uppgifter)*
+- [ ] Lägga till Quiz-läget igen under Identifiera
 
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
