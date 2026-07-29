@@ -3577,7 +3577,7 @@ function getBirdImageSrc(birdId, context = 'guide') {
     else if (context === 'detail') pref = state.imgPrefDetail || 'v2';
     else if (context === 'identify') pref = state.imgPrefIdentify || 'v2';
     else if (context === 'log') pref = state.imgPrefLog || 'foto';
-    else if (context === 'quiz') pref = 'v2'; // Quiz is always v2
+    else if (context === 'quiz') pref = 'v1'; // Quiz använder de genererade bilderna (v1)
     
     const allItems = [
         ...(window.swedishBirds || []),
