@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-07-29 | Min logg | Bokstrip: Sorterat bokraden samt baserat räknare på unika artobservationer, samt dolt Blom- och Trädböckerna (sammanslagna i Växtboken) |
 | 2026-07-29 | 🔍 Identifiera | Quiz: Återinfört Quiz som en egen underflik (`sub-btn-quiz`) i Identifiera-vyn i `app.js` |
 | 2026-07-29 | 🐛 Bugg och fix | Robust dataskydd: Persisted Storage API + AutoBackup (IndexedDB, 3 rullande snapshots) + ny backup-panel i Inställningar |
 | 2026-07-27 | ✨ Features & UI | Kartklustring: Slagit ihop överlappande/nära GPS-markörer till en sammanställd lista i `app.js` |
@@ -42,12 +43,12 @@
 - [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
 
 ### 🐛 Bugg och fix
-- [ ] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
+- [x] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
-- [ ] Sortera listor/kategorier efter vilken man har loggat mest i
+- [x] Sortera listor/kategorier efter vilken man har loggat mest i
 - [x] Karta: Slå ihop överlappande markörer till en sammanställd lista (clustering)
 - [ ] Förbättra namngivning och etiketter i Inställningar (Settings) för bättre förståelse
 - [ ] Lägga till informationsavsnitt/hjälp i Inställningar
@@ -55,7 +56,7 @@
 - [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
 
 ### 📊 Artdata & Innehåll
-- [ ] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
+- [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
 
 ### 🚀 Deploy & Infra
 - [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare

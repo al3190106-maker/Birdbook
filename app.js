@@ -1508,6 +1508,9 @@ function getCurrentSpeciesList() {
 }
 
 function switchSubject(subjectId) {
+    if (subjectId === 'trees' || subjectId === 'flowers') {
+        subjectId = 'plants';
+    }
     if (!SUBJECT_CONFIG[subjectId]) return;
     state.currentSubject = subjectId;
     const config = SUBJECT_CONFIG[subjectId];
@@ -2116,27 +2119,49 @@ function renderBookStrip() {
     elements.bookStrip.style.display = 'flex';
     elements.bookStrip.innerHTML = '';
 
-    Object.keys(SUBJECT_CONFIG).forEach(subjectId => {
-        const config = SUBJECT_CONFIG[subjectId];
-        const card = document.createElement('div');
-        card.className = `book-strip-card${state.currentSubject === subjectId ? ' active' : ''}`;
-        
-        let count = 0;
+    const subjects = Object.keys(SUBJECT_CONFIG).filter(id => id !== 'trees' && id !== 'flowers');
+
+    const realSightings = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD');
+
+    // Calculate unique species count for each subject
+    const subjectCounts = {};
+    subjects.forEach(subjectId => {
         if (subjectId === 'nature') {
-            count = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD').length;
+            const seenIds = new Set(realSightings.map(s => s.birdId));
+            subjectCounts[subjectId] = seenIds.size;
         } else {
+            const config = SUBJECT_CONFIG[subjectId];
             const list = window[config.dataVar] || [];
-            count = state.sightings.filter(s => {
-                if (s.id === 'SYSTEM_INIT_BIRD') return false;
+            const listIds = new Set(list.map(item => item.id));
+            
+            const seen = new Set(realSightings.filter(s => {
                 const isCustom = s.birdId && s.birdId.startsWith('custom_');
                 if (isCustom) {
                     const customSubject = s.subject || 'birds';
                     return customSubject === subjectId;
                 }
-                return list.some(item => item.id === s.birdId);
-            }).length;
+                return listIds.has(s.birdId);
+            }).map(s => s.birdId));
+            
+            subjectCounts[subjectId] = seen.size;
         }
+    });
 
+    // Sort descending by count, using static defaultOrder for tie-break
+    const defaultOrder = ['nature', 'birds', 'plants', 'fish', 'animals', 'fungi'];
+    subjects.sort((a, b) => {
+        if (subjectCounts[b] !== subjectCounts[a]) {
+            return subjectCounts[b] - subjectCounts[a];
+        }
+        return defaultOrder.indexOf(a) - defaultOrder.indexOf(b);
+    });
+
+    subjects.forEach(subjectId => {
+        const config = SUBJECT_CONFIG[subjectId];
+        const card = document.createElement('div');
+        card.className = `book-strip-card${state.currentSubject === subjectId ? ' active' : ''}`;
+        
+        const count = subjectCounts[subjectId];
         const badgeHTML = count > 0 ? `<div class="book-strip-badge">${count}</div>` : '';
         const nameShort = config.name.replace('boken', '');
 
@@ -5135,11 +5160,11 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
             const subject = allData.find(d => d.id === img.birdId);
             if (subject) {
                 let subjectType = 'birds';
-                if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
+                if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'plants';
                 else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
                 else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
-            else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
-                else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+                else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
+                else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'plants';
                 else if (window.swedishPlants && window.swedishPlants.some(p => p.id === subject.id)) subjectType = 'plants';
                 
                 if (state.currentSubject !== subjectType) {
@@ -5435,11 +5460,11 @@ window.showSightingFromMap = function(birdId, sightingId) {
     const subject = allData.find(d => d.id === birdId);
     if (subject) {
         let subjectType = 'birds';
-        if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'trees';
+        if (window.swedishTrees && window.swedishTrees.some(t => t.id === subject.id)) subjectType = 'plants';
         else if (window.swedishFish && window.swedishFish.some(f => f.id === subject.id)) subjectType = 'fish';
         else if (window.swedishAnimals && window.swedishAnimals.some(a => a.id === subject.id)) subjectType = 'animals';
         else if (window.swedishFungi && window.swedishFungi.some(f => f.id === subject.id)) subjectType = 'fungi';
-        else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'flowers';
+        else if (window.swedishFlowers && window.swedishFlowers.some(f => f.id === subject.id)) subjectType = 'plants';
         else if (window.swedishPlants && window.swedishPlants.some(p => p.id === subject.id)) subjectType = 'plants';
 
         if (state.currentSubject !== subjectType) switchSubject(subjectType);
