@@ -4408,6 +4408,36 @@ function getClosestBirds(bird, stat, count) {
     return shuffled.slice(0, count).map(c => c.bird);
 }
 
+// --- Quiz Smart Repeat Exclusion ---
+const QUIZ_CORRECT_KEY = 'naturboken_quiz_recently_correct';
+
+function getQuizRecentlyCorrect() {
+    try {
+        return JSON.parse(localStorage.getItem(QUIZ_CORRECT_KEY) || '[]');
+    } catch (_) {
+        return [];
+    }
+}
+
+function recordQuizAnswer(birdId, isCorrect) {
+    if (!birdId) return;
+    let list = getQuizRecentlyCorrect();
+    if (isCorrect) {
+        if (!list.includes(birdId)) {
+            list.push(birdId);
+        }
+    } else {
+        // Om användaren svarar fel, ta bort arten från 'rätt'-historiken
+        // så att den garanterat kommer upp igen i nästkommande spel för träning
+        list = list.filter(id => id !== birdId);
+    }
+    try {
+        localStorage.setItem(QUIZ_CORRECT_KEY, JSON.stringify(list));
+    } catch (e) {
+        console.warn('[Quiz] Kunde inte spara frågehistorik:', e);
+    }
+}
+
 function generateQuizQuestions(mode, count = 10) {
     let list = getCurrentSpeciesList();
 
@@ -4439,7 +4469,22 @@ function generateQuizQuestions(mode, count = 10) {
         list = getCurrentSpeciesList();
     }
 
-    const birds = [...list].sort(() => Math.random() - 0.5);
+    // --- Algoritm för repetition: Uteslut nyligen rätt besvarade arter ---
+    let recentlyCorrect = getQuizRecentlyCorrect();
+    let candidateList = list.filter(b => !recentlyCorrect.includes(b.id));
+
+    // Om kandidatlistan är för liten, rotera ut de äldsta rätt-svarade arterna tills vi har tillräckligt med kandidater
+    const minNeeded = Math.min(count, list.length);
+    while (candidateList.length < minNeeded && recentlyCorrect.length > 0) {
+        recentlyCorrect.shift(); // Ta bort äldsta rätt-svarade arten
+        candidateList = list.filter(b => !recentlyCorrect.includes(b.id));
+    }
+    try {
+        localStorage.setItem(QUIZ_CORRECT_KEY, JSON.stringify(recentlyCorrect));
+    } catch (_) {}
+
+    const availableList = candidateList.length >= 4 ? candidateList : list;
+    const birds = [...availableList].sort(() => Math.random() - 0.5);
     const questions = [];
 
     const config = SUBJECT_CONFIG[state.currentSubject];
@@ -4602,8 +4647,10 @@ function handleQuizAnswer(btnEl) {
     if (isCorrect) {
         state.quizScore++;
         btnEl.classList.add('correct');
+        recordQuizAnswer(q.correctValue, true);
     } else {
         btnEl.classList.add('incorrect');
+        recordQuizAnswer(q.correctValue, false);
         // Highlight correct answer
         document.querySelectorAll('.quiz-option-btn').forEach(b => {
             if (b.dataset.value === q.correctValue) {
