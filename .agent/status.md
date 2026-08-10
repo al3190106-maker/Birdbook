@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-10 | 🔍 Identifiera | Utökat Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar) i `index.html` och `app.js` |
 | 2026-08-10 | 🐛 Bugg och fix | Dölja kamera- och papperskorgsikoner på stora bildkort i Min logg på mobilen (CSS media query) |
 | 2026-07-29 | Min logg | Bokstrip: Sorterat bokraden samt baserat räknare på unika artobservationer, samt dolt Blom- och Trädböckerna (sammanslagna i Växtboken) |
 | 2026-07-29 | 🔍 Identifiera | Quiz: Återinfört Quiz som en egen underflik (`sub-btn-quiz`) i Identifiera-vyn i `app.js` |
@@ -67,7 +68,7 @@
 
 ### 🔍 Identifiera
 - [x] Lägga till Quiz-läget igen under Identifiera
-- [ ] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
+- [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
 - [ ] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
 
 ### 🧭 Planering

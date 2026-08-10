@@ -4411,7 +4411,7 @@ function getClosestBirds(bird, stat, count) {
 function generateQuizQuestions(mode, count = 10) {
     let list = getCurrentSpeciesList();
 
-    // Filter by rarity if it's birds and difficulty is set
+    // Filter by rarity or environmental category if it's birds and difficulty is set
     if (state.currentSubject === 'birds' && state.quizDifficulty) {
         const diff = state.quizDifficulty;
         if (diff === 'nyborjare') {
@@ -4422,6 +4422,15 @@ function generateQuizQuestions(mode, count = 10) {
             list = list.filter(b => (b.rarity || 1) >= 3 && (b.rarity || 1) <= 4);
         } else if (diff === 'orakel') {
             list = list.filter(b => (b.rarity || 1) >= 3);
+        } else if (diff === 'vattenfaglar') {
+            const waterTypes = ['Andfåglar', 'Lommar & Doppingar', 'Hägrar', 'Vadare & Måsfåglar'];
+            list = list.filter(b => waterTypes.includes(b.type));
+        } else if (diff === 'akerfaglar') {
+            const fieldTypes = ['Hönsfåglar', 'Sparvar', 'Svalor'];
+            list = list.filter(b => fieldTypes.includes(b.type) || (b.nameSv && (b.nameSv.includes('lärka') || b.nameSv.includes('stare') || b.nameSv.includes('vipa') || b.nameSv.includes('råka') || b.nameSv.includes('glada'))));
+        } else if (diff === 'skogsfaglar') {
+            const forestTypes = ['Hackspettar', 'Ugglor', 'Rovfåglar', 'Mesfåglar', 'Sångare', 'Finkar', 'Flugsnappare', 'Kråkfåglar'];
+            list = list.filter(b => forestTypes.includes(b.type));
         }
     }
 
@@ -4503,6 +4512,11 @@ function showQuizMenu() {
     const subtitleEl = document.getElementById('quiz-subtitle');
     if (titleEl && config && config.texts && config.texts.quizTitle) titleEl.textContent = config.texts.quizTitle;
     if (subtitleEl && config && config.texts && config.texts.quizSubtitle) subtitleEl.textContent = config.texts.quizSubtitle;
+
+    const envSection = document.getElementById('quiz-env-section');
+    if (envSection) {
+        envSection.style.display = (state.currentSubject === 'birds') ? '' : 'none';
+    }
 
     const quizMenu = document.getElementById('quiz-menu');
     const quizArea = document.getElementById('quiz-area');
@@ -4629,7 +4643,10 @@ function showQuizResults() {
         'nyborjare': 'Nybörjaren',
         'intresserad': subjectPrefix + 'intresserad',
         'skadare': subjectPrefix + 'skadare',
-        'orakel': subjectPrefix + 'orakel'
+        'orakel': subjectPrefix + 'orakel',
+        'vattenfaglar': 'Vattenfåglar',
+        'akerfaglar': 'Åkerfåglar',
+        'skogsfaglar': 'Skogsfåglar'
     };
     const diffEl = document.getElementById('quiz-results-difficulty');
     if (diffEl) {

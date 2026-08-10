@@ -747,8 +747,9 @@
                 <!-- Quiz Mode Selection -->
                 <div id="quiz-menu" class="quiz-menu">
                     <h2 class="quiz-title" id="quiz-main-title">Fågelquiz</h2>
-                    <p class="quiz-subtitle" id="quiz-subtitle">Välj en svårighetsgrad för att starta quizen!</p>
+                    <p class="quiz-subtitle" id="quiz-subtitle">Välj en svårighetsgrad eller miljö för att starta quizen!</p>
 
+                    <h4 class="quiz-section-label" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin: 0.5rem 0 0.5rem 0.2rem; text-transform:uppercase; letter-spacing:0.5px;">Svårighetsgrad</h4>
                     <div class="difficulty-grid">
                         <div class="difficulty-card" data-difficulty="nyborjare">
                             <div class="diff-icon">🐣</div>
@@ -769,6 +770,28 @@
                             <div class="diff-icon">🦉</div>
                             <h3>Fågelorakel</h3>
                             <p>Ovanliga till Mycket Sällsynta</p>
+                        </div>
+                    </div>
+
+                    <!-- Miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar) -->
+                    <div id="quiz-env-section" style="margin-top: 1.25rem;">
+                        <h4 class="quiz-section-label" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin: 0 0 0.5rem 0.2rem; text-transform:uppercase; letter-spacing:0.5px;">Miljö-kategorier</h4>
+                        <div class="difficulty-grid">
+                            <div class="difficulty-card" data-difficulty="vattenfaglar">
+                                <div class="diff-icon">🌊</div>
+                                <h3>Vattenfåglar</h3>
+                                <p>Svanar, änder, gäss & vadare</p>
+                            </div>
+                            <div class="difficulty-card" data-difficulty="akerfaglar">
+                                <div class="diff-icon">🌾</div>
+                                <h3>Åkerfåglar</h3>
+                                <p>Lärkor, svalor & fältfåglar</p>
+                            </div>
+                            <div class="difficulty-card" data-difficulty="skogsfaglar">
+                                <div class="diff-icon">🌲</div>
+                                <h3>Skogsfåglar</h3>
+                                <p>Hackspettar, mesar & ugglor</p>
+                            </div>
                         </div>
                     </div>
 
