@@ -1,28 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <!-- 4. Fågelorakel: Enkel och tydlig matning i boet -->
+  <!-- 4. Fågelorakel: Fågel matar liten fågel -->
   <g fill="#2E5D4B">
-    <!-- Nest bowl -->
-    <path d="M 20 62 C 20 80, 80 80, 80 62 Z" />
-    
-    <!-- Baby chick head inside nest -->
-    <circle cx="38" cy="52" r="10" />
-    <!-- Baby open beak -->
-    <polygon points="34,44 26,36 35,42" />
-    <polygon points="36,47 28,43 36,44" />
-    <!-- Baby eye -->
-    <circle cx="34" cy="52" r="1.5" fill="#ffffff" />
-    
-    <!-- Parent bird body and head -->
-    <!-- Parent head -->
-    <circle cx="66" cy="38" r="12" />
-    <!-- Parent body -->
-    <path d="M 66 38 C 76 38, 82 46, 82 58 C 82 66, 76 72, 66 72 C 60 72, 56 66, 58 58 C 58 46, 60 38, 66 38 Z" />
-    <!-- Parent beak pointing down to baby -->
-    <polygon points="58,40 46,46 58,46" />
+    <!-- Nest bowl at the bottom-left -->
+    <path d="M 12 60 C 12 76, 26 84, 46 84 C 58 84, 68 80, 70 72 M 10 62 L 72 62" fill="none" stroke="#2E5D4B" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M 16 68 Q 42 74, 68 68" fill="none" stroke="#2E5D4B" stroke-width="2" stroke-linecap="round" opacity="0.6" />
+
+    <!-- Nestling baby chick on left -->
+    <path d="M 28 48 C 22 48, 16 52, 16 60 L 38 60 C 38 52, 34 48, 28 48 Z" />
+    <polygon points="26,44 18,36 28,42" />
+    <circle cx="24" cy="52" r="1.5" fill="#ffffff" />
+
+    <!-- Parent bird perched on the right branch/edge -->
+    <path d="M 72 26 C 72 19, 63 15, 54 19 C 45 23, 38 32, 34 46 C 36 44, 40 44, 44 44 C 54 44, 64 42, 70 36 C 76 30, 74 28, 72 26 Z" />
+    <!-- Parent beak pointing down-left -->
+    <polygon points="56,22 42,28 54,28" />
     <!-- Parent eye -->
-    <circle cx="66" cy="36" r="2" fill="#ffffff" />
-    
-    <!-- Worm connecting beaks (white stroke) -->
-    <path d="M 46 46 Q 38 43 30 42" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="62" cy="24" r="2.5" fill="#ffffff" />
+    <!-- Parent wing line -->
+    <path d="M 52 34 Q 46 42, 54 50" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Worm connecting beaks -->
+    <path d="M 44 29 Q 34 32, 24 38" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
   </g>
 </svg>
