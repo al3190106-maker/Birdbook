@@ -4571,10 +4571,14 @@ function showQuizMenu() {
     if (quizResults) quizResults.classList.add('hidden');
 }
 
-function initQuiz(mode, difficulty = 'nyborjare') {
-    state.quizMode = mode;
-    state.quizDifficulty = difficulty;
-    state.quizQuestions = generateQuizQuestions(mode);
+function initQuiz(mode, difficulty) {
+    state.quizMode = mode || 'image';
+    if (difficulty) {
+        state.quizDifficulty = difficulty;
+    } else if (!state.quizDifficulty) {
+        state.quizDifficulty = 'nyborjare';
+    }
+    state.quizQuestions = generateQuizQuestions(state.quizMode);
     state.quizCurrent = 0;
     state.quizScore = 0;
     state.quizAnswered = false;
@@ -4747,11 +4751,10 @@ function initQuizListeners() {
         });
     }
 
-    // Retry button
     const quizRetryBtn = document.getElementById('quiz-retry-btn');
     if (quizRetryBtn) {
         quizRetryBtn.addEventListener('click', () => {
-            initQuiz(state.quizMode);
+            initQuiz(state.quizMode || 'image', state.quizDifficulty || 'nyborjare');
         });
     }
 
