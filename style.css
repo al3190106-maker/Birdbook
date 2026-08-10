@@ -2337,6 +2337,12 @@ body {
     .bird-detail-content {
         padding: 1.5rem;
     }
+
+    /* Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen */
+    .sightings-grid .edit-image-btn,
+    .sightings-grid .delete-sighting-btn {
+        display: none !important;
+    }
 }
 
 
@@ -2467,12 +2473,18 @@ body {
         gap: 1rem;
     }
 
-    /* Make action buttons always visible on touch devices */
+    /* Make action buttons always visible on touch devices (except in Min logg where camera and trash are hidden) */
     .edit-image-btn,
     .delete-sighting-btn,
     .quick-add-btn,
     .instant-add-btn {
         opacity: 1;
+    }
+
+    /* Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen */
+    .sightings-grid .edit-image-btn,
+    .sightings-grid .delete-sighting-btn {
+        display: none !important;
     }
 
     /* Bird card image */

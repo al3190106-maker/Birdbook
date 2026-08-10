@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-10 | 🐛 Bugg och fix | Dölja kamera- och papperskorgsikoner på stora bildkort i Min logg på mobilen (CSS media query) |
 | 2026-07-29 | Min logg | Bokstrip: Sorterat bokraden samt baserat räknare på unika artobservationer, samt dolt Blom- och Trädböckerna (sammanslagna i Växtboken) |
 | 2026-07-29 | 🔍 Identifiera | Quiz: Återinfört Quiz som en egen underflik (`sub-btn-quiz`) i Identifiera-vyn i `app.js` |
 | 2026-07-29 | 🐛 Bugg och fix | Robust dataskydd: Persisted Storage API + AutoBackup (IndexedDB, 3 rullande snapshots) + ny backup-panel i Inställningar |
@@ -47,7 +48,7 @@
 ### 🐛 Bugg och fix
 - [x] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
-- [ ] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
+- [x] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
