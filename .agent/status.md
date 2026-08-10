@@ -18,7 +18,7 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-10 | 🔍 Identifiera | Förbättrat svarsalternativ i Quiz: Felaktiga svarsalternativ väljs nu från samma artfamilj eller närbesläktade/liknande arter i `app.js` |
-| 2026-08-10 | 🎨 Bildgenerering | Skapat sekventiella SVG-ikoner för svårighetsgraderna (Ägg → Ungunge i skal → Flygande fågel → Förälder som matar ungar) |
+| 2026-08-10 | 🎨 Bildgenerering | Förenklat & förtydligat sekventiella SVG-ikoner för svårighetsgraderna (Förenklade och tydligare siluetter i samma stil som nybörjare-bilden) |
 | 2026-08-10 | 🔍 Identifiera | Quiz: Fixat så att 'Spela igen'-knappen behåller den valda svårighetsgraden/kategorin i `app.js` |
 | 2026-08-10 | 🎨 Bildgenerering | Skapat och lagt till gröna ikonbilder för alla val i Quiz-menyn i `index.html` och `style.css` |
 | 2026-08-10 | 🎨 Bildgenerering | Omgenererat kategori-ikonen för Flugsnappare (`images/category_icons/flugsnappare.png`) med en flugsnappare som fångar en fluga |
