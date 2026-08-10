@@ -1,16 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
   <!-- 2. Fågelintresserad: En ungunge som kikar ut ur det kläckta ägget -->
   <g fill="#2E5D4B">
-    <!-- Chick Head & Beak emerging -->
-    <circle cx="50" cy="38" r="18" />
-    <!-- Beak pointing up-right -->
-    <polygon points="58,34 72,38 58,42" />
-    <!-- White Eye cutout -->
-    <circle cx="54" cy="33" r="3" fill="#ffffff" />
-    <!-- Head Tuft -->
-    <path d="M 47 20 C 46 14 49 11 51 9 C 52 14 50 17 48 20 Z" />
-
-    <!-- Bottom cracked Eggshell -->
-    <path d="M 20 54 L 32 46 L 42 56 L 50 46 L 58 56 L 68 46 L 80 54 C 80 74 68 86 50 86 C 32 86 20 74 20 54 Z" />
+    <!-- Smooth cracked egg shell bottom -->
+    <path d="M 20,55 C 20,72 32,85 50,85 C 68,85 80,72 80,55 L 70,58 L 60,48 L 50,56 L 40,48 L 30,58 Z" />
+    <!-- Baby chick head and chest -->
+    <path d="M 50,22 C 41,22 34,29 34,42 C 34,44 35,46 36,48 L 64,48 C 65,46 66,44 66,42 C 66,29 59,22 50,22 Z" />
+    <!-- Beak -->
+    <path d="M 50,33 L 45,39 H 55 Z" />
+    <path d="M 50,42 L 47,39 H 53 Z" />
+    <!-- Eyes -->
+    <circle cx="43" cy="32" r="2.5" fill="#ffffff" />
+    <circle cx="57" cy="32" r="2.5" fill="#ffffff" />
+    <!-- Little feather tuft -->
+    <path d="M 48,22 C 46,16 49,12 51,10 C 52,14 50,18 48,22 Z" />
   </g>
 </svg>
