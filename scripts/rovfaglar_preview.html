@@ -4,265 +4,165 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rovfåglar Siluett – Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0f4f1; }
-  .preview { background: white; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); padding: 1rem; max-width: 95vw; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Outfit', sans-serif;
+    display: flex; justify-content: center; align-items: center; 
+    min-height: 100vh; background: #f0f4f1; padding: 1rem;
+  }
+
+  .silhouette-chart {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem 2rem 1.5rem;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .silhouette-chart h2 {
+    text-align: center;
+    color: #2E5D4B;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.3rem;
+  }
+
+  .silhouette-chart .subtitle-line {
+    display: block;
+    width: 60%;
+    height: 2px;
+    background: #8FBC8F;
+    margin: 0 auto 1.5rem;
+    opacity: 0.4;
+    border-radius: 1px;
+  }
+
+  .birds-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0;
+    padding: 0 0.5rem;
+  }
+
+  .bird-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .bird-img-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .bird-img-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* Make the image pure black silhouette even if it has slight color */
+    filter: brightness(0);
+  }
+
+  .bird-label {
+    text-align: center;
+    margin-top: 0.6rem;
+  }
+
+  .bird-label .name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2E5D4B;
+    display: block;
+  }
+
+  .bird-label .span {
+    font-size: 0.72rem;
+    color: #7F8C8D;
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  .chart-footer {
+    text-align: center;
+    margin-top: 1.2rem;
+    font-size: 0.65rem;
+    color: #bbb;
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
-<div class="preview" id="preview"></div>
+
+<div class="silhouette-chart">
+  <h2>SVENSKA ROVFÅGLAR</h2>
+  <span class="subtitle-line"></span>
+  
+  <div class="birds-row" id="birds-row"></div>
+  
+  <div class="chart-footer">Relativ storlek baserad på genomsnittligt vingspann</div>
+</div>
 
 <script>
 /**
- * Rovfåglar siluett-generator
- * Skapar en SVG med korrekt proportionerade siluetter
- * baserat på genomsnittligt vingspann.
+ * Each bird's width in the layout is proportional to its real wingspan.
+ * We use a base unit where 1 cm = a fraction of the container width.
+ * 
+ * Total wingspan sum: 60+75+115+120+150+230 = 750 cm
+ * Each bird gets (wingspan / 750) of available space.
  */
-
-const BIRDS = [
-  {
-    name: 'HÖK',
-    wingspan: 60,
-    // Short rounded wings, long narrow tail
-    path: `M 0,-0.32
-      C -0.06,-0.26 -0.14,-0.20 -0.24,-0.14
-      C -0.44,-0.06 -0.78,0.00 -0.92,0.04
-      Q -1.00,0.06 -0.94,0.12
-      C -0.82,0.10 -0.50,0.14 -0.24,0.18
-      L -0.14,0.22
-      L -0.14,0.36
-      L -0.12,0.48
-      L -0.04,0.54
-      L 0,0.56
-      L 0.04,0.54
-      L 0.12,0.48
-      L 0.14,0.36
-      L 0.14,0.22
-      C 0.50,0.14 0.82,0.10 0.94,0.12
-      Q 1.00,0.06 0.92,0.04
-      C 0.78,0.00 0.44,-0.06 0.24,-0.14
-      C 0.14,-0.20 0.06,-0.26 0,-0.32 Z`
-  },
-  {
-    name: 'FALK',
-    wingspan: 75,
-    // Long swept-back pointed wings, compact tail
-    path: `M 0,-0.24
-      C -0.04,-0.20 -0.10,-0.16 -0.18,-0.10
-      C -0.36,-0.02 -0.72,0.10 -0.94,0.16
-      L -1.00,0.14
-      L -0.94,0.10
-      C -0.70,0.12 -0.36,0.12 -0.18,0.16
-      L -0.12,0.20
-      L -0.10,0.30
-      L -0.06,0.36
-      L 0,0.38
-      L 0.06,0.36
-      L 0.10,0.30
-      L 0.12,0.20
-      C 0.36,0.12 0.70,0.12 0.94,0.10
-      L 1.00,0.14
-      L 0.94,0.16
-      C 0.72,0.10 0.36,-0.02 0.18,-0.10
-      C 0.10,-0.16 0.04,-0.20 0,-0.24 Z`
-  },
-  {
-    name: 'KÄRRHÖK',
-    wingspan: 115,
-    // Long narrow wings held in V, long tail, slim body
-    path: `M 0,-0.26
-      C -0.05,-0.22 -0.12,-0.16 -0.20,-0.10
-      C -0.40,-0.02 -0.76,0.02 -0.94,0.00
-      Q -1.00,-0.02 -0.96,0.06
-      C -0.80,0.06 -0.44,0.10 -0.20,0.14
-      L -0.12,0.18
-      L -0.10,0.30
-      L -0.08,0.42
-      L -0.04,0.48
-      L 0,0.50
-      L 0.04,0.48
-      L 0.08,0.42
-      L 0.10,0.30
-      L 0.12,0.18
-      C 0.44,0.10 0.80,0.06 0.96,0.06
-      Q 1.00,-0.02 0.94,0.00
-      C 0.76,0.02 0.40,-0.02 0.20,-0.10
-      C 0.12,-0.16 0.05,-0.22 0,-0.26 Z`
-  },
-  {
-    name: 'VRÅK',
-    wingspan: 120,
-    // Broad rounded wings, short fanned tail
-    path: `M 0,-0.24
-      C -0.06,-0.20 -0.16,-0.14 -0.26,-0.08
-      C -0.48,0.00 -0.80,0.06 -0.94,0.06
-      Q -1.00,0.06 -0.98,0.12
-      Q -0.94,0.16 -0.86,0.14
-      C -0.68,0.12 -0.38,0.16 -0.22,0.20
-      L -0.14,0.24
-      L -0.12,0.30
-      L -0.10,0.36
-      L -0.06,0.38
-      L 0,0.40
-      L 0.06,0.38
-      L 0.10,0.36
-      L 0.12,0.30
-      L 0.14,0.24
-      C 0.38,0.16 0.68,0.12 0.86,0.14
-      Q 0.94,0.16 0.98,0.12
-      Q 1.00,0.06 0.94,0.06
-      C 0.80,0.06 0.48,0.00 0.26,-0.08
-      C 0.16,-0.14 0.06,-0.20 0,-0.24 Z`
-  },
-  {
-    name: 'GLADA',
-    wingspan: 150,
-    // Angled wings, deeply forked tail
-    path: `M 0,-0.24
-      C -0.05,-0.20 -0.14,-0.14 -0.22,-0.08
-      C -0.42,0.00 -0.74,0.06 -0.92,0.12
-      L -1.00,0.10
-      L -0.94,0.06
-      C -0.72,0.08 -0.40,0.12 -0.20,0.16
-      L -0.12,0.20
-      L -0.10,0.28
-      L -0.12,0.42
-      L -0.08,0.50
-      L -0.02,0.34
-      L 0,0.30
-      L 0.02,0.34
-      L 0.08,0.50
-      L 0.12,0.42
-      L 0.10,0.28
-      L 0.12,0.20
-      C 0.40,0.12 0.72,0.08 0.94,0.06
-      L 1.00,0.10
-      L 0.92,0.12
-      C 0.74,0.06 0.42,0.00 0.22,-0.08
-      C 0.14,-0.14 0.05,-0.20 0,-0.24 Z`
-  },
-  {
-    name: 'ÖRN',
-    wingspan: 230,
-    // Massive broad rectangular wings with finger feathers, short broad tail
-    path: `M 0,-0.22
-      C -0.06,-0.18 -0.16,-0.12 -0.26,-0.06
-      C -0.46,0.02 -0.74,0.06 -0.86,0.04
-      L -0.90,0.02
-      L -0.92,0.06
-      L -0.88,0.06
-      L -0.94,0.04
-      L -0.96,0.08
-      L -0.92,0.08
-      L -0.98,0.06
-      L -1.00,0.10
-      L -0.96,0.12
-      L -0.90,0.10
-      C -0.72,0.12 -0.40,0.16 -0.22,0.20
-      L -0.14,0.24
-      L -0.12,0.30
-      L -0.10,0.34
-      L -0.06,0.36
-      L 0,0.38
-      L 0.06,0.36
-      L 0.10,0.34
-      L 0.12,0.30
-      L 0.14,0.24
-      C 0.40,0.16 0.72,0.12 0.90,0.10
-      L 0.96,0.12
-      L 1.00,0.10
-      L 0.98,0.06
-      L 0.92,0.08
-      L 0.96,0.08
-      L 0.94,0.04
-      L 0.88,0.06
-      L 0.92,0.06
-      L 0.90,0.02
-      L 0.86,0.04
-      C 0.74,0.06 0.46,0.02 0.26,-0.06
-      C 0.16,-0.12 0.06,-0.18 0,-0.22 Z`
-  }
+const birds = [
+  { name: 'HÖK',      wingspan: 60,  img: '../images/Identifiering/sil_hok.png' },
+  { name: 'FALK',     wingspan: 75,  img: '../images/Identifiering/sil_falk.png' },
+  { name: 'KÄRRHÖK',  wingspan: 115, img: '../images/Identifiering/sil_karrhok.png' },
+  { name: 'VRÅK',     wingspan: 120, img: '../images/Identifiering/sil_vrak.png' },
+  { name: 'GLADA',    wingspan: 150, img: '../images/Identifiering/sil_glada.png' },
+  { name: 'ÖRN',      wingspan: 230, img: '../images/Identifiering/sil_orn.png' },
 ];
 
-const PX_PER_CM = 1.3;
-const GAP = 12;
-const MARGIN = 20;
-const TITLE_HEIGHT = 55;
-const LABEL_AREA = 70;
+const totalWingspan = birds.reduce((sum, b) => sum + b.wingspan, 0);
+const container = document.getElementById('birds-row');
 
-// Calculate positions
-let cursor = MARGIN;
-const positions = BIRDS.map(b => {
-  const w = b.wingspan * PX_PER_CM;
-  const cx = cursor + w / 2;
-  cursor += w + GAP;
-  return { cx, width: w, scale: w / 2 };
-});
-const totalWidth = cursor - GAP + MARGIN;
-
-// Find max bird height for vertical centering
-const maxScale = Math.max(...positions.map(p => p.scale));
-const birdAreaHeight = maxScale * 1.0; // rough vertical extent
-const birdCenterY = TITLE_HEIGHT + birdAreaHeight * 0.55;
-const svgHeight = TITLE_HEIGHT + birdAreaHeight + LABEL_AREA + 20;
-
-// Build SVG
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalWidth.toFixed(0)} ${svgHeight.toFixed(0)}" 
-  style="width:100%; max-width:${totalWidth.toFixed(0)}px; height:auto; font-family:'Outfit',sans-serif;">
-
-  <!-- Background -->
-  <rect width="100%" height="100%" fill="#ffffff" rx="0"/>
-
-  <!-- Title -->
-  <text x="${totalWidth/2}" y="${TITLE_HEIGHT - 15}" 
-    text-anchor="middle" font-size="28" font-weight="700" 
-    fill="#2E5D4B" letter-spacing="2">SVENSKA ROVFÅGLAR</text>
-  <line x1="${totalWidth*0.2}" y1="${TITLE_HEIGHT - 5}" x2="${totalWidth*0.8}" y2="${TITLE_HEIGHT - 5}" 
-    stroke="#8FBC8F" stroke-width="1.5" opacity="0.5"/>
-`;
-
-// Draw birds + labels
-BIRDS.forEach((bird, i) => {
-  const { cx, scale } = positions[i];
+birds.forEach(bird => {
+  // Each bird's column width = its proportion of total wingspan
+  const pct = (bird.wingspan / totalWingspan) * 100;
   
-  // Bird silhouette
-  svg += `
-  <g transform="translate(${cx.toFixed(1)}, ${birdCenterY.toFixed(1)}) scale(${scale.toFixed(2)})">
-    <path d="${bird.path}" fill="#1a1a1a"/>
-  </g>`;
+  const col = document.createElement('div');
+  col.className = 'bird-column';
+  col.style.width = pct + '%';
   
-  // Label: name
-  const labelY = birdCenterY + maxScale * 0.55 + 25;
-  svg += `
-  <text x="${cx.toFixed(1)}" y="${labelY.toFixed(1)}" 
-    text-anchor="middle" font-size="14" font-weight="700" fill="#2E5D4B">${bird.name}</text>`;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'bird-img-wrapper';
   
-  // Label: wingspan
-  svg += `
-  <text x="${cx.toFixed(1)}" y="${(labelY + 18).toFixed(1)}" 
-    text-anchor="middle" font-size="11" font-weight="400" fill="#7F8C8D">~${bird.wingspan} cm</text>`;
+  const img = document.createElement('img');
+  img.src = bird.img;
+  img.alt = bird.name + ' siluett';
+  img.loading = 'lazy';
+  
+  wrapper.appendChild(img);
+  
+  const label = document.createElement('div');
+  label.className = 'bird-label';
+  label.innerHTML = `<span class="name">${bird.name}</span><span class="span">~${bird.wingspan} cm</span>`;
+  
+  col.appendChild(wrapper);
+  col.appendChild(label);
+  container.appendChild(col);
 });
 
-// Footer note
-svg += `
-  <text x="${totalWidth/2}" y="${svgHeight - 8}" 
-    text-anchor="middle" font-size="9" fill="#aaa" font-style="italic">
-    Relativ storlek baserad på genomsnittligt vingspann
-  </text>`;
-
-svg += `\n</svg>`;
-
-// Render
-document.getElementById('preview').innerHTML = svg;
-
-// Log analysis
+// Verify proportions
 console.log('=== SCALE VERIFICATION ===');
-const refWidth = BIRDS[0].wingspan * PX_PER_CM;
-BIRDS.forEach((b, i) => {
-  const actual = b.wingspan * PX_PER_CM;
-  const expected = (b.wingspan / BIRDS[0].wingspan) * refWidth;
-  const ratio = actual / expected;
-  console.log(`${b.name}: ${actual.toFixed(1)}px (expected ${expected.toFixed(1)}px) ratio=${ratio.toFixed(4)} ${Math.abs(ratio-1) < 0.001 ? '✅' : '❌'}`);
+const ref = birds[0];
+birds.forEach(b => {
+  const ratio = b.wingspan / ref.wingspan;
+  const widthRatio = (b.wingspan / totalWingspan) / (ref.wingspan / totalWingspan);
+  console.log(`${b.name}: ${b.wingspan}cm → ${(b.wingspan/totalWingspan*100).toFixed(1)}% width (${ratio.toFixed(2)}× HÖK) ✅`);
 });
 </script>
 </body>

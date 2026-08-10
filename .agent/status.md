@@ -41,10 +41,13 @@
 
 ### 🎨 Generera bilder
 - [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
+- [ ] Anpassa Flugsnappares ikonstil så den liknar övriga ikoner
+- [ ] Generera silhuett-versioner av rovfåglar och andra fåglar
 
 ### 🐛 Bugg och fix
 - [x] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
+- [ ] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
@@ -63,6 +66,7 @@
 
 ### 🔍 Identifiera
 - [x] Lägga till Quiz-läget igen under Identifiera
+- [ ] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
 
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
