@@ -65,6 +65,7 @@
 - [ ] Lägga till informationsavsnitt/hjälp i Inställningar
 - [ ] Skapa användarkonto-system (användarprofil & ID)
 - [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
+- [ ] Visa antal genomförda Quiz i Statistiken
 
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
