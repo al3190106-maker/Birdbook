@@ -1,19 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <!-- 3. Fågelskådare: Fågel (Fågel på gren) -->
-  <g fill="#2E5D4B">
-    <!-- Bird -->
-    <path d="M 75 25 C 75 18, 65 14, 55 18 C 45 22, 32 32, 22 48 C 18 54, 12 58, 6 60 C 14 62, 22 62, 26 58 C 34 50, 42 42, 52 42 C 65 42, 75 36, 75 25 Z" />
-    <!-- Tail -->
-    <path d="M 24 54 L 10 76 C 10 76, 14 78, 16 78 L 30 58 Z" />
-    <!-- Beak -->
-    <polygon points="73,20 84,23 74,27" />
-    <!-- Eye -->
-    <circle cx="64" cy="22" r="2.5" fill="#ffffff" />
-    <!-- Wing curved detail (white cutout) -->
-    <path d="M 52 34 Q 44 42, 54 52" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
-    <!-- Branch -->
-    <path d="M 15 74 L 85 64" fill="none" stroke="#2E5D4B" stroke-width="3" stroke-linecap="round" />
-    <!-- Legs -->
-    <path d="M 44 50 L 40 68 M 52 48 L 50 66" fill="none" stroke="#2E5D4B" stroke-width="2.5" stroke-linecap="round" />
-  </g>
+  <!-- 3. Fågelskådare: Symmetrisk flygande fågelsiluett -->
+  <path d="M 50 15 
+           C 52 25, 65 32, 90 35 
+           C 70 38, 58 42, 54 52 
+           C 55 64, 58 76, 55 85 
+           L 50 80 
+           L 45 85 
+           C 42 76, 45 64, 46 52 
+           C 42 42, 30 38, 10 35 
+           C 35 32, 48 25, 50 15 Z" fill="#2E5D4B" />
 </svg>
