@@ -68,6 +68,7 @@
 ### 🔍 Identifiera
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [ ] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
+- [ ] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
 
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
