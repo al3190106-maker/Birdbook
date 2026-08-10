@@ -2899,6 +2899,15 @@ body {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     transition: transform 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diff-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
 }
 
 .difficulty-card:hover .diff-icon {

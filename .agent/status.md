@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-10 | 🎨 Bildgenerering | Skapat och lagt till gröna ikonbilder för alla val i Quiz-menyn i `index.html` och `style.css` |
 | 2026-08-10 | 🎨 Bildgenerering | Omgenererat kategori-ikonen för Flugsnappare (`images/category_icons/flugsnappare.png`) med en flugsnappare som fångar en fluga |
 | 2026-08-10 | 🔍 Identifiera | Quiz-repetitionsalgoritm: Utesluter nyligen rätt besvarade arter i `app.js` så endast felsvarade/nya arter återkommer |
 | 2026-08-10 | 🔍 Identifiera | Utökat Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar) i `index.html` och `app.js` |
