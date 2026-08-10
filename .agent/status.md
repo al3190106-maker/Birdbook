@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-10 | 🎨 Bildgenerering | Omgenererat kategori-ikonen för Flugsnappare (`images/category_icons/flugsnappare.png`) med en flugsnappare som fångar en fluga |
 | 2026-08-10 | 🔍 Identifiera | Quiz-repetitionsalgoritm: Utesluter nyligen rätt besvarade arter i `app.js` så endast felsvarade/nya arter återkommer |
 | 2026-08-10 | 🔍 Identifiera | Utökat Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar) i `index.html` och `app.js` |
 | 2026-08-10 | 🐛 Bugg och fix | Dölja kamera- och papperskorgsikoner på stora bildkort i Min logg på mobilen (CSS media query) |
@@ -44,7 +45,7 @@
 
 ### 🎨 Generera bilder
 - [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
-- [ ] Anpassa Flugsnappares ikonstil så den liknar övriga ikoner
+- [x] Omgenerera Flugsnappares ikonstil med en fågel som fångar en flygande fluga
 - [ ] Generera silhuett-versioner av rovfåglar och andra fåglar
 
 ### 🐛 Bugg och fix
