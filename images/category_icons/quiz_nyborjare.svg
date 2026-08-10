@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Hatching chick / Nybörjaren -->
+  <g fill="#2E5D4B" stroke="#2E5D4B" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Chick head -->
+    <path d="M 50 20 C 38 20 30 29 30 42 C 30 46 32 50 35 53 C 38 46 45 42 50 42 C 55 42 62 46 65 53 C 68 50 70 46 70 42 C 70 29 62 20 50 20 Z" fill="#2E5D4B"/>
+    <!-- Chick tuft on head -->
+    <path d="M 48 20 C 47 15 50 12 52 10 C 53 14 51 17 50 20 Z" fill="#2E5D4B"/>
+    <path d="M 51 21 C 52 16 56 14 58 13 C 57 17 54 19 51 21 Z" fill="#2E5D4B"/>
+    <!-- Eye (white cutout) -->
+    <circle cx="43" cy="32" r="3" fill="#ffffff" stroke="none"/>
+    <circle cx="57" cy="32" r="3" fill="#ffffff" stroke="none"/>
+    <!-- Beak -->
+    <polygon points="50,34 44,40 56,40" fill="#2E5D4B"/>
+    <!-- Egg shell bottom -->
+    <path d="M 24 58 C 24 75 36 86 50 86 C 64 86 76 75 76 58 L 66 64 L 56 56 L 50 62 L 44 56 L 34 64 Z" fill="#2E5D4B" stroke="#2E5D4B" stroke-width="2"/>
+    <!-- Little leaf sprout -->
+    <path d="M 74 72 C 82 66 85 58 84 54 C 78 55 72 61 72 68 Z" fill="#2E5D4B"/>
+    <path d="M 73 70 Q 78 64 83 58" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  </g>
+</svg>

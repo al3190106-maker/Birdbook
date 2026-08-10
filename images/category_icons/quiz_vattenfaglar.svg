@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Swan on Water / Vattenfåglar -->
+  <g fill="#2E5D4B">
+    <!-- Swan Body & Curved Neck -->
+    <path d="M 32 60 C 26 56 24 48 26 40 C 28 32 36 22 42 16 C 44 14 47 16 46 19 C 43 25 38 32 38 40 C 38 46 44 48 50 48 C 66 48 76 56 80 66 C 68 66 58 64 50 64 C 42 64 36 62 32 60 Z" />
+    
+    <!-- Swan Head & Beak -->
+    <path d="M 42 16 C 43 14 47 13 50 14 C 54 15 56 18 52 20 C 47 21 44 19 42 16 Z" />
+    <!-- Beak -->
+    <polygon points="50,15 58,16 51,19" />
+
+    <!-- Eye cutout -->
+    <circle cx="46" cy="16" r="1" fill="#ffffff" />
+
+    <!-- Reeds on left -->
+    <path d="M 16 35 C 16 30 18 20 20 15 C 22 20 20 30 20 35 Z" />
+    <path d="M 12 45 L 12 75 H 15 L 15 45 Z" />
+    <path d="M 18 35 L 18 75 H 21 L 21 35 Z" />
+
+    <!-- Water Waves -->
+    <path d="M 14 74 Q 28 68 42 74 T 70 74 T 90 74" fill="none" stroke="#2E5D4B" stroke-width="3" stroke-linecap="round" />
+    <path d="M 10 82 Q 24 76 38 82 T 66 82 T 86 82" fill="none" stroke="#2E5D4B" stroke-width="3" stroke-linecap="round" />
+  </g>
+</svg>
