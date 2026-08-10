@@ -4351,16 +4351,67 @@ function setupEventListeners() {
 
 // --- Quiz System ---
 
-function getRandomBirds(count, excludeId, type) {
+function getRandomBirds(count, excludeId, targetItem) {
     const list = getCurrentSpeciesList();
     let pool = list.filter(b => b.id !== excludeId);
-    // If type specified and enough birds of that type, filter
-    if (type) {
-        const sameType = pool.filter(b => b.type === type);
-        if (sameType.length >= count) {
-            pool = sameType;
-        }
+    
+    let target = targetItem;
+    if (target && typeof target !== 'object') {
+        const found = list.find(b => b.id === excludeId || b.type === targetItem);
+        if (found) target = found;
+    } else if (!target) {
+        target = list.find(b => b.id === excludeId);
     }
+
+    if (target && typeof target === 'object') {
+        const targetType = target.type;
+        const targetColor = target.color;
+
+        // 1. Exakt samma typ/familj (t.ex. samma mes, samma andar, samma vadare)
+        const sameType = pool.filter(b => b.type === targetType);
+        if (sameType.length >= count) {
+            return sameType.sort(() => Math.random() - 0.5).slice(0, count);
+        }
+
+        // 2. Närbesläktade/liknande typer
+        const relatedGroups = {
+            'Andfåglar': ['Lommar & Doppingar', 'Hägrar', 'Vadare & Måsfåglar'],
+            'Hönsfåglar': ['Sparvar', 'Vadare & Måsfåglar'],
+            'Lommar & Doppingar': ['Andfåglar', 'Hägrar', 'Vadare & Måsfåglar'],
+            'Hägrar': ['Lommar & Doppingar', 'Andfåglar', 'Vadare & Måsfåglar'],
+            'Rovfåglar': ['Ugglor', 'Hackspettar', 'Kråkfåglar'],
+            'Vadare & Måsfåglar': ['Andfåglar', 'Lommar & Doppingar', 'Hägrar'],
+            'Ugglor': ['Rovfåglar', 'Hackspettar'],
+            'Hackspettar': ['Ugglor', 'Kråkfåglar', 'Mesfåglar'],
+            'Finkar': ['Sparvar', 'Mesfåglar', 'Sångare', 'Flugsnappare'],
+            'Mesfåglar': ['Finkar', 'Sångare', 'Flugsnappare', 'Sparvar'],
+            'Sångare': ['Mesfåglar', 'Flugsnappare', 'Finkar', 'Sparvar', 'Svalor'],
+            'Kråkfåglar': ['Rovfåglar', 'Hackspettar', 'Trastar'],
+            'Svalor': ['Sångare', 'Flugsnappare', 'Mesfåglar'],
+            'Flugsnappare': ['Sångare', 'Mesfåglar', 'Finkar', 'Sparvar'],
+            'Sparvar': ['Finkar', 'Mesfåglar', 'Sångare', 'Hönsfåglar'],
+            'Övriga': ['Sångare', 'Finkar', 'Trastar', 'Sparvar']
+        };
+
+        const relatedTypes = relatedGroups[targetType] || [];
+        let candidatePool = [...sameType];
+        const relatedSame = pool.filter(b => relatedTypes.includes(b.type) && !candidatePool.some(c => c.id === b.id));
+        candidatePool = candidatePool.concat(relatedSame.sort(() => Math.random() - 0.5));
+
+        // 3. Liknande färgteckning om mer behövs
+        if (candidatePool.length < count && targetColor) {
+            const sameColor = pool.filter(b => b.color === targetColor && !candidatePool.some(c => c.id === b.id));
+            candidatePool = candidatePool.concat(sameColor.sort(() => Math.random() - 0.5));
+        }
+
+        if (candidatePool.length < count) {
+            const remaining = pool.filter(b => !candidatePool.some(c => c.id === b.id));
+            candidatePool = candidatePool.concat(remaining.sort(() => Math.random() - 0.5));
+        }
+
+        return candidatePool.slice(0, count);
+    }
+
     const shuffled = pool.sort(() => Math.random() - 0.5);
     return shuffled.slice(0, count);
 }
@@ -4494,7 +4545,7 @@ function generateQuizQuestions(mode, count = 10) {
         const item = birds[i];
 
         if (mode === 'image') {
-            const wrongItems = getRandomBirds(3, item.id, item.type);
+            const wrongItems = getRandomBirds(3, item.id, item);
             const options = [item, ...wrongItems].sort(() => Math.random() - 0.5);
             questions.push({
                 type: 'image',
@@ -4506,7 +4557,7 @@ function generateQuizQuestions(mode, count = 10) {
                 correctLabel: item.nameSv
             });
         } else if (mode === 'funfact') {
-            const wrongItems = getRandomBirds(3, item.id);
+            const wrongItems = getRandomBirds(3, item.id, item);
             const options = [item, ...wrongItems].sort(() => Math.random() - 0.5);
             const cleanedFact = stripBirdName(item.funFact, item);
             questions.push({
