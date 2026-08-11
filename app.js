@@ -4489,6 +4489,102 @@ function recordQuizAnswer(birdId, isCorrect) {
     }
 }
 
+// --- Quiz Statistics & Progression Tracking ---
+const QUIZ_STATS_KEY = 'naturboken_quiz_stats_v1';
+
+function getQuizStats() {
+    try {
+        const raw = localStorage.getItem(QUIZ_STATS_KEY);
+        if (raw) return JSON.parse(raw);
+    } catch (e) {
+        console.warn('[QuizStats] Kunde inte läsa sparad quizstatistik:', e);
+    }
+    return {
+        completedCount: 0,
+        totalQuestions: 0,
+        totalCorrect: 0,
+        perfectCount: 0,
+        bestScorePct: 0,
+        difficultyStats: {},
+        history: []
+    };
+}
+
+function recordQuizCompletion(score, total, subject, difficulty) {
+    if (!total || total <= 0) return null;
+
+    const stats = getQuizStats();
+    const pct = Math.round((score / total) * 100);
+    const dateStr = new Date().toISOString();
+
+    // Räkna ut snitt för de fem senaste quizen (före detta)
+    let recentAvgPct = 0;
+    if (stats.history.length > 0) {
+        const recentHistory = stats.history.slice(0, 5);
+        const sumPct = recentHistory.reduce((acc, h) => acc + (h.pct || 0), 0);
+        recentAvgPct = Math.round(sumPct / recentHistory.length);
+    }
+
+    stats.completedCount++;
+    stats.totalQuestions += total;
+    stats.totalCorrect += score;
+    if (pct === 100) stats.perfectCount++;
+    if (pct > stats.bestScorePct) stats.bestScorePct = pct;
+
+    const diffKey = difficulty || 'nyborjare';
+    if (!stats.difficultyStats[diffKey]) {
+        stats.difficultyStats[diffKey] = { count: 0, questions: 0, correct: 0, bestPct: 0 };
+    }
+    const dStat = stats.difficultyStats[diffKey];
+    dStat.count++;
+    dStat.questions += total;
+    dStat.correct += score;
+    if (pct > dStat.bestPct) dStat.bestPct = pct;
+
+    // Lägg till i rullande historik (spara max 30)
+    stats.history.unshift({
+        date: dateStr,
+        subject: subject || 'birds',
+        difficulty: diffKey,
+        score,
+        total,
+        pct
+    });
+    if (stats.history.length > 30) {
+        stats.history.pop();
+    }
+
+    try {
+        localStorage.setItem(QUIZ_STATS_KEY, JSON.stringify(stats));
+    } catch (e) {
+        console.warn('[QuizStats] Kunde inte spara quizstatistik:', e);
+    }
+
+    // Framstegsnotis / Feedback
+    let trendMsg = '';
+    let trendClass = 'neutral';
+
+    if (stats.completedCount === 1) {
+        trendMsg = '✨ Ditt första Quiz genomfört! Fortsätt öva för att se din utveckling.';
+        trendClass = 'positive';
+    } else if (pct === 100 && stats.history.length > 1) {
+        trendMsg = '🏆 Perfekt resultat! 100% rätt – du bemästrar denna nivå!';
+        trendClass = 'positive';
+    } else if (pct > recentAvgPct) {
+        const diff = pct - recentAvgPct;
+        trendMsg = `🚀 Framsteg! ${pct}% rätt (↗️ +${diff}% bättre än dina senaste quiz!)`;
+        trendClass = 'positive';
+    } else if (pct === recentAvgPct) {
+        trendMsg = `🎯 Stabil nivå! ${pct}% rätt (samma som ditt snitt).`;
+        trendClass = 'neutral';
+    } else {
+        trendMsg = `💪 Bra kämpat! Ditt genomsnitt på senaste quizen är ${recentAvgPct}%. Övning ger färdighet!`;
+        trendClass = 'neutral';
+    }
+
+    return { stats, pct, recentAvgPct, trendMsg, trendClass };
+}
+
 function generateQuizQuestions(mode, count = 10) {
     let list = getCurrentSpeciesList();
 
@@ -4633,6 +4729,7 @@ function initQuiz(mode, difficulty) {
     state.quizCurrent = 0;
     state.quizScore = 0;
     state.quizAnswered = false;
+    state.quizResultRecorded = false;
 
     document.getElementById('quiz-menu').classList.add('hidden');
     document.getElementById('quiz-area').classList.remove('hidden');
@@ -4738,6 +4835,18 @@ function showQuizResults() {
     document.getElementById('quiz-final-score').textContent = score;
     document.getElementById('quiz-final-total').textContent = total;
     document.getElementById('quiz-results-bar-fill').style.width = pct + '%';
+
+    // Spara quizresultat och visa framstegsnotering
+    if (!state.quizResultRecorded) {
+        state.quizResultRecorded = true;
+        const res = recordQuizCompletion(score, total, state.currentSubject, state.quizDifficulty);
+        const trendEl = document.getElementById('quiz-results-trend');
+        if (trendEl && res && res.trendMsg) {
+            trendEl.textContent = res.trendMsg;
+            trendEl.className = `quiz-results-trend-badge ${res.trendClass}`;
+            trendEl.classList.remove('hidden');
+        }
+    }
 
     // Difficulty label
     const subjectPrefix = SUBJECT_CONFIG[state.currentSubject].name.replace('boken', '');
@@ -4977,6 +5086,9 @@ function computeStats() {
     // Total sightings (including duplicates)
     const totalSightings = realSightings.length;
 
+    const quizStats = getQuizStats();
+    const quizRecentlyCorrectCount = getQuizRecentlyCorrect().length;
+
     const badges = [
         { icon: '🥚', name: 'Första fågeln', desc: 'Logga din första observation', earned: totalSightings >= 1 },
         { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: totalSightings >= 10 },
@@ -4991,6 +5103,9 @@ function computeStats() {
         { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (subjectCounts.animals || 0) >= 5 },
         { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt fågel (nivå 4+)', earned: loggedBirds.some(b => (b.rarity || 0) >= 4) },
         { icon: '🏆', name: 'Raritetsmästare', desc: 'Uppnå 100 sällsynthetsscore', earned: rarityScore >= 100 },
+        { icon: '🎓', name: 'Quiz-elev', desc: 'Genomför ditt första Quiz', earned: quizStats.completedCount >= 1 },
+        { icon: '🎯', name: 'Felfri i Quiz', desc: 'Få 100% rätt på ett Quiz', earned: quizStats.perfectCount >= 1 },
+        { icon: '🧠', name: 'Quizentusiast', desc: 'Genomför 10 Quiz-omgångar', earned: quizStats.completedCount >= 10 },
         { icon: '📍', name: 'Äventyraren', desc: 'Logga på 5 olika platser', earned: Object.keys(subjectCounts).length > 0 && (() => { const locs = new Set(realSightings.filter(s => s.location && s.location !== 'Snabbtillägg' && s.location !== 'System Init' && s.id !== 'SYSTEM_INIT_BIRD').map(s => s.location)); return locs.size >= 5; })() },
         { icon: '🌟', name: '100 unika arter', desc: 'Totalt 100 unika arter loggade', earned: totalUniq >= 100 },
     ];
@@ -5002,6 +5117,7 @@ function computeStats() {
         bestCat, rarityBreakdown, rarityNames, rarityColors, rarityScore, rarityPoints,
         topLocation, bestMonth, yearCount, firstDate, totalSightings,
         birdSightings: loggedBirdSightings.length,
+        quizStats, quizRecentlyCorrectCount,
         badges
     };
 }
@@ -5011,6 +5127,112 @@ function row(label, value, cls = '') {
         <span class="stats-row-label">${label}</span>
         <span class="stats-row-value ${cls}">${value}</span>
     </div>`;
+}
+
+function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
+    const el = document.getElementById('stats-quiz-body');
+    if (!el) return;
+
+    if (!qs || qs.completedCount === 0) {
+        el.innerHTML = `
+            <div class="stats-empty">
+                <i class="fa-solid fa-circle-question"></i>
+                <p>Du har inte genomfört några Quiz än.<br>Spela ditt första Quiz under <strong>Identifiera → Quiz</strong> för att följa dina framsteg!</p>
+            </div>
+        `;
+        return;
+    }
+
+    const overallPct = qs.totalQuestions > 0 ? Math.round((qs.totalCorrect / qs.totalQuestions) * 100) : 0;
+    
+    // Beräkna formkurva (senaste 5 quiz kontra totalt snitt)
+    const recent5 = qs.history.slice(0, 5);
+    let recentPct = overallPct;
+    let trendBadge = '';
+    
+    if (recent5.length > 0) {
+        const sumRecent = recent5.reduce((acc, h) => acc + (h.pct || 0), 0);
+        recentPct = Math.round(sumRecent / recent5.length);
+        const delta = recentPct - overallPct;
+
+        if (delta > 0) {
+            trendBadge = `<div class="quiz-trend-banner positive"><i class="fa-solid fa-arrow-trend-up"></i> <strong>Stigande form!</strong> Senaste 5 quiz: <strong>${recentPct}%</strong> (${delta > 0 ? '+' : ''}${delta}% bättre än totalt snitt)</div>`;
+        } else if (delta < 0) {
+            trendBadge = `<div class="quiz-trend-banner neutral"><i class="fa-solid fa-chart-line"></i> Senaste 5 quiz: <strong>${recentPct}%</strong> (Totalt snitt: ${overallPct}%)</div>`;
+        } else {
+            trendBadge = `<div class="quiz-trend-banner positive"><i class="fa-solid fa-check-double"></i> <strong>Stabil toppform!</strong> Senaste 5 quiz: <strong>${recentPct}%</strong> rätt</div>`;
+        }
+    }
+
+    // Definiera svårighetsgrader för mastery-översikt
+    const diffMap = {
+        'nyborjare': { name: 'Nybörjaren', icon: '🌱' },
+        'intresserad': { name: 'Fågelintresserad', icon: '🔍' },
+        'skadare': { name: 'Fågelskådare', icon: '🔭' },
+        'orakel': { name: 'Fågelorakel', icon: '🦉' },
+        'vattenfaglar': { name: 'Vattenfåglar', icon: '🌊' },
+        'akerfaglar': { name: 'Åkerfåglar', icon: '🌾' },
+        'skogsfaglar': { name: 'Skogsfåglar', icon: '🌲' }
+    };
+
+    let masteryHtml = Object.keys(diffMap).map(dKey => {
+        const dObj = diffMap[dKey];
+        const dStat = qs.difficultyStats[dKey];
+        if (!dStat || dStat.count === 0) {
+            return `<div class="quiz-mastery-row opacity-low">
+                <span class="quiz-mastery-icon">${dObj.icon}</span>
+                <span class="quiz-mastery-name">${dObj.name}</span>
+                <div class="nature-subject-bar-wrap"><div class="nature-subject-bar-fill" style="width:0%;"></div></div>
+                <span class="quiz-mastery-pct">Ej spelad</span>
+            </div>`;
+        }
+        const accPct = Math.round((dStat.correct / dStat.questions) * 100);
+        return `<div class="quiz-mastery-row">
+            <span class="quiz-mastery-icon">${dObj.icon}</span>
+            <span class="quiz-mastery-name">${dObj.name}</span>
+            <div class="nature-subject-bar-wrap">
+                <div class="nature-subject-bar-fill" style="width:${accPct}%; background:${accPct >= 80 ? '#22c55e' : (accPct >= 50 ? '#eab308' : '#3b82f6')};"></div>
+            </div>
+            <span class="quiz-mastery-pct"><strong>${accPct}%</strong> (${dStat.count}×)</span>
+        </div>`;
+    }).join('');
+
+    const lastQuiz = qs.history[0];
+    const lastQuizStr = lastQuiz ? `${lastQuiz.score}/${lastQuiz.total} rätt (${lastQuiz.pct}%)` : '—';
+
+    el.innerHTML = `
+        ${trendBadge}
+        <div class="quiz-stats-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin: 1rem 0;">
+            <div class="quiz-stat-card">
+                <div class="quiz-stat-card-title"><i class="fa-solid fa-gamepad"></i> Genomförda Quiz</div>
+                <div class="quiz-stat-card-val">${qs.completedCount} st</div>
+            </div>
+            <div class="quiz-stat-card">
+                <div class="quiz-stat-card-title"><i class="fa-solid fa-bullseye"></i> Träffsäkerhet</div>
+                <div class="quiz-stat-card-val">${overallPct}% <small style="font-size:0.75rem;font-weight:400;color:var(--text-muted)">(${qs.totalCorrect}/${qs.totalQuestions} frågor)</small></div>
+            </div>
+            <div class="quiz-stat-card">
+                <div class="quiz-stat-card-title"><i class="fa-solid fa-trophy"></i> Perfekta Quiz (100%)</div>
+                <div class="quiz-stat-card-val" style="color:#d97706;">${qs.perfectCount} st</div>
+            </div>
+            <div class="quiz-stat-card">
+                <div class="quiz-stat-card-title"><i class="fa-solid fa-brain"></i> Bemästrade arter</div>
+                <div class="quiz-stat-card-val" style="color:var(--primary);">${quizRecentlyCorrectCount} arter</div>
+            </div>
+        </div>
+
+        <h4 style="font-size:0.9rem; font-weight:700; color:var(--primary); margin: 1.2rem 0 0.6rem; text-transform:uppercase; letter-spacing:0.5px;">
+            <i class="fa-solid fa-layer-group"></i> Erövringsgrad per nivå
+        </h4>
+        <div class="quiz-mastery-list">
+            ${masteryHtml}
+        </div>
+
+        <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed #e2e8f0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; font-size:0.85rem; color:var(--text-muted);">
+            <span><i class="fa-solid fa-history"></i> Senaste Quiz: <strong>${lastQuizStr}</strong></span>
+            <span><i class="fa-solid fa-star"></i> Personbästa: <strong>${qs.bestScorePct}%</strong></span>
+        </div>
+    `;
 }
 
 function renderStatsView() {
@@ -5050,16 +5272,10 @@ function renderStatsView() {
         { icon: '🔍', value: s.totalSightings, label: 'Totala observationer' },
         { icon: '🐦', value: s.birdUniq, label: 'Unika fågelarter' },
         { icon: '🌿', value: s.totalUniq, label: 'Unika arter (alla)' },
+        { icon: '🧩', value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
         { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
-        {
-            icon: '📍', value: Object.keys(s.subjectCounts).reduce((n, k) => n, 0) || '—',
-            label: 'Ämnen utforskade'
-        },
         { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
     ];
-    // Replace 5th with years of active subjects
-    const activeSubjects = Object.values(s.subjectCounts).filter(v => v > 0).length;
-    overviewCards[4] = { icon: '📚', value: activeSubjects, label: 'Böcker utforskade' };
     overviewEl.innerHTML = overviewCards.map(c => `
         <div class="stats-overview-card">
             <div class="stats-overview-icon">${c.icon}</div>
@@ -5142,6 +5358,9 @@ function renderStatsView() {
             el.style.cursor = '';
         });
     });
+
+    // --- Quiz Progress & Mastery Panel ---
+    renderQuizStatsSection(s.quizStats, s.quizRecentlyCorrectCount);
 
     // --- Time & Location ---
     const timeEl = document.getElementById('stats-time-body');
