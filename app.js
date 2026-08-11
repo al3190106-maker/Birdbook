@@ -5188,42 +5188,67 @@ function computeStats(subjectId = state.currentSubject) {
     const loggedBirdIds = [...new Set(loggedBirdSightings.map(s => s.birdId))];
     const loggedBirds = loggedBirdIds.map(id => birdList.find(b => b.id === id)).filter(Boolean);
 
+    // Helper functions för bok-specifik achivement-beräkning
+    const fishUniq = subjectCounts.fish || 0;
+    const fungiUniq = subjectCounts.fungi || 0;
+    const plantUniq = subjectCounts.plants || 0;
+    const animalUniq = subjectCounts.animals || 0;
+
+    const hasSeenNameContains = (dataVarName, str) => {
+        const list = window[dataVarName] || [];
+        const ids = new Set(list.filter(item => item.nameSv && item.nameSv.toLowerCase().includes(str.toLowerCase())).map(i => i.id));
+        return realSightings.some(s => ids.has(s.birdId));
+    };
+
     const badges = [
         // Universal / General (alla böcker)
-        { icon: '🥚', name: 'Första observationen', desc: 'Logga din första observation', earned: realSightings.length >= 1, subject: 'all' },
+        { icon: '🥚', name: 'Första steget', desc: 'Logga din allra första observation', earned: realSightings.length >= 1, subject: 'all' },
         { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: realSightings.length >= 10, subject: 'all' },
         { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt art (nivå 4+)', earned: realSightings.some(s => { const b = activeSpeciesList.find(x => x.id === s.birdId); return b && (b.rarity || 0) >= 4; }), subject: 'all' },
         { icon: '🏆', name: 'Raritetsmästare', desc: 'Uppnå 100 sällsynthetsscore', earned: rarityScore >= 100, subject: 'all' },
-        { icon: '📍', name: 'Äventyraren', desc: 'Logga på 5 olika platser', earned: Object.keys(subjectCounts).length > 0 && (() => { const locs = new Set(realSightings.filter(s => s.location && s.location !== 'Snabbtillägg' && s.location !== 'System Init' && s.id !== 'SYSTEM_INIT_BIRD').map(s => s.location)); return locs.size >= 5; })(), subject: 'all' },
+        { icon: '📍', name: 'Äventyraren', desc: 'Logga på 5 olika platser', earned: (() => { const locs = new Set(realSightings.filter(s => s.location && s.location !== 'Snabbtillägg' && s.location !== 'System Init' && s.id !== 'SYSTEM_INIT_BIRD').map(s => s.location)); return locs.size >= 5; })(), subject: 'all' },
         { icon: '🌟', name: '100 unika arter', desc: 'Totalt 100 unika arter loggade', earned: totalUniq >= 100, subject: 'all' },
         
         // Nature (samlad översikt)
         { icon: '🌿', name: 'Naturälskare', desc: 'Logga i 3+ olika ämnesböcker', earned: atomicSubjects.filter(k => (subjectCounts[k] || 0) > 0).length >= 3, subject: 'nature' },
+        { icon: '👑', name: 'Mäster-Naturalist', desc: 'Logga arter i alla 5 ämnesböckerna', earned: atomicSubjects.filter(k => (subjectCounts[k] || 0) > 0).length >= 5, subject: 'nature' },
         
-        // Fåglar (endast Fågelboken & Naturboken)
-        { icon: '🦅', name: '5 fågelarter', desc: 'Observera 5 unika fågelarter', earned: birdUniq >= 5, subject: 'birds' },
-        { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en ugglor-observation', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && loggedBirds.some(lb => lb.id === b.id)), subject: 'birds' },
-        { icon: '👑', name: '25 fågelarter', desc: 'Observera 25 unika fågelarter', earned: birdUniq >= 25, subject: 'birds' },
-        { icon: '🦢', name: '50 fågelarter', desc: 'Observera 50 unika fågelarter', earned: birdUniq >= 50, subject: 'birds' },
-        { icon: '🎓', name: 'Quiz-elev', desc: 'Genomför ditt första Quiz', earned: quizStats.completedCount >= 1, subject: 'birds' },
-        { icon: '🎯', name: 'Felfri i Quiz', desc: 'Få 100% rätt på ett Quiz', earned: quizStats.perfectCount >= 1, subject: 'birds' },
-        { icon: '🧠', name: 'Quizentusiast', desc: 'Genomför 10 Quiz-omgångar', earned: quizStats.completedCount >= 10, subject: 'birds' },
-
-        // Växter (Växtboken)
-        { icon: '🌸', name: 'Växtälskaren', desc: 'Logga 5 växter (blommor/träd)', earned: (subjectCounts.plants || 0) >= 5, subject: 'plants' },
-        { icon: '🌳', name: 'Flora-samlare', desc: 'Logga 15 växter (blommor/träd)', earned: (subjectCounts.plants || 0) >= 15, subject: 'plants' },
-
-        // Svamp (Svampboken)
-        { icon: '🍄', name: 'Svampplockaren', desc: 'Logga 5 svampar', earned: (subjectCounts.fungi || 0) >= 5, subject: 'fungi' },
-        { icon: '🧺', name: 'Svampkännaren', desc: 'Logga 15 svampar', earned: (subjectCounts.fungi || 0) >= 15, subject: 'fungi' },
+        // Fåglar (Fågelboken)
+        { icon: '🐦', name: 'Första fågeln', desc: 'Logga din första fågel', earned: birdUniq >= 1, subject: 'birds' },
+        { icon: '🦅', name: 'Fågelskådare', desc: 'Logga 5 unika fågelarter', earned: birdUniq >= 5, subject: 'birds' },
+        { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en uggla', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && loggedBirds.some(lb => lb.id === b.id)), subject: 'birds' },
+        { icon: '🌊', name: 'Sjöfågelspejare', desc: 'Logga en vattenfågel', earned: loggedBirds.some(b => b.type === 'Vattenfåglar & Änder' || b.type === 'Svanar & Gäss'), subject: 'birds' },
+        { icon: '👑', name: 'Ornitologen', desc: 'Logga 25 unika fågelarter', earned: birdUniq >= 25, subject: 'birds' },
+        { icon: '🎓', name: 'Quiz-elev', desc: 'Genomför ditt första fågelquiz', earned: quizStats.completedCount >= 1, subject: 'birds' },
+        { icon: '🎯', name: 'Felfri i Quiz', desc: 'Få 100% rätt på ett fågelquiz', earned: quizStats.perfectCount >= 1, subject: 'birds' },
 
         // Fisk (Fiskboken)
-        { icon: '🐟', name: 'Fiskaren', desc: 'Logga 5 fiskar', earned: (subjectCounts.fish || 0) >= 5, subject: 'fish' },
-        { icon: '🎣', name: 'Storfiskaren', desc: 'Logga 15 fiskar', earned: (subjectCounts.fish || 0) >= 15, subject: 'fish' },
+        { icon: '🐟', name: 'Första nappet', desc: 'Logga din första fisk', earned: fishUniq >= 1, subject: 'fish' },
+        { icon: '🎣', name: 'Storfiskaren', desc: 'Logga 5 unika fiskarter', earned: fishUniq >= 5, subject: 'fish' },
+        { icon: '🐊', name: 'Gäddkungen', desc: 'Logga en Gädda eller Abborre', earned: hasSeenNameContains('swedishFish', 'gädda') || hasSeenNameContains('swedishFish', 'abborre'), subject: 'fish' },
+        { icon: '🦈', name: 'Havets rovfisk', desc: 'Logga en Torsk eller Lax', earned: hasSeenNameContains('swedishFish', 'torsk') || hasSeenNameContains('swedishFish', 'lax'), subject: 'fish' },
+        { icon: '🏆', name: 'Mästerfiskaren', desc: 'Logga 15 unika fiskarter', earned: fishUniq >= 15, subject: 'fish' },
 
-        // Vilt / Djur (Däggdjursboken)
-        { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (subjectCounts.animals || 0) >= 5, subject: 'animals' },
-        { icon: '🐾', name: 'Spårhunden', desc: 'Logga 15 viltdjur', earned: (subjectCounts.animals || 0) >= 15, subject: 'animals' },
+        // Svamp (Svampboken)
+        { icon: '🍄', name: 'Första svampen', desc: 'Logga din första svamp', earned: fungiUniq >= 1, subject: 'fungi' },
+        { icon: '🧺', name: 'Svampplockaren', desc: 'Logga 5 unika svampar', earned: fungiUniq >= 5, subject: 'fungi' },
+        { icon: '💛', name: 'Guld i skogen', desc: 'Logga en Kantarell', earned: hasSeenNameContains('swedishFungi', 'kantarell'), subject: 'fungi' },
+        { icon: '🌲', name: 'Giftspejaren', desc: 'Logga en Flugsvamp', earned: hasSeenNameContains('swedishFungi', 'flugsvamp'), subject: 'fungi' },
+        { icon: '👑', name: 'Svampkännaren', desc: 'Logga 15 unika svampar', earned: fungiUniq >= 15, subject: 'fungi' },
+
+        // Växter (Växtboken)
+        { icon: '🌸', name: 'Första knoppen', desc: 'Logga din första växt eller träd', earned: plantUniq >= 1, subject: 'plants' },
+        { icon: '🌿', name: 'Örtsamlaren', desc: 'Logga 5 unika växter/träd', earned: plantUniq >= 5, subject: 'plants' },
+        { icon: '🌳', name: 'Skogens jättar', desc: 'Logga en Ek, Tall eller Gran', earned: hasSeenNameContains('swedishTrees', 'ek') || hasSeenNameContains('swedishTrees', 'tall') || hasSeenNameContains('swedishTrees', 'gran') || hasSeenNameContains('swedishFlowers', 'ek'), subject: 'plants' },
+        { icon: '🌻', name: 'Sommaräng', desc: 'Logga 15 unika växter/träd', earned: plantUniq >= 15, subject: 'plants' },
+        { icon: '👑', name: 'Botaniker', desc: 'Logga 30 unika växter/träd', earned: plantUniq >= 30, subject: 'plants' },
+
+        // Däggdjur / Vilt (Däggdjursboken)
+        { icon: '🦌', name: 'Första mötet', desc: 'Logga ditt första viltdjur', earned: animalUniq >= 1, subject: 'animals' },
+        { icon: '🐾', name: 'Spårhunden', desc: 'Logga 5 unika viltdjur', earned: animalUniq >= 5, subject: 'animals' },
+        { icon: '🦊', name: 'Rovdjursspanaren', desc: 'Logga en Räv, Grävling eller Lodjur', earned: hasSeenNameContains('swedishAnimals', 'räv') || hasSeenNameContains('swedishAnimals', 'grävling') || hasSeenNameContains('swedishAnimals', 'lodjur') || hasSeenNameContains('swedishAnimals', 'björn') || hasSeenNameContains('swedishAnimals', 'varg'), subject: 'animals' },
+        { icon: '👑', name: 'Skogens konung', desc: 'Logga en Älg, Hjort eller Rådjur', earned: hasSeenNameContains('swedishAnimals', 'älg') || hasSeenNameContains('swedishAnimals', 'hjort') || hasSeenNameContains('swedishAnimals', 'rådjur'), subject: 'animals' },
+        { icon: '🏆', name: 'Viltvaktaren', desc: 'Logga 15 unika viltdjur', earned: animalUniq >= 15, subject: 'animals' },
     ];
 
     return {
