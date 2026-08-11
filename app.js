@@ -4360,7 +4360,7 @@ function setupEventListeners() {
 // --- Quiz System ---
 
 function getRandomBirds(count, excludeId, targetItem) {
-    const list = getCurrentSpeciesList();
+    const list = getCurrentSpeciesList().filter(hasQuizImage);
     let pool = list.filter(b => b.id !== excludeId);
     
     let target = targetItem;
@@ -4593,8 +4593,39 @@ function recordQuizCompletion(score, total, subject, difficulty) {
     return { stats, pct, recentAvgPct, trendMsg, trendClass };
 }
 
+function hasQuizImage(item) {
+    if (!item) return false;
+    if (item.noImage === true || item.hasImage === false) return false;
+
+    // 1. Explicit image property (URL)
+    if (item.image && typeof item.image === 'string' && item.image.trim() !== '') {
+        return true;
+    }
+    // 2. Custom override image
+    if (localStorage.getItem(`custom_img_${item.id}`)) {
+        return true;
+    }
+    // 3. Photo in birdImages
+    if (window.birdImages && window.birdImages[item.id] && window.birdImages[item.id].length > 0) {
+        return true;
+    }
+    // 4. Built-in species with generated local images (v1)
+    const isBuiltIn = (window.swedishBirds && window.swedishBirds.some(b => b.id === item.id)) ||
+                      (window.swedishFungi && window.swedishFungi.some(b => b.id === item.id)) ||
+                      (window.swedishFish && window.swedishFish.some(b => b.id === item.id)) ||
+                      (window.swedishTrees && window.swedishTrees.some(b => b.id === item.id)) ||
+                      (window.swedishFlowers && window.swedishFlowers.some(b => b.id === item.id)) ||
+                      (window.swedishAnimals && window.swedishAnimals.some(b => b.id === item.id));
+
+    if (isBuiltIn) {
+        return true;
+    }
+
+    return false;
+}
+
 function generateQuizQuestions(mode, count = 10) {
-    let list = getCurrentSpeciesList();
+    let list = getCurrentSpeciesList().filter(hasQuizImage);
 
     // Filter by rarity or environmental category if it's birds and difficulty is set
     if (state.currentSubject === 'birds' && state.quizDifficulty) {

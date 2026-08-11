@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🔍 Identifiera | Quiz: Filtrerar bort alla arter som helt saknar bild i `app.js` (tillåter endast arter med riktig eller genererad bild) |
 | 2026-08-11 | 📊 Statistik | Gjort om samtliga statistiksektioner (Översikt i siffror, Fågelstatistik, Naturprofil, Utmärkelser, Quiz, Tid & Plats, Sällsynthet) till hopfällbara rullgardiner utom första Profil/Rang-kortet ("bemärkelsen") |
 | 2026-08-11 | 🐛 Bugg och fix | Fixat Quiz-bilder: Prioriterar alltid giltiga bild-URL:er (`explicitItem.image`) istället för att tvinga fram saknade lokala `images/*.jpg`-filer i `app.js` |
 | 2026-08-11 | 🐛 Bugg och fix | Uppgift 21: Rena knappstilar och platte/rena färgteman för Naturboken & Växtboken (Tog bort gradienter och skuggor/specialeffekter i `style.css`) |
