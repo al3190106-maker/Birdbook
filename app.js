@@ -1662,6 +1662,9 @@ function switchSubject(subjectId) {
     if (state.view === 'quiz-view' || (state.view === 'listen-view' && document.getElementById('sub-panel-quiz') && document.getElementById('sub-panel-quiz').style.display !== 'none')) {
         showQuizMenu();
     }
+    if (state.view === 'stats-view') {
+        renderStatsView();
+    }
 }
 
 
@@ -5026,13 +5029,14 @@ const BIRD_SPECIALIZATIONS = [
     { minBirds: 200, icon: '🦚', title: 'Fågellegend', subtitle: 'En vandring i riksägarens sällskap.' },
 ];
 
-function computeStats() {
+function computeStats(subjectId = state.currentSubject) {
+    const activeSubjectKey = subjectId || 'nature';
+
     // Filter out ghost / system sightings
     const realSightings = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD');
 
     // --- Per subject unique species counts ---
     const subjectCounts = {};
-    // Atomic subjects only (no compound books, to avoid double-counting)
     const atomicSubjects = ['birds', 'trees', 'fish', 'animals', 'fungi', 'flowers'];
     for (const key in SUBJECT_CONFIG) {
         const cfg = SUBJECT_CONFIG[key];
@@ -5041,20 +5045,17 @@ function computeStats() {
         const seen = new Set(realSightings.filter(s => ids.has(s.birdId)).map(s => s.birdId));
         subjectCounts[key] = seen.size;
     }
-    // plants = flowers + trees combined (for display only)
     subjectCounts.plants = (subjectCounts.flowers || 0) + (subjectCounts.trees || 0);
 
-    // totalUniq from atomic subjects only (no double-counting from compound books)
     const totalUniq = atomicSubjects.reduce((sum, k) => sum + (subjectCounts[k] || 0), 0);
     const birdUniq = subjectCounts.birds || 0;
 
-    // --- Determine rank ---
+    // --- Determine overall rank ---
     let rank = RANKS[0];
     for (const r of RANKS) {
         if (totalUniq >= r.min) rank = r;
     }
 
-    // If the user is predominantly a bird person (birds > 60% of sightings), override title
     let birdSpec = null;
     const birdSightings = realSightings.filter(s => (window.swedishBirds || []).some(b => b.id === s.birdId));
     if (birdSightings.length > 0 && birdSightings.length / realSightings.length > 0.6) {
@@ -5065,7 +5066,6 @@ function computeStats() {
 
     const activeRank = birdSpec || rank;
 
-    // Next rank threshold
     const currentRankIdx = RANKS.indexOf(rank);
     const nextRank = RANKS[currentRankIdx + 1];
     let progressPct = 100, progressLabel = 'Max rang uppnådd! 🏆';
@@ -5076,48 +5076,83 @@ function computeStats() {
         progressLabel = `${done} / ${span} till nästa rang (${nextRank.title})`;
     }
 
-    // --- Bird-specific highlights ---
-    const birdList = window.swedishBirds || [];
-    const loggedBirdSightings = realSightings.filter(s => birdList.some(b => b.id === s.birdId));
-    const loggedBirdIds = [...new Set(loggedBirdSightings.map(s => s.birdId))];
-    const loggedBirds = loggedBirdIds.map(id => birdList.find(b => b.id === id)).filter(Boolean);
+    // --- Active Subject Species Data ---
+    let activeSpeciesList = [];
+    if (activeSubjectKey === 'nature') {
+        activeSpeciesList = [
+            ...(window.swedishBirds || []),
+            ...(window.swedishFish || []),
+            ...(window.swedishFungi || []),
+            ...(window.swedishAnimals || []),
+            ...(window.swedishFlowers || []),
+            ...(window.swedishTrees || [])
+        ];
+    } else if (activeSubjectKey === 'plants') {
+        activeSpeciesList = [
+            ...(window.swedishFlowers || []),
+            ...(window.swedishTrees || [])
+        ];
+    } else {
+        const dataVar = SUBJECT_CONFIG[activeSubjectKey]?.dataVar;
+        activeSpeciesList = window[dataVar] || window.swedishBirds || [];
+    }
 
-    // Rarest bird logged
-    const rarestBird = loggedBirds.length
-        ? loggedBirds.reduce((acc, b) => (b.rarity || 0) > (acc.rarity || 0) ? b : acc, loggedBirds[0])
+    const activeSpeciesIds = new Set(activeSpeciesList.map(item => item.id));
+    const activeSightings = activeSubjectKey === 'nature'
+        ? realSightings
+        : realSightings.filter(s => activeSpeciesIds.has(s.birdId) || (s.subject === activeSubjectKey));
+
+    const loggedActiveIds = [...new Set(activeSightings.map(s => s.birdId))];
+    const loggedActiveSpecies = loggedActiveIds.map(id => activeSpeciesList.find(b => b.id === id)).filter(Boolean);
+    const activeUniq = loggedActiveSpecies.length;
+    const activeTotal = activeSpeciesList.length;
+    const activeCoveragePct = activeTotal > 0 ? Math.round((activeUniq / activeTotal) * 100) : 0;
+
+    // Rarest item in active subject
+    const rarestItem = loggedActiveSpecies.length
+        ? loggedActiveSpecies.reduce((acc, b) => (b.rarity || 0) > (acc.rarity || 0) ? b : acc, loggedActiveSpecies[0])
         : null;
 
-    // Largest wingspan
-    const biggestWingspan = loggedBirds.length
-        ? loggedBirds.reduce((acc, b) => (b.wingspan || 0) > (acc.wingspan || 0) ? b : acc, loggedBirds[0])
+    // Largest size item in active subject
+    const biggestSizeItem = loggedActiveSpecies.length
+        ? loggedActiveSpecies.reduce((acc, b) => {
+            const sizeVal = b.wingspan || b.height || b.length || b.size || 0;
+            const accVal = acc.wingspan || acc.height || acc.length || acc.size || 0;
+            return sizeVal > accVal ? b : acc;
+        }, loggedActiveSpecies[0])
         : null;
 
-    // Most logged species
-    const countByBird = {};
-    loggedBirdSightings.forEach(s => { countByBird[s.birdId] = (countByBird[s.birdId] || 0) + 1; });
-    const mostLoggedId = Object.entries(countByBird).sort((a, b) => b[1] - a[1])[0];
-    const mostLoggedBird = mostLoggedId ? birdList.find(b => b.id === mostLoggedId[0]) : null;
-    const mostLoggedCount = mostLoggedId ? mostLoggedId[1] : 0;
+    // Most logged item in active subject
+    const countByItem = {};
+    activeSightings.forEach(s => { countByItem[s.birdId] = (countByItem[s.birdId] || 0) + 1; });
+    const mostLoggedEntry = Object.entries(countByItem).sort((a, b) => b[1] - a[1])[0];
+    const mostLoggedItem = mostLoggedEntry ? activeSpeciesList.find(b => b.id === mostLoggedEntry[0]) : null;
+    const mostLoggedCount = mostLoggedEntry ? mostLoggedEntry[1] : 0;
 
-    // Cat with most coverage
-    const birdsPerCategory = {};
-    birdList.forEach(b => { if (!birdsPerCategory[b.type]) birdsPerCategory[b.type] = { total: 0, seen: 0 }; birdsPerCategory[b.type].total++; });
-    loggedBirds.forEach(b => { if (birdsPerCategory[b.type]) birdsPerCategory[b.type].seen++; });
-    const bestCat = Object.entries(birdsPerCategory).sort((a, b) => (b[1].seen / b[1].total) - (a[1].seen / a[1].total))[0];
+    // Category / Type breakdown in active subject
+    const categoryBreakdown = {};
+    activeSpeciesList.forEach(b => {
+        const catName = b.type || 'Övrigt';
+        if (!categoryBreakdown[catName]) categoryBreakdown[catName] = { total: 0, seen: 0 };
+        categoryBreakdown[catName].total++;
+    });
+    loggedActiveSpecies.forEach(b => {
+        const catName = b.type || 'Övrigt';
+        if (categoryBreakdown[catName]) categoryBreakdown[catName].seen++;
+    });
+    const bestCat = Object.entries(categoryBreakdown).sort((a, b) => (b[1].seen / b[1].total) - (a[1].seen / a[1].total))[0];
 
-    // Rarity breakdown for logged birds
+    // Rarity breakdown & score for active subject
     const rarityNames = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
     const rarityColors = ['#94a3b8', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
     const rarityBreakdown = [0, 0, 0, 0, 0];
-    loggedBirds.forEach(b => { const idx = (b.rarity || 1) - 1; if (idx >= 0 && idx < 5) rarityBreakdown[idx]++; });
-
-    // Rarity score: 1pt=Allmän, 2=Vanlig, 3=Ovanlig, 5=Sällsynt, 10=Mycket sällsynt
+    loggedActiveSpecies.forEach(b => { const idx = (b.rarity || 1) - 1; if (idx >= 0 && idx < 5) rarityBreakdown[idx]++; });
     const rarityPoints = [1, 2, 3, 5, 10];
-    const rarityScore = loggedBirds.reduce((sum, b) => sum + (rarityPoints[(b.rarity || 1) - 1] || 0), 0);
+    const rarityScore = loggedActiveSpecies.reduce((sum, b) => sum + (rarityPoints[(b.rarity || 1) - 1] || 0), 0);
 
-    // --- Location & Time insights ---
+    // Location & time for active subject
     const locationCount = {};
-    realSightings.forEach(s => {
+    activeSightings.forEach(s => {
         const loc = (s.location || '').trim();
         if (loc && loc !== 'Snabbtillägg' && loc !== 'System Init') {
             locationCount[loc] = (locationCount[loc] || 0) + 1;
@@ -5125,11 +5160,10 @@ function computeStats() {
     });
     const topLocation = Object.entries(locationCount).sort((a, b) => b[1] - a[1])[0];
 
-    // Best month
     const monthCount = {};
-    realSightings.forEach(s => {
+    activeSightings.forEach(s => {
         if (s.date) {
-            const m = new Date(s.date).getMonth(); // 0-11
+            const m = new Date(s.date).getMonth();
             monthCount[m] = (monthCount[m] || 0) + 1;
         }
     });
@@ -5137,22 +5171,23 @@ function computeStats() {
     const bestMonthEntry = Object.entries(monthCount).sort((a, b) => b[1] - a[1])[0];
     const bestMonth = bestMonthEntry ? monthNames[parseInt(bestMonthEntry[0])] : null;
 
-    // Active years
-    const years = new Set(realSightings.filter(s => s.date).map(s => new Date(s.date).getFullYear()));
+    const years = new Set(activeSightings.filter(s => s.date).map(s => new Date(s.date).getFullYear()));
     const yearCount = years.size;
+    const firstDate = activeSightings.filter(s => s.date).map(s => s.date).sort()[0] || null;
+    const totalSightings = activeSightings.length;
 
-    // First sighting date
-    const firstDate = realSightings.filter(s => s.date).map(s => s.date).sort()[0] || null;
-
-    // Total sightings (including duplicates)
-    const totalSightings = realSightings.length;
-
-    const quizStats = getQuizStats();
+    const quizStats = getQuizStats(activeSubjectKey);
     const quizRecentlyCorrectCount = getQuizRecentlyCorrect().length;
 
+    // Badges calculation
+    const birdList = window.swedishBirds || [];
+    const loggedBirdSightings = realSightings.filter(s => birdList.some(b => b.id === s.birdId));
+    const loggedBirdIds = [...new Set(loggedBirdSightings.map(s => s.birdId))];
+    const loggedBirds = loggedBirdIds.map(id => birdList.find(b => b.id === id)).filter(Boolean);
+
     const badges = [
-        { icon: '🥚', name: 'Första fågeln', desc: 'Logga din första observation', earned: totalSightings >= 1 },
-        { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: totalSightings >= 10 },
+        { icon: '🥚', name: 'Första fågeln', desc: 'Logga din första observation', earned: realSightings.length >= 1 },
+        { icon: '🐣', name: '10 observationer', desc: 'Logga 10 observationer totalt', earned: realSightings.length >= 10 },
         { icon: '🦅', name: '5 fågelarter', desc: 'Observera 5 unika fågelarter', earned: birdUniq >= 5 },
         { icon: '🦉', name: 'Nattjägaren', desc: 'Logga en ugglor-observation', earned: (window.swedishBirds || []).some(b => b.type === 'Ugglor' && loggedBirds.some(lb => lb.id === b.id)) },
         { icon: '👑', name: '25 fågelarter', desc: 'Observera 25 unika fågelarter', earned: birdUniq >= 25 },
@@ -5162,7 +5197,7 @@ function computeStats() {
         { icon: '🍄', name: 'Svampplockaren', desc: 'Logga 5 svampar', earned: (subjectCounts.fungi || 0) >= 5 },
         { icon: '🐟', name: 'Fiskaren', desc: 'Logga 5 fiskar', earned: (subjectCounts.fish || 0) >= 5 },
         { icon: '🦌', name: 'Viltvakt', desc: 'Logga 5 viltdjur', earned: (subjectCounts.animals || 0) >= 5 },
-        { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt fågel (nivå 4+)', earned: loggedBirds.some(b => (b.rarity || 0) >= 4) },
+        { icon: '⭐', name: 'Sällsynthetsjägaren', desc: 'Logga 1 sällsynt art (nivå 4+)', earned: realSightings.some(s => { const b = activeSpeciesList.find(x => x.id === s.birdId); return b && (b.rarity || 0) >= 4; }) },
         { icon: '🏆', name: 'Raritetsmästare', desc: 'Uppnå 100 sällsynthetsscore', earned: rarityScore >= 100 },
         { icon: '🎓', name: 'Quiz-elev', desc: 'Genomför ditt första Quiz', earned: quizStats.completedCount >= 1 },
         { icon: '🎯', name: 'Felfri i Quiz', desc: 'Få 100% rätt på ett Quiz', earned: quizStats.perfectCount >= 1 },
@@ -5172,22 +5207,18 @@ function computeStats() {
     ];
 
     return {
+        activeSubjectKey,
         totalUniq, birdUniq, subjectCounts, activeRank, progressPct, progressLabel,
-        loggedBirds, rarestBird, biggestWingspan,
-        mostLoggedBird, mostLoggedCount,
-        bestCat, rarityBreakdown, rarityNames, rarityColors, rarityScore, rarityPoints,
+        activeUniq, activeTotal, activeCoveragePct,
+        loggedActiveSpecies,
+        rarestItem, biggestSizeItem,
+        mostLoggedItem, mostLoggedCount,
+        bestCat, categoryBreakdown, rarityBreakdown, rarityNames, rarityColors, rarityScore, rarityPoints,
         topLocation, bestMonth, yearCount, firstDate, totalSightings,
         birdSightings: loggedBirdSightings.length,
         quizStats, quizRecentlyCorrectCount,
         badges
     };
-}
-
-function row(label, value, cls = '') {
-    return `<div class="stats-row">
-        <span class="stats-row-label">${label}</span>
-        <span class="stats-row-value ${cls}">${value}</span>
-    </div>`;
 }
 
 function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
@@ -5198,7 +5229,7 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
         el.innerHTML = `
             <div class="stats-empty">
                 <i class="fa-solid fa-circle-question"></i>
-                <p>Du har inte genomfört några Quiz än.<br>Spela ditt första Quiz under <strong>Identifiera → Quiz</strong> för att följa dina framsteg!</p>
+                <p>Du har inte genomfört några Quiz i denna bok än.<br>Spela ditt första Quiz under <strong>Identifiera → Quiz</strong> för att följa dina framsteg!</p>
             </div>
         `;
         return;
@@ -5206,8 +5237,7 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
 
     const overallPct = qs.totalQuestions > 0 ? Math.round((qs.totalCorrect / qs.totalQuestions) * 100) : 0;
     
-    // Beräkna formkurva (senaste 5 quiz kontra totalt snitt)
-    const recent5 = qs.history.slice(0, 5);
+    const recent5 = (qs.history || []).slice(0, 5);
     let recentPct = overallPct;
     let trendBadge = '';
     
@@ -5219,35 +5249,25 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
         if (delta > 0) {
             trendBadge = `<div class="quiz-trend-banner positive"><i class="fa-solid fa-arrow-trend-up"></i> <strong>Stigande form!</strong> Senaste 5 quiz: <strong>${recentPct}%</strong> (${delta > 0 ? '+' : ''}${delta}% bättre än totalt snitt)</div>`;
         } else if (delta < 0) {
-            trendBadge = `<div class="quiz-trend-banner neutral"><i class="fa-solid fa-chart-line"></i> Senaste 5 quiz: <strong>${recentPct}%</strong> (Totalt snitt: ${overallPct}%)</div>`;
+            trendBadge = `<div class="quiz-trend-banner warning"><i class="fa-solid fa-arrow-trend-down"></i> <strong>Formtapp:</strong> Senaste 5 quiz: <strong>${recentPct}%</strong> (${delta}% lägre än totalt snitt)</div>`;
         } else {
-            trendBadge = `<div class="quiz-trend-banner positive"><i class="fa-solid fa-check-double"></i> <strong>Stabil toppform!</strong> Senaste 5 quiz: <strong>${recentPct}%</strong> rätt</div>`;
+            trendBadge = `<div class="quiz-trend-banner neutral"><i class="fa-solid fa-minus"></i> <strong>Stabil form:</strong> Senaste 5 quiz snittar <strong>${recentPct}%</strong></div>`;
         }
     }
 
-    // Definiera svårighetsgrader för mastery-översikt
     const diffMap = {
-        'nyborjare': { name: 'Nybörjaren', icon: '🌱' },
-        'intresserad': { name: 'Fågelintresserad', icon: '🔍' },
-        'skadare': { name: 'Fågelskådare', icon: '🔭' },
-        'orakel': { name: 'Fågelorakel', icon: '🦉' },
-        'vattenfaglar': { name: 'Vattenfåglar', icon: '🌊' },
-        'akerfaglar': { name: 'Åkerfåglar', icon: '🌾' },
-        'skogsfaglar': { name: 'Skogsfåglar', icon: '🌲' }
+        'nyborjare': { name: 'Nybörjare (3 val)', icon: '🌱' },
+        'entusiast': { name: 'Entusiast (4 val)', icon: '🌿' },
+        'expert': { name: 'Expert (6 val)', icon: '🏆' },
+        'vatten': { name: 'Vattenfåglar', icon: '🌊' },
+        'aker': { name: 'Åkerfåglar', icon: '🌾' },
+        'skog': { name: 'Skogsfåglar', icon: '🌲' }
     };
 
-    let masteryHtml = Object.keys(diffMap).map(dKey => {
-        const dObj = diffMap[dKey];
-        const dStat = qs.difficultyStats[dKey];
-        if (!dStat || dStat.count === 0) {
-            return `<div class="quiz-mastery-row opacity-low">
-                <span class="quiz-mastery-icon">${dObj.icon}</span>
-                <span class="quiz-mastery-name">${dObj.name}</span>
-                <div class="nature-subject-bar-wrap"><div class="nature-subject-bar-fill" style="width:0%;"></div></div>
-                <span class="quiz-mastery-pct">Ej spelad</span>
-            </div>`;
-        }
-        const accPct = Math.round((dStat.correct / dStat.questions) * 100);
+    const masteryHtml = Object.keys(qs.difficultyStats).map(key => {
+        const dStat = qs.difficultyStats[key];
+        const dObj = diffMap[key] || { name: key, icon: '🎯' };
+        const accPct = dStat.questions > 0 ? Math.round((dStat.correct / dStat.questions) * 100) : 0;
         return `<div class="quiz-mastery-row">
             <span class="quiz-mastery-icon">${dObj.icon}</span>
             <span class="quiz-mastery-name">${dObj.name}</span>
@@ -5258,7 +5278,7 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
         </div>`;
     }).join('');
 
-    const lastQuiz = qs.history[0];
+    const lastQuiz = (qs.history || [])[0];
     const lastQuizStr = lastQuiz ? `${lastQuiz.score}/${lastQuiz.total} rätt (${lastQuiz.pct}%)` : '—';
 
     el.innerHTML = `
@@ -5286,7 +5306,7 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
             <i class="fa-solid fa-layer-group"></i> Erövringsgrad per nivå
         </h4>
         <div class="quiz-mastery-list">
-            ${masteryHtml}
+            ${masteryHtml || '<p style="color:var(--text-muted); font-size:0.85rem;">Ingen svårighetsstatistik tillgänglig ännu.</p>'}
         </div>
 
         <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed #e2e8f0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; font-size:0.85rem; color:var(--text-muted);">
@@ -5297,9 +5317,12 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
 }
 
 function renderStatsView() {
-    const s = computeStats();
+    const s = computeStats(state.currentSubject);
+    const subjectCfg = SUBJECT_CONFIG[state.currentSubject];
+    const subjectName = subjectCfg ? subjectCfg.name : 'Naturboken';
+    const isNature = state.currentSubject === 'nature';
 
-    // --- Profile card ---
+    // --- Profile card / Banner ---
     const rankTitle = s.activeRank.title;
     const isUnseenRank = localStorage.getItem(`birdfinder_unseen_rank_${rankTitle}`) === 'true';
     const profileCard = document.querySelector('.stats-profile-card');
@@ -5321,22 +5344,80 @@ function renderStatsView() {
         }
     }
 
-    document.getElementById('stats-rank-icon').textContent = s.activeRank.icon;
-    document.getElementById('stats-rank-title').textContent = s.activeRank.title;
-    document.getElementById('stats-rank-subtitle').textContent = s.activeRank.subtitle;
-    document.getElementById('stats-rank-progress').style.width = s.progressPct + '%';
-    document.getElementById('stats-rank-progress-label').textContent = s.progressLabel;
+    const rankIconEl = document.getElementById('stats-rank-icon');
+    const rankTitleEl = document.getElementById('stats-rank-title');
+    const rankSubEl = document.getElementById('stats-rank-subtitle');
+    const rankProgressFill = document.getElementById('stats-rank-progress');
+    const rankProgressLabel = document.getElementById('stats-rank-progress-label');
+
+    if (isNature) {
+        if (rankIconEl) rankIconEl.textContent = s.activeRank.icon;
+        if (rankTitleEl) rankTitleEl.textContent = s.activeRank.title;
+        if (rankSubEl) rankSubEl.textContent = s.activeRank.subtitle;
+        if (rankProgressFill) rankProgressFill.style.width = s.progressPct + '%';
+        if (rankProgressLabel) rankProgressLabel.textContent = s.progressLabel;
+    } else {
+        const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
+        if (rankIconEl) rankIconEl.innerHTML = `<i class="fa-solid ${subjectCfg?.icon || 'fa-book'}"></i>`;
+        if (rankTitleEl) rankTitleEl.textContent = `${subjectName} – Statistik`;
+        if (rankSubEl) rankSubEl.textContent = `Dina framsteg och insikter i ${subjectName}`;
+        if (rankProgressFill) rankProgressFill.style.width = s.activeCoveragePct + '%';
+        if (rankProgressLabel) rankProgressLabel.textContent = `${s.activeUniq} / ${s.activeTotal} ${itemLabel}er observerade (${s.activeCoveragePct}% täckning)`;
+    }
+
+    // Update panel section titles to match active book
+    const birdsTitleEl = document.querySelector('#stats-birds-details .stats-panel-title-text');
+    if (birdsTitleEl) {
+        if (isNature) {
+            birdsTitleEl.innerHTML = `<i class="fa-solid fa-dove"></i> Fågelstatistik`;
+        } else {
+            birdsTitleEl.innerHTML = `<i class="fa-solid ${subjectCfg?.icon || 'fa-book'}"></i> ${subjectName}-statistik`;
+        }
+    }
+
+    const natureTitleEl = document.querySelector('#stats-nature-details .stats-panel-title-text');
+    if (natureTitleEl) {
+        if (isNature) {
+            natureTitleEl.innerHTML = `<i class="fa-solid fa-leaf"></i> Naturprofil (Ämnesfördelning)`;
+        } else {
+            natureTitleEl.innerHTML = `<i class="fa-solid fa-layer-group"></i> Kategorier i ${subjectName}`;
+        }
+    }
+
+    const quizTitleEl = document.querySelector('#stats-quiz-details .stats-panel-title-text');
+    if (quizTitleEl) {
+        if (isNature) {
+            quizTitleEl.innerHTML = `<i class="fa-solid fa-chart-line"></i> Quizutveckling &amp; Framsteg (Alla quiz)`;
+        } else {
+            const quizName = subjectCfg ? subjectCfg.name.replace('boken', '') + 'quiz' : 'Quiz';
+            quizTitleEl.innerHTML = `<i class="fa-solid fa-chart-line"></i> ${quizName} &amp; Framsteg`;
+        }
+    }
 
     // --- Overview numbers ---
     const overviewEl = document.getElementById('stats-overview-grid');
-    const overviewCards = [
-        { icon: '🔍', value: s.totalSightings, label: 'Totala observationer' },
-        { icon: '🐦', value: s.birdUniq, label: 'Unika fågelarter' },
-        { icon: '🌿', value: s.totalUniq, label: 'Unika arter (alla)' },
-        { icon: '🧩', value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
-        { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
-        { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
-    ];
+    let overviewCards = [];
+    if (isNature) {
+        overviewCards = [
+            { icon: '🔍', value: s.totalSightings, label: 'Totala observationer' },
+            { icon: '🐦', value: s.birdUniq, label: 'Unika fågelarter' },
+            { icon: '🌿', value: s.totalUniq, label: 'Unika arter (alla)' },
+            { icon: '🧩', value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
+            { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
+            { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+        ];
+    } else {
+        const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
+        overviewCards = [
+            { icon: '🔍', value: s.totalSightings, label: `Obs. i ${subjectName}` },
+            { icon: '📖', value: s.activeUniq, label: `Unika ${itemLabel}er` },
+            { icon: '📊', value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
+            { icon: '🧩', value: s.quizStats.completedCount, label: `Genomförda Quiz` },
+            { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
+            { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+        ];
+    }
+
     overviewEl.innerHTML = overviewCards.map(c => `
         <div class="stats-overview-card">
             <div class="stats-overview-icon">${c.icon}</div>
@@ -5344,58 +5425,81 @@ function renderStatsView() {
             <div class="stats-overview-label">${c.label}</div>
         </div>
     `).join('');
-    initStatsCollapsible('stats-overview-details', 'stats-overview-count-pill', `${s.totalSightings} obs · ${s.totalUniq} arter`);
+    initStatsCollapsible('stats-overview-details', 'stats-overview-count-pill', `${s.totalSightings} obs · ${s.activeUniq} arter`);
 
-    // --- Bird Stats Panel ---
+    // --- Book / Subject Specific Highlights Panel ---
     const birdsEl = document.getElementById('stats-birds-body');
-    const totalBirdTypes = (window.swedishBirds || []).length;
-    if (s.loggedBirds.length === 0) {
-        birdsEl.innerHTML = `<div class="stats-empty"><i class="fa-solid fa-dove"></i><p>Logga din första fågel för att se statistik!</p></div>`;
+    if (s.loggedActiveSpecies.length === 0) {
+        const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
+        birdsEl.innerHTML = `<div class="stats-empty"><i class="fa-solid ${subjectCfg?.icon || 'fa-dove'}"></i><p>Logga din första ${itemLabel} i ${subjectName} för att se statistik!</p></div>`;
     } else {
-        const coverage = Math.round((s.birdUniq / totalBirdTypes) * 100);
-        const rarestColor = s.rarestBird ? (s.rarityColors[(s.rarestBird.rarity || 1) - 1] || '#9333ea') : '#9333ea';
+        const rarestColor = s.rarestItem ? (s.rarityColors[(s.rarestItem.rarity || 1) - 1] || '#9333ea') : '#9333ea';
+        const sizeField = subjectCfg?.fields?.size;
+        let sizeRow = '';
+        if (s.biggestSizeItem && sizeField) {
+            const val = s.biggestSizeItem[sizeField.key];
+            if (val) {
+                sizeRow = row(`📏 Störst (${sizeField.label})`, `${s.biggestSizeItem.nameSv} (${val} ${sizeField.unit})`);
+            }
+        }
         birdsEl.innerHTML = `
-            ${row('🦅 Sällsyntaste fågeln', s.rarestBird ? `${s.rarestBird.nameSv} <small style="color:${rarestColor}; font-weight: 700;">(Nivå ${s.rarestBird.rarity})</small>` : '—', 'highlight')}
-            ${row('📏 Störst vingspann', s.biggestWingspan ? `${s.biggestWingspan.nameSv} (${s.biggestWingspan.wingspan} cm)` : '—')}
-            ${row('🔄 Mest loggad', s.mostLoggedBird ? `${s.mostLoggedBird.nameSv} · ${s.mostLoggedCount}×` : '—', 'highlight')}
+            ${row('🦅 Sällsyntaste arten', s.rarestItem ? `${s.rarestItem.nameSv} <small style="color:${rarestColor}; font-weight: 700;">(Nivå ${s.rarestItem.rarity})</small>` : '—', 'highlight')}
+            ${sizeRow}
+            ${row('🔄 Mest loggad', s.mostLoggedItem ? `${s.mostLoggedItem.nameSv} · ${s.mostLoggedCount}×` : '—', 'highlight')}
             ${row('📦 Bästa kategori', s.bestCat ? `${s.bestCat[0]} (${s.bestCat[1].seen}/${s.bestCat[1].total})` : '—')}
-            ${row('📊 Artböckens täckning', `${s.birdUniq} / ${totalBirdTypes} (${coverage}%)`)}
+            ${row('📊 Täckningsgrad i ' + subjectName, `${s.activeUniq} / ${s.activeTotal} (${s.activeCoveragePct}%)`)}
             ${row('⭐ Sällsynthetsscore', s.rarityScore + ' poäng', 'rarity-score')}
         `;
     }
-    initStatsCollapsible('stats-birds-details', 'stats-birds-count-pill', `${s.birdUniq} av ${totalBirdTypes} arter`);
+    initStatsCollapsible('stats-birds-details', 'stats-birds-count-pill', `${s.activeUniq} av ${s.activeTotal} arter`);
 
-    // --- Nature Profile Panel ---
+    // --- Nature Profile / Category Breakdown Panel ---
     const natureEl = document.getElementById('stats-nature-body');
-    const subjects = [
-        { key: 'birds', icon: '🐦', name: 'Fåglar', color: '#2E5D4B' },
-        { key: 'animals', icon: '🐾', name: 'Vilt', color: '#795548' },
-        { key: 'plants', icon: '🌿', name: 'Växter', color: '#43a047' },
-        { key: 'fish', icon: '🐟', name: 'Fisk', color: '#0288d1' },
-        { key: 'fungi', icon: '🍄', name: 'Svamp', color: '#e64a19' },
-    ];
-    const maxCount = Math.max(1, ...subjects.map(sub => s.subjectCounts[sub.key] || 0));
+    if (isNature) {
+        const subjects = [
+            { key: 'birds', icon: '🐦', name: 'Fåglar', color: '#2E5D4B' },
+            { key: 'animals', icon: '🐾', name: 'Vilt', color: '#795548' },
+            { key: 'plants', icon: '🌿', name: 'Växter', color: '#43a047' },
+            { key: 'fish', icon: '🐟', name: 'Fisk', color: '#0288d1' },
+            { key: 'fungi', icon: '🍄', name: 'Svamp', color: '#e64a19' },
+        ];
+        const maxCount = Math.max(1, ...subjects.map(sub => s.subjectCounts[sub.key] || 0));
 
-    // Determine specialization label
-    let specLabel = '';
-    const birdPct = s.totalUniq > 0 ? (s.birdUniq / s.totalUniq) : 0;
-    if (birdPct > 0.8 && s.birdUniq > 5) specLabel = `<span class="stats-specialization">Fågelspecialist</span>`;
-    else if (birdPct < 0.3 && s.totalUniq > 10) specLabel = `<span class="stats-specialization">Naturalist</span>`;
-    else if (s.totalUniq > 5) specLabel = `<span class="stats-specialization">Allroundare</span>`;
+        let specLabel = '';
+        const birdPct = s.totalUniq > 0 ? (s.birdUniq / s.totalUniq) : 0;
+        if (birdPct > 0.8 && s.birdUniq > 5) specLabel = `<span class="stats-specialization">Fågelspecialist</span>`;
+        else if (birdPct < 0.3 && s.totalUniq > 10) specLabel = `<span class="stats-specialization">Naturalist</span>`;
+        else if (s.totalUniq > 5) specLabel = `<span class="stats-specialization">Allroundare</span>`;
 
-    natureEl.innerHTML = subjects.map(sub => {
-        const cnt = s.subjectCounts[sub.key] || 0;
-        const w = Math.round((cnt / maxCount) * 100);
-        return `<div class="nature-subject-row">
-            <span class="nature-subject-icon">${sub.icon}</span>
-            <span class="nature-subject-name">${sub.name}</span>
-            <div class="nature-subject-bar-wrap">
-                <div class="nature-subject-bar-fill" style="width: ${w}%; background: ${sub.color}"></div>
-            </div>
-            <span class="nature-subject-count">${cnt}</span>
-        </div>`;
-    }).join('') + specLabel;
-    initStatsCollapsible('stats-nature-details', 'stats-nature-count-pill', `${s.totalUniq} unika arter`);
+        natureEl.innerHTML = subjects.map(sub => {
+            const cnt = s.subjectCounts[sub.key] || 0;
+            const w = Math.round((cnt / maxCount) * 100);
+            return `<div class="nature-subject-row">
+                <span class="nature-subject-icon">${sub.icon}</span>
+                <span class="nature-subject-name">${sub.name}</span>
+                <div class="nature-subject-bar-wrap">
+                    <div class="nature-subject-bar-fill" style="width: ${w}%; background: ${sub.color}"></div>
+                </div>
+                <span class="nature-subject-count">${cnt}</span>
+            </div>`;
+        }).join('') + specLabel;
+        initStatsCollapsible('stats-nature-details', 'stats-nature-count-pill', `${s.totalUniq} unika arter`);
+    } else {
+        const cats = Object.entries(s.categoryBreakdown);
+        const maxCatCount = Math.max(1, ...cats.map(c => c[1].total));
+        natureEl.innerHTML = cats.map(([catName, data]) => {
+            const pct = Math.round((data.seen / data.total) * 100);
+            const w = Math.round((data.total / maxCatCount) * 100);
+            return `<div class="nature-subject-row">
+                <span class="nature-subject-name" style="width: 120px; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${catName}</span>
+                <div class="nature-subject-bar-wrap">
+                    <div class="nature-subject-bar-fill" style="width: ${w}%; background: var(--primary-color, #2e5d4b)"></div>
+                </div>
+                <span class="nature-subject-count" style="font-size:0.85rem; white-space:nowrap;">${data.seen}/${data.total} <small style="color:var(--text-muted)">(${pct}%)</small></span>
+            </div>`;
+        }).join('');
+        initStatsCollapsible('stats-nature-details', 'stats-nature-count-pill', `${cats.length} kategorier`);
+    }
 
     // --- Achievements / Badges ---
     initStatsCollapsible('stats-badges-details', 'stats-badges-count-pill');
@@ -5432,7 +5536,6 @@ function renderStatsView() {
             </div>
         `}).join('');
 
-        // Add click listeners to remove highlight from unseen badges
         const unseenBadges = badgesEl.querySelectorAll('.unseen-highlight');
         unseenBadges.forEach(el => {
             el.style.cursor = 'pointer';
@@ -5457,7 +5560,7 @@ function renderStatsView() {
         ${row('🌸 Bästa månad', s.bestMonth || '—')}
         ${row('📅 Aktiva år', s.yearCount === 0 ? '—' : s.yearCount + ' år')}
         ${row('🗓 Första observation', s.firstDate ? new Date(s.firstDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }) : '—')}
-        ${row('📋 Totala observationer', s.totalSightings)}
+        ${row('📋 Totala observationer i ' + subjectName, s.totalSightings)}
     `;
     initStatsCollapsible('stats-time-details', 'stats-time-count-pill', s.topLocation ? `${s.topLocation[0]}` : 'Tid & plats');
 
