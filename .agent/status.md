@@ -83,6 +83,7 @@
 - [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
 - [x] Visa antal genomförda Quiz i Statistiken
 - [x] Bok-anpassad Statistik-vy (Ämnesspecifik statistik per bok + Samlad översikt i Naturboken)
+- [ ] Kom ihåg & öppna senast använda boken vid sidladdning (LocalStorage)
 
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
