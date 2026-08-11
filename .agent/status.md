@@ -73,6 +73,7 @@
 - [ ] Skapa användarkonto-system (användarprofil & ID)
 - [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
 - [x] Visa antal genomförda Quiz i Statistiken
+- [ ] Bok-anpassad Statistik-vy (Ämnesspecifik statistik per bok + Samlad översikt i Naturboken)
 
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
