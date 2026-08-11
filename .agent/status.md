@@ -57,6 +57,7 @@
 - [x] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 - [x] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
+- [ ] Rena knappstilar & tema för Naturboken & Växtboken (Ta bort skuggor/specialeffekter)
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor

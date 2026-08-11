@@ -1,0 +1,4442 @@
+[
+  {
+    "gbifKey": "2490719",
+    "observationCount": 66907,
+    "scientific": "Turdus merula Linnaeus, 1758",
+    "canonical": "Turdus merula",
+    "nameSv": "",
+    "nameEn": "Eurasian Blackbird",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9705453",
+    "observationCount": 62680,
+    "scientific": "Parus major Linnaeus, 1758",
+    "canonical": "Parus major",
+    "nameSv": "",
+    "nameEn": "Great Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2494422",
+    "observationCount": 55712,
+    "scientific": "Fringilla coelebs Linnaeus, 1758",
+    "canonical": "Fringilla coelebs",
+    "nameSv": "",
+    "nameEn": "Common Chaffinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492462",
+    "observationCount": 55625,
+    "scientific": "Erithacus rubecula (Linnaeus, 1758)",
+    "canonical": "Erithacus rubecula",
+    "nameSv": "",
+    "nameEn": "European Robin",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2487879",
+    "observationCount": 55447,
+    "scientific": "Cyanistes caeruleus (Linnaeus, 1758)",
+    "canonical": "Cyanistes caeruleus",
+    "nameSv": "",
+    "nameEn": "Eurasian Blue Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498036",
+    "observationCount": 52632,
+    "scientific": "Anser anser (Linnaeus, 1758)",
+    "canonical": "Anser anser",
+    "nameSv": "",
+    "nameEn": "Graylag Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9761484",
+    "observationCount": 51640,
+    "scientific": "Anas platyrhynchos Linnaeus, 1758",
+    "canonical": "Anas platyrhynchos",
+    "nameSv": "",
+    "nameEn": "Mallard",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2495455",
+    "observationCount": 51264,
+    "scientific": "Columba palumbus Linnaeus, 1758",
+    "canonical": "Columba palumbus",
+    "nameSv": "",
+    "nameEn": "Common Wood-Pigeon",
+    "family": "Columbidae",
+    "order": "Columbiformes"
+  },
+  {
+    "gbifKey": "2477968",
+    "observationCount": 44438,
+    "scientific": "Dendrocopos major (Linnaeus, 1758)",
+    "canonical": "Dendrocopos major",
+    "nameSv": "",
+    "nameEn": "Great Spotted Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2498326",
+    "observationCount": 44278,
+    "scientific": "Bucephala clangula (Linnaeus, 1758)",
+    "canonical": "Bucephala clangula",
+    "nameSv": "",
+    "nameEn": "Common Goldeneye",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "7982160",
+    "observationCount": 41882,
+    "scientific": "Larus canus Linnaeus, 1758",
+    "canonical": "Larus canus",
+    "nameSv": "",
+    "nameEn": "Mew Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2493091",
+    "observationCount": 41809,
+    "scientific": "Phylloscopus collybita (Vieillot, 1817)",
+    "canonical": "Phylloscopus collybita",
+    "nameSv": "",
+    "nameEn": "Common Chiffchaff",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498347",
+    "observationCount": 39863,
+    "scientific": "Cygnus cygnus (Linnaeus, 1758)",
+    "canonical": "Cygnus cygnus",
+    "nameSv": "",
+    "nameEn": "Whooper Swan",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9687165",
+    "observationCount": 39710,
+    "scientific": "Motacilla alba Linnaeus, 1758",
+    "canonical": "Motacilla alba",
+    "nameSv": "",
+    "nameEn": "White Wagtail",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2493052",
+    "observationCount": 39491,
+    "scientific": "Phylloscopus trochilus (Linnaeus, 1758)",
+    "canonical": "Phylloscopus trochilus",
+    "nameSv": "",
+    "nameEn": "Willow Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480537",
+    "observationCount": 39224,
+    "scientific": "Buteo buteo (Linnaeus, 1758)",
+    "canonical": "Buteo buteo",
+    "nameSv": "",
+    "nameEn": "Common Buzzard",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "5845582",
+    "observationCount": 39020,
+    "scientific": "Chloris chloris (Linnaeus, 1758)",
+    "canonical": "Chloris chloris",
+    "nameSv": "",
+    "nameEn": "European Greenfinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2482515",
+    "observationCount": 38803,
+    "scientific": "Corvus cornix Linnaeus, 1758",
+    "canonical": "Corvus cornix",
+    "nameSv": "",
+    "nameEn": "Hooded Crow",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2474950",
+    "observationCount": 37729,
+    "scientific": "Grus grus (Linnaeus, 1758)",
+    "canonical": "Grus grus",
+    "nameSv": "",
+    "nameEn": "Common Crane",
+    "family": "Gruidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "2480242",
+    "observationCount": 37625,
+    "scientific": "Vanellus vanellus (Linnaeus, 1758)",
+    "canonical": "Vanellus vanellus",
+    "nameSv": "",
+    "nameEn": "Northern Lapwing",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2484916",
+    "observationCount": 37591,
+    "scientific": "Sitta europaea Linnaeus, 1758",
+    "canonical": "Sitta europaea",
+    "nameSv": "",
+    "nameEn": "Eurasian Nuthatch",
+    "family": "Sittidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "6065824",
+    "observationCount": 36993,
+    "scientific": "Chroicocephalus ridibundus (Linnaeus, 1766)",
+    "canonical": "Chroicocephalus ridibundus",
+    "nameSv": "",
+    "nameEn": "Black-headed Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5229490",
+    "observationCount": 36947,
+    "scientific": "Pica pica (Linnaeus, 1758)",
+    "canonical": "Pica pica",
+    "nameSv": "",
+    "nameEn": "Eurasian Magpie",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492956",
+    "observationCount": 36490,
+    "scientific": "Sylvia atricapilla (Linnaeus, 1758)",
+    "canonical": "Sylvia atricapilla",
+    "nameSv": "",
+    "nameEn": "Eurasian Blackcap",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9809229",
+    "observationCount": 35352,
+    "scientific": "Sturnus vulgaris Linnaeus, 1758",
+    "canonical": "Sturnus vulgaris",
+    "nameSv": "",
+    "nameEn": "European Starling",
+    "family": "Sturnidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480449",
+    "observationCount": 34857,
+    "scientific": "Haliaeetus albicilla (Linnaeus, 1758)",
+    "canonical": "Haliaeetus albicilla",
+    "nameSv": "",
+    "nameEn": "White-tailed Eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "6092830",
+    "observationCount": 33501,
+    "scientific": "Spinus spinus (Linnaeus, 1758)",
+    "canonical": "Spinus spinus",
+    "nameSv": "",
+    "nameEn": "Eurasian Siskin",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "6100954",
+    "observationCount": 33382,
+    "scientific": "Coloeus monedula (Linnaeus, 1758)",
+    "canonical": "Coloeus monedula",
+    "nameSv": "",
+    "nameEn": "Western Jackdaw",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498343",
+    "observationCount": 32762,
+    "scientific": "Cygnus olor (J.F.Gmelin, 1789)",
+    "canonical": "Cygnus olor",
+    "nameSv": "",
+    "nameEn": "Mute Swan",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2494686",
+    "observationCount": 32520,
+    "scientific": "Carduelis carduelis (Linnaeus, 1758)",
+    "canonical": "Carduelis carduelis",
+    "nameSv": "",
+    "nameEn": "European Goldfinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "8214667",
+    "observationCount": 31886,
+    "scientific": "Anas crecca Linnaeus, 1758",
+    "canonical": "Anas crecca",
+    "nameSv": "",
+    "nameEn": "Green-winged Teal",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5232437",
+    "observationCount": 31602,
+    "scientific": "Branta canadensis (Linnaeus, 1758)",
+    "canonical": "Branta canadensis",
+    "nameSv": "",
+    "nameEn": "Canada Goose (canadensis Group)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2494543",
+    "observationCount": 31403,
+    "scientific": "Pyrrhula pyrrhula (Linnaeus, 1758)",
+    "canonical": "Pyrrhula pyrrhula",
+    "nameSv": "",
+    "nameEn": "Eurasian Bullfinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2491534",
+    "observationCount": 31186,
+    "scientific": "Emberiza citrinella Linnaeus, 1758",
+    "canonical": "Emberiza citrinella",
+    "nameSv": "",
+    "nameEn": "Yellowhammer",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2482492",
+    "observationCount": 30211,
+    "scientific": "Corvus corax Linnaeus, 1758",
+    "canonical": "Corvus corax",
+    "nameSv": "",
+    "nameEn": "Common Raven",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9537647",
+    "observationCount": 30141,
+    "scientific": "Mergus merganser Linnaeus, 1758",
+    "canonical": "Mergus merganser",
+    "nameSv": "",
+    "nameEn": "Common Merganser",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9515886",
+    "observationCount": 29900,
+    "scientific": "Hirundo rustica Linnaeus, 1758",
+    "canonical": "Hirundo rustica",
+    "nameSv": "",
+    "nameEn": "Barn Swallow",
+    "family": "Hirundinidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "8077224",
+    "observationCount": 28530,
+    "scientific": "Alauda arvensis Linnaeus, 1758",
+    "canonical": "Alauda arvensis",
+    "nameSv": "",
+    "nameEn": "Eurasian Skylark",
+    "family": "Alaudidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481139",
+    "observationCount": 28355,
+    "scientific": "Larus argentatus Pontoppidan, 1763",
+    "canonical": "Larus argentatus",
+    "nameSv": "",
+    "nameEn": "Herring Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "7901064",
+    "observationCount": 28313,
+    "scientific": "Turdus philomelos C.L.Brehm, 1831",
+    "canonical": "Turdus philomelos",
+    "nameSv": "",
+    "nameEn": "Song Thrush",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498261",
+    "observationCount": 27301,
+    "scientific": "Aythya fuligula (Linnaeus, 1758)",
+    "canonical": "Aythya fuligula",
+    "nameSv": "",
+    "nameEn": "Tufted Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9797180",
+    "observationCount": 27156,
+    "scientific": "Ardea cinerea Linnaeus, 1758",
+    "canonical": "Ardea cinerea",
+    "nameSv": "",
+    "nameEn": "Gray/Purple Heron",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "5229168",
+    "observationCount": 26937,
+    "scientific": "Milvus milvus (Linnaeus, 1758)",
+    "canonical": "Milvus milvus",
+    "nameSv": "",
+    "nameEn": "Red Kite",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2491557",
+    "observationCount": 26581,
+    "scientific": "Emberiza schoeniclus (Linnaeus, 1758)",
+    "canonical": "Emberiza schoeniclus",
+    "nameSv": "",
+    "nameEn": "Reed Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5231438",
+    "observationCount": 26429,
+    "scientific": "Troglodytes troglodytes (Linnaeus, 1758)",
+    "canonical": "Troglodytes troglodytes",
+    "nameSv": "",
+    "nameEn": "Eurasian Wren",
+    "family": "Troglodytidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "7788295",
+    "observationCount": 26419,
+    "scientific": "Haematopus ostralegus Linnaeus, 1758",
+    "canonical": "Haematopus ostralegus",
+    "nameSv": "",
+    "nameEn": "Eurasian Oystercatcher",
+    "family": "Haematopodidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2492606",
+    "observationCount": 25919,
+    "scientific": "Ficedula hypoleuca (Pallas, 1764)",
+    "canonical": "Ficedula hypoleuca",
+    "nameSv": "",
+    "nameEn": "European Pied Flycatcher",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480482",
+    "observationCount": 25367,
+    "scientific": "Circus aeruginosus (Linnaeus, 1758)",
+    "canonical": "Circus aeruginosus",
+    "nameSv": "",
+    "nameEn": "Eurasian Marsh-Harrier",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2490737",
+    "observationCount": 24417,
+    "scientific": "Turdus pilaris Linnaeus, 1758",
+    "canonical": "Turdus pilaris",
+    "nameSv": "",
+    "nameEn": "Fieldfare",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5231198",
+    "observationCount": 24264,
+    "scientific": "Passer montanus (Linnaeus, 1758)",
+    "canonical": "Passer montanus",
+    "nameSv": "",
+    "nameEn": "Eurasian Tree Sparrow",
+    "family": "Passeridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2478523",
+    "observationCount": 23685,
+    "scientific": "Picus viridis Linnaeus, 1758",
+    "canonical": "Picus viridis",
+    "nameSv": "",
+    "nameEn": "Eurasian Green Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2481890",
+    "observationCount": 23593,
+    "scientific": "Phalacrocorax carbo (Linnaeus, 1758)",
+    "canonical": "Phalacrocorax carbo",
+    "nameSv": "",
+    "nameEn": "Great Cormorant/European Shag",
+    "family": "Phalacrocoracidae",
+    "order": "Suliformes"
+  },
+  {
+    "gbifKey": "5228676",
+    "observationCount": 22931,
+    "scientific": "Apus apus (Linnaeus, 1758)",
+    "canonical": "Apus apus",
+    "nameSv": "",
+    "nameEn": "Common Swift",
+    "family": "Apodidae",
+    "order": "Apodiformes"
+  },
+  {
+    "gbifKey": "5739317",
+    "observationCount": 22753,
+    "scientific": "Phoenicurus phoenicurus (Linnaeus, 1758)",
+    "canonical": "Phoenicurus phoenicurus",
+    "nameSv": "",
+    "nameEn": "Common Redstart",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9362027",
+    "observationCount": 22242,
+    "scientific": "Mareca strepera (Linnaeus, 1758)",
+    "canonical": "Mareca strepera",
+    "nameSv": "",
+    "nameEn": "Gadwall",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2474377",
+    "observationCount": 22232,
+    "scientific": "Fulica atra Linnaeus, 1758",
+    "canonical": "Fulica atra",
+    "nameSv": "",
+    "nameEn": "Eurasian Coot",
+    "family": "Rallidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "9616058",
+    "observationCount": 22192,
+    "scientific": "Falco tinnunculus Linnaeus, 1758",
+    "canonical": "Falco tinnunculus",
+    "nameSv": "",
+    "nameEn": "Eurasian Kestrel",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "2477872",
+    "observationCount": 22183,
+    "scientific": "Dryocopus martius (Linnaeus, 1758)",
+    "canonical": "Dryocopus martius",
+    "nameSv": "",
+    "nameEn": "Black Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2492943",
+    "observationCount": 22070,
+    "scientific": "Sylvia communis Latham, 1787",
+    "canonical": "Sylvia communis",
+    "nameSv": "",
+    "nameEn": "Greater Whitethroat",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481714",
+    "observationCount": 21702,
+    "scientific": "Tringa totanus (Linnaeus, 1758)",
+    "canonical": "Tringa totanus",
+    "nameSv": "",
+    "nameEn": "Common Redshank",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5232464",
+    "observationCount": 21451,
+    "scientific": "Branta leucopsis (Bechstein, 1803)",
+    "canonical": "Branta leucopsis",
+    "nameSv": "",
+    "nameEn": "Barnacle Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9367409",
+    "observationCount": 20646,
+    "scientific": "Sterna hirundo Linnaeus, 1758",
+    "canonical": "Sterna hirundo",
+    "nameSv": "",
+    "nameEn": "Common Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5231918",
+    "observationCount": 20466,
+    "scientific": "Cuculus canorus Linnaeus, 1758",
+    "canonical": "Cuculus canorus",
+    "nameSv": "",
+    "nameEn": "Common Cuckoo",
+    "family": "Cuculidae",
+    "order": "Cuculiformes"
+  },
+  {
+    "gbifKey": "2482054",
+    "observationCount": 20031,
+    "scientific": "Podiceps cristatus (Linnaeus, 1758)",
+    "canonical": "Podiceps cristatus",
+    "nameSv": "",
+    "nameEn": "Great Crested Grebe",
+    "family": "Podicipedidae",
+    "order": "Podicipediformes"
+  },
+  {
+    "gbifKey": "2492942",
+    "observationCount": 19999,
+    "scientific": "Sylvia borin (Boddaert, 1783)",
+    "canonical": "Sylvia borin",
+    "nameSv": "",
+    "nameEn": "Garden Warbler",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481792",
+    "observationCount": 19826,
+    "scientific": "Numenius arquata (Linnaeus, 1758)",
+    "canonical": "Numenius arquata",
+    "nameSv": "",
+    "nameEn": "Eurasian Curlew",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481713",
+    "observationCount": 18310,
+    "scientific": "Tringa glareola Linnaeus, 1758",
+    "canonical": "Tringa glareola",
+    "nameSv": "",
+    "nameEn": "Wood Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2487871",
+    "observationCount": 18270,
+    "scientific": "Periparus ater (Linnaeus, 1758)",
+    "canonical": "Periparus ater",
+    "nameSv": "",
+    "nameEn": "Coal Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "8000602",
+    "observationCount": 18056,
+    "scientific": "Mareca penelope (Linnaeus, 1758)",
+    "canonical": "Mareca penelope",
+    "nameSv": "",
+    "nameEn": "Eurasian Wigeon",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2490266",
+    "observationCount": 17603,
+    "scientific": "Anthus pratensis (Linnaeus, 1758)",
+    "canonical": "Anthus pratensis",
+    "nameSv": "",
+    "nameEn": "Meadow Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481819",
+    "observationCount": 17200,
+    "scientific": "Gallinago gallinago (Linnaeus, 1758)",
+    "canonical": "Gallinago gallinago",
+    "nameSv": "",
+    "nameEn": "Common Snipe",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "8104397",
+    "observationCount": 17151,
+    "scientific": "Linaria cannabina (Linnaeus, 1758)",
+    "canonical": "Linaria cannabina",
+    "nameSv": "",
+    "nameEn": "Eurasian Linnet",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492960",
+    "observationCount": 17105,
+    "scientific": "Sylvia curruca (Linnaeus, 1758)",
+    "canonical": "Sylvia curruca",
+    "nameSv": "",
+    "nameEn": "Lesser Whitethroat",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5231190",
+    "observationCount": 17006,
+    "scientific": "Passer domesticus (Linnaeus, 1758)",
+    "canonical": "Passer domesticus",
+    "nameSv": "",
+    "nameEn": "House Sparrow",
+    "family": "Passeridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481726",
+    "observationCount": 16621,
+    "scientific": "Tringa nebularia (Gunnerus, 1767)",
+    "canonical": "Tringa nebularia",
+    "nameSv": "",
+    "nameEn": "Common Greenshank",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2494329",
+    "observationCount": 16497,
+    "scientific": "Coccothraustes coccothraustes (Linnaeus, 1758)",
+    "canonical": "Coccothraustes coccothraustes",
+    "nameSv": "",
+    "nameEn": "Hawfinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2490774",
+    "observationCount": 16410,
+    "scientific": "Turdus viscivorus Linnaeus, 1758",
+    "canonical": "Turdus viscivorus",
+    "nameSv": "",
+    "nameEn": "Mistle Thrush",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498352",
+    "observationCount": 16344,
+    "scientific": "Somateria mollissima (Linnaeus, 1758)",
+    "canonical": "Somateria mollissima",
+    "nameSv": "",
+    "nameEn": "Common Eider",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481728",
+    "observationCount": 16331,
+    "scientific": "Tringa ochropus Linnaeus, 1758",
+    "canonical": "Tringa ochropus",
+    "nameSv": "",
+    "nameEn": "Green Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2495471",
+    "observationCount": 15947,
+    "scientific": "Columba oenas Linnaeus, 1758",
+    "canonical": "Columba oenas",
+    "nameSv": "",
+    "nameEn": "Stock Dove",
+    "family": "Columbidae",
+    "order": "Columbiformes"
+  },
+  {
+    "gbifKey": "2487843",
+    "observationCount": 15699,
+    "scientific": "Poecile palustris (Linnaeus, 1758)",
+    "canonical": "Poecile palustris",
+    "nameSv": "",
+    "nameEn": "Marsh Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481800",
+    "observationCount": 15642,
+    "scientific": "Actitis hypoleucos (Linnaeus, 1758)",
+    "canonical": "Actitis hypoleucos",
+    "nameSv": "",
+    "nameEn": "Common Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2498009",
+    "observationCount": 15543,
+    "scientific": "Tadorna tadorna (Linnaeus, 1758)",
+    "canonical": "Tadorna tadorna",
+    "nameSv": "",
+    "nameEn": "Common Shelduck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2487603",
+    "observationCount": 15197,
+    "scientific": "Certhia familiaris Linnaeus, 1758",
+    "canonical": "Certhia familiaris",
+    "nameSv": "",
+    "nameEn": "Eurasian Treecreeper",
+    "family": "Certhiidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9566659",
+    "observationCount": 15044,
+    "scientific": "Charadrius hiaticula Linnaeus, 1758",
+    "canonical": "Charadrius hiaticula",
+    "nameSv": "",
+    "nameEn": "Common Ringed Plover",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481172",
+    "observationCount": 14700,
+    "scientific": "Larus marinus Linnaeus, 1758",
+    "canonical": "Larus marinus",
+    "nameSv": "",
+    "nameEn": "Great Black-backed Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5231240",
+    "observationCount": 14691,
+    "scientific": "Oenanthe oenanthe (Linnaeus, 1758)",
+    "canonical": "Oenanthe oenanthe",
+    "nameSv": "",
+    "nameEn": "Northern Wheatear",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498375",
+    "observationCount": 14690,
+    "scientific": "Mergus serrator Linnaeus, 1758",
+    "canonical": "Mergus serrator",
+    "nameSv": "",
+    "nameEn": "Red-breasted Merganser",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5229493",
+    "observationCount": 14573,
+    "scientific": "Garrulus glandarius (Linnaeus, 1758)",
+    "canonical": "Garrulus glandarius",
+    "nameSv": "",
+    "nameEn": "Eurasian Jay",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2495414",
+    "observationCount": 14477,
+    "scientific": "Columba livia J.F.Gmelin, 1789",
+    "canonical": "Columba livia",
+    "nameSv": "",
+    "nameEn": "Rock Pigeon",
+    "family": "Columbidae",
+    "order": "Columbiformes"
+  },
+  {
+    "gbifKey": "2480637",
+    "observationCount": 14383,
+    "scientific": "Accipiter nisus (Linnaeus, 1758)",
+    "canonical": "Accipiter nisus",
+    "nameSv": "",
+    "nameEn": "Eurasian Sparrowhawk",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2490781",
+    "observationCount": 13943,
+    "scientific": "Turdus iliacus Linnaeus, 1758",
+    "canonical": "Turdus iliacus",
+    "nameSv": "",
+    "nameEn": "Redwing",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2489214",
+    "observationCount": 13862,
+    "scientific": "Delichon urbicum (Linnaeus, 1758)",
+    "canonical": "Delichon urbicum",
+    "nameSv": "",
+    "nameEn": "Common House-Martin",
+    "family": "Hirundinidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492542",
+    "observationCount": 13651,
+    "scientific": "Luscinia luscinia (Linnaeus, 1758)",
+    "canonical": "Luscinia luscinia",
+    "nameSv": "",
+    "nameEn": "Thrush Nightingale",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5231763",
+    "observationCount": 13635,
+    "scientific": "Prunella modularis (Linnaeus, 1758)",
+    "canonical": "Prunella modularis",
+    "nameSv": "",
+    "nameEn": "Dunnock",
+    "family": "Prunellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2494441",
+    "observationCount": 13345,
+    "scientific": "Fringilla montifringilla Linnaeus, 1758",
+    "canonical": "Fringilla montifringilla",
+    "nameSv": "",
+    "nameEn": "Brambling",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480726",
+    "observationCount": 13265,
+    "scientific": "Pandion haliaetus (Linnaeus, 1758)",
+    "canonical": "Pandion haliaetus",
+    "nameSv": "",
+    "nameEn": "Osprey",
+    "family": "Pandionidae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "8332393",
+    "observationCount": 13247,
+    "scientific": "Spatula clypeata (Linnaeus, 1758)",
+    "canonical": "Spatula clypeata",
+    "nameSv": "",
+    "nameEn": "Northern Shoveler",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2493129",
+    "observationCount": 13115,
+    "scientific": "Acrocephalus schoenobaenus (Linnaeus, 1758)",
+    "canonical": "Acrocephalus schoenobaenus",
+    "nameSv": "",
+    "nameEn": "Sedge Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481959",
+    "observationCount": 13051,
+    "scientific": "Gavia arctica (Linnaeus, 1758)",
+    "canonical": "Gavia arctica",
+    "nameSv": "",
+    "nameEn": "Arctic/Pacific Loon",
+    "family": "Gaviidae",
+    "order": "Gaviiformes"
+  },
+  {
+    "gbifKey": "2484596",
+    "observationCount": 12465,
+    "scientific": "Regulus regulus (Linnaeus, 1758)",
+    "canonical": "Regulus regulus",
+    "nameSv": "",
+    "nameEn": "Goldcrest",
+    "family": "Regulidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9752149",
+    "observationCount": 12333,
+    "scientific": "Phasianus colchicus Linnaeus, 1758",
+    "canonical": "Phasianus colchicus",
+    "nameSv": "",
+    "nameEn": "Ring-necked Pheasant",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "8250742",
+    "observationCount": 12315,
+    "scientific": "Calidris pugnax (Linnaeus, 1758)",
+    "canonical": "Calidris pugnax",
+    "nameSv": "",
+    "nameEn": "Ruff",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "9701857",
+    "observationCount": 12277,
+    "scientific": "Motacilla flava Linnaeus, 1758",
+    "canonical": "Motacilla flava",
+    "nameSv": "",
+    "nameEn": "Western Yellow Wagtail",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2490246",
+    "observationCount": 12265,
+    "scientific": "Anthus trivialis (Linnaeus, 1758)",
+    "canonical": "Anthus trivialis",
+    "nameSv": "",
+    "nameEn": "Tree Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492521",
+    "observationCount": 11924,
+    "scientific": "Saxicola rubetra (Linnaeus, 1758)",
+    "canonical": "Saxicola rubetra",
+    "nameSv": "",
+    "nameEn": "Whinchat",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498017",
+    "observationCount": 11817,
+    "scientific": "Anser albifrons (Scopoli, 1769)",
+    "canonical": "Anser albifrons",
+    "nameSv": "",
+    "nameEn": "Greater White-fronted Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481174",
+    "observationCount": 11803,
+    "scientific": "Larus fuscus Linnaeus, 1758",
+    "canonical": "Larus fuscus",
+    "nameSv": "",
+    "nameEn": "Lesser Black-backed Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "9282206",
+    "observationCount": 11715,
+    "scientific": "Strix aluco Linnaeus, 1758",
+    "canonical": "Strix aluco",
+    "nameSv": "",
+    "nameEn": "Tawny Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2493118",
+    "observationCount": 11541,
+    "scientific": "Acrocephalus scirpaceus (Hermann, 1804)",
+    "canonical": "Acrocephalus scirpaceus",
+    "nameSv": "",
+    "nameEn": "Eurasian Reed Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2487866",
+    "observationCount": 11501,
+    "scientific": "Poecile montanus (Conrad von Baldenstein, 1827)",
+    "canonical": "Poecile montanus",
+    "nameSv": "",
+    "nameEn": "Willow Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2493220",
+    "observationCount": 11176,
+    "scientific": "Hippolais icterina (Vieillot, 1817)",
+    "canonical": "Hippolais icterina",
+    "nameSv": "",
+    "nameEn": "Icterine Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9015784",
+    "observationCount": 11123,
+    "scientific": "Dryobates minor (Linnaeus, 1758)",
+    "canonical": "Dryobates minor",
+    "nameSv": "",
+    "nameEn": "Lesser Spotted Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2477804",
+    "observationCount": 10635,
+    "scientific": "Picoides tridactylus (Linnaeus, 1758)",
+    "canonical": "Picoides tridactylus",
+    "nameSv": "",
+    "nameEn": "Eurasian Three-toed Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2495000",
+    "observationCount": 10624,
+    "scientific": "Aegithalos caudatus (Linnaeus, 1758)",
+    "canonical": "Aegithalos caudatus",
+    "nameSv": "",
+    "nameEn": "Long-tailed Tit",
+    "family": "Aegithalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481700",
+    "observationCount": 10491,
+    "scientific": "Scolopax rusticola Linnaeus, 1758",
+    "canonical": "Scolopax rusticola",
+    "nameSv": "",
+    "nameEn": "Eurasian Woodcock",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "8128385",
+    "observationCount": 9830,
+    "scientific": "Phylloscopus sibillatrix (Bechstein, 1792)",
+    "canonical": "Phylloscopus sibillatrix",
+    "nameSv": "",
+    "nameEn": "Wood Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498247",
+    "observationCount": 9815,
+    "scientific": "Melanitta nigra (Linnaeus, 1758)",
+    "canonical": "Melanitta nigra",
+    "nameSv": "",
+    "nameEn": "Common Scoter",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498285",
+    "observationCount": 9075,
+    "scientific": "Mergellus albellus (Linnaeus, 1758)",
+    "canonical": "Mergellus albellus",
+    "nameSv": "",
+    "nameEn": "Smew",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2480259",
+    "observationCount": 9043,
+    "scientific": "Recurvirostra avosetta Linnaeus, 1758",
+    "canonical": "Recurvirostra avosetta",
+    "nameSv": "",
+    "nameEn": "Pied Avocet",
+    "family": "Recurvirostridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2482059",
+    "observationCount": 8995,
+    "scientific": "Podiceps auritus (Linnaeus, 1758)",
+    "canonical": "Podiceps auritus",
+    "nameSv": "",
+    "nameEn": "Horned Grebe",
+    "family": "Podicipedidae",
+    "order": "Podicipediformes"
+  },
+  {
+    "gbifKey": "5228199",
+    "observationCount": 8900,
+    "scientific": "Gallinula chloropus (Linnaeus, 1758)",
+    "canonical": "Gallinula chloropus",
+    "nameSv": "",
+    "nameEn": "Eurasian Moorhen",
+    "family": "Rallidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "2482513",
+    "observationCount": 8692,
+    "scientific": "Corvus frugilegus Linnaeus, 1758",
+    "canonical": "Corvus frugilegus",
+    "nameSv": "",
+    "nameEn": "Rook",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492576",
+    "observationCount": 8587,
+    "scientific": "Muscicapa striata (Pallas, 1764)",
+    "canonical": "Muscicapa striata",
+    "nameSv": "",
+    "nameEn": "Spotted Flycatcher",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2487883",
+    "observationCount": 8498,
+    "scientific": "Lophophanes cristatus (Linnaeus, 1758)",
+    "canonical": "Lophophanes cristatus",
+    "nameSv": "",
+    "nameEn": "Crested Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "7745240",
+    "observationCount": 8476,
+    "scientific": "Lanius collurio Linnaeus, 1758",
+    "canonical": "Lanius collurio",
+    "nameSv": "",
+    "nameEn": "Red-backed Shrike",
+    "family": "Laniidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481759",
+    "observationCount": 8474,
+    "scientific": "Calidris alpina (Linnaeus, 1758)",
+    "canonical": "Calidris alpina",
+    "nameSv": "",
+    "nameEn": "Dunlin",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "9752617",
+    "observationCount": 8394,
+    "scientific": "Ardea alba Linnaeus, 1758",
+    "canonical": "Ardea alba",
+    "nameSv": "",
+    "nameEn": "Great Egret",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "2493136",
+    "observationCount": 8381,
+    "scientific": "Acrocephalus palustris (Bechstein, 1798)",
+    "canonical": "Acrocephalus palustris",
+    "nameSv": "",
+    "nameEn": "Marsh Warbler/Eurasian Reed Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2482048",
+    "observationCount": 8185,
+    "scientific": "Tachybaptus ruficollis (Pallas, 1764)",
+    "canonical": "Tachybaptus ruficollis",
+    "nameSv": "",
+    "nameEn": "Little Grebe",
+    "family": "Podicipedidae",
+    "order": "Podicipediformes"
+  },
+  {
+    "gbifKey": "2481236",
+    "observationCount": 8121,
+    "scientific": "Hydroprogne caspia (Pallas, 1770)",
+    "canonical": "Hydroprogne caspia",
+    "nameSv": "",
+    "nameEn": "Caspian Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481035",
+    "observationCount": 7886,
+    "scientific": "Falco subbuteo Linnaeus, 1758",
+    "canonical": "Falco subbuteo",
+    "nameSv": "",
+    "nameEn": "Eurasian Hobby",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "2474831",
+    "observationCount": 7802,
+    "scientific": "Rallus aquaticus Linnaeus, 1758",
+    "canonical": "Rallus aquaticus",
+    "nameSv": "",
+    "nameEn": "Water Rail",
+    "family": "Rallidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "2490310",
+    "observationCount": 7763,
+    "scientific": "Motacilla cinerea Tunstall, 1771",
+    "canonical": "Motacilla cinerea",
+    "nameSv": "",
+    "nameEn": "Gray Wagtail",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2495696",
+    "observationCount": 7645,
+    "scientific": "Streptopelia decaocto (Frivaldszky, 1838)",
+    "canonical": "Streptopelia decaocto",
+    "nameSv": "",
+    "nameEn": "Eurasian Collared-Dove",
+    "family": "Columbidae",
+    "order": "Columbiformes"
+  },
+  {
+    "gbifKey": "9409796",
+    "observationCount": 7505,
+    "scientific": "Corvus corone Linnaeus, 1758",
+    "canonical": "Corvus corone",
+    "nameSv": "",
+    "nameEn": "Carrion Crow",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2482051",
+    "observationCount": 7330,
+    "scientific": "Podiceps grisegena (Boddaert, 1783)",
+    "canonical": "Podiceps grisegena",
+    "nameSv": "",
+    "nameEn": "Red-necked Grebe",
+    "family": "Podicipedidae",
+    "order": "Podicipediformes"
+  },
+  {
+    "gbifKey": "2480332",
+    "observationCount": 7122,
+    "scientific": "Pluvialis apricaria (Linnaeus, 1758)",
+    "canonical": "Pluvialis apricaria",
+    "nameSv": "",
+    "nameEn": "European Golden-Plover",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2498255",
+    "observationCount": 7075,
+    "scientific": "Aythya ferina (Linnaeus, 1758)",
+    "canonical": "Aythya ferina",
+    "nameSv": "",
+    "nameEn": "Common Pochard",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481958",
+    "observationCount": 7066,
+    "scientific": "Gavia stellata (Pontoppidan, 1763)",
+    "canonical": "Gavia stellata",
+    "nameSv": "",
+    "nameEn": "Red-throated Loon",
+    "family": "Gaviidae",
+    "order": "Gaviiformes"
+  },
+  {
+    "gbifKey": "2498112",
+    "observationCount": 7056,
+    "scientific": "Anas acuta Linnaeus, 1758",
+    "canonical": "Anas acuta",
+    "nameSv": "",
+    "nameEn": "Northern Pintail",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5229230",
+    "observationCount": 6890,
+    "scientific": "Sterna paradisaea Pontoppidan, 1763",
+    "canonical": "Sterna paradisaea",
+    "nameSv": "",
+    "nameEn": "Arctic Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2490604",
+    "observationCount": 6768,
+    "scientific": "Lullula arborea (Linnaeus, 1758)",
+    "canonical": "Lullula arborea",
+    "nameSv": "",
+    "nameEn": "Wood Lark",
+    "family": "Alaudidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481725",
+    "observationCount": 6682,
+    "scientific": "Tringa erythropus (Pallas, 1764)",
+    "canonical": "Tringa erythropus",
+    "nameSv": "",
+    "nameEn": "Spotted Redshank",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2498027",
+    "observationCount": 6636,
+    "scientific": "Anser fabalis (Latham, 1787)",
+    "canonical": "Anser fabalis",
+    "nameSv": "",
+    "nameEn": "Taiga/Tundra Bean-Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498238",
+    "observationCount": 6478,
+    "scientific": "Melanitta fusca (Linnaeus, 1758)",
+    "canonical": "Melanitta fusca",
+    "nameSv": "",
+    "nameEn": "White-winged Scoter",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "8012314",
+    "observationCount": 6440,
+    "scientific": "Jynx torquilla Linnaeus, 1758",
+    "canonical": "Jynx torquilla",
+    "nameSv": "",
+    "nameEn": "Eurasian Wryneck",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "5231630",
+    "observationCount": 6414,
+    "scientific": "Acanthis flammea (Linnaeus, 1758)",
+    "canonical": "Acanthis flammea",
+    "nameSv": "",
+    "nameEn": "Common Redpoll",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480524",
+    "observationCount": 6314,
+    "scientific": "Buteo lagopus (Pontoppidan, 1763)",
+    "canonical": "Buteo lagopus",
+    "nameSv": "",
+    "nameEn": "Rough-legged Hawk",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2489160",
+    "observationCount": 6273,
+    "scientific": "Riparia riparia (Linnaeus, 1758)",
+    "canonical": "Riparia riparia",
+    "nameSv": "",
+    "nameEn": "Bank Swallow",
+    "family": "Hirundinidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481681",
+    "observationCount": 6166,
+    "scientific": "Limosa lapponica (Linnaeus, 1758)",
+    "canonical": "Limosa lapponica",
+    "nameSv": "",
+    "nameEn": "Bar-tailed Godwit",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480910",
+    "observationCount": 6112,
+    "scientific": "Botaurus stellaris (Linnaeus, 1758)",
+    "canonical": "Botaurus stellaris",
+    "nameSv": "",
+    "nameEn": "Great Bittern",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "2495093",
+    "observationCount": 6094,
+    "scientific": "Cinclus cinclus (Linnaeus, 1758)",
+    "canonical": "Cinclus cinclus",
+    "nameSv": "",
+    "nameEn": "White-throated Dipper",
+    "family": "Cinclidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481240",
+    "observationCount": 6049,
+    "scientific": "Thalasseus sandvicensis (Latham, 1787)",
+    "canonical": "Thalasseus sandvicensis",
+    "nameSv": "",
+    "nameEn": "Sandwich Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2473577",
+    "observationCount": 6004,
+    "scientific": "Tetrao urogallus Linnaeus, 1758",
+    "canonical": "Tetrao urogallus",
+    "nameSv": "",
+    "nameEn": "Western Capercaillie",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "9444556",
+    "observationCount": 5907,
+    "scientific": "Lanius excubitor Linnaeus, 1758",
+    "canonical": "Lanius excubitor",
+    "nameSv": "",
+    "nameEn": "Great Gray Shrike",
+    "family": "Laniidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "6065841",
+    "observationCount": 5796,
+    "scientific": "Hydrocoloeus minutus (Pallas, 1776)",
+    "canonical": "Hydrocoloeus minutus",
+    "nameSv": "",
+    "nameEn": "Little Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2484605",
+    "observationCount": 5739,
+    "scientific": "Bombycilla garrulus (Linnaeus, 1758)",
+    "canonical": "Bombycilla garrulus",
+    "nameSv": "",
+    "nameEn": "Bohemian Waxwing",
+    "family": "Bombycillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "8109681",
+    "observationCount": 5619,
+    "scientific": "Caprimulgus europaeus Linnaeus, 1758",
+    "canonical": "Caprimulgus europaeus",
+    "nameSv": "",
+    "nameEn": "Eurasian Nightjar",
+    "family": "Caprimulgidae",
+    "order": "Caprimulgiformes"
+  },
+  {
+    "gbifKey": "2481784",
+    "observationCount": 5218,
+    "scientific": "Numenius phaeopus (Linnaeus, 1758)",
+    "canonical": "Numenius phaeopus",
+    "nameSv": "",
+    "nameEn": "Whimbrel",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480487",
+    "observationCount": 4944,
+    "scientific": "Circus cyaneus (Linnaeus, 1766)",
+    "canonical": "Circus cyaneus",
+    "nameSv": "",
+    "nameEn": "Hen Harrier",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2473682",
+    "observationCount": 4821,
+    "scientific": "Lyrurus tetrix (Linnaeus, 1758)",
+    "canonical": "Lyrurus tetrix",
+    "nameSv": "",
+    "nameEn": "black grouse",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "2481740",
+    "observationCount": 4722,
+    "scientific": "Calidris temminckii (Leisler, 1812)",
+    "canonical": "Calidris temminckii",
+    "nameSv": "",
+    "nameEn": "Temminck's Stint",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2474156",
+    "observationCount": 4688,
+    "scientific": "Coturnix coturnix (Linnaeus, 1758)",
+    "canonical": "Coturnix coturnix",
+    "nameSv": "",
+    "nameEn": "Common Quail",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "2494459",
+    "observationCount": 4612,
+    "scientific": "Carpodacus erythrinus (Pallas, 1770)",
+    "canonical": "Carpodacus erythrinus",
+    "nameSv": "",
+    "nameEn": "Common Rosefinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498273",
+    "observationCount": 4431,
+    "scientific": "Clangula hyemalis (Linnaeus, 1758)",
+    "canonical": "Clangula hyemalis",
+    "nameSv": "",
+    "nameEn": "Long-tailed Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9629160",
+    "observationCount": 3776,
+    "scientific": "Loxia curvirostra Linnaeus, 1758",
+    "canonical": "Loxia curvirostra",
+    "nameSv": "",
+    "nameEn": "Red Crossbill",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480420",
+    "observationCount": 3758,
+    "scientific": "Pernis apivorus (Linnaeus, 1758)",
+    "canonical": "Pernis apivorus",
+    "nameSv": "",
+    "nameEn": "European Honey-buzzard",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2498024",
+    "observationCount": 3714,
+    "scientific": "Anser brachyrhynchus Baillon, 1834",
+    "canonical": "Anser brachyrhynchus",
+    "nameSv": "",
+    "nameEn": "Pink-footed Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498265",
+    "observationCount": 3695,
+    "scientific": "Aythya marila (Linnaeus, 1761)",
+    "canonical": "Aythya marila",
+    "nameSv": "",
+    "nameEn": "Greater Scaup",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2493548",
+    "observationCount": 3687,
+    "scientific": "Locustella naevia (Boddaert, 1783)",
+    "canonical": "Locustella naevia",
+    "nameSv": "",
+    "nameEn": "Common Grasshopper-Warbler",
+    "family": "Locustellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5789279",
+    "observationCount": 3608,
+    "scientific": "Sternula albifrons (Pallas, 1764)",
+    "canonical": "Sternula albifrons",
+    "nameSv": "",
+    "nameEn": "Little Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2478548",
+    "observationCount": 3596,
+    "scientific": "Picus canus J.F.Gmelin, 1788",
+    "canonical": "Picus canus",
+    "nameSv": "",
+    "nameEn": "Gray-headed Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2473958",
+    "observationCount": 3558,
+    "scientific": "Perdix perdix (Linnaeus, 1758)",
+    "canonical": "Perdix perdix",
+    "nameSv": "",
+    "nameEn": "Gray Partridge",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "5739315",
+    "observationCount": 3419,
+    "scientific": "Phoenicurus ochruros (S.G.Gmelin, 1774)",
+    "canonical": "Phoenicurus ochruros",
+    "nameSv": "",
+    "nameEn": "Black Redstart",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "4408759",
+    "observationCount": 3372,
+    "scientific": "Saxicola rubicola (Linnaeus, 1766)",
+    "canonical": "Saxicola rubicola",
+    "nameSv": "",
+    "nameEn": "European Stonechat",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9274012",
+    "observationCount": 3357,
+    "scientific": "Spatula querquedula (Linnaeus, 1758)",
+    "canonical": "Spatula querquedula",
+    "nameSv": "",
+    "nameEn": "Garganey",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481312",
+    "observationCount": 3309,
+    "scientific": "Cepphus grylle (Linnaeus, 1758)",
+    "canonical": "Cepphus grylle",
+    "nameSv": "",
+    "nameEn": "Black Guillemot",
+    "family": "Alcidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "8277073",
+    "observationCount": 3285,
+    "scientific": "Alca torda Linnaeus, 1758",
+    "canonical": "Alca torda",
+    "nameSv": "",
+    "nameEn": "Razorbill",
+    "family": "Alcidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481047",
+    "observationCount": 3258,
+    "scientific": "Falco peregrinus Tunstall, 1771",
+    "canonical": "Falco peregrinus",
+    "nameSv": "",
+    "nameEn": "Peregrine Falcon",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "2497306",
+    "observationCount": 3146,
+    "scientific": "Asio otus (Linnaeus, 1758)",
+    "canonical": "Asio otus",
+    "nameSv": "",
+    "nameEn": "Long-eared Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2481685",
+    "observationCount": 3111,
+    "scientific": "Limosa limosa (Linnaeus, 1758)",
+    "canonical": "Limosa limosa",
+    "nameSv": "",
+    "nameEn": "Black-tailed Godwit",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2475532",
+    "observationCount": 3083,
+    "scientific": "Alcedo atthis (Linnaeus, 1758)",
+    "canonical": "Alcedo atthis",
+    "nameSv": "",
+    "nameEn": "Common Kingfisher",
+    "family": "Alcedinidae",
+    "order": "Coraciiformes"
+  },
+  {
+    "gbifKey": "5229167",
+    "observationCount": 3026,
+    "scientific": "Milvus migrans (Boddaert, 1783)",
+    "canonical": "Milvus migrans",
+    "nameSv": "",
+    "nameEn": "Black Kite",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "4408498",
+    "observationCount": 2941,
+    "scientific": "Crex crex (Linnaeus, 1758)",
+    "canonical": "Crex crex",
+    "nameSv": "",
+    "nameEn": "Corn Crake",
+    "family": "Rallidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "2481119",
+    "observationCount": 2893,
+    "scientific": "Chlidonias niger (Linnaeus, 1758)",
+    "canonical": "Chlidonias niger",
+    "nameSv": "",
+    "nameEn": "Black Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "4408732",
+    "observationCount": 2839,
+    "scientific": "Luscinia svecica (Linnaeus, 1758)",
+    "canonical": "Luscinia svecica",
+    "nameSv": "",
+    "nameEn": "Bluethroat",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2490275",
+    "observationCount": 2773,
+    "scientific": "Anthus petrosus (Montagu, 1798)",
+    "canonical": "Anthus petrosus",
+    "nameSv": "",
+    "nameEn": "Rock Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480506",
+    "observationCount": 2752,
+    "scientific": "Aquila chrysaetos (Linnaeus, 1758)",
+    "canonical": "Aquila chrysaetos",
+    "nameSv": "",
+    "nameEn": "Golden Eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2481743",
+    "observationCount": 2747,
+    "scientific": "Calidris maritima (Brünnich, 1764)",
+    "canonical": "Calidris maritima",
+    "nameSv": "",
+    "nameEn": "Purple Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480327",
+    "observationCount": 2678,
+    "scientific": "Pluvialis squatarola (Linnaeus, 1758)",
+    "canonical": "Pluvialis squatarola",
+    "nameSv": "",
+    "nameEn": "Black-bellied Plover",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "7668711",
+    "observationCount": 2660,
+    "scientific": "Linaria flavirostris (Linnaeus, 1758)",
+    "canonical": "Linaria flavirostris",
+    "nameSv": "",
+    "nameEn": "Twite",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492601",
+    "observationCount": 2531,
+    "scientific": "Ficedula albicollis (Temminck, 1815)",
+    "canonical": "Ficedula albicollis",
+    "nameSv": "",
+    "nameEn": "Collared Flycatcher",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481765",
+    "observationCount": 2492,
+    "scientific": "Calidris canutus (Linnaeus, 1758)",
+    "canonical": "Calidris canutus",
+    "nameSv": "",
+    "nameEn": "Red Knot",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481621",
+    "observationCount": 2479,
+    "scientific": "Stercorarius parasiticus (Linnaeus, 1758)",
+    "canonical": "Stercorarius parasiticus",
+    "nameSv": "",
+    "nameEn": "Parasitic Jaeger",
+    "family": "Stercorariidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "7865305",
+    "observationCount": 2461,
+    "scientific": "Turdus torquatus Linnaeus, 1758",
+    "canonical": "Turdus torquatus",
+    "nameSv": "",
+    "nameEn": "Ring Ouzel",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2493367",
+    "observationCount": 2445,
+    "scientific": "Panurus biarmicus (Linnaeus, 1758)",
+    "canonical": "Panurus biarmicus",
+    "nameSv": "",
+    "nameEn": "Bearded Reedling",
+    "family": "Panuridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481342",
+    "observationCount": 2415,
+    "scientific": "Uria aalge (Pontoppidan, 1763)",
+    "canonical": "Uria aalge",
+    "nameSv": "",
+    "nameEn": "Common Murre",
+    "family": "Alcidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2493128",
+    "observationCount": 2395,
+    "scientific": "Acrocephalus arundinaceus (Linnaeus, 1758)",
+    "canonical": "Acrocephalus arundinaceus",
+    "nameSv": "",
+    "nameEn": "Great Reed Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2491719",
+    "observationCount": 2332,
+    "scientific": "Plectrophenax nivalis (Linnaeus, 1758)",
+    "canonical": "Plectrophenax nivalis",
+    "nameSv": "",
+    "nameEn": "Snow Bunting",
+    "family": "Calcariidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481861",
+    "observationCount": 2295,
+    "scientific": "Phalacrocorax aristotelis (Linnaeus, 1761)",
+    "canonical": "Phalacrocorax aristotelis",
+    "nameSv": "",
+    "nameEn": "European Shag",
+    "family": "Phalacrocoracidae",
+    "order": "Suliformes"
+  },
+  {
+    "gbifKey": "5232162",
+    "observationCount": 2211,
+    "scientific": "Glaucidium passerinum (Linnaeus, 1758)",
+    "canonical": "Glaucidium passerinum",
+    "nameSv": "",
+    "nameEn": "Eurasian Pygmy-Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2482613",
+    "observationCount": 2126,
+    "scientific": "Nucifraga caryocatactes (Linnaeus, 1758)",
+    "canonical": "Nucifraga caryocatactes",
+    "nameSv": "",
+    "nameEn": "Eurasian Nutcracker",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481776",
+    "observationCount": 2048,
+    "scientific": "Arenaria interpres (Linnaeus, 1758)",
+    "canonical": "Arenaria interpres",
+    "nameSv": "",
+    "nameEn": "Ruddy Turnstone",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "6093527",
+    "observationCount": 1977,
+    "scientific": "Regulus ignicapilla (Temminck, 1820)",
+    "canonical": "Regulus ignicapilla",
+    "nameSv": "",
+    "nameEn": "Firecrest",
+    "family": "Regulidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2482449",
+    "observationCount": 1967,
+    "scientific": "Perisoreus infaustus (Linnaeus, 1758)",
+    "canonical": "Perisoreus infaustus",
+    "nameSv": "",
+    "nameEn": "Siberian Jay",
+    "family": "Corvidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "7340170",
+    "observationCount": 1929,
+    "scientific": "Anser serrirostris Gould, 1852",
+    "canonical": "Anser serrirostris",
+    "nameSv": "",
+    "nameEn": "Tundra Bean-Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5232446",
+    "observationCount": 1917,
+    "scientific": "Branta bernicla (Linnaeus, 1758)",
+    "canonical": "Branta bernicla",
+    "nameSv": "",
+    "nameEn": "Brant",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481912",
+    "observationCount": 1891,
+    "scientific": "Ciconia ciconia (Linnaeus, 1758)",
+    "canonical": "Ciconia ciconia",
+    "nameSv": "",
+    "nameEn": "White Stork",
+    "family": "Ciconiidae",
+    "order": "Ciconiiformes"
+  },
+  {
+    "gbifKey": "2473663",
+    "observationCount": 1836,
+    "scientific": "Tetrastes bonasia (Linnaeus, 1758)",
+    "canonical": "Tetrastes bonasia",
+    "nameSv": "",
+    "nameEn": "Hazel Grouse",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "5739298",
+    "observationCount": 1794,
+    "scientific": "Aegolius funereus (Linnaeus, 1758)",
+    "canonical": "Aegolius funereus",
+    "nameSv": "",
+    "nameEn": "Boreal Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2481181",
+    "observationCount": 1780,
+    "scientific": "Larus cachinnans Pallas, 1811",
+    "canonical": "Larus cachinnans",
+    "nameSv": "",
+    "nameEn": "Caspian Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "9813242",
+    "observationCount": 1767,
+    "scientific": "Falco columbarius Linnaeus, 1758",
+    "canonical": "Falco columbarius",
+    "nameSv": "",
+    "nameEn": "Merlin",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "2481741",
+    "observationCount": 1738,
+    "scientific": "Calidris ferruginea (Pontoppidan, 1763)",
+    "canonical": "Calidris ferruginea",
+    "nameSv": "",
+    "nameEn": "Curlew Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "7634625",
+    "observationCount": 1729,
+    "scientific": "Emberiza calandra Linnaeus, 1758",
+    "canonical": "Emberiza calandra",
+    "nameSv": "",
+    "nameEn": "corn bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480964",
+    "observationCount": 1669,
+    "scientific": "Morus bassanus (Linnaeus, 1758)",
+    "canonical": "Morus bassanus",
+    "nameSv": "",
+    "nameEn": "Northern Gannet",
+    "family": "Sulidae",
+    "order": "Suliformes"
+  },
+  {
+    "gbifKey": "2493551",
+    "observationCount": 1566,
+    "scientific": "Locustella luscinioides (Savi, 1824)",
+    "canonical": "Locustella luscinioides",
+    "nameSv": "",
+    "nameEn": "Savi's Warbler",
+    "family": "Locustellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2497295",
+    "observationCount": 1492,
+    "scientific": "Asio flammeus (Pontoppidan, 1763)",
+    "canonical": "Asio flammeus",
+    "nameSv": "",
+    "nameEn": "Short-eared Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2492605",
+    "observationCount": 1464,
+    "scientific": "Ficedula parva (Bechstein, 1792)",
+    "canonical": "Ficedula parva",
+    "nameSv": "",
+    "nameEn": "Red-breasted Flycatcher",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498026",
+    "observationCount": 1350,
+    "scientific": "Anser erythropus (Linnaeus, 1758)",
+    "canonical": "Anser erythropus",
+    "nameSv": "",
+    "nameEn": "Lesser White-fronted Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498338",
+    "observationCount": 1327,
+    "scientific": "Cygnus columbianus (Ord, 1815)",
+    "canonical": "Cygnus columbianus",
+    "nameSv": "",
+    "nameEn": "Tundra Swan",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498388",
+    "observationCount": 1258,
+    "scientific": "Aix galericulata (Linnaeus, 1758)",
+    "canonical": "Aix galericulata",
+    "nameSv": "",
+    "nameEn": "Mandarin Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2493145",
+    "observationCount": 1236,
+    "scientific": "Acrocephalus dumetorum Blyth, 1849",
+    "canonical": "Acrocephalus dumetorum",
+    "nameSv": "",
+    "nameEn": "Blyth's Reed Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10124612",
+    "observationCount": 1173,
+    "scientific": "Anser anser x Branta canadensis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Graylag x Canada Goose (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "7537888",
+    "observationCount": 1155,
+    "scientific": "Calidris falcinellus (Pontoppidan, 1763)",
+    "canonical": "Calidris falcinellus",
+    "nameSv": "",
+    "nameEn": "Broad-billed Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480495",
+    "observationCount": 1131,
+    "scientific": "Circus pygargus (Linnaeus, 1758)",
+    "canonical": "Circus pygargus",
+    "nameSv": "",
+    "nameEn": "Montagu's Harrier",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2488949",
+    "observationCount": 1080,
+    "scientific": "Oriolus oriolus (Linnaeus, 1758)",
+    "canonical": "Oriolus oriolus",
+    "nameSv": "",
+    "nameEn": "Eurasian Golden Oriole",
+    "family": "Oriolidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2493549",
+    "observationCount": 959,
+    "scientific": "Locustella fluviatilis (Wolf, 1810)",
+    "canonical": "Locustella fluviatilis",
+    "nameSv": "",
+    "nameEn": "Eurasian River Warbler",
+    "family": "Locustellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2494154",
+    "observationCount": 932,
+    "scientific": "Loxia pytyopsittacus von Borkhausen, 1793",
+    "canonical": "Loxia pytyopsittacus",
+    "nameSv": "",
+    "nameEn": "Parrot Crossbill",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481835",
+    "observationCount": 913,
+    "scientific": "Lymnocryptes minimus (Brünnich, 1764)",
+    "canonical": "Lymnocryptes minimus",
+    "nameSv": "",
+    "nameEn": "Jack Snipe",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2473421",
+    "observationCount": 910,
+    "scientific": "Lagopus lagopus (Linnaeus, 1758)",
+    "canonical": "Lagopus lagopus",
+    "nameSv": "",
+    "nameEn": "Willow Ptarmigan",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "2481749",
+    "observationCount": 899,
+    "scientific": "Calidris minuta (Leisler, 1812)",
+    "canonical": "Calidris minuta",
+    "nameSv": "",
+    "nameEn": "Little Stint",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5739290",
+    "observationCount": 893,
+    "scientific": "Phalaropus lobatus (Linnaeus, 1758)",
+    "canonical": "Phalaropus lobatus",
+    "nameSv": "",
+    "nameEn": "Red-necked Phalarope",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2482065",
+    "observationCount": 871,
+    "scientific": "Podiceps nigricollis C.L.Brehm, 1831",
+    "canonical": "Podiceps nigricollis",
+    "nameSv": "",
+    "nameEn": "Eared Grebe",
+    "family": "Podicipedidae",
+    "order": "Podicipediformes"
+  },
+  {
+    "gbifKey": "2474621",
+    "observationCount": 863,
+    "scientific": "Porzana porzana (Linnaeus, 1766)",
+    "canonical": "Porzana porzana",
+    "nameSv": "",
+    "nameEn": "Spotted Crake",
+    "family": "Rallidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "2492955",
+    "observationCount": 856,
+    "scientific": "Sylvia nisoria (Bechstein, 1792)",
+    "canonical": "Sylvia nisoria",
+    "nameSv": "",
+    "nameEn": "Barred Warbler",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2494200",
+    "observationCount": 829,
+    "scientific": "Serinus serinus (Linnaeus, 1766)",
+    "canonical": "Serinus serinus",
+    "nameSv": "",
+    "nameEn": "European Serin",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498035",
+    "observationCount": 828,
+    "scientific": "Anser indicus (Latham, 1790)",
+    "canonical": "Anser indicus",
+    "nameSv": "",
+    "nameEn": "Bar-headed Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9415596",
+    "observationCount": 826,
+    "scientific": "Eremophila alpestris (Linnaeus, 1758)",
+    "canonical": "Eremophila alpestris",
+    "nameSv": "",
+    "nameEn": "Horned Lark",
+    "family": "Alaudidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481613",
+    "observationCount": 820,
+    "scientific": "Stercorarius longicaudus Vieillot, 1819",
+    "canonical": "Stercorarius longicaudus",
+    "nameSv": "",
+    "nameEn": "Long-tailed Jaeger",
+    "family": "Stercorariidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481748",
+    "observationCount": 791,
+    "scientific": "Calidris alba (Pallas, 1764)",
+    "canonical": "Calidris alba",
+    "nameSv": "",
+    "nameEn": "Sanderling",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480801",
+    "observationCount": 786,
+    "scientific": "Platalea leucorodia Linnaeus, 1758",
+    "canonical": "Platalea leucorodia",
+    "nameSv": "",
+    "nameEn": "Eurasian Spoonbill",
+    "family": "Threskiornithidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "2481134",
+    "observationCount": 663,
+    "scientific": "Larus delawarensis Ord, 1815",
+    "canonical": "Larus delawarensis",
+    "nameSv": "",
+    "nameEn": "Ring-billed Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2491678",
+    "observationCount": 633,
+    "scientific": "Calcarius lapponicus (Linnaeus, 1758)",
+    "canonical": "Calcarius lapponicus",
+    "nameSv": "",
+    "nameEn": "Lapland Longspur",
+    "family": "Calcariidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481831",
+    "observationCount": 607,
+    "scientific": "Gallinago media (Latham, 1787)",
+    "canonical": "Gallinago media",
+    "nameSv": "",
+    "nameEn": "Great Snipe",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2490307",
+    "observationCount": 600,
+    "scientific": "Motacilla citreola Pallas, 1776",
+    "canonical": "Motacilla citreola",
+    "nameSv": "",
+    "nameEn": "Citrine Wagtail",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480281",
+    "observationCount": 566,
+    "scientific": "Charadrius morinellus Linnaeus, 1758",
+    "canonical": "Charadrius morinellus",
+    "nameSv": "",
+    "nameEn": "Eurasian Dotterel",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480491",
+    "observationCount": 564,
+    "scientific": "Circus macrourus (S.G.Gmelin, 1770)",
+    "canonical": "Circus macrourus",
+    "nameSv": "",
+    "nameEn": "Pallid Harrier",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2497894",
+    "observationCount": 543,
+    "scientific": "Surnia ulula (Linnaeus, 1758)",
+    "canonical": "Surnia ulula",
+    "nameSv": "",
+    "nameEn": "Northern Hawk Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2481062",
+    "observationCount": 512,
+    "scientific": "Falco vespertinus Linnaeus, 1766",
+    "canonical": "Falco vespertinus",
+    "nameSv": "",
+    "nameEn": "Red-footed Falcon",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "7806848",
+    "observationCount": 507,
+    "scientific": "Certhia brachydactyla C.L.Brehm, 1820",
+    "canonical": "Certhia brachydactyla",
+    "nameSv": "",
+    "nameEn": "Short-toed Treecreeper",
+    "family": "Certhiidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2497509",
+    "observationCount": 503,
+    "scientific": "Strix uralensis Pallas, 1771",
+    "canonical": "Strix uralensis",
+    "nameSv": "",
+    "nameEn": "Ural Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2481205",
+    "observationCount": 497,
+    "scientific": "Rissa tridactyla (Linnaeus, 1758)",
+    "canonical": "Rissa tridactyla",
+    "nameSv": "",
+    "nameEn": "Black-legged Kittiwake",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2497522",
+    "observationCount": 473,
+    "scientific": "Strix nebulosa J.R.Forster, 1772",
+    "canonical": "Strix nebulosa",
+    "nameSv": "",
+    "nameEn": "Great Gray Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "5227679",
+    "observationCount": 424,
+    "scientific": "Lagopus muta (Montin, 1781)",
+    "canonical": "Lagopus muta",
+    "nameSv": "",
+    "nameEn": "Rock Ptarmigan",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "2487862",
+    "observationCount": 406,
+    "scientific": "Poecile cinctus (Boddaert, 1783)",
+    "canonical": "Poecile cinctus",
+    "nameSv": "",
+    "nameEn": "Gray-headed Chickadee",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480353",
+    "observationCount": 396,
+    "scientific": "Pelecanus crispus Bruch, 1832",
+    "canonical": "Pelecanus crispus",
+    "nameSv": "",
+    "nameEn": "Dalmatian Pelican",
+    "family": "Pelecanidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "5232431",
+    "observationCount": 374,
+    "scientific": "Polysticta stelleri (Pallas, 1769)",
+    "canonical": "Polysticta stelleri",
+    "nameSv": "",
+    "nameEn": "Steller's Eider",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2494771",
+    "observationCount": 365,
+    "scientific": "Pinicola enucleator (Linnaeus, 1758)",
+    "canonical": "Pinicola enucleator",
+    "nameSv": "",
+    "nameEn": "Pine Grosbeak",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498180",
+    "observationCount": 362,
+    "scientific": "Netta rufina (Pallas, 1773)",
+    "canonical": "Netta rufina",
+    "nameSv": "",
+    "nameEn": "Red-crested Pochard",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498415",
+    "observationCount": 361,
+    "scientific": "Upupa epops Linnaeus, 1758",
+    "canonical": "Upupa epops",
+    "nameSv": "",
+    "nameEn": "Eurasian Hoopoe",
+    "family": "Upupidae",
+    "order": "Bucerotiformes"
+  },
+  {
+    "gbifKey": "8151548",
+    "observationCount": 359,
+    "scientific": "Ichthyaetus melanocephalus (Temminck, 1820)",
+    "canonical": "Ichthyaetus melanocephalus",
+    "nameSv": "",
+    "nameEn": "Mediterranean Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5232451",
+    "observationCount": 353,
+    "scientific": "Branta ruficollis (Pallas, 1769)",
+    "canonical": "Branta ruficollis",
+    "nameSv": "",
+    "nameEn": "Red-breasted Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2480331",
+    "observationCount": 342,
+    "scientific": "Pluvialis fulva (J.F.Gmelin, 1789)",
+    "canonical": "Pluvialis fulva",
+    "nameSv": "",
+    "nameEn": "Pacific Golden-Plover",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2490255",
+    "observationCount": 336,
+    "scientific": "Anthus spinoletta (Linnaeus, 1758)",
+    "canonical": "Anthus spinoletta",
+    "nameSv": "",
+    "nameEn": "Water Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2491482",
+    "observationCount": 334,
+    "scientific": "Emberiza hortulana Linnaeus, 1758",
+    "canonical": "Emberiza hortulana",
+    "nameSv": "",
+    "nameEn": "Ortolan Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2491582",
+    "observationCount": 329,
+    "scientific": "Emberiza rustica Pallas, 1776",
+    "canonical": "Emberiza rustica",
+    "nameSv": "",
+    "nameEn": "Rustic Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5959092",
+    "observationCount": 329,
+    "scientific": "Bubo bubo (Linnaeus, 1758)",
+    "canonical": "Bubo bubo",
+    "nameSv": "",
+    "nameEn": "Eurasian Eagle-Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2498350",
+    "observationCount": 318,
+    "scientific": "Somateria spectabilis (Linnaeus, 1758)",
+    "canonical": "Somateria spectabilis",
+    "nameSv": "",
+    "nameEn": "King/Common Eider",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2493084",
+    "observationCount": 294,
+    "scientific": "Phylloscopus trochiloides (Sundevall, 1837)",
+    "canonical": "Phylloscopus trochiloides",
+    "nameSv": "",
+    "nameEn": "Greenish Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5229165",
+    "observationCount": 244,
+    "scientific": "Aegypius monachus (Linnaeus, 1766)",
+    "canonical": "Aegypius monachus",
+    "nameSv": "",
+    "nameEn": "Cinereous Vulture",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2498246",
+    "observationCount": 242,
+    "scientific": "Melanitta perspicillata (Linnaeus, 1758)",
+    "canonical": "Melanitta perspicillata",
+    "nameSv": "",
+    "nameEn": "Surf Scoter",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498155",
+    "observationCount": 234,
+    "scientific": "Mareca americana (J.F.Gmelin, 1789)",
+    "canonical": "Mareca americana",
+    "nameSv": "",
+    "nameEn": "American Wigeon",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2490956",
+    "observationCount": 233,
+    "scientific": "Monticola saxatilis (Linnaeus, 1766)",
+    "canonical": "Monticola saxatilis",
+    "nameSv": "",
+    "nameEn": "Rufous-tailed Rock-Thrush",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2475443",
+    "observationCount": 226,
+    "scientific": "Merops apiaster Linnaeus, 1758",
+    "canonical": "Merops apiaster",
+    "nameSv": "",
+    "nameEn": "European Bee-eater",
+    "family": "Meropidae",
+    "order": "Coraciiformes"
+  },
+  {
+    "gbifKey": "2480876",
+    "observationCount": 223,
+    "scientific": "Egretta garzetta (Linnaeus, 1766)",
+    "canonical": "Egretta garzetta",
+    "nameSv": "",
+    "nameEn": "Little Egret/Western Reef-Heron",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "2498125",
+    "observationCount": 222,
+    "scientific": "Anas carolinensis J.F.Gmelin, 1789",
+    "canonical": "Anas carolinensis",
+    "nameSv": "",
+    "nameEn": "green-winged teal",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2480863",
+    "observationCount": 214,
+    "scientific": "Nycticorax nycticorax (Linnaeus, 1758)",
+    "canonical": "Nycticorax nycticorax",
+    "nameSv": "",
+    "nameEn": "Black-crowned Night-Heron",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "2498252",
+    "observationCount": 212,
+    "scientific": "Alopochen aegyptiaca (Linnaeus, 1766)",
+    "canonical": "Alopochen aegyptiaca",
+    "nameSv": "",
+    "nameEn": "Egyptian Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2491544",
+    "observationCount": 211,
+    "scientific": "Emberiza pusilla Pallas, 1776",
+    "canonical": "Emberiza pusilla",
+    "nameSv": "",
+    "nameEn": "Little Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498250",
+    "observationCount": 209,
+    "scientific": "Melanitta americana (Swainson, 1832)",
+    "canonical": "Melanitta americana",
+    "nameSv": "",
+    "nameEn": "Black Scoter",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "7660710",
+    "observationCount": 181,
+    "scientific": "Luscinia megarhynchos C.L.Brehm, 1831",
+    "canonical": "Luscinia megarhynchos",
+    "nameSv": "",
+    "nameEn": "Common Nightingale",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481433",
+    "observationCount": 179,
+    "scientific": "Fulmarus glacialis (Linnaeus, 1761)",
+    "canonical": "Fulmarus glacialis",
+    "nameSv": "",
+    "nameEn": "Northern Fulmar",
+    "family": "Procellariidae",
+    "order": "Procellariiformes"
+  },
+  {
+    "gbifKey": "2490283",
+    "observationCount": 178,
+    "scientific": "Anthus cervinus (Pallas, 1811)",
+    "canonical": "Anthus cervinus",
+    "nameSv": "",
+    "nameEn": "Red-throated Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2490274",
+    "observationCount": 170,
+    "scientific": "Anthus campestris (Linnaeus, 1758)",
+    "canonical": "Anthus campestris",
+    "nameSv": "",
+    "nameEn": "Tawny Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481744",
+    "observationCount": 168,
+    "scientific": "Calidris melanotos (Vieillot, 1819)",
+    "canonical": "Calidris melanotos",
+    "nameSv": "",
+    "nameEn": "Pectoral Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2480311",
+    "observationCount": 158,
+    "scientific": "Charadrius alexandrinus Linnaeus, 1758",
+    "canonical": "Charadrius alexandrinus",
+    "nameSv": "",
+    "nameEn": "Kentish Plover",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2495708",
+    "observationCount": 150,
+    "scientific": "Streptopelia turtur (Linnaeus, 1758)",
+    "canonical": "Streptopelia turtur",
+    "nameSv": "",
+    "nameEn": "European Turtle-Dove",
+    "family": "Columbidae",
+    "order": "Columbiformes"
+  },
+  {
+    "gbifKey": "2481962",
+    "observationCount": 149,
+    "scientific": "Gavia immer (Brunnich, 1764)",
+    "canonical": "Gavia immer",
+    "nameSv": "",
+    "nameEn": "Common Loon",
+    "family": "Gaviidae",
+    "order": "Gaviiformes"
+  },
+  {
+    "gbifKey": "2474627",
+    "observationCount": 146,
+    "scientific": "Porzana parva (Scopoli, 1769)",
+    "canonical": "Porzana parva",
+    "nameSv": "",
+    "nameEn": "little crake",
+    "family": "Rallidae",
+    "order": "Gruiformes"
+  },
+  {
+    "gbifKey": "9465111",
+    "observationCount": 144,
+    "scientific": "Anthus richardi Vieillot, 1818",
+    "canonical": "Anthus richardi",
+    "nameSv": "",
+    "nameEn": "Richard's/Blyth's Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481817",
+    "observationCount": 143,
+    "scientific": "Gallinago delicata (Ord, 1825)",
+    "canonical": "Gallinago delicata",
+    "nameSv": "",
+    "nameEn": "Wilson's Snipe",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481120",
+    "observationCount": 136,
+    "scientific": "Chlidonias leucopterus (Temminck, 1815)",
+    "canonical": "Chlidonias leucopterus",
+    "nameSv": "",
+    "nameEn": "White-winged Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481719",
+    "observationCount": 128,
+    "scientific": "Tringa stagnatilis (Bechstein, 1803)",
+    "canonical": "Tringa stagnatilis",
+    "nameSv": "",
+    "nameEn": "Marsh Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2487385",
+    "observationCount": 117,
+    "scientific": "Remiz pendulinus (Linnaeus, 1758)",
+    "canonical": "Remiz pendulinus",
+    "nameSv": "",
+    "nameEn": "Eurasian Penduline-Tit",
+    "family": "Remizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9235549",
+    "observationCount": 106,
+    "scientific": "Sibirionetta formosa (Georgi, 1775)",
+    "canonical": "Sibirionetta formosa",
+    "nameSv": "",
+    "nameEn": "Baikal Teal",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5228228",
+    "observationCount": 104,
+    "scientific": "Tetrax tetrax (Linnaeus, 1758)",
+    "canonical": "Tetrax tetrax",
+    "nameSv": "",
+    "nameEn": "Little Bustard",
+    "family": "Otididae",
+    "order": "Otidiformes"
+  },
+  {
+    "gbifKey": "2481957",
+    "observationCount": 102,
+    "scientific": "Gavia adamsii (G.R.Gray, 1859)",
+    "canonical": "Gavia adamsii",
+    "nameSv": "",
+    "nameEn": "Yellow-billed Loon",
+    "family": "Gaviidae",
+    "order": "Gaviiformes"
+  },
+  {
+    "gbifKey": "8144830",
+    "observationCount": 102,
+    "scientific": "Loxia leucoptera J.F.Gmelin, 1789",
+    "canonical": "Loxia leucoptera",
+    "nameSv": "",
+    "nameEn": "White-winged Crossbill",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480830",
+    "observationCount": 101,
+    "scientific": "Bubulcus ibis (Linnaeus, 1758)",
+    "canonical": "Bubulcus ibis",
+    "nameSv": "",
+    "nameEn": "Cattle Egret",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "2493071",
+    "observationCount": 84,
+    "scientific": "Phylloscopus borealis (J.H.Blasius, 1858)",
+    "canonical": "Phylloscopus borealis",
+    "nameSv": "",
+    "nameEn": "Arctic Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481703",
+    "observationCount": 81,
+    "scientific": "Xenus cinereus (Güldenstädt, 1775)",
+    "canonical": "Xenus cinereus",
+    "nameSv": "",
+    "nameEn": "Terek Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "9413670",
+    "observationCount": 81,
+    "scientific": "Larus michahellis J.F.Naumann, 1840",
+    "canonical": "Larus michahellis",
+    "nameSv": "",
+    "nameEn": "Yellow-legged Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2498167",
+    "observationCount": 78,
+    "scientific": "Anser caerulescens (Linnaeus, 1758)",
+    "canonical": "Anser caerulescens",
+    "nameSv": "",
+    "nameEn": "Snow/Ross's Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2492509",
+    "observationCount": 72,
+    "scientific": "Tarsiger cyanurus (Pallas, 1773)",
+    "canonical": "Tarsiger cyanurus",
+    "nameSv": "",
+    "nameEn": "Red-flanked Bluetail",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480649",
+    "observationCount": 69,
+    "scientific": "Gypaetus barbatus (Linnaeus, 1758)",
+    "canonical": "Gypaetus barbatus",
+    "nameSv": "",
+    "nameEn": "Bearded Vulture",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2481263",
+    "observationCount": 68,
+    "scientific": "Gelochelidon nilotica (J.F.Gmelin, 1789)",
+    "canonical": "Gelochelidon nilotica",
+    "nameSv": "",
+    "nameEn": "Gull-billed Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2481909",
+    "observationCount": 68,
+    "scientific": "Ciconia nigra (Linnaeus, 1758)",
+    "canonical": "Ciconia nigra",
+    "nameSv": "",
+    "nameEn": "Black Stork",
+    "family": "Ciconiidae",
+    "order": "Ciconiiformes"
+  },
+  {
+    "gbifKey": "2495681",
+    "observationCount": 65,
+    "scientific": "Streptopelia orientalis (Latham, 1790)",
+    "canonical": "Streptopelia orientalis",
+    "nameSv": "",
+    "nameEn": "Oriental Turtle-Dove",
+    "family": "Columbidae",
+    "order": "Columbiformes"
+  },
+  {
+    "gbifKey": "2481299",
+    "observationCount": 62,
+    "scientific": "Alle alle (Linnaeus, 1758)",
+    "canonical": "Alle alle",
+    "nameSv": "",
+    "nameEn": "Dovekie",
+    "family": "Alcidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5845386",
+    "observationCount": 61,
+    "scientific": "Pastor roseus (Linnaeus, 1758)",
+    "canonical": "Pastor roseus",
+    "nameSv": "",
+    "nameEn": "Rosy Starling",
+    "family": "Sturnidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9952178",
+    "observationCount": 61,
+    "scientific": "Branta leucopsis x canadensis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Barnacle x Canada Goose (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498344",
+    "observationCount": 59,
+    "scientific": "Cygnus atratus (Latham, 1790)",
+    "canonical": "Cygnus atratus",
+    "nameSv": "",
+    "nameEn": "Black Swan",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2479226",
+    "observationCount": 54,
+    "scientific": "Psittacula krameri (Scopoli, 1769)",
+    "canonical": "Psittacula krameri",
+    "nameSv": "",
+    "nameEn": "Rose-ringed Parakeet",
+    "family": "Psittacidae",
+    "order": "Psittaciformes"
+  },
+  {
+    "gbifKey": "2498264",
+    "observationCount": 51,
+    "scientific": "Aythya collaris (Donovan, 1809)",
+    "canonical": "Aythya collaris",
+    "nameSv": "",
+    "nameEn": "Ring-necked Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2480513",
+    "observationCount": 49,
+    "scientific": "Aquila nipalensis Hodgson, 1833",
+    "canonical": "Aquila nipalensis",
+    "nameSv": "",
+    "nameEn": "Steppe Eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2490681",
+    "observationCount": 48,
+    "scientific": "Calandrella brachydactyla (Leisler, 1814)",
+    "canonical": "Calandrella brachydactyla",
+    "nameSv": "",
+    "nameEn": "Greater Short-toed Lark",
+    "family": "Alaudidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9930225",
+    "observationCount": 48,
+    "scientific": "Anas acuta x platyrhynchos",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Northern Pintail x Mallard",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481609",
+    "observationCount": 46,
+    "scientific": "Stercorarius pomarinus (Temminck, 1815)",
+    "canonical": "Stercorarius pomarinus",
+    "nameSv": "",
+    "nameEn": "Pomarine Jaeger",
+    "family": "Stercorariidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5229380",
+    "observationCount": 36,
+    "scientific": "Puffinus puffinus (Brunnich, 1764)",
+    "canonical": "Puffinus puffinus",
+    "nameSv": "",
+    "nameEn": "Manx Shearwater",
+    "family": "Procellariidae",
+    "order": "Procellariiformes"
+  },
+  {
+    "gbifKey": "2481756",
+    "observationCount": 33,
+    "scientific": "Calidris fuscicollis (Vieillot, 1819)",
+    "canonical": "Calidris fuscicollis",
+    "nameSv": "",
+    "nameEn": "White-rumped Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2497701",
+    "observationCount": 30,
+    "scientific": "Otus scops (Linnaeus, 1758)",
+    "canonical": "Otus scops",
+    "nameSv": "",
+    "nameEn": "European Scops-Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "9317615",
+    "observationCount": 30,
+    "scientific": "Curruca cantillans (Pallas, 1764)",
+    "canonical": "Curruca cantillans",
+    "nameSv": "",
+    "nameEn": "Subalpine Warbler",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2474051",
+    "observationCount": 29,
+    "scientific": "Alectoris rufa (Linnaeus, 1758)",
+    "canonical": "Alectoris rufa",
+    "nameSv": "",
+    "nameEn": "Red-legged Partridge",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "2493070",
+    "observationCount": 23,
+    "scientific": "Phylloscopus bonelli (Vieillot, 1819)",
+    "canonical": "Phylloscopus bonelli",
+    "nameSv": "",
+    "nameEn": "Western Bonelli's Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481121",
+    "observationCount": 22,
+    "scientific": "Chlidonias hybrida (Pallas, 1811)",
+    "canonical": "Chlidonias hybrida",
+    "nameSv": "",
+    "nameEn": "Whiskered Tern",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "10772599",
+    "observationCount": 20,
+    "scientific": "Cyanistes caeruleus x Parus major",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2481618",
+    "observationCount": 20,
+    "scientific": "Stercorarius skua (Brünnich, 1764)",
+    "canonical": "Stercorarius skua",
+    "nameSv": "",
+    "nameEn": "Great Skua",
+    "family": "Stercorariidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2477927",
+    "observationCount": 19,
+    "scientific": "Dendrocopos leucotos (Bechstein, 1802)",
+    "canonical": "Dendrocopos leucotos",
+    "nameSv": "",
+    "nameEn": "White-backed Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2498015",
+    "observationCount": 19,
+    "scientific": "Tadorna ferruginea (Pallas, 1764)",
+    "canonical": "Tadorna ferruginea",
+    "nameSv": "",
+    "nameEn": "Ruddy Shelduck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10056448",
+    "observationCount": 18,
+    "scientific": "Melanitta stejnegeri (Ridgway, 1887)",
+    "canonical": "Melanitta stejnegeri",
+    "nameSv": "",
+    "nameEn": "Stejneger's Scoter",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10258770",
+    "observationCount": 18,
+    "scientific": "Ficedula hypoleuca x albicollis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "European Pied x Collared Flycatcher (hybrid)",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10853972",
+    "observationCount": 18,
+    "scientific": "Mareca strepera x Anas platyrhynchos",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Gadwall x Mallard (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10094195",
+    "observationCount": 17,
+    "scientific": "Passer montanus x domesticus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Eurasian Tree Sparrow x House Sparrow",
+    "family": "Passeridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2493090",
+    "observationCount": 17,
+    "scientific": "Phylloscopus proregulus (Pallas, 1811)",
+    "canonical": "Phylloscopus proregulus",
+    "nameSv": "",
+    "nameEn": "Pallas's Leaf Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10333208",
+    "observationCount": 16,
+    "scientific": "Lyrurus tetrix x Tetrao urogallus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Black Grouse x Capercaillie",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "5739277",
+    "observationCount": 16,
+    "scientific": "Puffinus griseus (Gmelin, 1789)",
+    "canonical": "Puffinus griseus",
+    "nameSv": "",
+    "nameEn": "sooty shearwater",
+    "family": "Procellariidae",
+    "order": "Procellariiformes"
+  },
+  {
+    "gbifKey": "5231646",
+    "observationCount": 15,
+    "scientific": "Acanthis hornemanni (Holböll, 1843)",
+    "canonical": "Acanthis hornemanni",
+    "nameSv": "",
+    "nameEn": "Hoary Redpoll",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9982533",
+    "observationCount": 15,
+    "scientific": "Larus fuscus x argentatus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Lesser Black-backed x Herring Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "10838105",
+    "observationCount": 14,
+    "scientific": "Mareca penelope x Anas acuta",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Eurasian Wigeon x Northern Pintail (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481353",
+    "observationCount": 14,
+    "scientific": "Fratercula arctica (Linnaeus, 1758)",
+    "canonical": "Fratercula arctica",
+    "nameSv": "",
+    "nameEn": "Atlantic Puffin",
+    "family": "Alcidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2498257",
+    "observationCount": 14,
+    "scientific": "Aythya affinis (Eyton, 1838)",
+    "canonical": "Aythya affinis",
+    "nameSv": "",
+    "nameEn": "Lesser Scaup",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9345027",
+    "observationCount": 14,
+    "scientific": "Spatula cyanoptera (Vieillot, 1816)",
+    "canonical": "Spatula cyanoptera",
+    "nameSv": "",
+    "nameEn": "Cinnamon Teal",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10622731",
+    "observationCount": 13,
+    "scientific": "Larus cachinnans x argentatus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Caspian Gull x European Herring Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "10728442",
+    "observationCount": 13,
+    "scientific": "Mareca penelope x Anas platyrhynchos",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Eurasian Wigeon x Mallard (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481034",
+    "observationCount": 13,
+    "scientific": "Falco cherrug J.E.Gray, 1834",
+    "canonical": "Falco cherrug",
+    "nameSv": "",
+    "nameEn": "Saker Falcon",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "2480757",
+    "observationCount": 12,
+    "scientific": "Glareola pratincola (Linnaeus, 1766)",
+    "canonical": "Glareola pratincola",
+    "nameSv": "",
+    "nameEn": "Collared Pratincole",
+    "family": "Glareolidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2493137",
+    "observationCount": 11,
+    "scientific": "Acrocephalus agricola (Jerdon, 1845)",
+    "canonical": "Acrocephalus agricola",
+    "nameSv": "",
+    "nameEn": "Paddyfield Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10700636",
+    "observationCount": 10,
+    "scientific": "Curruca iberiae (Svensson, 2013)",
+    "canonical": "Curruca iberiae",
+    "nameSv": "",
+    "nameEn": "Western Subalpine Warbler",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2480589",
+    "observationCount": 10,
+    "scientific": "Accipiter gentilis (Linnaeus, 1758)",
+    "canonical": "Accipiter gentilis",
+    "nameSv": "",
+    "nameEn": "Northern Goshawk",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2481037",
+    "observationCount": 10,
+    "scientific": "Falco eleonorae Géné, 1839",
+    "canonical": "Falco eleonorae",
+    "nameSv": "",
+    "nameEn": "Eleonora's Falcon",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "9927949",
+    "observationCount": 9,
+    "scientific": "Milvus milvus x migrans",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Red Kite x Black Kite",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2480372",
+    "observationCount": 8,
+    "scientific": "Elanus caeruleus (Desfontaines, 1789)",
+    "canonical": "Elanus caeruleus",
+    "nameSv": "",
+    "nameEn": "Black-shouldered Kite",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2480505",
+    "observationCount": 8,
+    "scientific": "Aquila pomarina C.L.Brehm, 1831",
+    "canonical": "Aquila pomarina",
+    "nameSv": "",
+    "nameEn": "lesser spotted eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "5232452",
+    "observationCount": 8,
+    "scientific": "Branta hutchinsii (Richardson, 1832)",
+    "canonical": "Branta hutchinsii",
+    "nameSv": "",
+    "nameEn": "Cackling Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "7937336",
+    "observationCount": 8,
+    "scientific": "Charadrius dubius Scopoli, 1786",
+    "canonical": "Charadrius dubius",
+    "nameSv": "",
+    "nameEn": "Little Ringed Plover",
+    "family": "Charadriidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "8069880",
+    "observationCount": 8,
+    "scientific": "Falco rusticolus Linnaeus, 1758",
+    "canonical": "Falco rusticolus",
+    "nameSv": "",
+    "nameEn": "Gyrfalcon",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "10382597",
+    "observationCount": 7,
+    "scientific": "Aythya fuligula x marila",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Tufted Duck x Greater Scaup (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481721",
+    "observationCount": 7,
+    "scientific": "Tringa flavipes (J.F.Gmelin, 1789)",
+    "canonical": "Tringa flavipes",
+    "nameSv": "",
+    "nameEn": "Lesser Yellowlegs",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2490669",
+    "observationCount": 7,
+    "scientific": "Galerida cristata (Linnaeus, 1758)",
+    "canonical": "Galerida cristata",
+    "nameSv": "",
+    "nameEn": "Crested Lark",
+    "family": "Alaudidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492854",
+    "observationCount": 7,
+    "scientific": "Lanius minor Gmelin, 1788",
+    "canonical": "Lanius minor",
+    "nameSv": "",
+    "nameEn": "Lesser Gray Shrike",
+    "family": "Laniidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498243",
+    "observationCount": 7,
+    "scientific": "Melanitta deglandi (Bonaparte, 1850)",
+    "canonical": "Melanitta deglandi",
+    "nameSv": "",
+    "nameEn": "white-winged scoter",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498387",
+    "observationCount": 7,
+    "scientific": "Aix sponsa (Linnaeus, 1758)",
+    "canonical": "Aix sponsa",
+    "nameSv": "",
+    "nameEn": "Wood Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10718657",
+    "observationCount": 6,
+    "scientific": "Spatula discors x clypeata",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Blue-winged Teal x Northern Shoveler (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10042909",
+    "observationCount": 5,
+    "scientific": "Delichon urbicum x Hirundo rustica",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Common House Martin x Barn Swallow",
+    "family": "Hirundinidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10051287",
+    "observationCount": 5,
+    "scientific": "Motacilla citreola x  flava",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Citrine Wagtail x Yellow Wagtail",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10368935",
+    "observationCount": 5,
+    "scientific": "Anser anser x Branta leucopsis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Graylag x Barnacle Goose (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2480446",
+    "observationCount": 5,
+    "scientific": "Haliaeetus leucocephalus (Linnaeus, 1766)",
+    "canonical": "Haliaeetus leucocephalus",
+    "nameSv": "",
+    "nameEn": "Bald Eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "5739359",
+    "observationCount": 5,
+    "scientific": "Iduna caligata (Lichtenstein, 1823)",
+    "canonical": "Iduna caligata",
+    "nameSv": "",
+    "nameEn": "Booted Warbler",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9828996",
+    "observationCount": 5,
+    "scientific": "Poecile montanus x Lophophanes cristatus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Willow Tit x Crested Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10014828",
+    "observationCount": 4,
+    "scientific": "Phoenicurus ochruros x phoenicurus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Black Redstart x Common Redstart",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10156994",
+    "observationCount": 4,
+    "scientific": "Phylloscopus trochilus x collybita",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Willow Warbler x Chiffchaff",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10305684",
+    "observationCount": 4,
+    "scientific": "Larus argentatus x marinus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Herring x Great Black-backed Gull (hybrid)",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "10525787",
+    "observationCount": 4,
+    "scientific": "Cyanistes cyanus x caeruleus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Azure Tit x Blue Tit",
+    "family": "Paridae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10561545",
+    "observationCount": 4,
+    "scientific": "Certhia familiaris x brachydactyla",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Eurasian Treecreeper x Short-toed Treecreeper",
+    "family": "Certhiidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2473477",
+    "observationCount": 4,
+    "scientific": "Syrmaticus reevesii (J.E.Gray, 1829)",
+    "canonical": "Syrmaticus reevesii",
+    "nameSv": "",
+    "nameEn": "Reeves's Pheasant",
+    "family": "Phasianidae",
+    "order": "Galliformes"
+  },
+  {
+    "gbifKey": "2480509",
+    "observationCount": 4,
+    "scientific": "Aquila clanga Pallas, 1811",
+    "canonical": "Aquila clanga",
+    "nameSv": "",
+    "nameEn": "greater spotted eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2482012",
+    "observationCount": 4,
+    "scientific": "Oceanodroma leucorhoa (Vieillot, 1818)",
+    "canonical": "Oceanodroma leucorhoa",
+    "nameSv": "",
+    "nameEn": "Leach's/Townsend's/Ainley's Storm-Petrel",
+    "family": "Hydrobatidae",
+    "order": "Procellariiformes"
+  },
+  {
+    "gbifKey": "2493095",
+    "observationCount": 4,
+    "scientific": "Phylloscopus inornatus (Blyth, 1842)",
+    "canonical": "Phylloscopus inornatus",
+    "nameSv": "",
+    "nameEn": "Yellow-browed Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5231759",
+    "observationCount": 4,
+    "scientific": "Prunella montanella (Pallas, 1776)",
+    "canonical": "Prunella montanella",
+    "nameSv": "",
+    "nameEn": "Siberian Accentor",
+    "family": "Prunellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5959143",
+    "observationCount": 4,
+    "scientific": "Bubo scandiacus (Linnaeus, 1758)",
+    "canonical": "Bubo scandiacus",
+    "nameSv": "",
+    "nameEn": "Snowy Owl",
+    "family": "Strigidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "9478399",
+    "observationCount": 4,
+    "scientific": "Curruca subalpina (Temminck, 1820)",
+    "canonical": "Curruca subalpina",
+    "nameSv": "",
+    "nameEn": "Moltoni's Warbler",
+    "family": "Sylviidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10173776",
+    "observationCount": 3,
+    "scientific": "Anas platyrhynchos x crecca",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Mallard x Green-winged Teal (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10185134",
+    "observationCount": 3,
+    "scientific": "Anser albifrons x Branta canadensis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Greater White-fronted x Canada Goose (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10300529",
+    "observationCount": 3,
+    "scientific": "Aythya ferina x fuligula",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Common Pochard x Tufted Duck (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10863734",
+    "observationCount": 3,
+    "scientific": "Mareca americana x penelope",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "American Wigeon x Eurasian Wigeon",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2481156",
+    "observationCount": 3,
+    "scientific": "Larus glaucoides B.Meyer, 1822",
+    "canonical": "Larus glaucoides",
+    "nameSv": "",
+    "nameEn": "Iceland Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2497921",
+    "observationCount": 3,
+    "scientific": "Tyto alba (Scopoli, 1769)",
+    "canonical": "Tyto alba",
+    "nameSv": "",
+    "nameEn": "Barn Owl",
+    "family": "Tytonidae",
+    "order": "Strigiformes"
+  },
+  {
+    "gbifKey": "2498259",
+    "observationCount": 3,
+    "scientific": "Aythya nyroca (Güldenstädt, 1770)",
+    "canonical": "Aythya nyroca",
+    "nameSv": "",
+    "nameEn": "Ferruginous Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5229390",
+    "observationCount": 3,
+    "scientific": "Phalaropus fulicarius (Linnaeus, 1758)",
+    "canonical": "Phalaropus fulicarius",
+    "nameSv": "",
+    "nameEn": "Red Phalarope",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "9347358",
+    "observationCount": 3,
+    "scientific": "Cygnus cygnus x olor",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Whooper Swan x Mute Swan",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9613112",
+    "observationCount": 3,
+    "scientific": "Emberiza melanocephala Scopoli, 1769",
+    "canonical": "Emberiza melanocephala",
+    "nameSv": "",
+    "nameEn": "Black-headed Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10009660",
+    "observationCount": 2,
+    "scientific": "Anser anser x indicus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Greylag Goose x Bar-headed Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10121407",
+    "observationCount": 2,
+    "scientific": "Acrocephalus palustris x scirpaceus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Acrocephalidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10341635",
+    "observationCount": 2,
+    "scientific": "Dendrocopos leucotos x major",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "White-backed Woodpecker x Great Spotted Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "10443522",
+    "observationCount": 2,
+    "scientific": "Ardea cinerea x alba",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Ardeidae",
+    "order": "Pelecaniformes"
+  },
+  {
+    "gbifKey": "10531897",
+    "observationCount": 2,
+    "scientific": "Regulus ignicapilla x regulus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Regulidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10559242",
+    "observationCount": 2,
+    "scientific": "Branta canadensis x Anser caerulescens",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "12238265",
+    "observationCount": 2,
+    "scientific": "Anser indicus x Branta canadensis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2475365",
+    "observationCount": 2,
+    "scientific": "Coracias garrulus Linnaeus, 1758",
+    "canonical": "Coracias garrulus",
+    "nameSv": "",
+    "nameEn": "European Roller",
+    "family": "Coraciidae",
+    "order": "Coraciiformes"
+  },
+  {
+    "gbifKey": "2479407",
+    "observationCount": 2,
+    "scientific": "Myiopsitta monachus (Boddaert, 1783)",
+    "canonical": "Myiopsitta monachus",
+    "nameSv": "",
+    "nameEn": "Monk Parakeet",
+    "family": "Psittacidae",
+    "order": "Psittaciformes"
+  },
+  {
+    "gbifKey": "2480500",
+    "observationCount": 2,
+    "scientific": "Aquila heliaca Savigny, 1809",
+    "canonical": "Aquila heliaca",
+    "nameSv": "",
+    "nameEn": "Imperial Eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2480666",
+    "observationCount": 2,
+    "scientific": "Circaetus gallicus (Gmelin, 1788)",
+    "canonical": "Circaetus gallicus",
+    "nameSv": "",
+    "nameEn": "Short-toed Snake-Eagle",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2481127",
+    "observationCount": 2,
+    "scientific": "Larus hyperboreus Gunnerus, 1767",
+    "canonical": "Larus hyperboreus",
+    "nameSv": "",
+    "nameEn": "Glaucous Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "2490244",
+    "observationCount": 2,
+    "scientific": "Anthus hodgsoni Richmond, 1907",
+    "canonical": "Anthus hodgsoni",
+    "nameSv": "",
+    "nameEn": "Olive-backed Pipit",
+    "family": "Motacillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2496464",
+    "observationCount": 2,
+    "scientific": "Clamator glandarius (Linnaeus, 1758)",
+    "canonical": "Clamator glandarius",
+    "nameSv": "",
+    "nameEn": "Great Spotted Cuckoo",
+    "family": "Cuculidae",
+    "order": "Cuculiformes"
+  },
+  {
+    "gbifKey": "4408455",
+    "observationCount": 2,
+    "scientific": "Hydrobates pelagicus (Linnaeus, 1758)",
+    "canonical": "Hydrobates pelagicus",
+    "nameSv": "",
+    "nameEn": "European Storm-Petrel",
+    "family": "Hydrobatidae",
+    "order": "Procellariiformes"
+  },
+  {
+    "gbifKey": "5229126",
+    "observationCount": 2,
+    "scientific": "Himantopus himantopus (Linnaeus, 1758)",
+    "canonical": "Himantopus himantopus",
+    "nameSv": "",
+    "nameEn": "Black-winged Stilt",
+    "family": "Recurvirostridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "5231766",
+    "observationCount": 2,
+    "scientific": "Prunella atrogularis (Brandt, 1843)",
+    "canonical": "Prunella atrogularis",
+    "nameSv": "",
+    "nameEn": "Black-throated Accentor",
+    "family": "Prunellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10078348",
+    "observationCount": 1,
+    "scientific": "Circus macrourus x cyaneus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Pallid Harrier x Hen Harrier",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "10187426",
+    "observationCount": 1,
+    "scientific": "Emberiza schoeniclus x citrinella",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "10217817",
+    "observationCount": 1,
+    "scientific": "Anser albifrons x anser",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Greater White-fronted Goose x Greylag Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10314106",
+    "observationCount": 1,
+    "scientific": "Branta leucopsis x Anser caerulescens",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Barnacle Goose x Snow Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10592115",
+    "observationCount": 1,
+    "scientific": "Branta hutchinsii x leucopsis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10650067",
+    "observationCount": 1,
+    "scientific": "Anser indicus x caerulescens",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Bar-headed Goose x Snow Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10687398",
+    "observationCount": 1,
+    "scientific": "Circus macrourus x pygargus",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Pallid Harrier x Montagu's Harrier",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "10828384",
+    "observationCount": 1,
+    "scientific": "Spatula clypeata x Anas platyrhynchos",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Northern Shoveler x Mallard (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "10841608",
+    "observationCount": 1,
+    "scientific": "Delichon urbicum x Riparia riparia",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "",
+    "family": "Hirundinidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2478031",
+    "observationCount": 1,
+    "scientific": "Dendrocopos syriacus (Hemprich & Ehrenberg, 1833)",
+    "canonical": "Dendrocopos syriacus",
+    "nameSv": "",
+    "nameEn": "Syrian Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "2479798",
+    "observationCount": 1,
+    "scientific": "Melopsittacus undulatus (Shaw, 1805)",
+    "canonical": "Melopsittacus undulatus",
+    "nameSv": "",
+    "nameEn": "Budgerigar",
+    "family": "Psittacidae",
+    "order": "Psittaciformes"
+  },
+  {
+    "gbifKey": "2480389",
+    "observationCount": 1,
+    "scientific": "Gyps fulvus (Hablizl, 1783)",
+    "canonical": "Gyps fulvus",
+    "nameSv": "",
+    "nameEn": "Eurasian Griffon",
+    "family": "Accipitridae",
+    "order": "Accipitriformes"
+  },
+  {
+    "gbifKey": "2481410",
+    "observationCount": 1,
+    "scientific": "Thalassarche melanophris (Temminck, 1828)",
+    "canonical": "Thalassarche melanophris",
+    "nameSv": "",
+    "nameEn": "Black-browed Albatross",
+    "family": "Diomedeidae",
+    "order": "Procellariiformes"
+  },
+  {
+    "gbifKey": "2489104",
+    "observationCount": 1,
+    "scientific": "Sturnus unicolor Temminck, 1820",
+    "canonical": "Sturnus unicolor",
+    "nameSv": "",
+    "nameEn": "Spotless Starling",
+    "family": "Sturnidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2491518",
+    "observationCount": 1,
+    "scientific": "Emberiza aureola Pallas, 1773",
+    "canonical": "Emberiza aureola",
+    "nameSv": "",
+    "nameEn": "Yellow-breasted Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492196",
+    "observationCount": 1,
+    "scientific": "Melospiza melodia (A.Wilson, 1810)",
+    "canonical": "Melospiza melodia",
+    "nameSv": "",
+    "nameEn": "Song Sparrow",
+    "family": "Passerellidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2492867",
+    "observationCount": 1,
+    "scientific": "Lanius senator Linnaeus, 1758",
+    "canonical": "Lanius senator",
+    "nameSv": "",
+    "nameEn": "Woodchat Shrike",
+    "family": "Laniidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2494514",
+    "observationCount": 1,
+    "scientific": "Carpodacus roseus (Pallas, 1776)",
+    "canonical": "Carpodacus roseus",
+    "nameSv": "",
+    "nameEn": "Pallas's Rosefinch",
+    "family": "Fringillidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "2498034",
+    "observationCount": 1,
+    "scientific": "Anser cygnoides (Linnaeus, 1758)",
+    "canonical": "Anser cygnoides",
+    "nameSv": "",
+    "nameEn": "Swan Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "2498408",
+    "observationCount": 1,
+    "scientific": "Lophodytes cucullatus (Linnaeus, 1758)",
+    "canonical": "Lophodytes cucullatus",
+    "nameSv": "",
+    "nameEn": "Hooded Merganser",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "5228695",
+    "observationCount": 1,
+    "scientific": "Apus pallidus (Shelley, 1870)",
+    "canonical": "Apus pallidus",
+    "nameSv": "",
+    "nameEn": "Pallid Swift",
+    "family": "Apodidae",
+    "order": "Apodiformes"
+  },
+  {
+    "gbifKey": "5231233",
+    "observationCount": 1,
+    "scientific": "Oenanthe pleschanka (Lepechin, 1770)",
+    "canonical": "Oenanthe pleschanka",
+    "nameSv": "",
+    "nameEn": "Pied Wheatear",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5231245",
+    "observationCount": 1,
+    "scientific": "Oenanthe isabellina (Temminck, 1829)",
+    "canonical": "Oenanthe isabellina",
+    "nameSv": "",
+    "nameEn": "Isabelline Wheatear",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "5846290",
+    "observationCount": 1,
+    "scientific": "Saxicola maurus (Pallas, 1773)",
+    "canonical": "Saxicola maurus",
+    "nameSv": "",
+    "nameEn": "Siberian Stonechat",
+    "family": "Muscicapidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "6065818",
+    "observationCount": 1,
+    "scientific": "Chroicocephalus philadelphia (Ord, 1815)",
+    "canonical": "Chroicocephalus philadelphia",
+    "nameSv": "",
+    "nameEn": "Bonaparte's Gull",
+    "family": "Laridae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "7341522",
+    "observationCount": 1,
+    "scientific": "Phylloscopus humei (W.E.Brooks, 1878)",
+    "canonical": "Phylloscopus humei",
+    "nameSv": "",
+    "nameEn": "Hume's Warbler",
+    "family": "Phylloscopidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "7626513",
+    "observationCount": 1,
+    "scientific": "Emberiza cirlus Linnaeus, 1767",
+    "canonical": "Emberiza cirlus",
+    "nameSv": "",
+    "nameEn": "Cirl Bunting",
+    "family": "Emberizidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "8292425",
+    "observationCount": 1,
+    "scientific": "Calidris subruficollis (Vieillot, 1819)",
+    "canonical": "Calidris subruficollis",
+    "nameSv": "",
+    "nameEn": "Buff-breasted Sandpiper",
+    "family": "Scolopacidae",
+    "order": "Charadriiformes"
+  },
+  {
+    "gbifKey": "8773033",
+    "observationCount": 1,
+    "scientific": "Dendrocoptes medius (Linnaeus, 1758)",
+    "canonical": "Dendrocoptes medius",
+    "nameSv": "",
+    "nameEn": "Middle Spotted Woodpecker",
+    "family": "Picidae",
+    "order": "Piciformes"
+  },
+  {
+    "gbifKey": "9581438",
+    "observationCount": 1,
+    "scientific": "Anas rubripes Brewster, 1902",
+    "canonical": "Anas rubripes",
+    "nameSv": "",
+    "nameEn": "American Black Duck",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9584698",
+    "observationCount": 1,
+    "scientific": "Falco naumanni J.G.Fleischer, 1818",
+    "canonical": "Falco naumanni",
+    "nameSv": "",
+    "nameEn": "Lesser Kestrel",
+    "family": "Falconidae",
+    "order": "Falconiformes"
+  },
+  {
+    "gbifKey": "9615912",
+    "observationCount": 1,
+    "scientific": "Turdus eunomus Temminck, 1831",
+    "canonical": "Turdus eunomus",
+    "nameSv": "",
+    "nameEn": "Dusky Thrush",
+    "family": "Turdidae",
+    "order": "Passeriformes"
+  },
+  {
+    "gbifKey": "9905940",
+    "observationCount": 1,
+    "scientific": "Aythya ferina x nyroca",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Common Pochard x Ferruginous Duck (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9941474",
+    "observationCount": 1,
+    "scientific": "Anser albifrons x Branta leucopsis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Greater White-fronted x Barnacle Goose (hybrid)",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  },
+  {
+    "gbifKey": "9974181",
+    "observationCount": 1,
+    "scientific": "Anser erythropus x Branta leucopsis",
+    "canonical": "",
+    "nameSv": "",
+    "nameEn": "Barnacle Goose x Lesser White-fronted Goose",
+    "family": "Anatidae",
+    "order": "Anseriformes"
+  }
+]
