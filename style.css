@@ -4081,7 +4081,8 @@ body.mode-fungi .quiz-results-score strong {
 }
 
 .stats-row-value.rarity-score {
-    color: #e67e22;
+    color: #ea580c;
+    font-weight: 700;
 }
 
 /* --- Rarity Breakdown --- */

@@ -5092,7 +5092,7 @@ function computeStats() {
 
     // Rarity breakdown for logged birds
     const rarityNames = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-    const rarityColors = ['#64748b', '#3b82f6', '#8b5cf6', '#f97316', '#ef4444'];
+    const rarityColors = ['#94a3b8', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
     const rarityBreakdown = [0, 0, 0, 0, 0];
     loggedBirds.forEach(b => { const idx = (b.rarity || 1) - 1; if (idx >= 0 && idx < 5) rarityBreakdown[idx]++; });
 
@@ -5338,8 +5338,9 @@ function renderStatsView() {
         birdsEl.innerHTML = `<div class="stats-empty"><i class="fa-solid fa-dove"></i><p>Logga din första fågel för att se statistik!</p></div>`;
     } else {
         const coverage = Math.round((s.birdUniq / totalBirdTypes) * 100);
+        const rarestColor = s.rarestBird ? (s.rarityColors[(s.rarestBird.rarity || 1) - 1] || '#9333ea') : '#9333ea';
         birdsEl.innerHTML = `
-            ${row('🦅 Sällsyntaste fågeln', s.rarestBird ? `${s.rarestBird.nameSv} <small style="color:#8b5cf6">(Nivå ${s.rarestBird.rarity})</small>` : '—', 'highlight')}
+            ${row('🦅 Sällsyntaste fågeln', s.rarestBird ? `${s.rarestBird.nameSv} <small style="color:${rarestColor}; font-weight: 700;">(Nivå ${s.rarestBird.rarity})</small>` : '—', 'highlight')}
             ${row('📏 Störst vingspann', s.biggestWingspan ? `${s.biggestWingspan.nameSv} (${s.biggestWingspan.wingspan} cm)` : '—')}
             ${row('🔄 Mest loggad', s.mostLoggedBird ? `${s.mostLoggedBird.nameSv} · ${s.mostLoggedCount}×` : '—', 'highlight')}
             ${row('📦 Bästa kategori', s.bestCat ? `${s.bestCat[0]} (${s.bestCat[1].seen}/${s.bestCat[1].total})` : '—')}

@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 📊 Statistik | Synkroniserat sällsynthetsfärgerna i statistikfliken (Sällsynthetsscore & Sällsyntaste fågeln) så att de följer exakt samma färgtema som fågelkorten (`#94a3b8`, `#16a34a`, `#2563eb`, `#9333ea`, `#ea580c`) |
 | 2026-08-11 | 🔍 Identifiera | Quiz: Filtrerar bort alla arter som helt saknar bild i `app.js` (tillåter endast arter med riktig eller genererad bild) |
 | 2026-08-11 | 📊 Statistik | Gjort om samtliga statistiksektioner (Översikt i siffror, Fågelstatistik, Naturprofil, Utmärkelser, Quiz, Tid & Plats, Sällsynthet) till hopfällbara rullgardiner utom första Profil/Rang-kortet ("bemärkelsen") |
 | 2026-08-11 | 🐛 Bugg och fix | Fixat Quiz-bilder: Prioriterar alltid giltiga bild-URL:er (`explicitItem.image`) istället för att tvinga fram saknade lokala `images/*.jpg`-filer i `app.js` |
