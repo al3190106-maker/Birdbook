@@ -4002,20 +4002,24 @@ body.mode-fungi .quiz-results-score strong {
 /* --- Overview Grid --- */
 .stats-overview-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .stats-overview-card {
     background: white;
-    border-radius: 14px;
-    padding: 1.2rem 1rem;
+    border-radius: 12px;
+    padding: 0.75rem 0.7rem;
     text-align: center;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .stats-overview-card::after {
@@ -4029,27 +4033,34 @@ body.mode-fungi .quiz-results-score strong {
 }
 
 .stats-overview-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .stats-overview-icon {
-    font-size: 1.6rem;
-    margin-bottom: 0.4rem;
+    font-size: 1.35rem;
+    margin-bottom: 0.2rem;
+}
+
+.stats-overview-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .stats-overview-value {
-    font-size: 2rem;
+    font-size: 1.45rem;
     font-weight: 800;
     color: var(--primary);
-    line-height: 1;
-    margin-bottom: 0.3rem;
+    line-height: 1.1;
+    margin-bottom: 0.15rem;
 }
 
 .stats-overview-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
-    font-weight: 500;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
 /* --- Sections Grid --- */
@@ -4518,6 +4529,42 @@ details[open] .stats-collapsible-chevron {
 
     .stats-rank-progress-bar {
         max-width: 100%;
+    }
+
+    .stats-overview-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .stats-overview-card {
+        padding: 0.55rem 0.5rem;
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .stats-overview-icon {
+        font-size: 1.25rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .stats-overview-text {
+        align-items: flex-start;
+        min-width: 0;
+    }
+
+    .stats-overview-value {
+        font-size: 1.2rem;
+        margin-bottom: 0;
+    }
+
+    .stats-overview-label {
+        font-size: 0.68rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .stats-sections-grid {

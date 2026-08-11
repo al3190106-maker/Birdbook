@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 📊 Statistik | Slimmat ner och mobilanpassat rutorna under "Översikt i siffror" med horisontell kompakt flex-layout och minskad padding för perfekt visning på mobilen |
 | 2026-08-11 | 📊 Statistik | Tagit bort den stora "level up"-rangrutan högst upp i statistikvyn samt dolt quiz-statistik för böcker där quiz inte finns (visas endast för Fågelboken & Naturboken) |
 | 2026-08-11 | 📊 Statistik | Uppgift 23: Bok-anpassad Statistik-vy – Statistikfliken anpassas nu dynamiskt efter den aktiva boken (Fågelboken, Fiskboken, Svampboken, Växtboken, Viltboken) med ämnesspecifik arttäckning, raritetsfördelning, quizframsteg och snabbsiffror, samt samlad översikt i Naturboken |
 | 2026-08-11 | 🔍 Identifiera | Quiz-bildoptimering: Implementerat bakgrunds-förladdning (`preloadQuizImages`) samt skelett-animering (`skeleton shimmer`) & spinner under laddning i `app.js` och `style.css` |

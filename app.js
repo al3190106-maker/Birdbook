@@ -5387,8 +5387,10 @@ function renderStatsView() {
     overviewEl.innerHTML = overviewCards.map(c => `
         <div class="stats-overview-card">
             <div class="stats-overview-icon">${c.icon}</div>
-            <div class="stats-overview-value">${c.value}</div>
-            <div class="stats-overview-label">${c.label}</div>
+            <div class="stats-overview-text">
+                <div class="stats-overview-value">${c.value}</div>
+                <div class="stats-overview-label">${c.label}</div>
+            </div>
         </div>
     `).join('');
     initStatsCollapsible('stats-overview-details', 'stats-overview-count-pill', `${s.totalSightings} obs · ${s.activeUniq} arter`);
