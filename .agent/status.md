@@ -60,6 +60,7 @@
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 - [x] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
 - [ ] Rena knappstilar & tema för Naturboken & Växtboken (Ta bort skuggor/specialeffekter)
+- [ ] Centrera bilder i Fiskboken (Ta bort vertikal förskjutning i CSS)
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
