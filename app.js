@@ -5321,49 +5321,7 @@ function renderStatsView() {
     const subjectCfg = SUBJECT_CONFIG[state.currentSubject];
     const subjectName = subjectCfg ? subjectCfg.name : 'Naturboken';
     const isNature = state.currentSubject === 'nature';
-
-    // --- Profile card / Banner ---
-    const rankTitle = s.activeRank.title;
-    const isUnseenRank = localStorage.getItem(`birdfinder_unseen_rank_${rankTitle}`) === 'true';
-    const profileCard = document.querySelector('.stats-profile-card');
-    
-    if (profileCard) {
-        if (isUnseenRank) {
-            profileCard.classList.add('unseen-highlight');
-            profileCard.style.cursor = 'pointer';
-            profileCard.onclick = () => {
-                localStorage.removeItem(`birdfinder_unseen_rank_${rankTitle}`);
-                profileCard.classList.remove('unseen-highlight');
-                profileCard.onclick = null;
-                profileCard.style.cursor = '';
-            };
-        } else {
-            profileCard.classList.remove('unseen-highlight');
-            profileCard.onclick = null;
-            profileCard.style.cursor = '';
-        }
-    }
-
-    const rankIconEl = document.getElementById('stats-rank-icon');
-    const rankTitleEl = document.getElementById('stats-rank-title');
-    const rankSubEl = document.getElementById('stats-rank-subtitle');
-    const rankProgressFill = document.getElementById('stats-rank-progress');
-    const rankProgressLabel = document.getElementById('stats-rank-progress-label');
-
-    if (isNature) {
-        if (rankIconEl) rankIconEl.textContent = s.activeRank.icon;
-        if (rankTitleEl) rankTitleEl.textContent = s.activeRank.title;
-        if (rankSubEl) rankSubEl.textContent = s.activeRank.subtitle;
-        if (rankProgressFill) rankProgressFill.style.width = s.progressPct + '%';
-        if (rankProgressLabel) rankProgressLabel.textContent = s.progressLabel;
-    } else {
-        const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
-        if (rankIconEl) rankIconEl.innerHTML = `<i class="fa-solid ${subjectCfg?.icon || 'fa-book'}"></i>`;
-        if (rankTitleEl) rankTitleEl.textContent = `${subjectName} – Statistik`;
-        if (rankSubEl) rankSubEl.textContent = `Dina framsteg och insikter i ${subjectName}`;
-        if (rankProgressFill) rankProgressFill.style.width = s.activeCoveragePct + '%';
-        if (rankProgressLabel) rankProgressLabel.textContent = `${s.activeUniq} / ${s.activeTotal} ${itemLabel}er observerade (${s.activeCoveragePct}% täckning)`;
-    }
+    const isBirdOrNature = isNature || state.currentSubject === 'birds';
 
     // Update panel section titles to match active book
     const birdsTitleEl = document.querySelector('#stats-birds-details .stats-panel-title-text');
@@ -5406,13 +5364,21 @@ function renderStatsView() {
             { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
             { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
         ];
+    } else if (state.currentSubject === 'birds') {
+        overviewCards = [
+            { icon: '🔍', value: s.totalSightings, label: 'Obs. i Fågelboken' },
+            { icon: '🐦', value: s.activeUniq, label: 'Unika fågelarter' },
+            { icon: '📊', value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
+            { icon: '🧩', value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
+            { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
+            { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+        ];
     } else {
         const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
         overviewCards = [
             { icon: '🔍', value: s.totalSightings, label: `Obs. i ${subjectName}` },
             { icon: '📖', value: s.activeUniq, label: `Unika ${itemLabel}er` },
             { icon: '📊', value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
-            { icon: '🧩', value: s.quizStats.completedCount, label: `Genomförda Quiz` },
             { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
             { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
         ];
@@ -5549,9 +5515,17 @@ function renderStatsView() {
         });
     }
 
-    // --- Quiz Progress & Mastery Panel ---
-    renderQuizStatsSection(s.quizStats, s.quizRecentlyCorrectCount);
-    initStatsCollapsible('stats-quiz-details', 'stats-quiz-count-pill', `${s.quizStats.completedCount} genomförda`);
+    // --- Quiz Progress & Mastery Panel (Only for Birds & Nature) ---
+    const quizDetailsEl = document.getElementById('stats-quiz-details');
+    if (quizDetailsEl) {
+        if (isBirdOrNature) {
+            quizDetailsEl.style.display = '';
+            renderQuizStatsSection(s.quizStats, s.quizRecentlyCorrectCount);
+            initStatsCollapsible('stats-quiz-details', 'stats-quiz-count-pill', `${s.quizStats.completedCount} genomförda`);
+        } else {
+            quizDetailsEl.style.display = 'none';
+        }
+    }
 
     // --- Time & Location ---
     const timeEl = document.getElementById('stats-time-body');
