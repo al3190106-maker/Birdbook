@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🔍 Identifiera | Quiz-bildoptimering: Implementerat bakgrunds-förladdning (`preloadQuizImages`) samt skelett-animering (`skeleton shimmer`) & spinner under laddning i `app.js` och `style.css` |
 | 2026-08-11 | 📊 Statistik | Synkroniserat sällsynthetsfärgerna i statistikfliken (Sällsynthetsscore & Sällsyntaste fågeln) så att de följer exakt samma färgtema som fågelkorten (`#94a3b8`, `#16a34a`, `#2563eb`, `#9333ea`, `#ea580c`) |
 | 2026-08-11 | 🔍 Identifiera | Quiz: Filtrerar bort alla arter som helt saknar bild i `app.js` (tillåter endast arter med riktig eller genererad bild) |
 | 2026-08-11 | 📊 Statistik | Gjort om samtliga statistiksektioner (Översikt i siffror, Fågelstatistik, Naturprofil, Utmärkelser, Quiz, Tid & Plats, Sällsynthet) till hopfällbara rullgardiner utom första Profil/Rang-kortet ("bemärkelsen") |

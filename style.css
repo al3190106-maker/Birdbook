@@ -3024,18 +3024,59 @@ body {
 }
 
 .quiz-image-container {
+    position: relative;
     width: 100%;
+    min-height: 220px;
     max-height: 320px;
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 1.5rem;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    background: #f1f5f9;
+}
+
+.quiz-image-container.loading::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+    background-size: 200% 100%;
+    animation: quiz-skeleton-shimmer 1.5s infinite;
+    z-index: 1;
+}
+
+.quiz-img-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    color: #94a3b8;
+    z-index: 2;
+    display: none;
+}
+
+.quiz-image-container.loading .quiz-img-spinner {
+    display: block;
 }
 
 .quiz-bird-image {
+    position: relative;
+    z-index: 3;
     width: 100%;
     height: 320px;
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
+}
+
+.quiz-bird-image.loaded {
+    opacity: 1;
+}
+
+@keyframes quiz-skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .quiz-prompt {

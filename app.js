@@ -4772,6 +4772,7 @@ function initQuiz(mode, difficulty) {
         localStorage.setItem('naturboken_quiz_difficulty_pref', state.quizDifficulty);
     } catch (_) {}
     state.quizQuestions = generateQuizQuestions(state.quizMode);
+    preloadQuizImages(state.quizQuestions);
     state.quizCurrent = 0;
     state.quizScore = 0;
     state.quizAnswered = false;
@@ -4785,6 +4786,19 @@ function initQuiz(mode, difficulty) {
     document.getElementById('quiz-total').textContent = state.quizQuestions.length;
 
     renderQuizQuestion();
+}
+
+function preloadQuizImages(questions) {
+    if (!questions || !Array.isArray(questions)) return;
+    questions.forEach(q => {
+        if (q.image) {
+            const src = getBirdImageSrc(q.image, 'quiz');
+            if (src && !src.startsWith('data:')) {
+                const img = new Image();
+                img.src = src;
+            }
+        }
+    });
 }
 
 function renderQuizQuestion() {
@@ -4802,8 +4816,9 @@ function renderQuizQuestion() {
     let imageHtml = '';
     if (q.image) {
         const imgSrc = getBirdImageSrc(q.image, 'quiz');
-        imageHtml = `<div class="quiz-image-container">
-            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" onerror="handleImageError(this)" class="quiz-bird-image">
+        imageHtml = `<div class="quiz-image-container loading">
+            <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
+            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" onload="this.parentElement.classList.remove('loading'); this.classList.add('loaded');" onerror="handleImageError(this); this.parentElement.classList.remove('loading'); this.classList.add('loaded');" class="quiz-bird-image">
         </div>`;
     }
 
