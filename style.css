@@ -3782,6 +3782,16 @@ body.mode-fish .quiz-results-score strong {
     color: var(--primary);
 }
 
+/* Centrera bilder i Fiskboken (Ta bort vertikal förskjutning i CSS) */
+body.mode-fish .bird-image-container img,
+body.mode-fish .bird-detail-header img,
+body.mode-fish .carousel-slide img,
+body.mode-fish .rs-card-img,
+body.mode-fish .quiz-question-container img,
+body.mode-fish .bird-card img {
+    object-position: center center !important;
+}
+
 body.mode-animals {
     --primary: #795548;
     --primary-light: #a1887f;

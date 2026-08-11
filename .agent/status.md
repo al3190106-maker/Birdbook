@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🐛 Bugg och fix | Uppgift 22: Centrerat alla bilder i Fiskboken och tagit bort den vertikala förskjutningen i CSS (`body.mode-fish` `object-position: center center`) |
 | 2026-08-11 | ✨ Features & UI | 👋 "Hej! ✨ Features & UI är redo och uppkopplad för nya utvecklingsuppgifter!" |
 |---|---|---|
 | 2026-08-11 | 🔍 Identifiera | Uppgift 18: Sparar och återställer valda filter, radie/distans, aktiv underflik och quiz-svårighetsgrad under Identifiera via `localStorage` |
@@ -60,7 +61,7 @@
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 - [x] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
 - [ ] Rena knappstilar & tema för Naturboken & Växtboken (Ta bort skuggor/specialeffekter)
-- [ ] Centrera bilder i Fiskboken (Ta bort vertikal förskjutning i CSS)
+- [x] Centrera bilder i Fiskboken (Ta bort vertikal förskjutning i CSS)
 
 ### ✨ Features & UI
 - [ ] Skapa dagskalendern och möjlighet att skapa nya listor
