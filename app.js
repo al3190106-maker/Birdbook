@@ -5348,31 +5348,68 @@ function renderStatsView() {
     }).join('') + specLabel;
 
     // --- Achievements / Badges ---
+    const badgesDetails = document.getElementById('stats-badges-details');
+    if (badgesDetails) {
+        const savedOpen = localStorage.getItem('birdfinder_stats_badges_open');
+        if (savedOpen !== null) {
+            badgesDetails.open = (savedOpen === 'true');
+        } else {
+            badgesDetails.open = false; // Standardmässigt stängd för att spara utrymme
+        }
+        if (!badgesDetails.dataset.listenerAttached) {
+            badgesDetails.dataset.listenerAttached = 'true';
+            badgesDetails.addEventListener('toggle', () => {
+                localStorage.setItem('birdfinder_stats_badges_open', badgesDetails.open ? 'true' : 'false');
+            });
+        }
+    }
+
     const badgesEl = document.getElementById('stats-badges-grid');
     const badges = s.badges;
+    const countPill = document.getElementById('stats-badges-count-pill');
 
-    badgesEl.innerHTML = badges.map(b => {
-        const isUnseen = b.earned && localStorage.getItem(`birdfinder_unseen_badge_${b.name}`) === 'true';
-        return `
-        <div class="stats-badge ${b.earned ? 'earned' : 'locked'} ${isUnseen ? 'unseen-highlight' : ''}" data-badge-name="${b.name}">
-            ${b.earned ? '<div class="stats-badge-earned-glow"></div>' : ''}
-            <span class="stats-badge-icon">${b.icon}</span>
-            <div class="stats-badge-name">${b.name}</div>
-            <div class="stats-badge-desc">${b.desc}</div>
-        </div>
-    `}).join('');
+    const updateBadgePill = () => {
+        if (!countPill || !badges) return;
+        const earnedCount = badges.filter(b => b.earned).length;
+        const totalCount = badges.length;
+        const unseenCount = badges.filter(b => b.earned && localStorage.getItem(`birdfinder_unseen_badge_${b.name}`) === 'true').length;
 
-    // Add click listeners to remove highlight from unseen badges
-    const unseenBadges = badgesEl.querySelectorAll('.unseen-highlight');
-    unseenBadges.forEach(el => {
-        el.style.cursor = 'pointer';
-        el.addEventListener('click', () => {
-            const badgeName = el.dataset.badgeName;
-            localStorage.removeItem(`birdfinder_unseen_badge_${badgeName}`);
-            el.classList.remove('unseen-highlight');
-            el.style.cursor = '';
+        if (unseenCount > 0) {
+            countPill.textContent = `${earnedCount} av ${totalCount} (${unseenCount} nya!)`;
+            countPill.classList.add('has-unseen');
+        } else {
+            countPill.textContent = `${earnedCount} av ${totalCount} upplåsta`;
+            countPill.classList.remove('has-unseen');
+        }
+    };
+
+    updateBadgePill();
+
+    if (badgesEl) {
+        badgesEl.innerHTML = badges.map(b => {
+            const isUnseen = b.earned && localStorage.getItem(`birdfinder_unseen_badge_${b.name}`) === 'true';
+            return `
+            <div class="stats-badge ${b.earned ? 'earned' : 'locked'} ${isUnseen ? 'unseen-highlight' : ''}" data-badge-name="${b.name}">
+                ${b.earned ? '<div class="stats-badge-earned-glow"></div>' : ''}
+                <span class="stats-badge-icon">${b.icon}</span>
+                <div class="stats-badge-name">${b.name}</div>
+                <div class="stats-badge-desc">${b.desc}</div>
+            </div>
+        `}).join('');
+
+        // Add click listeners to remove highlight from unseen badges
+        const unseenBadges = badgesEl.querySelectorAll('.unseen-highlight');
+        unseenBadges.forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', () => {
+                const badgeName = el.dataset.badgeName;
+                localStorage.removeItem(`birdfinder_unseen_badge_${badgeName}`);
+                el.classList.remove('unseen-highlight');
+                el.style.cursor = '';
+                updateBadgePill();
+            });
         });
-    });
+    }
 
     // --- Quiz Progress & Mastery Panel ---
     renderQuizStatsSection(s.quizStats, s.quizRecentlyCorrectCount);

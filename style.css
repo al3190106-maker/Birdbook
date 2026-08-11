@@ -4126,6 +4126,82 @@ body.mode-fungi .quiz-results-score strong {
     color: var(--text-main);
 }
 
+/* --- Collapsible Stats Panel --- */
+details.stats-panel summary.stats-collapsible-summary {
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid #f0f0f0;
+    transition: border-color 0.2s, margin-bottom 0.2s, background-color 0.15s ease;
+}
+
+details.stats-panel summary::-webkit-details-marker,
+details.stats-panel summary::marker {
+    display: none;
+}
+
+details.stats-panel[open] summary.stats-collapsible-summary {
+    margin-bottom: 1.2rem;
+}
+
+details.stats-panel:not([open]) summary.stats-collapsible-summary {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.stats-panel-title-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stats-panel-summary-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.stats-badge-count-pill {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    background: #f0fdf4;
+    color: var(--primary-color, #2e5d4b);
+    border: 1px solid #bbf7d0;
+    transition: all 0.2s ease;
+}
+
+.stats-badge-count-pill.has-unseen {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fca5a5;
+    animation: pill-pulse 2s infinite;
+}
+
+@keyframes pill-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+
+.stats-collapsible-chevron {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.9rem;
+    color: var(--text-muted, #666);
+}
+
+details[open] .stats-collapsible-chevron {
+    transform: rotate(180deg);
+}
+
 /* --- Badges Grid --- */
 .stats-badges-grid {
     display: grid;

@@ -950,12 +950,20 @@
                     </div>
 
                     <!-- Achievements / Badges -->
-                    <div class="stats-panel stats-panel-wide">
-                        <h3 class="stats-panel-title"><i class="fa-solid fa-trophy"></i> Utmärkelser</h3>
+                    <details class="stats-panel stats-panel-wide stats-collapsible" id="stats-badges-details">
+                        <summary class="stats-panel-title stats-collapsible-summary">
+                            <div class="stats-panel-title-text">
+                                <i class="fa-solid fa-trophy"></i> Utmärkelser
+                            </div>
+                            <div class="stats-panel-summary-right">
+                                <span class="stats-badge-count-pill" id="stats-badges-count-pill">0 av 18 upplåsta</span>
+                                <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                            </div>
+                        </summary>
                         <div class="stats-badges-grid" id="stats-badges-grid">
                             <!-- Injected by JS -->
                         </div>
-                    </div>
+                    </details>
 
                     <!-- Quiz Progress & Mastery Panel -->
                     <div class="stats-panel stats-panel-wide" id="stats-quiz-panel">

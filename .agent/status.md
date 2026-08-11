@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 📊 Statistik | Gjort om Utmärkelser (Achievements) till en hopfällbar rullgardin (collapsible `<details>`) med upplåsningsräknare (`X av Y upplåsta`) och sparad öppningsstatus i `index.html`, `style.css` & `app.js` |
 | 2026-08-11 | 🐛 Bugg och fix | Fixat Quiz-bilder: Prioriterar alltid giltiga bild-URL:er (`explicitItem.image`) istället för att tvinga fram saknade lokala `images/*.jpg`-filer i `app.js` |
 | 2026-08-11 | 🐛 Bugg och fix | Uppgift 21: Rena knappstilar och platte/rena färgteman för Naturboken & Växtboken (Tog bort gradienter och skuggor/specialeffekter i `style.css`) |
 | 2026-08-11 | 📊 Statistik | 👋 "Hej! 📊 Statistik är uppkopplad, redo och insatt i hur uppgifter från Arbetsgivaren tas emot!" |
