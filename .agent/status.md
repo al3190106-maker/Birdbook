@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🔍 Identifiera | Quiz i Helskärmsläge: Gjort om aktivt Quiz & Resultatskärm till helskärmsläge i `style.css` så att fågelbilderna får maximal vertikal höjd (`48vh` / upp till `520px`) |
 | 2026-08-11 | 📊 Statistik | Skapat unika & tematiska utmärkelser (achievements) för varje ämnesbok: Fiskboken (Gäddkungen, Havets rovfisk, Storfiskaren), Svampboken (Guld i skogen, Giftspejaren), Växtboken (Skogens jättar, Sommaräng, Botaniker), Viltboken (Rovdjursspanaren, Skogens konung, Spårhunden) |
 | 2026-08-11 | 📊 Statistik | Ämnesspecifika Utmärkelser (Badges): Fågel-achievements visas nu enbart i Fågelboken & Naturboken. Respektive bok (Fisk, Svamp, Växter, Vilt) visar nu enbart sina egna bok-specifika och universella utmärkelser |
 | 2026-08-11 | 📊 Statistik | Fixat bugg i statistikrendering: Återställt hjälparfunktionen `row` samt fixat felaktig variabelreferens (`s.loggedBirds`), så alla hopfällbara rullgardiner fylls med sin korrekta data |
