@@ -17,6 +17,8 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | ✨ Features & UI | 👋 "Hej! ✨ Features & UI är redo och uppkopplad för nya utvecklingsuppgifter!" |
+|---|---|---|
 | 2026-08-11 | 🔍 Identifiera | Uppgift 18: Sparar och återställer valda filter, radie/distans, aktiv underflik och quiz-svårighetsgrad under Identifiera via `localStorage` |
 | 2026-08-10 | 🔍 Identifiera | Förbättrat svarsalternativ i Quiz: Felaktiga svarsalternativ väljs nu från samma artfamilj eller närbesläktade/liknande arter i `app.js` |
 | 2026-08-10 | 🎨 Bildgenerering | Förenklat & förtydligat sekventiella SVG-ikoner för svårighetsgraderna (Förenklade och tydligare siluetter i samma stil som nybörjare-bilden) |
