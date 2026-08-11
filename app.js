@@ -4839,11 +4839,13 @@ function renderQuizQuestion() {
         </button>
     `).join('');
 
+    let questionTextHtml = (q.type !== 'image' && q.question) ? `<h3 class="quiz-question-text">${q.question}</h3>` : '';
+
     container.innerHTML = `
         <div class="quiz-question-number">Fråga ${state.quizCurrent + 1} av ${state.quizQuestions.length}</div>
         ${imageHtml}
         ${promptHtml}
-        <h3 class="quiz-question-text">${q.question}</h3>
+        ${questionTextHtml}
         <div class="quiz-options">
             ${optionsHtml}
         </div>

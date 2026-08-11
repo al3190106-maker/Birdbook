@@ -3169,22 +3169,30 @@ body {
 .quiz-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    max-width: 600px;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 650px;
     margin: 0 auto;
 }
 
 .quiz-option-btn {
-    padding: 1rem 1.2rem;
-    font-size: 1.05rem;
+    padding: 0.85rem 0.75rem;
+    font-size: 0.98rem;
     font-weight: 600;
     font-family: var(--font-stack);
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
     background: white;
     cursor: pointer;
     transition: all 0.2s ease;
     color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 52px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .quiz-option-btn:hover {
@@ -3375,7 +3383,14 @@ body {
     }
 
     .quiz-options {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+
+    .quiz-option-btn {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+        min-height: 48px;
     }
 
     .quiz-bird-image {
