@@ -757,17 +757,17 @@
                             <p>Allmänna arter</p>
                         </div>
                         <div class="difficulty-card" data-difficulty="intresserad">
-                            <div class="diff-icon"><img src="images/category_icons/quiz_intresserad.svg" alt="Fågelintresserad"></div>
+                            <div class="diff-icon"><img src="images/category_icons/quiz_intresserad.png" alt="Fågelintresserad"></div>
                             <h3>Fågelintresserad</h3>
                             <p>Allmänna & Vanliga</p>
                         </div>
                         <div class="difficulty-card" data-difficulty="skadare">
-                            <div class="diff-icon"><img src="images/category_icons/quiz_skadare.svg" alt="Fågelskådare"></div>
+                            <div class="diff-icon"><img src="images/category_icons/quiz_skadare.png" alt="Fågelskådare"></div>
                             <h3>Fågelskådare</h3>
                             <p>Ovanliga & Sällsynta</p>
                         </div>
                         <div class="difficulty-card" data-difficulty="orakel">
-                            <div class="diff-icon"><img src="images/category_icons/quiz_orakel.svg" alt="Fågelorakel"></div>
+                            <div class="diff-icon"><img src="images/category_icons/quiz_orakel.png" alt="Fågelorakel"></div>
                             <h3>Fågelorakel</h3>
                             <p>Ovanliga till Mycket Sällsynta</p>
                         </div>
@@ -832,6 +832,7 @@
                         <div class="quiz-results-bar">
                             <div class="quiz-results-bar-fill" id="quiz-results-bar-fill"></div>
                         </div>
+                        <div id="quiz-results-trend" class="quiz-results-trend-badge hidden"></div>
                         <div class="quiz-results-actions">
                             <button id="quiz-retry-btn" class="quiz-btn primary"><i class="fa-solid fa-rotate-right"></i> Spela igen</button>
                             <button id="quiz-menu-btn" class="quiz-btn secondary"><i class="fa-solid fa-list"></i> Välj quiz</button>
@@ -952,6 +953,14 @@
                     <div class="stats-panel stats-panel-wide">
                         <h3 class="stats-panel-title"><i class="fa-solid fa-trophy"></i> Utmärkelser</h3>
                         <div class="stats-badges-grid" id="stats-badges-grid">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Quiz Progress & Mastery Panel -->
+                    <div class="stats-panel stats-panel-wide" id="stats-quiz-panel">
+                        <h3 class="stats-panel-title"><i class="fa-solid fa-chart-line"></i> Quizutveckling &amp; Framsteg</h3>
+                        <div class="stats-panel-body" id="stats-quiz-body">
                             <!-- Injected by JS -->
                         </div>
                     </div>
