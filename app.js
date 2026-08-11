@@ -3595,15 +3595,7 @@ function getBirdImageSrc(birdId, context = 'guide') {
     // 1. Check LocalStorage for custom override
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
-    
-    // Get the preference for this context
-    let pref = 'v2'; // default
-    if (context === 'guide') pref = state.imgPrefGuide || 'v1';
-    else if (context === 'detail') pref = state.imgPrefDetail || 'v2';
-    else if (context === 'identify') pref = state.imgPrefIdentify || 'v2';
-    else if (context === 'log') pref = state.imgPrefLog || 'foto';
-    else if (context === 'quiz') pref = 'v1'; // Quiz använder de genererade bilderna (v1)
-    
+
     const allItems = [
         ...(window.swedishBirds || []),
         ...(window.swedishFungi || []),
@@ -3614,11 +3606,19 @@ function getBirdImageSrc(birdId, context = 'guide') {
     ];
     const explicitItem = allItems.find(item => item.id === birdId);
 
-    // If preference is 'v1', return local image
-    if (pref === 'v1') {
-        return `images/${birdId}.jpg`;
+    // 2. If explicitItem has a defined image URL (e.g. naturboken.alt-qq.com or wikimedia), return it first
+    if (explicitItem && explicitItem.image) {
+        return explicitItem.image;
     }
-
+    
+    // Get the preference for this context
+    let pref = 'v2'; // default
+    if (context === 'guide') pref = state.imgPrefGuide || 'v1';
+    else if (context === 'detail') pref = state.imgPrefDetail || 'v2';
+    else if (context === 'identify') pref = state.imgPrefIdentify || 'v2';
+    else if (context === 'log') pref = state.imgPrefLog || 'foto';
+    else if (context === 'quiz') pref = 'v2';
+    
     // If preference is 'foto', try to get from birdImages
     if (pref === 'foto') {
         if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
@@ -3642,26 +3642,34 @@ function getBirdImageSrc(birdId, context = 'guide') {
             const first = arr[0];
             return typeof first === 'object' ? first.src : first;
         }
-        // Fallback to v2 if no photo exists
-        pref = 'v2';
     }
 
-    // Default 'v2' handling (fallback)
-    if (explicitItem && explicitItem.image) return explicitItem.image;
-
-    // Ultimate fallback
+    // Default fallback
     return `images/${birdId}.jpg`;
 }
 
-// Global handler: when an <img> fails to load, fall back to the holder SVG
+// Global handler: when an <img> fails to load, fall back to explicit item image or holder SVG
 window.handleImageError = function (imgEl) {
     const birdId = imgEl.dataset.birdId;
     if (birdId && imgEl.src.indexOf('data:image/svg') === -1) {
-        const localImgSrc = `images/${birdId}.jpg`;
-        if (imgEl.src.indexOf(localImgSrc) === -1) {
-            imgEl.src = localImgSrc;
+        const allItems = [
+            ...(window.swedishBirds || []),
+            ...(window.swedishFungi || []),
+            ...(window.swedishFish || []),
+            ...(window.swedishTrees || []),
+            ...(window.swedishFlowers || []),
+            ...(window.swedishAnimals || [])
+        ];
+        const explicitItem = allItems.find(item => item.id === birdId);
+        if (explicitItem && explicitItem.image && imgEl.src !== explicitItem.image) {
+            imgEl.src = explicitItem.image;
         } else {
-            imgEl.src = getHolderImage(birdId);
+            const localImgSrc = `images/${birdId}.jpg`;
+            if (imgEl.src.indexOf(localImgSrc) === -1) {
+                imgEl.src = localImgSrc;
+            } else {
+                imgEl.src = getHolderImage(birdId);
+            }
         }
     }
 };
