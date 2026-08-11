@@ -3601,21 +3601,23 @@ body.mode-flowers .bird-secondary-name {
 }
 
 /* =============================================
-   Växtboken (Plants Mode) — Fresh Leaf Green
+   Växtboken (Plants Mode) — Clean & Flat Theme
    ============================================= */
 body.mode-plants {
     --primary: #2e7d32;
-    --secondary: #4caf50;
-    --accent: #81c784;
+    --secondary: #388e3c;
+    --accent: #4caf50;
     --background: #f1f8e9;
 }
 
 body.mode-plants .app-header {
-    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%);
+    background: #2e7d32;
+    box-shadow: none;
 }
 
 body.mode-plants .nav-btn.active {
     color: #2e7d32;
+    box-shadow: none;
 }
 
 body.mode-plants .stat-value {
@@ -3623,25 +3625,30 @@ body.mode-plants .stat-value {
 }
 
 body.mode-plants .action-card {
-    background: linear-gradient(135deg, #2e7d32, #4caf50);
+    background: #2e7d32;
+    border: none;
+    box-shadow: none;
 }
 
 body.mode-plants .action-card:hover {
-    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    background: #1b5e20;
+    box-shadow: none;
 }
 
 body.mode-plants .submit-btn {
     background-color: #2e7d32;
+    box-shadow: none;
 }
 
 body.mode-plants .submit-btn:hover {
     background-color: #1b5e20;
+    box-shadow: none;
 }
 
 body.mode-plants .form-group input:focus,
 body.mode-plants .form-group textarea:focus {
     border-color: #2e7d32;
-    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+    box-shadow: none;
 }
 
 body.mode-plants .modal-content h2 {
@@ -3654,10 +3661,12 @@ body.mode-plants .autocomplete-item strong {
 
 body.mode-plants .quiz-btn.primary {
     background-color: #2e7d32;
+    box-shadow: none;
 }
 
 body.mode-plants .quiz-btn.primary:hover {
     background-color: #1b5e20;
+    box-shadow: none;
 }
 
 body.mode-plants .quiz-results-score strong {
@@ -3666,15 +3675,17 @@ body.mode-plants .quiz-results-score strong {
 
 body.mode-plants .add-sighting-detail-btn {
     background-color: #2e7d32;
+    box-shadow: none;
 }
 
 body.mode-plants #sound-recording-group {
     display: none !important;
 }
 
-/* Växtboken Library Card: Lush Green */
+/* Växtboken Library Card: Clean Flat Green */
 .library-card.mode-plants {
-    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    background: #2e7d32;
+    box-shadow: none;
     color: white;
 }
 
@@ -3683,21 +3694,23 @@ body.mode-plants #sound-recording-group {
 }
 
 /* =============================================
-   Naturboken (Nature Mode) — Earth & Sky
+   Naturboken (Nature Mode) — Clean & Flat Theme
    ============================================= */
 body.mode-nature {
     --primary: #1a3a2a;
     --secondary: #2e6e50;
-    --accent: #6dbf8e;
+    --accent: #3d8c66;
     --background: #f0f5f2;
 }
 
 body.mode-nature .app-header {
-    background: linear-gradient(135deg, #0d2a1a 0%, #1a3a2a 40%, #2e6e50 100%);
+    background: #1a3a2a;
+    box-shadow: none;
 }
 
 body.mode-nature .nav-btn.active {
     color: #1a3a2a;
+    box-shadow: none;
 }
 
 body.mode-nature .stat-value {
@@ -3705,25 +3718,30 @@ body.mode-nature .stat-value {
 }
 
 body.mode-nature .action-card {
-    background: linear-gradient(135deg, #1a3a2a, #2e6e50);
+    background: #1a3a2a;
+    border: none;
+    box-shadow: none;
 }
 
 body.mode-nature .action-card:hover {
-    background: linear-gradient(135deg, #0d2a1a, #1a3a2a);
+    background: #0d2a1a;
+    box-shadow: none;
 }
 
 body.mode-nature .submit-btn {
     background-color: #1a3a2a;
+    box-shadow: none;
 }
 
 body.mode-nature .submit-btn:hover {
     background-color: #0d2a1a;
+    box-shadow: none;
 }
 
 body.mode-nature .form-group input:focus,
 body.mode-nature .form-group textarea:focus {
     border-color: #1a3a2a;
-    box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.12);
+    box-shadow: none;
 }
 
 body.mode-nature .modal-content h2 {
@@ -3736,10 +3754,12 @@ body.mode-nature .autocomplete-item strong {
 
 body.mode-nature .quiz-btn.primary {
     background-color: #1a3a2a;
+    box-shadow: none;
 }
 
 body.mode-nature .quiz-btn.primary:hover {
     background-color: #0d2a1a;
+    box-shadow: none;
 }
 
 body.mode-nature .quiz-results-score strong {
@@ -3748,11 +3768,13 @@ body.mode-nature .quiz-results-score strong {
 
 body.mode-nature .add-sighting-detail-btn {
     background-color: #1a3a2a;
+    box-shadow: none;
 }
 
-/* Naturboken Library Card: Deep Forest */
+/* Naturboken Library Card: Clean Flat Dark Green */
 .library-card.mode-nature {
-    background: linear-gradient(135deg, #1a3a2a 0%, #2e6e50 100%);
+    background: #1a3a2a;
+    box-shadow: none;
     color: white;
 }
 

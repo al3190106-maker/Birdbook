@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🐛 Bugg och fix | Uppgift 21: Rena knappstilar och platte/rena färgteman för Naturboken & Växtboken (Tog bort gradienter och skuggor/specialeffekter i `style.css`) |
 | 2026-08-11 | 📊 Statistik | 👋 "Hej! 📊 Statistik är uppkopplad, redo och insatt i hur uppgifter från Arbetsgivaren tas emot!" |
 | 2026-08-11 | 🐛 Bugg och fix | Uppgift 22: Centrerat alla bilder i Fiskboken och tagit bort den vertikala förskjutningen i CSS (`body.mode-fish` `object-position: center center`) |
 | 2026-08-11 | ✨ Features & UI | 👋 "Hej! ✨ Features & UI är redo och uppkopplad för nya utvecklingsuppgifter!" |
@@ -61,7 +62,7 @@
 - [x] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
 - [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
 - [x] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
-- [ ] Rena knappstilar & tema för Naturboken & Växtboken (Ta bort skuggor/specialeffekter)
+- [x] Rena knappstilar & tema för Naturboken & Växtboken (Ta bort skuggor/specialeffekter)
 - [x] Centrera bilder i Fiskboken (Ta bort vertikal förskjutning i CSS)
 
 ### ✨ Features & UI
