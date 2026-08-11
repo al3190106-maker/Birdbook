@@ -17,6 +17,8 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 📊 Statistik | Fixat bugg i statistikrendering: Återställt hjälparfunktionen `row` samt fixat felaktig variabelreferens (`s.loggedBirds`), så alla hopfällbara rullgardiner fylls med sin korrekta data |
+| 2026-08-11 | ✨ Features & UI | Sparar och återställer senast använda boken vid sidomladdning i `localStorage` (`naturboken_last_subject`) |
 | 2026-08-11 | 📊 Statistik | Slimmat ner och mobilanpassat rutorna under "Översikt i siffror" med horisontell kompakt flex-layout och minskad padding för perfekt visning på mobilen |
 | 2026-08-11 | 📊 Statistik | Tagit bort den stora "level up"-rangrutan högst upp i statistikvyn samt dolt quiz-statistik för böcker där quiz inte finns (visas endast för Fågelboken & Naturboken) |
 | 2026-08-11 | 📊 Statistik | Uppgift 23: Bok-anpassad Statistik-vy – Statistikfliken anpassas nu dynamiskt efter den aktiva boken (Fågelboken, Fiskboken, Svampboken, Växtboken, Viltboken) med ämnesspecifik arttäckning, raritetsfördelning, quizframsteg och snabbsiffror, samt samlad översikt i Naturboken |
@@ -83,7 +85,7 @@
 - [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
 - [x] Visa antal genomförda Quiz i Statistiken
 - [x] Bok-anpassad Statistik-vy (Ämnesspecifik statistik per bok + Samlad översikt i Naturboken)
-- [ ] Kom ihåg & öppna senast använda boken vid sidladdning (LocalStorage)
+- [x] Kom ihåg & öppna senast använda boken vid sidladdning (LocalStorage)
 
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"

@@ -1513,6 +1513,7 @@ function switchSubject(subjectId) {
     }
     if (!SUBJECT_CONFIG[subjectId]) return;
     state.currentSubject = subjectId;
+    localStorage.setItem('naturboken_last_subject', subjectId);
     const config = SUBJECT_CONFIG[subjectId];
 
     // Update "Identifiera" (listen-view) tab visibility: only visible in Fågelboken (birds)
@@ -1734,9 +1735,11 @@ async function init() {
         });
     }
 
-    // Default to birds if not set (or load from storage if we persisted subject? 
-    // For now default is fine, or arguably we should persist it. 
-    // Let's stick to default birds for simplicity unless changed).
+    // Load saved subject from LocalStorage if available
+    const savedSubject = localStorage.getItem('naturboken_last_subject');
+    if (savedSubject && SUBJECT_CONFIG[savedSubject]) {
+        state.currentSubject = savedSubject;
+    }
     // Ensure UI matches state after everything is set up
     switchSubject(state.currentSubject); 
 
@@ -5316,6 +5319,13 @@ function renderQuizStatsSection(qs, quizRecentlyCorrectCount) {
     `;
 }
 
+function row(label, value, cls = '') {
+    return `<div class="stats-row">
+        <span class="stats-row-label">${label}</span>
+        <span class="stats-row-value ${cls}">${value}</span>
+    </div>`;
+}
+
 function renderStatsView() {
     const s = computeStats(state.currentSubject);
     const subjectCfg = SUBJECT_CONFIG[state.currentSubject];
@@ -5543,7 +5553,7 @@ function renderStatsView() {
     // --- Rarity breakdown ---
     const rarityEl = document.getElementById('stats-rarity-body');
     const maxRarityCount = Math.max(1, ...s.rarityBreakdown);
-    const totalLogged = s.loggedBirds.length;
+    const totalLogged = s.loggedActiveSpecies ? s.loggedActiveSpecies.length : 0;
     rarityEl.innerHTML = `
         ${row('🏅 Totalt sällsynthetsscore', s.rarityScore + ' poäng', 'rarity-score')}
         <div class="rarity-breakdown">
