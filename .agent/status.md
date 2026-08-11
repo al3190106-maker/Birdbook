@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🔍 Identifiera | Quiz-städning: Tog bort poängräknaren (0/10) och Avsluta-knappen från toppen i `index.html` och `app.js` |
 | 2026-08-11 | 🔍 Identifiera | Quiz-layout: Tagit bort rubriktexten "Vilken fågel ser du på bilden" för bildfrågor samt låst svarsknapparna till en 2x2-matris (grid) på alla skärmar |
 | 2026-08-11 | 🔍 Identifiera | Quiz i Helskärmsläge: Gjort om aktivt Quiz & Resultatskärm till helskärmsläge i `style.css` så att fågelbilderna får maximal vertikal höjd (`48vh` / upp till `520px`) |
 | 2026-08-11 | 📊 Statistik | Skapat unika & tematiska utmärkelser (achievements) för varje ämnesbok: Fiskboken (Gäddkungen, Havets rovfisk, Storfiskaren), Svampboken (Guld i skogen, Giftspejaren), Växtboken (Skogens jättar, Sommaräng, Botaniker), Viltboken (Rovdjursspanaren, Skogens konung, Spårhunden) |

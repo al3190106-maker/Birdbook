@@ -4788,8 +4788,10 @@ function initQuiz(mode, difficulty) {
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('quiz-results').classList.add('hidden');
 
-    document.getElementById('quiz-score').textContent = '0';
-    document.getElementById('quiz-total').textContent = state.quizQuestions.length;
+    const scoreEl = document.getElementById('quiz-score');
+    if (scoreEl) scoreEl.textContent = '0';
+    const totalEl = document.getElementById('quiz-total');
+    if (totalEl) totalEl.textContent = state.quizQuestions.length;
 
     renderQuizQuestion();
 }
@@ -4880,7 +4882,8 @@ function handleQuizAnswer(btnEl) {
         });
     }
 
-    document.getElementById('quiz-score').textContent = state.quizScore;
+    const scoreEl = document.getElementById('quiz-score');
+    if (scoreEl) scoreEl.textContent = state.quizScore;
 
     // Auto-advance after delay
     setTimeout(() => {
