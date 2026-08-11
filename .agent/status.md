@@ -17,8 +17,9 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 📊 Statistik | Ämnesspecifika Utmärkelser (Badges): Fågel-achievements visas nu enbart i Fågelboken & Naturboken. Respektive bok (Fisk, Svamp, Växter, Vilt) visar nu enbart sina egna bok-specifika och universella utmärkelser |
 | 2026-08-11 | 📊 Statistik | Fixat bugg i statistikrendering: Återställt hjälparfunktionen `row` samt fixat felaktig variabelreferens (`s.loggedBirds`), så alla hopfällbara rullgardiner fylls med sin korrekta data |
-| 2026-08-11 | ✨ Features & UI | Sparar och återställer senast använda boken vid sidomladdning i `localStorage` (`naturboken_last_subject`) |
+| 2026-08-11 | ✨ Features & UI | Uppgift 24: Kom ihåg & öppna senast använda boken vid sidladdning – Sparar och laddar senast aktiva boken från `localStorage` (`naturboken_last_subject`) före rendering i `app.js` |
 | 2026-08-11 | 📊 Statistik | Slimmat ner och mobilanpassat rutorna under "Översikt i siffror" med horisontell kompakt flex-layout och minskad padding för perfekt visning på mobilen |
 | 2026-08-11 | 📊 Statistik | Tagit bort den stora "level up"-rangrutan högst upp i statistikvyn samt dolt quiz-statistik för böcker där quiz inte finns (visas endast för Fågelboken & Naturboken) |
 | 2026-08-11 | 📊 Statistik | Uppgift 23: Bok-anpassad Statistik-vy – Statistikfliken anpassas nu dynamiskt efter den aktiva boken (Fågelboken, Fiskboken, Svampboken, Växtboken, Viltboken) med ämnesspecifik arttäckning, raritetsfördelning, quizframsteg och snabbsiffror, samt samlad översikt i Naturboken |
