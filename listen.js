@@ -40,6 +40,13 @@ let listen_circularBuffer_proc, listen_circularBuffer_raw, listen_circularWriteI
 let listen_settings = {
     threshold: 0.50
 };
+try {
+    const savedListen = localStorage.getItem('naturboken_listen_settings');
+    if (savedListen) {
+        const parsed = JSON.parse(savedListen);
+        if (typeof parsed.threshold === 'number') listen_settings.threshold = parsed.threshold;
+    }
+} catch (_) {}
 let listen_hpfNode    = null;
 let listen_preAmpNode = null;   // AGC gain node
 let listen_agcInterval = null;  // AGC update timer
@@ -772,6 +779,9 @@ function listen_initSettingsUI() {
             let v = parseFloat(input.value);
             listen_settings[c.key] = v * c.mult;
             label.textContent = v + c.unit;
+            try {
+                localStorage.setItem('naturboken_listen_settings', JSON.stringify(listen_settings));
+            } catch (_) {}
         };
     });
 

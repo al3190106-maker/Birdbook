@@ -18,6 +18,7 @@ window.RecentSightings = (function () {
         COUNTRY: 'SE',          // Sverige
         LIMIT: 300,             // Max antal per hämtning (GBIF max per sida)
         CACHE_KEY: 'naturboken_recent_sightings',
+        SETTINGS_KEY: 'naturboken_recent_settings',
         CACHE_TTL: 30 * 60 * 1000,  // 30 minuter cache
         MAX_DISPLAY: 80,        // Max att visa i UI
         RADIUS_KM: 50,          // 5 mil = 50 km radie
@@ -113,9 +114,38 @@ window.RecentSightings = (function () {
     let _locationError = null;
     let _settingsOpen = false;
 
-    // Filterinställningar
     let _filterRarity = 0;          // 0 = alla, 1-5 = minsta raritet att visa
     let _filterSeenStatus = 'all';  // 'all', 'seen', 'unseen'
+
+    function _saveSettings() {
+        try {
+            const payload = {
+                radiusKm: _radiusKm,
+                filterRarity: _filterRarity,
+                filterSeenStatus: _filterSeenStatus
+            };
+            localStorage.setItem(CONFIG.SETTINGS_KEY, JSON.stringify(payload));
+        } catch (e) {
+            console.warn('[Sightings] Save settings failed:', e);
+        }
+    }
+
+    function _loadSettings() {
+        try {
+            const raw = localStorage.getItem(CONFIG.SETTINGS_KEY);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (typeof parsed.radiusKm === 'number') _radiusKm = parsed.radiusKm;
+                if (typeof parsed.filterRarity === 'number') _filterRarity = parsed.filterRarity;
+                if (typeof parsed.filterSeenStatus === 'string') _filterSeenStatus = parsed.filterSeenStatus;
+            }
+        } catch (e) {
+            console.warn('[Sightings] Load settings failed:', e);
+        }
+    }
+
+    // Laddar sparade inställningar direkt vid modulstart
+    _loadSettings();
 
     // Tillgängliga avstånd (km → visningstext)
     const DISTANCE_OPTIONS = [
@@ -1071,6 +1101,7 @@ window.RecentSightings = (function () {
                 } else if (type === 'seen') {
                     _filterSeenStatus = val;
                 }
+                _saveSettings();
                 _renderSettingsPanel();
                 _render();
             });
@@ -1126,6 +1157,7 @@ window.RecentSightings = (function () {
     async function setRadius(km) {
         if (km === _radiusKm && _nearbyMode) return; // Ingen ändring
         _radiusKm = km;
+        _saveSettings();
 
         if (_nearbyMode) {
             _updateDistancePicker();

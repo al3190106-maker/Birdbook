@@ -4723,8 +4723,15 @@ function initQuiz(mode, difficulty) {
     if (difficulty) {
         state.quizDifficulty = difficulty;
     } else if (!state.quizDifficulty) {
-        state.quizDifficulty = 'nyborjare';
+        try {
+            state.quizDifficulty = localStorage.getItem('naturboken_quiz_difficulty_pref') || 'nyborjare';
+        } catch (_) {
+            state.quizDifficulty = 'nyborjare';
+        }
     }
+    try {
+        localStorage.setItem('naturboken_quiz_difficulty_pref', state.quizDifficulty);
+    } catch (_) {}
     state.quizQuestions = generateQuizQuestions(state.quizMode);
     state.quizCurrent = 0;
     state.quizScore = 0;
@@ -5922,6 +5929,10 @@ function switchListenSubTab(which) {
         if (quizBtn) quizBtn.classList.add('active');
         showQuizMenu();
     }
+
+    try {
+        localStorage.setItem('naturboken_identify_subtab', which);
+    } catch (_) {}
 }
 
 function _initRecentSightings() {
@@ -5972,7 +5983,15 @@ function activateTab(tabId) {
         }
     }
     if (tabId === 'stats-view') renderStatsView();
-    if (tabId === 'listen-view' && typeof initBirdnet === 'function') initBirdnet();
+    if (tabId === 'listen-view') {
+        if (typeof initBirdnet === 'function') initBirdnet();
+        try {
+            var savedSubTab = localStorage.getItem('naturboken_identify_subtab');
+            if (savedSubTab && ['sound', 'nearby', 'quiz'].includes(savedSubTab)) {
+                switchListenSubTab(savedSubTab);
+            }
+        } catch (_) {}
+    }
     if (tabId === 'listen-view' && window.RecentSightings) {
         // Bara init Nära mig om sub-panelen är aktiv
         var nearbyPanel = document.getElementById('sub-panel-nearby');

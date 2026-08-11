@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-11 | 🔍 Identifiera | Uppgift 18: Sparar och återställer valda filter, radie/distans, aktiv underflik och quiz-svårighetsgrad under Identifiera via `localStorage` |
 | 2026-08-10 | 🔍 Identifiera | Förbättrat svarsalternativ i Quiz: Felaktiga svarsalternativ väljs nu från samma artfamilj eller närbesläktade/liknande arter i `app.js` |
 | 2026-08-10 | 🎨 Bildgenerering | Förenklat & förtydligat sekventiella SVG-ikoner för svårighetsgraderna (Förenklade och tydligare siluetter i samma stil som nybörjare-bilden) |
 | 2026-08-10 | 🔍 Identifiera | Quiz: Fixat så att 'Spela igen'-knappen behåller den valda svårighetsgraden/kategorin i `app.js` |
@@ -76,7 +77,7 @@
 ### 🔍 Identifiera
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
-- [ ] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
+- [x] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
 - [ ] Fågelkort med v2-bilder & detaljer för externa arter i "Nära mig"
 
 ### 🧭 Planering
