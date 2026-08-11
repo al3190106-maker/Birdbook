@@ -925,31 +925,58 @@
                     </div>
                 </div>
 
-                <!-- Overview Numbers -->
-                <div class="stats-overview-grid" id="stats-overview-grid">
-                    <!-- Injected by JS -->
-                </div>
+                <!-- Overview Numbers (Collapsible) -->
+                <details class="stats-panel stats-panel-wide stats-collapsible" id="stats-overview-details">
+                    <summary class="stats-panel-title stats-collapsible-summary">
+                        <div class="stats-panel-title-text">
+                            <i class="fa-solid fa-list-check"></i> Översikt i siffror
+                        </div>
+                        <div class="stats-panel-summary-right">
+                            <span class="stats-badge-count-pill" id="stats-overview-count-pill">0 obs · 0 arter</span>
+                            <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                        </div>
+                    </summary>
+                    <div class="stats-overview-grid" id="stats-overview-grid">
+                        <!-- Injected by JS -->
+                    </div>
+                </details>
 
                 <!-- Main sections -->
                 <div class="stats-sections-grid">
 
-                    <!-- Bird Highlights -->
-                    <div class="stats-panel" id="stats-birds-panel">
-                        <h3 class="stats-panel-title"><i class="fa-solid fa-dove"></i> Fågelstatistik</h3>
+                    <!-- Bird Highlights (Collapsible) -->
+                    <details class="stats-panel stats-collapsible" id="stats-birds-details">
+                        <summary class="stats-panel-title stats-collapsible-summary">
+                            <div class="stats-panel-title-text">
+                                <i class="fa-solid fa-dove"></i> Fågelstatistik
+                            </div>
+                            <div class="stats-panel-summary-right">
+                                <span class="stats-badge-count-pill" id="stats-birds-count-pill">0 arter</span>
+                                <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                            </div>
+                        </summary>
                         <div class="stats-panel-body" id="stats-birds-body">
                             <!-- Injected by JS -->
                         </div>
-                    </div>
+                    </details>
 
-                    <!-- Other Nature -->
-                    <div class="stats-panel" id="stats-nature-panel">
-                        <h3 class="stats-panel-title"><i class="fa-solid fa-leaf"></i> Naturprofil</h3>
+                    <!-- Other Nature (Collapsible) -->
+                    <details class="stats-panel stats-collapsible" id="stats-nature-details">
+                        <summary class="stats-panel-title stats-collapsible-summary">
+                            <div class="stats-panel-title-text">
+                                <i class="fa-solid fa-leaf"></i> Naturprofil
+                            </div>
+                            <div class="stats-panel-summary-right">
+                                <span class="stats-badge-count-pill" id="stats-nature-count-pill">Översikt</span>
+                                <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                            </div>
+                        </summary>
                         <div class="stats-panel-body" id="stats-nature-body">
                             <!-- Injected by JS -->
                         </div>
-                    </div>
+                    </details>
 
-                    <!-- Achievements / Badges -->
+                    <!-- Achievements / Badges (Collapsible) -->
                     <details class="stats-panel stats-panel-wide stats-collapsible" id="stats-badges-details">
                         <summary class="stats-panel-title stats-collapsible-summary">
                             <div class="stats-panel-title-text">
@@ -965,29 +992,53 @@
                         </div>
                     </details>
 
-                    <!-- Quiz Progress & Mastery Panel -->
-                    <div class="stats-panel stats-panel-wide" id="stats-quiz-panel">
-                        <h3 class="stats-panel-title"><i class="fa-solid fa-chart-line"></i> Quizutveckling &amp; Framsteg</h3>
+                    <!-- Quiz Progress & Mastery Panel (Collapsible) -->
+                    <details class="stats-panel stats-panel-wide stats-collapsible" id="stats-quiz-details">
+                        <summary class="stats-panel-title stats-collapsible-summary">
+                            <div class="stats-panel-title-text">
+                                <i class="fa-solid fa-chart-line"></i> Quizutveckling &amp; Framsteg
+                            </div>
+                            <div class="stats-panel-summary-right">
+                                <span class="stats-badge-count-pill" id="stats-quiz-count-pill">0 genomförda</span>
+                                <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                            </div>
+                        </summary>
                         <div class="stats-panel-body" id="stats-quiz-body">
                             <!-- Injected by JS -->
                         </div>
-                    </div>
+                    </details>
 
-                    <!-- Time & Location Insights -->
-                    <div class="stats-panel">
-                        <h3 class="stats-panel-title"><i class="fa-regular fa-clock"></i> Tid & Plats</h3>
+                    <!-- Time & Location Insights (Collapsible) -->
+                    <details class="stats-panel stats-collapsible" id="stats-time-details">
+                        <summary class="stats-panel-title stats-collapsible-summary">
+                            <div class="stats-panel-title-text">
+                                <i class="fa-regular fa-clock"></i> Tid &amp; Plats
+                            </div>
+                            <div class="stats-panel-summary-right">
+                                <span class="stats-badge-count-pill" id="stats-time-count-pill">Insikter</span>
+                                <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                            </div>
+                        </summary>
                         <div class="stats-panel-body" id="stats-time-body">
                             <!-- Injected by JS -->
                         </div>
-                    </div>
+                    </details>
 
-                    <!-- Rarity Score -->
-                    <div class="stats-panel">
-                        <h3 class="stats-panel-title"><i class="fa-solid fa-star"></i> Sällsynthetsscore</h3>
+                    <!-- Rarity Score (Collapsible) -->
+                    <details class="stats-panel stats-collapsible" id="stats-rarity-details">
+                        <summary class="stats-panel-title stats-collapsible-summary">
+                            <div class="stats-panel-title-text">
+                                <i class="fa-solid fa-star"></i> Sällsynthetsscore
+                            </div>
+                            <div class="stats-panel-summary-right">
+                                <span class="stats-badge-count-pill" id="stats-rarity-count-pill">0 poäng</span>
+                                <i class="fa-solid fa-chevron-down stats-collapsible-chevron"></i>
+                            </div>
+                        </summary>
                         <div class="stats-panel-body" id="stats-rarity-body">
                             <!-- Injected by JS -->
                         </div>
-                    </div>
+                    </details>
 
                 </div>
             </div>

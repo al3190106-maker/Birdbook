@@ -5298,13 +5298,14 @@ function renderStatsView() {
             <div class="stats-overview-label">${c.label}</div>
         </div>
     `).join('');
+    initStatsCollapsible('stats-overview-details', 'stats-overview-count-pill', `${s.totalSightings} obs · ${s.totalUniq} arter`);
 
     // --- Bird Stats Panel ---
     const birdsEl = document.getElementById('stats-birds-body');
+    const totalBirdTypes = (window.swedishBirds || []).length;
     if (s.loggedBirds.length === 0) {
         birdsEl.innerHTML = `<div class="stats-empty"><i class="fa-solid fa-dove"></i><p>Logga din första fågel för att se statistik!</p></div>`;
     } else {
-        const totalBirdTypes = (window.swedishBirds || []).length;
         const coverage = Math.round((s.birdUniq / totalBirdTypes) * 100);
         birdsEl.innerHTML = `
             ${row('🦅 Sällsyntaste fågeln', s.rarestBird ? `${s.rarestBird.nameSv} <small style="color:#8b5cf6">(Nivå ${s.rarestBird.rarity})</small>` : '—', 'highlight')}
@@ -5315,6 +5316,7 @@ function renderStatsView() {
             ${row('⭐ Sällsynthetsscore', s.rarityScore + ' poäng', 'rarity-score')}
         `;
     }
+    initStatsCollapsible('stats-birds-details', 'stats-birds-count-pill', `${s.birdUniq} av ${totalBirdTypes} arter`);
 
     // --- Nature Profile Panel ---
     const natureEl = document.getElementById('stats-nature-body');
@@ -5346,24 +5348,10 @@ function renderStatsView() {
             <span class="nature-subject-count">${cnt}</span>
         </div>`;
     }).join('') + specLabel;
+    initStatsCollapsible('stats-nature-details', 'stats-nature-count-pill', `${s.totalUniq} unika arter`);
 
     // --- Achievements / Badges ---
-    const badgesDetails = document.getElementById('stats-badges-details');
-    if (badgesDetails) {
-        const savedOpen = localStorage.getItem('birdfinder_stats_badges_open');
-        if (savedOpen !== null) {
-            badgesDetails.open = (savedOpen === 'true');
-        } else {
-            badgesDetails.open = false; // Standardmässigt stängd för att spara utrymme
-        }
-        if (!badgesDetails.dataset.listenerAttached) {
-            badgesDetails.dataset.listenerAttached = 'true';
-            badgesDetails.addEventListener('toggle', () => {
-                localStorage.setItem('birdfinder_stats_badges_open', badgesDetails.open ? 'true' : 'false');
-            });
-        }
-    }
-
+    initStatsCollapsible('stats-badges-details', 'stats-badges-count-pill');
     const badgesEl = document.getElementById('stats-badges-grid');
     const badges = s.badges;
     const countPill = document.getElementById('stats-badges-count-pill');
@@ -5413,6 +5401,7 @@ function renderStatsView() {
 
     // --- Quiz Progress & Mastery Panel ---
     renderQuizStatsSection(s.quizStats, s.quizRecentlyCorrectCount);
+    initStatsCollapsible('stats-quiz-details', 'stats-quiz-count-pill', `${s.quizStats.completedCount} genomförda`);
 
     // --- Time & Location ---
     const timeEl = document.getElementById('stats-time-body');
@@ -5423,6 +5412,7 @@ function renderStatsView() {
         ${row('🗓 Första observation', s.firstDate ? new Date(s.firstDate).toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }) : '—')}
         ${row('📋 Totala observationer', s.totalSightings)}
     `;
+    initStatsCollapsible('stats-time-details', 'stats-time-count-pill', s.topLocation ? `${s.topLocation[0]}` : 'Tid & plats');
 
     // --- Rarity breakdown ---
     const rarityEl = document.getElementById('stats-rarity-body');
@@ -5445,6 +5435,29 @@ function renderStatsView() {
         </div>
         ${totalLogged > 0 ? row('📊 Snittpoäng / art', (s.rarityScore / totalLogged).toFixed(1)) : ''}
     `;
+    initStatsCollapsible('stats-rarity-details', 'stats-rarity-count-pill', `${s.rarityScore} poäng`);
+}
+
+function initStatsCollapsible(detailsId, pillId, text) {
+    const details = document.getElementById(detailsId);
+    if (details) {
+        const savedOpen = localStorage.getItem(`birdfinder_${detailsId}_open`);
+        if (savedOpen !== null) {
+            details.open = (savedOpen === 'true');
+        } else {
+            details.open = false; // Standardmässigt stängd
+        }
+        if (!details.dataset.listenerAttached) {
+            details.dataset.listenerAttached = 'true';
+            details.addEventListener('toggle', () => {
+                localStorage.setItem(`birdfinder_${detailsId}_open`, details.open ? 'true' : 'false');
+            });
+        }
+    }
+    const pill = document.getElementById(pillId);
+    if (pill && text !== undefined) {
+        pill.textContent = text;
+    }
 }
 
 // --- Photographers View ---
