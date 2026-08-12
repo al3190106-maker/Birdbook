@@ -4827,6 +4827,7 @@ function preloadQuizImages(questions) {
                 const img = new Image();
                 img.src = src;
             }
+        }
     });
 }
 

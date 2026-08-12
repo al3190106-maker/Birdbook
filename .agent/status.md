@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🐛 Bugg och fix | Återställd app-parsningsfel: Fixat saknad klammerparentes i `preloadQuizImages` i `app.js` som orsakat syntaxfel och förhindrat att sparade fynd och knappar laddades |
 | 2026-08-12 | 🔍 Identifiera | Quiz Dynamisk Proportionstillsättning (`fitQuizImage`): Implementerat dynamisk `aspect-ratio` beräkning i `app.js` och `style.css` så att hela bilden visas utan att beskäras ELLER lämna tomma luftyter |
 | 2026-08-12 | 🔍 Identifiera | Quiz Bildutfyllnad (`object-fit: cover`): Ändrat från `contain` till `cover` i `style.css` så att bilder täcker 100% av kortytan utan luftglapp eller tomrum kring motivet |
 | 2026-08-12 | 🔍 Identifiera | Quiz Ramlös Bildvisning: Tog bort alla bakgrundsramar och oskarpa bakgrundsrutor kring quiz-bilden helt (`background: transparent`, `box-shadow: none`, `border: none`) i `app.js` och `style.css` |
