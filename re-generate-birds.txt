@@ -1,3 +1,4 @@
 # Lista över fåglar vars bilder behöver omgenereras från extern källa
 
 - Skedand: många dubletter av samma fågel
+- Sjöorre: massor av dubletter och onödiga vyer
