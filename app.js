@@ -4850,8 +4850,10 @@ function renderQuizQuestion() {
     if (q.image) {
         const imgSrc = getBirdImageSrc(q.image, 'quiz');
         const isExternal = imgSrc && imgSrc.includes('wikimedia.org');
+        const isPhoto = imgSrc && !imgSrc.includes('images/');
+        const imgTypeClass = isPhoto ? 'img-type-foto' : 'img-type-illustration';
         const loadingClass = isExternal ? 'loading' : '';
-        const imgClass = isExternal ? 'quiz-bird-image loading-fade' : 'quiz-bird-image';
+        const imgClass = isExternal ? `quiz-bird-image loading-fade ${imgTypeClass}` : `quiz-bird-image ${imgTypeClass}`;
 
         imageHtml = `<div class="quiz-image-container ${loadingClass}">
             <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
