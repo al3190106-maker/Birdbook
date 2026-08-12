@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt zoom-skalningen till 1.75× (`transform: scale(1.75)`) i `style.css` för att förstora fåglarna rejält oavsett bildfilens inbyggda marginaler |
 | 2026-08-12 | 🐛 Bugg och fix | Chrome Flexbox-layout Fix: Tog bort dynamisk aspect-ratio beräkning (`fitQuizImage`) från `app.js` som krockade med Chrome mobils Flexbox-motor och krympte bilderna |
 | 2026-08-12 | 🔍 Identifiera | Quiz Framträdande Bildvisning: Ställt in full flexbredd/höjd (`width: 100%`, `flex: 1`) samt balanserad 1.35× zoom-skalning i `style.css` så att bilder blir rejält stora utan beskärning |
 | 2026-08-12 | 🚀 Deploy & Infra | PWA Caching Update: Höjt Service Worker cache-version till `v4.5.1` i `sw.js` för att rensa gammal trasig minnescache i användarnas mobiler |

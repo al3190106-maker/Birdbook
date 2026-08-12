@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v4.5.3-naturboken';
+const CACHE_NAME = 'birdfinder-v4.5.4-naturboken';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
