@@ -4831,15 +4831,6 @@ function preloadQuizImages(questions) {
     });
 }
 
-window.fitQuizImage = function(img) {
-    if (!img || !img.naturalWidth || !img.naturalHeight) return;
-    const ratio = img.naturalWidth / img.naturalHeight;
-    img.style.aspectRatio = ratio;
-    if (img.parentElement) {
-        img.parentElement.style.aspectRatio = ratio;
-    }
-};
-
 function renderQuizQuestion() {
     const q = state.quizQuestions[state.quizCurrent];
     if (!q) return;
@@ -4863,7 +4854,7 @@ function renderQuizQuestion() {
             <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
             <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
                 class="${imgClass}"
-                onload="this.classList.remove('loading-fade'); if(this.parentElement)this.parentElement.classList.remove('loading'); fitQuizImage(this);"
+                onload="this.classList.remove('loading-fade'); if(this.parentElement)this.parentElement.classList.remove('loading');"
                 onerror="if(this.parentElement)this.parentElement.classList.remove('loading'); handleImageError(this);">
         </div>`;
     }
