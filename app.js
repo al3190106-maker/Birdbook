@@ -5184,7 +5184,9 @@ function computeStats(subjectId = state.currentSubject) {
         const catName = b.type || 'Övrigt';
         if (categoryBreakdown[catName]) categoryBreakdown[catName].seen++;
     });
-    const bestCat = Object.entries(categoryBreakdown).sort((a, b) => (b[1].seen / b[1].total) - (a[1].seen / a[1].total))[0];
+    const bestCat = Object.entries(categoryBreakdown)
+        .filter(entry => entry[1].seen > 0)
+        .sort((a, b) => (b[1].seen / b[1].total) - (a[1].seen / a[1].total))[0];
 
     // Rarity breakdown & score for active subject
     const rarityNames = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
@@ -5562,17 +5564,16 @@ function renderStatsView() {
         }).join('') + specLabel;
         initStatsCollapsible('stats-nature-details', 'stats-nature-count-pill', `${s.totalUniq} unika arter`);
     } else {
-        const cats = Object.entries(s.categoryBreakdown);
-        const maxCatCount = Math.max(1, ...cats.map(c => c[1].total));
+        const cats = Object.entries(s.categoryBreakdown).sort((a, b) => (b[1].seen / b[1].total) - (a[1].seen / a[1].total) || b[1].total - a[1].total);
         natureEl.innerHTML = cats.map(([catName, data]) => {
-            const pct = Math.round((data.seen / data.total) * 100);
-            const w = Math.round((data.total / maxCatCount) * 100);
+            const pct = data.total > 0 ? Math.round((data.seen / data.total) * 100) : 0;
+            const w = pct;
             return `<div class="nature-subject-row">
-                <span class="nature-subject-name" style="width: 120px; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${catName}</span>
+                <span class="nature-subject-name" style="width: 120px; font-size: 0.85rem; font-weight: 600; color: #475569; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${catName}</span>
                 <div class="nature-subject-bar-wrap">
-                    <div class="nature-subject-bar-fill" style="width: ${w}%; background: var(--primary-color, #2e5d4b)"></div>
+                    <div class="nature-subject-bar-fill" style="width: ${w}%; background: var(--primary, #2e5d4b);"></div>
                 </div>
-                <span class="nature-subject-count" style="font-size:0.85rem; white-space:nowrap;">${data.seen}/${data.total} <small style="color:var(--text-muted)">(${pct}%)</small></span>
+                <span class="nature-subject-count" style="font-size:0.85rem; white-space:nowrap;">${data.seen}/${data.total} <small style="color:#64748b">(${pct}%)</small></span>
             </div>`;
         }).join('');
         initStatsCollapsible('stats-nature-details', 'stats-nature-count-pill', `${cats.length} kategorier`);
