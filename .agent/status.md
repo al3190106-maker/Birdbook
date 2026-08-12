@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz-bildstorlek: Utökat bildytan ytterligare till `58vh` (upp till `640px` höjd och `850px` bredd) samt minskat marginaler för maximal visning på alla skärmar |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildoptimering: Tog bort bakgrundsramen runt quiz-bilden helt (`background: transparent`) samt maximerade bildhöjden (`52vh` / upp till `550px`) med mjuk `drop-shadow` i `style.css` |
 | 2026-08-12 | 🔍 Identifiera | Quiz UI-design: Matchat layouten exakt från användarens skärmdump – mörkgrön toppbar (#274c3d) med boktitel & Quiz-badge, ljusgrön bakgrund (#eef3f0), centrerad "FRÅGA 1 AV 10"-piller samt 2x2 svarskortsmatris i `index.html`, `app.js` och `style.css` |
 | 2026-08-12 | 🐦 Fågelguide | Uppgift 20: Externa GBIF-arter i "Nära mig" får snygga kort (teal placeholder, feather-ikon), klickbara med live-hämtning av sv-namn + bild från GBIF API i `sightings.js` + `style.css` |
