@@ -4603,7 +4603,7 @@ function hasQuizImage(item) {
     if (!item) return false;
     if (item.noImage === true || item.hasImage === false) return false;
 
-    // 1. Explicit image property (URL) – must be non-empty
+    // 1. Explicit image property (URL) – must be non-empty string
     if (item.image && typeof item.image === 'string' && item.image.trim() !== '') {
         return true;
     }
@@ -4615,10 +4615,9 @@ function hasQuizImage(item) {
     if (window.birdImages && window.birdImages[item.id] && window.birdImages[item.id].length > 0) {
         return true;
     }
-    // 4. Built-in species that have naturboken.alt-qq.com images (v1/v2)
-    // Only true for species WITHOUT an explicit .image field (they use the CDN)
-    const hasExplicitImage = item.image && item.image.trim() !== '';
-    if (!hasExplicitImage) {
+    // 4. Species with no .image field – rely on CDN via getBirdImageSrc (v1/v2)
+    //    These are old entries that never had an explicit image URL set
+    if (!item.hasOwnProperty('image') || item.image === undefined) {
         const isBuiltIn = (window.swedishBirds && window.swedishBirds.some(b => b.id === item.id)) ||
                           (window.swedishFungi && window.swedishFungi.some(b => b.id === item.id)) ||
                           (window.swedishFish && window.swedishFish.some(b => b.id === item.id)) ||
@@ -4831,10 +4830,25 @@ function renderQuizQuestion() {
     let imageHtml = '';
     if (q.image) {
         const imgSrc = getBirdImageSrc(q.image, 'quiz');
-        imageHtml = `<div class="quiz-image-container loading">
-            <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
-            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" onload="this.parentElement.classList.remove('loading'); this.classList.add('loaded');" onerror="handleImageError(this); this.parentElement.classList.remove('loading'); this.classList.add('loaded');" class="quiz-bird-image">
-        </div>`;
+        // Wikimedia images are external/slow; naturboken CDN and local images are fast
+        const isExternal = imgSrc && imgSrc.includes('wikimedia.org');
+        if (isExternal) {
+            // Show spinner overlay, fade in image on load
+            imageHtml = `<div class="quiz-image-container loading">
+                <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
+                    class="quiz-bird-image loading-fade"
+                    onload="this.classList.remove('loading-fade'); this.parentElement.classList.remove('loading');"
+                    onerror="this.parentElement.classList.remove('loading'); this.style.display='none';">
+            </div>`;
+        } else {
+            // Local/CDN image: show immediately, no fade needed
+            imageHtml = `<div class="quiz-image-container">
+                <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
+                    class="quiz-bird-image"
+                    onerror="handleImageError(this);">
+            </div>`;
+        }
     }
 
     let promptHtml = '';
