@@ -5414,6 +5414,22 @@ function renderStatsView() {
     const isNature = state.currentSubject === 'nature';
     const isBirdOrNature = isNature || state.currentSubject === 'birds';
 
+    // Update Header Banner
+    const headerTitleEl = document.getElementById('stats-header-title');
+    const headerSubEl = document.getElementById('stats-header-subtitle');
+    const headerIconEl = document.getElementById('stats-header-icon');
+
+    if (isNature) {
+        if (headerTitleEl) headerTitleEl.textContent = 'Naturboken – Samlad Översikt';
+        if (headerSubEl) headerSubEl.textContent = `Totalt ${s.totalUniq} unika arter observerade i hela naturen`;
+        if (headerIconEl) headerIconEl.innerHTML = `<i class="fa-solid fa-leaf"></i>`;
+    } else {
+        const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
+        if (headerTitleEl) headerTitleEl.textContent = `${subjectName} – Statistik`;
+        if (headerSubEl) headerSubEl.textContent = `${s.activeUniq} av ${s.activeTotal} ${itemLabel}er observerade (${s.activeCoveragePct}% täckning)`;
+        if (headerIconEl) headerIconEl.innerHTML = `<i class="fa-solid ${subjectCfg?.icon || 'fa-book'}"></i>`;
+    }
+
     // Update panel section titles to match active book
     const birdsTitleEl = document.querySelector('#stats-birds-details .stats-panel-title-text');
     if (birdsTitleEl) {

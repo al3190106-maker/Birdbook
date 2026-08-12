@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 📊 Statistik | Designuppfräschning av Statistikfliken: Tagit bort alla plottriga och tunga kantlinjer, infört stilren toppbannér (`stats-header-banner`), luftigare rullgardinskort, renare snabböversiktskort med mjuka cirkelikoner samt snyggare utmärkelser utan skarpa skarvar |
 | 2026-08-12 | 🔍 Identifiera | Inställning för Quiz-bilder: Låst upp och lagt till valet "Frågebilder i Quiz" under Inställningar i `index.html` och `app.js` så att användare fritt kan välja mellan illustrationer (v1/v2) eller högupplösta fotografier som fyller skärmen |
 | 2026-08-12 | 🔍 Identifiera | Quiz Sömlös Vit Bakgrund: Ändrat quiz-sidans bakgrund till ren vit (`#ffffff`) i `style.css` så att illustrationernas vita canvasar smälter in 100% och tar bort alla sidospalter |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt zoom-skalningen till 1.75× (`transform: scale(1.75)`) i `style.css` för att förstora fåglarna rejält oavsett bildfilens inbyggda marginaler |
