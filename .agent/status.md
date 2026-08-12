@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🚀 Deploy & Infra | PWA Caching Update: Höjt Service Worker cache-version till `v4.5.1` i `sw.js` för att rensa gammal trasig minnescache i användarnas mobiler |
 | 2026-08-12 | 🐛 Bugg och fix | Återställd app-parsningsfel: Fixat saknad klammerparentes i `preloadQuizImages` i `app.js` som orsakat syntaxfel och förhindrat att sparade fynd och knappar laddades |
 | 2026-08-12 | 🔍 Identifiera | Quiz Dynamisk Proportionstillsättning (`fitQuizImage`): Implementerat dynamisk `aspect-ratio` beräkning i `app.js` och `style.css` så att hela bilden visas utan att beskäras ELLER lämna tomma luftyter |
 | 2026-08-12 | 🔍 Identifiera | Quiz Bildutfyllnad (`object-fit: cover`): Ändrat från `contain` till `cover` i `style.css` så att bilder täcker 100% av kortytan utan luftglapp eller tomrum kring motivet |
