@@ -3612,9 +3612,24 @@ function getBirdImageSrc(birdId, context = 'guide') {
     ];
     const explicitItem = allItems.find(item => item.id === birdId);
 
-    // 2. If explicitItem has a defined image URL (e.g. naturboken.alt-qq.com or wikimedia), return it first
+    // 2. If explicitItem has a defined image URL (e.g. naturboken.alt-qq.com or wikimedia), return it
     if (explicitItem && explicitItem.image) {
-        return explicitItem.image;
+        let url = explicitItem.image;
+        // Wikimedia thumbnail optimization: resize to smaller width per context
+        // URL format: /commons/thumb/x/xx/filename.jpg/640px-filename.jpg
+        // We can request any size by replacing the NNNpx- prefix
+        if (url.includes('wikimedia.org') && url.includes('px-')) {
+            let targetSize;
+            if (context === 'quiz' || context === 'guide' || context === 'identify') {
+                targetSize = 320; // ~4x lighter than 640px
+            } else if (context === 'log') {
+                targetSize = 240; // Small thumbnails in log view
+            } else {
+                targetSize = 480; // detail view – keep decent quality
+            }
+            url = url.replace(/\/(\d+)px-/, '/' + targetSize + 'px-');
+        }
+        return url;
     }
     
     // Get the preference for this context
