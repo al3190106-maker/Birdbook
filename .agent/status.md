@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt zoom-skalningen för quiz-bilder till 1.5× (`transform: scale(1.5)`) i `style.css` |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt bildhöjden till `68vh` (upp till `720px`) och lagt till 1.25× zoom-skalning för att få fågelbilden att ta upp nästan hela skärmytan i `style.css` |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildskärpa & storlek: Åtgärdat felaktig nedskalning från Wikimedia (ändrat från 320px till HD 800px) i `app.js` samt höjt bildhöjden till `60vh` (upp till `680px` höjd) i `style.css` för stor och knivskarp visning |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildstorlek: Utökat bildytan ytterligare till `58vh` (upp till `640px` höjd och `850px` bredd) samt minskat marginaler för maximal visning på alla skärmar |
