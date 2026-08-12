@@ -4827,9 +4827,17 @@ function preloadQuizImages(questions) {
                 const img = new Image();
                 img.src = src;
             }
-        }
     });
 }
+
+window.fitQuizImage = function(img) {
+    if (!img || !img.naturalWidth || !img.naturalHeight) return;
+    const ratio = img.naturalWidth / img.naturalHeight;
+    img.style.aspectRatio = ratio;
+    if (img.parentElement) {
+        img.parentElement.style.aspectRatio = ratio;
+    }
+};
 
 function renderQuizQuestion() {
     const q = state.quizQuestions[state.quizCurrent];
@@ -4849,14 +4857,13 @@ function renderQuizQuestion() {
         const isExternal = imgSrc && imgSrc.includes('wikimedia.org');
         const loadingClass = isExternal ? 'loading' : '';
         const imgClass = isExternal ? 'quiz-bird-image loading-fade' : 'quiz-bird-image';
-        const loadHandler = isExternal ? `onload="this.classList.remove('loading-fade'); this.parentElement.classList.remove('loading');"` : '';
 
         imageHtml = `<div class="quiz-image-container ${loadingClass}">
             <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
             <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
                 class="${imgClass}"
-                ${loadHandler}
-                onerror="this.parentElement.classList.remove('loading'); handleImageError(this);">
+                onload="this.classList.remove('loading-fade'); if(this.parentElement)this.parentElement.classList.remove('loading'); fitQuizImage(this);"
+                onerror="if(this.parentElement)this.parentElement.classList.remove('loading'); handleImageError(this);">
         </div>`;
     }
 
