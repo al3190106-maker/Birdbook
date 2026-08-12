@@ -3619,13 +3619,14 @@ function getBirdImageSrc(birdId, context = 'guide') {
         // URL format: /commons/thumb/x/xx/filename.jpg/640px-filename.jpg
         // We can request any size by replacing the NNNpx- prefix
         if (url.includes('wikimedia.org') && url.includes('px-')) {
-            let targetSize;
-            if (context === 'quiz' || context === 'guide' || context === 'identify') {
-                targetSize = 320; // ~4x lighter than 640px
+            if (context === 'quiz') {
+                targetSize = 800; // High-res HD for quiz so bird is large & sharp!
+            } else if (context === 'guide' || context === 'identify') {
+                targetSize = 480;
             } else if (context === 'log') {
-                targetSize = 240; // Small thumbnails in log view
+                targetSize = 240;
             } else {
-                targetSize = 480; // detail view – keep decent quality
+                targetSize = 800; // detail view – high quality
             }
             url = url.replace(/\/(\d+)px-/, '/' + targetSize + 'px-');
         }
@@ -3669,30 +3670,30 @@ function getBirdImageSrc(birdId, context = 'guide') {
     return `images/${birdId}.jpg`;
 }
 
-// Global handler: when an <img> fails to load, fall back to explicit item image or holder SVG
+// Global handler: when an <img> fails to load, fall back through: CDN → Wikimedia → local → SVG
 window.handleImageError = function (imgEl) {
     const birdId = imgEl.dataset.birdId;
-    if (birdId && imgEl.src.indexOf('data:image/svg') === -1) {
-        const allItems = [
-            ...(window.swedishBirds || []),
-            ...(window.swedishFungi || []),
-            ...(window.swedishFish || []),
-            ...(window.swedishTrees || []),
-            ...(window.swedishFlowers || []),
-            ...(window.swedishAnimals || [])
-        ];
-        const explicitItem = allItems.find(item => item.id === birdId);
-        if (explicitItem && explicitItem.image && imgEl.src !== explicitItem.image) {
-            imgEl.src = explicitItem.image;
-        } else {
-            const localImgSrc = `images/${birdId}.jpg`;
-            if (imgEl.src.indexOf(localImgSrc) === -1) {
-                imgEl.src = localImgSrc;
-            } else {
-                imgEl.src = getHolderImage(birdId);
-            }
+    if (!birdId || imgEl.src.indexOf('data:image/svg') !== -1) return;
+
+    const currentSrc = imgEl.src;
+
+    // Om CDN-bilden failade (naturboken.alt-qq.com) → prova Wikimedia-backup
+    if (currentSrc.includes('naturboken.alt-qq.com') && window._wikiImageBackup && window._wikiImageBackup[birdId]) {
+        imgEl.src = window._wikiImageBackup[birdId];
+        return;
+    }
+
+    // Om Wikimedia failade → prova lokal fil
+    if (currentSrc.includes('wikimedia.org')) {
+        const localImgSrc = `images/${birdId}.jpg`;
+        if (currentSrc.indexOf(localImgSrc) === -1) {
+            imgEl.src = localImgSrc;
+            return;
         }
     }
+
+    // Lokal fil failade → SVG placeholder
+    imgEl.src = getHolderImage(birdId);
 };
 
 function setupYearFilter() {

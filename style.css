@@ -3117,10 +3117,10 @@ body {
 .quiz-image-container {
     position: relative;
     width: 100%;
-    height: 58vh;
-    min-height: 280px;
-    max-height: 640px;
-    margin-bottom: 0.6rem;
+    height: 60vh;
+    min-height: 300px;
+    max-height: 680px;
+    margin-bottom: 0.5rem;
     background: transparent;
     box-shadow: none;
     border-radius: 0;
@@ -3162,11 +3162,12 @@ body {
     z-index: 3;
     width: 100%;
     height: 100%;
-    max-height: 58vh;
+    max-height: 60vh;
     object-fit: contain;
+    transform: scale(1.06);
     opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12));
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease;
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.12));
 }
 
 .quiz-bird-image.loading-fade {
