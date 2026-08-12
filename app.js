@@ -18,7 +18,8 @@ const state = {
     imgPrefGuide: localStorage.getItem('birdfinder_img_pref_guide') || 'v1',
     imgPrefDetail: localStorage.getItem('birdfinder_img_pref_detail') || 'v2',
     imgPrefIdentify: localStorage.getItem('birdfinder_img_pref_identify') || 'v2',
-    imgPrefLog: localStorage.getItem('birdfinder_img_pref_log') || 'foto'
+    imgPrefLog: localStorage.getItem('birdfinder_img_pref_log') || 'foto',
+    imgPrefQuiz: localStorage.getItem('birdfinder_img_pref_quiz') || 'v2'
 };
 window.state = state;
 
@@ -546,6 +547,7 @@ const elements = {
     imgPrefDetail: document.getElementById('img-pref-detail'),
     imgPrefIdentify: document.getElementById('img-pref-identify'),
     imgPrefLog: document.getElementById('img-pref-log'),
+    imgPrefQuiz: document.getElementById('img-pref-quiz'),
     exportDataBtn: document.getElementById('export-data-btn'),
     importDataBtn: document.getElementById('import-data-btn'),
     importDataInput: document.getElementById('import-data-input'),
@@ -3639,7 +3641,7 @@ function getBirdImageSrc(birdId, context = 'guide') {
     else if (context === 'detail') pref = state.imgPrefDetail || 'v2';
     else if (context === 'identify') pref = state.imgPrefIdentify || 'v2';
     else if (context === 'log') pref = state.imgPrefLog || 'foto';
-    else if (context === 'quiz') pref = 'v2';
+    else if (context === 'quiz') pref = state.imgPrefQuiz || 'v2';
     
     // If preference is 'foto', try to get from birdImages
     if (pref === 'foto') {
@@ -3751,6 +3753,7 @@ function setupEventListeners() {
                 if (elements.imgPrefDetail) elements.imgPrefDetail.value = state.imgPrefDetail;
                 if (elements.imgPrefIdentify) elements.imgPrefIdentify.value = state.imgPrefIdentify;
                 if (elements.imgPrefLog) elements.imgPrefLog.value = state.imgPrefLog;
+                if (elements.imgPrefQuiz) elements.imgPrefQuiz.value = state.imgPrefQuiz;
                 
                 openModal('settings-modal');
             }
@@ -3766,13 +3769,13 @@ function setupEventListeners() {
     }
 
     // Handle Image Preference changes
-    ['Guide', 'Detail', 'Identify', 'Log'].forEach(ctx => {
+    ['Guide', 'Detail', 'Identify', 'Log', 'Quiz'].forEach(ctx => {
         const el = elements[`imgPref${ctx}`];
         if (el) {
             el.addEventListener('change', (e) => {
                 state[`imgPref${ctx}`] = e.target.value;
                 localStorage.setItem(`birdfinder_img_pref_${ctx.toLowerCase()}`, e.target.value);
-                
+
                 // Re-render everything to apply changes
                 if (state.view === 'guide-view') {
                     renderGuideList(getCurrentSpeciesList());
