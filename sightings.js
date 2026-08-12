@@ -589,7 +589,12 @@ window.RecentSightings = (function () {
                 : 'images/' + bird.id + '.jpg';
             imgHTML = '<img class="rs-card-img" src="' + imgSrc + '" alt="' + bird.nameSv + '" loading="lazy" onerror="handleImageError(this)" data-bird-id="' + bird.id + '">';
         } else {
-            imgHTML = '<div class="rs-card-placeholder"><i class="fa-solid fa-dove"></i></div>';
+            // Extern art: visa snygg placeholder med artnamn
+            var sciShort = _formatSciName(group.scientificName);
+            imgHTML = '<div class="rs-card-placeholder rs-card-external" data-sci="' + (group.species || group.scientificName) + '">' +
+                '<i class="fa-solid fa-feather-pointed rs-ext-icon"></i>' +
+                '<span class="rs-ext-label">Extern art</span>' +
+                '</div>';
         }
 
         // Namn
@@ -599,7 +604,7 @@ window.RecentSightings = (function () {
                 '<div class="rs-card-sci">' + bird.scientific + '</div>';
         } else {
             nameHTML = '<div class="rs-card-name rs-card-name-sci">' + _formatSciName(group.scientificName) + '</div>' +
-                '<div class="rs-card-sci">Ej i databasen</div>';
+                '<div class="rs-card-sci rs-card-ext-badge"><i class="fa-solid fa-globe"></i> GBIF – ej i databasen</div>';
         }
 
         // Datum
@@ -662,18 +667,113 @@ window.RecentSightings = (function () {
             });
         }
 
-        // Klick öppnar detaljmodal om matchad
+        // Klick öppnar detaljmodal
+        card.classList.add('rs-card-matched-border');
+        card.style.cursor = 'pointer';
+
         if (isMatched) {
-            card.classList.add('rs-card-matched-border');
-            card.style.cursor = 'pointer';
             card.addEventListener('click', function () {
                 if (typeof openBirdDetail === 'function') {
                     openBirdDetail(bird);
                 }
             });
+        } else {
+            // Extern art: hämta data från GBIF och öppna detaljvy
+            card.addEventListener('click', function () {
+                _openExternalBirdDetail(group);
+            });
         }
 
         return card;
+    }
+
+    // --- Externa arter (GBIF-hämtning) ---
+
+    /**
+     * Öppnar detaljvy för extern GBIF-art som saknas i birds.js.
+     * Hämtar: vernacularName (svenska), bild från GBIF media API.
+     * Återanvänder befintlig openBirdDetail-modal med ett syntetiskt bird-objekt.
+     */
+    async function _openExternalBirdDetail(group) {
+        var sciName = group.species || group.scientificName || '';
+        var canonical = sciName.split(' ').slice(0, 2).join(' ');
+
+        // Visa laddnings-toast
+        if (typeof showGlobalToast === 'function') {
+            showGlobalToast('\u23f3 H\u00e4mtar info om ' + canonical + '...', 'info');
+        }
+
+        var nameSv = '';
+        var imageUrl = '';
+        var gbifKey = null;
+
+        try {
+            // Steg 1: Hämta GBIF species key via match-API
+            var matchResp = await fetch('https://api.gbif.org/v1/species/match?name=' + encodeURIComponent(canonical) + '&rank=SPECIES&strict=false');
+            if (matchResp.ok) {
+                var matchData = await matchResp.json();
+                gbifKey = matchData.usageKey || matchData.speciesKey || null;
+            }
+        } catch (e) { /* nätverksfel, fortsätt */ }
+
+        if (gbifKey) {
+            try {
+                // Steg 2: Hämta vernacular names (svenska)
+                var vernResp = await fetch('https://api.gbif.org/v1/species/' + gbifKey + '/vernacularNames?language=swe&limit=5');
+                if (vernResp.ok) {
+                    var vernData = await vernResp.json();
+                    var svNames = (vernData.results || []).filter(function(v) {
+                        return v.language === 'swe' || v.language === 'sv';
+                    });
+                    if (svNames.length > 0) nameSv = svNames[0].vernacularName;
+                }
+            } catch (e) { /* fortsätt utan svenskt namn */ }
+
+            try {
+                // Steg 3: Hämta bild via GBIF media
+                var mediaResp = await fetch('https://api.gbif.org/v1/occurrence/search?taxonKey=' + gbifKey + '&mediaType=StillImage&limit=5&country=SE');
+                if (mediaResp.ok) {
+                    var mediaData = await mediaResp.json();
+                    var occ = (mediaData.results || []).find(function(r) {
+                        return r.media && r.media.length > 0 && r.media[0].identifier;
+                    });
+                    if (occ) {
+                        imageUrl = occ.media[0].identifier;
+                    }
+                }
+            } catch (e) { /* fortsätt utan bild */ }
+        }
+
+        // Bygg syntetiskt bird-objekt som openBirdDetail förstår
+        var latestObs = group.observations.length > 0 ? group.observations[0] : null;
+        var locParts = [];
+        if (group.localities && group.localities.length > 0) {
+            var loc = group.localities[0];
+            if (loc.municipality) locParts.push(loc.municipality);
+            if (loc.region) locParts.push(loc.region);
+        }
+
+        var externalBird = {
+            id: 'gbif_ext_' + canonical.replace(/\s+/g, '_').toLowerCase(),
+            nameSv: nameSv || canonical,
+            nameEn: '',
+            scientific: canonical,
+            type: 'Extern art',
+            rarity: 5,
+            funFact: 'Denna art observerades nära dig men finns inte i Naturb\u00f6ckens inbyggda databas. Data h\u00e4mtad fr\u00e5n GBIF.',
+            seasonDistribution: group.observations.length + ' observationer i omr\u00e5det' + (locParts.length > 0 ? ' \u2013 ' + locParts.join(', ') : ''),
+            wingspan: null,
+            eggs: null,
+            weight: null,
+            color: '',
+            bestTime: 'Dag',
+            audio: '',
+            image: imageUrl || ''
+        };
+
+        if (typeof openBirdDetail === 'function') {
+            openBirdDetail(externalBird, null);
+        }
     }
 
     // --- Hjälpfunktioner ---

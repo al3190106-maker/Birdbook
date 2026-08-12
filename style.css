@@ -6705,6 +6705,36 @@ body.idle-dark-mode .listen-scard-add-btn {
     margin-bottom: 4px;
 }
 
+/* --- Externa GBIF-arter --- */
+.rs-card-external {
+    background: linear-gradient(135deg, #0e4a6a 0%, #0d7a5f 100%);
+    color: #7dd3fc;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rs-ext-icon {
+    font-size: 1.3rem;
+    color: #7dd3fc;
+}
+
+.rs-ext-label {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #93c5fd;
+    font-weight: 700;
+}
+
+.rs-card-ext-badge {
+    color: #38bdf8 !important;
+    font-style: normal !important;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+}
+
 .rs-card-meta {
     display: flex;
     align-items: center;

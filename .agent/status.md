@@ -3,7 +3,7 @@
 > Denna fil fungerar som en delad "anslagstavla" mellan konversationer.
 > Uppdatera efter betydande ändringar så andra konversationer vet vad som pågår.
 
-*Senast uppdaterad: 2026-07-20*
+*Senast uppdaterad: 2026-08-12*
 
 ---
 
@@ -11,12 +11,13 @@
 
 | Konversation | Vad pågår | Berörda filer |
 |---|---|---|
-| – | – | – |
+| 🐦 Fågelguide | Uppgift 20: Fågelkort för externa GBIF-arter i "Nära mig" | `sightings.js`, `app.js` |
 
 ## ✅ Nyligen avslutat
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🐦 Fågelguide | GBIF-expansion: Lade till 138 nya fågelarter i `birds.js` via GBIF Sverige 2026-analys (totalt 395 unika arter, upp från 257). Inkluderar svenska namn, fakta, mått, ljud och bilder. |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildvisning: Ändrat bildvisningen till `object-fit: contain` med mörk stilren ram (`#0f172a`) i `style.css` så att hela fågelbilden syns utan beskärning |
 | 2026-08-11 | 🔍 Identifiera | Quiz-städning: Tog bort poängräknaren (0/10) och Avsluta-knappen från toppen i `index.html` och `app.js` |
 | 2026-08-11 | 🔍 Identifiera | Quiz-layout: Tagit bort rubriktexten "Vilken fågel ser du på bilden" för bildfrågor samt låst svarsknapparna till en 2x2-matris (grid) på alla skärmar |
@@ -95,6 +96,7 @@
 
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
+- [x] Utöka fågeldatabasen med GBIF Sverige 2026 (257 → 395 unika arter, +138 nya)
 
 ### 🚀 Deploy & Infra
 - [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
@@ -103,7 +105,7 @@
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
 - [x] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
-- [ ] Fågelkort med v2-bilder & detaljer för externa arter i "Nära mig"
+- [/] Fågelkort med v2-bilder & detaljer för externa arter i "Nära mig" ← 🐦 Fågelguide arbetar med detta
 
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
