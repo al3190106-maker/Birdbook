@@ -29,7 +29,6 @@
                 <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem; opacity: 0.7;"></i>
             </div>
             <div class="top-actions" style="display: flex; gap: 0.5rem;">
-                <button id="info-btn" class="icon-btn" title="Information" onclick="openModal('info-modal')"><i class="fa-solid fa-circle-info"></i></button>
                 <button id="settings-btn" class="icon-btn" title="Inställningar"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
@@ -1672,6 +1671,31 @@
                         </p>
                     </div>
 
+                    <!-- Sällsynthets-skalan -->
+                    <details class="info-details-box">
+                        <summary><i class="fa-solid fa-chart-simple"></i> Sällsynthets-skalan (1-5)</summary>
+                        <div class="info-details-content">
+                            <p style="margin-bottom: 0.5rem; font-size: 0.8rem; color: #475569;">Bygger på generell bedömning av hur spridda arterna är i Sverige:</p>
+                            <ul class="rarity-legend-list">
+                                <li><span class="r-pill r-1">Allmän</span> Mkt vanlig &amp; utbredd</li>
+                                <li><span class="r-pill r-2">Vanlig</span> Regelbunden i vissa miljöer</li>
+                                <li><span class="r-pill r-3">Ovanlig</span> Sparsam / svårupptäckt</li>
+                                <li><span class="r-pill r-4">Sällsynt</span> Få individer i landet</li>
+                                <li><span class="r-pill r-5">Mycket sällsynt</span> Rariteter &amp; tillfälliga gäster</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- Integritet -->
+                    <details class="info-details-box">
+                        <summary><i class="fa-solid fa-user-shield"></i> Integritet &amp; Dataskydd</summary>
+                        <div class="info-details-content">
+                            <p style="font-size: 0.8rem; margin: 0; line-height: 1.4; color: #475569;">
+                                <strong>100% Lokalt:</strong> All din data, inklusive GPS-platser och foton, sparas enbart lokalt på din egen enhet. Ingen data samlas in eller skickas till externa servrar.
+                            </p>
+                        </div>
+                    </details>
+
                     <div class="info-app-links">
                         <button type="button" class="info-app-link-btn" onclick="nav.back(); document.querySelector('.nav-btn[data-tab=\'photographers-view\']')?.click();">
                             <i class="fa-solid fa-camera-retro"></i>
@@ -1680,8 +1704,9 @@
                     </div>
 
                     <div class="info-app-footer">
+                        <span>Skapad av <strong>Alexander Larsson &amp; Theia Skoog</strong></span>
+                        <span><a href="mailto:Alexanderlarsson96@hotmail.com">Alexanderlarsson96@hotmail.com</a></span>
                         <span>Data från <a href="https://www.gbif.org" target="_blank" rel="noopener">GBIF.org</a> &amp; BirdNET AI</span>
-                        <span>Skapad med ❤️ för den svenska naturen</span>
                     </div>
                 </div>
             </div>

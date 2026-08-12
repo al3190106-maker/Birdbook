@@ -7615,3 +7615,60 @@ body.idle-dark-mode .listen-scard-add-btn {
     color: var(--primary);
     text-decoration: underline;
 }
+
+.info-details-box {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0.6rem 0.8rem;
+    margin: 0.2rem 0;
+}
+
+.info-details-box summary {
+    font-weight: 600;
+    font-size: 0.83rem;
+    color: var(--primary);
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.info-details-content {
+    padding-top: 0.5rem;
+    border-top: 1px dashed #e2e8f0;
+    margin-top: 0.5rem;
+}
+
+.rarity-legend-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+}
+
+.rarity-legend-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.r-pill {
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    color: white;
+    min-width: 90px;
+    text-align: center;
+}
+
+.r-pill.r-1 { background: #94a3b8; }
+.r-pill.r-2 { background: #16a34a; }
+.r-pill.r-3 { background: #2563eb; }
+.r-pill.r-4 { background: #9333ea; }
+.r-pill.r-5 { background: #ea580c; }
