@@ -4846,25 +4846,19 @@ function renderQuizQuestion() {
     let imageHtml = '';
     if (q.image) {
         const imgSrc = getBirdImageSrc(q.image, 'quiz');
-        // Wikimedia images are external/slow; naturboken CDN and local images are fast
         const isExternal = imgSrc && imgSrc.includes('wikimedia.org');
-        if (isExternal) {
-            // Show spinner overlay, fade in image on load
-            imageHtml = `<div class="quiz-image-container loading">
-                <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
-                <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
-                    class="quiz-bird-image loading-fade"
-                    onload="this.classList.remove('loading-fade'); this.parentElement.classList.remove('loading');"
-                    onerror="this.parentElement.classList.remove('loading'); this.style.display='none';">
-            </div>`;
-        } else {
-            // Local/CDN image: show immediately, no fade needed
-            imageHtml = `<div class="quiz-image-container">
-                <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
-                    class="quiz-bird-image"
-                    onerror="handleImageError(this);">
-            </div>`;
-        }
+        const loadingClass = isExternal ? 'loading' : '';
+        const imgClass = isExternal ? 'quiz-bird-image loading-fade' : 'quiz-bird-image';
+        const loadHandler = isExternal ? `onload="this.classList.remove('loading-fade'); this.parentElement.classList.remove('loading');"` : '';
+
+        imageHtml = `<div class="quiz-image-container ${loadingClass}">
+            <div class="quiz-img-bg-blur" style="background-image: url('${imgSrc}');"></div>
+            <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
+            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
+                class="${imgClass}"
+                ${loadHandler}
+                onerror="this.parentElement.classList.remove('loading'); handleImageError(this);">
+        </div>`;
     }
 
     let promptHtml = '';

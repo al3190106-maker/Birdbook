@@ -3071,14 +3071,14 @@ body {
     transition: width 0.4s ease;
 }
 
-/* Quiz Question Container in Fullscreen (Maximized height utilization) */
+/* Quiz Question Container (Adaptive Layout for Desktop & Mobile) */
 .quiz-question-container {
     width: 100%;
-    max-width: 960px;
+    max-width: 580px;
     height: calc(100vh - 50px);
     height: calc(100dvh - 50px);
     margin: 0 auto;
-    padding: 0.3rem 0.6rem 0.5rem 0.6rem;
+    padding: 0.4rem 0.75rem 0.6rem 0.75rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -3102,7 +3102,7 @@ body {
 
 /* Question Counter Pill ("FRÅGA 1 AV 10") */
 .quiz-question-pill-wrap {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.35rem;
     display: flex;
     justify-content: center;
     flex-shrink: 0;
@@ -3115,25 +3115,40 @@ body {
     letter-spacing: 1.2px;
     font-weight: 800;
     background: #ffffff;
-    padding: 0.25rem 1rem;
+    padding: 0.28rem 1.1rem;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-/* Image Display (100% Unrestricted Height Utilization) */
+/* Image Card & Adaptive Color-Matched Backdrop */
 .quiz-image-container {
     position: relative;
     width: 100%;
     flex: 1;
-    min-height: 0;
-    margin-bottom: 0.3rem;
-    background: transparent;
-    box-shadow: none;
-    border-radius: 0;
+    min-height: 240px;
+    max-height: 52vh;
+    margin-bottom: 0.5rem;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+}
+
+.quiz-img-bg-blur {
+    position: absolute;
+    inset: -25px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(28px) brightness(0.96) saturate(1.2);
+    opacity: 0.45;
+    z-index: 1;
+    transform: scale(1.15);
+    pointer-events: none;
 }
 
 .quiz-image-container.loading::before {
@@ -3143,7 +3158,7 @@ body {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.07) 50%, rgba(0, 0, 0, 0.03) 100%);
     background-size: 200% 100%;
     animation: quiz-skeleton-shimmer 1.5s infinite;
-    z-index: 1;
+    z-index: 2;
     border-radius: 16px;
 }
 
@@ -3154,7 +3169,7 @@ body {
     transform: translate(-50%, -50%);
     font-size: 1.8rem;
     color: #789082;
-    z-index: 2;
+    z-index: 3;
     display: none;
 }
 
@@ -3164,16 +3179,17 @@ body {
 
 .quiz-bird-image {
     position: relative;
-    z-index: 3;
+    z-index: 4;
     width: 100%;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    transform: scale(1.65);
+    padding: 0.35rem;
+    box-sizing: border-box;
     opacity: 1;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease;
-    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.16));
+    transition: opacity 0.3s ease-in-out;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.14));
 }
 
 .quiz-bird-image.loading-fade {
@@ -3182,6 +3198,28 @@ body {
 
 .quiz-bird-image.loaded {
     opacity: 1;
+}
+
+/* Desktop & Tablet Scoped Responsiveness */
+@media (min-width: 768px) {
+    .quiz-question-container {
+        max-width: 540px;
+        height: auto;
+        min-height: 540px;
+        max-height: 85vh;
+        padding: 1rem;
+    }
+
+    .quiz-image-container {
+        height: 380px;
+        max-height: 380px;
+        margin-bottom: 0.85rem;
+    }
+
+    .quiz-options {
+        max-width: 500px;
+        gap: 0.75rem;
+    }
 }
 
 @keyframes quiz-skeleton-shimmer {
