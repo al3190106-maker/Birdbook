@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz Bildutfyllnad (`object-fit: cover`): Ändrat från `contain` till `cover` i `style.css` så att bilder täcker 100% av kortytan utan luftglapp eller tomrum kring motivet |
 | 2026-08-12 | 🔍 Identifiera | Quiz Ramlös Bildvisning: Tog bort alla bakgrundsramar och oskarpa bakgrundsrutor kring quiz-bilden helt (`background: transparent`, `box-shadow: none`, `border: none`) i `app.js` och `style.css` |
 | 2026-08-12 | 🔍 Identifiera | Adaptiv Quiz-design: Byggt om bildvisningen med färgmatchad oskarp bakgrund (`.quiz-img-bg-blur`) för att eliminera tomma ytor oavsett bildformat (stående/liggande) samt begränsat bredd/höjd för datorer (`@media (min-width: 768px)`) i `app.js` och `style.css` |
 | 2026-08-12 | 🔍 Identifiera | Quiz 100% Skärmhöjdsutnyttjande: Tog bort alla fasta höjdbegränsningar/mediaqueries, tajtat till marginaler och ställt in 1.65× zoom-skalning i `style.css` så att hela skärmens höjd utnyttjas till 100% |
