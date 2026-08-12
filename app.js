@@ -4603,7 +4603,7 @@ function hasQuizImage(item) {
     if (!item) return false;
     if (item.noImage === true || item.hasImage === false) return false;
 
-    // 1. Explicit image property (URL)
+    // 1. Explicit image property (URL) – must be non-empty
     if (item.image && typeof item.image === 'string' && item.image.trim() !== '') {
         return true;
     }
@@ -4615,16 +4615,17 @@ function hasQuizImage(item) {
     if (window.birdImages && window.birdImages[item.id] && window.birdImages[item.id].length > 0) {
         return true;
     }
-    // 4. Built-in species with generated local images (v1)
-    const isBuiltIn = (window.swedishBirds && window.swedishBirds.some(b => b.id === item.id)) ||
-                      (window.swedishFungi && window.swedishFungi.some(b => b.id === item.id)) ||
-                      (window.swedishFish && window.swedishFish.some(b => b.id === item.id)) ||
-                      (window.swedishTrees && window.swedishTrees.some(b => b.id === item.id)) ||
-                      (window.swedishFlowers && window.swedishFlowers.some(b => b.id === item.id)) ||
-                      (window.swedishAnimals && window.swedishAnimals.some(b => b.id === item.id));
-
-    if (isBuiltIn) {
-        return true;
+    // 4. Built-in species that have naturboken.alt-qq.com images (v1/v2)
+    // Only true for species WITHOUT an explicit .image field (they use the CDN)
+    const hasExplicitImage = item.image && item.image.trim() !== '';
+    if (!hasExplicitImage) {
+        const isBuiltIn = (window.swedishBirds && window.swedishBirds.some(b => b.id === item.id)) ||
+                          (window.swedishFungi && window.swedishFungi.some(b => b.id === item.id)) ||
+                          (window.swedishFish && window.swedishFish.some(b => b.id === item.id)) ||
+                          (window.swedishTrees && window.swedishTrees.some(b => b.id === item.id)) ||
+                          (window.swedishFlowers && window.swedishFlowers.some(b => b.id === item.id)) ||
+                          (window.swedishAnimals && window.swedishAnimals.some(b => b.id === item.id));
+        if (isBuiltIn) return true;
     }
 
     return false;
