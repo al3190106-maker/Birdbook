@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz Sömlös Vit Bakgrund: Ändrat quiz-sidans bakgrund till ren vit (`#ffffff`) i `style.css` så att illustrationernas vita canvasar smälter in 100% och tar bort alla sidospalter |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt zoom-skalningen till 1.75× (`transform: scale(1.75)`) i `style.css` för att förstora fåglarna rejält oavsett bildfilens inbyggda marginaler |
 | 2026-08-12 | 🐛 Bugg och fix | Chrome Flexbox-layout Fix: Tog bort dynamisk aspect-ratio beräkning (`fitQuizImage`) från `app.js` som krockade med Chrome mobils Flexbox-motor och krympte bilderna |
 | 2026-08-12 | 🔍 Identifiera | Quiz Framträdande Bildvisning: Ställt in full flexbredd/höjd (`width: 100%`, `flex: 1`) samt balanserad 1.35× zoom-skalning i `style.css` så att bilder blir rejält stora utan beskärning |
