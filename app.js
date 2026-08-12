@@ -4852,7 +4852,6 @@ function renderQuizQuestion() {
         const loadHandler = isExternal ? `onload="this.classList.remove('loading-fade'); this.parentElement.classList.remove('loading');"` : '';
 
         imageHtml = `<div class="quiz-image-container ${loadingClass}">
-            <div class="quiz-img-bg-blur" style="background-image: url('${imgSrc}');"></div>
             <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
             <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
                 class="${imgClass}"

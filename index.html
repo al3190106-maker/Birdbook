@@ -1548,10 +1548,14 @@
                 </label>
 
             <div style="text-align: left; margin-bottom: 1.5rem; margin-top: 1.5rem; background: #f9f9f9; padding: 1rem; border-radius: 12px;">
-                <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--primary);"><i class="fa-solid fa-image"></i> Välj vilken typ av bilder som ska visas</h3>
+                <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-image"></i> Välj bildstil för olika vyer
+                </h3>
                 
                 <div style="margin-bottom: 1rem;">
-                    <label for="img-pref-guide" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">När du bläddrar i listan över arter (ex. Fågelboken)</label>
+                    <label for="img-pref-guide" style="display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 0.3rem;">
+                        <i class="fa-solid fa-book" style="color: var(--primary); width: 18px;"></i> Artguider (ex. Fågelboken &amp; Växtboken)
+                    </label>
                     <select id="img-pref-guide" class="img-pref-select" data-context="guide" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
                         <option value="v1">Enkla illustrationer (V1)</option>
                         <option value="v2">Detaljerade naturbilder (V2)</option>
@@ -1560,7 +1564,9 @@
                 </div>
                 
                 <div style="margin-bottom: 1rem;">
-                    <label for="img-pref-detail" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">När du läser fakta om en specifik art (Huvudbilden)</label>
+                    <label for="img-pref-detail" style="display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 0.3rem;">
+                        <i class="fa-solid fa-circle-info" style="color: var(--primary); width: 18px;"></i> Artfakta &amp; Detaljkort
+                    </label>
                     <select id="img-pref-detail" class="img-pref-select" data-context="detail" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
                         <option value="v1">Enkla illustrationer (V1)</option>
                         <option value="v2">Detaljerade naturbilder (V2)</option>
@@ -1569,7 +1575,9 @@
                 </div>
 
                 <div style="margin-bottom: 1rem;">
-                    <label for="img-pref-identify" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">När du använder trollspöet för att jämföra arter</label>
+                    <label for="img-pref-identify" style="display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 0.3rem;">
+                        <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary); width: 18px;"></i> Jämför &amp; Identifiera (Trollspöet)
+                    </label>
                     <select id="img-pref-identify" class="img-pref-select" data-context="identify" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
                         <option value="v1">Enkla illustrationer (V1)</option>
                         <option value="v2">Detaljerade naturbilder (V2)</option>
@@ -1578,7 +1586,9 @@
                 </div>
 
                 <div style="margin-bottom: 0.5rem;">
-                    <label for="img-pref-log" style="display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.3rem;">I din personliga loggbok (Mina Fynd)</label>
+                    <label for="img-pref-log" style="display: block; font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 0.3rem;">
+                        <i class="fa-solid fa-clipboard-list" style="color: var(--primary); width: 18px;"></i> Min Loggbok (Mina Fynd)
+                    </label>
                     <select id="img-pref-log" class="img-pref-select" data-context="log" style="width: 100%; padding: 0.5rem; border-radius: 8px; border: 1px solid #ddd; background: #fff; font-size: 0.9rem; cursor: pointer;">
                         <option value="v1">Enkla illustrationer (V1)</option>
                         <option value="v2">Detaljerade naturbilder (V2)</option>
@@ -1586,6 +1596,7 @@
                     </select>
                 </div>
             </div>
+
             <!-- ===== DATASKYDD & BACKUP ===== -->
             <div class="backup-panel">
                 <div class="backup-panel-header">
@@ -1631,6 +1642,48 @@
                 </div>
                 <!-- Hidden file input for import -->
                 <input type="file" id="import-data-input" accept=".json" style="display: none;">
+            </div>
+
+            <!-- ===== OM NATURBOKEN & HJÄLP ===== -->
+            <div class="info-app-panel">
+                <div class="info-app-header">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Om Naturboken &amp; Hjälp</span>
+                </div>
+
+                <div class="info-app-body">
+                    <div class="info-app-version">
+                        <span class="info-version-tag">Naturboken v2.5</span>
+                        <span class="info-version-sub">Progressive Web App (PWA)</span>
+                    </div>
+
+                    <p class="info-app-desc">
+                        Naturboken är din personliga naturguide för att utforska, identifiera och lära dig om svensk natur – täcker fåglar, växter, svampar, fiskar och däggdjur.
+                    </p>
+
+                    <!-- PWA Guide Box -->
+                    <div class="pwa-guide-box">
+                        <div class="pwa-guide-title"><i class="fa-solid fa-mobile-screen-button"></i> Spara på hemskärmen (PWA)</div>
+                        <p class="pwa-guide-text">
+                            <strong>iPhone / iPad (Safari):</strong> Tryck på Dela-knappen <i class="fa-solid fa-share-from-square"></i> och välj <em>"Lägg till på hemskärmen"</em>.
+                        </p>
+                        <p class="pwa-guide-text" style="margin-top: 0.4rem;">
+                            <strong>Android (Chrome):</strong> Tryck på menyn <i class="fa-solid fa-ellipsis-vertical"></i> och välj <em>"Installera appen"</em> eller <em>"Lägg till på startskärmen"</em>.
+                        </p>
+                    </div>
+
+                    <div class="info-app-links">
+                        <button type="button" class="info-app-link-btn" onclick="nav.back(); document.querySelector('.nav-btn[data-tab=\'photographers-view\']')?.click();">
+                            <i class="fa-solid fa-camera-retro"></i>
+                            <span>Våra Fotografers Bildgalleri</span>
+                        </button>
+                    </div>
+
+                    <div class="info-app-footer">
+                        <span>Data från <a href="https://www.gbif.org" target="_blank" rel="noopener">GBIF.org</a> &amp; BirdNET AI</span>
+                        <span>Skapad med ❤️ för den svenska naturen</span>
+                    </div>
+                </div>
             </div>
 
             <div style="padding-top: 1rem; border-top: 1px solid #eee;">
