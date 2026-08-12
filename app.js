@@ -4788,6 +4788,12 @@ function initQuiz(mode, difficulty) {
     document.getElementById('quiz-area').classList.remove('hidden');
     document.getElementById('quiz-results').classList.add('hidden');
 
+    const bookNameEl = document.getElementById('quiz-top-book-name');
+    const subjectCfg = SUBJECT_CONFIG[state.currentSubject] || SUBJECT_CONFIG.birds;
+    if (bookNameEl && subjectCfg) {
+        bookNameEl.textContent = subjectCfg.name;
+    }
+
     const scoreEl = document.getElementById('quiz-score');
     if (scoreEl) scoreEl.textContent = '0';
     const totalEl = document.getElementById('quiz-total');
@@ -4844,7 +4850,9 @@ function renderQuizQuestion() {
     let questionTextHtml = (q.type !== 'image' && q.question) ? `<h3 class="quiz-question-text">${q.question}</h3>` : '';
 
     container.innerHTML = `
-        <div class="quiz-question-number">Fråga ${state.quizCurrent + 1} av ${state.quizQuestions.length}</div>
+        <div class="quiz-question-pill-wrap">
+            <span class="quiz-question-number">FRÅGA ${state.quizCurrent + 1} AV ${state.quizQuestions.length}</span>
+        </div>
         ${imageHtml}
         ${promptHtml}
         ${questionTextHtml}

@@ -807,8 +807,16 @@
 
                 <!-- Active Quiz Area -->
                 <div id="quiz-area" class="quiz-area hidden">
-                    <div class="quiz-header">
-                        <button id="quiz-back-btn" class="nav-back-btn"><i class="fa-solid fa-arrow-left"></i> Tillbaka</button>
+                    <div class="quiz-top-bar">
+                        <button id="quiz-back-btn" class="quiz-back-icon-btn" aria-label="Tillbaka">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <div class="quiz-top-title">
+                            <span class="quiz-top-logo"><i class="fa-solid fa-dove"></i></span>
+                            <span id="quiz-top-book-name">Fågelboken</span>
+                            <span class="quiz-top-badge">Quiz</span>
+                        </div>
+                        <div class="quiz-top-spacer"></div>
                     </div>
                     <div class="quiz-progress-bar">
                         <div class="quiz-progress-fill" id="quiz-progress-fill"></div>

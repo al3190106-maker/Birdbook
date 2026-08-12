@@ -11,12 +11,14 @@
 
 | Konversation | Vad pågår | Berörda filer |
 |---|---|---|
-| 🐦 Fågelguide | Uppgift 20: Fågelkort för externa GBIF-arter i "Nära mig" | `sightings.js`, `app.js` |
+| – | – | – |
 
 ## ✅ Nyligen avslutat
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz UI-design: Matchat layouten exakt från användarens skärmdump – mörkgrön toppbar (#274c3d) med boktitel & Quiz-badge, ljusgrön bakgrund (#eef3f0), centrerad "FRÅGA 1 AV 10"-piller samt 2x2 svarskortsmatris i `index.html`, `app.js` och `style.css` |
+| 2026-08-12 | 🐦 Fågelguide | Uppgift 20: Externa GBIF-arter i "Nära mig" får snygga kort (teal placeholder, feather-ikon), klickbara med live-hämtning av sv-namn + bild från GBIF API i `sightings.js` + `style.css` |
 | 2026-08-12 | 🐦 Fågelguide | GBIF-expansion: Lade till 138 nya fågelarter i `birds.js` via GBIF Sverige 2026-analys (totalt 395 unika arter, upp från 257). Inkluderar svenska namn, fakta, mått, ljud och bilder. |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildvisning: Ändrat bildvisningen till `object-fit: contain` med mörk stilren ram (`#0f172a`) i `style.css` så att hela fågelbilden syns utan beskärning |
 | 2026-08-11 | 🔍 Identifiera | Quiz-städning: Tog bort poängräknaren (0/10) och Avsluta-knappen från toppen i `index.html` och `app.js` |
@@ -105,7 +107,7 @@
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
 - [x] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
-- [/] Fågelkort med v2-bilder & detaljer för externa arter i "Nära mig" ← 🐦 Fågelguide arbetar med detta
+- [x] Fågelkort med v2-bilder & detaljer för externa arter i "Nära mig"
 
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
