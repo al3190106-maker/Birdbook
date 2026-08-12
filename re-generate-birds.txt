@@ -1,1 +1,3 @@
 # Lista över fåglar vars bilder behöver omgenereras från extern källa
+
+- Skedand: många dubletter av samma fågel
