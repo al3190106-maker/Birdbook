@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-12 | 🔍 Identifiera | Quiz 100% Skärmhöjdsutnyttjande: Tog bort alla fasta höjdbegränsningar/mediaqueries, tajtat till marginaler och ställt in 1.65× zoom-skalning i `style.css` så att hela skärmens höjd utnyttjas till 100% |
 | 2026-08-12 | 🔍 Identifiera | Quiz Responsiv Flexbox: Byggt om layouten med dynamisk Flexbox (`flex: 1` + `justify-content: space-between`) i `style.css` så att bilden automatiskt expanderar till 100% av användarens tillgängliga skärmyta oavsett mobilmodell och skärmbredd |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt zoom-skalningen för quiz-bilder till 1.5× (`transform: scale(1.5)`) i `style.css` |
 | 2026-08-12 | 🔍 Identifiera | Quiz-bildskalning: Höjt bildhöjden till `68vh` (upp till `720px`) och lagt till 1.25× zoom-skalning för att få fågelbilden att ta upp nästan hela skärmytan i `style.css` |
