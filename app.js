@@ -32,6 +32,16 @@ const appStateMeta = {
 
 const STORAGE_KEY = 'birdfinder_sightings';
 
+/**
+ * Privat spårnings-hjälpare för Google Analytics 4 (Punkt 26)
+ */
+function trackEvent(eventName, params = {}) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, params);
+    }
+}
+window.trackEvent = trackEvent;
+
 /* ================================================================
    AUTO-BACKUP  –  IndexedDB-baserad rullande säkerhetskopiering
    Sparar automatiskt 3 snapshots i bakgrunden. Kräver ingen
@@ -1516,6 +1526,7 @@ function switchSubject(subjectId) {
     if (!SUBJECT_CONFIG[subjectId]) return;
     state.currentSubject = subjectId;
     localStorage.setItem('naturboken_last_subject', subjectId);
+    trackEvent('switch_subject', { subject: subjectId });
     const config = SUBJECT_CONFIG[subjectId];
 
     // Update "Identifiera" (listen-view) tab visibility: only visible in Fågelboken (birds)
@@ -1973,6 +1984,9 @@ function checkAchievements() {
 function saveSightings() {
     // 1. Always save to localStorage (instant)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+
+    // Privat mätning GA4
+    trackEvent('observation_saved', { total_sightings: state.sightings.length, subject: state.currentSubject });
 
     // 2. Auto-backup till IndexedDB (throttlad, icke-blockerande)
     AutoBackup.save(state.sightings);
@@ -4947,6 +4961,7 @@ function showQuizResults() {
     // Spara quizresultat och visa framstegsnotering
     if (!state.quizResultRecorded) {
         state.quizResultRecorded = true;
+        trackEvent('quiz_completed', { score: score, total: total, pct: pct, subject: state.currentSubject });
         const res = recordQuizCompletion(score, total, state.currentSubject, state.quizDifficulty);
         const trendEl = document.getElementById('quiz-results-trend');
         if (trendEl && res && res.trendMsg) {

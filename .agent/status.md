@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-15 | 🚀 Deploy & Infra | Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (Measurement ID: `G-471QWLB8LB`) med anonym spårning för besök, bokbyten, sparade observationer och quiz i `index.html` och `app.js` |
 | 2026-08-12 | 🚀 Deploy & Infra | PWA Auto-Reload: Lagt till `controllerchange` event-lyssnare i `index.html` som automatiskt laddar om sidan så fort en ny version aktiverats, vilket gör att användare slipper rensa cache manuellt |
 | 2026-08-12 | 📊 Statistik | Fixat beräkning av kategoristapel-bredder (`w`): Ändrat från felaktig totalkvot till användarens faktiska observationstäckning (`pct = seen / total`), så att tomma kategorier (0 observerade) nu visas helt tomma (0%) istället för felaktigt maxade (100%) |
 | 2026-08-12 | 📊 Statistik | Designuppfräschning av Statistikfliken: Tagit bort alla plottriga och tunga kantlinjer, infört stilren toppbannér (`stats-header-banner`), luftigare rullgardinskort, renare snabböversiktskort med mjuka cirkelikoner samt snyggare utmärkelser utan skarpa skarvar |
@@ -124,6 +125,7 @@
 - [x] Utöka fågeldatabasen med GBIF Sverige 2026 (257 → 395 unika arter, +138 nya)
 
 ### 🚀 Deploy & Infra
+- [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
 - [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 
 ### 🔍 Identifiera
