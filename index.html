@@ -1254,64 +1254,60 @@
                 <h2 class="bird-detail-title" id="detail-name-sv">Svenskt Namn</h2>
                 <span class="bird-detail-scientific" id="detail-name-sc-en">Scientific (English)</span>
                 <p class="bird-detail-description" id="detail-description"></p>
-                <details id="detail-facts-accordion" open style="margin-top: 0.5rem;">
-                    <summary style="cursor: pointer; color: var(--primary); font-weight: 600; outline: none; padding-bottom: 0.5rem; font-size: 1.05rem; user-select: none;"><i class="fa-solid fa-circle-info"></i> Artfakta</summary>
-                    <div id="detail-audio-container" style="display: none; margin-bottom: 15px; text-align: center; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                        <audio id="detail-audio-player" controls preload="none" style="width: 100%; height: 40px; border-radius: 8px; outline: none;">
-                            <source src="" type="audio/mpeg">
-                            Din webbläsare stöder inte ljudspelaren.
-                        </audio>
-                        <div style="margin-top: 5px; font-size: 0.75rem; color: #64748b;">
-                            <a id="detail-audio-attribution" href="#" target="_blank" style="color: #3b82f6; text-decoration: none;">Källa & Licens (Creative Commons)</a>
-                        </div>
+                <div id="detail-audio-container" style="display: none; margin-bottom: 15px; text-align: center; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <audio id="detail-audio-player" controls preload="none" style="width: 100%; height: 40px; border-radius: 8px; outline: none;">
+                        <source src="" type="audio/mpeg">
+                        Din webbläsare stöder inte ljudspelaren.
+                    </audio>
+                    <div style="margin-top: 5px; font-size: 0.75rem; color: #64748b;">
+                        <a id="detail-audio-attribution" href="#" target="_blank" style="color: #3b82f6; text-decoration: none;">Källa & Licens (Creative Commons)</a>
                     </div>
-                    <div class="bird-facts-grid">
+                </div>
+
+                <div class="bird-facts-grid">
+                    <!-- 1. Sällsynthet -->
                     <div class="fact-card">
                         <div class="fact-title"><i class="fa-solid fa-star"></i> Sällsynthet</div>
-                        <div class="rarity-text" id="detail-rarity"
-                            style="font-size: 1.1rem; font-weight: 600; color: var(--accent);">Allmän</div>
-                        <p class="stat-label">I Sverige</p>
+                        <div class="rarity-text" id="detail-rarity" style="font-size: 1.1rem; font-weight: 600; color: var(--accent);">Allmän</div>
+                        <div class="stat-label">I Sverige</div>
                     </div>
 
-                    <!-- Season Map -->
-                    <!-- Season (Text Only) -->
+                    <!-- 2. Utbredning (VART) -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-map"></i> Utbredning</div>
-                        <div class="fact-value" id="detail-season-text" style="font-size: 1rem; line-height: 1.4;">--
-                        </div>
-                        <div class="stat-label">Säsong</div>
+                        <div class="fact-title"><i class="fa-solid fa-map-location-dot"></i> Utbredning</div>
+                        <div class="fact-value" id="detail-distribution-text" style="font-size: 0.95rem; line-height: 1.35;">Hela landet</div>
+                        <div class="stat-label">Geografiskt område</div>
                     </div>
 
-                    <!-- Best Time Card -->
+                    <!-- 3. Säsong & Flytt (NÄR & HUR) -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-regular fa-clock"></i> Aktiv</div>
-                        <div class="fact-value" id="detail-best-time" style="font-size: 1rem; line-height: 1.4;">--
-                        </div>
-                        <div class="stat-label"></div>
+                        <div class="fact-title"><i class="fa-solid fa-calendar-days"></i> Säsong & Flytt</div>
+                        <div class="fact-value" id="detail-season-text" style="font-size: 0.95rem; line-height: 1.35;">Hela året</div>
+                        <div class="stat-label">Närvaro i Sverige</div>
                     </div>
 
-                    <!-- New Info Cards -->
+                    <!-- 4. Biotop (VAR) -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-ruler-horizontal"></i> Storlek</div>
-                        <div class="fact-value" id="detail-wingspan">-- cm</div>
-                        <div class="stat-label"></div>
+                        <div class="fact-title"><i class="fa-solid fa-tree"></i> Biotop</div>
+                        <div class="fact-value" id="detail-habitat-text" style="font-size: 0.95rem; line-height: 1.35;">Skog & natur</div>
+                        <div class="stat-label">Livsmiljö</div>
                     </div>
 
+                    <!-- 5. Föda (VAD) -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-egg"></i> Häckning</div>
-                        <div class="fact-value" id="detail-eggs">--</div>
-                        <div class="stat-label"></div>
+                        <div class="fact-title"><i class="fa-solid fa-utensils"></i> Föda</div>
+                        <div class="fact-value" id="detail-food-text" style="font-size: 0.95rem; line-height: 1.35;">Insekter & frön</div>
+                        <div class="stat-label">Huvudsaklig mat</div>
                     </div>
 
+                    <!-- 6. Storlek (Kombinerat Längd + Vingspann) -->
                     <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-weight-hanging"></i> Vikt</div>
-                        <div class="fact-value" id="detail-weight">-- g</div>
-                        <div class="stat-label">Genomsnitt</div>
+                        <div class="fact-title"><i class="fa-solid fa-ruler-combined"></i> Storlek</div>
+                        <div class="fact-value" id="detail-size-combined" style="font-size: 0.95rem; line-height: 1.35;">-- cm</div>
+                        <div class="stat-label">Kroppsmått</div>
                     </div>
-
-
                 </div>
-                </details>
+
                 
                 <!-- Sighting Details (Only in Log View) -->
                 <div class="bird-facts-grid hidden" id="detail-sighting-panel" style="margin-top: 1rem;">

@@ -1284,18 +1284,22 @@ function _renderBirdDetail(item, sighting = null) {
     }
 
     elements.detailNameSv.textContent = item.nameSv;
-    elements.detailNameScEn.textContent = `${item.scientific} (${item.nameEn})`;
+    elements.detailNameScEn.textContent = item.nameEn ? `${item.scientific} (${item.nameEn})` : (item.scientific || '');
+
+    // 1. Sällsynthet
     const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
     const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; 
     const rIndex = (item.rarity || 1) - 1;
-    elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
-    elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
-    elements.detailRarity.style.backgroundColor = rIndex === 0 ? '#94a3b8' : 'transparent';
-    elements.detailRarity.style.padding = rIndex === 0 ? '0.1rem 0.4rem' : '0';
-    elements.detailRarity.style.borderRadius = rIndex === 0 ? '6px' : '0';
-    elements.detailRarity.style.display = 'inline-block';
-    elements.detailRarity.style.textShadow = 'none';
-    elements.detailRarity.style.border = 'none';
+    if (elements.detailRarity) {
+        elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
+        elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
+        elements.detailRarity.style.backgroundColor = rIndex === 0 ? '#94a3b8' : 'transparent';
+        elements.detailRarity.style.padding = rIndex === 0 ? '0.1rem 0.4rem' : '0';
+        elements.detailRarity.style.borderRadius = rIndex === 0 ? '6px' : '0';
+        elements.detailRarity.style.display = 'inline-block';
+        elements.detailRarity.style.textShadow = 'none';
+        elements.detailRarity.style.border = 'none';
+    }
     
     // 0. Description / Fun Fact
     if (descEl) {
@@ -1315,51 +1319,63 @@ function _renderBirdDetail(item, sighting = null) {
         }
     }
 
+    // 2. Utbredning (VART) & 3. Säsong (NÄR & HUR)
+    let distText = 'Hela landet';
+    let seasonText = 'Hela året';
 
-    // 1. Weight / Second Field
-    if (fields.weight.hidden) {
-        elements.detailWeight.parentElement.style.display = 'none';
-    } else {
-        elements.detailWeight.parentElement.style.display = 'block';
-        // Check if item has the specific key, e.g. item.weight
-        const val = item[fields.weight.key];
-        elements.detailWeight.textContent = val ? `${val} ${fields.weight.unit}` : '--';
-        // Update label (if needed to be dynamic per item, but usually per subject)
-        const label = elements.detailWeight.parentElement.querySelector('.fact-title');
-        if (label) label.innerHTML = `<i class="fa-solid fa-weight-hanging"></i> ${fields.weight.label}`;
-        const subLabel = elements.detailWeight.parentElement.querySelector('.stat-label');
-        if (subLabel) subLabel.textContent = 'Genomsnitt';
+    if (item.seasonDistribution) {
+        const raw = item.seasonDistribution;
+        if (raw.includes('(') && raw.includes(')')) {
+            const parts = raw.split('(');
+            seasonText = parts[0].trim();
+            distText = parts[1].replace(')', '').trim();
+        } else if (raw.includes(',')) {
+            const parts = raw.split(',');
+            seasonText = parts[0].trim();
+            distText = parts.slice(1).join(', ').trim();
+        } else {
+            seasonText = raw;
+            distText = 'Hela landet';
+        }
     }
 
-    elements.detailSeasonText.textContent = item.seasonDistribution || 'Hela landet';
-    elements.detailBestTime.textContent = item.bestTime || 'Dag/Natt';
+    if (item.distribution) distText = item.distribution;
+    if (item.season) seasonText = item.season;
 
-    // 2. Size / First Field (Wingspan/Height/Length)
-    const labelSize = elements.detailWingspan.parentElement.querySelector('.fact-title');
-    if (labelSize) labelSize.innerHTML = `<i class="fa-solid fa-ruler-horizontal"></i> ${fields.size.label}`;
+    const distEl = document.getElementById('detail-distribution-text');
+    if (distEl) distEl.textContent = distText;
 
-    const subLabelSize = elements.detailWingspan.parentElement.querySelector('.stat-label');
-    if (subLabelSize) subLabelSize.textContent = '';
+    const seasonEl = document.getElementById('detail-season-text');
+    if (seasonEl) seasonEl.textContent = seasonText;
 
-    const valSize = item[fields.size.key];
-    elements.detailWingspan.textContent = valSize ? `${valSize} ${fields.size.unit}` : '--';
-
-    // 3. Lifespan / Eggs / Third Field
-    if (fields.lifespan.hidden) {
-        elements.detailEggs.parentElement.style.display = 'none';
-    } else {
-        elements.detailEggs.parentElement.style.display = 'block';
-        const valLife = item[fields.lifespan.key];
-        elements.detailEggs.textContent = valLife || '--';
-
-        const labelLife = elements.detailEggs.parentElement.querySelector('.fact-title');
-        // Icon logic might need to be generic or mapped. Defaulting to egg icon for now, 
-        // but maybe should update icon based on config if I had that in fields.
-        if (labelLife) labelLife.innerHTML = `<i class="fa-solid fa-egg"></i> ${fields.lifespan.label}`;
-
-        const subLabelLife = elements.detailEggs.parentElement.querySelector('.stat-label');
-        if (subLabelLife) subLabelLife.textContent = '';
+    // 4. Biotop (VAR)
+    const habitatEl = document.getElementById('detail-habitat-text');
+    if (habitatEl) {
+        habitatEl.textContent = item.habitat || item.type || 'Skog & natur';
     }
+
+    // 5. Föda (VAD)
+    const foodEl = document.getElementById('detail-food-text');
+    if (foodEl) {
+        foodEl.textContent = item.food || item.diet || 'Insekter, frön & bär';
+    }
+
+    // 6. Storlek (Kombinerat Längd + Vingspann)
+    const sizeEl = document.getElementById('detail-size-combined');
+    if (sizeEl) {
+        const len = item.length || item.size || null;
+        const wing = item.wingspan || null;
+        if (len && wing) {
+            sizeEl.textContent = `Längd: ${len} cm | Vingspann: ${wing} cm`;
+        } else if (wing) {
+            sizeEl.textContent = `Vingspann: ${wing} cm`;
+        } else if (len) {
+            sizeEl.textContent = `Kroppslängd: ${len} cm`;
+        } else {
+            sizeEl.textContent = '-- cm';
+        }
+    }
+
 
 
     // Setup Actions

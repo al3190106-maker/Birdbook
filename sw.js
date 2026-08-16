@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.8.1-remove-camera';
+const CACHE_NAME = 'birdfinder-v4.9.0-facts-overhaul';
 const ASSETS_TO_CACHE = [
+
 
 
 
