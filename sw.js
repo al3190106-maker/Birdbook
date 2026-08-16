@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.1.6-remove-latest-badge';
+const CACHE_NAME = 'birdfinder-v5.1.7-season-time-explicit';
 const ASSETS_TO_CACHE = [
+
 
 
 

@@ -1416,8 +1416,17 @@ function _renderBirdDetail(item, sighting = null) {
         }
     }
 
+    // Säkerställ att Säsong & Flytt alltid anger NÄR arten kan ses (t.ex. Vår & Höst för sällsynta gäster / genomflyttare)
+    if (seasonText === 'Sällsynt gäst' || seasonText === 'Tillfällig gäst') {
+        seasonText = 'Vår & Höst (Sporadisk)';
+        distText = 'Sporadiska fynd i Sverige';
+    } else if (seasonText === 'Genomflyttare') {
+        seasonText = 'Vår & Höst (Flyttperioder)';
+    }
+
     if (item.distribution) distText = item.distribution;
     if (item.season) seasonText = item.season;
+
 
     const distEl = document.getElementById('detail-distribution-text');
     if (distEl) distEl.textContent = distText;
