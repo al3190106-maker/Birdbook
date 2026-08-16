@@ -5903,6 +5903,11 @@ async function _openSpeciesSightingsMap(bird) {
     if (mapTitle) mapTitle.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> Fynd i Sverige: ${bird.nameSv}`;
     if (mapSubtitle) mapSubtitle.textContent = `Söker observationer över hela Sverige för ${bird.nameSv}...`;
 
+    const loadingOverlay = document.getElementById('map-loading-overlay');
+    const loadingText = document.getElementById('map-loading-text');
+    if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+    if (loadingText) loadingText.textContent = `Hämtar fynd för ${bird.nameSv} i Sverige...`;
+
     setTimeout(async () => {
         const container = document.getElementById('sightings-overview-map');
         if (!container) return;
@@ -6035,7 +6040,10 @@ async function _openSpeciesSightingsMap(bird) {
             }
         } catch (err) {
             console.warn("Kunde inte hämta GBIF-fynd för art:", err);
+        } finally {
+            if (loadingOverlay) loadingOverlay.classList.add('hidden');
         }
+
 
 
         if (bounds.length > 0) {

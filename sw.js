@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.7.0-stable';
+const CACHE_NAME = 'birdfinder-v4.7.1-loading';
 const ASSETS_TO_CACHE = [
+
 
     './',
     './index.html',
