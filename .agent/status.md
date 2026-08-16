@@ -21,7 +21,9 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🎴 Fågelkort | Fixat z-index (sett till 3500) och event-propagation för redigeringsformuläret (`sighting-modal`) så att formuläret vid klick på pennan ✏️ eller "+ Logga ny" alltid hamnar längst upp över alla modaler utan att hamna i bakgrunden (`index.html`, `style.css`, `app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Byggt en stilren mini-meny popup (`sighting-detail-view-modal`) för enskilda observationer i tidslinjen – visar exakt datum, bild (om bifogad), plats, obs-typ (sedd/hörd), väder, fullständiga anteckningar samt snabbknappar för Redigera och Ta bort (`index.html`, `app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Rensat bort det gamla enkel-observationskortet (`detail-sighting-panel`) från Fågelkortet så att hela kortet hålls helt stilrent och konsekvent (`index.html`, `app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 6): Separerat Utbredning & Säsong i två rutor, rensat bort tunga/otydliga fält (Vikt, Häckning, Aktiv), kombinerat Längd+Vingspann till Storlek, tagit bort `<details>` dragspelsomslutning samt tagit bort (undefined) vid saknat engelskt namn (`index.html`, `app.js`) |
