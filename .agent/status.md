@@ -100,6 +100,7 @@
 
 ### 💼 Arbetsgivaren (Samordning & Ledning)
 - [ ] Upprätthålla diskussioner, estimera svårighet och delegera uppgifter
+- [ ] **Framtida uppgift (Artdata):** Komplettera fågelgrupperingar/familjer i `birds.js` så att alla arter har exakt taxonomisk gruppering för framtida faktamappning
 
 ### 🎴 Fågelkort (Artdetaljkort & Modaler)
 - [ ] Ansvara för `.bird-detail-modal`, bildkaruseller, artfakta, mått & popup-detaljer
