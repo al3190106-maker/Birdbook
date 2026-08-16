@@ -1371,6 +1371,28 @@ body {
     text-align: center;
 }
 
+.recent-sightings-detail-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 0.8rem 1.4rem;
+    border-radius: 30px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.recent-sightings-detail-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(16, 185, 129, 0.4);
+}
+
 .artportalen-btn {
     display: inline-flex;
     align-items: center;
@@ -1384,7 +1406,6 @@ body {
     transition: background 0.2s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3);
 }
-
 
 .artportalen-btn:hover {
     background-color: #D35400;

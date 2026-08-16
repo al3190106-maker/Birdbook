@@ -1368,6 +1368,15 @@ function _renderBirdDetail(item, sighting = null) {
         elements.detailArtportalenLink.href = `https://www.google.com/search?q=${encodeURIComponent(queryTerm + ' Artportalen')}`;
     }
 
+    const recentSightingsBtn = document.getElementById('detail-recent-sightings-btn');
+    if (recentSightingsBtn) {
+        const newBtn = recentSightingsBtn.cloneNode(true);
+        recentSightingsBtn.parentNode.replaceChild(newBtn, recentSightingsBtn);
+        newBtn.addEventListener('click', () => {
+            _openSpeciesSightingsMap(item);
+        });
+    }
+
     // Delete sighting button — only show when opened from log
     const existingDeleteBtn = document.getElementById('detail-delete-btn');
     if (existingDeleteBtn) existingDeleteBtn.remove();
@@ -5877,6 +5886,122 @@ function _openSightingsMap(pushState = true) {
         _renderSightingsOverviewMap();
     }, 200);
 }
+
+async function _openSpeciesSightingsMap(bird) {
+    if (!bird) return;
+    const modal = document.getElementById('sightings-map-modal');
+    if (!modal) return;
+    
+    nav.openModal('sightings-map-modal');
+    modal.classList.add('active');
+    
+    const content = modal.querySelector('.sightings-map-modal-content');
+    if (content) content.classList.add('fullscreen');
+
+    const mapTitle = modal.querySelector('.sightings-map-title') || modal.querySelector('h2');
+    const mapSubtitle = modal.querySelector('.sightings-map-subtitle');
+    if (mapTitle) mapTitle.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> Fynd i Sverige (7 dagar): ${bird.nameSv}`;
+    if (mapSubtitle) mapSubtitle.textContent = `Visar senaste veckans fynd för ${bird.nameSv} (${bird.scientific || ''})`;
+
+    setTimeout(async () => {
+        const container = document.getElementById('sightings-overview-map');
+        if (!container) return;
+        if (typeof L === 'undefined') return;
+
+        if (!_overviewMap) {
+            _overviewMap = L.map('sightings-overview-map', {
+                zoomControl: true,
+                attributionControl: false
+            }).setView([62.0, 15.5], 5);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18
+            }).addTo(_overviewMap);
+
+            _overviewMarkerGroup = L.layerGroup().addTo(_overviewMap);
+        } else {
+            _overviewMarkerGroup.clearLayers();
+            _overviewMap.invalidateSize();
+        }
+
+        const bounds = [];
+
+        // 1. Plot user's own sightings for this bird
+        const userSightings = (state.sightings || []).filter(s => 
+            (s.birdId === bird.id || s.name === bird.nameSv) && s.lat && s.lng
+        );
+        userSightings.forEach(s => {
+            const dateStr = s.date ? new Date(s.date).toLocaleDateString('sv-SE') : 'Okänt datum';
+            const markerIcon = L.divIcon({
+                className: 'species-user-marker',
+                html: '<div style="background:#eab308; width:16px; height:16px; border-radius:50%; border:2px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>',
+                iconSize: [16, 16],
+                iconAnchor: [8, 8]
+            });
+            const marker = L.marker([s.lat, s.lng], { icon: markerIcon })
+                .bindPopup(`<div style="font-family:sans-serif; text-align:center;">
+                    <strong style="color:#b45309;"><i class="fa-solid fa-star"></i> Ditt fynd: ${bird.nameSv}</strong><br>
+                    <small>${dateStr} – ${s.locationName || 'Sverige'}</small>
+                </div>`);
+            _overviewMarkerGroup.addLayer(marker);
+            bounds.push([s.lat, s.lng]);
+        });
+
+        // 2. Fetch live GBIF occurrences for the bird in Sweden for last 7 days
+        if (typeof showToast === 'function') showToast(`Söker färska fynd för ${bird.nameSv}...`);
+        try {
+            const queryName = bird.scientific || bird.nameSv;
+            const url = `https://api.gbif.org/v1/occurrence/search?country=SE&q=${encodeURIComponent(queryName)}&limit=100`;
+            const resp = await fetch(url);
+            if (resp.ok) {
+                const data = await resp.json();
+                const now = new Date();
+                const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                
+                let gbifCount = 0;
+                (data.results || []).forEach(occ => {
+                    if (occ.decimalLatitude && occ.decimalLongitude) {
+                        const eventDate = occ.eventDate ? new Date(occ.eventDate) : null;
+                        if (!eventDate || eventDate >= sevenDaysAgo) {
+                            gbifCount++;
+                            const dateTxt = eventDate ? eventDate.toLocaleDateString('sv-SE') : 'Senaste veckan';
+                            const locTxt = occ.locality || occ.stateProvince || 'Sverige';
+                            const gbifIcon = L.divIcon({
+                                className: 'species-gbif-marker',
+                                html: '<div style="background:#10b981; width:14px; height:14px; border-radius:50%; border:2px solid white; box-shadow:0 2px 5px rgba(0,0,0,0.3);"></div>',
+                                iconSize: [14, 14],
+                                iconAnchor: [7, 7]
+                            });
+                            const marker = L.marker([occ.decimalLatitude, occ.decimalLongitude], { icon: gbifIcon })
+                                .bindPopup(`<div style="font-family:sans-serif; text-align:center; padding: 4px;">
+                                    <strong style="color:#059669;"><i class="fa-solid fa-feather"></i> ${bird.nameSv}</strong><br>
+                                    <span style="font-size:0.85rem; color:#475569;">${dateTxt}</span><br>
+                                    <span style="font-size:0.8rem; color:#64748b;">${locTxt}</span>
+                                </div>`);
+                            _overviewMarkerGroup.addLayer(marker);
+                            bounds.push([occ.decimalLatitude, occ.decimalLongitude]);
+                        }
+                    }
+                });
+
+                if (gbifCount === 0 && userSightings.length === 0) {
+                    if (typeof showToast === 'function') showToast(`Inga registrerade fynd i Sverige de senaste 7 dagarna för ${bird.nameSv}.`);
+                } else {
+                    if (typeof showToast === 'function') showToast(`Hittade ${gbifCount + userSightings.length} fynd på kartan!`);
+                }
+            }
+        } catch (err) {
+            console.warn("Kunde inte hämta GBIF-fynd för art:", err);
+        }
+
+        if (bounds.length > 0) {
+            _overviewMap.fitBounds(L.latLngBounds(bounds), { padding: [40, 40], maxZoom: 12 });
+        } else {
+            _overviewMap.setView([62.0, 15.5], 5);
+        }
+    }, 200);
+}
+
 
 function _renderSightingsOverviewMap() {
     const container = document.getElementById('sightings-overview-map');
