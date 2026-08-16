@@ -22,7 +22,9 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | 🎴 Fågelkort | Rensa bottenknappar helt: Raderat all dynamisk JS-kod som lade till överflödiga observations- och raderingsknappar längst ner i fågelkortet, så att all observationshantering nu sker rent och snyggt direkt på tidslinjeraderna (`app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Renskala Storlek-rutan: Tagit bort undertexten helt och visar nu endast ren **Vingspann: xx cm** och **Totallängd: yy cm** (`index.html`, `app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Formatering av Storlek: Uppdaterat rutan **Storlek** att visa **Vingspann: xx cm** och **Totallängd: yy cm** snyggt uppdelat på två rader (`app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Rensning av faktrutor & förtydligande av kroppsmått: Tagit bort de 5 överstrukna små underetiketterna (*I Sverige*, *Geografiskt område*, *Närvaro i Sverige*, *Livsmiljö*, *Huvudsaklig mat*) samt ersatt *Kroppsmått* med den förtydligande definitionen *"Mätt från mark till huvud / näbb till stjärt"* (`index.html`, `app.js`) |
