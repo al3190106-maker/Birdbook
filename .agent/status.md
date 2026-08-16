@@ -22,7 +22,9 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | 🎴 Fågelkort | Rensa taggar i tidslinjen: Tagit bort den gula *Senaste*-taggen från observationskorten så att datum, plats och anteckningar får gott om plats (`app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Rent språk i tidslinjerubrik: Tagit bort "st" ur tidslinjerubriken så att det står snyggt och korrekt **1 Observation** respektive **X Observationer** (`app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Dynamisk rubrik i tidslinjen: Ändrat rubriktexten från *Mina observationer (X st)* till **1 st Observation** (vid 1 fynd) respektive **X st Observationer** (vid 0 eller fler än 1 fynd) (`app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Rensa bottenknappar helt: Raderat all dynamisk JS-kod som lade till överflödiga observations- och raderingsknappar längst ner i fågelkortet, så att all observationshantering nu sker rent och snyggt direkt på tidslinjeraderna (`app.js`) |
