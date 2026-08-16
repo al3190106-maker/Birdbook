@@ -22,7 +22,9 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | 🎴 Fågelkort | Rensat bort överflödiga observationsknappar och byggt tvåstegsverifiering: Placerat Redigera (✏️) och Ta bort (🗑️) snyggt på samma rad för varje observation, tagit bort den stora knappen från botten av fågelkortet samt implementerat en bekräftelsedialog (`delete-confirm-modal`) vid radering (`index.html`, `style.css`, `app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Fixat tidslinjeuppdatering i "Mina observationer": Förbättrat art-filtreringen i `_renderUserSightingsTimeline` så att alla sparade, redigerade och raderade observationer (inkl. customName och skiftläge) uppdateras direkt i fågelkortet (`app.js`) |
+
 | 2026-08-16 | 🐛 Bugg och fix | Skottsäker sparning: Åtgärdat osynligt TDZ `ReferenceError` i bakgrundspromise, lagt till automatisk klient-bildkomprimering (Canvas, max 800px) så att `localStorage`-kvoten aldrig överskrids samt garanterat nedstängning med `finally`-block (`app.js`) |
 
 | 2026-08-16 | 🐛 Bugg och fix | Eliminering av fördröjning i "Ny observation / Ny logg": Gjort alla väderanrop under sparning helt icke-blockerande i bakgrunden så att formuläret sparas och stängs **omedelbart (0 ms)** utan att någonsin sitta och tugga (`app.js`) |
