@@ -1364,7 +1364,8 @@ function _renderBirdDetail(item, sighting = null) {
 
     // Setup Actions
     if (elements.detailArtportalenLink) {
-        elements.detailArtportalenLink.href = `https://www.artportalen.se/search/sightings/site/days/30/taxon/${encodeURIComponent(item.nameSv)}`;
+        const queryTerm = item.nameSv || item.scientific || '';
+        elements.detailArtportalenLink.href = `https://artfakta.se/search?q=${encodeURIComponent(queryTerm)}`;
     }
 
     // Delete sighting button — only show when opened from log
