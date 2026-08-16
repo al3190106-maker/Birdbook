@@ -22,7 +22,9 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | ✨ Features & UI | Enhetlig loggning: Klick på `+`-knappen (snabblogga ute på artkorten i guiden) öppnar nu exakt samma **"Rapportera observation"**-modal med arten förvald, automatisk realtidsinläsning av plats och väder samt möjlighet att lägga till anteckningar, foton och kartnål (`app.js`) |
 | 2026-08-16 | 🐛 Bugg och fix | Fixat automatisk väderhämtning för Snabblogg-verktyget (`quickAddSighting`): Flyttat väderhämtningen utanför GPS-blocket så att väder alltid fylls i även när GPS saknas eller är slö (`app.js`) |
+
 | 2026-08-16 | 🐛 Bugg och fix | Förbättrat automatisk väderhämtning (`_fetchWeatherForCoords`): Lagt till direkt förhämtning, utökat historisk räckvidd till 92 dagar/arkiv samt regional fallback så att väder alltid fylls i oavsett om GPS är slö eller avstängd (`app.js`) |
 
 | 2026-08-16 | 🐛 Bugg och fix | Åtgärdat hängning vid Spara: Tog bort ogiltig variabelreferens `_migrationState` i `saveSightings()` som orsakat osynligt `ReferenceError` och förhindrat att formuläret avslutades och stängdes (`app.js`) |
