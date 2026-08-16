@@ -1437,25 +1437,26 @@ function _renderBirdDetail(item, sighting = null) {
         foodEl.textContent = item.food || item.diet || 'Insekter, frön & bär';
     }
 
-    // 6. Storlek (Kombinerat Längd/Höjd + Vingspann)
+    // 6. Storlek (Kombinerat Vingspann + Totallängd)
     const sizeEl = document.getElementById('detail-size-combined');
     const sizeSubEl = document.getElementById('detail-size-sublabel');
     if (sizeEl) {
         const len = item.length || item.height || item.size || null;
         const wing = item.wingspan || null;
-        if (len && wing) {
-            sizeEl.textContent = `Längd: ${len} cm | Vingspann: ${wing} cm`;
+        if (wing && len) {
+            sizeEl.innerHTML = `Vingspann: ${wing} cm<br>Totallängd: ${len} cm`;
         } else if (wing) {
-            sizeEl.textContent = `Vingspann: ${wing} cm`;
+            sizeEl.innerHTML = `Vingspann: ${wing} cm`;
         } else if (len) {
-            sizeEl.textContent = `Längd/Höjd: ${len} cm`;
+            sizeEl.innerHTML = `Totallängd: ${len} cm`;
         } else {
-            sizeEl.textContent = '-- cm';
+            sizeEl.innerHTML = '-- cm';
         }
     }
     if (sizeSubEl) {
         sizeSubEl.textContent = 'Mätt från mark till huvud / näbb till stjärt';
     }
+
 
 
 
