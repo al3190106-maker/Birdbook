@@ -234,6 +234,42 @@ async function initPersistedStorage() {
     }
 }
 
+/**
+ * Jämför två observationer efter datum (senaste först).
+ * Om datumen är identiska (t.ex. flera fåglar loggade samma dag),
+ * används id (timestamp) eller index i state.sightings som tie-breaker
+ * så att den senast loggade observationen alltid hamnar överst.
+ */
+function compareSightingsDateDesc(a, b) {
+    if (!a && !b) return 0;
+    if (!a) return 1;
+    if (!b) return -1;
+
+    const timeA = new Date(a.date || 0).getTime();
+    const timeB = new Date(b.date || 0).getTime();
+    if (timeA !== timeB) {
+        return timeB - timeA;
+    }
+
+    // Samma datum: Jämför id som nummer (Date.now() timestamp)
+    const idA = Number(a.id) || 0;
+    const idB = Number(b.id) || 0;
+    if (idA && idB && idA !== idB) {
+        return idB - idA;
+    }
+
+    // Fallback: Jämför position i state.sightings (senast tillagd = högre index)
+    if (typeof state !== 'undefined' && Array.isArray(state.sightings)) {
+        const idxA = state.sightings.indexOf(a);
+        const idxB = state.sightings.indexOf(b);
+        if (idxA !== -1 && idxB !== -1 && idxA !== idxB) {
+            return idxB - idxA;
+        }
+    }
+
+    return String(b.id || '').localeCompare(String(a.id || ''));
+}
+
 const SUBJECT_CONFIG = {
     birds: {
         id: 'birds',
@@ -1494,7 +1530,7 @@ function _renderUserSightingsTimeline(item) {
     const sightings = (state.sightings || []).filter(s => 
         s.id !== 'SYSTEM_INIT_BIRD' && 
         (s.birdId === item.id || s.name === item.nameSv || (item.nameSv && s.name && s.name.toLowerCase() === item.nameSv.toLowerCase()))
-    ).sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+    ).sort(compareSightingsDateDesc);
 
     let html = `
         <div class="user-sightings-header">
@@ -2248,74 +2284,13 @@ function openBirdDetail(item, sighting = null) {
 }
 window.openBirdDetail = openBirdDetail;
 
-async function quickAddSighting(birdId) {
+function quickAddSighting(birdId) {
     const list = getCurrentSpeciesList();
     const bird = list.find(b => b.id === birdId);
     if (!bird) return;
-
-    showGlobalToast(`⏳ Sparar ${bird.nameSv}...`, 'info');
-
-    const today = new Date().toISOString().split('T')[0];
-    let lat = '', lng = '', location = '', weather = '';
-
-    // Hämta GPS och plats
-    try {
-        const pos = await new Promise((resolve, reject) =>
-            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 4000, maximumAge: 60000 })
-        );
-        lat = pos.coords.latitude;
-        lng = pos.coords.longitude;
-
-        // Platsnamn (Nominatim)
-        try {
-            const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`, { headers: { 'Accept-Language': 'sv' } });
-            const data = await r.json();
-            if (data && data.address) {
-                const a = data.address;
-                const parts = [a.village || a.town || a.city || a.municipality, a.county || a.state].filter(Boolean);
-                location = parts.join(', ') || '';
-            }
-        } catch (_) {}
-    } catch (_) {
-        // Ingen GPS
-    }
-
-    // Väder (med GPS-koordinater om finns, annars Sverige-fallback 59.3293, 18.0686)
-    try {
-        const hour = new Date().getHours();
-        const fetchLat = lat || 59.3293;
-        const fetchLng = lng || 18.0686;
-        weather = await _fetchWeatherForCoords(fetchLat, fetchLng, today, hour) || '';
-    } catch (_) {}
-
-
-    const newSighting = {
-        id: Date.now().toString(),
-        birdId: bird.id,
-        date: today,
-        location: location || 'Snabbtillägg',
-        weather: weather || '',
-        notes: 'Snabbtillägg via fågelguiden',
-        lat: lat ? String(lat) : '',
-        lng: lng ? String(lng) : '',
-        photo: null,
-        seen: true,
-        heard: false
-    };
-
-    state.sightings.push(newSighting);
-
-    // Auto-switch year
-    const sYear = new Date().getFullYear();
-    if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
-        state.yearFilter = sYear;
-    }
-
-    saveSightings();
-    setupYearFilter();
-
-    showGlobalToast(`✅ ${bird.nameSv} sparad!${location ? ' · ' + location : ''}`, 'success');
+    _showSightingModal(bird.id, bird.nameSv);
 }
+
 
 function deleteSighting(id) {
     if (!confirm('Vill du ta bort denna observation?')) return;
@@ -2458,8 +2433,8 @@ function renderSightingsList(sightings) {
         return;
     }
 
-    // Sort by Date Descending by default for grouping
-    sightings.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Sort by Date Descending by default for grouping (with ID/timestamp tie-breaker for same-day logs)
+    sightings.sort(compareSightingsDateDesc);
 
     // Grouping Logic (group by Species)
     const birdGroups = {};
@@ -2480,18 +2455,24 @@ function renderSightingsList(sightings) {
 
     // Sorting Logic
     groups.sort((a, b) => {
+        if (state.sortBy === 'date' || !state.sortBy) {
+            return compareSightingsDateDesc(a.latestSighting, b.latestSighting);
+        }
+
         const list = getCurrentSpeciesList();
         const itemA = list.find(x => x.id === a.latestSighting.birdId);
         const itemB = list.find(x => x.id === b.latestSighting.birdId);
 
-        if (!itemA || !itemB) return 0;
+        if (!itemA || !itemB) {
+            return compareSightingsDateDesc(a.latestSighting, b.latestSighting);
+        }
 
         const getVal = (item, sortKey) => {
             if (sortKey === 'wingspan') return item[config.fields.size.key] || 0;
             if (sortKey === 'weight') return item[config.fields.weight.key] || 0;
             if (sortKey === 'eggs') return item[config.fields.lifespan.key] || 0;
             if (sortKey === 'rarity') return item.rarity || 0;
-            return 0; // name/date handled separately
+            return 0;
         };
 
         switch (state.sortBy) {
@@ -2507,7 +2488,7 @@ function renderSightingsList(sightings) {
                 return getVal(itemB, 'rarity') - getVal(itemA, 'rarity');
             case 'date':
             default:
-                return new Date(b.latestSighting.date) - new Date(a.latestSighting.date);
+                return compareSightingsDateDesc(a.latestSighting, b.latestSighting);
         }
     });
 
@@ -6371,7 +6352,7 @@ function _updateOverviewMarkers() {
         ...(window.swedishFlowers || [])
     ];
 
-    const geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD');
+    const geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD').sort(compareSightingsDateDesc);
     if (geoSightings.length === 0) return;
 
     const clusters = [];
