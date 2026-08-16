@@ -4350,12 +4350,16 @@ function setupEventListeners() {
             existingSighting = state.sightings.find(s => s.id === editingSightingId);
         }
 
-        // Hämta väder med hourly-precision baserat på exakt datum + tid
+        // Hämta väder med hourly-precision baserat på exakt datum + tid (max 1 sekund timeout så spara aldrig hänger)
         if (!weatherVal && latVal && lngVal && dateVal) {
-            const isToday = dateVal === new Date().toISOString().split('T')[0];
-            const hour    = isToday ? new Date().getHours() : 12;
-            const result  = await _fetchWeatherForCoords(parseFloat(latVal), parseFloat(lngVal), dateVal, hour);
-            if (result) weatherVal = result;
+            try {
+                const isToday = dateVal === new Date().toISOString().split('T')[0];
+                const hour    = isToday ? new Date().getHours() : 12;
+                const weatherPromise = _fetchWeatherForCoords(parseFloat(latVal), parseFloat(lngVal), dateVal, hour);
+                const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 1000));
+                const result = await Promise.race([weatherPromise, timeoutPromise]);
+                if (result) weatherVal = result;
+            } catch (_) {}
         }
 
         const newSighting = {
@@ -4395,12 +4399,14 @@ function setupEventListeners() {
             submitBtn.innerHTML = originalBtnHTML;
             submitBtn.disabled = false;
             
-            // Clean up: Reset form state properly
+            // Clean up: Reset form state properly and close modal instantly
             editingSightingId = null;
             elements.birdSearchInput.disabled = false;
+            elements.modal.classList.remove('active');
             
             nav.back(); // Close modal via history
         };
+
 
         // Check for photo
         if (elements.sightingPhoto.files && elements.sightingPhoto.files[0]) {

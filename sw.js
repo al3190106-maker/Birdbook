@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.9.7-nav-backdrop-fix';
+const CACHE_NAME = 'birdfinder-v4.9.8-save-instant';
 const ASSETS_TO_CACHE = [
+
 
 
 
