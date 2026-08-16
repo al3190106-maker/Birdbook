@@ -1543,8 +1543,8 @@ function _renderUserSightingsTimeline(item) {
                     <div class="user-sighting-info">
                         <div class="user-sighting-meta">
                             <span>📅 ${dateStr}</span>
-                            ${isLatest ? '<span class="user-sighting-badge">Senaste</span>' : ''}
                         </div>
+
                         <div class="user-sighting-location">📍 ${locStr}</div>
                         ${notesHTML}
                     </div>
