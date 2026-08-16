@@ -5954,10 +5954,28 @@ function _renderMigrationMonth(monthNum) {
         _overviewMarkerGroup.addLayer(marker);
     });
 
+function _formatGbifDate(occ, fallbackMonth) {
+    if (!occ) return fallbackMonth || 'Nyligen';
+    if (occ.eventDate && typeof occ.eventDate === 'string') {
+        const clean = occ.eventDate.trim().split('/')[0].trim();
+        const d = new Date(clean);
+        if (!isNaN(d.getTime())) {
+            return d.toLocaleDateString('sv-SE');
+        }
+    }
+    if (occ.year && occ.month) {
+        const day = occ.day ? `-${String(occ.day).padStart(2, '0')}` : '';
+        const month = String(occ.month).padStart(2, '0');
+        return `${occ.year}-${month}${day}`;
+    }
+    return fallbackMonth || 'Nyligen';
+}
+
     // Plot monthly GBIF markers
     occs.forEach(occ => {
-        const dateTxt = occ.eventDate ? new Date(occ.eventDate).toLocaleDateString('sv-SE') : monthName;
+        const dateTxt = _formatGbifDate(occ, monthName);
         const locTxt = occ.locality || occ.municipality || occ.stateProvince || 'Sverige';
+
         const gbifIcon = L.divIcon({
             className: 'species-gbif-marker',
             html: '<div style="background:#10b981; width:14px; height:14px; border-radius:50%; border:2px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
