@@ -757,7 +757,17 @@ async function _autoFillSightingContext() {
     const dateInput     = document.getElementById('sighting-date');
 
     if (locationInput && !locationInput.value) locationInput.placeholder = 'Hämtar position...';
-    if (weatherInput  && !weatherInput.value)  weatherInput.placeholder  = 'Hämtar väder...';
+    if (weatherInput  && !weatherInput.value)  {
+        weatherInput.placeholder  = 'Hämtar väder...';
+        // Snabb förhämtning av regionalt väder (Sverige) så att fältet fylls även om GPS är långsam
+        const defaultDate = dateInput ? dateInput.value : new Date().toISOString().split('T')[0];
+        _fetchWeatherForCoords(59.3293, 18.0686, defaultDate, new Date().getHours()).then(res => {
+            if (res && weatherInput && !weatherInput.value) {
+                weatherInput.value = res;
+            }
+        });
+    }
+
 
     navigator.geolocation.getCurrentPosition(async (pos) => {
         const lat  = pos.coords.latitude;
@@ -809,10 +819,33 @@ async function _autoFillSightingContext() {
  */
 async function _fetchWeatherForCoords(lat, lng, date, hour = new Date().getHours()) {
     try {
-        const url = `https://api.open-meteo.com/v1/forecast` +
-            `?latitude=${lat}&longitude=${lng}` +
-            `&hourly=temperature_2m,weathercode,windspeed_10m,precipitation` +
-            `&past_days=14&forecast_days=2&timezone=Europe%2FBerlin`;
+        if (!lat || !lng) {
+            lat = 59.3293;
+            lng = 18.0686;
+        }
+        if (!date) date = new Date().toISOString().split('T')[0];
+
+        const now = new Date();
+        const obsDate = new Date(date);
+        const diffDays = Math.floor((now - obsDate) / (1000 * 60 * 60 * 24));
+
+        let url;
+        if (diffDays > 90) {
+            // Använd Open-Meteo Archive API för äldre datum
+            url = `https://archive-api.open-meteo.com/v1/archive` +
+                `?latitude=${lat}&longitude=${lng}` +
+                `&start_date=${date}&end_date=${date}` +
+                `&hourly=temperature_2m,weathercode,windspeed_10m,precipitation` +
+                `&timezone=Europe%2FBerlin`;
+        } else {
+            // Använd Open-Meteo Forecast API (med upp till 92 dagar bakåt)
+            const pastDays = Math.min(92, Math.max(0, diffDays + 1));
+            url = `https://api.open-meteo.com/v1/forecast` +
+                `?latitude=${lat}&longitude=${lng}` +
+                `&hourly=temperature_2m,weathercode,windspeed_10m,precipitation` +
+                `&past_days=${pastDays}&forecast_days=2&timezone=Europe%2FBerlin`;
+        }
+
         const res  = await fetch(url);
         const data = await res.json();
 
@@ -826,7 +859,11 @@ async function _fetchWeatherForCoords(lat, lng, date, hour = new Date().getHours
         if (idx === -1) {
             idx = data.hourly.time.findIndex(t => t.startsWith(date));
         }
+        if (idx === -1 && data.hourly.time.length > 0) {
+            idx = Math.floor(data.hourly.time.length / 2);
+        }
         if (idx === -1) return null;
+
 
         const temp  = data.hourly.temperature_2m[idx];
         const code  = data.hourly.weathercode[idx];
@@ -4360,17 +4397,20 @@ function setupEventListeners() {
             existingSighting = state.sightings.find(s => s.id === editingSightingId);
         }
 
-        // Hämta väder med hourly-precision baserat på exakt datum + tid (max 1 sekund timeout så spara aldrig hänger)
-        if (!weatherVal && latVal && lngVal && dateVal) {
+        // Hämta väder med hourly-precision baserat på datum + tid (max 2.5s timeout med regional fallback om GPS saknas)
+        if (!weatherVal && dateVal) {
             try {
                 const isToday = dateVal === new Date().toISOString().split('T')[0];
                 const hour    = isToday ? new Date().getHours() : 12;
-                const weatherPromise = _fetchWeatherForCoords(parseFloat(latVal), parseFloat(lngVal), dateVal, hour);
-                const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 1000));
+                const lat = latVal ? parseFloat(latVal) : 59.3293;
+                const lng = lngVal ? parseFloat(lngVal) : 18.0686;
+                const weatherPromise = _fetchWeatherForCoords(lat, lng, dateVal, hour);
+                const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 2500));
                 const result = await Promise.race([weatherPromise, timeoutPromise]);
                 if (result) weatherVal = result;
             } catch (_) {}
         }
+
 
         const newSighting = {
             id: isEditing ? editingSightingId : Date.now().toString(),

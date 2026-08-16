@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.0.0-save-fix';
+const CACHE_NAME = 'birdfinder-v5.0.1-weather-fix';
 const ASSETS_TO_CACHE = [
+
 
 
 
