@@ -4381,20 +4381,22 @@ function setupEventListeners() {
             existingSighting = state.sightings.find(s => s.id === editingSightingId);
         }
 
-        // Hämta väder med hourly-precision baserat på datum + tid (max 2.5s timeout med regional fallback om GPS saknas)
+        // Om väderfältet inte hunnit fyllas i, hämta väder i bakgrunden utan att blockera sparningen
         if (!weatherVal && dateVal) {
-            try {
-                const isToday = dateVal === new Date().toISOString().split('T')[0];
-                const hour    = isToday ? new Date().getHours() : 12;
-                const lat = latVal ? parseFloat(latVal) : 59.3293;
-                const lng = lngVal ? parseFloat(lngVal) : 18.0686;
-                const weatherPromise = _fetchWeatherForCoords(lat, lng, dateVal, hour);
-                const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 2500));
-                const result = await Promise.race([weatherPromise, timeoutPromise]);
-                if (result) weatherVal = result;
-            } catch (_) {}
+            const isToday = dateVal === new Date().toISOString().split('T')[0];
+            const hour    = isToday ? new Date().getHours() : 12;
+            const lat = latVal ? parseFloat(latVal) : 59.3293;
+            const lng = lngVal ? parseFloat(lngVal) : 18.0686;
+            _fetchWeatherForCoords(lat, lng, dateVal, hour).then(result => {
+                if (result) {
+                    const saved = state.sightings.find(s => s.id === newSighting.id);
+                    if (saved) {
+                        saved.weather = result;
+                        saveSightings();
+                    }
+                }
+            }).catch(() => {});
         }
-
 
         const newSighting = {
             id: isEditing ? editingSightingId : Date.now().toString(),
@@ -4441,7 +4443,6 @@ function setupEventListeners() {
             nav.back(); // Close modal via history
         };
 
-
         // Check for photo
         if (elements.sightingPhoto.files && elements.sightingPhoto.files[0]) {
             const reader = new FileReader();
@@ -4449,10 +4450,14 @@ function setupEventListeners() {
                 newSighting.photo = ev.target.result;
                 finish();
             };
+            reader.onerror = () => {
+                finish();
+            };
             reader.readAsDataURL(elements.sightingPhoto.files[0]);
         } else {
             finish();
         }
+
     });
 
     // 6. Custom Image Upload
