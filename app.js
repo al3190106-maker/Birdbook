@@ -1505,7 +1505,8 @@ function _renderUserSightingsTimeline(item) {
     }).sort(compareSightingsDateDesc);
 
 
-    const obsText = sightings.length === 1 ? '1 st Observation' : `${sightings.length} st Observationer`;
+    const obsText = sightings.length === 1 ? '1 Observation' : `${sightings.length} Observationer`;
+
 
     let html = `
         <div class="user-sightings-header">
