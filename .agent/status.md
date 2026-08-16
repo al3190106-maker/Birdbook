@@ -124,6 +124,7 @@
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
 - [x] Utöka fågeldatabasen med GBIF Sverige 2026 (257 → 395 unika arter, +138 nya)
+- [ ] Korrigera artdata & viktenheter för alla böcker (Fiskboken, Viltboken, Svampboken, Växtboken)
 
 ### 🚀 Deploy & Infra
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
