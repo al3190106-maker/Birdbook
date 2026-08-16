@@ -22,7 +22,9 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | 🎴 Fågelkort | Garanterad tidslinjerealtid i öppna fågelkort: Återrenderar hela `_renderBirdDetail` både direkt i `saveSightings` och via en fördröjd timer (80ms) efter `nav.back()` så att popstate-navigering aldrig skriver över eller missar tidslinjeuppdateringen (`app.js`) |
 | 2026-08-16 | 📓 Min logg | Stabil loggsortering & tidslinjerealtid: Sorterat artkort i "Min logg" efter `firstSighting` (när arten först upptäcktes) så att arten **behåller sin ursprungliga plats i loggen** vid nya fynd, samt lagt till direktuppdatering av `_renderUserSightingsTimeline` i fågelkortets `finally`-block (`app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Rensat bort överflödiga observationsknappar och byggt tvåstegsverifiering: Placerat Redigera (✏️) och Ta bort (🗑️) snyggt på samma rad för varje observation, tagit bort den stora knappen från botten av fågelkortet samt implementerat en bekräftelsedialog (`delete-confirm-modal`) vid radering (`index.html`, `style.css`, `app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Fixat tidslinjeuppdatering i "Mina observationer": Förbättrat art-filtreringen i `_renderUserSightingsTimeline` så att alla sparade, redigerade och raderade observationer (inkl. customName och skiftläge) uppdateras direkt i fågelkortet (`app.js`) |
