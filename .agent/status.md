@@ -21,6 +21,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 3): Lagt till knappen "📍 Fynd i Sverige (7 dagar)" på Fågelkortet med live-kartvisning av GBIF & egna obsar för den aktuella arten (`index.html`, `style.css`, `app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 2): Korrigerat den trasiga Artportalen-länken till SLU Artfaktas officiella art-sökportal (`https://artfakta.se/search?q=...`) i `app.js` och `index.html` |
 | 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 1): Standardiserat fotografkreditering till Naturboken som fallback för alla genererade & egna bilder i bildkarusellen och helskärmsvisningen (`photographers.js`, `app.js`) |
 | 2026-08-16 | 📊 Artdata & Innehåll | Uppgift 27: Korrigerat artdata & viktenheter för alla icke-fågelböcker (`fish.js`, `animals.js`, `trees.js`) – konverterat alla viktvärden från gram till kg så att de stämmer med UI-enheterna samt lagt till träder-åldrar |
