@@ -1001,6 +1001,9 @@ function _buildCarousel(images) {
         if (typeof item === 'object' && item.photographerName) {
             photographer = { name: item.photographerName };
         }
+        if (!photographer) {
+            photographer = (window.photographers && window.photographers['naturboken']) ? window.photographers['naturboken'] : { name: 'Naturboken' };
+        }
 
         const slide = document.createElement('div');
         slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
@@ -1094,6 +1097,9 @@ function _applyFullscreenItem(index) {
     
     if (typeof item === 'object' && item.photographerName) {
         photographer = { name: item.photographerName };
+    }
+    if (!photographer) {
+        photographer = (window.photographers && window.photographers['naturboken']) ? window.photographers['naturboken'] : { name: 'Naturboken' };
     }
     
     elements.fsImg.src = src;

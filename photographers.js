@@ -19,5 +19,13 @@ window.photographers = {
         image: 'images/Fotografer/Jan Jorad/Profil_Jan-Jorad.png',
         description: 'Naturfotograf vars bilder publiceras på fageln.se.',
         donationLink: null
+    },
+    'naturboken': {
+        id: 'naturboken',
+        name: 'Naturboken',
+        image: null,
+        description: 'Genererade och bearbetade illustrationer & bilder av Naturboken.',
+        donationLink: null
     }
 };
+
