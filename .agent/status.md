@@ -15,7 +15,7 @@
 
 | Konversation | Vad pågår | Berörda filer |
 |---|---|---|
-| – | – | – |
+| 🎴 Fågelkort | 👋 Redo för arbetsuppgifter! Uppkopplad, har granskat `.bird-detail-modal` och väntar på uppdragsinstruktioner. | `index.html`, `style.css`, `app.js` |
 
 ## ✅ Nyligen avslutat
 
