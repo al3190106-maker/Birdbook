@@ -14,6 +14,7 @@ window.swedishTrees = [
         "funFact": "Vårtbjörken känns igen på sina hängande grenar och vita stam med svarta sprickor.",
         "seasonDistribution": "Hela landet",
         "height": 25,
+        "age": 100,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -27,6 +28,7 @@ window.swedishTrees = [
         "funFact": "Glasbjöken trivs på fuktigare mark än vårtbjörken och har slätare bark.",
         "seasonDistribution": "Hela landet (särskilt i norr)",
         "height": 20,
+        "age": 100,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -40,6 +42,7 @@ window.swedishTrees = [
         "funFact": "Tallen är, tillsammans med granen, Sveriges vanligaste träd.",
         "seasonDistribution": "Hela landet",
         "height": 30,
+        "age": 350,
         "bestTime": "Året runt"
     },
     {
@@ -53,6 +56,7 @@ window.swedishTrees = [
         "funFact": "Granen är det träd som ger mest virke i Sverige.",
         "seasonDistribution": "Hela landet (utom kalfjället)",
         "height": 35,
+        "age": 400,
         "bestTime": "Året runt"
     },
     {
@@ -66,6 +70,7 @@ window.swedishTrees = [
         "funFact": "Eken kan bli över 1000 år gammal och ger livsrum åt tusentals insekter.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 25,
+        "age": 1000,
         "bestTime": "Vår/Sommar/Höst"
     },
     {
@@ -79,6 +84,7 @@ window.swedishTrees = [
         "funFact": "Bokskogar är kända för att vara mörka och sakna undervegetation pga det täta lövverket.",
         "seasonDistribution": "Södra Sverige",
         "height": 30,
+        "age": 350,
         "bestTime": "Vår/Sommar/Höst"
     },
     {
@@ -92,6 +98,7 @@ window.swedishTrees = [
         "funFact": "Asken slår ut sina löv sent och fäller dem tidigt.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 30,
+        "age": 250,
         "bestTime": "Sommar"
     },
     {
@@ -105,6 +112,7 @@ window.swedishTrees = [
         "funFact": "Almens blad är sträva och asymmetriska vid basen.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 30,
+        "age": 300,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -118,6 +126,7 @@ window.swedishTrees = [
         "funFact": "Lönnens löv får fantastiska röda och gula färger på hösten.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 25,
+        "age": 150,
         "bestTime": "Höst"
     },
     {
@@ -131,6 +140,7 @@ window.swedishTrees = [
         "funFact": "Linden kallas ofta för 'kyrkogårdsträd' och dess blommor doftar sött.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 25,
+        "age": 800,
         "bestTime": "Sommar"
     },
     {
@@ -144,6 +154,7 @@ window.swedishTrees = [
         "funFact": "Aspens blad darrar vid minsta vindpust ('darra som ett asplöv').",
         "seasonDistribution": "Hela landet",
         "height": 20,
+        "age": 100,
         "bestTime": "Vår/Sommar/Höst"
     },
     {
@@ -157,6 +168,7 @@ window.swedishTrees = [
         "funFact": "Rönnen får röda bär på hösten som är viktig föda för fåglar.",
         "seasonDistribution": "Hela landet",
         "height": 15,
+        "age": 80,
         "bestTime": "Höst"
     },
     {
@@ -170,6 +182,7 @@ window.swedishTrees = [
         "funFact": "Enen är en buske eller litet träd vars bär används som krydda.",
         "seasonDistribution": "Hela landet",
         "height": 6,
+        "age": 500,
         "bestTime": "Året runt"
     },
     {
@@ -183,6 +196,7 @@ window.swedishTrees = [
         "funFact": "Sälgen blommar tidigt på våren och är ett viktig pollenkälla för bin och humlor.",
         "seasonDistribution": "Hela landet",
         "height": 10,
+        "age": 80,
         "bestTime": "Vår"
     },
     {
@@ -196,6 +210,7 @@ window.swedishTrees = [
         "funFact": "Häggens vita blomklasar doftar intensivt och markerar vårens ankomst i hela landet.",
         "seasonDistribution": "Hela landet",
         "height": 12,
+        "age": 60,
         "bestTime": "Vår"
     },
     {
@@ -209,6 +224,7 @@ window.swedishTrees = [
         "funFact": "Hagtornet kallas 'skogens apotekare' och används sedan urminnes tider som hjärtmedicin.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 6,
+        "age": 100,
         "bestTime": "Vår/Höst"
     },
     {
@@ -222,6 +238,7 @@ window.swedishTrees = [
         "funFact": "Klibbalens rötter binder kväve från luften och förbättrar marken där den växer.",
         "seasonDistribution": "Hela landet",
         "height": 20,
+        "age": 120,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -235,6 +252,7 @@ window.swedishTrees = [
         "funFact": "Svartalens ved är vattentålig och användes historiskt till vattenpålar och träskor.",
         "seasonDistribution": "Hela landet",
         "height": 15,
+        "age": 100,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -248,6 +266,7 @@ window.swedishTrees = [
         "funFact": "Oxeln är endem för den skandinaviska halvön och nästan bara förekommande i Sverige och Norge.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 15,
+        "age": 100,
         "bestTime": "Vår/Höst"
     },
     {
@@ -261,6 +280,7 @@ window.swedishTrees = [
         "funFact": "Vildapeln är urancestorn till alla odlade äpplen och är nu sällsynt i Sverige.",
         "seasonDistribution": "Södra Sverige",
         "height": 8,
+        "age": 100,
         "bestTime": "Vår/Höst"
     },
     {
@@ -274,6 +294,7 @@ window.swedishTrees = [
         "funFact": "Fågelbäret är urancestorn till körsbär och får en magnifik blomning i maj.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 20,
+        "age": 80,
         "bestTime": "Vår/Höst"
     },
     {
@@ -287,6 +308,7 @@ window.swedishTrees = [
         "funFact": "Almen har drabbats hårt av almsjukan men gamla exemplar kan fortfarande ses i sydsvenska byar.",
         "seasonDistribution": "Södra Sverige",
         "height": 25,
+        "age": 300,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -300,6 +322,7 @@ window.swedishTrees = [
         "funFact": "Avenboken har en karakteristisk muskelstam och det hårdaste virket av alla europeiska lövträd.",
         "seasonDistribution": "Södra Sverige",
         "height": 20,
+        "age": 150,
         "bestTime": "Vår/Höst"
     },
     {
@@ -313,6 +336,7 @@ window.swedishTrees = [
         "funFact": "Idegranen är ett av Europas äldsta träd och kan bli över 5000 år. Bären är giftiga, men köttet är ej.",
         "seasonDistribution": "Södra Sverige",
         "height": 15,
+        "age": 1000,
         "bestTime": "Året runt"
     },
     {
@@ -326,6 +350,7 @@ window.swedishTrees = [
         "funFact": "Naverlönnen är den enda till Sverige inhemska lönnarten och ger en vacker gulröd höstfärg.",
         "seasonDistribution": "Södra Sverige",
         "height": 15,
+        "age": 150,
         "bestTime": "Höst"
     }
 ];

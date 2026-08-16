@@ -12,7 +12,7 @@ window.swedishFish = [
         "funFact": "Gäddan kan ha upp till 700 tänder och är en av Sveriges vanligaste rovfiskar.",
         "seasonDistribution": "Hela landet (Sjöar & Kuster)",
         "length": 100, // cm
-        "weight": 10000, // g
+        "weight": 10, // g
         "bestTime": "Året runt"
     },
     {
@@ -26,7 +26,7 @@ window.swedishFish = [
         "funFact": "Abborren är Sveriges nationalfisk och finns i nästan alla insjöar och kustvatten.",
         "seasonDistribution": "Hela landet",
         "length": 30,
-        "weight": 500,
+        "weight": 0.5,
         "bestTime": "Sommar/Höst"
     },
     {
@@ -40,7 +40,7 @@ window.swedishFish = [
         "funFact": "Sill kallas strömming i Östersjön. Surströmming görs av fermenterad östersjöströmming.",
         "seasonDistribution": "Kuster",
         "length": 30,
-        "weight": 200,
+        "weight": 0.2,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -54,7 +54,7 @@ window.swedishFish = [
         "funFact": "Torsken har en skäggtöm på hakan för att känna av botten och sina bytesdjur.",
         "seasonDistribution": "Västerhavet & Östersjön",
         "length": 80,
-        "weight": 4000,
+        "weight": 4,
         "bestTime": "Vinter"
     },
     {
@@ -68,7 +68,7 @@ window.swedishFish = [
         "funFact": "Öringen kan leva i havet (havsöring) eller i bäckar (bäcköring) – samma art, olika livsstil.",
         "seasonDistribution": "Hela landet",
         "length": 60,
-        "weight": 3000,
+        "weight": 3,
         "bestTime": "Höst"
     },
     {
@@ -82,7 +82,7 @@ window.swedishFish = [
         "funFact": "Laxen vandrar uppför sina födelseälvar för att leka – ibland hundratals kilometer mot strömmen.",
         "seasonDistribution": "Kuster & Älvar",
         "length": 100,
-        "weight": 8000,
+        "weight": 8,
         "bestTime": "Sommar/Höst"
     },
     {
@@ -96,7 +96,7 @@ window.swedishFish = [
         "funFact": "Rödingen är en relikt från istiden och lever i djupa, kalla fjällsjöar i norra Sverige.",
         "seasonDistribution": "Norra Sverige (fjällsjöar)",
         "length": 50,
-        "weight": 2000,
+        "weight": 2,
         "bestTime": "Sommar"
     },
     {
@@ -110,7 +110,7 @@ window.swedishFish = [
         "funFact": "Siklöjans rom (löjrom) från Kalix är en delikatess med skyddad geografisk beteckning i EU.",
         "seasonDistribution": "Norra Sverige",
         "length": 20,
-        "weight": 100,
+        "weight": 0.1,
         "bestTime": "Höst/Vinter"
     },
     {
@@ -124,7 +124,7 @@ window.swedishFish = [
         "funFact": "Braxen har en hög, tillplattad kropp och gillar grunda, varma sjöar med mjuk botten.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "length": 45,
-        "weight": 2000,
+        "weight": 2,
         "bestTime": "Sommar"
     },
     {
@@ -138,7 +138,7 @@ window.swedishFish = [
         "funFact": "Mörten är en av Sveriges vanligaste fiskar och kan vara svår att skilja från andra karpfiskar.",
         "seasonDistribution": "Hela landet",
         "length": 25,
-        "weight": 300,
+        "weight": 0.3,
         "bestTime": "Sommar"
     },
     {
@@ -152,7 +152,7 @@ window.swedishFish = [
         "funFact": "Sarven har röda fenor och gyllene ögon – lätt att förväxla med mörten men gillar ytvannet mer.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "length": 25,
-        "weight": 400,
+        "weight": 0.4,
         "bestTime": "Sommar"
     },
     {
@@ -166,7 +166,7 @@ window.swedishFish = [
         "funFact": "Karpen kan bli över 40 år gammal och väga mer än 30 kg. Den är ursprungligen importerad till Sverige.",
         "seasonDistribution": "Södra Sverige",
         "length": 80,
-        "weight": 5000,
+        "weight": 5,
         "bestTime": "Sommar"
     },
     {
@@ -180,7 +180,7 @@ window.swedishFish = [
         "funFact": "Sutaren kallas 'läkarfisken' i folktron – man trodde att andra fiskar botas av att gnida sig mot dess slemhud.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "length": 40,
-        "weight": 1500,
+        "weight": 1.5,
         "bestTime": "Sommar"
     },
     {
@@ -194,7 +194,7 @@ window.swedishFish = [
         "funFact": "Gösen har kattögon som reflekterar ljuset och kan jaga effektivt i mörkt vatten.",
         "seasonDistribution": "Hela landet",
         "length": 70,
-        "weight": 3000,
+        "weight": 3,
         "bestTime": "Sommar/Höst"
     },
     {
@@ -208,7 +208,7 @@ window.swedishFish = [
         "funFact": "Laken är den enda sötvattensfisk som tillhör torskfamiljen och leker under isen på vintern.",
         "seasonDistribution": "Hela landet",
         "length": 60,
-        "weight": 2000,
+        "weight": 2,
         "bestTime": "Vinter"
     },
     {
@@ -222,7 +222,7 @@ window.swedishFish = [
         "funFact": "Malen är Europas största sötvattensfisk och kan bli 3 meter lång och väga mer än 200 kg.",
         "seasonDistribution": "Södra Sverige (få lokaler)",
         "length": 150,
-        "weight": 30000,
+        "weight": 30,
         "bestTime": "Sommar"
     },
     {
@@ -236,7 +236,7 @@ window.swedishFish = [
         "funFact": "Aspen är en av de få karpfiskarna som är rovfisk och aktivt jagar spiggfiskar vid ytan.",
         "seasonDistribution": "Södra Sverige",
         "length": 60,
-        "weight": 2000,
+        "weight": 2,
         "bestTime": "Sommar"
     },
     {
@@ -250,7 +250,7 @@ window.swedishFish = [
         "funFact": "Idarna är kända för sina spektakulära lekvandringar på våren i forsande åar.",
         "seasonDistribution": "Hela landet",
         "length": 50,
-        "weight": 1500,
+        "weight": 1.5,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -264,7 +264,7 @@ window.swedishFish = [
         "funFact": "Ålen föds i Sargassohavet och vandrar tusentals mil till Europa – dess lekplats var okänd till 1900-talet.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "length": 100,
-        "weight": 1500,
+        "weight": 1.5,
         "bestTime": "Sommar/Höst"
     },
     {
@@ -278,7 +278,7 @@ window.swedishFish = [
         "funFact": "Skarpsillen är basen för det välkända ansjovisinläggningen – 'ansjovis' i Sverige är egentligen skarpsill.",
         "seasonDistribution": "Östersjön & Västerhavet",
         "length": 12,
-        "weight": 15,
+        "weight": 0.015,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -292,7 +292,7 @@ window.swedishFish = [
         "funFact": "Makrillens blixtsnabba simförmåga och gnistrande färger gör den till en favorit bland sportfiskare.",
         "seasonDistribution": "Västerhavet (kuster)",
         "length": 35,
-        "weight": 400,
+        "weight": 0.4,
         "bestTime": "Sommar"
     },
     {
@@ -306,7 +306,7 @@ window.swedishFish = [
         "funFact": "Den lille storrpiggformen hanen bygger ett bo av växtdelar och vaktar äggen med nit – klassisk karaktär i ekologin.",
         "seasonDistribution": "Hela landet",
         "length": 8,
-        "weight": 5,
+        "weight": 0.005,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -320,7 +320,7 @@ window.swedishFish = [
         "funFact": "Havsöringen leker i sötvatten men tillbringar sin tillväxtfas i havet – en vandringsfisk av rang.",
         "seasonDistribution": "Kuster & Älvar",
         "length": 70,
-        "weight": 4000,
+        "weight": 4,
         "bestTime": "Höst"
     },
     {
@@ -334,7 +334,7 @@ window.swedishFish = [
         "funFact": "Hornfiskens ben är gröna på grund av biliverdin – men köttet är helt ätbart och delikat.",
         "seasonDistribution": "Västerhavet & södra Östersjön",
         "length": 70,
-        "weight": 400,
+        "weight": 0.4,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -348,7 +348,7 @@ window.swedishFish = [
         "funFact": "Rödspättan har orange prickar och båda ögonen på höger sida – den plattas till och kamouflerar sig på botten.",
         "seasonDistribution": "Västerhavet",
         "length": 50,
-        "weight": 2000,
+        "weight": 2,
         "bestTime": "Sommar"
     },
     {
@@ -362,7 +362,7 @@ window.swedishFish = [
         "funFact": "Skrubbskäddan kan finnas i sötvatten och är en av de mest euryhalina fiskarna – tål allt från sött till salt.",
         "seasonDistribution": "Kuster (hela).",
         "length": 40,
-        "weight": 1500,
+        "weight": 1.5,
         "bestTime": "Sommar"
     },
     {
@@ -376,7 +376,7 @@ window.swedishFish = [
         "funFact": "Sikens smak varierar kraftigt beroende på vilket vatten den lever i – kustens sik är en delikatess.",
         "seasonDistribution": "Hela landet",
         "length": 40,
-        "weight": 800,
+        "weight": 0.8,
         "bestTime": "Höst"
     },
     {
@@ -390,7 +390,7 @@ window.swedishFish = [
         "funFact": "Ursprungligen från Nordamerika men utsätts i svenska vatten och är populär bland sportfiskare.",
         "seasonDistribution": "Södra och mellersta Sverige (odlad/utplanterad)",
         "length": 60,
-        "weight": 3000,
+        "weight": 3,
         "bestTime": "Vår/Höst"
     }
 ];

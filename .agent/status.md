@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 📊 Artdata & Innehåll | Uppgift 27: Korrigerat artdata & viktenheter för alla icke-fågelböcker (`fish.js`, `animals.js`, `trees.js`) – konverterat alla viktvärden från gram till kg så att de stämmer med UI-enheterna samt lagt till träder-åldrar |
 | 2026-08-16 | 💼 Arbetsgivaren | Uppdaterad projektregel i AGENTS.md: Om en flik ser ett tillfälle att slå "två flugor i en smäll", MÅSTE fliken föreslå detta för användaren först. Utför ALDRIG oombedda extrauppgifter utan explicitt godkännande. |
 | 2026-08-15 | 🚀 Deploy & Infra | Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (Measurement ID: `G-471QWLB8LB`) med anonym spårning för besök, bokbyten, sparade observationer och quiz i `index.html` och `app.js` |
 | 2026-08-12 | 🚀 Deploy & Infra | PWA Auto-Reload: Lagt till `controllerchange` event-lyssnare i `index.html` som automatiskt laddar om sidan så fort en ny version aktiverats, vilket gör att användare slipper rensa cache manuellt |
@@ -124,7 +125,7 @@
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
 - [x] Utöka fågeldatabasen med GBIF Sverige 2026 (257 → 395 unika arter, +138 nya)
-- [ ] Korrigera artdata & viktenheter för alla böcker (Fiskboken, Viltboken, Svampboken, Växtboken)
+- [x] Korrigera artdata & viktenheter för alla böcker (Fiskboken, Viltboken, Svampboken, Växtboken)
 
 ### 🚀 Deploy & Infra
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)

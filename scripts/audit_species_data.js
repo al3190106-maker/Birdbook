@@ -14,19 +14,28 @@ loadScript(path.join(__dirname, '../trees.js'));
 loadScript(path.join(__dirname, '../flowers.js'));
 loadScript(path.join(__dirname, '../animals.js'));
 
-console.log("=== FISKFEL (weight > 100 kg / misstänkta värden) ===");
+console.log("=== FISKAR (fish.js) ===");
 (window.swedishFish || []).forEach(f => {
-    if (f.weight > 100 || f.weight > 500) {
-        console.log(`🐟 ${f.nameSv} (${f.id}): vikt=${f.weight} (kg?), längd=${f.length} cm`);
-    }
+    console.log(`🐟 ${f.id} (${f.nameSv}): length=${f.length} cm, weight=${f.weight}`);
 });
 
-console.log("\n=== VILTDJUR ===");
+console.log("\n=== DJUR (animals.js) ===");
 (window.swedishAnimals || []).forEach(a => {
-    if (a.weight > 1000 || a.length > 500) {
-        console.log(`🐾 ${a.nameSv} (${a.id}): vikt=${a.weight}, längd=${a.length}`);
-    }
+    console.log(`🐾 ${a.id} (${a.nameSv}): height=${a.height} cm, length=${a.length}, weight=${a.weight}`);
 });
 
-console.log("\n=== BLOMMOR / TRÄD / SVAMP (Snabbkoll) ===");
-console.log(`Totalt: ${window.swedishFish?.length || 0} fiskar, ${window.swedishFungi?.length || 0} svampar, ${window.swedishTrees?.length || 0} träd, ${window.swedishFlowers?.length || 0} blommor, ${window.swedishAnimals?.length || 0} djur.`);
+console.log("\n=== SVAMPAR (fungi.js) ===");
+(window.swedishFungi || []).forEach(f => {
+    console.log(`🍄 ${f.id} (${f.nameSv}): size=${f.size}, edibility=${f.edibility}`);
+});
+
+console.log("\n=== TRÄD (trees.js) ===");
+(window.swedishTrees || []).forEach(t => {
+    console.log(`🌲 ${t.id} (${t.nameSv}): height=${t.height}, age=${t.age}`);
+});
+
+console.log("\n=== BLOMMOR (flowers.js) ===");
+(window.swedishFlowers || []).forEach(fl => {
+    console.log(`🌸 ${fl.id} (${fl.nameSv}): height=${fl.height}`);
+});
+

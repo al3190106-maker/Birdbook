@@ -11,7 +11,7 @@ window.swedishAnimals = [
         "funFact": "Älgen kallas 'Skogens Konung' och är världens största hjortdjur. Sverige har omkring 300 000 älgar.",
         "seasonDistribution": "Hela landet",
         "height": 200, // cm (shoulder height)
-        "weight": 400000, // g (400kg)
+        "weight": 400, // g (400kg)
         "bestTime": "Gryning/Skymning"
     },
     {
@@ -24,7 +24,7 @@ window.swedishAnimals = [
         "funFact": "Räven kan höra en sork röra sig under 30 cm snö på 100 meters avstånd.",
         "seasonDistribution": "Hela landet",
         "height": 40,
-        "weight": 7000,
+        "weight": 7,
         "bestTime": "Natt/Gryning"
     },
     {
@@ -37,7 +37,7 @@ window.swedishAnimals = [
         "funFact": "Rådjuret skäller som en hund när det blir skrämt och bocken markerar revir med hornmassage på träd.",
         "seasonDistribution": "Södra/Mellersta Sverige",
         "height": 70,
-        "weight": 25000,
+        "weight": 25,
         "bestTime": "Gryning/Skymning"
     },
     {
@@ -50,7 +50,7 @@ window.swedishAnimals = [
         "funFact": "Under vinterdvalan sjunker björnens hjärtfrekvens från 40 till 8 slag per minut.",
         "seasonDistribution": "Norra/Mellersta Sverige",
         "height": 100, // shoulder
-        "weight": 200000,
+        "weight": 200,
         "bestTime": "Vår/Sommar"
     },
     {
@@ -63,7 +63,7 @@ window.swedishAnimals = [
         "funFact": "Igelkotten har cirka 5000–7000 taggar och kan simma och klättra överraskande bra.",
         "seasonDistribution": "Södra/Mellersta Sverige",
         "height": 15,
-        "weight": 1000,
+        "weight": 1,
         "bestTime": "Natt"
     },
     {
@@ -76,7 +76,7 @@ window.swedishAnimals = [
         "funFact": "Vargen återetablerade sig naturligt i Sverige på 1980-talet. Idag finns 300–400 individer.",
         "seasonDistribution": "Mellersta Sverige",
         "height": 80,
-        "weight": 40000,
+        "weight": 40,
         "bestTime": "Natt/Gryning"
     },
     {
@@ -89,7 +89,7 @@ window.swedishAnimals = [
         "funFact": "Lodjuret är den enda stora katten i Norden och kan ta byten dubbelt så stora som sig självt.",
         "seasonDistribution": "Hela landet",
         "height": 70,
-        "weight": 25000,
+        "weight": 25,
         "bestTime": "Natt"
     },
     {
@@ -102,7 +102,7 @@ window.swedishAnimals = [
         "funFact": "Järven är känd för sin otroliga styrka – den kan dra ett annat djur tre gånger sin egen vikt.",
         "seasonDistribution": "Norra Sverige",
         "height": 45,
-        "weight": 15000,
+        "weight": 15,
         "bestTime": "Natt/Dag"
     },
     {
@@ -115,7 +115,7 @@ window.swedishAnimals = [
         "funFact": "Kronhjortens brunstskrik (rötet) kan höras på kilometers avstånd under september månad.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 140,
-        "weight": 150000,
+        "weight": 150,
         "bestTime": "Gryning/Skymning"
     },
     {
@@ -128,7 +128,7 @@ window.swedishAnimals = [
         "funFact": "Dovhjortens palmade (flattade) horn är karakteristiska. Ursprungligen från Medelhavsområdet.",
         "seasonDistribution": "Södra Sverige",
         "height": 95,
-        "weight": 60000,
+        "weight": 60,
         "bestTime": "Gryning/Skymning"
     },
     {
@@ -141,7 +141,7 @@ window.swedishAnimals = [
         "funFact": "Vildsvinet etablerade sig i Sverige på 1970-talet och räknas nu till hundratusentals.",
         "seasonDistribution": "Södra och Mellersta Sverige",
         "height": 80,
-        "weight": 100000,
+        "weight": 100,
         "bestTime": "Natt/Gryning"
     },
     {
@@ -154,7 +154,7 @@ window.swedishAnimals = [
         "funFact": "Bävern utrottades i Sverige men återinfördes på 1920-talet och lever nu i hela landet.",
         "seasonDistribution": "Hela landet",
         "height": 40,
-        "weight": 20000,
+        "weight": 20,
         "bestTime": "Kväll/Natt"
     },
     {
@@ -167,7 +167,7 @@ window.swedishAnimals = [
         "funFact": "Grävlingen är ett av få djur i världen som kan äta igelkottar – den bara rullar ihop dem.",
         "seasonDistribution": "Hela landet",
         "height": 30,
-        "weight": 12000,
+        "weight": 12,
         "bestTime": "Natt"
     },
     {
@@ -180,7 +180,7 @@ window.swedishAnimals = [
         "funFact": "Uttern kan hålla andan i upp till 8 minuter och simma med en fart av 12 km/h.",
         "seasonDistribution": "Hela landet",
         "height": 30,
-        "weight": 10000,
+        "weight": 10,
         "bestTime": "Natt/Gryning"
     },
     {
@@ -193,7 +193,7 @@ window.swedishAnimals = [
         "funFact": "Skogsmården är ett av de snabbaste djuren i skogen och kan hoppa 4 meter mellan träd.",
         "seasonDistribution": "Hela landet",
         "height": 15,
-        "weight": 1500,
+        "weight": 1.5,
         "bestTime": "Natt"
     },
     {
@@ -206,7 +206,7 @@ window.swedishAnimals = [
         "funFact": "På vintern byter hermelinen päls till vit med svart svanstipp – den vita pälsen kallas hermelin.",
         "seasonDistribution": "Hela landet",
         "height": 10,
-        "weight": 200,
+        "weight": 0.2,
         "bestTime": "Dag/Natt"
     },
     {
@@ -219,7 +219,7 @@ window.swedishAnimals = [
         "funFact": "Vesslan är världens minsta rovdjur men kan ta byten 10 gånger sin egen storlek.",
         "seasonDistribution": "Hela landet",
         "height": 6,
-        "weight": 60,
+        "weight": 0.06,
         "bestTime": "Dag/Natt"
     },
     {
@@ -232,7 +232,7 @@ window.swedishAnimals = [
         "funFact": "Skogsharen byter päls till vit inför vintern och är ett byte för nästan alla svenska rovdjur.",
         "seasonDistribution": "Hela landet",
         "height": 30,
-        "weight": 3500,
+        "weight": 3.5,
         "bestTime": "Natt/Gryning"
     },
     {
@@ -245,7 +245,7 @@ window.swedishAnimals = [
         "funFact": "Vildkaninen lever i jordhålor (kolonier) och är ursprungligen importerad till Sverige.",
         "seasonDistribution": "Södra Sverige (kusten)",
         "height": 20,
-        "weight": 2000,
+        "weight": 2,
         "bestTime": "Gryning/Kväll"
     },
     {
@@ -258,7 +258,7 @@ window.swedishAnimals = [
         "funFact": "Ekorren gömmer tusentals nötter varje höst och hittar dem igen med hjälp av minne och luktsinne.",
         "seasonDistribution": "Hela landet",
         "height": 10,
-        "weight": 300,
+        "weight": 0.3,
         "bestTime": "Dag"
     },
     {
@@ -271,7 +271,7 @@ window.swedishAnimals = [
         "funFact": "Skogssorken har kraftiga populationscykler var 3–4 år (lemingelår) som påverkar hela ekosystemet.",
         "seasonDistribution": "Hela landet",
         "height": 5,
-        "weight": 20,
+        "weight": 0.02,
         "bestTime": "Dag/Natt"
     },
     {
@@ -284,7 +284,7 @@ window.swedishAnimals = [
         "funFact": "Näbbmusen måste äta var 2–3 timme dygnet runt annars svälter den ihjäl – ett av de högsta ämnesomsättning bland däggdjur.",
         "seasonDistribution": "Hela landet",
         "height": 4,
-        "weight": 12,
+        "weight": 0.012,
         "bestTime": "Dag/Natt"
     },
     {
@@ -297,7 +297,7 @@ window.swedishAnimals = [
         "funFact": "Renen är det enda hjortdjuret där även honorna bär horn. I fjällen lever ca 250 000 tamrenar.",
         "seasonDistribution": "Norra Sverige (Lappland)",
         "height": 120,
-        "weight": 100000,
+        "weight": 100,
         "bestTime": "Dag"
     },
     {
@@ -310,7 +310,7 @@ window.swedishAnimals = [
         "funFact": "Minken är ett invasivt djur som rymt från pälsfarmer och nu koloniserat hela Sverige.",
         "seasonDistribution": "Hela landet",
         "height": 15,
-        "weight": 1000,
+        "weight": 1,
         "bestTime": "Natt/Gryning"
     },
     {
@@ -323,7 +323,7 @@ window.swedishAnimals = [
         "funFact": "Knubbsälen är Sveriges vanligaste säl och vilar gärna på klippor och sandbankar längs kusten.",
         "seasonDistribution": "Västerhavet & Östersjön (kuster)",
         "height": 80,
-        "weight": 75000,
+        "weight": 75,
         "bestTime": "Dag"
     },
     {
@@ -336,7 +336,7 @@ window.swedishAnimals = [
         "funFact": "Vikaren lever i Östersjön och Bottenhavet och är en av isbjörnens viktigaste bytesdjur i Arktis.",
         "seasonDistribution": "Östersjön (norra)",
         "height": 70,
-        "weight": 50000,
+        "weight": 50,
         "bestTime": "Vinter/Vår"
     },
     {
@@ -349,7 +349,7 @@ window.swedishAnimals = [
         "funFact": "Dvärgfladdermusen väger bara 3–8 gram och kan äta 3000 myggor på en enda natt.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 5,
-        "weight": 5,
+        "weight": 0.005,
         "bestTime": "Natt"
     },
     {
@@ -362,7 +362,7 @@ window.swedishAnimals = [
         "funFact": "Paddan återvänder varje år till samma lekvatten och kan leva i 30–40 år.",
         "seasonDistribution": "Hela landet",
         "height": 8,
-        "weight": 50,
+        "weight": 0.05,
         "bestTime": "Natt (Vår)"
     },
     {
@@ -375,7 +375,7 @@ window.swedishAnimals = [
         "funFact": "Snoken är ofarlig och känns igen på det gula halsbandet. Den låtsas vara death när den hotas.",
         "seasonDistribution": "Södra och mellersta Sverige",
         "height": 10,
-        "weight": 300,
+        "weight": 0.3,
         "bestTime": "Dag"
     },
     {
@@ -388,7 +388,7 @@ window.swedishAnimals = [
         "funFact": "Huggormen är den enda giftiga ormen i Sverige men är skygg och sällan farlig om man inte stör den.",
         "seasonDistribution": "Hela landet",
         "height": 10,
-        "weight": 150,
+        "weight": 0.15,
         "bestTime": "Dag"
     },
     {
@@ -401,7 +401,7 @@ window.swedishAnimals = [
         "funFact": "Den vanliga grodan kan bl.a. andas genom huden när den övervintrar på botten av frusna sjöar.",
         "seasonDistribution": "Hela landet",
         "height": 10,
-        "weight": 50,
+        "weight": 0.05,
         "bestTime": "Natt/Gryning"
     }
 ];
