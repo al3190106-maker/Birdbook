@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.1.7-season-time-explicit';
+const CACHE_NAME = 'birdfinder-v5.2.0-sighting-modal-fixes';
 const ASSETS_TO_CACHE = [
+
 
 
 

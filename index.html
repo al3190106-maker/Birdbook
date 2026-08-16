@@ -94,6 +94,19 @@
             <!-- Book Strip -->
             <div id="book-strip" class="book-strip"></div>
 
+            <!-- Log Search Bar -->
+            <div class="search-bar-container log-search-bar" style="margin-top: 1rem; margin-bottom: 0.75rem; max-width: 100%;">
+                <button id="log-search-icon-btn" class="search-icon-btn" tabindex="-1" aria-label="Rensa sökning" onclick="
+                    var inp = document.getElementById('log-search');
+                    if (inp &amp;&amp; inp.value) {
+                        inp.value = '';
+                        inp.dispatchEvent(new Event('input'));
+                        inp.focus();
+                    }
+                "><i id="log-search-icon" class="fa-solid fa-search"></i></button>
+                <input type="text" id="log-search" placeholder="Sök observation (art, plats, anteckning)...">
+            </div>
+
             <div class="list-controls">
                 <div class="list-header-row">
                     <h2 id="current-year-display">Alla observationer</h2>
@@ -1097,11 +1110,16 @@
                 <!-- Bird Selection -->
                 <div class="form-group">
                     <label for="bird-search-input">Fågelart</label>
-                    <div class="autocomplete-wrapper">
-                        <input type="text" id="bird-search-input" placeholder="Börja skriva (t.ex. Koltrast)..."
-                            autocomplete="off" required>
-                        <div id="autocomplete-list" class="autocomplete-items"></div>
-                        <input type="hidden" id="selected-bird-id">
+                    <div class="autocomplete-wrapper" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div id="selected-bird-thumb-container" style="display: none; flex: none;">
+                            <img id="selected-bird-thumb" src="" alt="Artbild" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #10b981; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                        </div>
+                        <div style="flex: 1; position: relative;">
+                            <input type="text" id="bird-search-input" placeholder="Börja skriva (t.ex. Koltrast)..."
+                                autocomplete="off" required>
+                            <div id="autocomplete-list" class="autocomplete-items"></div>
+                            <input type="hidden" id="selected-bird-id">
+                        </div>
                     </div>
                 </div>
 
@@ -1139,11 +1157,12 @@
                     <label for="sighting-location">Plats</label>
                     <div style="display: flex; gap: 0.5rem; align-items: center;">
                         <input type="text" id="sighting-location" placeholder="Hämtar plats..." style="flex: 1; margin-bottom: 0;">
-                        <button type="button" class="sighting-action-btn" onclick="toggleSightingSection('map')" title="Välj på karta" style="padding: 0.5rem 1rem; flex: none; height: 100%; border-radius: 8px;">
+                        <button type="button" class="sighting-action-btn" id="btn-toggle-map" onclick="toggleSightingSection('map')" title="Välj på karta" style="padding: 0.5rem 1rem; flex: none; height: 100%; border-radius: 8px;">
                             <i class="fa-solid fa-map-location-dot"></i>
                         </button>
                     </div>
                 </div>
+
 
                 <div id="sighting-section-map" class="sighting-hidden-section hidden">
                     <div class="sighting-map-wrapper">

@@ -5,6 +5,7 @@ const state = {
     view: 'log-view',
     activeCategory: null,
     guideSearchTerm: '',
+    logSearchQuery: '',
     guideSortBy: 'taxonomy',
     quizMode: null,
     quizDifficulty: null,
@@ -584,6 +585,7 @@ const elements = {
     navBtns: document.querySelectorAll('.nav-btn'),
     viewSections: document.querySelectorAll('.view-section'),
     guideSearch: document.getElementById('guide-search'),
+    logSearch: document.getElementById('log-search'),
     customImageInput: document.getElementById('custom-image-upload'),
     resetBtn: document.getElementById('reset-app-btn'),
     settingsBtn: document.getElementById('settings-btn'),
@@ -710,10 +712,58 @@ document.addEventListener('input', (e) => {
     if (e.target.id === 'sighting-notes') _updateSightingHasData();
 });
 
+function _updateSelectedBirdThumb(birdId) {
+    const container = document.getElementById('selected-bird-thumb-container');
+    const imgEl = document.getElementById('selected-bird-thumb');
+    if (!container || !imgEl) return;
+
+    if (!birdId) {
+        container.style.display = 'none';
+        return;
+    }
+
+    const list = getCurrentSpeciesList();
+    const bird = list.find(b => b.id === birdId);
+    if (bird && typeof getBirdImageSrc === 'function') {
+        imgEl.src = getBirdImageSrc(bird);
+        container.style.display = 'block';
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function _renderPhotoPreview(photoUrl) {
+    if (!elements.imagePreviewContainer) return;
+    if (!photoUrl) {
+        elements.imagePreviewContainer.innerHTML = '';
+        return;
+    }
+    elements.imagePreviewContainer.innerHTML = `
+        <div style="position: relative; display: inline-block; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+            <img src="${photoUrl}" alt="Uppladdat foto" style="max-width: 100%; max-height: 180px; border-radius: 12px; border: 2px solid #e2e8f0; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <button type="button" id="btn-remove-sighting-photo" title="Ta bort foto" style="position: absolute; top: 8px; right: 8px; background: rgba(239, 68, 68, 0.9); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+    `;
+    const removeBtn = document.getElementById('btn-remove-sighting-photo');
+    if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+            elements.imagePreviewContainer.innerHTML = '';
+            if (elements.sightingPhoto) elements.sightingPhoto.value = '';
+            window._pendingSightingPhoto = null;
+            if (typeof editingSightingId !== 'undefined' && editingSightingId) {
+                window._removeSightingPhotoOnEdit = true;
+            }
+        });
+    }
+}
+
 function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sightingToEdit = null) {
     elements.form.reset();
     editingSightingId = sightingToEdit ? sightingToEdit.id : null;
-
+    window._pendingSightingPhoto = null;
+    window._removeSightingPhotoOnEdit = false;
 
     const sightingDateEl = document.getElementById('sighting-date');
     const today = new Date();
@@ -736,14 +786,23 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
     if (prefillBirdId) {
         elements.selectedBirdId.value = prefillBirdId;
         elements.birdSearchInput.value = prefillBirdName || '';
+        _updateSelectedBirdThumb(prefillBirdId);
     } else {
         elements.selectedBirdId.value = '';
+        _updateSelectedBirdThumb(null);
     }
 
     if (sightingToEdit) {
+        if (sightingToEdit.birdId) _updateSelectedBirdThumb(sightingToEdit.birdId);
         sightingDateEl.value = sightingToEdit.date || '';
         document.getElementById('sighting-location').value = sightingToEdit.location || '';
         document.getElementById('sighting-notes').value = sightingToEdit.notes || '';
+        if (sightingToEdit.notes) {
+            const notesSection = document.getElementById('sighting-section-notes');
+            const notesBtn = document.getElementById('btn-toggle-notes');
+            if (notesSection) notesSection.classList.remove('hidden');
+            if (notesBtn) notesBtn.classList.add('active');
+        }
         if (document.getElementById('sighting-weather')) {
             document.getElementById('sighting-weather').value = sightingToEdit.weather || '';
         }
@@ -755,6 +814,10 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
         }
         if (document.getElementById('sighting-heard')) {
             document.getElementById('sighting-heard').checked = sightingToEdit.heard === true;
+        }
+
+        if (sightingToEdit.photo) {
+            _renderPhotoPreview(sightingToEdit.photo);
         }
         
         elements.birdSearchInput.disabled = true; // Don't change species when editing
@@ -770,6 +833,7 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
 
     nav.openModal('sighting-modal');
     elements.modal.classList.add('active');
+
 
 
     // Initialize or reset Leaflet map
@@ -2242,6 +2306,8 @@ function triggerImageUpload(birdId) {
 
 function getFilteredSightings() {
     const currentList = getCurrentSpeciesList();
+    const query = (state.logSearchQuery || '').trim().toLowerCase();
+
     return state.sightings.filter(s => {
         if (s.id === 'SYSTEM_INIT_BIRD') return false;
 
@@ -2256,17 +2322,43 @@ function getFilteredSightings() {
                 const y = new Date(s.date).getFullYear();
                 if (y !== state.yearFilter) return false;
             }
-            return true;
+        } else {
+            // Filter by Current Mode (Bird vs Tree)
+            const belongsToMode = currentList.some(item => item.id === s.birdId);
+            if (!belongsToMode) return false;
+
+            if (state.yearFilter !== 'all') {
+                const y = new Date(s.date).getFullYear();
+                if (y !== state.yearFilter) return false;
+            }
         }
 
-        // Filter by Current Mode (Bird vs Tree)
-        const belongsToMode = currentList.some(item => item.id === s.birdId);
-        if (!belongsToMode) return false;
+        // Text Search Query filter
+        if (query) {
+            let item = currentList.find(i => i.id === s.birdId);
+            if (!item && isCustom) {
+                const customName = (window._customSpeciesNames && window._customSpeciesNames[s.birdId])
+                    || s.customName || s.name || '';
+                item = { nameSv: customName, nameEn: '', scientific: '' };
+            }
 
-        if (state.yearFilter !== 'all') {
-            const y = new Date(s.date).getFullYear();
-            if (y !== state.yearFilter) return false;
+            const nameSv = (item?.nameSv || s.name || s.customName || '').toLowerCase();
+            const nameEn = (item?.nameEn || '').toLowerCase();
+            const scientific = (item?.scientific || '').toLowerCase();
+            const location = (s.location || s.locationName || '').toLowerCase();
+            const notes = (s.notes || '').toLowerCase();
+            const dateStr = (s.date || '').toLowerCase();
+
+            const matchesQuery = nameSv.includes(query) ||
+                                 nameEn.includes(query) ||
+                                 scientific.includes(query) ||
+                                 location.includes(query) ||
+                                 notes.includes(query) ||
+                                 dateStr.includes(query);
+
+            if (!matchesQuery) return false;
         }
+
         return true;
     });
 }
@@ -2470,6 +2562,18 @@ function renderSightingsList(sightings) {
     const config = SUBJECT_CONFIG[state.currentSubject];
 
     if (sightings.length === 0) {
+        if (state.logSearchQuery) {
+            const cleanQuery = state.logSearchQuery.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            elements.sightingsList.innerHTML = `
+                <div class="empty-state">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 2.5rem; color: #94a3b8; margin-bottom: 0.5rem;"></i>
+                    <p>Inga observationer matchade "<strong>${cleanQuery}</strong>".</p>
+                    <button onclick="if(elements.logSearch){elements.logSearch.value='';} state.logSearchQuery=''; renderApp();" style="margin-top:1rem; padding:0.5rem 1rem; border-radius: 10px; border: none; background: var(--primary); color: white; cursor:pointer; font-weight: 600; font-family: inherit;">Rensa sökning</button>
+                </div>
+            `;
+            return;
+        }
+
         const emptyText = config.texts.emptyLog
             + ` <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`;
 
@@ -4352,7 +4456,10 @@ function setupEventListeners() {
             elements.selectedBirdId.value = '';
         }
 
-        if (!val) return;
+        if (!val) {
+            _updateSelectedBirdThumb(null);
+            return;
+        }
 
         const list = getCurrentSpeciesList();
         const matches = list.filter(bird => {
@@ -4370,10 +4477,12 @@ function setupEventListeners() {
             item.addEventListener('click', () => {
                 elements.birdSearchInput.value = bird.nameSv;
                 elements.selectedBirdId.value = bird.id;
+                _updateSelectedBirdThumb(bird.id);
                 elements.autocompleteList.innerHTML = '';
             });
             elements.autocompleteList.appendChild(item);
         });
+
 
 
         // If no matches → show "add as custom" hint (not in Naturboken)
@@ -4437,7 +4546,22 @@ function setupEventListeners() {
         });
     }
 
+    if (elements.sightingPhoto) {
+
+        elements.sightingPhoto.addEventListener('change', async function() {
+            if (this.files && this.files[0]) {
+                const compressed = await _compressImage(this.files[0]);
+                if (compressed) {
+                    window._pendingSightingPhoto = compressed;
+                    window._removeSightingPhotoOnEdit = false;
+                    _renderPhotoPreview(compressed);
+                }
+            }
+        });
+    }
+
     // 5. Form Submit
+
     elements.form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -4474,6 +4598,13 @@ function setupEventListeners() {
             existingSighting = state.sightings.find(s => s.id === editingSightingId);
         }
 
+        let photoVal = existingSighting ? existingSighting.photo : null;
+        if (window._pendingSightingPhoto) {
+            photoVal = window._pendingSightingPhoto;
+        } else if (window._removeSightingPhotoOnEdit) {
+            photoVal = null;
+        }
+
         const newSighting = {
             id: isEditing ? editingSightingId : Date.now().toString(),
             birdId: elements.selectedBirdId.value,
@@ -4483,12 +4614,13 @@ function setupEventListeners() {
             location: document.getElementById('sighting-location').value,
             notes: notesVal,
             weather: weatherVal,
-            photo: existingSighting ? existingSighting.photo : null,
+            photo: photoVal,
             lat: latVal ? parseFloat(latVal) : null,
             lng: lngVal ? parseFloat(lngVal) : null,
             seen: document.getElementById('sighting-seen') ? document.getElementById('sighting-seen').checked : true,
             heard: document.getElementById('sighting-heard') ? document.getElementById('sighting-heard').checked : false
         };
+
 
         // Om väderfältet inte hunnit fyllas i, hämta väder i bakgrunden utan att blockera sparningen
         if (!weatherVal && dateVal) {
@@ -4588,6 +4720,28 @@ function setupEventListeners() {
             reader.readAsDataURL(this.files[0]);
         }
     });
+
+    // 7. Log Search
+    if (elements.logSearch) {
+        elements.logSearch.addEventListener('input', (e) => {
+            state.logSearchQuery = e.target.value;
+
+            // Toggle search icon ↔ clear icon
+            const iconBtn = document.getElementById('log-search-icon-btn');
+            const icon = document.getElementById('log-search-icon');
+            if (iconBtn && icon) {
+                if (e.target.value.length > 0) {
+                    icon.className = 'fa-solid fa-xmark';
+                    iconBtn.classList.add('has-text');
+                } else {
+                    icon.className = 'fa-solid fa-search';
+                    iconBtn.classList.remove('has-text');
+                }
+            }
+
+            renderApp();
+        });
+    }
 
     // 7. Guide Search
     elements.guideSearch.addEventListener('input', (e) => {

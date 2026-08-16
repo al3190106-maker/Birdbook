@@ -21,6 +21,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 📓 Min logg | Sökfält för observationer: Integrerat ett smart sökfält (`#log-search`) i "Min logg" som filtrerar observationer i realtid på svenskt/engelskt/vetenskapligt namn, plats, anteckningar och datum (`index.html`, `app.js`) |
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Konkret Säsong & Flyttning: Säkerställt att rutan **Säsong & Flytt** alltid besvarar *NÄR* arten kan ses (t.ex. **Vår & Höst (Sporadisk)** eller **Vår & Höst (Flyttperioder)**) istället för att upprepa sällsynthetstermer som "Sällsynt gäst" (`birds.js`, `app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Rensa taggar i tidslinjen: Tagit bort den gula *Senaste*-taggen från observationskorten så att datum, plats och anteckningar får gott om plats (`app.js`) |
