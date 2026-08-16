@@ -5949,12 +5949,19 @@ async function _openSpeciesSightingsMap(bird) {
             totalCount++;
         });
 
-        // 2. Fetch GBIF occurrences via direct scientificName query with hasCoordinate=true
-        if (typeof showToast === 'function') showToast(`Söker observationer för ${bird.nameSv} i Sverige...`);
+        // 2. Fetch GBIF occurrences via direct scientificName query with strict date filter (last 30 days max)
+        if (typeof showToast === 'function') showToast(`Söker färska fynd för ${bird.nameSv}...`);
         try {
+            const now = new Date();
+            const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+            
+            const fmt = (d) => d.toISOString().split('T')[0];
+            const dateRange = `${fmt(thirtyDaysAgo)},${fmt(now)}`;
+            
             const sciName = bird.scientific || bird.nameSv;
-            const url1 = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&limit=250`;
-            const url2 = `https://api.gbif.org/v1/occurrence/search?country=SE&q=${encodeURIComponent(bird.nameSv)}&hasCoordinate=true&limit=250`;
+            const url1 = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&eventDate=${dateRange}&limit=250`;
+            const url2 = `https://api.gbif.org/v1/occurrence/search?country=SE&q=${encodeURIComponent(bird.nameSv)}&hasCoordinate=true&eventDate=${dateRange}&limit=250`;
             
             let occurrences = [];
             
@@ -5980,11 +5987,28 @@ async function _openSpeciesSightingsMap(bird) {
                 return true;
             });
 
-            if (mapSubtitle) {
-                mapSubtitle.textContent = `Visar ${uniqueOccs.length} observationer i Sverige för ${bird.nameSv}`;
+            // Strict date filter: 7 days first, fallback to 30 days if few
+            let displayOccs = uniqueOccs.filter(occ => {
+                if (!occ.eventDate) return false;
+                const d = new Date(occ.eventDate);
+                return d >= sevenDaysAgo;
+            });
+
+            let timeframeLabel = 'senaste 7 dagarna';
+            if (displayOccs.length < 3) {
+                displayOccs = uniqueOccs.filter(occ => {
+                    if (!occ.eventDate) return false;
+                    const d = new Date(occ.eventDate);
+                    return d >= thirtyDaysAgo;
+                });
+                if (displayOccs.length > 0) timeframeLabel = 'senaste 30 dagarna';
             }
 
-            uniqueOccs.forEach(occ => {
+            if (mapSubtitle) {
+                mapSubtitle.textContent = `Visar ${displayOccs.length} färska fynd i Sverige (${timeframeLabel}) för ${bird.nameSv}`;
+            }
+
+            displayOccs.forEach(occ => {
                 totalCount++;
                 const dateTxt = occ.eventDate ? new Date(occ.eventDate).toLocaleDateString('sv-SE') : 'Nyligen';
                 const locTxt = occ.locality || occ.municipality || occ.stateProvince || 'Sverige';
@@ -6005,13 +6029,14 @@ async function _openSpeciesSightingsMap(bird) {
             });
 
             if (totalCount === 0) {
-                if (typeof showToast === 'function') showToast(`Inga registrerade platspunkter hittades för ${bird.nameSv}.`);
+                if (typeof showToast === 'function') showToast(`Inga färska fynd i Sverige de senaste 30 dagarna för ${bird.nameSv}.`);
             } else {
-                if (typeof showToast === 'function') showToast(`Hittade ${totalCount} fynd över hela Sverige!`);
+                if (typeof showToast === 'function') showToast(`Hittade ${totalCount} färska fynd på kartan (${timeframeLabel})!`);
             }
         } catch (err) {
             console.warn("Kunde inte hämta GBIF-fynd för art:", err);
         }
+
 
         if (bounds.length > 0) {
             _overviewMap.fitBounds(L.latLngBounds(bounds), { padding: [40, 40], maxZoom: 11 });
