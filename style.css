@@ -5469,6 +5469,13 @@ details[open] .stats-collapsible-chevron {
     text-overflow: ellipsis;
 }
 
+.user-sighting-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
 .user-sighting-edit-btn {
     background: #f1f5f9;
     color: #475569;
@@ -5484,10 +5491,31 @@ details[open] .stats-collapsible-chevron {
     flex-shrink: 0;
 }
 
-.user-sighting-card:hover .user-sighting-edit-btn {
+.user-sighting-edit-btn:hover {
     background: #10b981;
     color: white;
 }
+
+.user-sighting-delete-btn {
+    background: #f1f5f9;
+    color: #ef4444;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.user-sighting-delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
 
 .user-sightings-empty {
     background: #f8fafc;

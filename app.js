@@ -1579,9 +1579,14 @@ function _renderUserSightingsTimeline(item) {
                         <div class="user-sighting-location">📍 ${locStr}</div>
                         ${notesHTML}
                     </div>
-                    <button type="button" class="user-sighting-edit-btn" title="Redigera observation" data-sighting-id="${s.id}">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
+                    <div class="user-sighting-actions">
+                        <button type="button" class="user-sighting-edit-btn" title="Redigera observation" data-sighting-id="${s.id}">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button type="button" class="user-sighting-delete-btn" title="Ta bort observation" data-sighting-id="${s.id}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             `;
         });
@@ -1618,8 +1623,20 @@ function _renderUserSightingsTimeline(item) {
                 }
             });
         }
+
+        const deleteTrashBtn = card.querySelector('.user-sighting-delete-btn');
+        if (deleteTrashBtn) {
+            deleteTrashBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (sightingObj) {
+                    const dStr = sightingObj.date ? new Date(sightingObj.date).toLocaleDateString('sv-SE', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+                    confirmDeleteSighting(sightingObj.id, item.nameSv, dStr);
+                }
+            });
+        }
     });
 }
+
 
 
 function _openSightingDetailView(sighting, item) {
@@ -1693,11 +1710,9 @@ function _openSightingDetailView(sighting, item) {
         const newDelete = deleteBtn.cloneNode(true);
         deleteBtn.replaceWith(newDelete);
         newDelete.addEventListener('click', () => {
-            if (confirm(`Vill du ta bort din observation av ${item.nameSv} från ${formattedDate}?`)) {
-                modal.classList.remove('active');
-                deleteSighting(sighting.id);
-            }
+            confirmDeleteSighting(sighting.id, item.nameSv, formattedDate);
         });
+
     }
 
     // Wire Close Button
@@ -2310,12 +2325,68 @@ function quickAddSighting(birdId) {
 }
 
 
-function deleteSighting(id) {
-    if (!confirm('Vill du ta bort denna observation?')) return;
+function confirmDeleteSighting(id, speciesName = '', dateStr = '') {
+    const modal = document.getElementById('delete-confirm-modal');
+    if (!modal) {
+        if (confirm(`Vill du ta bort din observation${speciesName ? ' av ' + speciesName : ''}?`)) {
+            _performDeleteSighting(id);
+        }
+        return;
+    }
+
+    const msgEl = document.getElementById('delete-confirm-message');
+    if (msgEl) {
+        let msg = 'Är du säker på att du vill ta bort denna observation? Detta går inte att ångra.';
+        if (speciesName && dateStr) {
+            msg = `Är du säker på att du vill ta bort din observation av <strong>${speciesName}</strong> från ${dateStr}? Detta går inte att ångra.`;
+        } else if (speciesName) {
+            msg = `Är du säker på att du vill ta bort din observation av <strong>${speciesName}</strong>? Detta går inte att ångra.`;
+        }
+        msgEl.innerHTML = msg;
+    }
+
+    modal.classList.add('active');
+
+    const cancelBtn = document.getElementById('delete-confirm-cancel-btn');
+    const yesBtn = document.getElementById('delete-confirm-yes-btn');
+
+    const cleanup = () => {
+        modal.classList.remove('active');
+    };
+
+    if (cancelBtn) {
+        const newCancel = cancelBtn.cloneNode(true);
+        cancelBtn.replaceWith(newCancel);
+        newCancel.addEventListener('click', cleanup);
+    }
+
+    if (yesBtn) {
+        const newYes = yesBtn.cloneNode(true);
+        yesBtn.replaceWith(newYes);
+        newYes.addEventListener('click', () => {
+            cleanup();
+            _performDeleteSighting(id);
+        });
+    }
+}
+
+function _performDeleteSighting(id) {
     state.sightings = state.sightings.filter(s => s.id !== id);
     saveSightings();
     setupYearFilter();
+    showGlobalToast('🗑️ Observation raderad', 'info');
+
+    const sdvModal = document.getElementById('sighting-detail-view-modal');
+    if (sdvModal) sdvModal.classList.remove('active');
 }
+
+function deleteSighting(id) {
+    const sighting = (state.sightings || []).find(s => s.id === id);
+    const dateStr = sighting && sighting.date ? new Date(sighting.date).toLocaleDateString('sv-SE', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+    const nameStr = sighting ? (sighting.customName || sighting.name || '') : '';
+    confirmDeleteSighting(id, nameStr, dateStr);
+}
+
 
 // --- Rendering ---
 function renderBookStrip() {

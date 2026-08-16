@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.0.6-timeline-refresh-fix';
+const CACHE_NAME = 'birdfinder-v5.0.7-two-step-delete-fix';
 const ASSETS_TO_CACHE = [
+
 
 
 
