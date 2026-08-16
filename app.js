@@ -1531,42 +1531,8 @@ function _renderUserSightingsTimeline(item) {
     if (existingCameraBtn) existingCameraBtn.remove();
 
 
-    // Apply specific logic for Min Logg: Hiding unnecessary info
-    
-    // Elements added for Min Logg
-    const detailSightingPanel = document.getElementById('detail-sighting-panel');
     const editSightingBtn = document.getElementById('detail-edit-sighting-btn');
-    
-    const detailFactsAccordion = document.getElementById('detail-facts-accordion');
     if (sighting) {
-        if (elements.detailNameScEn) elements.detailNameScEn.style.display = 'none';
-        if (descEl) descEl.style.display = 'none';
-        if (detailFactsAccordion) detailFactsAccordion.removeAttribute('open');
-        
-        // Show Sighting Panel
-        if (detailSightingPanel) {
-            detailSightingPanel.classList.remove('hidden');
-            document.getElementById('ds-date').textContent = sighting.date || '--';
-            document.getElementById('ds-location').textContent = sighting.location || '--';
-            document.getElementById('ds-weather').textContent = sighting.weather || '--';
-            
-            const dsTypeEl = document.getElementById('ds-type');
-            if (dsTypeEl) {
-                const types = [];
-                if (sighting.seen !== false) types.push('Sedd');
-                if (sighting.heard === true) types.push('Hörd');
-                dsTypeEl.textContent = types.join(' & ') || 'Okänd';
-            }
-            
-            const notesEl = document.getElementById('ds-notes');
-            if (sighting.notes) {
-                notesEl.textContent = sighting.notes;
-                document.getElementById('ds-notes-card').style.display = 'block';
-            } else {
-                document.getElementById('ds-notes-card').style.display = 'none';
-            }
-        }
-        
         // Setup Edit Button
         if (editSightingBtn) {
             editSightingBtn.style.display = 'inline-flex';
@@ -1582,12 +1548,10 @@ function _renderUserSightingsTimeline(item) {
                 _showSightingModal(item.id, item.nameSv, sighting);
             });
         }
-        
     } else {
-        if (detailSightingPanel) detailSightingPanel.classList.add('hidden');
         if (editSightingBtn) editSightingBtn.style.display = 'none';
-        if (detailFactsAccordion) detailFactsAccordion.setAttribute('open', '');
     }
+
 }
 function getCurrentSpeciesList() {
     const config = SUBJECT_CONFIG[state.currentSubject];

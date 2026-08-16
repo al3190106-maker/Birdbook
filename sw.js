@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.9.0-facts-overhaul';
+const CACHE_NAME = 'birdfinder-v4.9.1-clean-card';
 const ASSETS_TO_CACHE = [
+
 
 
 
