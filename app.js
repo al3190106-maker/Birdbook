@@ -5898,10 +5898,61 @@ function _renderSightingsOverviewMap() {
         _overviewMap.invalidateSize();
     }
 
-    const geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD');
+    let geoSightings = state.sightings.filter(s => s.lat && s.lng && s.id !== 'SYSTEM_INIT_BIRD');
+
+    // Fetch and show user marker, extending bounds to include user
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            if (!_overviewMap) return;
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+
+            if (_overviewUserMarker) {
+                _overviewMap.removeLayer(_overviewUserMarker);
+                _overviewUserMarker = null;
+            }
+
+            const userIcon = L.divIcon({
+                className: 'rs-user-marker',
+                html: '<div class="rs-user-dot"></div><div class="rs-user-pulse"></div>',
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+            });
+
+            _overviewUserMarker = L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
+                .bindPopup('<div class="rs-map-popup"><strong><i class="fa-solid fa-person-walking"></i> Din position</strong></div>')
+                .addTo(_overviewMap);
+
+            // Extend map bounds to include user location
+            const bounds = geoSightings.map(s => [s.lat, s.lng]);
+            if (bounds && bounds.length > 0) {
+                const leafletBounds = L.latLngBounds(bounds);
+                leafletBounds.extend([lat, lng]);
+                _overviewMap.fitBounds(leafletBounds, { padding: [40, 40], maxZoom: 12 });
+            }
+        }, (err) => {
+            console.warn("Could not get user position for overview map:", err);
+        }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 });
+    }
+
+    // Filter by active book (subject) unless viewing Naturboken ('nature')
+    if (state.currentSubject && state.currentSubject !== 'nature') {
+        const currentList = getCurrentSpeciesList();
+        const currentIds = new Set(currentList.map(sp => sp.id));
+        geoSightings = geoSightings.filter(s => {
+            if (s.subject) {
+                if (state.currentSubject === 'plants') {
+                    return s.subject === 'plants' || s.subject === 'trees' || s.subject === 'flowers';
+                }
+                return s.subject === state.currentSubject;
+            }
+            return currentIds.has(s.birdId) || (s.birdId && s.birdId.startsWith('custom_'));
+        });
+    }
 
     if (geoSightings.length === 0) {
         // Show a message on the map
+        const subjectName = SUBJECT_CONFIG[state.currentSubject]?.name || 'denna bok';
         const info = L.control({ position: 'topright' });
         info.onAdd = function() {
             const div = L.DomUtil.create('div', 'sighting-popup');
@@ -5909,7 +5960,7 @@ function _renderSightingsOverviewMap() {
             div.style.borderRadius = '10px';
             div.style.padding = '1rem';
             div.style.boxShadow = '0 2px 10px rgba(0,0,0,0.15)';
-            div.innerHTML = '<strong>Inga observationer med platsdata \u00e4n.</strong><br>Placera en n\u00e5l n\u00e4r du skapar en ny observation!';
+            div.innerHTML = `<strong>Inga observationer med platsdata för ${subjectName} än.</strong><br>Placera en nål när du skapar en ny observation!`;
             return div;
         };
         info.addTo(_overviewMap);
@@ -5924,44 +5975,6 @@ function _renderSightingsOverviewMap() {
     if (bounds.length > 0) {
         _overviewMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
     }
-
-    // Fetch and show user marker, extending bounds to include user
-    _addUserMarkerToOverviewMap(bounds);
-}
-
-function _addUserMarkerToOverviewMap(bounds) {
-    if (!_overviewMap) return;
-    if (!navigator.geolocation) return;
-
-    navigator.geolocation.getCurrentPosition((pos) => {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
-
-        if (_overviewUserMarker) {
-            _overviewMap.removeLayer(_overviewUserMarker);
-            _overviewUserMarker = null;
-        }
-
-        const userIcon = L.divIcon({
-            className: 'rs-user-marker',
-            html: '<div class="rs-user-dot"></div><div class="rs-user-pulse"></div>',
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
-        });
-
-        _overviewUserMarker = L.marker([lat, lng], { icon: userIcon, zIndexOffset: 1000 })
-            .bindPopup('<div class="rs-map-popup"><strong><i class="fa-solid fa-person-walking"></i> Din position</strong></div>')
-            .addTo(_overviewMap);
-
-        // Extend map bounds to include user location
-        if (bounds && bounds.length > 0) {
-            const leafletBounds = L.latLngBounds(bounds);
-            leafletBounds.extend([lat, lng]);
-            _overviewMap.fitBounds(leafletBounds, { padding: [40, 40], maxZoom: 12 });
-        }
-    }, (err) => {
-        console.warn("Could not get user position for overview map:", err);
-    }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 });
 }
 
 function _updateOverviewMarkers() {

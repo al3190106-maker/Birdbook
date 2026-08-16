@@ -118,7 +118,7 @@
 - [x] Visa antal genomförda Quiz i Statistiken
 - [x] Bok-anpassad Statistik-vy (Ämnesspecifik statistik per bok + Samlad översikt i Naturboken)
 - [x] Kom ihåg & öppna senast använda boken vid sidladdning (LocalStorage)
-- [ ] Filtrera kartan per aktiv bok (Visa endast bokens observationer på kartan)
+- [x] Filtrera kartan per aktiv bok (Visa endast bokens observationer på kartan)
 
 ### 📊 Artdata & Innehåll
 - [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
