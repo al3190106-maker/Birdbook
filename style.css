@@ -5312,6 +5312,35 @@ details[open] .stats-collapsible-chevron {
     flex: 1;
 }
 
+/* Map Loading Overlay */
+.map-loading-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    padding: 0.9rem 1.6rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    z-index: 2900;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.map-loading-overlay.hidden {
+    display: none !important;
+}
+
+
 /* Year Migration Playback Bar */
 .migration-player-bar {
     position: relative;

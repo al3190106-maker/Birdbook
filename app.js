@@ -6030,6 +6030,11 @@ async function _openSpeciesSightingsMap(bird) {
     if (mapTitle) mapTitle.innerHTML = `<i class="fa-solid fa-film"></i> Flyttningsfilm / Årsresa: ${bird.nameSv}`;
     if (mapSubtitle) mapSubtitle.textContent = `Laddar helårsdata och flyttningsrutter i Sverige...`;
 
+    const loadingOverlay = document.getElementById('map-loading-overlay');
+    const loadingText = document.getElementById('map-loading-text');
+    if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+    if (loadingText) loadingText.textContent = `Hämtar årsdata för ${bird.nameSv}...`;
+
     _initMigrationPlayerListeners();
 
     setTimeout(async () => {
@@ -6053,8 +6058,6 @@ async function _openSpeciesSightingsMap(bird) {
             _overviewMap.invalidateSize();
         }
 
-        if (typeof showToast === 'function') showToast(`Hämtar årsresa för ${bird.nameSv}...`);
-        
         try {
             const sciName = bird.scientific || bird.nameSv;
             const url = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&year=2025&limit=300`;
@@ -6079,6 +6082,8 @@ async function _openSpeciesSightingsMap(bird) {
             }
         } catch (err) {
             console.warn("Kunde inte hämta årsdata för flyttningsfilm:", err);
+        } finally {
+            if (loadingOverlay) loadingOverlay.classList.add('hidden');
         }
 
         // Render current month (default Maj/Spring)
@@ -6088,6 +6093,7 @@ async function _openSpeciesSightingsMap(bird) {
             mapSubtitle.textContent = `Tryck på ▶️ Play för att spela upp flyttningsfilmen för ${bird.nameSv}`;
         }
     }, 200);
+
 }
 
 
