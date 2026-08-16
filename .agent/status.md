@@ -21,6 +21,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 1): Standardiserat fotografkreditering till Naturboken som fallback för alla genererade & egna bilder i bildkarusellen och helskärmsvisningen (`photographers.js`, `app.js`) |
 | 2026-08-16 | 📊 Artdata & Innehåll | Uppgift 27: Korrigerat artdata & viktenheter för alla icke-fågelböcker (`fish.js`, `animals.js`, `trees.js`) – konverterat alla viktvärden från gram till kg så att de stämmer med UI-enheterna samt lagt till träder-åldrar |
 | 2026-08-16 | 💼 Arbetsgivaren | Uppdaterad projektregel i AGENTS.md: Om en flik ser ett tillfälle att slå "två flugor i en smäll", MÅSTE fliken föreslå detta för användaren först. Utför ALDRIG oombedda extrauppgifter utan explicitt godkännande. |
 | 2026-08-15 | 🚀 Deploy & Infra | Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (Measurement ID: `G-471QWLB8LB`) med anonym spårning för besök, bokbyten, sparade observationer och quiz i `index.html` och `app.js` |
