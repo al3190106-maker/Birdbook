@@ -101,6 +101,9 @@
 ### 💼 Arbetsgivaren (Samordning & Ledning)
 - [ ] Upprätthålla diskussioner, estimera svårighet och delegera uppgifter
 
+### 🎴 Fågelkort (Artdetaljkort & Modaler)
+- [ ] Ansvara för `.bird-detail-modal`, bildkaruseller, artfakta, mått & popup-detaljer
+
 ### 🎨 Generera bilder
 - [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
 - [x] Omgenerera Flugsnappares ikonstil med en fågel som fångar en flygande fluga

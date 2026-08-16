@@ -58,13 +58,16 @@ Projektet använder dedikerade konversationer – **inte separata projekt**. All
 | Konversation | Scope | Beskrivning |
 |---|---|---|
 | 💼 **Arbetsgivaren** | Samordning | Projektledare, kravställning, diskussioner & delegering |
+| 🎴 **Fågelkort** | Artkort / Modal | Artdetaljkort/popup-modal (`.bird-detail-modal`), bildkarusell, mått & fakta |
 | 🎨 **Generera bilder** | Bilder | Artbilder, kategori-ikoner, fotografstilar |
 | 🐛 **Bugg och fix** | Felsökning | CSS, JS, prestanda, PWA-problem |
 | ✨ **Features & UI** | Utveckling | Nya funktioner, design, UX, navigering, inställningar |
-| 📊 **Artdata & Innehåll** | Data | Artdatabas, texter, taxonomi, böcker |
+| 📊 **Statestik** | Statistik | Statistikvy, grafer & bokspecifik data |
+| 🐦 **Fågelguide** | Artdata | Artdatabas, texter, taxonomi, böcker |
 | 🚀 **Deploy & Infra** | Ops | GitHub Pages, PWA, caching, optimering, ikoner |
-| 🔍 **Identifiera** | AI & Kamera | Bildidentifiering, BirdNET-ljudigenkänning |
-| 🧭 **Planering** | Strategi | Roadmap, prioritering, arkitektur |
+| 🔍 **Identifiera** | AI & Kamera | Bildidentifiering, BirdNET-ljudigenkänning, Quiz |
+| 📓 **Min logg** | Logg | Logglista, filtrering, sparade observationer |
+| 🎙️ **Ljudinspelning** | Ljud | BirdNET ljudanalys & mikrofonhantering |
 
 ### Regler för konversationer
 
