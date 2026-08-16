@@ -2342,6 +2342,19 @@ function getFilteredSightings() {
         // Text Search Query filter
         if (query) {
             let item = currentList.find(i => i.id === s.birdId);
+            if (!item) {
+                // Sök i alla artlistor om arten inte fanns i nuvarande bok
+                const allSpecies = [
+                    ...(window.swedishBirds || []),
+                    ...(window.swedishFish || []),
+                    ...(window.swedishFungi || []),
+                    ...(window.swedishTrees || []),
+                    ...(window.swedishFlowers || []),
+                    ...(window.swedishAnimals || [])
+                ];
+                item = allSpecies.find(i => i.id === s.birdId);
+            }
+
             if (!item && isCustom) {
                 const customName = (window._customSpeciesNames && window._customSpeciesNames[s.birdId])
                     || s.customName || s.name || '';
@@ -2351,6 +2364,12 @@ function getFilteredSightings() {
             const nameSv = (item?.nameSv || s.name || s.customName || '').toLowerCase();
             const nameEn = (item?.nameEn || '').toLowerCase();
             const scientific = (item?.scientific || '').toLowerCase();
+            const typeStr = (item?.type || '').toLowerCase();
+            const familyStr = (item?.family || '').toLowerCase();
+            const orderStr = (item?.order || '').toLowerCase();
+            const categoryStr = (item?.category || '').toLowerCase();
+            const groupStr = (item?.group || '').toLowerCase();
+            const habitatStr = (item?.habitat || item?.habitatText || '').toLowerCase();
             const location = (s.location || s.locationName || '').toLowerCase();
             const notes = (s.notes || '').toLowerCase();
             const dateStr = (s.date || '').toLowerCase();
@@ -2358,6 +2377,12 @@ function getFilteredSightings() {
             const matchesQuery = nameSv.includes(query) ||
                                  nameEn.includes(query) ||
                                  scientific.includes(query) ||
+                                 typeStr.includes(query) ||
+                                 familyStr.includes(query) ||
+                                 orderStr.includes(query) ||
+                                 categoryStr.includes(query) ||
+                                 groupStr.includes(query) ||
+                                 habitatStr.includes(query) ||
                                  location.includes(query) ||
                                  notes.includes(query) ||
                                  dateStr.includes(query);
@@ -2553,10 +2578,12 @@ function renderApp() {
     }
 
     // 3. Update Text
-    if (state.yearFilter === 'all') {
-        elements.currentYearDisplay.textContent = 'Alla observationer';
-    } else {
-        elements.currentYearDisplay.textContent = `Observationer under ${state.yearFilter}`;
+    if (elements.currentYearDisplay) {
+        if (state.yearFilter === 'all') {
+            elements.currentYearDisplay.textContent = 'Alla observationer';
+        } else {
+            elements.currentYearDisplay.textContent = `Observationer under ${state.yearFilter}`;
+        }
     }
 
     // 4. Render Grid
@@ -4727,25 +4754,44 @@ function setupEventListeners() {
         }
     });
 
-    // 7. Log Search
+    // 7. Log Search (Expandable Component)
+    const logSearchWrapper = document.getElementById('log-search-wrapper');
+    const logSearchToggleBtn = document.getElementById('log-search-toggle-btn');
+    const logSearchClearBtn = document.getElementById('log-search-clear-btn');
+
+    if (logSearchToggleBtn && logSearchWrapper) {
+        logSearchToggleBtn.addEventListener('click', () => {
+            logSearchWrapper.classList.add('expanded');
+            if (elements.logSearch) {
+                elements.logSearch.focus();
+            }
+        });
+    }
+
+    if (logSearchClearBtn && logSearchWrapper) {
+        logSearchClearBtn.addEventListener('click', () => {
+            if (elements.logSearch) {
+                elements.logSearch.value = '';
+            }
+            state.logSearchQuery = '';
+            logSearchWrapper.classList.remove('expanded');
+            renderApp();
+        });
+    }
+
     if (elements.logSearch) {
         elements.logSearch.addEventListener('input', (e) => {
             state.logSearchQuery = e.target.value;
-
-            // Toggle search icon ↔ clear icon
-            const iconBtn = document.getElementById('log-search-icon-btn');
-            const icon = document.getElementById('log-search-icon');
-            if (iconBtn && icon) {
-                if (e.target.value.length > 0) {
-                    icon.className = 'fa-solid fa-xmark';
-                    iconBtn.classList.add('has-text');
-                } else {
-                    icon.className = 'fa-solid fa-search';
-                    iconBtn.classList.remove('has-text');
-                }
-            }
-
             renderApp();
+        });
+
+        elements.logSearch.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                elements.logSearch.value = '';
+                state.logSearchQuery = '';
+                if (logSearchWrapper) logSearchWrapper.classList.remove('expanded');
+                renderApp();
+            }
         });
     }
 

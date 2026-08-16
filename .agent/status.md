@@ -20,7 +20,12 @@
 ## ✅ Nyligen avslutat
 
 | Datum | Konversation | Vad gjordes |
-|---|---|---|
+| 2026-08-16 | 📓 Min logg | Utökad sökning på Familj & Ordning: Sökfältet i Min logg söker nu även på artens taxonomiska ordning, familj, typ och biotop (t.ex. "Andfåglar", "Rovdjur", "Ugglor", "Laxfiskar", "Passeriformes") utöver namn, plats, datum och anteckningar (`app.js`) |
+| 2026-08-16 | 📓 Min logg | Komprimera vertikalt avstånd: Minskat marginaler/padding över och under bok-remsan (`#book-strip`) och stat-korten med över 60% för en supertät och kompakt vy (`style.css`) |
+| 2026-08-16 | 📓 Min logg | Tät ikonknapp-gruppering: Grupperat de 3 små ikonknapparna (`🔍 Sök`, `▦ Vy`, ` ⬇A-Z Sortera`) i en tät `.icon-buttons-group` med litet mellanrum (`gap: 0.35rem`) så att de hålls ihop separat från År-väljaren (`index.html`) |
+| 2026-08-16 | 📓 Min logg | Rensa rubriktext: Tagit bort rubriken `h2#current-year-display` ("Alla observationer" / "Observationer under XXX") för att spara vertikalt utrymme i "Min logg" (`index.html`, `app.js`) |
+| 2026-08-16 | 📓 Min logg | Diskret sorteringsknapp: Omvandlat sorteringsmenyn längst till höger i kontrollraden till en diskret 40px ikonknapp (`.sort-icon-btn`), identisk med sök- och vy-knapparna (`index.html`, `style.css`) |
+| 2026-08-16 | 📓 Min logg | Expanderbart sök-förstoringsglas: Byggt en ultrakompakt förstoringsglasknapp (`#log-search-toggle-btn`) i kontrollraden som expanderar mjukt över hela raden vid klick/användning och kollapsar vid stängning/Escape (`index.html`, `style.css`, `app.js`) |
 | 2026-08-16 | 🔍 Identifiera | Fixa art-miniatyrbild: Korrigerat `_updateSelectedBirdThumb` att skicka `bird.id` som sträng istället för hela objektet till `getBirdImageSrc`, så att den lilla runda förhandsgranskningsbilden nu laddas och visas 100% korrekt bredvid artnamnet (`app.js`) |
 | 2026-08-16 | 📓 Min logg | Diskret sökfält: Flyttat in sökfältet (`#log-search`) direkt i kontrollraden bredvid År och Sortera som en ultrakompakt inline-knapp ("Sök..."), vilket sparar 100% vertikal yta (`index.html`, `app.js`) |
 

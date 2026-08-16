@@ -236,7 +236,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 0.65rem;
 }
 
 .stat-card {
@@ -295,8 +295,8 @@ body {
     display: flex;
     gap: 0.75rem;
     overflow-x: auto;
-    padding: 0.25rem 0 1rem;
-    margin-bottom: 1.5rem;
+    padding: 0.25rem 0 0.35rem;
+    margin-bottom: 0.65rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -2300,7 +2300,7 @@ body {
     .stats-dashboard {
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.6rem;
     }
 
     .stat-value {
@@ -2450,7 +2450,7 @@ body {
     .stats-dashboard {
         grid-template-columns: repeat(3, 1fr);
         gap: 0.75rem;
-        margin-bottom: 1.2rem;
+        margin-bottom: 0.5rem;
     }
 
     .stat-card {
@@ -7933,3 +7933,155 @@ body.idle-dark-mode .listen-scard-add-btn {
 .r-pill.r-3 { background: #2563eb; }
 .r-pill.r-4 { background: #9333ea; }
 .r-pill.r-5 { background: #ea580c; }
+
+/* --- Expandable Log Search Component (Min Logg) --- */
+.log-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.log-search-toggle-btn {
+    background: white;
+    color: var(--primary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    flex-shrink: 0;
+}
+
+.log-search-toggle-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(46, 93, 75, 0.2);
+}
+
+.log-search-input-box {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    padding: 0 0.8rem;
+    align-items: center;
+    gap: 0.6rem;
+    border: 2px solid var(--primary);
+}
+
+.log-search-wrapper.expanded {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 25;
+}
+
+.log-search-wrapper.expanded .log-search-toggle-btn {
+    display: none;
+}
+
+.log-search-wrapper.expanded .log-search-input-box {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    animation: logSearchExpand 0.2s ease forwards;
+}
+
+@keyframes logSearchExpand {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.log-search-input-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.log-search-clear-btn {
+    background: #f1f5f9;
+    border: none;
+    color: #64748b;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.log-search-clear-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* --- Sort Icon Button Component --- */
+.sort-icon-btn {
+    position: relative;
+    background: white;
+    color: var(--primary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    flex-shrink: 0;
+}
+
+.sort-icon-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(46, 93, 75, 0.2);
+}
+
+.sort-icon-btn select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+

@@ -96,32 +96,36 @@
 
             <div class="list-controls">
                 <div class="list-header-row">
-                    <h2 id="current-year-display">Alla observationer</h2>
-                    <div style="display: flex; gap: 0.5rem; justify-content: space-between; align-items: center; flex-wrap: nowrap; width: 100%;">
+                    <div style="position: relative; display: flex; gap: 0.5rem; justify-content: space-between; align-items: center; flex-wrap: nowrap; width: 100%; min-height: 38px;">
                         <div class="year-filter-container sort-controls" style="margin: 0; background: white; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center;">
                             <i class="fa-regular fa-calendar" style="color: var(--primary); flex-shrink: 0;"></i>
                             <select id="year-select" style="color: var(--text-main); width: 100%; text-overflow: ellipsis; overflow: hidden; outline: none; border: none; background: transparent; font-weight: 600;">
                                 <!-- Populated by JS -->
                             </select>
                         </div>
-                        <div class="sort-controls log-search-inline" style="margin: 0; background: white; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 0.35rem;">
-                            <button id="log-search-icon-btn" class="search-icon-btn" tabindex="-1" aria-label="Rensa sökning" style="background: none; border: none; padding: 0; cursor: pointer; color: var(--primary); font-size: 0.9rem; flex-shrink: 0; display: flex; align-items: center;" onclick="
-                                var inp = document.getElementById('log-search');
-                                if (inp &amp;&amp; inp.value) {
-                                    inp.value = '';
-                                    inp.dispatchEvent(new Event('input'));
-                                    inp.focus();
-                                }
-                            "><i id="log-search-icon" class="fa-solid fa-search"></i></button>
-                            <input type="text" id="log-search" placeholder="Sök..." style="width: 100%; border: none; outline: none; background: transparent; font-weight: 600; font-family: inherit; font-size: 0.95rem; color: var(--text-main);">
+                        
+                        <!-- Log Search Expandable Component -->
+                        <div id="log-search-wrapper" class="log-search-wrapper">
+                            <button type="button" id="log-search-toggle-btn" class="log-search-toggle-btn" title="Sök observation">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                            <div class="log-search-input-box">
+                                <i class="fa-solid fa-magnifying-glass" style="color: var(--primary); flex-shrink: 0; font-size: 0.95rem;"></i>
+                                <input type="text" id="log-search" placeholder="Sök art, plats, anteckning..." autocomplete="off">
+                                <button type="button" id="log-search-clear-btn" class="log-search-clear-btn" title="Stäng sökning">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
                         </div>
+
                         <button id="compact-view-toggle" class="compact-toggle-btn" title="Kompakt vy">
                             <i class="fa-solid fa-grip"></i>
                         </button>
-                        <div class="sort-controls" style="flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center; margin: 0;">
-                            <label for="sort-select" style="flex-shrink: 0;"><i class="fa-solid fa-arrow-down-short-wide"></i></label>
-                            <select id="sort-select" style="width: 100%; text-overflow: ellipsis; overflow: hidden; border: none; outline: none; background: transparent; font-weight: 600; font-family: inherit; font-size: 1rem; color: var(--text-main);">
-                                <option value="date">Senaste</option>
+
+                        <div class="sort-icon-btn" title="Sortera observationer">
+                            <i class="fa-solid fa-arrow-down-short-wide"></i>
+                            <select id="sort-select" title="Sortera observationer">
+                                <option value="date">Senaste datum</option>
                                 <option value="name">Namn (A-Ö)</option>
                                 <option value="wingspan">Vingspann</option>
                                 <option value="eggs">Ägg (per kull)</option>
