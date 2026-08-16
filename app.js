@@ -1365,7 +1365,7 @@ function _renderBirdDetail(item, sighting = null) {
     // Setup Actions
     if (elements.detailArtportalenLink) {
         const queryTerm = item.nameSv || item.scientific || '';
-        elements.detailArtportalenLink.href = `https://artfakta.se/search?q=${encodeURIComponent(queryTerm)}`;
+        elements.detailArtportalenLink.href = `https://www.google.com/search?q=${encodeURIComponent(queryTerm + ' Artportalen')}`;
     }
 
     // Delete sighting button — only show when opened from log
