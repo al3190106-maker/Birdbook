@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.1.2-storlek-clean-two-lines';
+const CACHE_NAME = 'birdfinder-v5.1.3-no-bottom-sighting-btn';
 const ASSETS_TO_CACHE = [
+
 
 
 

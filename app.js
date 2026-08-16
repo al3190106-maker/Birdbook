@@ -1473,53 +1473,15 @@ function _renderBirdDetail(item, sighting = null) {
         });
     }
 
-    // Delete sighting button — only show when opened from log
+    // Clean up any legacy dynamic action buttons if present
     const existingDeleteBtn = document.getElementById('detail-delete-btn');
     if (existingDeleteBtn) existingDeleteBtn.remove();
-
-    // Quick Add button — only show when opened from guide (no sighting passed)
     const detailQuickAddBtn = document.getElementById('detail-quick-add-btn');
-
-    if (sighting) {
-        if (detailQuickAddBtn) detailQuickAddBtn.style.display = 'none';
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.id = 'detail-delete-btn';
-        deleteBtn.className = 'detail-delete-btn';
-        deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i> Ta bort observation`;
-        deleteBtn.addEventListener('click', () => {
-            elements.detailModal.classList.remove('active');
-            deleteSighting(sighting.id);
-        });
-        const actionsDiv = document.querySelector('.detail-actions');
-        if (actionsDiv) actionsDiv.appendChild(deleteBtn);
-    } else {
-        if (detailQuickAddBtn) {
-            detailQuickAddBtn.style.display = 'inline-flex';
-
-            // Clean up old event listeners to prevent duplicate clicks
-            const newDetailQuickAddBtn = detailQuickAddBtn.cloneNode(true);
-            detailQuickAddBtn.replaceWith(newDetailQuickAddBtn);
-
-            newDetailQuickAddBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                quickAddSighting(item.id);
-
-                // Visual feedback
-                const originalHTML = newDetailQuickAddBtn.innerHTML;
-                newDetailQuickAddBtn.innerHTML = '<i class="fa-solid fa-check"></i> Tillagd';
-                newDetailQuickAddBtn.style.backgroundColor = '#2ecc71';
-
-                setTimeout(() => {
-                    newDetailQuickAddBtn.innerHTML = originalHTML;
-                    newDetailQuickAddBtn.style.backgroundColor = '';
-                }, 1500);
-            });
-        }
-    }
+    if (detailQuickAddBtn) detailQuickAddBtn.remove();
 
     // Render User Sightings History Timeline for this species
     _renderUserSightingsTimeline(item);
+
 
 function _renderUserSightingsTimeline(item) {
 
@@ -1741,27 +1703,9 @@ function _openSightingDetailView(sighting, item) {
 
 
     const editSightingBtn = document.getElementById('detail-edit-sighting-btn');
-    if (sighting) {
-        // Setup Edit Button
-        if (editSightingBtn) {
-            editSightingBtn.style.display = 'inline-flex';
-            
-            // Clean up old event listeners to prevent duplicate clicks
-            const newEditBtn = editSightingBtn.cloneNode(true);
-            editSightingBtn.replaceWith(newEditBtn);
-            
-            newEditBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                elements.detailModal.classList.remove('active');
-                nav.openModal('sighting-modal');
-                _showSightingModal(item.id, item.nameSv, sighting);
-            });
-        }
-    } else {
-        if (editSightingBtn) editSightingBtn.style.display = 'none';
-    }
-
+    if (editSightingBtn) editSightingBtn.remove();
 }
+
 function getCurrentSpeciesList() {
     const config = SUBJECT_CONFIG[state.currentSubject];
     return window[config.dataVar] || [];
