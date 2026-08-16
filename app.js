@@ -2261,7 +2261,7 @@ async function quickAddSighting(birdId) {
     // Hämta GPS och plats
     try {
         const pos = await new Promise((resolve, reject) =>
-            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 6000, maximumAge: 60000 })
+            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 4000, maximumAge: 60000 })
         );
         lat = pos.coords.latitude;
         lng = pos.coords.longitude;
@@ -2276,15 +2276,18 @@ async function quickAddSighting(birdId) {
                 location = parts.join(', ') || '';
             }
         } catch (_) {}
-
-        // Väder
-        try {
-            const hour = new Date().getHours();
-            weather = await _fetchWeatherForCoords(lat, lng, today, hour) || '';
-        } catch (_) {}
     } catch (_) {
         // Ingen GPS
     }
+
+    // Väder (med GPS-koordinater om finns, annars Sverige-fallback 59.3293, 18.0686)
+    try {
+        const hour = new Date().getHours();
+        const fetchLat = lat || 59.3293;
+        const fetchLng = lng || 18.0686;
+        weather = await _fetchWeatherForCoords(fetchLat, fetchLng, today, hour) || '';
+    } catch (_) {}
+
 
     const newSighting = {
         id: Date.now().toString(),
