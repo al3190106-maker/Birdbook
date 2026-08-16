@@ -1505,17 +1505,20 @@ function _renderUserSightingsTimeline(item) {
     }).sort(compareSightingsDateDesc);
 
 
+    const obsText = sightings.length === 1 ? '1 st Observation' : `${sightings.length} st Observationer`;
+
     let html = `
         <div class="user-sightings-header">
             <div class="user-sightings-title">
                 <i class="fa-solid fa-bookmark" style="color: #10b981;"></i> 
-                Mina observationer (${sightings.length} st)
+                ${obsText}
             </div>
             <button type="button" class="user-sightings-add-btn" id="btn-add-sighting-from-detail">
                 <i class="fa-solid fa-plus"></i> Logga ny
             </button>
         </div>
     `;
+
 
     if (sightings.length === 0) {
         html += `
