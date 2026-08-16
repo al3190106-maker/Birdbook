@@ -21,7 +21,9 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🐛 Bugg och fix | Fixat automatisk väderhämtning för Snabblogg-verktyget (`quickAddSighting`): Flyttat väderhämtningen utanför GPS-blocket så att väder alltid fylls i även när GPS saknas eller är slö (`app.js`) |
 | 2026-08-16 | 🐛 Bugg och fix | Förbättrat automatisk väderhämtning (`_fetchWeatherForCoords`): Lagt till direkt förhämtning, utökat historisk räckvidd till 92 dagar/arkiv samt regional fallback så att väder alltid fylls i oavsett om GPS är slö eller avstängd (`app.js`) |
+
 | 2026-08-16 | 🐛 Bugg och fix | Åtgärdat hängning vid Spara: Tog bort ogiltig variabelreferens `_migrationState` i `saveSightings()` som orsakat osynligt `ReferenceError` och förhindrat att formuläret avslutades och stängdes (`app.js`) |
 
 | 2026-08-16 | 🐛 Bugg och fix | Åtgärdat krasch i Observationsverktyget och sökfältet: Säkrat autocomplete och sökfiltrering mot saknad `nameEn` på arter i icke-fågelböcker och egna arter som orsakade JS-undantag (`app.js`) |
