@@ -1439,7 +1439,6 @@ function _renderBirdDetail(item, sighting = null) {
 
     // 6. Storlek (Kombinerat Vingspann + Totallängd)
     const sizeEl = document.getElementById('detail-size-combined');
-    const sizeSubEl = document.getElementById('detail-size-sublabel');
     if (sizeEl) {
         const len = item.length || item.height || item.size || null;
         const wing = item.wingspan || null;
@@ -1453,9 +1452,7 @@ function _renderBirdDetail(item, sighting = null) {
             sizeEl.innerHTML = '-- cm';
         }
     }
-    if (sizeSubEl) {
-        sizeSubEl.textContent = 'Mätt från mark till huvud / näbb till stjärt';
-    }
+
 
 
 

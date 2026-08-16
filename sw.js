@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.1.1-storlek-vingspann-totallangd';
+const CACHE_NAME = 'birdfinder-v5.1.2-storlek-clean-two-lines';
 const ASSETS_TO_CACHE = [
+
 
 
 
