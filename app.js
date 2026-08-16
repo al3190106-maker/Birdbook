@@ -2249,8 +2249,9 @@ function saveSightings() {
     try { renderApp(); } catch (_) {}
 
     if (window._currentDetailBird) {
-        try { _renderUserSightingsTimeline(window._currentDetailBird); } catch (_) {}
+        try { _renderBirdDetail(window._currentDetailBird); } catch (_) {}
     }
+
 }
 
 
@@ -4578,8 +4579,14 @@ function setupEventListeners() {
                 }
                 // Direktuppdatera tidslinjen på det aktiva fågelkortet i bakgrunden utan att behöva stänga kortet
                 if (window._currentDetailBird) {
-                    try { _renderUserSightingsTimeline(window._currentDetailBird); } catch (_) {}
+                    try { _renderBirdDetail(window._currentDetailBird); } catch (_) {}
+                    setTimeout(() => {
+                        if (window._currentDetailBird) {
+                            try { _renderBirdDetail(window._currentDetailBird); } catch (_) {}
+                        }
+                    }, 80);
                 }
+
             }
 
         };
