@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.0.4-zero-delay-save';
+const CACHE_NAME = 'birdfinder-v5.0.5-bulletproof-save';
 const ASSETS_TO_CACHE = [
+
 
 
 

@@ -2205,21 +2205,31 @@ function checkAchievements() {
 
 function saveSightings() {
     // 1. Always save to localStorage (instant)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.sightings));
+    } catch (e) {
+        console.warn('LocalStorage save warning:', e);
+        if (e.name === 'QuotaExceededError') {
+            // Skala ner/ta bort äldre foton om utrymmet tar slut
+            const trimmed = state.sightings.map((s, i) => i < state.sightings.length - 3 ? { ...s, photo: null } : s);
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed)); } catch (_) {}
+        }
+    }
 
     // Privat mätning GA4
-    trackEvent('observation_saved', { total_sightings: state.sightings.length, subject: state.currentSubject });
+    try { trackEvent('observation_saved', { total_sightings: state.sightings.length, subject: state.currentSubject }); } catch (_) {}
 
     // 2. Auto-backup till IndexedDB (throttlad, icke-blockerande)
-    AutoBackup.save(state.sightings);
+    try { AutoBackup.save(state.sightings); } catch (_) {}
 
-    checkAchievements();
-    renderApp();
+    try { checkAchievements(); } catch (_) {}
+    try { renderApp(); } catch (_) {}
 
     if (window._currentDetailBird) {
-        _renderUserSightingsTimeline(window._currentDetailBird);
+        try { _renderUserSightingsTimeline(window._currentDetailBird); } catch (_) {}
     }
 }
+
 
 
 
@@ -4346,6 +4356,40 @@ function setupEventListeners() {
         }
     });
 
+    // Hjälpfunktion för att komprimera bilder så de inte överskrider LocalStorage-kvoten
+    function _compressImage(file, maxDim = 800, quality = 0.7) {
+        return new Promise((resolve) => {
+            if (!file) return resolve(null);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) {
+                            h = Math.round((h * maxDim) / w);
+                            w = maxDim;
+                        } else {
+                            w = Math.round((w * maxDim) / h);
+                            h = maxDim;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = () => resolve(e.target.result);
+                img.src = e.target.result;
+            };
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(file);
+        });
+    }
+
     // 5. Form Submit
     elements.form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -4371,31 +4415,16 @@ function setupEventListeners() {
         let weatherVal = weatherInput ? weatherInput.value : '';
 
         const submitBtn = elements.form.querySelector('button[type="submit"]');
-        const originalBtnHTML = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sparar...';
-        submitBtn.disabled = true;
+        const originalBtnHTML = submitBtn ? submitBtn.innerHTML : 'Spara';
+        if (submitBtn) {
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sparar...';
+            submitBtn.disabled = true;
+        }
 
         const isEditing = typeof editingSightingId !== 'undefined' && editingSightingId !== null;
         let existingSighting = null;
         if (isEditing) {
             existingSighting = state.sightings.find(s => s.id === editingSightingId);
-        }
-
-        // Om väderfältet inte hunnit fyllas i, hämta väder i bakgrunden utan att blockera sparningen
-        if (!weatherVal && dateVal) {
-            const isToday = dateVal === new Date().toISOString().split('T')[0];
-            const hour    = isToday ? new Date().getHours() : 12;
-            const lat = latVal ? parseFloat(latVal) : 59.3293;
-            const lng = lngVal ? parseFloat(lngVal) : 18.0686;
-            _fetchWeatherForCoords(lat, lng, dateVal, hour).then(result => {
-                if (result) {
-                    const saved = state.sightings.find(s => s.id === newSighting.id);
-                    if (saved) {
-                        saved.weather = result;
-                        saveSightings();
-                    }
-                }
-            }).catch(() => {});
         }
 
         const newSighting = {
@@ -4414,49 +4443,69 @@ function setupEventListeners() {
             heard: document.getElementById('sighting-heard') ? document.getElementById('sighting-heard').checked : false
         };
 
+        // Om väderfältet inte hunnit fyllas i, hämta väder i bakgrunden utan att blockera sparningen
+        if (!weatherVal && dateVal) {
+            const isToday = dateVal === new Date().toISOString().split('T')[0];
+            const hour    = isToday ? new Date().getHours() : 12;
+            const lat = latVal ? parseFloat(latVal) : 59.3293;
+            const lng = lngVal ? parseFloat(lngVal) : 18.0686;
+            _fetchWeatherForCoords(lat, lng, dateVal, hour).then(result => {
+                if (result) {
+                    const saved = state.sightings.find(s => s.id === newSighting.id);
+                    if (saved) {
+                        saved.weather = result;
+                        saveSightings();
+                    }
+                }
+            }).catch(() => {});
+        }
+
         const finish = () => {
-            if (isEditing) {
-                const idx = state.sightings.findIndex(s => s.id === editingSightingId);
-                if (idx !== -1) state.sightings[idx] = newSighting;
+            try {
+                if (isEditing) {
+                    const idx = state.sightings.findIndex(s => s.id === editingSightingId);
+                    if (idx !== -1) state.sightings[idx] = newSighting;
+                } else {
+                    state.sightings.push(newSighting);
+                }
+
+                // Auto-switch year filter if needed
+                const sYear = new Date(newSighting.date).getFullYear();
+                if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
+                    state.yearFilter = sYear;
+                }
+
+                try { saveSightings(); } catch (err) { console.error('saveSightings error:', err); }
+                try { setupYearFilter(); } catch (err) { console.error('setupYearFilter error:', err); }
+            } catch (err) {
+                console.error('finish error:', err);
+            } finally {
                 editingSightingId = null;
-            } else {
-                state.sightings.push(newSighting);
+                elements.birdSearchInput.disabled = false;
+                if (submitBtn) {
+                    submitBtn.innerHTML = originalBtnHTML;
+                    submitBtn.disabled = false;
+                }
+                elements.modal.classList.remove('active');
+                if (typeof nav !== 'undefined' && nav.back) {
+                    try { nav.back(); } catch (_) {}
+                }
             }
-
-            // Auto-switch year filter if needed
-            const sYear = new Date(newSighting.date).getFullYear();
-            if (state.yearFilter !== 'all' && state.yearFilter !== sYear) {
-                state.yearFilter = sYear;
-            }
-
-            saveSightings();
-            setupYearFilter();
-
-            submitBtn.innerHTML = originalBtnHTML;
-            submitBtn.disabled = false;
-            
-            // Clean up: Reset form state properly and close modal instantly
-            editingSightingId = null;
-            elements.birdSearchInput.disabled = false;
-            elements.modal.classList.remove('active');
-            
-            nav.back(); // Close modal via history
         };
 
-        // Check for photo
+        // Check for photo and compress if present
         if (elements.sightingPhoto.files && elements.sightingPhoto.files[0]) {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                newSighting.photo = ev.target.result;
-                finish();
-            };
-            reader.onerror = () => {
-                finish();
-            };
-            reader.readAsDataURL(elements.sightingPhoto.files[0]);
+            try {
+                const compressedPhoto = await _compressImage(elements.sightingPhoto.files[0]);
+                if (compressedPhoto) newSighting.photo = compressedPhoto;
+            } catch (err) {
+                console.error('Photo compression error:', err);
+            }
+            finish();
         } else {
             finish();
         }
+
 
     });
 
