@@ -21,7 +21,9 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🐛 Bugg och fix | Åtgärdat krasch i Observationsverktyget och sökfältet: Säkrat autocomplete och sökfiltrering mot saknad `nameEn` på arter i icke-fågelböcker och egna arter som orsakade JS-undantag (`app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Fixat laddningshänget vid "Spara": Lagt till en strikt 1-sekunds timeout på automatisk väderhämtning via Open-Meteo samt garanterat direkt nedstängning av `sighting-modal`, vilket gör att alla sparningar nu sker blixtsnabbt (`app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Registrerat `sighting-detail-view-modal` i `nav`-modulens historikstack så att klick utanför skärmen (på den mörka bakgrunden) nu stänger enbart den aktiva mini-menyn utan att stänga fågelkortet under (`app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Fixat z-index (sett till 3500) och event-propagation för redigeringsformuläret (`sighting-modal`) så att formuläret vid klick på pennan ✏️ eller "+ Logga ny" alltid hamnar längst upp över alla modaler utan att hamna i bakgrunden (`index.html`, `style.css`, `app.js`) |
