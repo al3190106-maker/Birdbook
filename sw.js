@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.2.0-sighting-modal-fixes';
+const CACHE_NAME = 'birdfinder-v5.2.1-fix-bird-thumb-src';
 const ASSETS_TO_CACHE = [
+
 
 
 

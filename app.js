@@ -725,12 +725,18 @@ function _updateSelectedBirdThumb(birdId) {
     const list = getCurrentSpeciesList();
     const bird = list.find(b => b.id === birdId);
     if (bird && typeof getBirdImageSrc === 'function') {
-        imgEl.src = getBirdImageSrc(bird);
-        container.style.display = 'block';
+        const src = getBirdImageSrc(bird.id, 'log');
+        if (src) {
+            imgEl.src = src;
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
     } else {
         container.style.display = 'none';
     }
 }
+
 
 function _renderPhotoPreview(photoUrl) {
     if (!elements.imagePreviewContainer) return;

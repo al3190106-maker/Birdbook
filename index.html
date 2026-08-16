@@ -94,19 +94,6 @@
             <!-- Book Strip -->
             <div id="book-strip" class="book-strip"></div>
 
-            <!-- Log Search Bar -->
-            <div class="search-bar-container log-search-bar" style="margin-top: 1rem; margin-bottom: 0.75rem; max-width: 100%;">
-                <button id="log-search-icon-btn" class="search-icon-btn" tabindex="-1" aria-label="Rensa sökning" onclick="
-                    var inp = document.getElementById('log-search');
-                    if (inp &amp;&amp; inp.value) {
-                        inp.value = '';
-                        inp.dispatchEvent(new Event('input'));
-                        inp.focus();
-                    }
-                "><i id="log-search-icon" class="fa-solid fa-search"></i></button>
-                <input type="text" id="log-search" placeholder="Sök observation (art, plats, anteckning)...">
-            </div>
-
             <div class="list-controls">
                 <div class="list-header-row">
                     <h2 id="current-year-display">Alla observationer</h2>
@@ -116,6 +103,17 @@
                             <select id="year-select" style="color: var(--text-main); width: 100%; text-overflow: ellipsis; overflow: hidden; outline: none; border: none; background: transparent; font-weight: 600;">
                                 <!-- Populated by JS -->
                             </select>
+                        </div>
+                        <div class="sort-controls log-search-inline" style="margin: 0; background: white; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 0.35rem;">
+                            <button id="log-search-icon-btn" class="search-icon-btn" tabindex="-1" aria-label="Rensa sökning" style="background: none; border: none; padding: 0; cursor: pointer; color: var(--primary); font-size: 0.9rem; flex-shrink: 0; display: flex; align-items: center;" onclick="
+                                var inp = document.getElementById('log-search');
+                                if (inp &amp;&amp; inp.value) {
+                                    inp.value = '';
+                                    inp.dispatchEvent(new Event('input'));
+                                    inp.focus();
+                                }
+                            "><i id="log-search-icon" class="fa-solid fa-search"></i></button>
+                            <input type="text" id="log-search" placeholder="Sök..." style="width: 100%; border: none; outline: none; background: transparent; font-weight: 600; font-family: inherit; font-size: 0.95rem; color: var(--text-main);">
                         </div>
                         <button id="compact-view-toggle" class="compact-toggle-btn" title="Kompakt vy">
                             <i class="fa-solid fa-grip"></i>
