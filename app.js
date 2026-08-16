@@ -2530,10 +2530,16 @@ function renderSightingsList(sightings) {
     sightings.forEach(s => {
         if (!birdGroups[s.birdId]) {
             birdGroups[s.birdId] = {
+                firstSighting: s,
                 latestSighting: s,
                 count: 0,
                 allSightings: []
             };
+        } else {
+            // Spara den äldsta/första observationen för stabil kortsortering
+            if (compareSightingsDateDesc(s, birdGroups[s.birdId].firstSighting) > 0) {
+                birdGroups[s.birdId].firstSighting = s;
+            }
         }
         birdGroups[s.birdId].count++;
         birdGroups[s.birdId].allSightings.push(s);
@@ -2542,10 +2548,10 @@ function renderSightingsList(sightings) {
     // Convert to array and sort
     let groups = Object.values(birdGroups);
 
-    // Sorting Logic
+    // Sorting Logic — Sortera efter första fynddatumet (firstSighting) så att arten behåller sin ursprungliga plats i loggen
     groups.sort((a, b) => {
         if (state.sortBy === 'date' || !state.sortBy) {
-            return compareSightingsDateDesc(a.latestSighting, b.latestSighting);
+            return compareSightingsDateDesc(a.firstSighting, b.firstSighting);
         }
 
         const list = getCurrentSpeciesList();
@@ -2553,7 +2559,7 @@ function renderSightingsList(sightings) {
         const itemB = list.find(x => x.id === b.latestSighting.birdId);
 
         if (!itemA || !itemB) {
-            return compareSightingsDateDesc(a.latestSighting, b.latestSighting);
+            return compareSightingsDateDesc(a.firstSighting, b.firstSighting);
         }
 
         const getVal = (item, sortKey) => {
@@ -2577,9 +2583,10 @@ function renderSightingsList(sightings) {
                 return getVal(itemB, 'rarity') - getVal(itemA, 'rarity');
             case 'date':
             default:
-                return compareSightingsDateDesc(a.latestSighting, b.latestSighting);
+                return compareSightingsDateDesc(a.firstSighting, b.firstSighting);
         }
     });
+
 
     groups.forEach(group => {
         const sighting = group.latestSighting;
@@ -4569,7 +4576,12 @@ function setupEventListeners() {
                 if (typeof nav !== 'undefined' && nav.back) {
                     try { nav.back(); } catch (_) {}
                 }
+                // Direktuppdatera tidslinjen på det aktiva fågelkortet i bakgrunden utan att behöva stänga kortet
+                if (window._currentDetailBird) {
+                    try { _renderUserSightingsTimeline(window._currentDetailBird); } catch (_) {}
+                }
             }
+
         };
 
         // Check for photo and compress if present
