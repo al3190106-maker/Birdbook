@@ -21,7 +21,9 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🐛 Bugg och fix | Förbättrat automatisk väderhämtning (`_fetchWeatherForCoords`): Lagt till direkt förhämtning, utökat historisk räckvidd till 92 dagar/arkiv samt regional fallback så att väder alltid fylls i oavsett om GPS är slö eller avstängd (`app.js`) |
 | 2026-08-16 | 🐛 Bugg och fix | Åtgärdat hängning vid Spara: Tog bort ogiltig variabelreferens `_migrationState` i `saveSightings()` som orsakat osynligt `ReferenceError` och förhindrat att formuläret avslutades och stängdes (`app.js`) |
+
 | 2026-08-16 | 🐛 Bugg och fix | Åtgärdat krasch i Observationsverktyget och sökfältet: Säkrat autocomplete och sökfiltrering mot saknad `nameEn` på arter i icke-fågelböcker och egna arter som orsakade JS-undantag (`app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Fixat laddningshänget vid "Spara": Lagt till en strikt 1-sekunds timeout på automatisk väderhämtning via Open-Meteo samt garanterat direkt nedstängning av `sighting-modal`, vilket gör att alla sparningar nu sker blixtsnabbt (`app.js`) |
