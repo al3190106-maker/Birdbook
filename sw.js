@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.7.1-loading';
+const CACHE_NAME = 'birdfinder-v4.8.0-timeline';
 const ASSETS_TO_CACHE = [
+
 
 
     './',

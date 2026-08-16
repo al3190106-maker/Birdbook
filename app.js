@@ -1422,7 +1422,92 @@ function _renderBirdDetail(item, sighting = null) {
         }
     }
 
-    // Add Camera/Photo button in detail modal for both views
+    // Render User Sightings History Timeline for this species
+    _renderUserSightingsTimeline(item);
+
+function _renderUserSightingsTimeline(item) {
+
+    const container = document.getElementById('detail-user-sightings-container');
+    if (!container) return;
+    if (!item) {
+        container.innerHTML = '';
+        return;
+    }
+
+    const sightings = (state.sightings || []).filter(s => 
+        s.id !== 'SYSTEM_INIT_BIRD' && 
+        (s.birdId === item.id || s.name === item.nameSv || (item.nameSv && s.name && s.name.toLowerCase() === item.nameSv.toLowerCase()))
+    ).sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+    let html = `
+        <div class="user-sightings-header">
+            <div class="user-sightings-title">
+                <i class="fa-solid fa-bookmark" style="color: #10b981;"></i> 
+                Mina observationer (${sightings.length} st)
+            </div>
+            <button type="button" class="user-sightings-add-btn" id="btn-add-sighting-from-detail">
+                <i class="fa-solid fa-plus"></i> Logga ny
+            </button>
+        </div>
+    `;
+
+    if (sightings.length === 0) {
+        html += `
+            <div class="user-sightings-empty">
+                <span>Du har inte loggat <strong>${item.nameSv}</strong> ännu.</span>
+            </div>
+        `;
+    } else {
+        html += `<div class="user-sightings-list">`;
+        sightings.forEach((s, idx) => {
+            const dateStr = s.date ? new Date(s.date).toLocaleDateString('sv-SE', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Okänt datum';
+            const locStr = s.location || s.locationName || 'Ingen angiven plats';
+            const isLatest = idx === 0;
+            const photoSrc = s.photo || (s.images && s.images[0]) || null;
+            const thumbHTML = photoSrc ? `<img src="${photoSrc}" class="user-sighting-thumb" alt="Foto">` : `<div class="user-sighting-thumb" style="background:#e2e8f0; display:flex; align-items:center; justify-content:center; color:#94a3b8;"><i class="fa-solid fa-camera"></i></div>`;
+            const notesHTML = s.notes ? `<div class="user-sighting-notes">"${s.notes}"</div>` : '';
+
+            html += `
+                <div class="user-sighting-card" data-sighting-id="${s.id}">
+                    ${thumbHTML}
+                    <div class="user-sighting-info">
+                        <div class="user-sighting-meta">
+                            <span>📅 ${dateStr}</span>
+                            ${isLatest ? '<span class="user-sighting-badge">Senaste</span>' : ''}
+                        </div>
+                        <div class="user-sighting-location">📍 ${locStr}</div>
+                        ${notesHTML}
+                    </div>
+                    <button type="button" class="user-sighting-edit-btn" title="Redigera observation" data-sighting-id="${s.id}">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                </div>
+            `;
+        });
+        html += `</div>`;
+    }
+
+    container.innerHTML = html;
+
+    // Attach listeners
+    const addBtn = document.getElementById('btn-add-sighting-from-detail');
+    if (addBtn) {
+        addBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            _showSightingModal(item.id, item.nameSv);
+        });
+    }
+
+    container.querySelectorAll('.user-sighting-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const id = card.getAttribute('data-sighting-id');
+            const sightingObj = sightings.find(s => s.id === id);
+            if (sightingObj) {
+                _showSightingModal(item.id, item.nameSv, sightingObj);
+            }
+        });
+    });
+}
     const existingCameraBtn = document.getElementById('detail-camera-btn');
     if (existingCameraBtn) existingCameraBtn.remove();
 
@@ -2009,7 +2094,12 @@ function saveSightings() {
 
     checkAchievements();
     renderApp();
+
+    if (_migrationState && _migrationState.bird) {
+        _renderUserSightingsTimeline(_migrationState.bird);
+    }
 }
+
 
 /**
  * Exponerad funktion för listen.js (och andra moduler) att spara en observation
