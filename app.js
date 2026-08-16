@@ -6060,31 +6060,32 @@ async function _openSpeciesSightingsMap(bird) {
 
         try {
             const sciName = bird.scientific || bird.nameSv;
-            const url = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&year=2025&limit=300`;
-            const resp = await fetch(url);
-            
-            if (resp.ok) {
-                const data = await resp.json();
-                const results = data.results || [];
-                
-                results.forEach(occ => {
-                    if (occ.decimalLatitude && occ.decimalLongitude) {
-                        let m = occ.month;
-                        if (!m && occ.eventDate) {
-                            m = new Date(occ.eventDate).getMonth() + 1;
-                        }
-                        if (m && m >= 1 && m <= 12) {
-                            if (!_migrationState.monthlyData[m]) _migrationState.monthlyData[m] = [];
-                            _migrationState.monthlyData[m].push(occ);
-                        }
-                    }
-                });
+            const fetchPromises = [];
+
+            // Fetch true monthly observations for all 12 months in parallel
+            for (let m = 1; m <= 12; m++) {
+                const monthUrl = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&month=${m}&limit=35`;
+                fetchPromises.push(
+                    fetch(monthUrl)
+                        .then(r => r.ok ? r.json() : null)
+                        .then(data => ({ month: m, results: data ? data.results || [] : [] }))
+                        .catch(() => ({ month: m, results: [] }))
+                );
             }
+
+            const monthResults = await Promise.all(fetchPromises);
+
+            monthResults.forEach(res => {
+                const m = res.month;
+                const occs = res.results || [];
+                _migrationState.monthlyData[m] = occs.filter(occ => occ.decimalLatitude && occ.decimalLongitude);
+            });
         } catch (err) {
             console.warn("Kunde inte hämta årsdata för flyttningsfilm:", err);
         } finally {
             if (loadingOverlay) loadingOverlay.classList.add('hidden');
         }
+
 
         // Render current month (default Maj/Spring)
         const activeMonth = (new Date().getMonth() + 1) || 5;
