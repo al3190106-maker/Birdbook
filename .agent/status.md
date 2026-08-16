@@ -23,7 +23,9 @@
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sökfält för observationer: Integrerat ett smart sökfält (`#log-search`) i "Min logg" som filtrerar observationer i realtid på svenskt/engelskt/vetenskapligt namn, plats, anteckningar och datum (`index.html`, `app.js`) |
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | 🔍 Identifiera | Korrigeringar i Rapportera observation: (1) Lagt till en liten rund miniatyrbild på valda fågelarten i artfältet. (2) Fixat `id="btn-toggle-map"` så kartan fälls ut och fungerar 100%. (3) Implementerat direkt fotoförhandsgranskning med en "Ta bort foto"-knapp när man laddar upp bild samt vid redigering (`index.html`, `app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Konkret Säsong & Flyttning: Säkerställt att rutan **Säsong & Flytt** alltid besvarar *NÄR* arten kan ses (t.ex. **Vår & Höst (Sporadisk)** eller **Vår & Höst (Flyttperioder)**) istället för att upprepa sällsynthetstermer som "Sällsynt gäst" (`birds.js`, `app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Rensa taggar i tidslinjen: Tagit bort den gula *Senaste*-taggen från observationskorten så att datum, plats och anteckningar får gott om plats (`app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Rent språk i tidslinjerubrik: Tagit bort "st" ur tidslinjerubriken så att det står snyggt och korrekt **1 Observation** respektive **X Observationer** (`app.js`) |
