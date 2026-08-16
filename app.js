@@ -2549,8 +2549,9 @@ function renderSightingsList(sightings) {
                     <summary style="cursor: pointer; color: var(--primary); font-weight: 600; outline: none; padding-bottom: 0.5rem; font-size: 0.95rem; user-select: none;">Visa information</summary>
                     <div style="padding-top: 0.5rem; border-top: 1px solid #eee;">
                         <div class="bird-primary-name">${item.nameSv}</div>
-                        <div class="bird-secondary-name">${item.nameEn}</div>
-                        <div class="bird-scientific">${item.scientific}</div>
+                        ${item.nameEn ? `<div class="bird-secondary-name">${item.nameEn}</div>` : ''}
+                        <div class="bird-scientific">${item.scientific || ''}</div>
+
                         ${item.funFact ? `<div class="bird-description" style="margin-top: 0.5rem;">${item.funFact}</div>` : ''}
                         <div class="bird-card-rarity" style="color: ${rarityColors[(item.rarity || 1) - 1]}; ${(item.rarity || 1) === 1 ? 'background: #94a3b8; padding: 0.1rem 0.4rem; border-radius: 6px; display: inline-flex; width: max-content;' : ''}">
                             <i class="fa-solid fa-star"></i> ${rarityLevels[(item.rarity || 1) - 1]}
@@ -2654,7 +2655,7 @@ function renderGuideList(birdList) {
 
         card.innerHTML = `
             <div class="bird-image-container">
-                <img src="${imgSource}" alt="${bird.nameEn}" data-bird-id="${bird.id}" loading="lazy" onerror="handleImageError(this)">
+                <img src="${imgSource}" alt="${bird.nameSv}" data-bird-id="${bird.id}" loading="lazy" onerror="handleImageError(this)">
                 <button class="edit-image-btn" id="edit-btn-${bird.id}" title="Ändra bild">
                     <i class="fa-solid fa-camera"></i>
                 </button>
@@ -2665,8 +2666,9 @@ function renderGuideList(birdList) {
             </div>
             <div class="bird-info">
                  <div class="bird-primary-name">${bird.nameSv}</div>
-                <div class="bird-secondary-name">${bird.nameEn}</div>
-                <div class="bird-scientific">${bird.scientific}</div>
+                ${bird.nameEn ? `<div class="bird-secondary-name">${bird.nameEn}</div>` : ''}
+                <div class="bird-scientific">${bird.scientific || ''}</div>
+
                 ${bird.funFact ? `<div class="bird-description">${bird.funFact}</div>` : ''}
                 <div class="bird-card-rarity" style="color: ${rarityColors[(bird.rarity || 1) - 1]}; ${(bird.rarity || 1) === 1 ? 'background: #94a3b8; padding: 0.1rem 0.4rem; border-radius: 6px; display: inline-flex; width: max-content;' : ''}">
                     <i class="fa-solid fa-star"></i> ${rarityLevels[(bird.rarity || 1) - 1]}
@@ -4272,14 +4274,18 @@ function setupEventListeners() {
         if (!val) return;
 
         const list = getCurrentSpeciesList();
-        const matches = list.filter(bird =>
-            bird.nameEn.toLowerCase().includes(val) || bird.nameSv.toLowerCase().includes(val)
-        );
+        const matches = list.filter(bird => {
+            const sv = (bird.nameSv || '').toLowerCase();
+            const en = (bird.nameEn || '').toLowerCase();
+            const sci = (bird.scientific || '').toLowerCase();
+            return sv.includes(val) || en.includes(val) || sci.includes(val);
+        });
 
         matches.forEach(bird => {
             const item = document.createElement('div');
             item.className = 'autocomplete-item';
-            item.innerHTML = `<strong>${bird.nameSv}</strong> <small>(${bird.nameEn})</small>`;
+            const subName = bird.nameEn ? ` <small>(${bird.nameEn})</small>` : (bird.scientific ? ` <small><i>(${bird.scientific})</i></small>` : '');
+            item.innerHTML = `<strong>${bird.nameSv}</strong>${subName}`;
             item.addEventListener('click', () => {
                 elements.birdSearchInput.value = bird.nameSv;
                 elements.selectedBirdId.value = bird.id;
@@ -4287,6 +4293,7 @@ function setupEventListeners() {
             });
             elements.autocompleteList.appendChild(item);
         });
+
 
         // If no matches → show "add as custom" hint (not in Naturboken)
         if (matches.length === 0 && rawVal.length > 0 && state.currentSubject !== 'nature') {
@@ -4468,17 +4475,16 @@ function setupEventListeners() {
             elements.guideList.classList.remove('hidden');
 
             const list = getCurrentSpeciesList();
-            const filtered = list.filter(b =>
-                (b.nameEn.toLowerCase().includes(term) ||
-                    b.nameSv.toLowerCase().includes(term) ||
-                    (b.type && b.type.toLowerCase().includes(term)) ||
-                    (b.wingspan && b.wingspan.toString().includes(term)) ||
-                    (b.eggs && b.eggs.toString().includes(term)) ||
-                    (b.weight && b.weight.toString().includes(term)) ||
-                    (b.color && b.color.toLowerCase().includes(term))) &&
-                matchTimeFilter(b)
-            );
+            const filtered = list.filter(b => {
+                const en = (b.nameEn || '').toLowerCase();
+                const sv = (b.nameSv || '').toLowerCase();
+                const sci = (b.scientific || '').toLowerCase();
+                const type = (b.type || '').toLowerCase();
+                const color = (b.color || '').toLowerCase();
+                return (en.includes(term) || sv.includes(term) || sci.includes(term) || type.includes(term) || color.includes(term)) && matchTimeFilter(b);
+            });
             renderGuideList(filtered);
+
 
             // If no results → show "add anyway" button (not in Naturboken)
             if (filtered.length === 0 && state.currentSubject !== 'nature') {
