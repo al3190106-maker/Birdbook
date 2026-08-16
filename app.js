@@ -1623,8 +1623,9 @@ function _openSightingDetailView(sighting, item) {
         const newClose = closeBtn.cloneNode(true);
         closeBtn.replaceWith(newClose);
         newClose.addEventListener('click', () => {
-            modal.classList.remove('active');
+            nav.back();
         });
+
     }
 
     nav.openModal('sighting-detail-view-modal');
@@ -6698,8 +6699,9 @@ function _registerNavHandlers() {
     var simpleModals = [
         'sighting-modal', 'identify-modal', 'fullscreen-image-modal',
         'sightings-map-modal', 'settings-modal', 'info-modal',
-        'library-modal', 'ios-install-modal'
+        'library-modal', 'ios-install-modal', 'sighting-detail-view-modal'
     ];
+
     simpleModals.forEach(function(id) {
         nav.register(id, {
             type: 'modal',
