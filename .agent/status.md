@@ -21,7 +21,9 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 5): Borttagning av den överflödiga fristående knappen "Lägg till egen bild" från Fågelkortet (`app.js`) |
 | 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 4): Byggt tidslinjesektion "📜 Mina observationer" i fågelkortet som visar alla sparade loggningar av arten sorterade kronologiskt med foto, datum, plats, noteringar och snabbredigering (`index.html`, `style.css`, `app.js`) |
+
 | 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 3): Lagt till knappen "📍 Fynd i Sverige (7 dagar)" på Fågelkortet med live-kartvisning av GBIF & egna obsar för den aktuella arten (`index.html`, `style.css`, `app.js`) |
 
 | 2026-08-16 | 🎴 Fågelkort | Uppgift 28 (Del 2): Korrigerat den trasiga Artportalen-länken till SLU Artfaktas officiella art-sökportal (`https://artfakta.se/search?q=...`) i `app.js` och `index.html` |
