@@ -17,6 +17,7 @@
 
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
+| 2026-08-16 | 💼 Arbetsgivaren | Uppdaterad projektregel i AGENTS.md: Om en flik ser ett tillfälle att slå "två flugor i en smäll", MÅSTE fliken föreslå detta för användaren först. Utför ALDRIG oombedda extrauppgifter utan explicitt godkännande. |
 | 2026-08-15 | 🚀 Deploy & Infra | Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (Measurement ID: `G-471QWLB8LB`) med anonym spårning för besök, bokbyten, sparade observationer och quiz i `index.html` och `app.js` |
 | 2026-08-12 | 🚀 Deploy & Infra | PWA Auto-Reload: Lagt till `controllerchange` event-lyssnare i `index.html` som automatiskt laddar om sidan så fort en ny version aktiverats, vilket gör att användare slipper rensa cache manuellt |
 | 2026-08-12 | 📊 Statistik | Fixat beräkning av kategoristapel-bredder (`w`): Ändrat från felaktig totalkvot till användarens faktiska observationstäckning (`pct = seen / total`), så att tomma kategorier (0 observerade) nu visas helt tomma (0%) istället för felaktigt maxade (100%) |

@@ -71,8 +71,9 @@ Projektet använder dedikerade konversationer – **inte separata projekt**. All
 - **Arbetsgivaren styr projektet:** Konversationen 💼 **Arbetsgivaren** är huvudledare. Den för alla kravdiskussioner med användaren, estimerar svårighet och lägger upp specifikationer i `.agent/status.md` och `task.md`.
 - **Kolla anslagstavlan (.agent/status.md):** När du som flik (t.ex. *Generera bilder*, *Bugg och fix*, *Features & UI*, m.fl.) påbörjar ett arbete, MÅSTE du läsa `.agent/status.md` för att ta del av din tilldelade uppgift och specifikation från Arbetsgivaren.
 - **Uppdatera vid färdigställande:** När du har utfört din uppgift ska du bocka av med `[x]` i `.agent/status.md` och logga ändringen under *✅ Nyligen avslutat*, så att Arbetsgivaren kan arkivera uppgiften.
-- **Stanna inom scope** – en buggfix-konversation ska inte börja bygga nya features utanför sitt område.
-- **Konflikter** – om två konversationer riskerar att redigera samma fil, koordinera via `.agent/status.md`.
+- **Stanna inom scope:** En flik ska enbart utföra den exakt tilldelade/ombedda uppgiften.
+- **Förslå "två flugor i en smäll" – Utför ALDRIG oombedda extrauppgifter:** Om du ser ett tillfälle där man kan slå två flugor i en smäll (t.ex. två närliggande uppgifter i samma fil), MÅSTE du först **föreslå detta för användaren** så att användaren kan avgöra situationen. Utför ALDRIG extrauppgifter automatiskt utan godkännande.
+- **Konflikter:** Om två konversationer riskerar att redigera samma fil, koordinera via `.agent/status.md`.
 
 ## Arbetsregler
 
