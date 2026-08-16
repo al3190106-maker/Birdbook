@@ -1378,6 +1378,57 @@
         </div>
     </div>
 
+    <!-- Sighting Detail View Modal (Mini-meny för observation) -->
+    <div class="modal-overlay" id="sighting-detail-view-modal" style="z-index: 3000;">
+        <div class="modal-content" style="max-width: 480px; padding: 1.5rem; border-radius: 20px;">
+            <button class="close-modal" id="close-sighting-detail-view" style="z-index: 3100;"><i class="fa-solid fa-times"></i></button>
+            
+            <div style="text-align: center; margin-bottom: 1.2rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: #10b981; letter-spacing: 0.5px; margin-bottom: 0.2rem;" id="sdv-badge">Din Observation</div>
+                <h2 id="sdv-bird-name" style="margin: 0; font-size: 1.4rem; color: var(--text-color, #1e293b);">Fågelnamn</h2>
+                <div id="sdv-date" style="font-size: 0.9rem; color: #64748b; margin-top: 0.2rem;"><i class="fa-regular fa-calendar"></i> 2026-05-14</div>
+            </div>
+
+            <!-- Optional Photo Preview -->
+            <div id="sdv-photo-container" style="display: none; margin-bottom: 1.2rem; text-align: center;">
+                <img id="sdv-photo" src="" alt="Observation" style="max-width: 100%; max-height: 220px; border-radius: 14px; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.12); border: 1px solid #e2e8f0;">
+            </div>
+
+            <!-- Facts Grid -->
+            <div class="bird-facts-grid" style="grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.2rem;">
+                <div class="fact-card" style="padding: 0.7rem;">
+                    <div class="fact-title"><i class="fa-solid fa-map-location-dot"></i> Plats</div>
+                    <div class="fact-value" id="sdv-location" style="font-size: 0.9rem;">--</div>
+                </div>
+                <div class="fact-card" style="padding: 0.7rem;">
+                    <div class="fact-title"><i class="fa-solid fa-eye"></i> Typ</div>
+                    <div class="fact-value" id="sdv-type" style="font-size: 0.9rem;">--</div>
+                </div>
+                <div class="fact-card" style="padding: 0.7rem; grid-column: 1 / -1;">
+                    <div class="fact-title"><i class="fa-solid fa-cloud-sun"></i> Väder</div>
+                    <div class="fact-value" id="sdv-weather" style="font-size: 0.9rem;">--</div>
+                </div>
+            </div>
+
+            <!-- Notes Container -->
+            <div id="sdv-notes-container" style="display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.9rem; margin-bottom: 1.2rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.3rem;"><i class="fa-solid fa-clipboard"></i> Anteckningar:</div>
+                <div id="sdv-notes" style="font-size: 0.9rem; color: #334155; font-style: italic; white-space: pre-wrap; word-break: break-word;"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 0.75rem;">
+                <button type="button" id="sdv-edit-btn" style="flex: 1; background: #3b82f6; color: white; border: none; padding: 0.75rem; border-radius: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-pen"></i> Redigera
+                </button>
+                <button type="button" id="sdv-delete-btn" style="background: #ef4444; color: white; border: none; padding: 0.75rem 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-trash"></i> Ta bort
+                </button>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Welcome Modal -->
     <div id="welcome-modal" class="modal-overlay" style="z-index: 2500; background-color: var(--primary);">

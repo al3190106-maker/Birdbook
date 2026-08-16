@@ -1519,11 +1519,104 @@ function _renderUserSightingsTimeline(item) {
             const id = card.getAttribute('data-sighting-id');
             const sightingObj = sightings.find(s => s.id === id);
             if (sightingObj) {
-                _showSightingModal(item.id, item.nameSv, sightingObj);
+                _openSightingDetailView(sightingObj, item);
             }
         });
     });
 }
+
+function _openSightingDetailView(sighting, item) {
+    if (!sighting || !item) return;
+    const modal = document.getElementById('sighting-detail-view-modal');
+    if (!modal) return;
+
+    // Set Header Info
+    const birdNameEl = document.getElementById('sdv-bird-name');
+    const dateEl = document.getElementById('sdv-date');
+    
+    if (birdNameEl) birdNameEl.textContent = item.nameSv;
+    
+    const formattedDate = sighting.date ? new Date(sighting.date).toLocaleDateString('sv-SE', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    }) : 'Okänt datum';
+    
+    if (dateEl) dateEl.innerHTML = `<i class="fa-regular fa-calendar"></i> ${formattedDate}`;
+
+    // Photo
+    const photoContainer = document.getElementById('sdv-photo-container');
+    const photoImg = document.getElementById('sdv-photo');
+    const photoSrc = sighting.photo || (sighting.images && sighting.images[0]) || null;
+    if (photoSrc && photoContainer && photoImg) {
+        photoImg.src = photoSrc;
+        photoContainer.style.display = 'block';
+    } else if (photoContainer) {
+        photoContainer.style.display = 'none';
+    }
+
+    // Grid Facts
+    const locEl = document.getElementById('sdv-location');
+    if (locEl) locEl.textContent = sighting.location || sighting.locationName || 'Ingen angiven plats';
+
+    const typeEl = document.getElementById('sdv-type');
+    if (typeEl) {
+        const types = [];
+        if (sighting.seen !== false) types.push('Sedd');
+        if (sighting.heard === true) types.push('Hörd');
+        typeEl.textContent = types.join(' & ') || 'Sedd';
+    }
+
+    const weatherEl = document.getElementById('sdv-weather');
+    if (weatherEl) weatherEl.textContent = sighting.weather || 'Inget väder angivet';
+
+    // Notes
+    const notesContainer = document.getElementById('sdv-notes-container');
+    const notesEl = document.getElementById('sdv-notes');
+    if (sighting.notes && notesContainer && notesEl) {
+        notesEl.textContent = sighting.notes;
+        notesContainer.style.display = 'block';
+    } else if (notesContainer) {
+        notesContainer.style.display = 'none';
+    }
+
+    // Wire Edit Button
+    const editBtn = document.getElementById('sdv-edit-btn');
+    if (editBtn) {
+        const newEdit = editBtn.cloneNode(true);
+        editBtn.replaceWith(newEdit);
+        newEdit.addEventListener('click', () => {
+            modal.classList.remove('active');
+            nav.openModal('sighting-modal');
+            _showSightingModal(item.id, item.nameSv, sighting);
+        });
+    }
+
+    // Wire Delete Button
+    const deleteBtn = document.getElementById('sdv-delete-btn');
+    if (deleteBtn) {
+        const newDelete = deleteBtn.cloneNode(true);
+        deleteBtn.replaceWith(newDelete);
+        newDelete.addEventListener('click', () => {
+            if (confirm(`Vill du ta bort din observation av ${item.nameSv} från ${formattedDate}?`)) {
+                modal.classList.remove('active');
+                deleteSighting(sighting.id);
+            }
+        });
+    }
+
+    // Wire Close Button
+    const closeBtn = document.getElementById('close-sighting-detail-view');
+    if (closeBtn) {
+        const newClose = closeBtn.cloneNode(true);
+        closeBtn.replaceWith(newClose);
+        newClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+    }
+
+    nav.openModal('sighting-detail-view-modal');
+    modal.classList.add('active');
+}
+
 
     // Clean up any legacy camera button if present
 

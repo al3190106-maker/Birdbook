@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.9.1-clean-card';
+const CACHE_NAME = 'birdfinder-v4.9.5-sighting-mini-menu';
 const ASSETS_TO_CACHE = [
+
 
 
 
