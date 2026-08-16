@@ -22,7 +22,9 @@
 | Datum | Konversation | Vad gjordes |
 |---|---|---|
 | 2026-08-16 | 📓 Min logg | Sortering: Implementerat compareSightingsDateDesc med timestamp/ID tie-breaker så att senast loggade fågeln på samma dag alltid hamnar överst i "Min logg" (`app.js`) |
+| 2026-08-16 | 🎴 Fågelkort | Fixat tidslinjeuppdatering i "Mina observationer": Förbättrat art-filtreringen i `_renderUserSightingsTimeline` så att alla sparade, redigerade och raderade observationer (inkl. customName och skiftläge) uppdateras direkt i fågelkortet (`app.js`) |
 | 2026-08-16 | 🐛 Bugg och fix | Skottsäker sparning: Åtgärdat osynligt TDZ `ReferenceError` i bakgrundspromise, lagt till automatisk klient-bildkomprimering (Canvas, max 800px) så att `localStorage`-kvoten aldrig överskrids samt garanterat nedstängning med `finally`-block (`app.js`) |
+
 | 2026-08-16 | 🐛 Bugg och fix | Eliminering av fördröjning i "Ny observation / Ny logg": Gjort alla väderanrop under sparning helt icke-blockerande i bakgrunden så att formuläret sparas och stängs **omedelbart (0 ms)** utan att någonsin sitta och tugga (`app.js`) |
 
 | 2026-08-16 | ✨ Features & UI | Enhetlig loggning: Klick på `+`-knappen (snabblogga ute på artkorten i guiden) öppnar nu exakt samma **"Rapportera observation"**-modal med arten förvald, automatisk realtidsinläsning av plats och väder samt möjlighet att lägga till anteckningar, foton och kartnål (`app.js`) |
