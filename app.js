@@ -1508,54 +1508,12 @@ function _renderUserSightingsTimeline(item) {
         });
     });
 }
+
+    // Clean up any legacy camera button if present
+
     const existingCameraBtn = document.getElementById('detail-camera-btn');
     if (existingCameraBtn) existingCameraBtn.remove();
 
-    const cameraBtn = document.createElement('button');
-    cameraBtn.id = 'detail-camera-btn';
-    cameraBtn.className = 'add-sighting-detail-btn';
-    cameraBtn.style.cssText = 'padding: 0.8rem 1.5rem; font-size: 1rem;';
-    cameraBtn.innerHTML = `<i class="fa-solid fa-camera"></i> Lägg till egen bild`;
-    cameraBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Use a special handler that also refreshes the detail view
-        editingBirdId = item.id;
-        const tempInput = document.createElement('input');
-        tempInput.type = 'file';
-        tempInput.accept = 'image/*';
-        tempInput.capture = 'environment';
-        tempInput.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    try {
-                        localStorage.setItem(`custom_img_${item.id}`, ev.target.result);
-                        // Refresh the detail modal carousel with new image
-                        _renderBirdDetail(item, sighting);
-                        // Also refresh the log/guide behind
-                        renderApp();
-                        if (!elements.guideList.classList.contains('hidden')) {
-                            const list = getCurrentSpeciesList();
-                            renderGuideList(list);
-                        }
-                        // Visual feedback
-                        cameraBtn.innerHTML = '<i class="fa-solid fa-check"></i> Bild sparad!';
-                        cameraBtn.style.backgroundColor = '#2ecc71';
-                        setTimeout(() => {
-                            cameraBtn.innerHTML = `<i class="fa-solid fa-camera"></i> Lägg till egen bild`;
-                            cameraBtn.style.backgroundColor = '';
-                        }, 2000);
-                    } catch (err) {
-                        alert('Bilden är för stor!');
-                    }
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-        tempInput.click();
-    });
-    const actionsDiv2 = document.querySelector('.detail-actions');
-    if (actionsDiv2) actionsDiv2.appendChild(cameraBtn);
 
     // Apply specific logic for Min Logg: Hiding unnecessary info
     
