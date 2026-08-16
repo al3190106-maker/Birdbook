@@ -1393,44 +1393,9 @@
             </div>
             <h2 class="sightings-map-title" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-map-location-dot"></i> Mina Fynd</h2>
             <p class="sightings-map-subtitle" style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Alla observationer med platsdata visas som nålar på kartan.</p>
-            <div id="sightings-overview-map" class="sightings-overview-map" style="position: relative;"></div>
-
-            <!-- Loading Spinner Overlay -->
-            <div class="map-loading-overlay hidden" id="map-loading-overlay">
-                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 1.3rem; color: #10b981;"></i>
-                <span id="map-loading-text">Hämtar årsdata för fågeln...</span>
-            </div>
-
-
-            <!-- Year Migration Playback Bar -->
-            <div class="migration-player-bar hidden" id="migration-player-bar">
-                <div class="migration-controls">
-                    <button type="button" class="migration-play-btn" id="migration-play-btn" title="Spela upp flyttningsfilm">
-                        <i class="fa-solid fa-play"></i>
-                    </button>
-                    <div class="migration-month-display">
-                        <span class="month-name" id="migration-month-name">Januari</span>
-                        <span class="month-count" id="migration-month-count">0 fynd</span>
-                    </div>
-                </div>
-                <div class="migration-months-slider" id="migration-months-slider">
-                    <button type="button" class="month-pill active" data-month="1">Jan</button>
-                    <button type="button" class="month-pill" data-month="2">Feb</button>
-                    <button type="button" class="month-pill" data-month="3">Mar</button>
-                    <button type="button" class="month-pill" data-month="4">Apr</button>
-                    <button type="button" class="month-pill" data-month="5">Maj</button>
-                    <button type="button" class="month-pill" data-month="6">Jun</button>
-                    <button type="button" class="month-pill" data-month="7">Jul</button>
-                    <button type="button" class="month-pill" data-month="8">Aug</button>
-                    <button type="button" class="month-pill" data-month="9">Sep</button>
-                    <button type="button" class="month-pill" data-month="10">Okt</button>
-                    <button type="button" class="month-pill" data-month="11">Nov</button>
-                    <button type="button" class="month-pill" data-month="12">Dec</button>
-                </div>
-            </div>
+            <div id="sightings-overview-map" class="sightings-overview-map"></div>
         </div>
     </div>
-
 
     <!-- Welcome Modal -->
     <div id="welcome-modal" class="modal-overlay" style="z-index: 2500; background-color: var(--primary);">
