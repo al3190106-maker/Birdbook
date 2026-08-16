@@ -732,7 +732,9 @@ function _showSightingModal(prefillBirdId = null, prefillBirdName = null, sighti
         _autoFillSightingContext();
     }
 
+    nav.openModal('sighting-modal');
     elements.modal.classList.add('active');
+
 
     // Initialize or reset Leaflet map
     setTimeout(() => {
@@ -1515,15 +1517,27 @@ function _renderUserSightingsTimeline(item) {
     }
 
     container.querySelectorAll('.user-sighting-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            const id = card.getAttribute('data-sighting-id');
-            const sightingObj = sightings.find(s => s.id === id);
+        const id = card.getAttribute('data-sighting-id');
+        const sightingObj = sightings.find(s => s.id === id);
+
+        card.addEventListener('click', () => {
             if (sightingObj) {
                 _openSightingDetailView(sightingObj, item);
             }
         });
+
+        const editPenBtn = card.querySelector('.user-sighting-edit-btn');
+        if (editPenBtn) {
+            editPenBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (sightingObj) {
+                    _showSightingModal(item.id, item.nameSv, sightingObj);
+                }
+            });
+        }
     });
 }
+
 
 function _openSightingDetailView(sighting, item) {
     if (!sighting || !item) return;

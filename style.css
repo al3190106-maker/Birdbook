@@ -5340,6 +5340,11 @@ details[open] .stats-collapsible-chevron {
     display: none !important;
 }
 
+#sighting-modal {
+    z-index: 3500 !important;
+}
+
+
 /* User Sightings Timeline in Bird Detail Modal */
 .detail-user-sightings-container {
     margin-top: 1.2rem;

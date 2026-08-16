@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.9.5-sighting-mini-menu';
+const CACHE_NAME = 'birdfinder-v4.9.6-zindex-fix';
 const ASSETS_TO_CACHE = [
+
 
 
 
