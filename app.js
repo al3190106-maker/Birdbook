@@ -5851,7 +5851,66 @@ function _showPhotographer(id, returnAction = null, pushState = true) {
                     switchSubject(subjectType);
                 }
                 
-     function _formatGbifDate(occ, fallbackMonth) {
+                const guideBtn = document.querySelector('.nav-btn[data-tab="guide-view"]');
+                if (guideBtn) guideBtn.click();
+                
+                _renderBirdDetail(subject);
+                elements.detailModal.classList.add('active');
+            }
+        };
+        
+        gallery.appendChild(imgEl);
+    });
+}
+
+
+// ============================================================
+
+// --- Sightings Overview Map ---
+let _overviewMap = null;
+let _overviewMarkerGroup = null;
+let _overviewUserMarker = null;
+
+function _openSightingsMap(pushState = true) {
+    const modal = document.getElementById('sightings-map-modal');
+    if (!modal) return;
+    if (pushState) {
+        nav.openModal('sightings-map-modal');
+    }
+    modal.classList.add('active');
+    
+    const content = modal.querySelector('.sightings-map-modal-content');
+    if (content) content.classList.add('fullscreen');
+
+    setTimeout(() => {
+        _renderSightingsOverviewMap();
+    }, 200);
+}
+
+let _migrationState = {
+    bird: null,
+    isPlaying: false,
+    timer: null,
+    currentMonth: 5, // Standard Maj (häckningssäsong)
+    monthlyData: {}, // { 1: [], 2: [], ... 12: [] }
+    MONTH_NAMES: ['', 'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December']
+};
+
+function _stopMigrationPlayback() {
+    if (_migrationState.timer) {
+        clearInterval(_migrationState.timer);
+        _migrationState.timer = null;
+    }
+    _migrationState.isPlaying = false;
+    const playBtn = document.getElementById('migration-play-btn');
+    if (playBtn) {
+        playBtn.classList.remove('playing');
+        playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    }
+}
+
+function _formatGbifDate(occ, fallbackMonth) {
+
     if (!occ) return fallbackMonth || 'Nyligen';
     if (occ.eventDate && typeof occ.eventDate === 'string') {
         const clean = occ.eventDate.trim().split('/')[0].trim();
@@ -5921,7 +5980,6 @@ function _renderMigrationMonth(monthNum) {
     occs.forEach(occ => {
         const dateTxt = _formatGbifDate(occ, monthName);
         const locTxt = occ.locality || occ.municipality || occ.stateProvince || 'Sverige';
-
         const gbifIcon = L.divIcon({
             className: 'species-gbif-marker',
             html: '<div style="background:#10b981; width:14px; height:14px; border-radius:50%; border:2px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
@@ -6031,30 +6089,27 @@ async function _openSpeciesSightingsMap(bird) {
 
         try {
             const sciName = bird.scientific || bird.nameSv;
-            const fetchPromises = [];
-
-            // Fetch true monthly observations for all 12 months in parallel (50 records per month)
-            for (let m = 1; m <= 12; m++) {
-                const monthUrl = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&month=${m}&limit=50`;
-                fetchPromises.push(
-                    fetch(monthUrl)
-                        .then(r => r.ok ? r.json() : null)
-                        .then(data => ({ month: m, results: data ? data.results || [] : [] }))
-                        .catch(() => ({ month: m, results: [] }))
-                );
+            const resp = await fetch(url);
+            
+            if (resp.ok) {
+                const data = await resp.json();
+                const results = data.results || [];
+                
+                results.forEach(occ => {
+                    if (occ.decimalLatitude && occ.decimalLongitude) {
+                        let m = occ.month;
+                        if (!m && occ.eventDate) {
+                            m = new Date(occ.eventDate).getMonth() + 1;
+                        }
+                        if (m && m >= 1 && m <= 12) {
+                            if (!_migrationState.monthlyData[m]) _migrationState.monthlyData[m] = [];
+                            _migrationState.monthlyData[m].push(occ);
+                        }
+                    }
+                });
             }
-
-            const monthResults = await Promise.all(fetchPromises);
-
-            monthResults.forEach(res => {
-                const m = res.month;
-                const occs = res.results || [];
-                _migrationState.monthlyData[m] = occs.filter(occ => occ.decimalLatitude && occ.decimalLongitude);
-            });
         } catch (err) {
             console.warn("Kunde inte hämta årsdata för flyttningsfilm:", err);
-        } finally {
-            if (loadingOverlay) loadingOverlay.classList.add('hidden');
         }
 
         // Render current month (default Maj/Spring)
@@ -6065,7 +6120,6 @@ async function _openSpeciesSightingsMap(bird) {
         }
     }, 200);
 }
-
 
 
 
