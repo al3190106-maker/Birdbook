@@ -1527,10 +1527,18 @@ function _renderUserSightingsTimeline(item) {
         return;
     }
 
-    const sightings = (state.sightings || []).filter(s => 
-        s.id !== 'SYSTEM_INIT_BIRD' && 
-        (s.birdId === item.id || s.name === item.nameSv || (item.nameSv && s.name && s.name.toLowerCase() === item.nameSv.toLowerCase()))
-    ).sort(compareSightingsDateDesc);
+    const itemId = String(item.id || '').trim().toLowerCase();
+    const itemName = String(item.nameSv || '').trim().toLowerCase();
+
+    const sightings = (state.sightings || []).filter(s => {
+        if (!s || s.id === 'SYSTEM_INIT_BIRD') return false;
+        const sBirdId = String(s.birdId || '').trim().toLowerCase();
+        const sName = String(s.name || s.customName || '').trim().toLowerCase();
+
+        return (sBirdId && sBirdId === itemId) ||
+               (itemName && (sBirdId === itemName || sName === itemName));
+    }).sort(compareSightingsDateDesc);
+
 
     let html = `
         <div class="user-sightings-header">
