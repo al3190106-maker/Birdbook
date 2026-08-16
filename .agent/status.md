@@ -7,6 +7,10 @@
 
 ---
 
+## 📌 Noteringar & Terminologi till Arbetsgivaren
+
+- **Fågelkort:** Användaren benämner artdetaljmodalen (`.bird-detail-modal` i HTML/CSS) som **"fågelkort"**. Detta syftar alltså på popup-kortet/modalen som öppnas när man klickar på en art eller observation (visar bildkarusell, faktaruta, datum, plats m.m.).
+
 ## 🔄 Pågående arbete
 
 | Konversation | Vad pågår | Berörda filer |
