@@ -103,8 +103,9 @@
 
 ### 💼 Arbetsgivaren (Samordning & Ledning)
 - [ ] Upprätthålla diskussioner, estimera svårighet och delegera uppgifter
-- [ ] **Framtida uppgift (Artdata):** Komplettera fågelgrupperingar/familjer i `birds.js` så att alla arter har exakt taxonomisk gruppering för framtida faktamappning
+- [ ] **Framtida uppgift (Artdata):** Komplettera fågelgrupperingar/familjer i `birds.js` så että alla arter har exakt taxonomisk gruppering för framtida faktamappning
 - [ ] **Framtida uppgift (Artkort & Fakta):** Översyn & anpassning av faktafält för alla övriga böcker (Fiskboken, Svampboken, Växtboken, Däggdjursboken) så att även dessa får unika & värdefulla faktrutor anpassade för sitt ämne
+- [x] **Flyttningsfilm / Årsresa i Kartan:** Interaktiv tidslinje (Jan–Dec) med ▶️ Play/Paus-loop på Sverigekartan som animerar hur fåglar flyttar genom Sverige under årets alla 12 månader
 
 ### 🎴 Fågelkort (Artdetaljkort & Modaler)
 - [ ] Ansvara för `.bird-detail-modal`, bildkaruseller, artfakta, mått & popup-detaljer

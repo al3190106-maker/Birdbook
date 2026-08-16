@@ -5887,8 +5887,132 @@ function _openSightingsMap(pushState = true) {
     }, 200);
 }
 
+let _migrationState = {
+    bird: null,
+    isPlaying: false,
+    timer: null,
+    currentMonth: 5, // Standard Maj (häckningssäsong)
+    monthlyData: {}, // { 1: [], 2: [], ... 12: [] }
+    MONTH_NAMES: ['', 'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December']
+};
+
+function _stopMigrationPlayback() {
+    if (_migrationState.timer) {
+        clearInterval(_migrationState.timer);
+        _migrationState.timer = null;
+    }
+    _migrationState.isPlaying = false;
+    const playBtn = document.getElementById('migration-play-btn');
+    if (playBtn) {
+        playBtn.classList.remove('playing');
+        playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    }
+}
+
+function _renderMigrationMonth(monthNum) {
+    _migrationState.currentMonth = monthNum;
+    const monthName = _migrationState.MONTH_NAMES[monthNum];
+    const occs = _migrationState.monthlyData[monthNum] || [];
+
+    // Update UI elements
+    const nameEl = document.getElementById('migration-month-name');
+    const countEl = document.getElementById('migration-month-count');
+    if (nameEl) nameEl.textContent = monthName;
+    if (countEl) countEl.textContent = `${occs.length} observerade fynd i Sverige`;
+
+    // Highlight active month pill
+    document.querySelectorAll('.month-pill').forEach(pill => {
+        const m = parseInt(pill.getAttribute('data-month'), 10);
+        if (m === monthNum) {
+            pill.classList.add('active');
+            pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } else {
+            pill.classList.remove('active');
+        }
+    });
+
+    if (!_overviewMap || !_overviewMarkerGroup) return;
+    _overviewMarkerGroup.clearLayers();
+
+    // Plot user's own sightings for this bird
+    const userSightings = (state.sightings || []).filter(s => 
+        (s.birdId === _migrationState.bird?.id || s.name === _migrationState.bird?.nameSv) && s.lat && s.lng
+    );
+    userSightings.forEach(s => {
+        const dateStr = s.date ? new Date(s.date).toLocaleDateString('sv-SE') : 'Okänt datum';
+        const markerIcon = L.divIcon({
+            className: 'species-user-marker',
+            html: '<div style="background:#eab308; width:18px; height:18px; border-radius:50%; border:3px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.4);"></div>',
+            iconSize: [18, 18],
+            iconAnchor: [9, 9]
+        });
+        const marker = L.marker([s.lat, s.lng], { icon: markerIcon, zIndexOffset: 1000 })
+            .bindPopup(`<div style="font-family:sans-serif; text-align:center; padding: 4px;">
+                <strong style="color:#b45309;"><i class="fa-solid fa-star"></i> Ditt fynd: ${_migrationState.bird?.nameSv}</strong><br>
+                <span style="font-size:0.85rem; color:#475569;">${dateStr} – ${s.locationName || 'Sverige'}</span>
+            </div>`);
+        _overviewMarkerGroup.addLayer(marker);
+    });
+
+    // Plot monthly GBIF markers
+    occs.forEach(occ => {
+        const dateTxt = occ.eventDate ? new Date(occ.eventDate).toLocaleDateString('sv-SE') : monthName;
+        const locTxt = occ.locality || occ.municipality || occ.stateProvince || 'Sverige';
+        const gbifIcon = L.divIcon({
+            className: 'species-gbif-marker',
+            html: '<div style="background:#10b981; width:14px; height:14px; border-radius:50%; border:2px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+        });
+        const marker = L.marker([occ.decimalLatitude, occ.decimalLongitude], { icon: gbifIcon })
+            .bindPopup(`<div style="font-family:sans-serif; text-align:center; padding: 4px;">
+                <strong style="color:#059669;"><i class="fa-solid fa-feather"></i> ${_migrationState.bird?.nameSv}</strong><br>
+                <span style="font-size:0.85rem; color:#334155;">📅 ${dateTxt} (${monthName})</span><br>
+                <span style="font-size:0.8rem; color:#64748b;">📍 ${locTxt}</span>
+            </div>`);
+        _overviewMarkerGroup.addLayer(marker);
+    });
+}
+
+function _initMigrationPlayerListeners() {
+    const playBtn = document.getElementById('migration-play-btn');
+    if (playBtn) {
+        const newBtn = playBtn.cloneNode(true);
+        playBtn.parentNode.replaceChild(newBtn, playBtn);
+        newBtn.addEventListener('click', () => {
+            if (_migrationState.isPlaying) {
+                _stopMigrationPlayback();
+            } else {
+                _migrationState.isPlaying = true;
+                newBtn.classList.add('playing');
+                newBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                
+                _migrationState.timer = setInterval(() => {
+                    let nextMonth = _migrationState.currentMonth + 1;
+                    if (nextMonth > 12) nextMonth = 1;
+                    _renderMigrationMonth(nextMonth);
+                }, 1100);
+            }
+        });
+    }
+
+    document.querySelectorAll('.month-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+            _stopMigrationPlayback();
+            const m = parseInt(pill.getAttribute('data-month'), 10);
+            if (m >= 1 && m <= 12) {
+                _renderMigrationMonth(m);
+            }
+        });
+    });
+}
+
 async function _openSpeciesSightingsMap(bird) {
     if (!bird) return;
+    _stopMigrationPlayback();
+    _migrationState.bird = bird;
+    _migrationState.monthlyData = { 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[], 12:[] };
+
     const modal = document.getElementById('sightings-map-modal');
     if (!modal) return;
     
@@ -5898,10 +6022,15 @@ async function _openSpeciesSightingsMap(bird) {
     const content = modal.querySelector('.sightings-map-modal-content');
     if (content) content.classList.add('fullscreen');
 
+    const playerBar = document.getElementById('migration-player-bar');
+    if (playerBar) playerBar.classList.remove('hidden');
+
     const mapTitle = modal.querySelector('.sightings-map-title') || modal.querySelector('h2');
     const mapSubtitle = modal.querySelector('.sightings-map-subtitle');
-    if (mapTitle) mapTitle.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> Fynd i Sverige: ${bird.nameSv}`;
-    if (mapSubtitle) mapSubtitle.textContent = `Söker observationer över hela Sverige för ${bird.nameSv}...`;
+    if (mapTitle) mapTitle.innerHTML = `<i class="fa-solid fa-film"></i> Flyttningsfilm / Årsresa: ${bird.nameSv}`;
+    if (mapSubtitle) mapSubtitle.textContent = `Laddar helårsdata och flyttningsrutter i Sverige...`;
+
+    _initMigrationPlayerListeners();
 
     setTimeout(async () => {
         const container = document.getElementById('sightings-overview-map');
@@ -5924,127 +6053,43 @@ async function _openSpeciesSightingsMap(bird) {
             _overviewMap.invalidateSize();
         }
 
-        const bounds = [];
-        let totalCount = 0;
-
-        // 1. Plot user's own sightings for this bird
-        const userSightings = (state.sightings || []).filter(s => 
-            (s.birdId === bird.id || s.name === bird.nameSv) && s.lat && s.lng
-        );
-        userSightings.forEach(s => {
-            const dateStr = s.date ? new Date(s.date).toLocaleDateString('sv-SE') : 'Okänt datum';
-            const markerIcon = L.divIcon({
-                className: 'species-user-marker',
-                html: '<div style="background:#eab308; width:18px; height:18px; border-radius:50%; border:3px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.4);"></div>',
-                iconSize: [18, 18],
-                iconAnchor: [9, 9]
-            });
-            const marker = L.marker([s.lat, s.lng], { icon: markerIcon, zIndexOffset: 1000 })
-                .bindPopup(`<div style="font-family:sans-serif; text-align:center; padding: 4px;">
-                    <strong style="color:#b45309;"><i class="fa-solid fa-star"></i> Ditt fynd: ${bird.nameSv}</strong><br>
-                    <span style="font-size:0.85rem; color:#475569;">${dateStr} – ${s.locationName || 'Sverige'}</span>
-                </div>`);
-            _overviewMarkerGroup.addLayer(marker);
-            bounds.push([s.lat, s.lng]);
-            totalCount++;
-        });
-
-        // 2. Fetch GBIF occurrences via direct scientificName query with strict date filter (last 30 days max)
-        if (typeof showToast === 'function') showToast(`Söker färska fynd för ${bird.nameSv}...`);
+        if (typeof showToast === 'function') showToast(`Hämtar årsresa för ${bird.nameSv}...`);
+        
         try {
-            const now = new Date();
-            const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-            const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-            
-            const fmt = (d) => d.toISOString().split('T')[0];
-            const dateRange = `${fmt(thirtyDaysAgo)},${fmt(now)}`;
-            
             const sciName = bird.scientific || bird.nameSv;
-            const url1 = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&eventDate=${dateRange}&limit=250`;
-            const url2 = `https://api.gbif.org/v1/occurrence/search?country=SE&q=${encodeURIComponent(bird.nameSv)}&hasCoordinate=true&eventDate=${dateRange}&limit=250`;
+            const url = `https://api.gbif.org/v1/occurrence/search?country=SE&scientificName=${encodeURIComponent(sciName)}&hasCoordinate=true&year=2025&limit=300`;
+            const resp = await fetch(url);
             
-            let occurrences = [];
-            
-            const [resp1, resp2] = await Promise.allSettled([
-                fetch(url1).then(r => r.ok ? r.json() : null),
-                fetch(url2).then(r => r.ok ? r.json() : null)
-            ]);
-
-            if (resp1.status === 'fulfilled' && resp1.value && resp1.value.results) {
-                occurrences.push(...resp1.value.results);
-            }
-            if (resp2.status === 'fulfilled' && resp2.value && resp2.value.results) {
-                occurrences.push(...resp2.value.results);
-            }
-
-            // Deduplicate by key or lat/lng
-            const seenKeys = new Set();
-            const uniqueOccs = occurrences.filter(occ => {
-                if (!occ.decimalLatitude || !occ.decimalLongitude) return false;
-                const k = occ.key || `${occ.decimalLatitude}_${occ.decimalLongitude}`;
-                if (seenKeys.has(k)) return false;
-                seenKeys.add(k);
-                return true;
-            });
-
-            // Strict date filter: 7 days first, fallback to 30 days if few
-            let displayOccs = uniqueOccs.filter(occ => {
-                if (!occ.eventDate) return false;
-                const d = new Date(occ.eventDate);
-                return d >= sevenDaysAgo;
-            });
-
-            let timeframeLabel = 'senaste 7 dagarna';
-            if (displayOccs.length < 3) {
-                displayOccs = uniqueOccs.filter(occ => {
-                    if (!occ.eventDate) return false;
-                    const d = new Date(occ.eventDate);
-                    return d >= thirtyDaysAgo;
+            if (resp.ok) {
+                const data = await resp.json();
+                const results = data.results || [];
+                
+                results.forEach(occ => {
+                    if (occ.decimalLatitude && occ.decimalLongitude) {
+                        let m = occ.month;
+                        if (!m && occ.eventDate) {
+                            m = new Date(occ.eventDate).getMonth() + 1;
+                        }
+                        if (m && m >= 1 && m <= 12) {
+                            if (!_migrationState.monthlyData[m]) _migrationState.monthlyData[m] = [];
+                            _migrationState.monthlyData[m].push(occ);
+                        }
+                    }
                 });
-                if (displayOccs.length > 0) timeframeLabel = 'senaste 30 dagarna';
-            }
-
-            if (mapSubtitle) {
-                mapSubtitle.textContent = `Visar ${displayOccs.length} färska fynd i Sverige (${timeframeLabel}) för ${bird.nameSv}`;
-            }
-
-            displayOccs.forEach(occ => {
-                totalCount++;
-                const dateTxt = occ.eventDate ? new Date(occ.eventDate).toLocaleDateString('sv-SE') : 'Nyligen';
-                const locTxt = occ.locality || occ.municipality || occ.stateProvince || 'Sverige';
-                const gbifIcon = L.divIcon({
-                    className: 'species-gbif-marker',
-                    html: '<div style="background:#10b981; width:14px; height:14px; border-radius:50%; border:2px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
-                    iconSize: [14, 14],
-                    iconAnchor: [7, 7]
-                });
-                const marker = L.marker([occ.decimalLatitude, occ.decimalLongitude], { icon: gbifIcon })
-                    .bindPopup(`<div style="font-family:sans-serif; text-align:center; padding: 4px;">
-                        <strong style="color:#059669;"><i class="fa-solid fa-feather"></i> ${bird.nameSv}</strong><br>
-                        <span style="font-size:0.85rem; color:#334155;">📅 ${dateTxt}</span><br>
-                        <span style="font-size:0.8rem; color:#64748b;">📍 ${locTxt}</span>
-                    </div>`);
-                _overviewMarkerGroup.addLayer(marker);
-                bounds.push([occ.decimalLatitude, occ.decimalLongitude]);
-            });
-
-            if (totalCount === 0) {
-                if (typeof showToast === 'function') showToast(`Inga färska fynd i Sverige de senaste 30 dagarna för ${bird.nameSv}.`);
-            } else {
-                if (typeof showToast === 'function') showToast(`Hittade ${totalCount} färska fynd på kartan (${timeframeLabel})!`);
             }
         } catch (err) {
-            console.warn("Kunde inte hämta GBIF-fynd för art:", err);
+            console.warn("Kunde inte hämta årsdata för flyttningsfilm:", err);
         }
 
-
-        if (bounds.length > 0) {
-            _overviewMap.fitBounds(L.latLngBounds(bounds), { padding: [40, 40], maxZoom: 11 });
-        } else {
-            _overviewMap.setView([62.0, 15.5], 5);
+        // Render current month (default Maj/Spring)
+        const activeMonth = (new Date().getMonth() + 1) || 5;
+        _renderMigrationMonth(activeMonth);
+        if (mapSubtitle) {
+            mapSubtitle.textContent = `Tryck på ▶️ Play för att spela upp flyttningsfilmen för ${bird.nameSv}`;
         }
     }, 200);
 }
+
 
 
 
@@ -6569,6 +6614,9 @@ function _registerNavHandlers() {
                 if (m) m.classList.remove('active');
                 // Extra cleanup for specific modals
                 if (id === 'sightings-map-modal') {
+                    _stopMigrationPlayback();
+                    var playerBar = document.getElementById('migration-player-bar');
+                    if (playerBar) playerBar.classList.add('hidden');
                     var content = m && m.querySelector('.sightings-map-modal-content');
                     if (content) content.classList.remove('fullscreen');
                 }
