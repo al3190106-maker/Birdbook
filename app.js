@@ -1212,7 +1212,9 @@ function _updateFullscreenNav() {
 }
 
 function _renderBirdDetail(item, sighting = null) {
+    window._currentDetailBird = item;
     const config = SUBJECT_CONFIG[state.currentSubject];
+
     const fields = config.fields;
 
     // Reset visibility logic
@@ -2141,10 +2143,11 @@ function saveSightings() {
     checkAchievements();
     renderApp();
 
-    if (_migrationState && _migrationState.bird) {
-        _renderUserSightingsTimeline(_migrationState.bird);
+    if (window._currentDetailBird) {
+        _renderUserSightingsTimeline(window._currentDetailBird);
     }
 }
+
 
 
 /**

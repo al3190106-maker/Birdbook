@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v4.9.9-fix-search-safety';
+const CACHE_NAME = 'birdfinder-v5.0.0-save-fix';
 const ASSETS_TO_CACHE = [
+
 
 
 
