@@ -178,6 +178,7 @@
 - [/] Uppgift 28: Översyn & rensning av information på Fågelkorten (Bort med 'Aktiv: morgon', in med förslag på värdefulla faktafält)
 
 ### 🎨 Generera bilder
+- [ ] Uppgift 34: Unik Visuell Identitet & Ikon-renovering (Byta ut lånade/generiska ikoner i `images/category_icons/` mot egen enhetlig grafik)
 - [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
 - [x] Omgenerera Flugsnappares ikonstil med en fågel som fångar en flygande fluga
 - [ ] Generera silhuett-versioner av rovfåglar och andra fåglar
