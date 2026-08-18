@@ -1930,33 +1930,41 @@
             if (localStorage.getItem(STORAGE_KEY) === 'true') return;
             var banner = document.getElementById('privacy-banner');
             if (!banner) return;
-            banner.style.display = '';
+            banner.style.display = 'block';
             banner.style.opacity = '0';
+            banner.style.pointerEvents = 'none';
             banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))';
             // Animate in
             setTimeout(function () {
                 banner.style.transition = 'transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease';
                 banner.style.opacity = '1';
                 banner.style.transform = 'translateX(-50%) translateY(0)';
+                banner.style.pointerEvents = 'auto';
             }, 350);
             var btn = document.getElementById('privacy-banner-btn');
             if (btn) {
                 btn.addEventListener('click', function () {
                     localStorage.setItem(STORAGE_KEY, 'true');
                     banner.style.opacity = '0';
+                    banner.style.pointerEvents = 'none';
                     banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))';
                     setTimeout(function () { banner.style.display = 'none'; }, 450);
                 });
             }
         }
-        // Expose to app.js for settings button
+        // Expose for settings button
         window.showPrivacyBanner = function () {
             localStorage.removeItem(STORAGE_KEY);
             var banner = document.getElementById('privacy-banner');
-            if (banner) { banner.style.display = ''; banner.style.opacity = '0'; banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))'; }
+            if (banner) {
+                banner.style.display = 'block';
+                banner.style.opacity = '0';
+                banner.style.pointerEvents = 'none';
+                banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))';
+            }
             showBanner();
         };
-        // Run as soon as script executes
+        // Run after DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', showBanner);
         } else {
