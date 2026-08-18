@@ -7122,7 +7122,6 @@ function _registerNavHandlers() {
     // Initialize nav with the current tab
     nav.init('log-view');
 }
-
 /**
  * Integritetsmeddelande & Cookie-info för GA4 (Uppgift 36)
  */
@@ -7136,7 +7135,7 @@ function initPrivacyBanner() {
             banner.classList.remove('hidden');
             void banner.offsetHeight; // force reflow
             banner.classList.add('show');
-        }, 1200);
+        }, 300);
     }
 
     okBtn.addEventListener('click', () => {
@@ -7149,15 +7148,18 @@ function initPrivacyBanner() {
 // Extend init to include map, quiz, navigation and privacy banner
 const _originalInit = init;
 init = async function() {
+    initPrivacyBanner();
     await _originalInit();
     _setupMapEventListeners();
     initQuizListeners();
     _registerNavHandlers();
-    initPrivacyBanner();
 };
 
 // Start
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    initPrivacyBanner();
+    init();
+});
 
 // Förladda BirdNET-modellen i bakgrunden 4 sek efter appstart
 // så att den är klar när användaren öppnar Identifiera-fliken
