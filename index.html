@@ -1915,62 +1915,50 @@
     <script src="sweden-map.js"></script>
 
     <!-- Privacy & Analytics Notice Banner (Uppgift 36) -->
-    <div id="privacy-banner" class="privacy-banner">
-        <div class="privacy-banner-content">
-            <i class="fa-solid fa-cookie-bite privacy-banner-icon"></i>
-            <span>Naturboken använder cookies och anonym besöksstatistik för att förbättra upplevelsen.</span>
-            <button id="privacy-banner-btn" class="privacy-banner-btn" type="button">Acceptera</button>
-        </div>
+    <div id="privacy-banner" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #16a34a;
+        color: #ffffff;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        z-index: 999999;
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    ">
+        <span>🍪 Naturboken använder cookies och anonym besöksstatistik för att förbättra upplevelsen.</span>
+        <button id="privacy-banner-btn" onclick="
+            localStorage.setItem('naturboken_privacy_ack','true');
+            document.getElementById('privacy-banner').style.display='none';
+        " style="
+            background: #ffffff;
+            color: #16a34a;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+        ">Acceptera</button>
     </div>
-    <!-- Inline self-contained banner logic – oberoende av app.js -->
     <script>
-    (function () {
-        var STORAGE_KEY = 'naturboken_privacy_ack';
-        function showBanner() {
-            if (localStorage.getItem(STORAGE_KEY) === 'true') return;
-            var banner = document.getElementById('privacy-banner');
-            if (!banner) return;
-            banner.style.display = 'block';
-            banner.style.opacity = '0';
-            banner.style.pointerEvents = 'none';
-            banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))';
-            // Animate in
-            setTimeout(function () {
-                banner.style.transition = 'transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease';
-                banner.style.opacity = '1';
-                banner.style.transform = 'translateX(-50%) translateY(0)';
-                banner.style.pointerEvents = 'auto';
-            }, 350);
-            var btn = document.getElementById('privacy-banner-btn');
-            if (btn) {
-                btn.addEventListener('click', function () {
-                    localStorage.setItem(STORAGE_KEY, 'true');
-                    banner.style.opacity = '0';
-                    banner.style.pointerEvents = 'none';
-                    banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))';
-                    setTimeout(function () { banner.style.display = 'none'; }, 450);
-                });
-            }
-        }
-        // Expose for settings button
-        window.showPrivacyBanner = function () {
-            localStorage.removeItem(STORAGE_KEY);
-            var banner = document.getElementById('privacy-banner');
-            if (banner) {
-                banner.style.display = 'block';
-                banner.style.opacity = '0';
-                banner.style.pointerEvents = 'none';
-                banner.style.transform = 'translateX(-50%) translateY(calc(100% + 2rem))';
-            }
-            showBanner();
-        };
-        // Run after DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', showBanner);
-        } else {
-            showBanner();
-        }
-    })();
+    // Dölj banner om redan accepterat
+    if (localStorage.getItem('naturboken_privacy_ack') === 'true') {
+        document.getElementById('privacy-banner').style.display = 'none';
+    }
+    window.showPrivacyBanner = function() {
+        localStorage.removeItem('naturboken_privacy_ack');
+        document.getElementById('privacy-banner').style.display = 'flex';
+    };
     </script>
 
     <script src="bird_images.js"></script>
