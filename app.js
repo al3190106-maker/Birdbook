@@ -7122,60 +7122,12 @@ function _registerNavHandlers() {
     // Initialize nav with the current tab
     nav.init('log-view');
 }
-/**
- * Integritetsmeddelande & Cookie-info för GA4 (Uppgift 36)
- */
-function initPrivacyBanner() {
-    const banner = document.getElementById('privacy-banner');
-    const okBtn = document.getElementById('privacy-banner-btn');
-    if (!banner) return;
+// Privacy-banner hanteras nu av inline-script i index.html (Uppgift 36)
+// window.showPrivacyBanner sätts av inline-scriptet och kan anropas härifrån
 
-    // Always remove any stray hidden/display:none from old class conflicts
-    banner.classList.remove('hidden');
-
-    const isAcked = localStorage.getItem('naturboken_privacy_ack') === 'true';
-    if (isAcked) {
-        banner.classList.remove('show');
-        banner.style.display = 'none';
-        return;
-    }
-
-    // Make visible (opacity still 0 via CSS), then animate in
-    banner.style.display = '';
-    // Force a reflow so the CSS transition fires properly
-    void banner.offsetWidth;
-    setTimeout(() => {
-        banner.classList.add('show');
-    }, 300);
-
-    if (okBtn && !okBtn._privacyInit) {
-        okBtn._privacyInit = true;
-        okBtn.onclick = function () {
-            banner.classList.remove('show');
-            localStorage.setItem('naturboken_privacy_ack', 'true');
-            setTimeout(() => {
-                banner.style.display = 'none';
-            }, 400);
-        };
-    }
-}
-
-window.initPrivacyBanner = initPrivacyBanner;
-window.showPrivacyBanner = function () {
-    localStorage.removeItem('naturboken_privacy_ack');
-    const banner = document.getElementById('privacy-banner');
-    if (banner) {
-        banner.classList.remove('hidden');
-        banner.classList.remove('show');
-        banner.style.display = '';
-    }
-    initPrivacyBanner();
-};
-
-// Extend init to include map, quiz, navigation and privacy banner
+// Extend init to include map, quiz, navigation
 const _originalInit = init;
 init = async function() {
-    initPrivacyBanner();
     await _originalInit();
     _setupMapEventListeners();
     initQuizListeners();
@@ -7184,7 +7136,6 @@ init = async function() {
 
 // Start
 document.addEventListener('DOMContentLoaded', () => {
-    initPrivacyBanner();
     init();
 });
 
