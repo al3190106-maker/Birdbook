@@ -1927,6 +1927,9 @@
 
     <script>
         if ('serviceWorker' in navigator) {
+            // Track if a Service Worker was already controlling the page on load
+            const hadControllerOnLoad = Boolean(navigator.serviceWorker.controller);
+
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then(reg => {
@@ -1948,12 +1951,12 @@
                     .catch(err => console.log('SW failed', err));
             });
 
-            // Reload the page automatically when a new Service Worker takes control
+            // Reload the page ONLY if there was already an active worker (i.e. a true update, never on first visit!)
             let refreshing = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
-                if (!refreshing) {
+                if (hadControllerOnLoad && !refreshing) {
                     refreshing = true;
-                    console.log('Service Worker controller changed. Reloading page...');
+                    console.log('Service Worker updated. Reloading for fresh version...');
                     window.location.reload();
                 }
             });
