@@ -174,8 +174,6 @@
 - [ ] Upprätthålla diskussioner, estimera svårighet och delegera uppgifter
 - [ ] **Framtida uppgift (Artdata):** Komplettera fågelgrupperingar/familjer i `birds.js` så att alla arter har exakt taxonomisk gruppering för framtida faktamappning
 - [ ] **Framtida uppgift (Artkort & Fakta):** Översyn & anpassning av faktafält för alla övriga böcker (Fiskboken, Svampboken, Växtboken, Däggdjursboken) så att även dessa får unika & värdefulla faktrutor anpassade för sitt ämne
-- [ ] **Framtida uppgift (Flyttningsfilm):** Interaktiv tidslinje (Jan–Dec) med ▶️ Play/Paus-loop på Sverigekartan som visar hur fåglar flyttar i Sverige
-
 
 ### 🎴 Fågelkort (Artdetaljkort & Modaler)
 - [ ] Ansvara för `.bird-detail-modal`, bildkaruseller, artfakta, mått & popup-detaljer
@@ -183,41 +181,36 @@
 
 ### 🎨 Generera bilder
 - [ ] Uppgift 34: Unik Visuell Identitet & Ikon-renovering (Byta ut lånade/generiska ikoner i `images/category_icons/` mot egen enhetlig grafik)
+- [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
 - [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
 - [x] Omgenerera Flugsnappares ikonstil med en fågel som fångar en flygande fluga
-- [ ] Generera silhuett-versioner av rovfåglar och andra fåglar
-
-### 🐛 Bugg och fix
-- [x] Räkna observerat antal baserat på antal unika arter (istället för totala loggningar)
-- [x] Implementera robust dataskydd och säkerhetskopiering (Persisted Storage & Auto-backup)
-- [x] Ta bort kamera- & papperskorgsikoner på stora bildkort i Min logg på mobilen
-- [x] Rena knappstilar & tema för Naturboken & Växtboken (Ta bort skuggor/specialeffekter)
-- [x] Centrera bilder i Fiskboken (Ta bort vertikal förskjutning i CSS)
 
 ### ✨ Features & UI
-- [ ] Skapa dagskalendern och möjlighet att skapa nya listor
+- [ ] Uppgift 31: Interaktiv Flyttningskarta (Jan–Dec animerad tidslinje på Sverigekartan)
+- [ ] Uppgift 8: Skapa Dagskalender & möjlighet att skapa egna listor
+- [ ] Uppgift 12: Användarkonto-system (Användarprofil & ID)
+- [ ] Uppgift 13: Dela konto / Se andras framsteg (Profil-delning & statistik-kort)
+- [ ] Uppgift 29: Instagram Story-kort & Native 1-klick Delning
+- [ ] Uppgift 32: Exportera Årslista / Life List (PDF / Utskriftsvy)
 - [x] Sortera listor/kategorier efter vilken man har loggat mest i
 - [x] Karta: Slå ihop överlappande markörer till en sammanställd lista (clustering)
 - [x] Förbättra namngivning och etiketter i Inställningar (Settings) för bättre förståelse
 - [x] Lägga till informationsavsnitt/hjälp i Inställningar
-- [ ] Skapa användarkonto-system (användarprofil & ID)
-- [ ] Dela konto / se andras framsteg (profil-delning & statistik-kort)
 - [x] Visa antal genomförda Quiz i Statistiken
 - [x] Bok-anpassad Statistik-vy (Ämnesspecifik statistik per bok + Samlad översikt i Naturboken)
 - [x] Kom ihåg & öppna senast använda boken vid sidladdning (LocalStorage)
 - [x] Filtrera kartan per aktiv bok (Visa endast bokens observationer på kartan)
 
-### 📊 Artdata & Innehåll
-- [x] Slå ihop Växtboken och Trädboken till en gemensam "Växtbok"
-- [x] Utöka fågeldatabasen med GBIF Sverige 2026 (257 → 395 unika arter, +138 nya)
-- [x] Korrigera artdata & viktenheter för alla böcker (Fiskboken, Viltboken, Svampboken, Växtboken)
 
 ### 🚀 Deploy & Infra
+- [ ] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
+- [ ] Uppgift 9: Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 - [x] Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 (Diskret 1-rads banner + info i Inställningar)
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
-- [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 
 ### 🔍 Identifiera
+- [ ] Uppgift 30: Ljud-Quiz ("Gissa lätet!")
+- [ ] Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
 - [x] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
