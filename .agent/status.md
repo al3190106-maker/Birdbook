@@ -20,6 +20,7 @@
 ## ✅ Nyligen avslutat
 
 | Datum | Konversation | Vad gjordes |
+| 2026-08-18 | 🚀 Deploy & Infra | Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 – diskret 1-rads banner vid första besök med mjuk animering och [OK]-knapp, samt förtydligad integritetspolicy i Inställningar och Om Naturboken (`index.html`, `style.css`, `app.js`) |
 | 2026-08-17 | 🐦 Fågelguide | Textkorrigering: Ändrat Varfågelns kuriosa (`funFact`) så att *'slaktarfågeln'* nu stavas **'Zlaktarfågeln'** med stort Z (`birds.js`) |
 | 2026-08-17 | ✨ Features & UI | Smart sökning på Familj/Taxonomi: Utökat sökfunktionen i fågelguiden så att man kan söka direkt på alla familjer, ordningar och övergripande kategorier (`app.js`, `index.html`) |
 | 2026-08-16 | 📓 Min logg | Utökad sökning på Familj & Ordning: Sökfältet i Min logg söker nu även på artens taxonomiska ordning, familj, typ och biotop (t.ex. "Andfåglar", "Rovdjur", "Ugglor", "Laxfiskar", "Passeriformes") utöver namn, plats, datum och anteckningar (`app.js`) |
@@ -211,6 +212,7 @@
 - [x] Korrigera artdata & viktenheter för alla böcker (Fiskboken, Viltboken, Svampboken, Växtboken)
 
 ### 🚀 Deploy & Infra
+- [x] Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 (Diskret 1-rads banner + info i Inställningar)
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
 - [ ] Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 

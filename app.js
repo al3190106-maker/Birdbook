@@ -7123,13 +7123,37 @@ function _registerNavHandlers() {
     nav.init('log-view');
 }
 
-// Extend init to include map, quiz, and navigation
+/**
+ * Integritetsmeddelande & Cookie-info för GA4 (Uppgift 36)
+ */
+function initPrivacyBanner() {
+    const banner = document.getElementById('privacy-banner');
+    const okBtn = document.getElementById('privacy-banner-btn');
+    if (!banner || !okBtn) return;
+
+    if (!localStorage.getItem('naturboken_privacy_ack')) {
+        setTimeout(() => {
+            banner.classList.remove('hidden');
+            void banner.offsetHeight; // force reflow
+            banner.classList.add('show');
+        }, 1200);
+    }
+
+    okBtn.addEventListener('click', () => {
+        banner.classList.remove('show');
+        setTimeout(() => banner.classList.add('hidden'), 400);
+        localStorage.setItem('naturboken_privacy_ack', 'true');
+    });
+}
+
+// Extend init to include map, quiz, navigation and privacy banner
 const _originalInit = init;
 init = async function() {
     await _originalInit();
     _setupMapEventListeners();
     initQuizListeners();
     _registerNavHandlers();
+    initPrivacyBanner();
 };
 
 // Start

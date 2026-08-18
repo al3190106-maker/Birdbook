@@ -1606,7 +1606,8 @@
                         Integritet och Data
                     </summary>
                     <div style="padding-top: 1rem;">
-                        <p style="font-size: 0.9rem; margin-bottom: 0;"><strong>Din integritet:</strong> Appen sparar all din data, inklusive platsinformation och bilder, enbart lokalt på din egen enhet. Vi varken samlar in, analyserar eller delar din data till några externa servrar eller tredje part.</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Din personliga data:</strong> Alla dina observationer, foton, anteckningar och inställningar sparas uteslutande lokalt på din egen enhet (IndexedDB & LocalStorage). Inga personliga observationer delas till externa servrar.</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;"><strong>Anonym besöksstatistik:</strong> För att kunna förbättra appen används helt anonym besöks- och aktivitetsstatistik (Google Analytics med maskerad IP-adress). Inga personuppgifter samlas in.</p>
                     </div>
                 </details>
                 <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-main); text-align: center; border-top: 1px solid #eee; padding-top: 1rem;">
@@ -1781,8 +1782,11 @@
                     <details class="info-details-box">
                         <summary><i class="fa-solid fa-user-shield"></i> Integritet &amp; Dataskydd</summary>
                         <div class="info-details-content">
+                            <p style="font-size: 0.8rem; margin: 0 0 0.4rem 0; line-height: 1.4; color: #475569;">
+                                <strong>100% Lokalt:</strong> All din data, inklusive GPS-platser och foton, sparas enbart lokalt på din egen enhet.
+                            </p>
                             <p style="font-size: 0.8rem; margin: 0; line-height: 1.4; color: #475569;">
-                                <strong>100% Lokalt:</strong> All din data, inklusive GPS-platser och foton, sparas enbart lokalt på din egen enhet. Ingen data samlas in eller skickas till externa servrar.
+                                <strong>Anonym statistik:</strong> Vi mäter helt anonym besöksstatistik för att optimera och förbättra appens funktioner.
                             </p>
                         </div>
                     </details>
@@ -1904,6 +1908,15 @@
     <script src="nature.js"></script>
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
+
+    <!-- Privacy & Analytics Notice Banner (Uppgift 36) -->
+    <div id="privacy-banner" class="privacy-banner hidden">
+        <div class="privacy-banner-content">
+            <i class="fa-solid fa-shield-halved privacy-banner-icon"></i>
+            <span>Naturboken använder anonym besöksstatistik för att förbättra appen.</span>
+            <button id="privacy-banner-btn" class="privacy-banner-btn" type="button">OK</button>
+        </div>
+    </div>
 
     <script src="bird_images.js"></script>
     <script src="photographers.js"></script>
