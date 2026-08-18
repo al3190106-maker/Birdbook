@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.4.2-cookie-banner-fix';
+const CACHE_NAME = 'birdfinder-v5.4.3-privacy-banner-show';
 const ASSETS_TO_CACHE = [
 
 

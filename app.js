@@ -7130,25 +7130,32 @@ function initPrivacyBanner() {
     const okBtn = document.getElementById('privacy-banner-btn');
     if (!banner) return;
 
+    // Always remove any stray hidden/display:none from old class conflicts
+    banner.classList.remove('hidden');
+
     const isAcked = localStorage.getItem('naturboken_privacy_ack') === 'true';
     if (isAcked) {
-        banner.style.display = 'none';
         banner.classList.remove('show');
+        banner.style.display = 'none';
         return;
     }
 
+    // Make visible (opacity still 0 via CSS), then animate in
     banner.style.display = '';
+    // Force a reflow so the CSS transition fires properly
+    void banner.offsetWidth;
     setTimeout(() => {
         banner.classList.add('show');
-    }, 250);
+    }, 300);
 
-    if (okBtn) {
+    if (okBtn && !okBtn._privacyInit) {
+        okBtn._privacyInit = true;
         okBtn.onclick = function () {
             banner.classList.remove('show');
             localStorage.setItem('naturboken_privacy_ack', 'true');
             setTimeout(() => {
                 banner.style.display = 'none';
-            }, 350);
+            }, 400);
         };
     }
 }
@@ -7156,6 +7163,12 @@ function initPrivacyBanner() {
 window.initPrivacyBanner = initPrivacyBanner;
 window.showPrivacyBanner = function () {
     localStorage.removeItem('naturboken_privacy_ack');
+    const banner = document.getElementById('privacy-banner');
+    if (banner) {
+        banner.classList.remove('hidden');
+        banner.classList.remove('show');
+        banner.style.display = '';
+    }
     initPrivacyBanner();
 };
 
