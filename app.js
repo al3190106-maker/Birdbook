@@ -7128,22 +7128,36 @@ function _registerNavHandlers() {
 function initPrivacyBanner() {
     const banner = document.getElementById('privacy-banner');
     const okBtn = document.getElementById('privacy-banner-btn');
-    if (!banner || !okBtn) return;
+    if (!banner) return;
 
-    if (!localStorage.getItem('naturboken_privacy_ack')) {
-        setTimeout(() => {
-            banner.classList.remove('hidden');
-            void banner.offsetHeight; // force reflow
-            banner.classList.add('show');
-        }, 300);
+    const isAcked = localStorage.getItem('naturboken_privacy_ack') === 'true';
+    if (isAcked) {
+        banner.style.display = 'none';
+        banner.classList.remove('show');
+        return;
     }
 
-    okBtn.addEventListener('click', () => {
-        banner.classList.remove('show');
-        setTimeout(() => banner.classList.add('hidden'), 400);
-        localStorage.setItem('naturboken_privacy_ack', 'true');
-    });
+    banner.style.display = '';
+    setTimeout(() => {
+        banner.classList.add('show');
+    }, 250);
+
+    if (okBtn) {
+        okBtn.onclick = function () {
+            banner.classList.remove('show');
+            localStorage.setItem('naturboken_privacy_ack', 'true');
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 350);
+        };
+    }
 }
+
+window.initPrivacyBanner = initPrivacyBanner;
+window.showPrivacyBanner = function () {
+    localStorage.removeItem('naturboken_privacy_ack');
+    initPrivacyBanner();
+};
 
 // Extend init to include map, quiz, navigation and privacy banner
 const _originalInit = init;

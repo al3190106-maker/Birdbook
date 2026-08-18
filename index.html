@@ -1788,6 +1788,11 @@
                             <p style="font-size: 0.8rem; margin: 0; line-height: 1.4; color: #475569;">
                                 <strong>Anonym statistik:</strong> Vi mäter helt anonym besöksstatistik för att optimera och förbättra appens funktioner.
                             </p>
+                            <div style="margin-top: 0.6rem; text-align: right;">
+                                <button type="button" onclick="if(window.showPrivacyBanner) window.showPrivacyBanner(); nav.back();" style="background: none; border: none; color: var(--primary); font-size: 0.75rem; text-decoration: underline; cursor: pointer; padding: 0;">
+                                    Visa cookie-meddelande igen
+                                </button>
+                            </div>
                         </div>
                     </details>
 
@@ -1910,11 +1915,11 @@
     <script src="sweden-map.js"></script>
 
     <!-- Privacy & Analytics Notice Banner (Uppgift 36) -->
-    <div id="privacy-banner" class="privacy-banner hidden">
+    <div id="privacy-banner" class="privacy-banner">
         <div class="privacy-banner-content">
-            <i class="fa-solid fa-shield-halved privacy-banner-icon"></i>
-            <span>Naturboken använder anonym besöksstatistik för att förbättra appen.</span>
-            <button id="privacy-banner-btn" class="privacy-banner-btn" type="button">OK</button>
+            <i class="fa-solid fa-cookie-bite privacy-banner-icon"></i>
+            <span>Naturboken använder cookies och anonym besöksstatistik för att förbättra upplevelsen.</span>
+            <button id="privacy-banner-btn" class="privacy-banner-btn" type="button">Acceptera</button>
         </div>
     </div>
 
