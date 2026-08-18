@@ -745,9 +745,9 @@ function _renderPhotoPreview(photoUrl) {
         return;
     }
     elements.imagePreviewContainer.innerHTML = `
-        <div style="position: relative; display: inline-block; margin-top: 0.5rem; margin-bottom: 0.5rem;">
-            <img src="${photoUrl}" alt="Uppladdat foto" style="max-width: 100%; max-height: 180px; border-radius: 12px; border: 2px solid #e2e8f0; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            <button type="button" id="btn-remove-sighting-photo" title="Ta bort foto" style="position: absolute; top: 8px; right: 8px; background: rgba(239, 68, 68, 0.9); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+        <div class="sighting-preview-card">
+            <img src="${photoUrl}" alt="Uppladdat foto" class="sighting-preview-img">
+            <button type="button" id="btn-remove-sighting-photo" class="sighting-preview-remove-btn" title="Ta bort foto">
                 <i class="fa-solid fa-times"></i>
             </button>
         </div>

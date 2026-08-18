@@ -1116,8 +1116,8 @@
                 <div class="form-group">
                     <label for="bird-search-input">Fågelart</label>
                     <div class="autocomplete-wrapper" style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div id="selected-bird-thumb-container" style="display: none; flex: none;">
-                            <img id="selected-bird-thumb" src="" alt="Artbild" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #10b981; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                        <div id="selected-bird-thumb-container" class="sighting-bird-thumb-wrap">
+                            <img id="selected-bird-thumb" src="" alt="Artbild" class="sighting-bird-thumb-img">
                         </div>
                         <div style="flex: 1; position: relative;">
                             <input type="text" id="bird-search-input" placeholder="Börja skriva (t.ex. Koltrast)..."
@@ -1162,7 +1162,7 @@
                     <label for="sighting-location">Plats</label>
                     <div style="display: flex; gap: 0.5rem; align-items: center;">
                         <input type="text" id="sighting-location" placeholder="Hämtar plats..." style="flex: 1; margin-bottom: 0;">
-                        <button type="button" class="sighting-action-btn" id="btn-toggle-map" onclick="toggleSightingSection('map')" title="Välj på karta" style="padding: 0.5rem 1rem; flex: none; height: 100%; border-radius: 8px;">
+                        <button type="button" class="sighting-map-toggle-btn" id="btn-toggle-map" onclick="toggleSightingSection('map')" title="Välj på karta">
                             <i class="fa-solid fa-map-location-dot"></i>
                         </button>
                     </div>

@@ -20,6 +20,7 @@
 ## ✅ Nyligen avslutat
 
 | Datum | Konversation | Vad gjordes |
+| 2026-08-18 | 🔍 Identifiera | Mobil-optimering av observationer (Punkt 33): Flyttat in inline-stilar till klasser i `style.css`. Ökat touch-targets på kartknappen (48x48px) och bild-raderingsknappen (36x36px). Skapat kompakt bildförhandsgranskning (max 140px höjd) samt lagt till animerad infasning av art-miniatyrer (`index.html`, `style.css`, `app.js`) |
 | 2026-08-18 | 🚀 Deploy & Infra | Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 – diskret 1-rads banner vid första besök med mjuk animering och [OK]-knapp, samt förtydligad integritetspolicy i Inställningar och Om Naturboken (`index.html`, `style.css`, `app.js`) |
 | 2026-08-17 | 🐦 Fågelguide | Textkorrigering: Ändrat Varfågelns kuriosa (`funFact`) så att *'slaktarfågeln'* nu stavas **'Zlaktarfågeln'** med stort Z (`birds.js`) |
 | 2026-08-17 | ✨ Features & UI | Smart sökning på Familj/Taxonomi: Utökat sökfunktionen i fågelguiden så att man kan söka direkt på alla familjer, ordningar och övergripande kategorier (`app.js`, `index.html`) |

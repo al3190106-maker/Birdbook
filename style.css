@@ -8156,5 +8156,127 @@ body.idle-dark-mode .listen-scard-add-btn {
     transform: scale(0.96);
 }
 
+/* ================================================================
+   Mobile-First Sighting Modal Enhancements (Uppgift 33 CSS Clean-Up)
+   ================================================================ */
+
+/* 1. Selected species thumbnail styling */
+.sighting-bird-thumb-wrap {
+    display: none;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    padding-left: 4px;
+    animation: sightingThumbEnter 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sighting-bird-thumb-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease;
+}
+
+.sighting-bird-thumb-img:hover {
+    transform: scale(1.05);
+}
+
+/* 2. Map Toggle Button */
+.sighting-map-toggle-btn {
+    padding: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sighting-map-toggle-btn:hover {
+    background: #e2e8f0;
+    color: var(--primary);
+}
+
+.sighting-map-toggle-btn:active {
+    transform: scale(0.95);
+    background: #e2e8f0;
+}
+
+.sighting-map-toggle-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(46, 93, 75, 0.2);
+}
+
+/* 3. Photo preview and remove button */
+.sighting-preview-card {
+    position: relative;
+    display: flex;
+    margin: 0.6rem 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #cbd5e1;
+    width: 100%;
+    animation: sightingPreviewEnter 0.25s ease-out;
+}
+
+.sighting-preview-img {
+    width: 100%;
+    max-height: 140px;
+    object-fit: cover;
+    display: block;
+}
+
+.sighting-preview-remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(239, 68, 68, 0.95);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sighting-preview-remove-btn:hover {
+    background: #ef4444;
+}
+
+.sighting-preview-remove-btn:active {
+    transform: scale(0.9);
+    background: #dc2626;
+}
+
+@keyframes sightingThumbEnter {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sightingPreviewEnter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 
