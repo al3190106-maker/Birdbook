@@ -216,6 +216,9 @@
 - [x] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)
 - [x] Fågelkort med v2-bilder & detaljer för externa arter i "Nära mig"
 
+### 📓 Min logg
+- [ ] Uppgift 37: Nya bilder & integrering i Min logg (Väntar på instruktioner från användaren)
+
 ### 🧭 Planering
 - [ ] *(Långsiktiga vägval och arkitektur)*
 
