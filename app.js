@@ -15,12 +15,7 @@ const state = {
     quizAnswered: false,
     timeFilter: 'all',
     currentSubject: 'birds', // Replaces appMode
-    showBookStrip: localStorage.getItem('birdfinder_show_book_strip') !== 'false',
-    imgPrefGuide: localStorage.getItem('birdfinder_img_pref_guide') || 'v1',
-    imgPrefDetail: localStorage.getItem('birdfinder_img_pref_detail') || 'v2',
-    imgPrefIdentify: localStorage.getItem('birdfinder_img_pref_identify') || 'v2',
-    imgPrefLog: localStorage.getItem('birdfinder_img_pref_log') || 'foto',
-    imgPrefQuiz: localStorage.getItem('birdfinder_img_pref_quiz') || 'v2'
+    showBookStrip: localStorage.getItem('birdfinder_show_book_strip') !== 'false'
 };
 window.state = state;
 
@@ -4010,7 +4005,7 @@ function getHolderImage(birdId) {
 }
 
 function getBirdImageSrc(birdId, context = 'guide') {
-    // 1. Check LocalStorage for custom override
+    // 1. Check LocalStorage for custom override (user's own photo)
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
 
@@ -4024,62 +4019,13 @@ function getBirdImageSrc(birdId, context = 'guide') {
     ];
     const explicitItem = allItems.find(item => item.id === birdId);
 
-    // 2. If explicitItem has a defined image URL (e.g. naturboken.alt-qq.com or wikimedia), return it
+    // 2. Return the species image URL (naturboken.alt-qq.com)
     if (explicitItem && explicitItem.image) {
-        let url = explicitItem.image;
-        // Wikimedia thumbnail optimization: resize to smaller width per context
-        // URL format: /commons/thumb/x/xx/filename.jpg/640px-filename.jpg
-        // We can request any size by replacing the NNNpx- prefix
-        if (url.includes('wikimedia.org') && url.includes('px-')) {
-            if (context === 'quiz') {
-                targetSize = 800; // High-res HD for quiz so bird is large & sharp!
-            } else if (context === 'guide' || context === 'identify') {
-                targetSize = 480;
-            } else if (context === 'log') {
-                targetSize = 240;
-            } else {
-                targetSize = 800; // detail view – high quality
-            }
-            url = url.replace(/\/(\d+)px-/, '/' + targetSize + 'px-');
-        }
-        return url;
-    }
-    
-    // Get the preference for this context
-    let pref = 'v2'; // default
-    if (context === 'guide') pref = state.imgPrefGuide || 'v1';
-    else if (context === 'detail') pref = state.imgPrefDetail || 'v2';
-    else if (context === 'identify') pref = state.imgPrefIdentify || 'v2';
-    else if (context === 'log') pref = state.imgPrefLog || 'foto';
-    else if (context === 'quiz') pref = state.imgPrefQuiz || 'v2';
-    
-    // If preference is 'foto', try to get from birdImages
-    if (pref === 'foto') {
-        if (window.birdImages && window.birdImages[birdId] && window.birdImages[birdId].length > 0) {
-            const arr = window.birdImages[birdId];
-            const priority = { 'male': 1, 'same': 2, 'female': 3 };
-            
-            let bestImg = null;
-            let bestPrio = 100;
-
-            arr.forEach(img => {
-                const gender = typeof img === 'object' ? img.gender : null;
-                const prio = priority[gender] || 99;
-                if (prio < bestPrio) {
-                    bestPrio = prio;
-                    bestImg = img;
-                }
-            });
-
-            if (bestImg) return typeof bestImg === 'object' ? bestImg.src : bestImg;
-            
-            const first = arr[0];
-            return typeof first === 'object' ? first.src : first;
-        }
+        return explicitItem.image;
     }
 
-    // Default fallback
-    return `images/${birdId}.jpg`;
+    // 3. Fallback placeholder for species without an image field
+    return getHolderImage(birdId);
 }
 
 // Global handler: when an <img> fails to load, fall back through: CDN → Wikimedia → local → SVG
