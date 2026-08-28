@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.5.0-clean-reset';
+const CACHE_NAME = 'birdfinder-v5.5.1-welcome-privacy-card';
 const ASSETS_TO_CACHE = [
 
 
