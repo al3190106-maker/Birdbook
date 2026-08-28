@@ -1892,9 +1892,6 @@
         try {
             if (localStorage.getItem('naturboken_privacy_ack') === 'true') return;
         } catch (e) {}
-        var welcomeModal = document.getElementById('welcome-modal');
-        // Do not show while welcome modal is currently active on screen
-        if (welcomeModal && welcomeModal.classList.contains('active')) return;
 
         var banner = document.getElementById('privacy-banner');
         if (!banner) return;
@@ -1904,7 +1901,10 @@
                 if (localStorage.getItem('naturboken_privacy_ack') === 'true') return;
             } catch (e) {}
             var curWelcome = document.getElementById('welcome-modal');
-            if (curWelcome && curWelcome.classList.contains('active')) return;
+            // If welcome modal is still active on screen, wait until user picks a book
+            if (curWelcome && curWelcome.classList.contains('active')) {
+                return;
+            }
 
             banner.style.display = 'block';
             void banner.offsetWidth;
@@ -1927,23 +1927,23 @@
     };
 
     function selectWelcomeBook(subject) {
-        if (typeof switchSubject === 'function') {
-            switchSubject(subject);
-        }
         var welcomeModal = document.getElementById('welcome-modal');
         if (welcomeModal) {
             welcomeModal.classList.remove('active');
         }
-        // Visas direkt efter att användaren har valt vilken bok de vill starta med!
-        checkAndShowPrivacyBanner(450);
+        if (typeof switchSubject === 'function') {
+            switchSubject(subject);
+        }
+        // Visas direkt efter att användaren valt bok
+        setTimeout(function() {
+            checkAndShowPrivacyBanner(200);
+        }, 300);
     }
     window.selectWelcomeBook = selectWelcomeBook;
 
-    // Kontrollera vid sidladdning: om välkomstskärmen INTE visas (t.ex. återkommande användare)
+    // Kontrollera vid sidladdning och periodiskt tills boken valts
     document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            checkAndShowPrivacyBanner(600);
-        }, 500);
+        checkAndShowPrivacyBanner(600);
     });
     </script>
 
