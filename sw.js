@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.5.7-privacy-header';
+const CACHE_NAME = 'birdfinder-v5.5.8-shorter-copy';
 const ASSETS_TO_CACHE = [
 
 
