@@ -1951,6 +1951,42 @@ function switchSubject(subjectId) {
     }
 }
 
+function acceptWelcomePrivacy() {
+    localStorage.setItem('naturboken_privacy_ack', 'true');
+    const privacyBox = document.getElementById('welcome-privacy-box');
+    if (privacyBox) {
+        privacyBox.style.opacity = '0';
+        privacyBox.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+            privacyBox.style.display = 'none';
+        }, 300);
+    }
+    const grid = document.getElementById('welcome-library-grid');
+    if (grid) {
+        grid.style.opacity = '1';
+        grid.style.pointerEvents = 'auto';
+        grid.style.filter = 'none';
+    }
+    const instruction = document.getElementById('welcome-instruction');
+    if (instruction) {
+        instruction.textContent = 'Välj en bok nedan för att starta din upptäcktsfärd!';
+        instruction.style.color = 'var(--primary)';
+        instruction.style.fontWeight = '600';
+    }
+}
+window.acceptWelcomePrivacy = acceptWelcomePrivacy;
+
+function selectWelcomeBook(subject) {
+    localStorage.setItem('naturboken_privacy_ack', 'true');
+    if (typeof switchSubject === 'function') {
+        switchSubject(subject);
+    }
+    const welcomeModal = document.getElementById('welcome-modal');
+    if (welcomeModal) {
+        welcomeModal.classList.remove('active');
+    }
+}
+window.selectWelcomeBook = selectWelcomeBook;
 
 // --- Initialization ---
 async function init() {
@@ -1963,12 +1999,12 @@ async function init() {
         state.currentSubject = savedSubject;
     }
 
-    // --- Welcome Screen ---
-    const hasSeenWelcome = localStorage.getItem('birdfinder_welcome_shown') === 'true';
+    // --- Welcome & Privacy Screen (Tvingande samtycke) ---
+    const hasAcceptedPrivacy = localStorage.getItem('naturboken_privacy_ack') === 'true';
     const welcomeModal = document.getElementById('welcome-modal');
 
-    // Show Welcome screen if they haven't seen it yet
-    if (!hasSeenWelcome && welcomeModal) {
+    // Show Welcome screen if they haven't accepted privacy/cookies yet
+    if (!hasAcceptedPrivacy && welcomeModal) {
         welcomeModal.classList.add('active');
     }
 
