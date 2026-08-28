@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.5.5-mushroom-copy';
+const CACHE_NAME = 'birdfinder-v5.5.6-mushroom-copy';
 const ASSETS_TO_CACHE = [
 
 

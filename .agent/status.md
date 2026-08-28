@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-08-28 | 🔍 Identifiera | Göm "Simulera fågelljud"-knapp: Döljt knappen (`#listen-sim-btn`) i ljudidentifieringsvyn genom inline `display: none` i `index.html` för ett renare användargränssnitt |
 | 2026-08-18 | 🚀 Deploy & Infra | Fixat första besöks-upplevelsen: Förhindrat att Service Worker laddar om sidan för helt nya besökare (`hadControllerOnLoad === false`). Sidan laddar nu endast om för befintliga användare vid faktiska kod-uppdateringar (`index.html`, `sw.js`) |
 | 2026-08-18 | 🔍 Identifiera | Mobil-optimering av observationer (Punkt 33): Flyttat in inline-stilar till klasser i `style.css`. Ökat touch-targets på kartknappen (48x48px) och bild-raderingsknappen (36x36px). Skapat kompakt bildförhandsgranskning (max 140px höjd) samt lagt till animerad infasning av art-miniatyrer (`index.html`, `style.css`, `app.js`) |
 | 2026-08-18 | 🚀 Deploy & Infra | Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 – diskret 1-rads banner vid första besök med mjuk animering och [OK]-knapp, samt förtydligad integritetspolicy i Inställningar och Om Naturboken (`index.html`, `style.css`, `app.js`) |
