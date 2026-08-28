@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.5.3-blocking-privacy-consent';
+const CACHE_NAME = 'birdfinder-v5.5.4-privacy-pop-top';
 const ASSETS_TO_CACHE = [
 
 

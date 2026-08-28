@@ -1955,11 +1955,17 @@ function acceptWelcomePrivacy() {
     localStorage.setItem('naturboken_privacy_ack', 'true');
     const privacyBox = document.getElementById('welcome-privacy-box');
     if (privacyBox) {
-        privacyBox.style.opacity = '0';
-        privacyBox.style.transform = 'translateY(10px)';
-        setTimeout(() => {
-            privacyBox.style.display = 'none';
-        }, 300);
+        privacyBox.style.background = '#dcfce7';
+        privacyBox.style.borderColor = '#16a34a';
+        privacyBox.style.boxShadow = '0 2px 10px rgba(22, 163, 74, 0.15)';
+        privacyBox.innerHTML = `
+            <div style="background: #16a34a; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i class="fa-solid fa-check" style="font-size: 1.1rem;"></i>
+            </div>
+            <div style="font-weight: 700; font-size: 0.88rem; color: #15803d; flex: 1; text-align: left;">
+                Villkor godkända! Välj en bok nedan:
+            </div>
+        `;
     }
     const grid = document.getElementById('welcome-library-grid');
     if (grid) {
@@ -1969,9 +1975,7 @@ function acceptWelcomePrivacy() {
     }
     const instruction = document.getElementById('welcome-instruction');
     if (instruction) {
-        instruction.textContent = 'Välj en bok nedan för att starta din upptäcktsfärd!';
-        instruction.style.color = 'var(--primary)';
-        instruction.style.fontWeight = '600';
+        instruction.style.display = 'none';
     }
 }
 window.acceptWelcomePrivacy = acceptWelcomePrivacy;
