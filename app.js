@@ -30,10 +30,13 @@ const STORAGE_KEY = 'birdfinder_sightings';
 
 /**
  * Privat spårnings-hjälpare för Google Analytics 4 (Punkt 26)
+ * Skickar endast data om användaren uttryckligen har gett samtycke
  */
 function trackEvent(eventName, params = {}) {
-    if (typeof window.gtag === 'function') {
-        window.gtag('event', eventName, params);
+    if (localStorage.getItem('naturboken_privacy_ack') === 'true' && typeof window.gtag === 'function') {
+        try {
+            window.gtag('event', eventName, params);
+        } catch (_) {}
     }
 }
 window.trackEvent = trackEvent;
@@ -1953,6 +1956,10 @@ function switchSubject(subjectId) {
 
 function acceptWelcomePrivacy() {
     localStorage.setItem('naturboken_privacy_ack', 'true');
+    if (typeof window.initGA4 === 'function') {
+        window.initGA4();
+    }
+    trackEvent('privacy_consent_accepted');
     const privacyBox = document.getElementById('welcome-privacy-box');
     if (privacyBox) {
         privacyBox.style.background = '#dcfce7';

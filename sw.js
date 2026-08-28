@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.5.8-shorter-copy';
+const CACHE_NAME = 'birdfinder-v5.6.0-consent-mode-v2';
 const ASSETS_TO_CACHE = [
 
 

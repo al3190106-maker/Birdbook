@@ -4,16 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Analytics 4 (Privat analys för Naturboken) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-471QWLB8LB"></script>
+    <!-- Google Analytics 4 (Villkorlig laddning baserad på samtycke - Consent Mode v2) -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-471QWLB8LB', {
-            'anonymize_ip': true,
-            'cookie_flags': 'SameSite=None;Secure'
+
+        var hasPrivacyConsent = localStorage.getItem('naturboken_privacy_ack') === 'true';
+
+        // Sätt Google Consent Mode v2 standardläge baserat på tidigare val
+        gtag('consent', 'default', {
+            'analytics_storage': hasPrivacyConsent ? 'granted' : 'denied',
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied'
         });
+
+        function initGA4() {
+            if (window._ga4Loaded) return;
+            window._ga4Loaded = true;
+
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+
+            var gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-471QWLB8LB';
+            document.head.appendChild(gaScript);
+
+            gtag('js', new Date());
+            gtag('config', 'G-471QWLB8LB', {
+                'anonymize_ip': true,
+                'cookie_flags': 'SameSite=None;Secure'
+            });
+        }
+        window.initGA4 = initGA4;
+
+        // Om användaren redan tidigare har godkänt: ladda GA4 direkt
+        if (hasPrivacyConsent) {
+            initGA4();
+        }
     </script>
     <title>Svensk Fågelskådare | BirdFinder Sweden</title>
     <!-- Google Fonts Outfit (Local) -->
