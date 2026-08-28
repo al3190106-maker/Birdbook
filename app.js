@@ -1970,7 +1970,6 @@ async function init() {
     // Show Welcome screen if they haven't seen it yet
     if (!hasSeenWelcome && welcomeModal) {
         welcomeModal.classList.add('active');
-        localStorage.setItem('birdfinder_welcome_shown', 'true');
     }
 
     // Check for data dependency
