@@ -609,6 +609,26 @@ body {
     transform: scale(1.05);
 }
 
+/* Sprite crop – visar panel 1 (vuxen hane) ur 9-panelsmatrisen från naturboken.alt-qq.com */
+.bird-image-container.sprite {
+    background-color: #f5f2eb; /* Matchar bildernas bakgrundsfärg */
+}
+
+.bird-image-container.sprite img {
+    width: 300%;       /* Visar 1/3 av bildens bredd = panel 1 */
+    height: auto;
+    max-width: none;
+    object-fit: unset;
+    object-position: unset;
+    transform: none;
+    transition: none;
+}
+
+.bird-card:hover .bird-image-container.sprite img {
+    transform: scale(1.05);
+    transform-origin: top left;
+}
+
 .edit-image-btn,
 .delete-sighting-btn,
 .quick-add-btn {

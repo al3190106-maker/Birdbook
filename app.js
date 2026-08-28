@@ -2866,8 +2866,10 @@ function renderGuideList(birdList) {
         const customImg = localStorage.getItem(`custom_img_${bird.id}`);
         const imgSource = customImg || getBirdImageSrc(bird.id, 'guide');
 
+        const isSprite = !customImg && imgSource.includes('naturboken.alt-qq.com');
+
         card.innerHTML = `
-            <div class="bird-image-container">
+            <div class="bird-image-container${isSprite ? ' sprite' : ''}">
                 <img src="${imgSource}" alt="${bird.nameSv}" data-bird-id="${bird.id}" loading="lazy" onerror="handleImageError(this)">
                 <button class="edit-image-btn" id="edit-btn-${bird.id}" title="Ändra bild">
                     <i class="fa-solid fa-camera"></i>
