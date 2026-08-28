@@ -8231,5 +8231,358 @@ body.idle-dark-mode .listen-scard-add-btn {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* ================================================================
+   DAGSKALENDER & TIDSFILTER (Min Logg)
+================================================================ */
+.time-filter-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.time-filter-btn {
+    background: #ffffff;
+    color: var(--text-main);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-align: left;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.time-filter-btn:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 18px rgba(46, 93, 75, 0.12);
+}
+
+.time-filter-icon {
+    color: var(--primary);
+    font-size: 1.05rem;
+    flex-shrink: 0;
+}
+
+.time-filter-label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-main);
+}
+
+.time-filter-arrow {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.time-filter-btn.open .time-filter-arrow {
+    transform: rotate(180deg);
+}
+
+/* Panel Popover */
+.time-filter-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 320px;
+    max-width: calc(100vw - 2rem);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    z-index: 1200;
+    padding: 0.85rem;
+    animation: tfPopEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.time-filter-panel.hidden {
+    display: none;
+}
+
+@keyframes tfPopEnter {
+    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Tabs */
+.tf-mode-tabs {
+    display: flex;
+    background: #f1f5f9;
+    padding: 3px;
+    border-radius: 10px;
+    gap: 3px;
+    margin-bottom: 0.85rem;
+}
+
+.tf-tab {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0.45rem 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.tf-tab:hover {
+    color: var(--text-main);
+}
+
+.tf-tab.active {
+    background: #ffffff;
+    color: var(--primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Views */
+.tf-view {
+    display: block;
+}
+
+.tf-view.hidden {
+    display: none;
+}
+
+/* Year Grid */
+.tf-year-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 2px;
+}
+
+.tf-year-chip {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.6rem 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.tf-year-chip:hover {
+    background: #edf8f3;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tf-year-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+}
+
+.tf-count-badge {
+    font-size: 0.68rem;
+    opacity: 0.75;
+    font-weight: 500;
+}
+
+/* Month Grid */
+.tf-month-header, .tf-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding: 0 0.2rem;
+}
+
+.tf-nav-arrow {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+    transition: all 0.15s;
+}
+
+.tf-nav-arrow:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.tf-month-year-label, .tf-cal-month-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.tf-month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.tf-month-chip {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.55rem 0.2rem;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--text-main);
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.tf-month-chip:hover {
+    background: #edf8f3;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tf-month-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Calendar Grid */
+.tf-weekdays-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+}
+
+.tf-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.tf-day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s ease;
+    user-select: none;
+    min-height: 32px;
+}
+
+.tf-day-cell:hover:not(.empty) {
+    background: #f1f5f9;
+}
+
+.tf-day-cell.empty {
+    cursor: default;
+    pointer-events: none;
+}
+
+.tf-day-cell.today {
+    border: 1.5px solid var(--primary);
+}
+
+.tf-day-cell.has-sightings::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.tf-day-cell.selected {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+.tf-day-cell.selected::after {
+    background: #ffffff !important;
+}
+
+/* Active Filter Banner */
+.active-time-filter-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edf8f3;
+    border: 1px solid #b7e3cd;
+    border-radius: 10px;
+    padding: 0.45rem 0.85rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--primary);
+    animation: sightingPreviewEnter 0.2s ease-out;
+}
+
+.active-time-filter-banner.hidden {
+    display: none;
+}
+
+.clear-time-filter-btn {
+    background: white;
+    border: 1px solid #b7e3cd;
+    color: #166534;
+    border-radius: 6px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.15s ease;
+}
+
+.clear-time-filter-btn:hover {
+    background: #166534;
+    color: white;
+}
+
+
 
 

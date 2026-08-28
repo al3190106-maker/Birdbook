@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-08-28 | ✨ Features & UI | Uppgift 8 (Steg 1): Dagskalender & Dynamiskt Tidsfilter i Min Logg – Ersatt stel års-dropdown med en modern popover-panel med flikar för **År**, **Månad**, **Dag / Kalender** och **Alla**. Månadskalender med aktiva observationsprickar, touchvänlig datumväljare och filteråterställningsbadge (`index.html`, `style.css`, `app.js`) |
 | 2026-08-28 | 🔍 Identifiera | Göm "Simulera fågelljud"-knapp: Döljt knappen (`#listen-sim-btn`) i ljudidentifieringsvyn genom inline `display: none` i `index.html` för ett renare användargränssnitt |
 | 2026-08-18 | 🚀 Deploy & Infra | Fixat första besöks-upplevelsen: Förhindrat att Service Worker laddar om sidan för helt nya besökare (`hadControllerOnLoad === false`). Sidan laddar nu endast om för befintliga användare vid faktiska kod-uppdateringar (`index.html`, `sw.js`) |
 | 2026-08-18 | 🔍 Identifiera | Mobil-optimering av observationer (Punkt 33): Flyttat in inline-stilar till klasser i `style.css`. Ökat touch-targets på kartknappen (48x48px) och bild-raderingsknappen (36x36px). Skapat kompakt bildförhandsgranskning (max 140px höjd) samt lagt till animerad infasning av art-miniatyrer (`index.html`, `style.css`, `app.js`) |
@@ -188,7 +189,7 @@
 
 ### ✨ Features & UI
 - [ ] Uppgift 31: Interaktiv Flyttningskarta (Jan–Dec animerad tidslinje på Sverigekartan)
-- [ ] Uppgift 8: Skapa Dagskalender & möjlighet att skapa egna listor
+- [/] Uppgift 8: Skapa Dagskalender & möjlighet att skapa egna listor (Steg 1: Dagskalender & Tidsfilter i Min Logg klart ✅)
 - [ ] Uppgift 12: Användarkonto-system (Användarprofil & ID)
 - [ ] Uppgift 13: Dela konto / Se andras framsteg (Profil-delning & statistik-kort)
 - [ ] Uppgift 29: Instagram Story-kort & Native 1-klick Delning

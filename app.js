@@ -2,6 +2,10 @@
 const state = {
     sightings: [],
     yearFilter: new Date().getFullYear(),
+    timeFilterMode: 'year', // 'all', 'year', 'month', 'day'
+    timeFilterValue: new Date().getFullYear(),
+    calendarViewingDate: new Date(),
+    calendarViewingYear: new Date().getFullYear(),
     view: 'log-view',
     activeCategory: null,
     guideSearchTerm: '',
@@ -569,7 +573,13 @@ const elements = {
     closeModal: document.getElementById('close-modal'),
     form: document.getElementById('sighting-form'),
     yearSelect: document.getElementById('year-select'),
-    yearFilterContainer: document.querySelector('.year-filter-container'),
+    yearFilterContainer: document.querySelector('.year-filter-container') || document.querySelector('.time-filter-wrapper'),
+    timeFilterBtn: document.getElementById('time-filter-btn'),
+    timeFilterLabel: document.getElementById('time-filter-label'),
+    timeFilterPanel: document.getElementById('time-filter-panel'),
+    activeTimeFilterBanner: document.getElementById('active-time-filter-banner'),
+    activeTimeFilterText: document.getElementById('active-time-filter-text'),
+    clearTimeFilterBtn: document.getElementById('clear-time-filter-btn'),
     currentYearDisplay: document.getElementById('current-year-display'),
     sightingsList: document.getElementById('sightings-list'),
     bookStrip: document.getElementById('book-strip'),
@@ -2348,6 +2358,37 @@ function triggerImageUpload(birdId) {
     elements.customImageInput.click();
 }
 
+function matchesTimeFilter(sightingDate) {
+    if (!sightingDate) return false;
+    const mode = state.timeFilterMode || 'year';
+    const val = state.timeFilterValue;
+
+    if (mode === 'all' || val === 'all') return true;
+
+    // Normalisera datumsträng (YYYY-MM-DD)
+    const dStr = String(sightingDate).slice(0, 10);
+    const parts = dStr.split('-');
+    if (parts.length >= 3) {
+        const y = parseInt(parts[0], 10);
+        const ym = `${parts[0]}-${parts[1]}`;
+        const ymd = `${parts[0]}-${parts[1]}-${parts[2]}`;
+
+        if (mode === 'year') return y === parseInt(val, 10);
+        if (mode === 'month') return ym === val;
+        if (mode === 'day') return ymd === val;
+    } else {
+        const dObj = new Date(sightingDate);
+        if (isNaN(dObj)) return true;
+        const y = dObj.getFullYear();
+        const m = String(dObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dObj.getDate()).padStart(2, '0');
+        if (mode === 'year') return y === parseInt(val, 10);
+        if (mode === 'month') return `${y}-${m}` === val;
+        if (mode === 'day') return `${y}-${m}-${d}` === val;
+    }
+    return true;
+}
+
 function getFilteredSightings() {
     const currentList = getCurrentSpeciesList();
     const query = (state.logSearchQuery || '').trim().toLowerCase();
@@ -2362,19 +2403,13 @@ function getFilteredSightings() {
             // Exception: Naturboken shows everything (it's a compilation of all books)
             const customSubject = s.subject || 'birds';
             if (state.currentSubject !== 'nature' && customSubject !== state.currentSubject) return false;
-            if (state.yearFilter !== 'all') {
-                const y = new Date(s.date).getFullYear();
-                if (y !== state.yearFilter) return false;
-            }
+            if (!matchesTimeFilter(s.date)) return false;
         } else {
             // Filter by Current Mode (Bird vs Tree)
             const belongsToMode = currentList.some(item => item.id === s.birdId);
             if (!belongsToMode) return false;
 
-            if (state.yearFilter !== 'all') {
-                const y = new Date(s.date).getFullYear();
-                if (y !== state.yearFilter) return false;
-            }
+            if (!matchesTimeFilter(s.date)) return false;
         }
 
         // Text Search Query filter
@@ -2596,6 +2631,7 @@ function renderBookStrip() {
 function renderApp() {
     // Render Book Strip
     renderBookStrip();
+    renderTimeFilterUI();
 
     // 1. Apply Filters
     const filteredSightings = getFilteredSightings();
@@ -2646,7 +2682,7 @@ function renderSightingsList(sightings) {
         }
 
         const emptyText = config.texts.emptyLog
-            + ` <span class="highlight">${state.yearFilter === 'all' ? 'totalen' : state.yearFilter}</span>.`;
+            + ` <span class="highlight">${getFormattedTimeFilterLabel()}</span>.`;
 
         elements.sightingsList.innerHTML = `
             <div class="empty-state">
@@ -4099,27 +4135,288 @@ window.handleImageError = function (imgEl) {
     imgEl.src = getHolderImage(birdId);
 };
 
-function setupYearFilter() {
-    const currentYear = new Date().getFullYear();
-    const years = new Set();
-    
-    // Add all years from 2020 up to currentYear
-    for (let y = 2020; y <= currentYear; y++) {
-        years.add(y);
+/* ================================================================
+   DAGSKALENDER & TIDSFILTER LOGIK (Min Logg)
+================================================================ */
+const MONTH_NAMES_SV = [
+    'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+    'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'
+];
+
+const MONTH_SHORT_SV = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'
+];
+
+function getFormattedTimeFilterLabel() {
+    const mode = state.timeFilterMode || 'year';
+    const val = state.timeFilterValue;
+
+    if (mode === 'all' || val === 'all') return 'Alla år';
+    if (mode === 'year') return `${val}`;
+    if (mode === 'month' && typeof val === 'string') {
+        const parts = val.split('-');
+        if (parts.length >= 2) {
+            const mIdx = parseInt(parts[1], 10) - 1;
+            return `${MONTH_NAMES_SV[mIdx] || parts[1]} ${parts[0]}`;
+        }
+        return val;
+    }
+    if (mode === 'day' && typeof val === 'string') {
+        const parts = val.split('-');
+        if (parts.length >= 3) {
+            const mIdx = parseInt(parts[1], 10) - 1;
+            return `${parseInt(parts[2], 10)} ${MONTH_SHORT_SV[mIdx] || parts[1]} ${parts[0]}`;
+        }
+        return val;
+    }
+    return String(val || 'Alla år');
+}
+
+function setTimeFilter(mode, value) {
+    state.timeFilterMode = mode;
+    state.timeFilterValue = value;
+    state.yearFilter = (mode === 'year' && value !== 'all') ? parseInt(value, 10) : (mode === 'all' ? 'all' : value);
+
+    if (mode === 'month' && typeof value === 'string') {
+        const parts = value.split('-');
+        state.calendarViewingYear = parseInt(parts[0], 10);
+    } else if (mode === 'day' && typeof value === 'string') {
+        const parts = value.split('-');
+        state.calendarViewingDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, 1);
+        state.calendarViewingYear = parseInt(parts[0], 10);
     }
 
+    renderTimeFilterUI();
+    renderApp();
+}
+window.setTimeFilter = setTimeFilter;
+
+function toggleTimeFilterPanel(forceState) {
+    const panel = document.getElementById('time-filter-panel');
+    const btn = document.getElementById('time-filter-btn');
+    if (!panel) return;
+
+    const shouldShow = typeof forceState === 'boolean' ? forceState : panel.classList.contains('hidden');
+    if (shouldShow) {
+        panel.classList.remove('hidden');
+        if (btn) btn.classList.add('open');
+        renderTimeFilterPanel();
+    } else {
+        panel.classList.add('hidden');
+        if (btn) btn.classList.remove('open');
+    }
+}
+window.toggleTimeFilterPanel = toggleTimeFilterPanel;
+
+function renderTimeFilterUI() {
+    const labelEl = document.getElementById('time-filter-label');
+    if (labelEl) {
+        labelEl.textContent = getFormattedTimeFilterLabel();
+    }
+
+    // Active banner
+    const bannerEl = document.getElementById('active-time-filter-banner');
+    const bannerText = document.getElementById('active-time-filter-text');
+    if (bannerEl && bannerText) {
+        const validSightings = getFilteredSightings();
+        if (state.timeFilterMode === 'day' || state.timeFilterMode === 'month') {
+            bannerEl.classList.remove('hidden');
+            const prefix = state.timeFilterMode === 'day' ? 'Dagsfynd' : 'Månadsfynd';
+            bannerText.innerHTML = `<i class="fa-regular fa-calendar-check" style="margin-right: 0.35rem;"></i> <strong>${prefix}:</strong> ${getFormattedTimeFilterLabel()} (${validSightings.length} st)`;
+        } else {
+            bannerEl.classList.add('hidden');
+        }
+    }
+
+    // Backward compatibility for old yearSelect if still referenced
+    if (elements.yearSelect) {
+        const currentYear = new Date().getFullYear();
+        const years = new Set();
+        for (let y = 2020; y <= currentYear; y++) years.add(y);
+        state.sightings.forEach(s => {
+            if (s.id !== 'SYSTEM_INIT_BIRD' && s.date) {
+                years.add(new Date(s.date).getFullYear());
+            }
+        });
+        const sortedYears = Array.from(years).sort((a, b) => b - a);
+        elements.yearSelect.innerHTML = `<option value="all">Alla år</option>` + sortedYears.map(y => `<option value="${y}">${y}</option>`).join('');
+    }
+}
+
+function setupYearFilter() {
+    renderTimeFilterUI();
+}
+
+function renderTimeFilterPanel() {
+    const activeTab = state.timeFilterMode === 'all' ? 'all' : (state.timeFilterMode || 'year');
+    
+    // Update tab buttons
+    document.querySelectorAll('.tf-tab').forEach(tab => {
+        const mode = tab.dataset.mode;
+        tab.classList.toggle('active', mode === activeTab);
+    });
+
+    // Update active subview
+    const viewYear = document.getElementById('tf-view-year');
+    const viewMonth = document.getElementById('tf-view-month');
+    const viewDay = document.getElementById('tf-view-day');
+
+    if (viewYear) viewYear.classList.toggle('hidden', activeTab !== 'year' && activeTab !== 'all');
+    if (viewMonth) viewMonth.classList.toggle('hidden', activeTab !== 'month');
+    if (viewDay) viewDay.classList.toggle('hidden', activeTab !== 'day');
+
+    if (activeTab === 'year' || activeTab === 'all') {
+        renderYearGrid();
+    } else if (activeTab === 'month') {
+        renderMonthGrid();
+    } else if (activeTab === 'day') {
+        renderCalendarGrid();
+    }
+}
+
+function renderYearGrid() {
+    const container = document.getElementById('tf-year-grid');
+    if (!container) return;
+
+    const currentYear = new Date().getFullYear();
+    const yearCounts = {};
+    for (let y = 2020; y <= currentYear; y++) yearCounts[y] = 0;
+
+    let totalAll = 0;
     state.sightings.forEach(s => {
-        if (s.id !== 'SYSTEM_INIT_BIRD') {
-            years.add(new Date(s.date).getFullYear());
+        if (s.id !== 'SYSTEM_INIT_BIRD' && s.date) {
+            const y = new Date(s.date).getFullYear();
+            yearCounts[y] = (yearCounts[y] || 0) + 1;
+            totalAll++;
         }
     });
 
-    const sortedYears = Array.from(years).sort((a, b) => b - a);
+    const sortedYears = Object.keys(yearCounts).map(Number).sort((a, b) => b - a);
+    let html = '';
 
-    let html = `<option value="all" ${state.yearFilter === 'all' ? 'selected' : ''}>Alla år</option>`;
-    html += sortedYears.map(y => `<option value="${y}" ${state.yearFilter === y ? 'selected' : ''}>${y}</option>`).join('');
+    // "Alla år" chip
+    const isAllActive = state.timeFilterMode === 'all' || state.timeFilterValue === 'all';
+    html += `
+        <div class="tf-year-chip${isAllActive ? ' active' : ''}" onclick="setTimeFilter('all', 'all'); toggleTimeFilterPanel(false);">
+            <span>Alla år</span>
+            <span class="tf-count-badge">${totalAll} st</span>
+        </div>
+    `;
 
-    elements.yearSelect.innerHTML = html;
+    sortedYears.forEach(year => {
+        const isActive = state.timeFilterMode === 'year' && parseInt(state.timeFilterValue, 10) === year;
+        const count = yearCounts[year] || 0;
+        html += `
+            <div class="tf-year-chip${isActive ? ' active' : ''}" onclick="setTimeFilter('year', ${year}); toggleTimeFilterPanel(false);">
+                <span>${year}</span>
+                <span class="tf-count-badge">${count} st</span>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+function renderMonthGrid() {
+    const container = document.getElementById('tf-month-grid');
+    const yearLabel = document.getElementById('tf-month-year-label');
+    if (!container) return;
+
+    const year = state.calendarViewingYear || new Date().getFullYear();
+    if (yearLabel) yearLabel.textContent = year;
+
+    // Count observations per month in this year
+    const monthCounts = new Array(12).fill(0);
+    state.sightings.forEach(s => {
+        if (s.id !== 'SYSTEM_INIT_BIRD' && s.date) {
+            const d = new Date(s.date);
+            if (d.getFullYear() === year) {
+                const m = d.getMonth();
+                if (m >= 0 && m < 12) monthCounts[m]++;
+            }
+        }
+    });
+
+    let html = '';
+    for (let m = 0; m < 12; m++) {
+        const monthKey = `${year}-${String(m + 1).padStart(2, '0')}`;
+        const isActive = state.timeFilterMode === 'month' && state.timeFilterValue === monthKey;
+        const count = monthCounts[m];
+        html += `
+            <div class="tf-month-chip${isActive ? ' active' : ''}" onclick="setTimeFilter('month', '${monthKey}'); toggleTimeFilterPanel(false);">
+                <span>${MONTH_NAMES_SV[m]}</span>
+                <span class="tf-count-badge">${count} st</span>
+            </div>
+        `;
+    }
+
+    container.innerHTML = html;
+}
+
+function renderCalendarGrid() {
+    const container = document.getElementById('tf-calendar-grid');
+    const monthLabel = document.getElementById('tf-cal-month-label');
+    if (!container) return;
+
+    const viewDate = state.calendarViewingDate || new Date();
+    const year = viewDate.getFullYear();
+    const month = viewDate.getMonth();
+
+    if (monthLabel) {
+        monthLabel.textContent = `${MONTH_NAMES_SV[month]} ${year}`;
+    }
+
+    // Map sightings for each day of this month
+    const dayCounts = {};
+    state.sightings.forEach(s => {
+        if (s.id !== 'SYSTEM_INIT_BIRD' && s.date) {
+            const d = new Date(s.date);
+            if (d.getFullYear() === year && d.getMonth() === month) {
+                const dayNum = d.getDate();
+                dayCounts[dayNum] = (dayCounts[dayNum] || 0) + 1;
+            }
+        }
+    });
+
+    // First day of month (0=Sun, 1=Mon, ..., 6=Sat) -> Swedish Monday-based (0=Mon...6=Sun)
+    const firstDay = new Date(year, month, 1).getDay();
+    const leadingEmpty = (firstDay + 6) % 7;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const today = new Date();
+    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+    const todayDate = today.getDate();
+
+    let html = '';
+
+    // Empty cells before day 1
+    for (let i = 0; i < leadingEmpty; i++) {
+        html += `<div class="tf-day-cell empty"></div>`;
+    }
+
+    // Days 1..N
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dayKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const isSelected = state.timeFilterMode === 'day' && state.timeFilterValue === dayKey;
+        const isToday = isCurrentMonth && d === todayDate;
+        const count = dayCounts[d] || 0;
+        const hasSightings = count > 0;
+
+        let classes = 'tf-day-cell';
+        if (isToday) classes += ' today';
+        if (hasSightings) classes += ' has-sightings';
+        if (isSelected) classes += ' selected';
+
+        const title = hasSightings ? `${count} observation${count > 1 ? 'er' : ''}` : '';
+        html += `
+            <div class="${classes}" title="${title}" onclick="setTimeFilter('day', '${dayKey}'); toggleTimeFilterPanel(false);">
+                <span>${d}</span>
+            </div>
+        `;
+    }
+
+    container.innerHTML = html;
 }
 
 // --- Interaction Functions ---
@@ -4894,12 +5191,97 @@ function setupEventListeners() {
         });
     }
 
-    // 8. Filter Change
-    elements.yearSelect.addEventListener('change', (e) => {
-        const v = e.target.value;
-        state.yearFilter = v === 'all' ? 'all' : parseInt(v);
-        renderApp();
+    // Time Filter & Calendar Event Listeners
+    const tfBtn = document.getElementById('time-filter-btn');
+    if (tfBtn) {
+        tfBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleTimeFilterPanel();
+        });
+    }
+
+    const clearTfBtn = document.getElementById('clear-time-filter-btn');
+    if (clearTfBtn) {
+        clearTfBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setTimeFilter('year', new Date().getFullYear());
+        });
+    }
+
+    // Tabs inside time filter panel
+    document.querySelectorAll('.tf-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const mode = tab.dataset.mode;
+            if (mode === 'all') {
+                setTimeFilter('all', 'all');
+                toggleTimeFilterPanel(false);
+            } else {
+                state.timeFilterMode = mode;
+                renderTimeFilterPanel();
+            }
+        });
     });
+
+    // Month view year navigation
+    const prevYearBtn = document.getElementById('tf-month-prev-year');
+    if (prevYearBtn) {
+        prevYearBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            state.calendarViewingYear = (state.calendarViewingYear || new Date().getFullYear()) - 1;
+            renderMonthGrid();
+        });
+    }
+
+    const nextYearBtn = document.getElementById('tf-month-next-year');
+    if (nextYearBtn) {
+        nextYearBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            state.calendarViewingYear = (state.calendarViewingYear || new Date().getFullYear()) + 1;
+            renderMonthGrid();
+        });
+    }
+
+    // Calendar month navigation
+    const prevMonthBtn = document.getElementById('tf-cal-prev-month');
+    if (prevMonthBtn) {
+        prevMonthBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const current = state.calendarViewingDate || new Date();
+            state.calendarViewingDate = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+            renderCalendarGrid();
+        });
+    }
+
+    const nextMonthBtn = document.getElementById('tf-cal-next-month');
+    if (nextMonthBtn) {
+        nextMonthBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const current = state.calendarViewingDate || new Date();
+            state.calendarViewingDate = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+            renderCalendarGrid();
+        });
+    }
+
+    // Close panel on outside click
+    document.addEventListener('click', (e) => {
+        const panel = document.getElementById('time-filter-panel');
+        const btn = document.getElementById('time-filter-btn');
+        if (panel && !panel.classList.contains('hidden')) {
+            if (!panel.contains(e.target) && (!btn || !btn.contains(e.target))) {
+                toggleTimeFilterPanel(false);
+            }
+        }
+    });
+
+    // 8. Filter Change (backward compatibility)
+    if (elements.yearSelect) {
+        elements.yearSelect.addEventListener('change', (e) => {
+            const v = e.target.value;
+            state.yearFilter = v === 'all' ? 'all' : parseInt(v);
+            renderApp();
+        });
+    }
 
     // Close modals when clicking outside the modal content
     document.addEventListener('click', (e) => {

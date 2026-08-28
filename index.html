@@ -130,11 +130,59 @@
             <div class="list-controls">
                 <div class="list-header-row">
                     <div style="position: relative; display: flex; gap: 0.5rem; justify-content: space-between; align-items: center; flex-wrap: nowrap; width: 100%; min-height: 38px;">
-                        <div class="year-filter-container sort-controls" style="margin: 0; background: white; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex: 1; min-width: 0; padding: 0.5rem 0.8rem; display: flex; align-items: center;">
-                            <i class="fa-regular fa-calendar" style="color: var(--primary); flex-shrink: 0;"></i>
-                            <select id="year-select" style="color: var(--text-main); width: 100%; text-overflow: ellipsis; overflow: hidden; outline: none; border: none; background: transparent; font-weight: 600;">
-                                <!-- Populated by JS -->
-                            </select>
+                        
+                        <!-- Kalender- & Tidsfilter-knapp med popover -->
+                        <div class="time-filter-wrapper">
+                            <button type="button" id="time-filter-btn" class="time-filter-btn" title="Välj tidsperiod eller datum">
+                                <i class="fa-regular fa-calendar-days time-filter-icon"></i>
+                                <span id="time-filter-label" class="time-filter-label">2026</span>
+                                <i class="fa-solid fa-chevron-down time-filter-arrow"></i>
+                            </button>
+
+                            <!-- Interaktiv Kalender- & Tidsfilter-panel -->
+                            <div id="time-filter-panel" class="time-filter-panel hidden">
+                                <!-- Lägesväljare (Tabs) -->
+                                <div class="tf-mode-tabs">
+                                    <button type="button" class="tf-tab active" data-mode="year">År</button>
+                                    <button type="button" class="tf-tab" data-mode="month">Månad</button>
+                                    <button type="button" class="tf-tab" data-mode="day">Dag / Kalender</button>
+                                    <button type="button" class="tf-tab" data-mode="all">Alla</button>
+                                </div>
+
+                                <!-- Innehållsvy: År -->
+                                <div id="tf-view-year" class="tf-view">
+                                    <div class="tf-year-grid" id="tf-year-grid">
+                                        <!-- Genereras av JS -->
+                                    </div>
+                                </div>
+
+                                <!-- Innehållsvy: Månad -->
+                                <div id="tf-view-month" class="tf-view hidden">
+                                    <div class="tf-month-header">
+                                        <button type="button" class="tf-nav-arrow" id="tf-month-prev-year"><i class="fa-solid fa-chevron-left"></i></button>
+                                        <span id="tf-month-year-label" class="tf-month-year-label">2026</span>
+                                        <button type="button" class="tf-nav-arrow" id="tf-month-next-year"><i class="fa-solid fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="tf-month-grid" id="tf-month-grid">
+                                        <!-- Genereras av JS (Jan-Dec med antal) -->
+                                    </div>
+                                </div>
+
+                                <!-- Innehållsvy: Dag / Månadskalender -->
+                                <div id="tf-view-day" class="tf-view hidden">
+                                    <div class="tf-calendar-header">
+                                        <button type="button" class="tf-nav-arrow" id="tf-cal-prev-month"><i class="fa-solid fa-chevron-left"></i></button>
+                                        <span id="tf-cal-month-label" class="tf-cal-month-label">Maj 2026</span>
+                                        <button type="button" class="tf-nav-arrow" id="tf-cal-next-month"><i class="fa-solid fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="tf-weekdays-row">
+                                        <span>M</span><span>T</span><span>O</span><span>T</span><span>F</span><span>L</span><span>S</span>
+                                    </div>
+                                    <div class="tf-calendar-grid" id="tf-calendar-grid">
+                                        <!-- Dagar genereras av JS med prickar på obs-dagar -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Log Search Expandable Component -->
@@ -168,6 +216,15 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Aktivt filterindikator / Banner för Dag/Månad/År -->
+            <div id="active-time-filter-banner" class="active-time-filter-banner hidden">
+                <span id="active-time-filter-text">📅 Visar: 14 maj 2026</span>
+                <button type="button" id="clear-time-filter-btn" class="clear-time-filter-btn" title="Återgå till helår">
+                    <i class="fa-solid fa-xmark"></i> Återställ
+                </button>
+            </div>
+
             <div class="sightings-grid" id="sightings-list">
                 <!-- Injected via JS -->
                 <div class="empty-state">
