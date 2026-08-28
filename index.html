@@ -1477,32 +1477,32 @@
             <div class="library-grid"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; padding: 0.5rem 0;">
                 <button class="library-card mode-nature"
-                    onclick="selectWelcomeBook('nature')">
+                    onclick="switchSubject('nature'); document.getElementById('welcome-modal').classList.remove('active')">
                     <div class="lib-icon"><img src="images/category_icons/nature_alla.png" alt="Natur" class="lib-icon-img"></div>
                     <span class="lib-label">Naturboken</span>
                 </button>
                 <button class="library-card mode-birds"
-                    onclick="selectWelcomeBook('birds')">
+                    onclick="switchSubject('birds'); document.getElementById('welcome-modal').classList.remove('active')">
                     <div class="lib-icon"><img src="images/category_icons/alla.png" alt="Fåglar" class="lib-icon-img"></div>
                     <span class="lib-label">Fågelboken</span>
                 </button>
                 <button class="library-card mode-plants"
-                    onclick="selectWelcomeBook('plants')">
+                    onclick="switchSubject('plants'); document.getElementById('welcome-modal').classList.remove('active')">
                     <div class="lib-icon"><img src="images/category_icons/plants_alla.png" alt="Växter" class="lib-icon-img"></div>
                     <span class="lib-label">Växtboken</span>
                 </button>
                 <button class="library-card mode-fish"
-                    onclick="selectWelcomeBook('fish')">
+                    onclick="switchSubject('fish'); document.getElementById('welcome-modal').classList.remove('active')">
                     <div class="lib-icon"><img src="images/category_icons/fish_alla.png" alt="Fisk" class="lib-icon-img"></div>
                     <span class="lib-label">Fiskboken</span>
                 </button>
                 <button class="library-card mode-animals"
-                    onclick="selectWelcomeBook('animals')">
+                    onclick="switchSubject('animals'); document.getElementById('welcome-modal').classList.remove('active')">
                     <div class="lib-icon"><img src="images/category_icons/animal_alla.png" alt="Däggdjur" class="lib-icon-img"></div>
                     <span class="lib-label">Däggdjursboken</span>
                 </button>
                 <button class="library-card mode-fungi"
-                    onclick="selectWelcomeBook('fungi')">
+                    onclick="switchSubject('fungi'); document.getElementById('welcome-modal').classList.remove('active')">
                     <div class="lib-icon"><img src="images/category_icons/fungi_alla.png" alt="Svamp" class="lib-icon-img"></div>
                     <span class="lib-label">Svampboken</span>
                 </button>
@@ -1740,11 +1740,6 @@
                             <p style="font-size: 0.8rem; margin: 0; line-height: 1.4; color: #475569;">
                                 <strong>Anonym statistik:</strong> Vi mäter helt anonym besöksstatistik för att optimera och förbättra appens funktioner.
                             </p>
-                            <div style="margin-top: 0.6rem; text-align: right;">
-                                <button type="button" onclick="if(window.showPrivacyBanner) window.showPrivacyBanner(); nav.back();" style="background: none; border: none; color: var(--primary); font-size: 0.75rem; text-decoration: underline; cursor: pointer; padding: 0;">
-                                    Visa cookie-meddelande igen
-                                </button>
-                            </div>
                         </div>
                     </details>
 
@@ -1866,86 +1861,6 @@
     <!-- firebase-sync.js Removed -->
     <script src="sweden-map.js"></script>
 
-    <!-- Privacy & Analytics Notice Banner (Uppgift 36) -->
-    <div id="privacy-banner" class="privacy-banner">
-        <div class="privacy-banner-content">
-            <i class="fa-solid fa-cookie-bite privacy-banner-icon"></i>
-            <span>Naturboken använder cookies och anonym besöksstatistik för att förbättra upplevelsen.</span>
-            <button id="privacy-banner-btn" class="privacy-banner-btn" type="button" onclick="acceptPrivacyBanner()">Acceptera</button>
-        </div>
-    </div>
-    <script>
-    function acceptPrivacyBanner() {
-        try {
-            localStorage.setItem('naturboken_privacy_ack', 'true');
-        } catch (e) {}
-        var banner = document.getElementById('privacy-banner');
-        if (banner) {
-            banner.classList.remove('show');
-            setTimeout(function() {
-                banner.style.display = 'none';
-            }, 400);
-        }
-    }
-
-    function checkAndShowPrivacyBanner(delayMs) {
-        try {
-            if (localStorage.getItem('naturboken_privacy_ack') === 'true') return;
-        } catch (e) {}
-
-        var banner = document.getElementById('privacy-banner');
-        if (!banner) return;
-
-        setTimeout(function() {
-            try {
-                if (localStorage.getItem('naturboken_privacy_ack') === 'true') return;
-            } catch (e) {}
-            var curWelcome = document.getElementById('welcome-modal');
-            // If welcome modal is still active on screen, wait until user picks a book
-            if (curWelcome && curWelcome.classList.contains('active')) {
-                return;
-            }
-
-            banner.style.display = 'block';
-            void banner.offsetWidth;
-            banner.classList.add('show');
-        }, delayMs || 300);
-    }
-
-    window.checkAndShowPrivacyBanner = checkAndShowPrivacyBanner;
-
-    window.showPrivacyBanner = function() {
-        try {
-            localStorage.removeItem('naturboken_privacy_ack');
-        } catch (e) {}
-        var banner = document.getElementById('privacy-banner');
-        if (banner) {
-            banner.style.display = 'block';
-            void banner.offsetWidth;
-            banner.classList.add('show');
-        }
-    };
-
-    function selectWelcomeBook(subject) {
-        var welcomeModal = document.getElementById('welcome-modal');
-        if (welcomeModal) {
-            welcomeModal.classList.remove('active');
-        }
-        if (typeof switchSubject === 'function') {
-            switchSubject(subject);
-        }
-        // Visas direkt efter att användaren valt bok
-        setTimeout(function() {
-            checkAndShowPrivacyBanner(200);
-        }, 300);
-    }
-    window.selectWelcomeBook = selectWelcomeBook;
-
-    // Kontrollera vid sidladdning och periodiskt tills boken valts
-    document.addEventListener('DOMContentLoaded', function() {
-        checkAndShowPrivacyBanner(600);
-    });
-    </script>
 
 
     <script src="bird_images.js"></script>

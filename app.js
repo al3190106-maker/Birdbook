@@ -1797,11 +1797,6 @@ function switchSubject(subjectId) {
     state.currentSubject = subjectId;
     localStorage.setItem('naturboken_last_subject', subjectId);
     trackEvent('switch_subject', { subject: subjectId });
-
-    // Visa cookie-banner efter val av bok om ej tidigare godkänd
-    if (typeof window.checkAndShowPrivacyBanner === 'function') {
-        window.checkAndShowPrivacyBanner(400);
-    }
     const config = SUBJECT_CONFIG[subjectId];
 
     // Update "Identifiera" (listen-view) tab visibility: only visible in Fågelboken (birds)
@@ -7075,8 +7070,6 @@ function _registerNavHandlers() {
     // Initialize nav with the current tab
     nav.init('log-view');
 }
-// Privacy-banner hanteras nu av inline-script i index.html (Uppgift 36)
-// window.showPrivacyBanner sätts av inline-scriptet och kan anropas härifrån
 
 // Extend init to include map, quiz, navigation
 const _originalInit = init;
