@@ -2945,11 +2945,19 @@ function renderGuideList(birdList) {
         const customImg = localStorage.getItem(`custom_img_${bird.id}`);
         const imgSource = customImg || getBirdImageSrc(bird.id, 'guide');
 
-        const isSprite = !customImg && imgSource.includes('naturboken.alt-qq.com');
+        // Försök med lokal diorama-WebP, annars sprite-CSS som fallback
+        const dioramaPath = `images/dioramas/${bird.id}.webp`;
+        const useLocalDiorama = !customImg && imgSource.includes('naturboken.alt-qq.com');
+        const isSprite = useLocalDiorama; // sprite-klassen används som fallback om WebP saknas
 
         card.innerHTML = `
             <div class="bird-image-container${isSprite ? ' sprite' : ''}">
-                <img src="${imgSource}" alt="${bird.nameSv}" data-bird-id="${bird.id}" loading="lazy" onerror="handleImageError(this)">
+                <img src="${useLocalDiorama ? dioramaPath : imgSource}"
+                     alt="${bird.nameSv}"
+                     data-bird-id="${bird.id}"
+                     data-fallback="${imgSource}"
+                     loading="lazy"
+                     onerror="handleGuideImageError(this)">
                 <button class="edit-image-btn" id="edit-btn-${bird.id}" title="Ändra bild">
                     <i class="fa-solid fa-camera"></i>
                 </button>
@@ -4132,6 +4140,25 @@ window.handleImageError = function (imgEl) {
     }
 
     // Lokal fil failade → SVG placeholder
+    imgEl.src = getHolderImage(birdId);
+};
+
+// Felhantering specifikt för guide-kortens diorama-bilder (lokal WebP → full sprite-bild)
+window.handleGuideImageError = function (imgEl) {
+    const birdId = imgEl.dataset.birdId;
+    const fallback = imgEl.dataset.fallback;
+    if (!birdId) return;
+
+    // Om lokal diorama-WebP saknas: byt till full alt-qq-bild med sprite-CSS
+    if (imgEl.src.includes('images/dioramas/') && fallback) {
+        imgEl.src = fallback;
+        // Sprite-CSS är redan på containern – behåll den för crop-effekten
+        return;
+    }
+
+    // Om även full-bilden failar: SVG placeholder + ta bort sprite-CSS
+    const container = imgEl.closest('.bird-image-container');
+    if (container) container.classList.remove('sprite');
     imgEl.src = getHolderImage(birdId);
 };
 
