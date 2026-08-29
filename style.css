@@ -622,7 +622,7 @@ body {
     width: 100%;
     height: 400%;     /* 4× container-höjden = hela bilden, botten=panel 9 */
     max-width: none;
-    object-fit: cover;
+    object-fit: contain;    /* Visa hela dioramat utan beskärning */
     object-position: center bottom;
     transform: none;
     transition: transform 0.5s;
