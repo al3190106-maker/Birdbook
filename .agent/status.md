@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-08-29 | 🎨 Generera bilder | **335 Lokala Diorama-WebP bilder & URL-mappning**: Mappat upp korrekta bild-URLer från manifestet i `birds.js` (83 st fixade), hämtat och beskurit diorama-panelen (panel 9) till högkvalitativa `.webp`-filer i `images/dioramas/` (totalt 335 arter, ~26 MB). Uppdaterat guide-korten med fallback-hantering så bilderna laddar lokalt blixtsnabbt och offline (`birds.js`, `app.js`, `style.css`, `images/dioramas/`) |
+| 2026-08-29 | 🎨 Generera bilder | **Städning av repo (Frigjort ~248 MB)**: Raderat oanvänd `archive/birdnet-pwa-temp` (118 MB), gamla `images/identifiera` (134 MB), gamla rot-jpgs och `node_modules`. Lade till `node_modules/` i `.gitignore` (`.gitignore`) |
 | 2026-08-28 | ✨ Features & UI | Uppgift 8 (Steg 1): Dagskalender & Dynamiskt Tidsfilter i Min Logg – Ersatt stel års-dropdown med en modern popover-panel med flikar för **År**, **Månad**, **Dag / Kalender** och **Alla**. Månadskalender med aktiva observationsprickar, touchvänlig datumväljare och filteråterställningsbadge (`index.html`, `style.css`, `app.js`) |
 | 2026-08-28 | 🔍 Identifiera | Göm "Simulera fågelljud"-knapp: Döljt knappen (`#listen-sim-btn`) i ljudidentifieringsvyn genom inline `display: none` i `index.html` för ett renare användargränssnitt |
 | 2026-08-18 | 🚀 Deploy & Infra | Fixat första besöks-upplevelsen: Förhindrat att Service Worker laddar om sidan för helt nya besökare (`hadControllerOnLoad === false`). Sidan laddar nu endast om för befintliga användare vid faktiska kod-uppdateringar (`index.html`, `sw.js`) |
