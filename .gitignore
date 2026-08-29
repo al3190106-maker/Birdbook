@@ -23,3 +23,5 @@ wikidata_audio.json
 
 # Cloned BirdNET repo (temp)
 birdnet-pwa-temp/
+
+node_modules/
