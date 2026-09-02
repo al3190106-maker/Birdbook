@@ -73,6 +73,7 @@ Projektet använder dedikerade konversationer – **inte separata projekt**. All
 
 - **Arbetsgivaren styr projektet & ger alla order:** Konversationen 💼 **Arbetsgivaren** är ensam huvudledare och projektledare. Alla arbetare tar sina order och uppgiftsinstruktioner direkt från Arbetsgivaren via `.agent/status.md` och `task.md`. Utför inga oombedda uppgifter eller egna sidospår utan att Arbetsgivaren har godkänt och delegerat det.
 - **Kolla anslagstavlan (.agent/status.md):** När du som flik (t.ex. *Min logg*, *Generera bilder*, *Bugg och fix*, *Features & UI*, m.fl.) påbörjar ett arbete, MÅSTE du läsa `.agent/status.md` för att ta del av din tilldelade uppgift och specifikation från Arbetsgivaren.
+- **Standardiserat Orderformat:** Alla uppgifter delegeras i en enhetlig mall som anger exakt uppgiftsnummer, berörda filer, steg-för-steg instruktioner och obligatorisk avslutningsrutin (cache-bump, status-uppdatering och commit).
 - **Uppdatera vid färdigställande:** När du har utfört din uppgift ska du bocka av med `[x]` i `.agent/status.md` och logga ändringen under *✅ Nyligen avslutat*, så att Arbetsgivaren kan arkivera uppgiften.
 - **Stanna inom scope:** En flik ska enbart utföra den exakt tilldelade/ombedda uppgiften.
 - **Förslå "två flugor i en smäll" – Utför ALDRIG oombedda extrauppgifter:** Om du ser ett tillfälle där man kan slå två flugor i en smäll (t.ex. två närliggande uppgifter i samma fil), MÅSTE du först **föreslå detta för användaren** så att användaren kan avgöra situationen. Utför ALDRIG extrauppgifter automatiskt utan godkännande.

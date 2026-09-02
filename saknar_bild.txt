@@ -1,0 +1,232 @@
+Fåglar utan diorama-bild – 46 st
+==================================================
+
+Svenskt namn:     Småsnäppa
+Vetenskapligt:    Calidris minuta
+ID:               little_stint
+Nuvarande URL:    
+
+Svenskt namn:     Blåhake
+Vetenskapligt:    Luscinia svecica
+ID:               bluethroat
+Nuvarande URL:    
+
+Svenskt namn:     Kaspisk trut
+Vetenskapligt:    Larus cachinnans
+ID:               caspian_gull
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/caspian_gull.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Stellerejder
+Vetenskapligt:    Polysticta stelleri
+ID:               stellers_eider
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/stellers_eider.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Munkhuvad gam
+Vetenskapligt:    Aegypius monachus
+ID:               cinereous_vulture
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/cinereous_vulture.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Brun sjöorre
+Vetenskapligt:    Melanitta perspicillata
+ID:               surf_scoter
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/surf_scoter.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Röd klipptrast
+Vetenskapligt:    Monticola saxatilis
+ID:               rufous_tailed_rock_thrush
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/rufous_tailed_rock_thrush.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Amerikansk kricka
+Vetenskapligt:    Anas carolinensis
+ID:               green_winged_teal
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/green_winged_teal.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Amerikansk sjöorre
+Vetenskapligt:    Melanitta americana
+ID:               black_scoter
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/black_scoter.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Blyths piplärka
+Vetenskapligt:    Anthus richardi
+ID:               richards_pipit
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/richards_pipit.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Baikalkricka
+Vetenskapligt:    Sibirionetta formosa
+ID:               baikal_teal
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/baikal_teal.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Dvärgtrap
+Vetenskapligt:    Tetrax tetrax
+ID:               little_bustard
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/little_bustard.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Medelhavstrut
+Vetenskapligt:    Larus michahellis
+ID:               yellow_legged_gull
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/yellow_legged_gull.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Stäppörn
+Vetenskapligt:    Aquila nipalensis
+ID:               steppe_eagle
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/steppe_eagle.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Vitstjärtsnäppa
+Vetenskapligt:    Calidris fuscicollis
+ID:               white_rumped_sandpiper
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/white_rumped_sandpiper.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Dvärguggla (medelhavs)
+Vetenskapligt:    Otus scops
+ID:               european_scops_owl
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/european_scops_owl.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Rödbent rapphöna
+Vetenskapligt:    Alectoris rufa
+ID:               red_legged_partridge
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/red_legged_partridge.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Bonellis sångare
+Vetenskapligt:    Phylloscopus bonelli
+ID:               western_bonellis_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/western_bonellis_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Sotlira
+Vetenskapligt:    Puffinus griseus
+ID:               sooty_shearwater
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/sooty_shearwater.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Liten bergand
+Vetenskapligt:    Aythya affinis
+ID:               lesser_scaup
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/lesser_scaup.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Kanelkricka
+Vetenskapligt:    Spatula cyanoptera
+ID:               cinnamon_teal
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/cinnamon_teal.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Sakerfalken
+Vetenskapligt:    Falco cherrug
+ID:               saker_falcon
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/saker_falcon.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Pratinkola
+Vetenskapligt:    Glareola pratincola
+ID:               collared_pratincole
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/collared_pratincole.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Risrisångare
+Vetenskapligt:    Acrocephalus agricola
+ID:               paddyfield_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/paddyfield_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Tundrasångare
+Vetenskapligt:    Iduna caligata
+ID:               booted_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/booted_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Guldbrynssångare
+Vetenskapligt:    Phylloscopus inornatus
+ID:               yellow_browed_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/yellow_browed_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Blåkråka
+Vetenskapligt:    Coracias garrulus
+ID:               european_roller
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/european_roller.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Fläckig gök
+Vetenskapligt:    Clamator glandarius
+ID:               great_spotted_cuckoo
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/great_spotted_cuckoo.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Svarthalsad järnsparv
+Vetenskapligt:    Prunella atrogularis
+ID:               black_throated_accentor
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/black_throated_accentor.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Syrisk hackspett
+Vetenskapligt:    Dendrocopos syriacus
+ID:               syrian_woodpecker
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/syrian_woodpecker.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Svartvit stenskvätta
+Vetenskapligt:    Oenanthe pleschanka
+ID:               pied_wheatear
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/pied_wheatear.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Sibirisk buskskvätta
+Vetenskapligt:    Saxicola maurus
+ID:               siberian_stonechat
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/siberian_stonechat.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Bonapartemås
+Vetenskapligt:    Chroicocephalus philadelphia
+ID:               bonapartes_gull
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/bonapartes_gull.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Humes sångare
+Vetenskapligt:    Phylloscopus humei
+ID:               humes_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/humes_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Prärielöpare
+Vetenskapligt:    Calidris subruficollis
+ID:               buff_breasted_sandpiper
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/buff_breasted_sandpiper.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Ängsfalk
+Vetenskapligt:    Falco naumanni
+ID:               lesser_kestrel
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/lesser_kestrel.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Västlig rödstrupig sångare
+Vetenskapligt:    Curruca iberiae
+ID:               western_subalpine_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/western_subalpine_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Moltonis sångare
+Vetenskapligt:    Curruca subalpina
+ID:               moltonis_warbler
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/moltonis_warbler.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Sibirisk rosenfink
+Vetenskapligt:    Carpodacus roseus
+ID:               pallasas_rosefinch
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/pallasas_rosefinch.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Svangås
+Vetenskapligt:    Anser cygnoides
+ID:               swan_goose
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/swan_goose.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Nordamerikansk skrake
+Vetenskapligt:    Lophodytes cucullatus
+ID:               hooded_merganser
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/hooded_merganser.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Gultropig sparv
+Vetenskapligt:    Emberiza aureola
+ID:               yellow_breasted_bunting
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/yellow_breasted_bunting.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Kungspheasant
+Vetenskapligt:    Syrmaticus reevesii
+ID:               reevess_pheasant
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/reevess_pheasant.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Ostasiatisk sjöorre
+Vetenskapligt:    Melanitta stejnegeri
+ID:               stejnegers_scoter
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/stejnegers_scoter.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Nordamerikansk sjöorre
+Vetenskapligt:    Melanitta deglandi
+ID:               white_winged_scoter
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/white_winged_scoter.png?v=ec4d917deec3ee41
+
+Svenskt namn:     Enfärgad stare
+Vetenskapligt:    Sturnus unicolor
+ID:               spotless_starling
+Nuvarande URL:    https://naturboken.alt-qq.com/birds/originals/spotless_starling.png?v=ec4d917deec3ee41
