@@ -1,0 +1,45 @@
+﻿name: Synka diorama-bilder
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "birds.js"          # Kors bara nar birds.js andrats
+
+permissions:
+  contents: write           # Behover kunna commita tillbaka nya WebP-filer
+
+jobs:
+  sync-dioramas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checka ut repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Satt upp Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installera beroenden
+        run: pip install Pillow
+
+      - name: Synka dioraman
+        id: sync
+        run: |
+          python scripts/sync_dioramas.py
+          echo "new_files=$(git status --short images/dioramas/ | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Commita nya dioraman (om nagra laddades ner)
+        if: steps.sync.outputs.new_files != '0'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/dioramas/*.webp
+          COUNT=$(git diff --cached --name-only | wc -l)
+          git commit -m "chore: Lagg till $COUNT nya diorama-WebP-bilder [bot]"
+          git push
