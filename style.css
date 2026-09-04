@@ -608,38 +608,28 @@ body {
     transform: scale(1.05);
 }
 
-/* Guide-kort: lokal diorama-WebP laddar normalt, sprite-trick används som fallback */
+/* Guide-kort: visar panel 9 (diorama i botten) ur hela 9-panelsbilden */
 .bird-image-container.sprite {
     background-color: #f5f2eb;
     overflow: hidden;
+    position: relative;
 }
 
-/* Normal visning när lokal WebP finns – img fyller containern direkt */
-.bird-image-container.sprite img[src$=".webp"] {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    transform: none;
-    transition: transform 0.5s;
-}
-
-/* Fallback sprite-crop för de 140 arter som saknar lokal diorama */
-.bird-image-container.sprite img:not([src$=".webp"]) {
+.bird-image-container.sprite img {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 400%;
     max-width: none;
-    object-fit: contain;
-    object-position: center bottom;
+    object-fit: cover;
+    object-position: 50% 100%;
     transform: none;
     transition: transform 0.5s;
 }
 
 .bird-card:hover .bird-image-container.sprite img {
-    transform: scale(1.03);
+    transform: none;
 }
 
 .edit-image-btn,
