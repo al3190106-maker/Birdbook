@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-11 | 🎨 Generera bilder | **Återställt och säkrat 348 oklippta originalbilder**: Laddat ner och verifierat 348 hela originalbilder (941x1672px, alla 9 paneler helt intakta) som optimerade WebP-filer i `images/dioramas/` (~70 MB). Återställt sprite-CSS för att visa panel 9 från de fulla bilderna utan destruktiv beskärning (`images/dioramas/`, `style.css`, `sw.js`) |
+
 | 2026-09-04 | 🎨 Generera bilder | **Hela originalbilder & Sprite-visning för Guide-kort**: Laddat ner alla 348 originalbilder i full storlek (941x1672px, alla 9 paneler intakta) som optimerade WebP-filer (totalt 70 MB). Uppdaterat `.bird-image-container.sprite img` i CSS med `position: absolute; bottom: 0; width: 100%; height: 400%; object-fit: cover; object-position: 50% 100%` för att visa panel 9 (dioramat) utan förvrängning samt inaktiverat hover-scale (`images/dioramas/`, `style.css`, `sw.js`) |
 
 | 2026-08-29 | 🎨 Generera bilder | **335 Lokala Diorama-WebP bilder & URL-mappning**: Mappat upp korrekta bild-URLer från manifestet i `birds.js` (83 st fixade), hämtat och beskurit diorama-panelen (panel 9) till högkvalitativa `.webp`-filer i `images/dioramas/` (totalt 335 arter, ~26 MB). Uppdaterat guide-korten med fallback-hantering så bilderna laddar lokalt blixtsnabbt och offline (`birds.js`, `app.js`, `style.css`, `images/dioramas/`) |

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.6.2-diorama-sprite';
+const CACHE_NAME = 'birdfinder-v5.6.3-full-originals';
 const ASSETS_TO_CACHE = [
 
 
