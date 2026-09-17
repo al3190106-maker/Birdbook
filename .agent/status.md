@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-17 | 🎨 Generera bilder | **Smart diorama-extrahering för samtliga 348 arter**: Bearbetat alla 348 diorama-bilder med algoritm för automatisk detektering av separationsgap och trimning av vitt marginalpapper i botten (genomsnitt 74px tomt papper borttaget). Perfekt bevarande av fågelhuvuden (inkl. tornuggla, pilgrimsfalk, tjäder) och anpassad CSS för direkt fyllning av guide-korten (`images/dioramas/`, `style.css`, `sw.js`) |
+
 | 2026-09-11 | 🎨 Generera bilder | **Återställt och säkrat 348 oklippta originalbilder**: Laddat ner och verifierat 348 hela originalbilder (941x1672px, alla 9 paneler helt intakta) som optimerade WebP-filer i `images/dioramas/` (~70 MB). Återställt sprite-CSS för att visa panel 9 från de fulla bilderna utan destruktiv beskärning (`images/dioramas/`, `style.css`, `sw.js`) |
 
 | 2026-09-04 | 🎨 Generera bilder | **Hela originalbilder & Sprite-visning för Guide-kort**: Laddat ner alla 348 originalbilder i full storlek (941x1672px, alla 9 paneler intakta) som optimerade WebP-filer (totalt 70 MB). Uppdaterat `.bird-image-container.sprite img` i CSS med `position: absolute; bottom: 0; width: 100%; height: 400%; object-fit: cover; object-position: 50% 100%` för att visa panel 9 (dioramat) utan förvrängning samt inaktiverat hover-scale (`images/dioramas/`, `style.css`, `sw.js`) |

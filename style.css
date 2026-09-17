@@ -608,14 +608,24 @@ body {
     transform: scale(1.05);
 }
 
-/* Guide-kort: visar panel 9 (diorama i botten) ur hela 9-panelsbilden */
+/* Guide-kort: lokal diorama-WebP fyller containern direkt */
 .bird-image-container.sprite {
     background-color: #f5f2eb;
     overflow: hidden;
     position: relative;
 }
 
-.bird-image-container.sprite img {
+.bird-image-container.sprite img[src$=".webp"] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: none;
+    transition: transform 0.5s;
+}
+
+/* Fallback för arter som saknar lokal diorama och laddar hela 9-panelsbilden */
+.bird-image-container.sprite img:not([src$=".webp"]) {
     position: absolute;
     bottom: 0;
     left: 0;
