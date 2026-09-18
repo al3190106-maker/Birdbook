@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.7.1-compact-profiles';
+const CACHE_NAME = 'birdfinder-v5.7.2-log-diorama-normal';
 const ASSETS_TO_CACHE = [
 
 

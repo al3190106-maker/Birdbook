@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-18 | 🎨 Generera bilder | **Diorama i normalvy & 1:1 kompaktbilder i kompaktvy i Min Logg**: Konfigurerat Min Logg så att observationskorten i normalläget visar de beskurna liggande dioramabilderna (`images/dioramas/${id}.webp`), och i kompaktläget visar de kvadratiska 1:1-profilbilderna (`images/compact/${id}.webp`). Båda elementen renderas med omedelbar CSS-visningsväxling vid lägesbyte, fullständigt bibehållen företrädesrätt för användarens egna foton samt robust fallback-kedja (`app.js`, `style.css`, `sw.js`). |
+
 | 2026-09-18 | 🎨 Generera bilder | **1:1 Kompakt profilbild (Panel 1) för alla 348 arter**: Genererat centrerade 1:1-kvadrater för samtliga 348 arter sparade i `images/compact/` (6.7 MB). Integrerat i Min Logg för kompaktvy och observationsminiatyrer med automatisk fallback (`images/compact/`, `app.js`, `style.css`, `sw.js`) |
 
 | 2026-09-17 | 🎨 Generera bilder | **Smart diorama-extrahering för samtliga 348 arter**: Bearbetat alla 348 diorama-bilder med algoritm för automatisk detektering av separationsgap och trimning av vitt marginalpapper i botten (genomsnitt 74px tomt papper borttaget). Perfekt bevarande av fågelhuvuden (inkl. tornuggla, pilgrimsfalk, tjäder) och anpassad CSS för direkt fyllning av guide-korten (`images/dioramas/`, `style.css`, `sw.js`) |

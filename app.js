@@ -2811,10 +2811,20 @@ function renderSightingsList(sightings) {
                     <i class="fa-solid ${subjectIcon} custom-placeholder-icon"></i>
                     <i class="fa-solid fa-book custom-placeholder-book"></i>
                 </div>`;
+        } else if (customImg || userPhoto) {
+            const userImgSrc = customImg || userPhoto;
+            imageContainerContent = `<img class="sighting-img-user" src="${userImgSrc}" alt="${item.nameEn || item.nameSv}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">`;
         } else {
-            const fallbackSrc = customImg || userPhoto || getBirdImageSrc(item.id, 'guide');
-            const imgSource = customImg || userPhoto || getBirdImageSrc(item.id, 'log');
-            imageContainerContent = `<img src="${imgSource}" alt="${item.nameEn || item.nameSv}" data-bird-id="${item.id}" data-fallback="${fallbackSrc}" loading="lazy" onerror="handleImageError(this)">`;
+            const isBird = !item._isCustom && (window.swedishBirds || []).some(b => b.id === item.id);
+            const fallbackSrc = getBirdImageSrc(item.id, 'guide');
+            if (isBird) {
+                imageContainerContent = `
+                    <img class="sighting-img-diorama" src="images/dioramas/${item.id}.webp" alt="${item.nameEn || item.nameSv}" data-bird-id="${item.id}" data-fallback="${fallbackSrc}" loading="lazy" onerror="handleImageError(this)">
+                    <img class="sighting-img-compact" src="images/compact/${item.id}.webp" alt="${item.nameEn || item.nameSv}" data-bird-id="${item.id}" data-fallback="${fallbackSrc}" loading="lazy" onerror="handleImageError(this)">`;
+            } else {
+                const imgSource = getBirdImageSrc(item.id, 'log');
+                imageContainerContent = `<img class="sighting-img-default" src="${imgSource}" alt="${item.nameEn || item.nameSv}" data-bird-id="${item.id}" data-fallback="${fallbackSrc}" loading="lazy" onerror="handleImageError(this)">`;
+            }
         }
 
         const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
@@ -4137,8 +4147,8 @@ window.handleImageError = function (imgEl) {
 
     const currentSrc = imgEl.src;
 
-    // Om lokal compact-bild failade → prova fallback/CDN
-    if (currentSrc.includes('images/compact/')) {
+    // Om lokal compact- eller diorama-bild failade → prova fallback/CDN
+    if (currentSrc.includes('images/compact/') || currentSrc.includes('images/dioramas/')) {
         const fallback = imgEl.dataset.fallback;
         if (fallback && fallback !== currentSrc) {
             imgEl.src = fallback;

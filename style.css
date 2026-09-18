@@ -476,6 +476,42 @@ body {
     object-position: center center;
 }
 
+/* Min Logg: Normal mode shows landscape diorama, hides 1:1 compact */
+.sightings-grid:not(.compact) .sighting-img-compact {
+    display: none !important;
+}
+
+.sightings-grid:not(.compact) .sighting-img-diorama {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Min Logg: Compact mode shows 1:1 compact, hides landscape diorama */
+.sightings-grid.compact .sighting-img-diorama {
+    display: none !important;
+}
+
+.sightings-grid.compact .sighting-img-compact {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* Inaktivera oönskad zoom/jitter vid hover på diorama och kompakta bilder i loggen */
+.sightings-grid .bird-card:hover .bird-image-container .sighting-img-diorama,
+.sightings-grid .bird-card:hover .bird-image-container .sighting-img-compact,
+.sightings-grid.compact .bird-card:hover .bird-image-container img {
+    transform: none;
+}
+
 .sightings-grid.compact .bird-image-name {
     font-size: 0.65rem;
     padding: 0.25rem 0.35rem;
