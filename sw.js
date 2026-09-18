@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.7.0-smart-dioramas';
+const CACHE_NAME = 'birdfinder-v5.7.1-compact-profiles';
 const ASSETS_TO_CACHE = [
 
 

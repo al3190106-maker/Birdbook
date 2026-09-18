@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-18 | 🎨 Generera bilder | **1:1 Kompakt profilbild (Panel 1) för alla 348 arter**: Genererat centrerade 1:1-kvadrater för samtliga 348 arter sparade i `images/compact/` (6.7 MB). Integrerat i Min Logg för kompaktvy och observationsminiatyrer med automatisk fallback (`images/compact/`, `app.js`, `style.css`, `sw.js`) |
+
 | 2026-09-17 | 🎨 Generera bilder | **Smart diorama-extrahering för samtliga 348 arter**: Bearbetat alla 348 diorama-bilder med algoritm för automatisk detektering av separationsgap och trimning av vitt marginalpapper i botten (genomsnitt 74px tomt papper borttaget). Perfekt bevarande av fågelhuvuden (inkl. tornuggla, pilgrimsfalk, tjäder) och anpassad CSS för direkt fyllning av guide-korten (`images/dioramas/`, `style.css`, `sw.js`) |
 
 | 2026-09-11 | 🎨 Generera bilder | **Återställt och säkrat 348 oklippta originalbilder**: Laddat ner och verifierat 348 hela originalbilder (941x1672px, alla 9 paneler helt intakta) som optimerade WebP-filer i `images/dioramas/` (~70 MB). Återställt sprite-CSS för att visa panel 9 från de fulla bilderna utan destruktiv beskärning (`images/dioramas/`, `style.css`, `sw.js`) |

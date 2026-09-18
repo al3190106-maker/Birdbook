@@ -2812,8 +2812,9 @@ function renderSightingsList(sightings) {
                     <i class="fa-solid fa-book custom-placeholder-book"></i>
                 </div>`;
         } else {
+            const fallbackSrc = customImg || userPhoto || getBirdImageSrc(item.id, 'guide');
             const imgSource = customImg || userPhoto || getBirdImageSrc(item.id, 'log');
-            imageContainerContent = `<img src="${imgSource}" alt="${item.nameEn}" data-bird-id="${item.id}" loading="lazy" onerror="handleImageError(this)">`;
+            imageContainerContent = `<img src="${imgSource}" alt="${item.nameEn || item.nameSv}" data-bird-id="${item.id}" data-fallback="${fallbackSrc}" loading="lazy" onerror="handleImageError(this)">`;
         }
 
         const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
@@ -4098,6 +4099,18 @@ function getBirdImageSrc(birdId, context = 'guide') {
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
 
+    // 2. Om kompakt 1:1-profilbild efterfrågas för en fågelart (Min Logg, miniatyrer, etc.):
+    if ((context === 'log' || context === 'compact') && (!birdId.startsWith('custom_'))) {
+        const isNonBird = (window.swedishFungi || []).some(f => f.id === birdId)
+                       || (window.swedishFish || []).some(f => f.id === birdId)
+                       || (window.swedishTrees || []).some(f => f.id === birdId)
+                       || (window.swedishFlowers || []).some(f => f.id === birdId)
+                       || (window.swedishAnimals || []).some(f => f.id === birdId);
+        if (!isNonBird) {
+            return `images/compact/${birdId}.webp`;
+        }
+    }
+
     const allItems = [
         ...(window.swedishBirds || []),
         ...(window.swedishFungi || []),
@@ -4108,12 +4121,12 @@ function getBirdImageSrc(birdId, context = 'guide') {
     ];
     const explicitItem = allItems.find(item => item.id === birdId);
 
-    // 2. Return the species image URL (naturboken.alt-qq.com)
+    // 3. Return the species image URL (naturboken.alt-qq.com)
     if (explicitItem && explicitItem.image) {
         return explicitItem.image;
     }
 
-    // 3. Fallback placeholder for species without an image field
+    // 4. Fallback placeholder for species without an image field
     return getHolderImage(birdId);
 }
 
@@ -4123,6 +4136,15 @@ window.handleImageError = function (imgEl) {
     if (!birdId || imgEl.src.indexOf('data:image/svg') !== -1) return;
 
     const currentSrc = imgEl.src;
+
+    // Om lokal compact-bild failade → prova fallback/CDN
+    if (currentSrc.includes('images/compact/')) {
+        const fallback = imgEl.dataset.fallback;
+        if (fallback && fallback !== currentSrc) {
+            imgEl.src = fallback;
+            return;
+        }
+    }
 
     // Om CDN-bilden failade (naturboken.alt-qq.com) → prova Wikimedia-backup
     if (currentSrc.includes('naturboken.alt-qq.com') && window._wikiImageBackup && window._wikiImageBackup[birdId]) {
