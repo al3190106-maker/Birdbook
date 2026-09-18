@@ -1266,6 +1266,11 @@ body {
     display: block;
 }
 
+.carousel-img.carousel-diorama,
+.carousel-img[src*="images/dioramas/"] {
+    object-position: center center;
+}
+
 .carousel-btn {
     position: absolute;
     top: 50%;

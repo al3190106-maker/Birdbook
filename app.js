@@ -1160,9 +1160,14 @@ function _buildCarousel(images) {
         const img = document.createElement('img');
         img.src = src;
         img.alt = 'Bild ' + (i + 1);
-        img.className = 'carousel-img';
+        img.className = 'carousel-img' + (src && src.includes('images/dioramas/') ? ' carousel-diorama' : '');
         img.loading = 'lazy';
         img.onerror = function () {
+            const fallback = (typeof item === 'object' && item.fallback) ? item.fallback : null;
+            if (fallback && this.src.indexOf(fallback) === -1 && this.src !== fallback) {
+                this.src = fallback;
+                return;
+            }
             const localFallback = `images/${currentCarouselBirdId}.jpg`;
             if (this.src.indexOf(localFallback) === -1) {
                 this.src = localFallback;
@@ -1240,7 +1245,7 @@ let currentCarouselBirdId = '';
 
 function _applyFullscreenItem(index) {
     const item = carouselImages[index];
-    const src = typeof item === 'object' ? item.src : item;
+    const src = typeof item === 'object' ? (item.fullSrc || item.src) : item;
     const photographerId = typeof item === 'object' ? item.photographer : null;
     const gender = typeof item === 'object' ? item.gender : null;
     let photographer = photographerId && window.photographers ? window.photographers[photographerId] : null;
@@ -1390,8 +1395,19 @@ function _renderBirdDetail(item, sighting = null) {
         });
     }
 
-    // Always prepend the fallbackSrc (which is the main v2 image) if it exists
-    if (fallbackSrc) {
+    // Check if it's a bird species with local diorama
+    const isBird = !item._isCustom && (window.swedishBirds || []).some(b => b.id === item.id);
+    const dioramaSrc = isBird ? `images/dioramas/${item.id}.webp` : null;
+
+    if (dioramaSrc) {
+        // På fågelkortet (före klick) visas dioramabilden i containern, och vid klick i helskärm visas hela planschen
+        imagesToShow.unshift({
+            src: dioramaSrc,
+            fullSrc: fallbackSrc || dioramaSrc,
+            photographerName: item.photographer || 'Naturboken',
+            fallback: fallbackSrc
+        });
+    } else if (fallbackSrc) {
         if (item.photographer && !imagesToShow.find(img => img.src === fallbackSrc || img === fallbackSrc)) {
             imagesToShow.unshift({ src: fallbackSrc, photographerName: item.photographer });
         } else if (!imagesToShow.find(img => img === fallbackSrc || (typeof img === 'object' && img.src === fallbackSrc))) {
