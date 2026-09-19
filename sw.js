@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.9.4-tree-full-plate-guide';
+const CACHE_NAME = 'birdfinder-v5.9.5-focus-birds-fish-fungi';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

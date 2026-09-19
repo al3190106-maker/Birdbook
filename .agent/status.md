@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | ✨ Features & UI | **Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)**: Dolt Däggdjursboken, Växtboken, Trädboken och Blomboken från bokremsan (`#book-strip`), välkomstmodalen (`#welcome-modal`), biblioteksmodalen (`#library-modal`), statistikvyn (`renderStatsView`) och ämnesväxlaren. Appen fokuserar nu 100% på **Naturboken**, **Fågelboken**, **Fiskboken** och **Svampboken**. Säkerställt att sparade lägen i LocalStorage automatiskt omdirigeras och bumpat cache till `v5.9.5` (`index.html`, `app.js`, `sw.js`). |
 | 2026-09-19 | 🎨 Generera bilder | **Unik bildvisning för trädbilder i Växtguide (Fullständiga botaniska planscher)**: Implementerat unik anpassad kort- och bildvisning för samtliga trädarter i Växtguide (`.bird-card.tree-card` och `.tree-image-container`). Bildcontainern anpassas dynamiskt efter planschernas naturliga proportioner (`aspect-ratio: 1055 / 1491`, max-height 520px) med `object-fit: contain` på vit bakgrund så att hela illustrationen syns oavkortad från krona och löv/hängen ner till stam och rötter utan beskärning. Responsivt mobiloptimerat och bumpat Service Worker-cache till `v5.9.4` (`app.js`, `style.css`, `sw.js`). |
 | 2026-09-19 | 🎨 Generera bilder | **Komplett bildsamling: Alla 46 nya fågelarter bearbetade (Dioraman & 1:1 Kompaktbilder)**: Laddat ner samtliga 46 nyligen uppladdade planscher från naturboken.alt-qq.com (1024x1536px). Skapat smart trimmade liggande dioramabilder i `images/dioramas/` med bevarat utrymme för fågelhuvuden och vignett (394 av 394 arter nu 100% kompletta) samt centrerade 1:1 kvadratiska profilbilder i `images/compact/` (394 av 394 arter kompletta). Ersatt botens avhuggna beskärningar med våra högkvalitativa versioner och bumpat Service Worker-cache till `v5.9.3` (`images/dioramas/`, `images/compact/`, `sw.js`). |
 | 2026-09-19 | 🚀 Deploy & Infra | **Uppgift 39: Google Image Sitemap (Bild-SEO för alla 430+ artplanscher & naturbilder)**: Genererat fullständig Google Image Sitemap i `sitemap.xml` med 433 artbilder (348 fågelplanscher, 25 trädbilder, 26 svampbilder, 28 fiskbilder samt kategori-ikoner) inklusive titlar, vetenskapliga namn och bildtexter. Skapat skriptet `scripts/generate_image_sitemap.js` och bumpat cache till `v5.9.2` (`sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js`). |
@@ -214,7 +215,7 @@
 - [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
 
 ### ✨ Features & UI
-- [ ] Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)
+- [x] Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)
 - [ ] Uppgift 31: Interaktiv Flyttningskarta (Jan–Dec animerad tidslinje på Sverigekartan)
 - [/] Uppgift 8: Skapa Dagskalender & möjlighet att skapa egna listor (Steg 1: Dagskalender & Tidsfilter i Min Logg klart ✅)
 - [ ] Uppgift 12: Användarkonto-system (Användarprofil & ID)

@@ -1764,7 +1764,7 @@
 
             <!-- Bokval (Låst tills man accepterat cookies) -->
             <div id="welcome-library-grid" class="library-grid"
-                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; padding: 0.2rem 0; opacity: 0.4; pointer-events: none; filter: grayscale(70%); transition: all 0.35s ease;">
+                style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; padding: 0.2rem 0; opacity: 0.4; pointer-events: none; filter: grayscale(70%); transition: all 0.35s ease;">
                 <button class="library-card mode-nature"
                     onclick="selectWelcomeBook('nature')">
                     <div class="lib-icon"><img src="images/category_icons/nature_alla.png" alt="Natur" class="lib-icon-img"></div>
@@ -1775,20 +1775,10 @@
                     <div class="lib-icon"><img src="images/category_icons/alla.png" alt="Fåglar" class="lib-icon-img"></div>
                     <span class="lib-label">Fågelboken</span>
                 </button>
-                <button class="library-card mode-plants"
-                    onclick="selectWelcomeBook('plants')">
-                    <div class="lib-icon"><img src="images/category_icons/plants_alla.png" alt="Växter" class="lib-icon-img"></div>
-                    <span class="lib-label">Växtboken</span>
-                </button>
                 <button class="library-card mode-fish"
                     onclick="selectWelcomeBook('fish')">
                     <div class="lib-icon"><img src="images/category_icons/fish_alla.png" alt="Fisk" class="lib-icon-img"></div>
                     <span class="lib-label">Fiskboken</span>
-                </button>
-                <button class="library-card mode-animals"
-                    onclick="selectWelcomeBook('animals')">
-                    <div class="lib-icon"><img src="images/category_icons/animal_alla.png" alt="Däggdjur" class="lib-icon-img"></div>
-                    <span class="lib-label">Däggdjursboken</span>
                 </button>
                 <button class="library-card mode-fungi"
                     onclick="selectWelcomeBook('fungi')">
@@ -1810,7 +1800,7 @@
             <p style="margin-bottom: 1.5rem; color: #666;">Välj vilken bok du vill öppna</p>
 
             <div class="library-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; padding: 1rem 0;">
+                style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 1rem 0;">
                 <button class="library-card mode-nature"
                     onclick="switchSubject('nature'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/nature_alla.png" alt="Natur" class="lib-icon-img"></div>
@@ -1821,20 +1811,10 @@
                     <div class="lib-icon"><img src="images/category_icons/alla.png" alt="Fåglar" class="lib-icon-img"></div>
                     <span class="lib-label">Fågelboken</span>
                 </button>
-                <button class="library-card mode-plants"
-                    onclick="switchSubject('plants'); nav.back()">
-                    <div class="lib-icon"><img src="images/category_icons/plants_alla.png" alt="Växter" class="lib-icon-img"></div>
-                    <span class="lib-label">Växtboken</span>
-                </button>
                 <button class="library-card mode-fish"
                     onclick="switchSubject('fish'); nav.back()">
                     <div class="lib-icon"><img src="images/category_icons/fish_alla.png" alt="Fisk" class="lib-icon-img"></div>
                     <span class="lib-label">Fiskboken</span>
-                </button>
-                <button class="library-card mode-animals"
-                    onclick="switchSubject('animals'); nav.back()">
-                    <div class="lib-icon"><img src="images/category_icons/animal_alla.png" alt="Däggdjur" class="lib-icon-img"></div>
-                    <span class="lib-label">Däggdjursboken</span>
                 </button>
                 <button class="library-card mode-fungi"
                     onclick="switchSubject('fungi'); nav.back()">

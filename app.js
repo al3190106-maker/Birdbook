@@ -303,6 +303,7 @@ const SUBJECT_CONFIG = {
     trees: {
         id: 'trees',
         name: 'Trädboken',
+        hidden: true,
         icon: 'fa-tree',
         iconImg: 'tree_alla.png',
         dataVar: 'swedishTrees',
@@ -361,6 +362,7 @@ const SUBJECT_CONFIG = {
     animals: {
         id: 'animals',
         name: 'Däggdjursboken',
+        hidden: true,
         icon: 'fa-paw',
         iconImg: 'animal_alla.png',
         dataVar: 'swedishAnimals',
@@ -419,6 +421,7 @@ const SUBJECT_CONFIG = {
     flowers: {
         id: 'flowers',
         name: 'Blomboken',
+        hidden: true,
         icon: 'fa-seedling',
         iconImg: 'flower_alla.png',
         dataVar: 'swedishFlowers',
@@ -448,6 +451,7 @@ const SUBJECT_CONFIG = {
     plants: {
         id: 'plants',
         name: 'Växtboken',
+        hidden: true,
         icon: 'fa-leaf',
         iconImg: 'plants_alla.png',
         dataVar: 'swedishPlants',
@@ -1816,10 +1820,12 @@ function getCurrentSpeciesList() {
 }
 
 function switchSubject(subjectId) {
-    if (subjectId === 'trees' || subjectId === 'flowers') {
-        subjectId = 'plants';
+    if (subjectId === 'trees' || subjectId === 'flowers' || subjectId === 'plants' || subjectId === 'animals') {
+        subjectId = 'birds';
     }
-    if (!SUBJECT_CONFIG[subjectId]) return;
+    if (!SUBJECT_CONFIG[subjectId] || SUBJECT_CONFIG[subjectId].hidden) {
+        subjectId = 'birds';
+    }
     state.currentSubject = subjectId;
     localStorage.setItem('naturboken_last_subject', subjectId);
     trackEvent('switch_subject', { subject: subjectId });
@@ -2028,9 +2034,10 @@ async function init() {
 
     // Load saved subject from LocalStorage BEFORE rendering
     let savedSubject = localStorage.getItem('naturboken_last_subject');
-    if (savedSubject === 'trees' || savedSubject === 'flowers') savedSubject = 'plants';
-    if (savedSubject && SUBJECT_CONFIG && SUBJECT_CONFIG[savedSubject]) {
+    if (savedSubject && SUBJECT_CONFIG && SUBJECT_CONFIG[savedSubject] && !SUBJECT_CONFIG[savedSubject].hidden) {
         state.currentSubject = savedSubject;
+    } else {
+        state.currentSubject = 'birds';
     }
 
     // --- Welcome & Privacy Screen (Tvingande samtycke) ---
@@ -2573,7 +2580,7 @@ function renderBookStrip() {
     elements.bookStrip.style.display = 'flex';
     elements.bookStrip.innerHTML = '';
 
-    const subjects = Object.keys(SUBJECT_CONFIG).filter(id => id !== 'trees' && id !== 'flowers');
+    const subjects = Object.keys(SUBJECT_CONFIG).filter(id => !SUBJECT_CONFIG[id].hidden && id !== 'trees' && id !== 'flowers');
 
     const realSightings = state.sightings.filter(s => s.id !== 'SYSTEM_INIT_BIRD');
 
@@ -2602,7 +2609,7 @@ function renderBookStrip() {
     });
 
     // Sort descending by count, using static defaultOrder for tie-break
-    const defaultOrder = ['nature', 'birds', 'plants', 'fish', 'animals', 'fungi'];
+    const defaultOrder = ['nature', 'birds', 'fish', 'fungi'];
     subjects.sort((a, b) => {
         if (subjectCounts[b] !== subjectCounts[a]) {
             return subjectCounts[b] - subjectCounts[a];
@@ -6317,15 +6324,14 @@ function computeStats(subjectId = state.currentSubject) {
 
     // --- Per subject unique species counts ---
     const subjectCounts = {};
-    const atomicSubjects = ['birds', 'trees', 'fish', 'animals', 'fungi', 'flowers'];
-    for (const key in SUBJECT_CONFIG) {
+    const atomicSubjects = ['birds', 'fish', 'fungi'];
+    for (const key of atomicSubjects) {
         const cfg = SUBJECT_CONFIG[key];
         const list = window[cfg.dataVar] || [];
         const ids = new Set(list.map(i => i.id));
         const seen = new Set(realSightings.filter(s => ids.has(s.birdId)).map(s => s.birdId));
         subjectCounts[key] = seen.size;
     }
-    subjectCounts.plants = (subjectCounts.flowers || 0) + (subjectCounts.trees || 0);
 
     const totalUniq = atomicSubjects.reduce((sum, k) => sum + (subjectCounts[k] || 0), 0);
     const birdUniq = subjectCounts.birds || 0;
@@ -6362,15 +6368,7 @@ function computeStats(subjectId = state.currentSubject) {
         activeSpeciesList = [
             ...(window.swedishBirds || []),
             ...(window.swedishFish || []),
-            ...(window.swedishFungi || []),
-            ...(window.swedishAnimals || []),
-            ...(window.swedishFlowers || []),
-            ...(window.swedishTrees || [])
-        ];
-    } else if (activeSubjectKey === 'plants') {
-        activeSpeciesList = [
-            ...(window.swedishFlowers || []),
-            ...(window.swedishTrees || [])
+            ...(window.swedishFungi || [])
         ];
     } else {
         const dataVar = SUBJECT_CONFIG[activeSubjectKey]?.dataVar;
@@ -6773,10 +6771,8 @@ function renderStatsView() {
     if (isNature) {
         const subjects = [
             { key: 'birds', icon: '🐦', name: 'Fåglar', color: '#2E5D4B' },
-            { key: 'animals', icon: '🐾', name: 'Vilt', color: '#795548' },
-            { key: 'plants', icon: '🌿', name: 'Växter', color: '#43a047' },
             { key: 'fish', icon: '🐟', name: 'Fisk', color: '#0288d1' },
-            { key: 'fungi', icon: '🍄', name: 'Svamp', color: '#e64a19' },
+            { key: 'fungi', icon: '🍄', name: 'Svamp', color: '#e64a19' }
         ];
         const maxCount = Math.max(1, ...subjects.map(sub => s.subjectCounts[sub.key] || 0));
 
@@ -6828,7 +6824,7 @@ function renderStatsView() {
     initStatsCollapsible('stats-badges-details', 'stats-badges-count-pill');
     const badgesEl = document.getElementById('stats-badges-grid');
     const badges = isNature
-        ? s.badges
+        ? s.badges.filter(b => b.subject !== 'plants' && b.subject !== 'animals' && b.subject !== 'trees' && b.subject !== 'flowers')
         : s.badges.filter(b => b.subject === 'all' || b.subject === state.currentSubject);
     const countPill = document.getElementById('stats-badges-count-pill');
 
