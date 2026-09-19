@@ -5,7 +5,7 @@
 window.swedishTrees = [
     {
         "id": "silver_birch",
-        "image": "images/tradboken_bilder/silver_birch.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0005-vartbjork.png",
         "type": "Lövträd",
         "nameEn": "Silver Birch",
         "nameSv": "Vårtbjörk",
@@ -19,7 +19,7 @@ window.swedishTrees = [
     },
     {
         "id": "downy_birch",
-        "image": "images/tradboken_bilder/downy_birch.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0006-glasbjork.png",
         "type": "Lövträd",
         "nameEn": "Downy Birch",
         "nameSv": "Glasbjörk",
@@ -33,7 +33,7 @@ window.swedishTrees = [
     },
     {
         "id": "scots_pine",
-        "image": "images/tradboken_bilder/scots_pine.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0002-tall.png",
         "type": "Barrträd",
         "nameEn": "Scots Pine",
         "nameSv": "Tall",
@@ -47,7 +47,7 @@ window.swedishTrees = [
     },
     {
         "id": "norway_spruce",
-        "image": "images/tradboken_bilder/norway_spruce.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0001-gran.png",
         "type": "Barrträd",
         "nameEn": "Norway Spruce",
         "nameSv": "Gran",
@@ -61,7 +61,7 @@ window.swedishTrees = [
     },
     {
         "id": "oak",
-        "image": "images/tradboken_bilder/oak.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0010-skogsek.png",
         "type": "Ädla lövträd",
         "nameEn": "English Oak",
         "nameSv": "Ek",
@@ -75,7 +75,7 @@ window.swedishTrees = [
     },
     {
         "id": "beech",
-        "image": "images/tradboken_bilder/beech.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0012-bok.png",
         "type": "Ädla lövträd",
         "nameEn": "European Beech",
         "nameSv": "Bok",
@@ -89,7 +89,7 @@ window.swedishTrees = [
     },
     {
         "id": "european_ash",
-        "image": "images/tradboken_bilder/european_ash.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0013-ask.png",
         "type": "Ädla lövträd",
         "nameEn": "European Ash",
         "nameSv": "Ask",
@@ -103,7 +103,7 @@ window.swedishTrees = [
     },
     {
         "id": "wych_elm",
-        "image": "images/tradboken_bilder/wych_elm.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0022-skogsalm.png",
         "type": "Ädla lövträd",
         "nameEn": "Wych Elm",
         "nameSv": "Skogsalm",
@@ -117,7 +117,7 @@ window.swedishTrees = [
     },
     {
         "id": "norway_maple",
-        "image": "images/tradboken_bilder/norway_maple.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0015-skogslonn.png",
         "type": "Ädla lövträd",
         "nameEn": "Norway Maple",
         "nameSv": "Lönn",
@@ -131,7 +131,7 @@ window.swedishTrees = [
     },
     {
         "id": "small_leaved_lime",
-        "image": "images/tradboken_bilder/small_leaved_lime.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0014-skogslind.png",
         "type": "Ädla lövträd",
         "nameEn": "Small-leaved Lime",
         "nameSv": "Lind",
@@ -145,7 +145,7 @@ window.swedishTrees = [
     },
     {
         "id": "aspen",
-        "image": "images/tradboken_bilder/aspen.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0018-asp.png",
         "type": "Lövträd",
         "nameEn": "Aspen",
         "nameSv": "Asp",
@@ -159,7 +159,7 @@ window.swedishTrees = [
     },
     {
         "id": "rowan",
-        "image": "images/tradboken_bilder/rowan.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0024-ronn.png",
         "type": "Lövträd",
         "nameEn": "Rowan",
         "nameSv": "Rönn",
@@ -173,7 +173,7 @@ window.swedishTrees = [
     },
     {
         "id": "juniper",
-        "image": "images/tradboken_bilder/juniper.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0003-en.png",
         "type": "Barrträd",
         "nameEn": "Juniper",
         "nameSv": "En",
@@ -187,7 +187,7 @@ window.swedishTrees = [
     },
     {
         "id": "goat_willow",
-        "image": "images/tradboken_bilder/goat_willow.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0019-salg.png",
         "type": "Lövträd",
         "nameEn": "Goat Willow",
         "nameSv": "Sälg",
@@ -201,7 +201,7 @@ window.swedishTrees = [
     },
     {
         "id": "bird_cherry",
-        "image": "images/tradboken_bilder/bird_cherry.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0028-hagg.png",
         "type": "Lövträd",
         "nameEn": "Bird Cherry",
         "nameSv": "Hägg",
@@ -229,7 +229,7 @@ window.swedishTrees = [
     },
     {
         "id": "alder",
-        "image": "images/tradboken_bilder/alder.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0007-klibbal.png",
         "type": "Lövträd",
         "nameEn": "Grey Alder",
         "nameSv": "Klibbal",
@@ -243,7 +243,7 @@ window.swedishTrees = [
     },
     {
         "id": "black_alder",
-        "image": "images/tradboken_bilder/black_alder.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0008-graal.png",
         "type": "Lövträd",
         "nameEn": "Black Alder",
         "nameSv": "Svartal",
@@ -257,7 +257,7 @@ window.swedishTrees = [
     },
     {
         "id": "whitebeam",
-        "image": "images/tradboken_bilder/whitebeam.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0025-oxel.png",
         "type": "Lövträd",
         "nameEn": "Swedish Whitebeam",
         "nameSv": "Oxel",
@@ -271,7 +271,7 @@ window.swedishTrees = [
     },
     {
         "id": "crab_apple",
-        "image": "images/tradboken_bilder/crab_apple.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0029-vildapel.png",
         "type": "Lövträd",
         "nameEn": "Crab Apple",
         "nameSv": "Vildapel",
@@ -285,7 +285,7 @@ window.swedishTrees = [
     },
     {
         "id": "wild_cherry",
-        "image": "images/tradboken_bilder/wild_cherry.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0027-fagelbar.png",
         "type": "Lövträd",
         "nameEn": "Wild Cherry",
         "nameSv": "Fågelbär",
@@ -299,7 +299,7 @@ window.swedishTrees = [
     },
     {
         "id": "wych_elm2",
-        "image": "images/tradboken_bilder/wych_elm2.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0023-lundalm.png",
         "type": "Ädla lövträd",
         "nameEn": "Field Elm",
         "nameSv": "Alm",
@@ -313,7 +313,7 @@ window.swedishTrees = [
     },
     {
         "id": "hornbeam",
-        "image": "images/tradboken_bilder/hornbeam.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0017-avenbok.png",
         "type": "Ädla lövträd",
         "nameEn": "European Hornbeam",
         "nameSv": "Avenbok",
@@ -327,7 +327,7 @@ window.swedishTrees = [
     },
     {
         "id": "yew",
-        "image": "images/tradboken_bilder/yew.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0004-idegran.png",
         "type": "Barrträd",
         "nameEn": "Common Yew",
         "nameSv": "Idegran",
@@ -341,7 +341,7 @@ window.swedishTrees = [
     },
     {
         "id": "field_maple",
-        "image": "images/tradboken_bilder/field_maple.jpg",
+        "image": "https://naturboken.alt-qq.com/trees/originals/0016-naverlonn.png",
         "type": "Ädla lövträd",
         "nameEn": "Field Maple",
         "nameSv": "Naverlönn",

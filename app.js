@@ -2972,9 +2972,10 @@ function renderGuideList(birdList) {
         const customImg = localStorage.getItem(`custom_img_${bird.id}`);
         const imgSource = customImg || getBirdImageSrc(bird.id, 'guide');
 
-        // Försök med lokal diorama-WebP, annars sprite-CSS som fallback
+        // Försök med lokal diorama-WebP, annars sprite-CSS som fallback (endast fåglar)
+        const isBird = !customImg && (window.swedishBirds || []).some(b => b.id === bird.id);
         const dioramaPath = `images/dioramas/${bird.id}.webp`;
-        const useLocalDiorama = !customImg && imgSource.includes('naturboken.alt-qq.com');
+        const useLocalDiorama = isBird && imgSource.includes('naturboken.alt-qq.com');
         const isSprite = useLocalDiorama; // sprite-klassen används som fallback om WebP saknas
 
         card.innerHTML = `
@@ -4172,6 +4173,12 @@ window.handleImageError = function (imgEl) {
         }
     }
 
+    // Om CDN-bilden failade (naturboken.alt-qq.com) för träd → prova lokal backup i images/tradboken_bilder/
+    if (currentSrc.includes('naturboken.alt-qq.com') && (window.swedishTrees || []).some(t => t.id === birdId)) {
+        imgEl.src = `images/tradboken_bilder/${birdId}.jpg`;
+        return;
+    }
+
     // Om CDN-bilden failade (naturboken.alt-qq.com) → prova Wikimedia-backup
     if (currentSrc.includes('naturboken.alt-qq.com') && window._wikiImageBackup && window._wikiImageBackup[birdId]) {
         imgEl.src = window._wikiImageBackup[birdId];
@@ -4201,6 +4208,12 @@ window.handleGuideImageError = function (imgEl) {
     if (imgEl.src.includes('images/dioramas/') && fallback) {
         imgEl.src = fallback;
         // Sprite-CSS är redan på containern – behåll den för crop-effekten
+        return;
+    }
+
+    // Om CDN-trädbild failar (t.ex. offline) -> prova lokal backup i images/tradboken_bilder/
+    if (imgEl.src.includes('naturboken.alt-qq.com') && (window.swedishTrees || []).some(t => t.id === birdId)) {
+        imgEl.src = `images/tradboken_bilder/${birdId}.jpg`;
         return;
     }
 

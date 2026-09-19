@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🎨 Generera bilder | **Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (trees.js)**: Kartlagt och importerat högupplösta botaniska akvarellplanscher från `naturboken.alt-qq.com/trees/originals/` för samtliga 24 matchande trädarter i `trees.js` med lokal backup för hagtorn och offline-drift. Säkerställt att diorama-/sprite-beskärning enbart aktiveras för fågelarter och lagt till bildcentrering för Växtboken i CSS så att träden renderas knivskarpt i både normalläge, kompaktläge och helskärm (`trees.js`, `app.js`, `style.css`, `sw.js`). |
 | 2026-09-19 | 🚀 Deploy & Infra | **Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph, sitemap.xml, robots.txt & Schema.org)**: Implementerat fullständig SEO-struktur med optimerad svensk titel och metabeskrivning, Open Graph- och Twitter Card-metataggar för snygg förhandsgranskning i sociala medier och meddelande-appar, Schema.org JSON-LD ("WebApplication" / "EducationalApplication"), samt skapat `robots.txt` och `sitemap.xml` i roten och bumpat Service Worker cache (`index.html`, `robots.txt`, `sitemap.xml`, `sw.js`). |
 | 2026-09-19 | 🔍 Identifiera | **Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")**: Implementerat väder- och aktivitetskompass i "Nära mig". Hämtar realtidsväder från Open-Meteo API med GPS (eller fallback till Stockholm med möjlighet att klicka för att aktivera GPS), beräknar dynamiskt Skådar-index (Hög/Måttlig/Låg aktivitet) baserat på vindhastighet, vindriktning (N, NO, O osv.), nederbörd och soluppgång/solnedgång, samt skapat responsiv mobilanpassad design med stöd för dark mode (`index.html`, `style.css`, `app.js`, `sightings.js`, `sw.js`). |
 
@@ -205,7 +206,7 @@
 - [/] Uppgift 28: Översyn & rensning av information på Fågelkorten (Bort med 'Aktiv: morgon', in med förslag på värdefulla faktafält)
 
 ### 🎨 Generera bilder
-- [ ] Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (`trees.js`)
+- [x] Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (`trees.js`)
 - [ ] Uppgift 34: Unik Visuell Identitet & Ikon-renovering (Byta ut lånade/generiska ikoner i `images/category_icons/` mot egen enhetlig grafik)
 - [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
 

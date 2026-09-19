@@ -1,42 +1,11 @@
-const CACHE_NAME = 'birdfinder-v5.8.3-seo-meta';
+const CACHE_NAME = 'birdfinder-v5.9.0-tree-images';
 const ASSETS_TO_CACHE = [
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     './',
     './index.html',
     './style.css',
     './app.js',
     './birds.js',
+    './trees.js',
     './sweden-map.js',
     './manifest.json',
     './icon-192.png',

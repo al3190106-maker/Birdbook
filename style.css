@@ -3977,6 +3977,14 @@ body.mode-plants #sound-recording-group {
     display: none !important;
 }
 
+/* Centrera bildvisning i Växtboken (Träd och Blommor) */
+body.mode-plants .bird-image-container img,
+body.mode-plants .bird-detail-header img,
+body.mode-plants .carousel-slide img,
+body.mode-plants .bird-card img {
+    object-position: center center;
+}
+
 /* Växtboken Library Card: Clean Flat Green */
 .library-card.mode-plants {
     background: #2e7d32;
