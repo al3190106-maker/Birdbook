@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.9.2-image-sitemap';
+const CACHE_NAME = 'birdfinder-v5.9.3-complete-species-images';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
