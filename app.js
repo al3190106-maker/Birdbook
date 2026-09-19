@@ -4775,6 +4775,7 @@ function setupEventListeners() {
     // 2. View Switching
     elements.navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            if (typeof stopQuizAudio === 'function') stopQuizAudio();
             nav.switchTab(btn.dataset.tab);
         });
     });
@@ -5644,8 +5645,82 @@ function hasQuizImage(item) {
     return false;
 }
 
+// --- Quiz Audio Player Management (Uppgift 30) ---
+let _quizAudio = null;
+
+function stopQuizAudio() {
+    if (_quizAudio) {
+        try {
+            _quizAudio.pause();
+            _quizAudio.currentTime = 0;
+            _quizAudio.src = '';
+        } catch (_) {}
+        _quizAudio = null;
+    }
+    const audioCard = document.getElementById('quiz-audio-card');
+    if (audioCard) audioCard.classList.remove('playing');
+}
+
+function playQuizAudio(audioUrl, onPlayStateChange) {
+    stopQuizAudio();
+    if (!audioUrl) {
+        if (typeof onPlayStateChange === 'function') onPlayStateChange(false, true);
+        return;
+    }
+    try {
+        _quizAudio = new Audio();
+        _quizAudio.preload = 'auto';
+        _quizAudio.src = audioUrl;
+
+        _quizAudio.addEventListener('play', () => {
+            if (typeof onPlayStateChange === 'function') onPlayStateChange(true);
+        });
+        _quizAudio.addEventListener('pause', () => {
+            if (typeof onPlayStateChange === 'function') onPlayStateChange(false);
+        });
+        _quizAudio.addEventListener('ended', () => {
+            if (typeof onPlayStateChange === 'function') onPlayStateChange(false);
+        });
+        _quizAudio.addEventListener('error', (e) => {
+            console.warn('[QuizAudio] Ljudfel:', e);
+            if (typeof onPlayStateChange === 'function') onPlayStateChange(false, true);
+        });
+
+        const promise = _quizAudio.play();
+        if (promise !== undefined) {
+            promise.catch(err => {
+                console.log('[QuizAudio] Autoplay förhindrad, väntar på klick:', err);
+                if (typeof onPlayStateChange === 'function') onPlayStateChange(false);
+            });
+        }
+    } catch (e) {
+        console.warn('[QuizAudio] Init fel:', e);
+        if (typeof onPlayStateChange === 'function') onPlayStateChange(false, true);
+    }
+}
+
+function toggleQuizAudio(onPlayStateChange) {
+    if (!_quizAudio) return;
+    if (_quizAudio.paused) {
+        _quizAudio.play().then(() => {
+            if (typeof onPlayStateChange === 'function') onPlayStateChange(true);
+        }).catch(err => {
+            console.warn('[QuizAudio] Uppspelningsfel:', err);
+            if (typeof onPlayStateChange === 'function') onPlayStateChange(false);
+        });
+    } else {
+        _quizAudio.pause();
+        if (typeof onPlayStateChange === 'function') onPlayStateChange(false);
+    }
+}
+
 function generateQuizQuestions(mode, count = 10) {
-    let list = getCurrentSpeciesList().filter(hasQuizImage);
+    let list;
+    if (mode === 'sound') {
+        list = getCurrentSpeciesList().filter(b => b.audio && typeof b.audio === 'string' && b.audio.trim().length > 0);
+    } else {
+        list = getCurrentSpeciesList().filter(hasQuizImage);
+    }
 
     // Filter by rarity or environmental category if it's birds and difficulty is set
     if (state.currentSubject === 'birds' && state.quizDifficulty) {
@@ -5672,7 +5747,11 @@ function generateQuizQuestions(mode, count = 10) {
 
     // Safety fallback if filtered list is too small
     if (list.length < 4) {
-        list = getCurrentSpeciesList();
+        if (mode === 'sound') {
+            list = getCurrentSpeciesList().filter(b => b.audio && typeof b.audio === 'string' && b.audio.trim().length > 0);
+        } else {
+            list = getCurrentSpeciesList();
+        }
     }
 
     // --- Algoritm för repetition: Uteslut nyligen rätt besvarade arter ---
@@ -5699,7 +5778,20 @@ function generateQuizQuestions(mode, count = 10) {
     for (let i = 0; i < Math.min(count, birds.length); i++) {
         const item = birds[i];
 
-        if (mode === 'image') {
+        if (mode === 'sound') {
+            const wrongItems = getRandomBirds(3, item.id, item);
+            const options = [item, ...wrongItems].sort(() => Math.random() - 0.5);
+            questions.push({
+                type: 'sound',
+                prompt: null,
+                audio: item.audio,
+                image: item.id,
+                question: 'Vilken fågel hörs?',
+                options: options.map(b => ({ label: b.nameSv, value: b.id })),
+                correctValue: item.id,
+                correctLabel: item.nameSv
+            });
+        } else if (mode === 'image') {
             const wrongItems = getRandomBirds(3, item.id, item);
             const options = [item, ...wrongItems].sort(() => Math.random() - 0.5);
             questions.push({
@@ -5758,11 +5850,35 @@ function generateQuizQuestions(mode, count = 10) {
 }
 
 function showQuizMenu() {
+    stopQuizAudio();
     const config = SUBJECT_CONFIG[state.currentSubject] || SUBJECT_CONFIG.birds;
     const titleEl = document.getElementById('quiz-main-title');
     const subtitleEl = document.getElementById('quiz-subtitle');
-    if (titleEl && config && config.texts && config.texts.quizTitle) titleEl.textContent = config.texts.quizTitle;
-    if (subtitleEl && config && config.texts && config.texts.quizSubtitle) subtitleEl.textContent = config.texts.quizSubtitle;
+    const typeSelectorWrap = document.getElementById('quiz-type-selector-wrap');
+
+    // Only show sound quiz selector in Fågelboken (birds)
+    if (typeSelectorWrap) {
+        typeSelectorWrap.style.display = (state.currentSubject === 'birds') ? '' : 'none';
+    }
+
+    if (state.currentSubject !== 'birds') {
+        state.quizMode = 'image';
+    } else if (!state.quizMode) {
+        state.quizMode = localStorage.getItem('naturboken_quiz_mode_pref') || 'image';
+    }
+
+    const imgTypeBtn = document.getElementById('quiz-type-btn-image');
+    const soundTypeBtn = document.getElementById('quiz-type-btn-sound');
+    if (imgTypeBtn) imgTypeBtn.classList.toggle('active', state.quizMode === 'image');
+    if (soundTypeBtn) soundTypeBtn.classList.toggle('active', state.quizMode === 'sound');
+
+    if (state.quizMode === 'sound') {
+        if (titleEl) titleEl.innerHTML = '<i class="fa-solid fa-volume-high" style="color: var(--primary);"></i> Fågelquiz – Gissa lätet';
+        if (subtitleEl) subtitleEl.textContent = 'Välj svårighetsgrad eller miljö och gissa vilket fågelläte du hör!';
+    } else {
+        if (titleEl && config && config.texts && config.texts.quizTitle) titleEl.textContent = config.texts.quizTitle;
+        if (subtitleEl && config && config.texts && config.texts.quizSubtitle) subtitleEl.textContent = config.texts.quizSubtitle;
+    }
 
     const envSection = document.getElementById('quiz-env-section');
     if (envSection) {
@@ -5778,7 +5894,8 @@ function showQuizMenu() {
 }
 
 function initQuiz(mode, difficulty) {
-    state.quizMode = mode || 'image';
+    stopQuizAudio();
+    state.quizMode = mode || state.quizMode || 'image';
     if (difficulty) {
         state.quizDifficulty = difficulty;
     } else if (!state.quizDifficulty) {
@@ -5806,6 +5923,11 @@ function initQuiz(mode, difficulty) {
     const subjectCfg = SUBJECT_CONFIG[state.currentSubject] || SUBJECT_CONFIG.birds;
     if (bookNameEl && subjectCfg) {
         bookNameEl.textContent = subjectCfg.name;
+    }
+
+    const badgeEl = document.getElementById('quiz-top-badge');
+    if (badgeEl) {
+        badgeEl.textContent = (state.quizMode === 'sound') ? 'Ljudquiz' : 'Quiz';
     }
 
     const scoreEl = document.getElementById('quiz-score');
@@ -5842,7 +5964,36 @@ function renderQuizQuestion() {
     const container = document.getElementById('quiz-question-container');
 
     let imageHtml = '';
-    if (q.image) {
+    let soundHtml = '';
+
+    if (q.type === 'sound') {
+        const imgSrc = getBirdImageSrc(q.image, 'quiz');
+        soundHtml = `
+            <div class="quiz-audio-card" id="quiz-audio-card">
+                <button type="button" class="quiz-audio-play-btn" id="quiz-audio-play-btn" title="Spela/pausa fågelläte" aria-label="Spela fågelläte">
+                    <div class="quiz-audio-ripple"></div>
+                    <i class="fa-solid fa-play" id="quiz-audio-icon"></i>
+                </button>
+                <div class="quiz-sound-waves" id="quiz-sound-waves">
+                    <span class="wave-bar bar-1"></span>
+                    <span class="wave-bar bar-2"></span>
+                    <span class="wave-bar bar-3"></span>
+                    <span class="wave-bar bar-4"></span>
+                    <span class="wave-bar bar-5"></span>
+                </div>
+                <div class="quiz-audio-status" id="quiz-audio-status">Laddar fågelläte...</div>
+            </div>
+            <div class="quiz-sound-reveal" id="quiz-sound-reveal" style="display: none;">
+                <div class="quiz-sound-reveal-img-wrap">
+                    <img src="${imgSrc}" alt="${q.correctLabel}" class="quiz-sound-reveal-img" onerror="handleImageError(this)">
+                </div>
+                <div class="quiz-sound-reveal-text">
+                    <span class="quiz-sound-reveal-badge">Rätt fågel</span>
+                    <h4 class="quiz-sound-reveal-name">${q.correctLabel}</h4>
+                </div>
+            </div>
+        `;
+    } else if (q.image) {
         const imgSrc = getBirdImageSrc(q.image, 'quiz');
         const isExternal = imgSrc && imgSrc.includes('wikimedia.org');
         const isPhoto = imgSrc && !imgSrc.includes('images/');
@@ -5877,6 +6028,7 @@ function renderQuizQuestion() {
             <span class="quiz-question-number">FRÅGA ${state.quizCurrent + 1} AV ${state.quizQuestions.length}</span>
         </div>
         ${imageHtml}
+        ${soundHtml}
         ${promptHtml}
         ${questionTextHtml}
         <div class="quiz-options">
@@ -5888,6 +6040,34 @@ function renderQuizQuestion() {
     container.querySelectorAll('.quiz-option-btn').forEach(btn => {
         btn.addEventListener('click', () => handleQuizAnswer(btn));
     });
+
+    if (q.type === 'sound') {
+        const playBtn = document.getElementById('quiz-audio-play-btn');
+        const audioCard = document.getElementById('quiz-audio-card');
+        const iconEl = document.getElementById('quiz-audio-icon');
+        const statusEl = document.getElementById('quiz-audio-status');
+
+        function updatePlayUI(isPlaying, hasError) {
+            if (hasError) {
+                if (audioCard) audioCard.classList.remove('playing');
+                if (iconEl) iconEl.className = 'fa-solid fa-triangle-exclamation';
+                if (statusEl) statusEl.textContent = 'Kunde inte läsa in ljudet';
+                return;
+            }
+            if (audioCard) audioCard.classList.toggle('playing', isPlaying);
+            if (iconEl) iconEl.className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+            if (statusEl) statusEl.textContent = isPlaying ? 'Spelar lätet... lyssna noga!' : 'Pausat – tryck för att spela';
+        }
+
+        if (playBtn) {
+            playBtn.addEventListener('click', () => {
+                toggleQuizAudio(updatePlayUI);
+            });
+        }
+
+        // Start playback
+        playQuizAudio(q.audio, updatePlayUI);
+    }
 }
 
 function handleQuizAnswer(btnEl) {
@@ -5913,21 +6093,36 @@ function handleQuizAnswer(btnEl) {
         });
     }
 
+    if (q.type === 'sound') {
+        const revealEl = document.getElementById('quiz-sound-reveal');
+        if (revealEl) {
+            revealEl.style.display = 'flex';
+        }
+        const audioCard = document.getElementById('quiz-audio-card');
+        if (audioCard) {
+            audioCard.style.padding = '1rem 1rem 0.8rem 1rem';
+            audioCard.style.marginBottom = '0.5rem';
+        }
+    }
+
     const scoreEl = document.getElementById('quiz-score');
     if (scoreEl) scoreEl.textContent = state.quizScore;
 
-    // Auto-advance after delay
+    // Auto-advance after delay (extra time for sound quiz to see revealed species)
+    const delay = (q.type === 'sound') ? 1900 : 1200;
     setTimeout(() => {
+        stopQuizAudio();
         state.quizCurrent++;
         if (state.quizCurrent >= state.quizQuestions.length) {
             showQuizResults();
         } else {
             renderQuizQuestion();
         }
-    }, 1200);
+    }, delay);
 }
 
 function showQuizResults() {
+    stopQuizAudio();
     document.getElementById('quiz-area').classList.add('hidden');
     document.getElementById('quiz-results').classList.remove('hidden');
 
@@ -5942,7 +6137,7 @@ function showQuizResults() {
     // Spara quizresultat och visa framstegsnotering
     if (!state.quizResultRecorded) {
         state.quizResultRecorded = true;
-        trackEvent('quiz_completed', { score: score, total: total, pct: pct, subject: state.currentSubject });
+        trackEvent('quiz_completed', { score: score, total: total, pct: pct, subject: state.currentSubject, mode: state.quizMode });
         const res = recordQuizCompletion(score, total, state.currentSubject, state.quizDifficulty);
         const trendEl = document.getElementById('quiz-results-trend');
         if (trendEl && res && res.trendMsg) {
@@ -5965,7 +6160,8 @@ function showQuizResults() {
     };
     const diffEl = document.getElementById('quiz-results-difficulty');
     if (diffEl) {
-        diffEl.textContent = `Nivå: ${diffNames[state.quizDifficulty] || 'Standard'}`;
+        const modePrefix = (state.quizMode === 'sound') ? '🎵 Gissa lätet • ' : '';
+        diffEl.textContent = `Nivå: ${modePrefix}${diffNames[state.quizDifficulty] || 'Standard'}`;
     }
 
     // Fun results
@@ -5982,12 +6178,33 @@ function showQuizResults() {
 
 // --- Quiz Event Listeners ---
 function initQuizListeners() {
+    // Quiz type toggle (Bildquiz vs Gissa lätet)
+    const imgTypeBtn = document.getElementById('quiz-type-btn-image');
+    const soundTypeBtn = document.getElementById('quiz-type-btn-sound');
+
+    function setQuizMode(mode) {
+        state.quizMode = mode;
+        try {
+            localStorage.setItem('naturboken_quiz_mode_pref', mode);
+        } catch (_) {}
+        if (imgTypeBtn) imgTypeBtn.classList.toggle('active', mode === 'image');
+        if (soundTypeBtn) soundTypeBtn.classList.toggle('active', mode === 'sound');
+        showQuizMenu();
+    }
+
+    if (imgTypeBtn) {
+        imgTypeBtn.addEventListener('click', () => setQuizMode('image'));
+    }
+    if (soundTypeBtn) {
+        soundTypeBtn.addEventListener('click', () => setQuizMode('sound'));
+    }
+
     // Difficulty cards
     document.querySelectorAll('.difficulty-card').forEach(card => {
         card.addEventListener('click', () => {
             const diff = card.dataset.difficulty;
-            // Since we currently only have "image" mode, we start that directly
-            initQuiz('image', diff);
+            const currentMode = state.quizMode || localStorage.getItem('naturboken_quiz_mode_pref') || 'image';
+            initQuiz(currentMode, diff);
         });
     });
 
@@ -6002,13 +6219,17 @@ function initQuizListeners() {
     // Back button
     const quizBackBtn = document.getElementById('quiz-back-btn');
     if (quizBackBtn) {
-        quizBackBtn.addEventListener('click', showQuizMenu);
+        quizBackBtn.addEventListener('click', () => {
+            stopQuizAudio();
+            showQuizMenu();
+        });
     }
 
     // Quit button (end quiz early, show results)
     const quizQuitBtn = document.getElementById('quiz-quit-btn');
     if (quizQuitBtn) {
         quizQuitBtn.addEventListener('click', () => {
+            stopQuizAudio();
             // Set total to current question count for accurate results
             state.quizQuestions.length = state.quizCurrent + (state.quizAnswered ? 0 : 0);
             showQuizResults();
@@ -6018,6 +6239,7 @@ function initQuizListeners() {
     const quizRetryBtn = document.getElementById('quiz-retry-btn');
     if (quizRetryBtn) {
         quizRetryBtn.addEventListener('click', () => {
+            stopQuizAudio();
             initQuiz(state.quizMode || 'image', state.quizDifficulty || 'nyborjare');
         });
     }
@@ -6025,7 +6247,10 @@ function initQuizListeners() {
     // Menu button (from results)
     const quizMenuBtn = document.getElementById('quiz-menu-btn');
     if (quizMenuBtn) {
-        quizMenuBtn.addEventListener('click', showQuizMenu);
+        quizMenuBtn.addEventListener('click', () => {
+            stopQuizAudio();
+            showQuizMenu();
+        });
     }
 }
 
@@ -7391,6 +7616,7 @@ function _setupMapEventListeners() {
 // --- Centralized Tab Activation ---
 // --- Sub-tab: Identifiera ---
 function switchListenSubTab(which) {
+    if (typeof stopQuizAudio === 'function') stopQuizAudio();
     var soundPanel = document.getElementById('sub-panel-sound');
     var nearbyPanel = document.getElementById('sub-panel-nearby');
     var quizPanel = document.getElementById('sub-panel-quiz');

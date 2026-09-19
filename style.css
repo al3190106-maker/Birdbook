@@ -8633,6 +8633,237 @@ body.idle-dark-mode .listen-scard-add-btn {
     color: white;
 }
 
+/* ================================================================
+   Uppgift 30: Ljud-Quiz ("Gissa lätet!") & Quiz Type Switcher
+   ================================================================ */
+
+/* Quiz Type Segmented Control */
+.quiz-type-selector-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    max-width: 380px;
+    padding: 0 0.5rem;
+}
+
+.quiz-type-toggle {
+    display: flex;
+    background: #e2e8f0;
+    padding: 4px;
+    border-radius: 9999px;
+    width: 100%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    gap: 4px;
+}
+
+.quiz-type-btn {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border-radius: 9999px;
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.quiz-type-btn.active {
+    background: #ffffff;
+    color: var(--primary);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-type-btn:active {
+    transform: scale(0.97);
+}
+
+/* Quiz Sound Player Card */
+.quiz-audio-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid #86efac;
+    border-radius: 20px;
+    padding: 2.2rem 1.5rem 1.8rem 1.5rem;
+    margin: 1rem auto 1.5rem auto;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(22, 163, 74, 0.12);
+    position: relative;
+    overflow: hidden;
+    animation: quizAudioEnter 0.3s ease-out;
+}
+
+.quiz-audio-play-btn {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--primary) 0%, #15803d 100%);
+    color: #ffffff;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.35);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 1.2rem;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.quiz-audio-play-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 25px rgba(22, 163, 74, 0.45);
+}
+
+.quiz-audio-play-btn:active {
+    transform: scale(0.95);
+}
+
+.quiz-audio-ripple {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(34, 197, 94, 0.5);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.quiz-audio-card.playing .quiz-audio-ripple {
+    animation: quizRipple 1.6s infinite cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes quizRipple {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* Sound waves / equalizer animation */
+.quiz-sound-waves {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 28px;
+    margin-bottom: 0.75rem;
+}
+
+.quiz-sound-waves .wave-bar {
+    width: 5px;
+    height: 8px;
+    background: #16a34a;
+    border-radius: 9999px;
+    transition: height 0.2s ease;
+}
+
+.quiz-audio-card.playing .wave-bar {
+    animation: quizWave 0.9s infinite ease-in-out alternate;
+}
+
+.quiz-audio-card.playing .bar-1 { animation-delay: 0.1s; }
+.quiz-audio-card.playing .bar-2 { animation-delay: 0.3s; }
+.quiz-audio-card.playing .bar-3 { animation-delay: 0.5s; }
+.quiz-audio-card.playing .bar-4 { animation-delay: 0.2s; }
+.quiz-audio-card.playing .bar-5 { animation-delay: 0.4s; }
+
+@keyframes quizWave {
+    0% { height: 6px; }
+    50% { height: 26px; }
+    100% { height: 10px; }
+}
+
+.quiz-audio-status {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #166534;
+    letter-spacing: 0.2px;
+}
+
+/* Reveal card shown after selecting answer in sound quiz */
+.quiz-sound-reveal {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 16px;
+    padding: 0.85rem 1.2rem;
+    margin: 0.8rem auto 1.2rem auto;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    animation: quizRevealEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quiz-sound-reveal-img-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--primary);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.quiz-sound-reveal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.quiz-sound-reveal-text {
+    flex: 1;
+    text-align: left;
+}
+
+.quiz-sound-reveal-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+}
+
+.quiz-sound-reveal-name {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+@keyframes quizAudioEnter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quizRevealEnter {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+
 
 
 

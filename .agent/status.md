@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🔍 Identifiera | **Uppgift 30: Ljud-Quiz ("Gissa lätet!")**: Implementerat fullt stöd för ljudquiz i Quiz-fliken. Lade till en smidig växlingsknapp (Bildquiz vs Gissa lätet), audio-spelare med animerade equalizer-vågor och ripple-effekt vid uppspelning, pedagogisk bildavslöjning av rätt fågel vid svar samt säker ljudavstängning vid sidväxling/frågebyte (`index.html`, `style.css`, `app.js`, `sw.js`). |
+
 | 2026-09-19 | 🎙️ Ljudinspelning / 🔍 Identifiera | **1:1 Kompakta bilder i Inspelning & Nära mig**: Uppdaterat ljudidentifieringsvyn (Inspelning, `listen.js`) så att realtidskort (`.listen-nowcard-img`), sessionslistans kort (`.listen-scard-img`) och notifikationsikoner använder de centrerade 1:1 kvadratiska profilbilderna (`images/compact/${id}.webp`). Uppdaterat "Nära mig" (`sightings.js`) så att alla matchade arters kort (`.rs-card-img`) visar samma skarpa 1:1-profiler med fullständig fallback-kedja (`listen.js`, `sightings.js`, `sw.js`). |
 
 | 2026-09-18 | 🎴 Fågelkort | **Dioramabild som standard i fågelkortets karusell**: I artdetaljkortet (`.bird-detail-modal`) visas nu den beskurna dioramabilden (`images/dioramas/${id}.webp`) i bildkarusellens container (innan man klickar sig in). När användaren klickar på bilden för helskärmsvisning (`_openFullscreenSlide`) öppnas hela identifikationsplanschen (`item.fullSrc`) med alla 9 paneler, fjäderdräkter och detaljer i hög upplösning (`app.js`, `style.css`, `sw.js`). |
@@ -227,7 +229,7 @@
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
 
 ### 🔍 Identifiera
-- [ ] Uppgift 30: Ljud-Quiz ("Gissa lätet!")
+- [x] Uppgift 30: Ljud-Quiz ("Gissa lätet!")
 - [ ] Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)

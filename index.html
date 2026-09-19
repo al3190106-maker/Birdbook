@@ -864,6 +864,18 @@
                     <h2 class="quiz-title" id="quiz-main-title">Fågelquiz</h2>
                     <p class="quiz-subtitle" id="quiz-subtitle">Välj en svårighetsgrad eller miljö för att starta quizen!</p>
 
+                    <!-- Quiz Type Selector (Bildquiz vs Ljudquiz) -->
+                    <div class="quiz-type-selector-wrap" id="quiz-type-selector-wrap">
+                        <div class="quiz-type-toggle">
+                            <button type="button" class="quiz-type-btn active" id="quiz-type-btn-image" data-quiz-type="image">
+                                <i class="fa-solid fa-camera"></i> Bildquiz
+                            </button>
+                            <button type="button" class="quiz-type-btn" id="quiz-type-btn-sound" data-quiz-type="sound">
+                                <i class="fa-solid fa-volume-high"></i> Gissa lätet
+                            </button>
+                        </div>
+                    </div>
+
                     <h4 class="quiz-section-label" style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin: 0.5rem 0 0.5rem 0.2rem; text-transform:uppercase; letter-spacing:0.5px;">Svårighetsgrad</h4>
                     <div class="difficulty-grid">
                         <div class="difficulty-card" data-difficulty="nyborjare">
@@ -929,7 +941,7 @@
                         <div class="quiz-top-title">
                             <span class="quiz-top-logo"><i class="fa-solid fa-dove"></i></span>
                             <span id="quiz-top-book-name">Fågelboken</span>
-                            <span class="quiz-top-badge">Quiz</span>
+                            <span class="quiz-top-badge" id="quiz-top-badge">Quiz</span>
                         </div>
                         <div class="quiz-top-spacer"></div>
                     </div>

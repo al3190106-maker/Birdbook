@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.7.4-compact-listen-nearby';
+const CACHE_NAME = 'birdfinder-v5.8.0-ljudquiz-gissa-latet';
 const ASSETS_TO_CACHE = [
 
 
