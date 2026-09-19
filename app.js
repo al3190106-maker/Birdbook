@@ -2964,12 +2964,13 @@ function renderGuideList(birdList) {
     birdList.forEach(bird => {
         const card = document.createElement('div');
         const isCaught = caughtIds.has(bird.id);
-        card.className = 'bird-card' + (isCaught ? ' is-caught' : '');
+        const obj = (window.swedishFungi || []).find(f => f.id === bird.id);
+        const customImg = localStorage.getItem(`custom_img_${bird.id}`);
+        const isTree = !customImg && (window.swedishTrees || []).some(t => t.id === bird.id);
+        card.className = 'bird-card' + (isCaught ? ' is-caught' : '') + (isTree ? ' tree-card' : '');
         // Make the whole card clickable for details
         card.style.cursor = 'pointer';
 
-        const obj = (window.swedishFungi || []).find(f => f.id === bird.id);
-        const customImg = localStorage.getItem(`custom_img_${bird.id}`);
         const imgSource = customImg || getBirdImageSrc(bird.id, 'guide');
 
         // Försök med lokal diorama-WebP, annars sprite-CSS som fallback (endast fåglar)
@@ -2979,7 +2980,7 @@ function renderGuideList(birdList) {
         const isSprite = useLocalDiorama; // sprite-klassen används som fallback om WebP saknas
 
         card.innerHTML = `
-            <div class="bird-image-container${isSprite ? ' sprite' : ''}">
+            <div class="bird-image-container${isSprite ? ' sprite' : ''}${isTree ? ' tree-image-container' : ''}">
                 <img src="${useLocalDiorama ? dioramaPath : imgSource}"
                      alt="${bird.nameSv}"
                      data-bird-id="${bird.id}"

@@ -678,6 +678,39 @@ body {
     transform: none;
 }
 
+/* Guide-kort för Trädboken: visa hela den botaniska akvarellplanschen unikt utan beskärning */
+.bird-card.tree-card .bird-image-container,
+.bird-image-container.tree-image-container {
+    height: auto;
+    aspect-ratio: 1055 / 1491;
+    max-height: 520px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bird-card.tree-card .bird-image-container img,
+.bird-image-container.tree-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    background-color: #ffffff;
+    transform: none;
+    transition: none;
+}
+
+.bird-card.tree-card:hover .bird-image-container img,
+.bird-card:hover .bird-image-container.tree-image-container img {
+    transform: none;
+}
+
+.bird-card.tree-card .bird-info {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 .edit-image-btn,
 .delete-sighting-btn,
 .quick-add-btn {
@@ -2585,6 +2618,12 @@ body {
     /* Bird card image */
     .bird-image-container {
         height: 180px;
+    }
+
+    .bird-card.tree-card .bird-image-container,
+    .bird-image-container.tree-image-container {
+        height: auto;
+        max-height: 480px;
     }
 
     .bird-info {
