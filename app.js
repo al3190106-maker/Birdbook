@@ -7646,9 +7646,328 @@ function switchListenSubTab(which) {
     } catch (_) {}
 }
 
+// --- Uppgift 33: Skådarväder & Fågelaktivitet ---
+var _birdingWeatherCache = null;
+
+function _degToCompass(deg) {
+    if (deg === null || deg === undefined || isNaN(deg)) return '';
+    var directions = ['N', 'NO', 'O', 'SO', 'S', 'SV', 'V', 'NV'];
+    var idx = Math.round(((deg % 360) / 45)) % 8;
+    return directions[idx];
+}
+
+function _getWeatherCodeInfo(code, isNight) {
+    var c = Number(code);
+    if (c === 0) {
+        return isNight 
+            ? { desc: 'Klart & stjärnklart', icon: 'fa-solid fa-moon' } 
+            : { desc: 'Klart solsken', icon: 'fa-solid fa-sun' };
+    }
+    if (c === 1) {
+        return isNight 
+            ? { desc: 'Mestadels klart', icon: 'fa-solid fa-cloud-moon' } 
+            : { desc: 'Mestadels klart', icon: 'fa-solid fa-cloud-sun' };
+    }
+    if (c === 2) {
+        return isNight 
+            ? { desc: 'Halvklart', icon: 'fa-solid fa-cloud-moon' } 
+            : { desc: 'Halvklart', icon: 'fa-solid fa-cloud-sun' };
+    }
+    if (c === 3) return { desc: 'Mulet', icon: 'fa-solid fa-cloud' };
+    if (c === 45 || c === 48) return { desc: 'Dimma / dis', icon: 'fa-solid fa-smog' };
+    if (c === 51 || c === 53 || c === 55) return { desc: 'Duggregn', icon: 'fa-solid fa-cloud-rain' };
+    if (c === 56 || c === 57) return { desc: 'Underkylt duggregn', icon: 'fa-solid fa-snowflake' };
+    if (c === 61) return { desc: 'Lätt regn', icon: 'fa-solid fa-cloud-rain' };
+    if (c === 63) return { desc: 'Måttligt regn', icon: 'fa-solid fa-cloud-showers-heavy' };
+    if (c === 65) return { desc: 'Kraftigt regn', icon: 'fa-solid fa-cloud-showers-heavy' };
+    if (c === 66 || c === 67) return { desc: 'Underkylt regn', icon: 'fa-solid fa-snowflake' };
+    if (c === 71 || c === 73 || c === 75) return { desc: 'Snöfall', icon: 'fa-solid fa-snowflake' };
+    if (c === 77) return { desc: 'Snökorn', icon: 'fa-solid fa-snowflake' };
+    if (c === 80) return { desc: 'Lätta regnskurar', icon: 'fa-solid fa-cloud-sun-rain' };
+    if (c === 81 || c === 82) return { desc: 'Kraftiga regnskurar', icon: 'fa-solid fa-cloud-showers-heavy' };
+    if (c === 85 || c === 86) return { desc: 'Snöbyar', icon: 'fa-solid fa-snowflake' };
+    if (c === 95) return { desc: 'Åskväder', icon: 'fa-solid fa-bolt' };
+    if (c === 96 || c === 99) return { desc: 'Åska med hagel', icon: 'fa-solid fa-bolt-lightning' };
+
+    return { 
+        desc: 'Växlande molnighet', 
+        icon: isNight ? 'fa-solid fa-cloud-moon' : 'fa-solid fa-cloud-sun' 
+    };
+}
+
+function _calculateBirdingActivity(current, daily) {
+    var wind = Number(current.wind_speed_10m) || 0;
+    var precip = Number(current.precipitation) || 0;
+    var code = Number(current.weather_code) || 0;
+    var sunriseDate = daily && daily.sunrise && daily.sunrise[0] ? new Date(daily.sunrise[0]) : null;
+    var sunsetDate = daily && daily.sunset && daily.sunset[0] ? new Date(daily.sunset[0]) : null;
+    var now = new Date();
+
+    var isNight = false;
+    var isMorningChorus = false;
+    var isEveningFlight = false;
+
+    if (sunriseDate && sunsetDate) {
+        var nowMs = now.getTime();
+        var sunriseMs = sunriseDate.getTime();
+        var sunsetMs = sunsetDate.getTime();
+
+        if (nowMs < sunriseMs - 30 * 60 * 1000 || nowMs > sunsetMs + 30 * 60 * 1000) {
+            isNight = true;
+        } else if (nowMs >= sunriseMs - 30 * 60 * 1000 && nowMs <= sunriseMs + 3.5 * 60 * 60 * 1000) {
+            isMorningChorus = true;
+        } else if (nowMs >= sunsetMs - 2 * 60 * 60 * 1000 && nowMs <= sunsetMs + 30 * 60 * 1000) {
+            isEveningFlight = true;
+        }
+    }
+
+    var hour = now.getHours();
+    var isMiddayLull = (!isNight && !isMorningChorus && !isEveningFlight && hour >= 12 && hour <= 14);
+
+    if (isNight) {
+        return {
+            level: 'low',
+            badgeText: 'Skådar-index: Låg (Natt)',
+            tip: 'De flesta fåglar vilar nu. Perfekt tillfälle för uggleskådning eller att lyssna efter nattaktiva fåglar i skog och våtmarker!'
+        };
+    }
+
+    if (wind >= 10 || precip >= 2.5 || code >= 95) {
+        var reason = wind >= 10
+            ? 'Hård vind (' + Math.round(wind) + ' m/s) gör att fåglar söker lä vid marken. Sång och flyktaktivitet är kraftigt dämpad.'
+            : 'Kraftig nederbörd eller oväder gör att fåglarna tar skydd och är svåra att upptäcka.';
+        return {
+            level: 'low',
+            badgeText: 'Skådar-index: Låg aktivitet',
+            tip: reason
+        };
+    }
+
+    if (wind >= 6.5 || precip >= 0.8) {
+        return {
+            level: 'moderate',
+            badgeText: 'Skådar-index: Måttlig aktivitet',
+            tip: 'Frisk vind eller regn dämpar aktiviteten i öppna landskap. Spana i läkanter, skogsdungar och vassbälten där fåglarna födosöker.'
+        };
+    }
+
+    if (isMiddayLull) {
+        return {
+            level: 'moderate',
+            badgeText: 'Skådar-index: Måttlig (Middagsstiltje)',
+            tip: 'Middagsstiltje – sången avtar ofta mitt på dagen när fåglarna vilar. Aktiviteten och sången brukar öka igen framåt sen eftermiddag.'
+        };
+    }
+
+    var highTip = isMorningChorus
+        ? 'Toppförhållanden! Morgontimmarna i kombination med lugnt väder ger bästa möjliga förutsättningar för sång och födosök.'
+        : isEveningFlight
+            ? 'Härliga förhållanden! Kvällstimmarna bjuder ofta på kvällssång och fåglar som flyger till nattkvist.'
+            : 'Mycket goda förutsättningar! Svag vind och bra sikt gör det lätt att höra fågelsång och upptäcka rörelser i terrängen.';
+
+    return {
+        level: 'high',
+        badgeText: 'Skådar-index: Hög aktivitet',
+        tip: highTip
+    };
+}
+
+async function loadBirdingWeather(forceRefresh) {
+    var card = document.getElementById('birding-weather-card');
+    if (!card) return;
+
+    var loadingEl = document.getElementById('bw-loading');
+    var contentEl = document.getElementById('bw-content');
+
+    // Kolla cache (15 minuter)
+    var now = Date.now();
+    if (!forceRefresh && _birdingWeatherCache && (now - _birdingWeatherCache.timestamp < 15 * 60 * 1000)) {
+        _renderBirdingWeatherUI(_birdingWeatherCache.data, _birdingWeatherCache.isFallback);
+        return;
+    }
+
+    // Ta reda på koordinater
+    var coords = null;
+    var isFallback = false;
+
+    if (window.RecentSightings && typeof window.RecentSightings.getUserCoordinates === 'function') {
+        coords = window.RecentSightings.getUserCoordinates();
+    }
+
+    if (!coords) {
+        try {
+            var raw = localStorage.getItem('naturboken_recent_sightings');
+            if (raw) {
+                var parsed = JSON.parse(raw);
+                if (parsed.lat && parsed.lng) {
+                    coords = { lat: parsed.lat, lng: parsed.lng };
+                }
+            }
+        } catch (_) {}
+    }
+
+    if (!coords && navigator.geolocation) {
+        coords = await new Promise(function(resolve) {
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+                },
+                function() {
+                    resolve(null);
+                },
+                { timeout: 4000, maximumAge: 300000 }
+            );
+        });
+    }
+
+    if (!coords) {
+        coords = { lat: 59.3293, lng: 18.0686 }; // Stockholm standard
+        isFallback = true;
+    }
+
+    if (loadingEl && contentEl) {
+        loadingEl.style.display = 'flex';
+        contentEl.style.display = 'none';
+    }
+
+    try {
+        var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + coords.lat.toFixed(4) +
+            '&longitude=' + coords.lng.toFixed(4) +
+            '&current=temperature_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m' +
+            '&daily=sunrise,sunset&wind_speed_unit=ms&timezone=auto';
+
+        var res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var data = await res.json();
+
+        _birdingWeatherCache = {
+            data: data,
+            isFallback: isFallback,
+            timestamp: Date.now()
+        };
+
+        _renderBirdingWeatherUI(data, isFallback);
+    } catch (err) {
+        console.warn('[Weather] Fetch failed:', err);
+        if (loadingEl) {
+            loadingEl.innerHTML = '<i class="fa-solid fa-cloud-slash"></i> Kunde inte hämta skådarväder just nu';
+        }
+    }
+}
+
+function _renderBirdingWeatherUI(data, isFallback) {
+    var loadingEl = document.getElementById('bw-loading');
+    var contentEl = document.getElementById('bw-content');
+    if (!data || !data.current) return;
+
+    var current = data.current;
+    var daily = data.daily || {};
+
+    var sunriseStr = '--:--';
+    var sunsetStr = '--:--';
+    var sunriseDate = daily.sunrise && daily.sunrise[0] ? new Date(daily.sunrise[0]) : null;
+    var sunsetDate = daily.sunset && daily.sunset[0] ? new Date(daily.sunset[0]) : null;
+
+    if (daily.sunrise && daily.sunrise[0]) {
+        if (daily.sunrise[0].includes('T')) {
+            sunriseStr = daily.sunrise[0].split('T')[1].slice(0, 5);
+        } else if (sunriseDate && !isNaN(sunriseDate.getTime())) {
+            sunriseStr = sunriseDate.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+        }
+    }
+    if (daily.sunset && daily.sunset[0]) {
+        if (daily.sunset[0].includes('T')) {
+            sunsetStr = daily.sunset[0].split('T')[1].slice(0, 5);
+        } else if (sunsetDate && !isNaN(sunsetDate.getTime())) {
+            sunsetStr = sunsetDate.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+        }
+    }
+
+    var now = new Date();
+    var isNight = (sunriseDate && sunsetDate && (now < sunriseDate || now > sunsetDate));
+    var weatherInfo = _getWeatherCodeInfo(current.weather_code, isNight);
+    var compass = _degToCompass(current.wind_direction_10m);
+    var activity = _calculateBirdingActivity(current, daily);
+
+    // Temperatur & ikon
+    var tempEl = document.getElementById('bw-temp');
+    if (tempEl) tempEl.textContent = Math.round(current.temperature_2m) + '°';
+
+    var iconEl = document.getElementById('bw-weather-icon');
+    if (iconEl) iconEl.innerHTML = '<i class="' + weatherInfo.icon + '"></i>';
+
+    var descEl = document.getElementById('bw-condition-desc');
+    if (descEl) descEl.textContent = weatherInfo.desc;
+
+    // Plats
+    var locTextEl = document.getElementById('bw-location-text');
+    if (locTextEl) locTextEl.textContent = isFallback ? 'Stockholm (Standard)' : 'Din plats';
+
+    // Aktivitet
+    var activityBox = document.getElementById('bw-activity-box');
+    if (activityBox) {
+        activityBox.className = 'bw-activity-box activity-' + activity.level;
+    }
+    var badgeEl = document.getElementById('bw-activity-badge');
+    if (badgeEl) {
+        badgeEl.className = 'bw-activity-badge activity-' + activity.level;
+    }
+    var titleEl = document.getElementById('bw-activity-title');
+    if (titleEl) titleEl.textContent = activity.badgeText;
+
+    var tipEl = document.getElementById('bw-activity-tip');
+    if (tipEl) tipEl.textContent = activity.tip;
+
+    // Metrik
+    var windValEl = document.getElementById('bw-wind-val');
+    if (windValEl) windValEl.textContent = Math.round(current.wind_speed_10m) + ' m/s ' + compass;
+
+    var rainValEl = document.getElementById('bw-rain-val');
+    if (rainValEl) rainValEl.textContent = (current.precipitation || 0).toFixed(1) + ' mm';
+
+    var sunriseValEl = document.getElementById('bw-sunrise-val');
+    if (sunriseValEl) sunriseValEl.textContent = sunriseStr;
+
+    var sunsetValEl = document.getElementById('bw-sunset-val');
+    if (sunsetValEl) sunsetValEl.textContent = sunsetStr;
+
+    // Klicka på plats för att tillåta GPS / uppdatera
+    var locLabelEl = document.getElementById('bw-location-label');
+    if (locLabelEl && !locLabelEl._wired) {
+        locLabelEl._wired = true;
+        locLabelEl.style.cursor = 'pointer';
+        locLabelEl.title = 'Klicka för att uppdatera position';
+        locLabelEl.addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        _birdingWeatherCache = null;
+                        loadBirdingWeather(true);
+                    },
+                    function(err) {
+                        if (typeof showToast === 'function') {
+                            showToast('Kunde inte hämta plats: Tillåt platsåtkomst i webbläsaren');
+                        }
+                    }
+                );
+            }
+        });
+    }
+
+    if (loadingEl && contentEl) {
+        loadingEl.style.display = 'none';
+        contentEl.style.display = 'block';
+    }
+}
+
 function _initRecentSightings() {
+    loadBirdingWeather(false);
     if (!window.RecentSightings) return;
-    RecentSightings.init();
+    RecentSightings.init().then(function() {
+        if (_birdingWeatherCache && _birdingWeatherCache.isFallback) {
+            loadBirdingWeather(true);
+        }
+    }).catch(function() {});
     // Wire up refresh button (idempotent)
     var refreshBtn = document.getElementById('recent-sightings-refresh-btn');
     if (refreshBtn && !refreshBtn._wired) {
@@ -7656,6 +7975,7 @@ function _initRecentSightings() {
         refreshBtn.addEventListener('click', function () {
             var icon = refreshBtn.querySelector('i');
             if (icon) icon.classList.add('fa-spin');
+            loadBirdingWeather(true);
             RecentSightings.refresh().then(function () {
                 setTimeout(function () {
                     if (icon) icon.classList.remove('fa-spin');

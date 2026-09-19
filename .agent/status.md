@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🔍 Identifiera | **Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")**: Implementerat väder- och aktivitetskompass i "Nära mig". Hämtar realtidsväder från Open-Meteo API med GPS (eller fallback till Stockholm med möjlighet att klicka för att aktivera GPS), beräknar dynamiskt Skådar-index (Hög/Måttlig/Låg aktivitet) baserat på vindhastighet, vindriktning (N, NO, O osv.), nederbörd och soluppgång/solnedgång, samt skapat responsiv mobilanpassad design med stöd för dark mode (`index.html`, `style.css`, `app.js`, `sightings.js`, `sw.js`). |
+
 | 2026-09-19 | 🔍 Identifiera | **Kompakt profilbild i Ljud-Quiz ("Gissa lätet!")**: Konfigurerat svarsavslöjningen i ljudquizet (`#quiz-sound-reveal`) att visa artens centrerade 1:1 kvadratiska profilbild (`images/compact/${id}.webp` via `getBirdImageSrc(q.image, 'compact')`) inuti den runda svarsavatar-cirkeln, med fullständig fallback-kedja (`app.js`, `sw.js`). |
 
 | 2026-09-19 | 🔍 Identifiera | **Uppgift 30: Ljud-Quiz ("Gissa lätet!")**: Implementerat fullt stöd för ljudquiz i Quiz-fliken. Lade till en smidig växlingsknapp (Bildquiz vs Gissa lätet), audio-spelare med animerade equalizer-vågor och ripple-effekt vid uppspelning, pedagogisk bildavslöjning av rätt fågel vid svar samt säker ljudavstängning vid sidväxling/frågebyte (`index.html`, `style.css`, `app.js`, `sw.js`). |
@@ -202,10 +204,9 @@
 - [/] Uppgift 28: Översyn & rensning av information på Fågelkorten (Bort med 'Aktiv: morgon', in med förslag på värdefulla faktafält)
 
 ### 🎨 Generera bilder
+- [ ] Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (`trees.js`)
 - [ ] Uppgift 34: Unik Visuell Identitet & Ikon-renovering (Byta ut lånade/generiska ikoner i `images/category_icons/` mot egen enhetlig grafik)
 - [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
-- [x] Skapa en ny ikonbild för flugsnappare (helgrön med vit bakgrund i `images/category_icons/flugsnappare.png`)
-- [x] Omgenerera Flugsnappares ikonstil med en fågel som fångar en flygande fluga
 
 ### ✨ Features & UI
 - [ ] Uppgift 31: Interaktiv Flyttningskarta (Jan–Dec animerad tidslinje på Sverigekartan)
@@ -232,7 +233,7 @@
 
 ### 🔍 Identifiera
 - [x] Uppgift 30: Ljud-Quiz ("Gissa lätet!")
-- [ ] Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")
+- [x] Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")
 - [x] Lägga till Quiz-läget igen under Identifiera
 - [x] Utöka Quiz med miljö-kategorier (Vattenfåglar, Åkerfåglar, Skogsfåglar)
 - [x] Spara filter- & distansinställningar under Identifiera (Kom ihåg val i LocalStorage)

@@ -814,6 +814,70 @@
                         </button>
                     </div>
 
+                    <!-- Skådarväder & Aktivitet (Uppgift 33) -->
+                    <div class="birding-weather-card" id="birding-weather-card">
+                        <div class="bw-loading" id="bw-loading">
+                            <i class="fa-solid fa-spinner fa-spin"></i> Hämtar lokalt skådarväder...
+                        </div>
+                        <div class="bw-content" id="bw-content" style="display: none;">
+                            <div class="bw-header">
+                                <div class="bw-condition-main">
+                                    <span class="bw-weather-icon" id="bw-weather-icon"><i class="fa-solid fa-cloud-sun"></i></span>
+                                    <div class="bw-temp-group">
+                                        <span class="bw-temp" id="bw-temp">--°</span>
+                                        <span class="bw-condition-desc" id="bw-condition-desc">--</span>
+                                    </div>
+                                </div>
+                                <div class="bw-location-wrap">
+                                    <span class="bw-location-label" id="bw-location-label">
+                                        <i class="fa-solid fa-location-dot"></i> <span id="bw-location-text">Lokalt</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="bw-activity-box" id="bw-activity-box">
+                                <div class="bw-activity-header">
+                                    <span class="bw-activity-badge activity-high" id="bw-activity-badge">
+                                        <span class="bw-activity-dot"></span>
+                                        <span id="bw-activity-title">Skådar-index: Hämtar...</span>
+                                    </span>
+                                </div>
+                                <p class="bw-activity-tip" id="bw-activity-tip">Laddar fågelaktivitet och prognos...</p>
+                            </div>
+
+                            <div class="bw-metrics-grid">
+                                <div class="bw-metric-item">
+                                    <div class="bw-metric-icon"><i class="fa-solid fa-wind"></i></div>
+                                    <div class="bw-metric-data">
+                                        <span class="bw-metric-value" id="bw-wind-val">-- m/s</span>
+                                        <span class="bw-metric-sub" id="bw-wind-sub">Vind</span>
+                                    </div>
+                                </div>
+                                <div class="bw-metric-item">
+                                    <div class="bw-metric-icon"><i class="fa-solid fa-cloud-rain"></i></div>
+                                    <div class="bw-metric-data">
+                                        <span class="bw-metric-value" id="bw-rain-val">-- mm</span>
+                                        <span class="bw-metric-sub">Nederbörd</span>
+                                    </div>
+                                </div>
+                                <div class="bw-metric-item">
+                                    <div class="bw-metric-icon"><i class="fa-regular fa-sun"></i></div>
+                                    <div class="bw-metric-data">
+                                        <span class="bw-metric-value" id="bw-sunrise-val">--:--</span>
+                                        <span class="bw-metric-sub">Soluppgång</span>
+                                    </div>
+                                </div>
+                                <div class="bw-metric-item">
+                                    <div class="bw-metric-icon"><i class="fa-solid fa-moon"></i></div>
+                                    <div class="bw-metric-data">
+                                        <span class="bw-metric-value" id="bw-sunset-val">--:--</span>
+                                        <span class="bw-metric-sub">Solnedgång</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Sök & Filter -->
                     <div class="rs-toolbar">
                         <div class="rs-search-wrap">

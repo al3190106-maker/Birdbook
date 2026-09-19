@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.8.1-soundquiz-compact-img';
+const CACHE_NAME = 'birdfinder-v5.8.2-skadarvader-aktivitet';
 const ASSETS_TO_CACHE = [
 
 

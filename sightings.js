@@ -1286,6 +1286,9 @@ window.RecentSightings = (function () {
         fetchData: fetchData,
         toggleSettings: toggleSettings,
         setRadius: setRadius,
+        getUserCoordinates: function () {
+            return (_userLat !== null && _userLng !== null) ? { lat: _userLat, lng: _userLng } : null;
+        },
         get isLoading() { return _isLoading; },
         get error() { return _error; },
         get sightings() { return _sightings; },

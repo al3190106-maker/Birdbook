@@ -8863,6 +8863,268 @@ body.idle-dark-mode .listen-scard-add-btn {
     to { opacity: 1; transform: scale(1); }
 }
 
+/* ================================================================
+   Uppgift 33: Skådarväder & Fågelaktivitet (Väderkompass i "Nära mig")
+   ================================================================ */
+
+.birding-weather-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.1rem 1.2rem;
+    margin: 0.8rem 0 1rem 0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    transition: all 0.25s ease;
+}
+
+.bw-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 0;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.bw-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.bw-condition-main {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.bw-weather-icon {
+    font-size: 2rem;
+    color: #f59e0b;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bw-temp-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.bw-temp {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+}
+
+.bw-condition-desc {
+    font-size: 0.82rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.bw-location-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.bw-location-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.3rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.bw-location-label i {
+    color: var(--primary);
+}
+
+/* Activity index box */
+.bw-activity-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 0.75rem 0.9rem;
+    margin-bottom: 0.85rem;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+.bw-activity-box.activity-high {
+    background: #f0fdf4;
+    border-color: #86efac;
+}
+
+.bw-activity-box.activity-moderate {
+    background: #fefce8;
+    border-color: #fde047;
+}
+
+.bw-activity-box.activity-low {
+    background: #fff7ed;
+    border-color: #fdba74;
+}
+
+.bw-activity-header {
+    margin-bottom: 0.35rem;
+}
+
+.bw-activity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.bw-activity-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #16a34a;
+    display: inline-block;
+}
+
+.activity-high .bw-activity-badge { color: #15803d; }
+.activity-high .bw-activity-dot { background: #16a34a; box-shadow: 0 0 8px rgba(22, 163, 74, 0.5); }
+
+.activity-moderate .bw-activity-badge { color: #a16207; }
+.activity-moderate .bw-activity-dot { background: #eab308; box-shadow: 0 0 8px rgba(234, 179, 8, 0.5); }
+
+.activity-low .bw-activity-badge { color: #c2410c; }
+.activity-low .bw-activity-dot { background: #f97316; box-shadow: 0 0 8px rgba(249, 115, 22, 0.5); }
+
+.bw-activity-tip {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #334155;
+}
+
+/* Metrics grid (2x2 on mobile, 4 columns on desktop) */
+.bw-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem;
+}
+
+@media (min-width: 600px) {
+    .bw-metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.bw-metric-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.55rem 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.bw-metric-icon {
+    font-size: 1.1rem;
+    color: var(--primary);
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bw-metric-data {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.bw-metric-value {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bw-metric-sub {
+    font-size: 0.72rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Idle Dark Mode support */
+body.idle-dark-mode .birding-weather-card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+body.idle-dark-mode .bw-temp {
+    color: #f8fafc;
+}
+
+body.idle-dark-mode .bw-location-label {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+body.idle-dark-mode .bw-metric-item {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+body.idle-dark-mode .bw-metric-value {
+    color: #f1f5f9;
+}
+
+body.idle-dark-mode .bw-activity-box.activity-high {
+    background: #064e3b;
+    border-color: #059669;
+}
+
+body.idle-dark-mode .activity-high .bw-activity-badge {
+    color: #6ee7b7;
+}
+
+body.idle-dark-mode .bw-activity-box.activity-moderate {
+    background: #713f12;
+    border-color: #ca8a04;
+}
+
+body.idle-dark-mode .activity-moderate .bw-activity-badge {
+    color: #fde047;
+}
+
+body.idle-dark-mode .bw-activity-box.activity-low {
+    background: #7c2d12;
+    border-color: #ea580c;
+}
+
+body.idle-dark-mode .activity-low .bw-activity-badge {
+    color: #fdba74;
+}
+
+body.idle-dark-mode .bw-activity-tip {
+    color: #f1f5f9;
+}
+
+
+
 
 
 
