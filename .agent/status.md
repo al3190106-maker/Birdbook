@@ -213,6 +213,7 @@
 - [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
 
 ### ✨ Features & UI
+- [ ] Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)
 - [ ] Uppgift 31: Interaktiv Flyttningskarta (Jan–Dec animerad tidslinje på Sverigekartan)
 - [/] Uppgift 8: Skapa Dagskalender & möjlighet att skapa egna listor (Steg 1: Dagskalender & Tidsfilter i Min Logg klart ✅)
 - [ ] Uppgift 12: Användarkonto-system (Användarprofil & ID)
