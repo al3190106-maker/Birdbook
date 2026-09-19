@@ -5967,7 +5967,8 @@ function renderQuizQuestion() {
     let soundHtml = '';
 
     if (q.type === 'sound') {
-        const imgSrc = getBirdImageSrc(q.image, 'quiz');
+        const imgSrc = getBirdImageSrc(q.image, 'compact');
+        const fallbackSrc = getBirdImageSrc(q.image, 'guide');
         soundHtml = `
             <div class="quiz-audio-card" id="quiz-audio-card">
                 <button type="button" class="quiz-audio-play-btn" id="quiz-audio-play-btn" title="Spela/pausa fågelläte" aria-label="Spela fågelläte">
@@ -5985,7 +5986,7 @@ function renderQuizQuestion() {
             </div>
             <div class="quiz-sound-reveal" id="quiz-sound-reveal" style="display: none;">
                 <div class="quiz-sound-reveal-img-wrap">
-                    <img src="${imgSrc}" alt="${q.correctLabel}" class="quiz-sound-reveal-img" onerror="handleImageError(this)">
+                    <img src="${imgSrc}" alt="${q.correctLabel}" class="quiz-sound-reveal-img" data-bird-id="${q.image}" data-fallback="${fallbackSrc}" onerror="handleImageError(this)">
                 </div>
                 <div class="quiz-sound-reveal-text">
                     <span class="quiz-sound-reveal-badge">Rätt fågel</span>

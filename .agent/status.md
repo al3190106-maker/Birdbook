@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🔍 Identifiera | **Kompakt profilbild i Ljud-Quiz ("Gissa lätet!")**: Konfigurerat svarsavslöjningen i ljudquizet (`#quiz-sound-reveal`) att visa artens centrerade 1:1 kvadratiska profilbild (`images/compact/${id}.webp` via `getBirdImageSrc(q.image, 'compact')`) inuti den runda svarsavatar-cirkeln, med fullständig fallback-kedja (`app.js`, `sw.js`). |
+
 | 2026-09-19 | 🔍 Identifiera | **Uppgift 30: Ljud-Quiz ("Gissa lätet!")**: Implementerat fullt stöd för ljudquiz i Quiz-fliken. Lade till en smidig växlingsknapp (Bildquiz vs Gissa lätet), audio-spelare med animerade equalizer-vågor och ripple-effekt vid uppspelning, pedagogisk bildavslöjning av rätt fågel vid svar samt säker ljudavstängning vid sidväxling/frågebyte (`index.html`, `style.css`, `app.js`, `sw.js`). |
 
 | 2026-09-19 | 🎙️ Ljudinspelning / 🔍 Identifiera | **1:1 Kompakta bilder i Inspelning & Nära mig**: Uppdaterat ljudidentifieringsvyn (Inspelning, `listen.js`) så att realtidskort (`.listen-nowcard-img`), sessionslistans kort (`.listen-scard-img`) och notifikationsikoner använder de centrerade 1:1 kvadratiska profilbilderna (`images/compact/${id}.webp`). Uppdaterat "Nära mig" (`sightings.js`) så att alla matchade arters kort (`.rs-card-img`) visar samma skarpa 1:1-profiler med fullständig fallback-kedja (`listen.js`, `sightings.js`, `sw.js`). |

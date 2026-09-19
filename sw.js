@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.8.0-ljudquiz-gissa-latet';
+const CACHE_NAME = 'birdfinder-v5.8.1-soundquiz-compact-img';
 const ASSETS_TO_CACHE = [
 
 
