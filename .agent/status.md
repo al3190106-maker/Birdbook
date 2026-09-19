@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🚀 Deploy & Infra | **Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph, sitemap.xml, robots.txt & Schema.org)**: Implementerat fullständig SEO-struktur med optimerad svensk titel och metabeskrivning, Open Graph- och Twitter Card-metataggar för snygg förhandsgranskning i sociala medier och meddelande-appar, Schema.org JSON-LD ("WebApplication" / "EducationalApplication"), samt skapat `robots.txt` och `sitemap.xml` i roten och bumpat Service Worker cache (`index.html`, `robots.txt`, `sitemap.xml`, `sw.js`). |
 | 2026-09-19 | 🔍 Identifiera | **Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")**: Implementerat väder- och aktivitetskompass i "Nära mig". Hämtar realtidsväder från Open-Meteo API med GPS (eller fallback till Stockholm med möjlighet att klicka för att aktivera GPS), beräknar dynamiskt Skådar-index (Hög/Måttlig/Låg aktivitet) baserat på vindhastighet, vindriktning (N, NO, O osv.), nederbörd och soluppgång/solnedgång, samt skapat responsiv mobilanpassad design med stöd för dark mode (`index.html`, `style.css`, `app.js`, `sightings.js`, `sw.js`). |
 
 | 2026-09-19 | 🔍 Identifiera | **Kompakt profilbild i Ljud-Quiz ("Gissa lätet!")**: Konfigurerat svarsavslöjningen i ljudquizet (`#quiz-sound-reveal`) att visa artens centrerade 1:1 kvadratiska profilbild (`images/compact/${id}.webp` via `getBirdImageSrc(q.image, 'compact')`) inuti den runda svarsavatar-cirkeln, med fullständig fallback-kedja (`app.js`, `sw.js`). |
@@ -226,7 +227,7 @@
 
 
 ### 🚀 Deploy & Infra
-- [ ] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
+- [x] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
 - [ ] Uppgift 9: Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 - [x] Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 (Diskret 1-rads banner + info i Inställningar)
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)

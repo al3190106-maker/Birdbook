@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://al3190106-maker.github.io/Birdbook/sitemap.xml

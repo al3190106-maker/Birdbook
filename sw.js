@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.8.2-skadarvader-aktivitet';
+const CACHE_NAME = 'birdfinder-v5.8.3-seo-meta';
 const ASSETS_TO_CACHE = [
 
 
