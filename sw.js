@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.7.3-detail-diorama';
+const CACHE_NAME = 'birdfinder-v5.7.4-compact-listen-nearby';
 const ASSETS_TO_CACHE = [
 
 

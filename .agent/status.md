@@ -19,6 +19,8 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🎙️ Ljudinspelning / 🔍 Identifiera | **1:1 Kompakta bilder i Inspelning & Nära mig**: Uppdaterat ljudidentifieringsvyn (Inspelning, `listen.js`) så att realtidskort (`.listen-nowcard-img`), sessionslistans kort (`.listen-scard-img`) och notifikationsikoner använder de centrerade 1:1 kvadratiska profilbilderna (`images/compact/${id}.webp`). Uppdaterat "Nära mig" (`sightings.js`) så att alla matchade arters kort (`.rs-card-img`) visar samma skarpa 1:1-profiler med fullständig fallback-kedja (`listen.js`, `sightings.js`, `sw.js`). |
+
 | 2026-09-18 | 🎴 Fågelkort | **Dioramabild som standard i fågelkortets karusell**: I artdetaljkortet (`.bird-detail-modal`) visas nu den beskurna dioramabilden (`images/dioramas/${id}.webp`) i bildkarusellens container (innan man klickar sig in). När användaren klickar på bilden för helskärmsvisning (`_openFullscreenSlide`) öppnas hela identifikationsplanschen (`item.fullSrc`) med alla 9 paneler, fjäderdräkter och detaljer i hög upplösning (`app.js`, `style.css`, `sw.js`). |
 
 | 2026-09-18 | 🎨 Generera bilder | **Diorama i normalvy & 1:1 kompaktbilder i kompaktvy i Min Logg**: Konfigurerat Min Logg så att observationskorten i normalläget visar de beskurna liggande dioramabilderna (`images/dioramas/${id}.webp`), och i kompaktläget visar de kvadratiska 1:1-profilbilderna (`images/compact/${id}.webp`). Båda elementen renderas med omedelbar CSS-visningsväxling vid lägesbyte, fullständigt bibehållen företrädesrätt för användarens egna foton samt robust fallback-kedja (`app.js`, `style.css`, `sw.js`). |

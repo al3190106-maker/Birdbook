@@ -67,9 +67,11 @@ function listen_colFor(pct) {
 }
 
 function listen_imgFor(dbBird) {
-    if (!dbBird || typeof window.birdImages === 'undefined') return null;
-    const io = window.birdImages[dbBird.id];
-    return io && io.length > 0 ? io[0].src : null;
+    if (!dbBird) return null;
+    if (typeof getBirdImageSrc === 'function') {
+        return getBirdImageSrc(dbBird.id, 'compact');
+    }
+    return `images/compact/${dbBird.id}.webp`;
 }
 
 function listen_setStatus(html) {
@@ -214,8 +216,9 @@ function listen_buildNowCard(pred) {
     const imgSrc = listen_imgFor(dbBird);
     const clickJs = dbBird ? `window.listen_openBird('${dbBird.id}')` : '';
 
+    const fallbackSrc = (dbBird && typeof getBirdImageSrc === 'function') ? getBirdImageSrc(dbBird.id, 'guide') : '';
     const imgHtml = imgSrc
-        ? `<img class="listen-nowcard-img" src="${imgSrc}" alt="${name}">`
+        ? `<img class="listen-nowcard-img" src="${imgSrc}" alt="${name}" loading="lazy" data-bird-id="${dbBird ? dbBird.id : ''}" data-fallback="${fallbackSrc}" onerror="handleImageError(this)">`
         : `<div class="listen-nowcard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
 
     return `
@@ -270,8 +273,9 @@ function listen_renderSession() {
             cardEl = temp.firstElementChild;
             
             const imgWrap = cardEl.querySelector('.listen-scard-img-wrap');
+            const fallbackSrc = (e.dbBird && typeof getBirdImageSrc === 'function') ? getBirdImageSrc(e.dbBird.id, 'guide') : '';
             imgWrap.innerHTML = e.imgSrc
-                ? `<img class="listen-scard-img" src="${e.imgSrc}" alt="${e.name}">`
+                ? `<img class="listen-scard-img" src="${e.imgSrc}" alt="${e.name}" loading="lazy" data-bird-id="${e.dbBird ? e.dbBird.id : ''}" data-fallback="${fallbackSrc}" onerror="handleImageError(this)">`
                 : `<div class="listen-scard-placeholder"><i class="fa-solid fa-dove"></i></div>`;
         } else {
             // Remove animation class for existing elements to prevent re-triggering

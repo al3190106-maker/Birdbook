@@ -585,9 +585,12 @@ window.RecentSightings = (function () {
         var imgHTML;
         if (isMatched) {
             var imgSrc = typeof getBirdImageSrc === 'function'
-                ? getBirdImageSrc(bird.id)
+                ? getBirdImageSrc(bird.id, 'compact')
+                : 'images/compact/' + bird.id + '.webp';
+            var fallbackSrc = typeof getBirdImageSrc === 'function'
+                ? getBirdImageSrc(bird.id, 'guide')
                 : 'images/' + bird.id + '.jpg';
-            imgHTML = '<img class="rs-card-img" src="' + imgSrc + '" alt="' + bird.nameSv + '" loading="lazy" onerror="handleImageError(this)" data-bird-id="' + bird.id + '">';
+            imgHTML = '<img class="rs-card-img" src="' + imgSrc + '" alt="' + bird.nameSv + '" loading="lazy" data-fallback="' + fallbackSrc + '" onerror="handleImageError(this)" data-bird-id="' + bird.id + '">';
         } else {
             // Extern art: visa snygg placeholder med artnamn
             var sciShort = _formatSciName(group.scientificName);
