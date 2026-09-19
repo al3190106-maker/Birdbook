@@ -1,9 +1,2175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://al3190106-maker.github.io/Birdbook/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/category_icons/nature_alla.png</image:loc>
+      <image:title>Naturboken – Sveriges interaktiva naturguide</image:title>
+      <image:caption>Officiell logotyp och ikon för Naturboken</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/category_icons/alla.png</image:loc>
+      <image:title>Fågelboken – Sveriges fåglar</image:title>
+      <image:caption>Kategoriikon för Fågelboken i Naturboken</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/category_icons/plants_alla.png</image:loc>
+      <image:title>Växtboken – Svenska träd och blommor</image:title>
+      <image:caption>Kategoriikon för Växtboken i Naturboken</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/category_icons/fish_alla.png</image:loc>
+      <image:title>Fiskboken – Svenska fiskar</image:title>
+      <image:caption>Kategoriikon för Fiskboken i Naturboken</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/category_icons/fungi_alla.png</image:loc>
+      <image:title>Svampboken – Svenska mat- och giftsvampar</image:title>
+      <image:caption>Kategoriikon för Svampboken i Naturboken</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/category_icons/animal_alla.png</image:loc>
+      <image:title>Däggdjursboken – Svenska däggdjur och vilt</image:title>
+      <image:caption>Kategoriikon för Däggdjursboken i Naturboken</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/whooper_swan.webp</image:loc>
+      <image:title>Sångsvan – Fågelboken</image:title>
+      <image:caption>Artplansch för Sångsvan (Cygnus cygnus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/mute_swan.webp</image:loc>
+      <image:title>Knölsvan – Fågelboken</image:title>
+      <image:caption>Artplansch för Knölsvan (Cygnus olor) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/canada_goose.webp</image:loc>
+      <image:title>Kanadagås – Fågelboken</image:title>
+      <image:caption>Artplansch för Kanadagås (Branta canadensis) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greylag_goose.webp</image:loc>
+      <image:title>Grågås – Fågelboken</image:title>
+      <image:caption>Artplansch för Grågås (Anser anser) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bean_goose.webp</image:loc>
+      <image:title>Sädgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Sädgås (Anser fabalis) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greater_white_fronted_goose.webp</image:loc>
+      <image:title>Bläsgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Bläsgås (Anser albifrons) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pink_footed_goose.webp</image:loc>
+      <image:title>Spetsbergsgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Spetsbergsgås (Anser brachyrhynchus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bar_headed_goose.webp</image:loc>
+      <image:title>Stripgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Stripgås (Anser indicus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/barnacle_goose.webp</image:loc>
+      <image:title>Vitkindad gås – Fågelboken</image:title>
+      <image:caption>Artplansch för Vitkindad gås (Branta leucopsis) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_white_fronted_goose.webp</image:loc>
+      <image:title>Fjällgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjällgås (Anser erythropus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/brent_goose.webp</image:loc>
+      <image:title>Prutgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Prutgås (Branta bernicla) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_shelduck.webp</image:loc>
+      <image:title>Gravand – Fågelboken</image:title>
+      <image:caption>Artplansch för Gravand (Tadorna tadorna) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_eider.webp</image:loc>
+      <image:title>Ejder – Fågelboken</image:title>
+      <image:caption>Artplansch för Ejder (Somateria mollissima) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/mallard.webp</image:loc>
+      <image:title>Gräsand – Fågelboken</image:title>
+      <image:caption>Artplansch för Gräsand (Anas platyrhynchos) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/gadwall.webp</image:loc>
+      <image:title>Snatterand – Fågelboken</image:title>
+      <image:caption>Artplansch för Snatterand (Mareca strepera) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/velvet_scoter.webp</image:loc>
+      <image:title>Sjöorre – Fågelboken</image:title>
+      <image:caption>Artplansch för Sjöorre (Melanitta fusca) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_pintail.webp</image:loc>
+      <image:title>Stjärtand – Fågelboken</image:title>
+      <image:caption>Artplansch för Stjärtand (Anas acuta) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_scoter.webp</image:loc>
+      <image:title>Svärta – Fågelboken</image:title>
+      <image:caption>Artplansch för Svärta (Melanitta nigra) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_wigeon.webp</image:loc>
+      <image:title>Bläsand – Fågelboken</image:title>
+      <image:caption>Artplansch för Bläsand (Mareca penelope) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_shoveler.webp</image:loc>
+      <image:title>Skedand – Fågelboken</image:title>
+      <image:caption>Artplansch för Skedand (Spatula clypeata) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_goldeneye.webp</image:loc>
+      <image:title>Knipa – Fågelboken</image:title>
+      <image:caption>Artplansch för Knipa (Bucephala clangula) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_pochard.webp</image:loc>
+      <image:title>Brunand – Fågelboken</image:title>
+      <image:caption>Artplansch för Brunand (Aythya ferina) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greater_scaup.webp</image:loc>
+      <image:title>Bergand – Fågelboken</image:title>
+      <image:caption>Artplansch för Bergand (Aythya marila) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/long_tailed_duck.webp</image:loc>
+      <image:title>Alfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Alfågel (Clangula hyemalis) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tufted_duck.webp</image:loc>
+      <image:title>Vigg – Fågelboken</image:title>
+      <image:caption>Artplansch för Vigg (Aythya fuligula) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/mandarin_duck.webp</image:loc>
+      <image:title>Mandarinand – Fågelboken</image:title>
+      <image:caption>Artplansch för Mandarinand (Aix galericulata) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/garganey.webp</image:loc>
+      <image:title>Årta – Fågelboken</image:title>
+      <image:caption>Artplansch för Årta (Spatula querquedula) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_teal.webp</image:loc>
+      <image:title>Kricka – Fågelboken</image:title>
+      <image:caption>Artplansch för Kricka (Anas crecca) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/goosander.webp</image:loc>
+      <image:title>Storskrake – Fågelboken</image:title>
+      <image:caption>Artplansch för Storskrake (Mergus merganser) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_breasted_merganser.webp</image:loc>
+      <image:title>Småskrake – Fågelboken</image:title>
+      <image:caption>Artplansch för Småskrake (Mergus serrator) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/smew.webp</image:loc>
+      <image:title>Salskrake – Fågelboken</image:title>
+      <image:caption>Artplansch för Salskrake (Mergellus albellus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/western_capercaillie.webp</image:loc>
+      <image:title>Tjäder – Fågelboken</image:title>
+      <image:caption>Artplansch för Tjäder (Tetrao urogallus) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_grouse.webp</image:loc>
+      <image:title>Orre – Fågelboken</image:title>
+      <image:caption>Artplansch för Orre (Lyrurus tetrix) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_pheasant.webp</image:loc>
+      <image:title>Fasan – Fågelboken</image:title>
+      <image:caption>Artplansch för Fasan (Phasianus colchicus) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/willow_ptarmigan.webp</image:loc>
+      <image:title>Dalripa – Fågelboken</image:title>
+      <image:caption>Artplansch för Dalripa (Lagopus lagopus) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rock_ptarmigan.webp</image:loc>
+      <image:title>Fjällripa – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjällripa (Lagopus muta) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/hazel_grouse.webp</image:loc>
+      <image:title>Järpe – Fågelboken</image:title>
+      <image:caption>Artplansch för Järpe (Tetrastes bonasia) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/grey_partridge.webp</image:loc>
+      <image:title>Rapphöna – Fågelboken</image:title>
+      <image:caption>Artplansch för Rapphöna (Perdix perdix) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_quail.webp</image:loc>
+      <image:title>Vaktel – Fågelboken</image:title>
+      <image:caption>Artplansch för Vaktel (Coturnix coturnix) i Naturboken (Hönsfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_throated_loon.webp</image:loc>
+      <image:title>Storlom – Fågelboken</image:title>
+      <image:caption>Artplansch för Storlom (Gavia arctica) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_throated_loon.webp</image:loc>
+      <image:title>Smålom – Fågelboken</image:title>
+      <image:caption>Artplansch för Smålom (Gavia stellata) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_crested_grebe.webp</image:loc>
+      <image:title>Skäggdopping – Fågelboken</image:title>
+      <image:caption>Artplansch för Skäggdopping (Podiceps cristatus) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_necked_grebe.webp</image:loc>
+      <image:title>Gråhakedopping – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråhakedopping (Podiceps grisegena) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/horned_grebe.webp</image:loc>
+      <image:title>Svarthakedopping – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarthakedopping (Podiceps auritus) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_necked_grebe.webp</image:loc>
+      <image:title>Svarthalsad dopping – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarthalsad dopping (Podiceps nigricollis) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_grebe.webp</image:loc>
+      <image:title>Smådopping – Fågelboken</image:title>
+      <image:caption>Artplansch för Smådopping (Tachybaptus ruficollis) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/white_stork.webp</image:loc>
+      <image:title>Vit stork – Fågelboken</image:title>
+      <image:caption>Artplansch för Vit stork (Ciconia ciconia) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/grey_heron.webp</image:loc>
+      <image:title>Gråhäger – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråhäger (Ardea cinerea) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_bittern.webp</image:loc>
+      <image:title>Rördrom – Fågelboken</image:title>
+      <image:caption>Artplansch för Rördrom (Botaurus stellaris) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/white_tailed_eagle.webp</image:loc>
+      <image:title>Havsörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Havsörn (Haliaeetus albicilla) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/golden_eagle.webp</image:loc>
+      <image:title>Kungsörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Kungsörn (Aquila chrysaetos) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/western_osprey.webp</image:loc>
+      <image:title>Fiskgjuse – Fågelboken</image:title>
+      <image:caption>Artplansch för Fiskgjuse (Pandion haliaetus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_kite.webp</image:loc>
+      <image:title>Röd glada – Fågelboken</image:title>
+      <image:caption>Artplansch för Röd glada (Milvus milvus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_kite.webp</image:loc>
+      <image:title>Brun glada – Fågelboken</image:title>
+      <image:caption>Artplansch för Brun glada (Milvus migrans) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_honey_buzzard.webp</image:loc>
+      <image:title>Bivråk – Fågelboken</image:title>
+      <image:caption>Artplansch för Bivråk (Pernis apivorus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rough_legged_buzzard.webp</image:loc>
+      <image:title>Fjällvråk – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjällvråk (Buteo lagopus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_buzzard.webp</image:loc>
+      <image:title>Ormvråk – Fågelboken</image:title>
+      <image:caption>Artplansch för Ormvråk (Buteo buteo) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/western_marsh_harrier.webp</image:loc>
+      <image:title>Brun kärrhök – Fågelboken</image:title>
+      <image:caption>Artplansch för Brun kärrhök (Circus aeruginosus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/montagu_harrier.webp</image:loc>
+      <image:title>Ängshök – Fågelboken</image:title>
+      <image:caption>Artplansch för Ängshök (Circus pygargus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_goshawk.webp</image:loc>
+      <image:title>Duvhök – Fågelboken</image:title>
+      <image:caption>Artplansch för Duvhök (Accipiter gentilis) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/hen_harrier.webp</image:loc>
+      <image:title>Blå kärrhök – Fågelboken</image:title>
+      <image:caption>Artplansch för Blå kärrhök (Circus cyaneus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_sparrowhawk.webp</image:loc>
+      <image:title>Sparvhök – Fågelboken</image:title>
+      <image:caption>Artplansch för Sparvhök (Accipiter nisus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/gyrfalcon.webp</image:loc>
+      <image:title>Jaktfalk – Fågelboken</image:title>
+      <image:caption>Artplansch för Jaktfalk (Falco rusticolus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/peregrine_falcon.webp</image:loc>
+      <image:title>Pilgrimsfalk – Fågelboken</image:title>
+      <image:caption>Artplansch för Pilgrimsfalk (Falco peregrinus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_hobby.webp</image:loc>
+      <image:title>Lärkfalk – Fågelboken</image:title>
+      <image:caption>Artplansch för Lärkfalk (Falco subbuteo) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_kestrel.webp</image:loc>
+      <image:title>Tornfalk – Fågelboken</image:title>
+      <image:caption>Artplansch för Tornfalk (Falco tinnunculus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_footed_falcon.webp</image:loc>
+      <image:title>Aftonfalk – Fågelboken</image:title>
+      <image:caption>Artplansch för Aftonfalk (Falco vespertinus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/merlin.webp</image:loc>
+      <image:title>Stenfalk – Fågelboken</image:title>
+      <image:caption>Artplansch för Stenfalk (Falco columbarius) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_crane.webp</image:loc>
+      <image:title>Trana – Fågelboken</image:title>
+      <image:caption>Artplansch för Trana (Grus grus) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_coot.webp</image:loc>
+      <image:title>Sothöna – Fågelboken</image:title>
+      <image:caption>Artplansch för Sothöna (Fulica atra) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_moorhen.webp</image:loc>
+      <image:title>Rörhöna – Fågelboken</image:title>
+      <image:caption>Artplansch för Rörhöna (Gallinula chloropus) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/corn_crake.webp</image:loc>
+      <image:title>Kornknarr – Fågelboken</image:title>
+      <image:caption>Artplansch för Kornknarr (Crex crex) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/water_rail.webp</image:loc>
+      <image:title>Vattenrall – Fågelboken</image:title>
+      <image:caption>Artplansch för Vattenrall (Rallus aquaticus) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/spotted_crake.webp</image:loc>
+      <image:title>Småfläckig sumphöna – Fågelboken</image:title>
+      <image:caption>Artplansch för Småfläckig sumphöna (Porzana porzana) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_oystercatcher.webp</image:loc>
+      <image:title>Strandskata – Fågelboken</image:title>
+      <image:caption>Artplansch för Strandskata (Haematopus ostralegus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/grey_plover.webp</image:loc>
+      <image:title>Kustpipare – Fågelboken</image:title>
+      <image:caption>Artplansch för Kustpipare (Pluvialis squatarola) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_golden_plover.webp</image:loc>
+      <image:title>Ljungpipare – Fågelboken</image:title>
+      <image:caption>Artplansch för Ljungpipare (Pluvialis apricaria) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_dotterel.webp</image:loc>
+      <image:title>Fjällpipare – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjällpipare (Charadrius morinellus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ringed_plover.webp</image:loc>
+      <image:title>Större strandpipare – Fågelboken</image:title>
+      <image:caption>Artplansch för Större strandpipare (Charadrius hiaticula) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_ringed_plover.webp</image:loc>
+      <image:title>Mindre strandpipare – Fågelboken</image:title>
+      <image:caption>Artplansch för Mindre strandpipare (Charadrius dubius) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_lapwing.webp</image:loc>
+      <image:title>Tofsvipa – Fågelboken</image:title>
+      <image:caption>Artplansch för Tofsvipa (Vanellus vanellus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greenshank.webp</image:loc>
+      <image:title>Gluttsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Gluttsnäppa (Tringa nebularia) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/spotted_redshank.webp</image:loc>
+      <image:title>Svartsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Svartsnäppa (Tringa erythropus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/marsh_sandpiper.webp</image:loc>
+      <image:title>Dammsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Dammsnäppa (Tringa stagnatilis) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/knot.webp</image:loc>
+      <image:title>Kustsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Kustsnäppa (Calidris canutus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/purple_sandpiper.webp</image:loc>
+      <image:title>Skärsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Skärsnäppa (Calidris maritima) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/curlew_sandpiper.webp</image:loc>
+      <image:title>Spovsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Spovsnäppa (Calidris ferruginea) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/green_sandpiper.webp</image:loc>
+      <image:title>Skogssnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Skogssnäppa (Tringa ochropus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/dunlin.webp</image:loc>
+      <image:title>Kärrsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Kärrsnäppa (Calidris alpina) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_sandpiper.webp</image:loc>
+      <image:title>Drillsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Drillsnäppa (Actitis hypoleucos) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/broad_billed_sandpiper.webp</image:loc>
+      <image:title>Myrsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Myrsnäppa (Calidris falcinellus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_necked_phalarope.webp</image:loc>
+      <image:title>Smalnäbbad simsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Smalnäbbad simsnäppa (Phalaropus lobatus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/temminck_stint.webp</image:loc>
+      <image:title>Mosnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Mosnäppa (Calidris temminckii) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_curlew.webp</image:loc>
+      <image:title>Storspov – Fågelboken</image:title>
+      <image:caption>Artplansch för Storspov (Numenius arquata) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/whimbrel.webp</image:loc>
+      <image:title>Småspov – Fågelboken</image:title>
+      <image:caption>Artplansch för Småspov (Numenius phaeopus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bar_tailed_godwit.webp</image:loc>
+      <image:title>Myrspov – Fågelboken</image:title>
+      <image:caption>Artplansch för Myrspov (Limosa lapponica) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_tailed_godwit.webp</image:loc>
+      <image:title>Rödspov – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödspov (Limosa limosa) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_woodcock.webp</image:loc>
+      <image:title>Morkulla – Fågelboken</image:title>
+      <image:caption>Artplansch för Morkulla (Scolopax rusticola) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_snipe.webp</image:loc>
+      <image:title>Dubbelbeckasin – Fågelboken</image:title>
+      <image:caption>Artplansch för Dubbelbeckasin (Gallinago media) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_snipe.webp</image:loc>
+      <image:title>Enkelbeckasin – Fågelboken</image:title>
+      <image:caption>Artplansch för Enkelbeckasin (Gallinago gallinago) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/jack_snipe.webp</image:loc>
+      <image:title>Dvärgbeckasin – Fågelboken</image:title>
+      <image:caption>Artplansch för Dvärgbeckasin (Lymnocryptes minimus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/avocet.webp</image:loc>
+      <image:title>Skärfläcka – Fågelboken</image:title>
+      <image:caption>Artplansch för Skärfläcka (Recurvirostra avosetta) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_redshank.webp</image:loc>
+      <image:title>Rödbena – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödbena (Tringa totanus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ruff.webp</image:loc>
+      <image:title>Brushane – Fågelboken</image:title>
+      <image:caption>Artplansch för Brushane (Calidris pugnax) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/turnstone.webp</image:loc>
+      <image:title>Roskarl – Fågelboken</image:title>
+      <image:caption>Artplansch för Roskarl (Arenaria interpres) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_tern.webp</image:loc>
+      <image:title>Småtärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Småtärna (Sternula albifrons) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/sanderling.webp</image:loc>
+      <image:title>Sandlöpare – Fågelboken</image:title>
+      <image:caption>Artplansch för Sandlöpare (Calidris alba) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/wood_sandpiper.webp</image:loc>
+      <image:title>Grönbena – Fågelboken</image:title>
+      <image:caption>Artplansch för Grönbena (Tringa glareola) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rock_pipit.webp</image:loc>
+      <image:title>Skärpiplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Skärpiplärka (Anthus petrosus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_skua.webp</image:loc>
+      <image:title>Kustlabb – Fågelboken</image:title>
+      <image:caption>Artplansch för Kustlabb (Stercorarius skua) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/arctic_skua.webp</image:loc>
+      <image:title>Fjällabb – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjällabb (Stercorarius parasiticus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_black_backed_gull.webp</image:loc>
+      <image:title>Havstrut – Fågelboken</image:title>
+      <image:caption>Artplansch för Havstrut (Larus marinus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/herring_gull.webp</image:loc>
+      <image:title>Gråtrut – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråtrut (Larus argentatus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_black_backed_gull.webp</image:loc>
+      <image:title>Silltrut – Fågelboken</image:title>
+      <image:caption>Artplansch för Silltrut (Larus fuscus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_gull.webp</image:loc>
+      <image:title>Fiskmås – Fågelboken</image:title>
+      <image:caption>Artplansch för Fiskmås (Larus canus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_headed_gull.webp</image:loc>
+      <image:title>Skrattmås – Fågelboken</image:title>
+      <image:caption>Artplansch för Skrattmås (Chroicocephalus ridibundus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_gull.webp</image:loc>
+      <image:title>Dvärgmås – Fågelboken</image:title>
+      <image:caption>Artplansch för Dvärgmås (Hydrocoloeus minutus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/caspian_tern.webp</image:loc>
+      <image:title>Skräntärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Skräntärna (Hydroprogne caspia) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/sandwich_tern.webp</image:loc>
+      <image:title>Kentsk tärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Kentsk tärna (Thalasseus sandvicensis) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/arctic_tern.webp</image:loc>
+      <image:title>Silvertärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Silvertärna (Sterna paradisaea) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_tern.webp</image:loc>
+      <image:title>Fisktärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Fisktärna (Sterna hirundo) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_murre.webp</image:loc>
+      <image:title>Sillgrissla – Fågelboken</image:title>
+      <image:caption>Artplansch för Sillgrissla (Uria aalge) i Naturboken (Alkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/razorbill.webp</image:loc>
+      <image:title>Tordmule – Fågelboken</image:title>
+      <image:caption>Artplansch för Tordmule (Alca torda) i Naturboken (Alkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_guillemot.webp</image:loc>
+      <image:title>Tobisgrissla – Fågelboken</image:title>
+      <image:caption>Artplansch för Tobisgrissla (Cepphus grylle) i Naturboken (Alkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_auk.webp</image:loc>
+      <image:title>Alkekung – Fågelboken</image:title>
+      <image:caption>Artplansch för Alkekung (Alle alle) i Naturboken (Alkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_wryneck.webp</image:loc>
+      <image:title>Göktyta – Fågelboken</image:title>
+      <image:caption>Artplansch för Göktyta (Jynx torquilla) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_woodpecker.webp</image:loc>
+      <image:title>Spillkråka – Fågelboken</image:title>
+      <image:caption>Artplansch för Spillkråka (Dryocopus martius) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_spotted_woodpecker.webp</image:loc>
+      <image:title>Större hackspett – Fågelboken</image:title>
+      <image:caption>Artplansch för Större hackspett (Dendrocopos major) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/grey_headed_woodpecker.webp</image:loc>
+      <image:title>Gråspett – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråspett (Picus canus) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_green_woodpecker.webp</image:loc>
+      <image:title>Gröngöling – Fågelboken</image:title>
+      <image:caption>Artplansch för Gröngöling (Picus viridis) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_three_toed_woodpecker.webp</image:loc>
+      <image:title>Tretåig hackspett – Fågelboken</image:title>
+      <image:caption>Artplansch för Tretåig hackspett (Picoides tridactylus) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_spotted_woodpecker.webp</image:loc>
+      <image:title>Mindre hackspett – Fågelboken</image:title>
+      <image:caption>Artplansch för Mindre hackspett (Dryobates minor) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_eagle_owl.webp</image:loc>
+      <image:title>Berguv – Fågelboken</image:title>
+      <image:caption>Artplansch för Berguv (Bubo bubo) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/snowy_owl.webp</image:loc>
+      <image:title>Fjälluggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjälluggla (Bubo scandiacus) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_grey_owl.webp</image:loc>
+      <image:title>Lappuggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Lappuggla (Strix nebulosa) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ural_owl.webp</image:loc>
+      <image:title>Slaguggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Slaguggla (Strix uralensis) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/short_eared_owl.webp</image:loc>
+      <image:title>Jorduggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Jorduggla (Asio flammeus) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tawny_owl.webp</image:loc>
+      <image:title>Kattuggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Kattuggla (Strix aluco) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/long_eared_owl.webp</image:loc>
+      <image:title>Hornuggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Hornuggla (Asio otus) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/barn_owl.webp</image:loc>
+      <image:title>Tornuggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Tornuggla (Tyto alba) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_hawk_owl.webp</image:loc>
+      <image:title>Hökuggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Hökuggla (Surnia ulula) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tengmalm_owl.webp</image:loc>
+      <image:title>Pärluggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Pärluggla (Aegolius funereus) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_pygmy_owl.webp</image:loc>
+      <image:title>Sparvuggla – Fågelboken</image:title>
+      <image:caption>Artplansch för Sparvuggla (Glaucidium passerinum) i Naturboken (Ugglor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_wood_pigeon.webp</image:loc>
+      <image:title>Ringduva – Fågelboken</image:title>
+      <image:caption>Artplansch för Ringduva (Columba palumbus) i Naturboken (Duvor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rock_dove.webp</image:loc>
+      <image:title>Tamduva – Fågelboken</image:title>
+      <image:caption>Artplansch för Tamduva (Columba livia) i Naturboken (Duvor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/stock_dove.webp</image:loc>
+      <image:title>Skogsduva – Fågelboken</image:title>
+      <image:caption>Artplansch för Skogsduva (Columba oenas) i Naturboken (Duvor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_collared_dove.webp</image:loc>
+      <image:title>Turkduva – Fågelboken</image:title>
+      <image:caption>Artplansch för Turkduva (Streptopelia decaocto) i Naturboken (Duvor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_turtle_dove.webp</image:loc>
+      <image:title>Turturduva – Fågelboken</image:title>
+      <image:caption>Artplansch för Turturduva (Streptopelia turtur) i Naturboken (Duvor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_gannet.webp</image:loc>
+      <image:title>Havssula – Fågelboken</image:title>
+      <image:caption>Artplansch för Havssula (Morus bassanus) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_cormorant.webp</image:loc>
+      <image:title>Storskarv – Fågelboken</image:title>
+      <image:caption>Artplansch för Storskarv (Phalacrocorax carbo) i Naturboken (Skarvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_cuckoo.webp</image:loc>
+      <image:title>Gök – Fågelboken</image:title>
+      <image:caption>Artplansch för Gök (Cuculus canorus) i Naturboken (Gökfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_nightjar.webp</image:loc>
+      <image:title>Nattskärra – Fågelboken</image:title>
+      <image:caption>Artplansch för Nattskärra (Caprimulgus europaeus) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/golden_oriole.webp</image:loc>
+      <image:title>Sommargylling – Fågelboken</image:title>
+      <image:caption>Artplansch för Sommargylling (Oriolus oriolus) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_swift.webp</image:loc>
+      <image:title>Tornseglare – Fågelboken</image:title>
+      <image:caption>Artplansch för Tornseglare (Apus apus) i Naturboken (Svalor &amp; Seglare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_starling.webp</image:loc>
+      <image:title>Stare – Fågelboken</image:title>
+      <image:caption>Artplansch för Stare (Sturnus vulgaris) i Naturboken (Starar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_grey_shrike.webp</image:loc>
+      <image:title>Varfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Varfågel (Lanius excubitor) i Naturboken (Törnskator)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_skylark.webp</image:loc>
+      <image:title>Sånglärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Sånglärka (Alauda arvensis) i Naturboken (Lärkor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bohemian_waxwing.webp</image:loc>
+      <image:title>Sidensvans – Fågelboken</image:title>
+      <image:caption>Artplansch för Sidensvans (Bombycilla garrulus) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/woodlark.webp</image:loc>
+      <image:title>Trädlärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Trädlärka (Lullula arborea) i Naturboken (Lärkor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/white_wagtail.webp</image:loc>
+      <image:title>Sädesärla – Fågelboken</image:title>
+      <image:caption>Artplansch för Sädesärla (Motacilla alba) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/white_throated_dipper.webp</image:loc>
+      <image:title>Strömstare – Fågelboken</image:title>
+      <image:caption>Artplansch för Strömstare (Cinclus cinclus) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/grey_wagtail.webp</image:loc>
+      <image:title>Forsärla – Fågelboken</image:title>
+      <image:caption>Artplansch för Forsärla (Motacilla cinerea) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_nuthatch.webp</image:loc>
+      <image:title>Nötväcka – Fågelboken</image:title>
+      <image:caption>Artplansch för Nötväcka (Sitta europaea) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_backed_shrike.webp</image:loc>
+      <image:title>Törnskata – Fågelboken</image:title>
+      <image:caption>Artplansch för Törnskata (Lanius collurio) i Naturboken (Törnskator)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tree_pipit.webp</image:loc>
+      <image:title>Trädpiplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Trädpiplärka (Anthus trivialis) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_throated_pipit.webp</image:loc>
+      <image:title>Rödstrupig piplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödstrupig piplärka (Anthus cervinus) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/yellow_wagtail.webp</image:loc>
+      <image:title>Gulärla – Fågelboken</image:title>
+      <image:caption>Artplansch för Gulärla (Motacilla flava) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_kingfisher.webp</image:loc>
+      <image:title>Kungsfiskare – Fågelboken</image:title>
+      <image:caption>Artplansch för Kungsfiskare (Alcedo atthis) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/meadow_pipit.webp</image:loc>
+      <image:title>Ängspiplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Ängspiplärka (Anthus pratensis) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/spotted_flycatcher.webp</image:loc>
+      <image:title>Grå flugsnappare – Fågelboken</image:title>
+      <image:caption>Artplansch för Grå flugsnappare (Muscicapa striata) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/collared_flycatcher.webp</image:loc>
+      <image:title>Halsbandsflugsnappare – Fågelboken</image:title>
+      <image:caption>Artplansch för Halsbandsflugsnappare (Ficedula albicollis) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_pied_flycatcher.webp</image:loc>
+      <image:title>Svartvit flugsnappare – Fågelboken</image:title>
+      <image:caption>Artplansch för Svartvit flugsnappare (Ficedula hypoleuca) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_breasted_flycatcher.webp</image:loc>
+      <image:title>Mindre flugsnappare – Fågelboken</image:title>
+      <image:caption>Artplansch för Mindre flugsnappare (Ficedula parva) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/dunnock.webp</image:loc>
+      <image:title>Järnsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Järnsparv (Prunella modularis) i Naturboken (Järnsparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_treecreeper.webp</image:loc>
+      <image:title>Trädkrypare – Fågelboken</image:title>
+      <image:caption>Artplansch för Trädkrypare (Certhia familiaris) i Naturboken (Trädkrypare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_wren.webp</image:loc>
+      <image:title>Gärdsmyg – Fågelboken</image:title>
+      <image:caption>Artplansch för Gärdsmyg (Troglodytes troglodytes) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/barred_warbler.webp</image:loc>
+      <image:title>Höksångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Höksångare (Sylvia nisoria) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_whitethroat.webp</image:loc>
+      <image:title>Törnsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Törnsångare (Sylvia communis) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/river_warbler.webp</image:loc>
+      <image:title>Flodsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Flodsångare (Locustella fluviatilis) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/wood_warbler.webp</image:loc>
+      <image:title>Skogsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Skogsångare (Phylloscopus sibillatrix) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/garden_warbler.webp</image:loc>
+      <image:title>Trädgårdssångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Trädgårdssångare (Sylvia borin) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/icterine_warbler.webp</image:loc>
+      <image:title>Härmsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Härmsångare (Hippolais icterina) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/marsh_warbler.webp</image:loc>
+      <image:title>Kärrsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Kärrsångare (Acrocephalus palustris) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/arctic_warbler.webp</image:loc>
+      <image:title>Nordsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Nordsångare (Phylloscopus borealis) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_reed_warbler.webp</image:loc>
+      <image:title>Rörsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Rörsångare (Acrocephalus scirpaceus) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/sedge_warbler.webp</image:loc>
+      <image:title>Sävsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Sävsångare (Acrocephalus schoenobaenus) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/moustached_warbler.webp</image:loc>
+      <image:title>Vassångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Vassångare (Locustella luscinioides) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/willow_warbler.webp</image:loc>
+      <image:title>Lövsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Lövsångare (Phylloscopus trochilus) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_whitethroat.webp</image:loc>
+      <image:title>Ärtsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Ärtsångare (Sylvia curruca) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/grasshopper_warbler.webp</image:loc>
+      <image:title>Gräshoppsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Gräshoppsångare (Locustella naevia) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greenish_warbler.webp</image:loc>
+      <image:title>Lundsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Lundsångare (Phylloscopus trochiloides) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/blyth_reed_warbler.webp</image:loc>
+      <image:title>Trastsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Trastsångare (Acrocephalus dumetorum) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_chiffchaff.webp</image:loc>
+      <image:title>Gransångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Gransångare (Phylloscopus collybita) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/goldcrest_warbler.webp</image:loc>
+      <image:title>Kungsfågelsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Kungsfågelsångare (Phylloscopus proregulus) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_blackcap.webp</image:loc>
+      <image:title>Svarthätta – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarthätta (Sylvia atricapilla) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/firecrest.webp</image:loc>
+      <image:title>Brandkronad kungsfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Brandkronad kungsfågel (Regulus ignicapilla) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/goldcrest.webp</image:loc>
+      <image:title>Kungsfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Kungsfågel (Regulus regulus) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/mistle_thrush.webp</image:loc>
+      <image:title>Dubbeltrast – Fågelboken</image:title>
+      <image:caption>Artplansch för Dubbeltrast (Turdus viscivorus) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/fieldfare.webp</image:loc>
+      <image:title>Björktrast – Fågelboken</image:title>
+      <image:caption>Artplansch för Björktrast (Turdus pilaris) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_blackbird.webp</image:loc>
+      <image:title>Koltrast – Fågelboken</image:title>
+      <image:caption>Artplansch för Koltrast (Turdus merula) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/song_thrush.webp</image:loc>
+      <image:title>Taltrast – Fågelboken</image:title>
+      <image:caption>Artplansch för Taltrast (Turdus philomelos) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/redwing.webp</image:loc>
+      <image:title>Rödvingetrast – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödvingetrast (Turdus iliacus) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ring_ouzel.webp</image:loc>
+      <image:title>Ringtrast – Fågelboken</image:title>
+      <image:caption>Artplansch för Ringtrast (Turdus torquatus) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_wheatear.webp</image:loc>
+      <image:title>Stenskvätta – Fågelboken</image:title>
+      <image:caption>Artplansch för Stenskvätta (Oenanthe oenanthe) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/thrush_nightingale.webp</image:loc>
+      <image:title>Näktergal – Fågelboken</image:title>
+      <image:caption>Artplansch för Näktergal (Luscinia luscinia) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_redstart.webp</image:loc>
+      <image:title>Svart rödstjärt – Fågelboken</image:title>
+      <image:caption>Artplansch för Svart rödstjärt (Phoenicurus ochruros) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/whinchat.webp</image:loc>
+      <image:title>Buskskvätta – Fågelboken</image:title>
+      <image:caption>Artplansch för Buskskvätta (Saxicola rubetra) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_redstart.webp</image:loc>
+      <image:title>Rödstjärt – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödstjärt (Phoenicurus phoenicurus) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_robin.webp</image:loc>
+      <image:title>Rödhake – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödhake (Erithacus rubecula) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_tit.webp</image:loc>
+      <image:title>Talgoxe – Fågelboken</image:title>
+      <image:caption>Artplansch för Talgoxe (Parus major) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/siberian_tit.webp</image:loc>
+      <image:title>Lappmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Lappmes (Poecile cinctus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/penduline_tit.webp</image:loc>
+      <image:title>Pungmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Pungmes (Remiz pendulinus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/crested_tit.webp</image:loc>
+      <image:title>Tofsmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Tofsmes (Lophophanes cristatus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/marsh_tit_entita.webp</image:loc>
+      <image:title>Entita – Fågelboken</image:title>
+      <image:caption>Artplansch för Entita (Poecile palustris) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/willow_tit.webp</image:loc>
+      <image:title>Talltita – Fågelboken</image:title>
+      <image:caption>Artplansch för Talltita (Poecile montanus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_blue_tit.webp</image:loc>
+      <image:title>Blåmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Blåmes (Cyanistes caeruleus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/coal_tit.webp</image:loc>
+      <image:title>Svartmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Svartmes (Periparus ater) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bearded_reedling.webp</image:loc>
+      <image:title>Skäggmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Skäggmes (Panurus biarmicus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/long_tailed_tit.webp</image:loc>
+      <image:title>Stjärtmes – Fågelboken</image:title>
+      <image:caption>Artplansch för Stjärtmes (Aegithalos caudatus) i Naturboken (Mesar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pine_grosbeak.webp</image:loc>
+      <image:title>Tallbit – Fågelboken</image:title>
+      <image:caption>Artplansch för Tallbit (Pinicola enucleator) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_goldfinch.webp</image:loc>
+      <image:title>Steglits – Fågelboken</image:title>
+      <image:caption>Artplansch för Steglits (Carduelis carduelis) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/parrot_crossbill.webp</image:loc>
+      <image:title>Större korsnäbb – Fågelboken</image:title>
+      <image:caption>Artplansch för Större korsnäbb (Loxia pytyopsittacus) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_crossbill.webp</image:loc>
+      <image:title>Mindre korsnäbb – Fågelboken</image:title>
+      <image:caption>Artplansch för Mindre korsnäbb (Loxia curvirostra) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/two_barred_crossbill.webp</image:loc>
+      <image:title>Bändelkorsnäbb – Fågelboken</image:title>
+      <image:caption>Artplansch för Bändelkorsnäbb (Loxia leucoptera) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_chaffinch.webp</image:loc>
+      <image:title>Bofink – Fågelboken</image:title>
+      <image:caption>Artplansch för Bofink (Fringilla coelebs) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/brambling.webp</image:loc>
+      <image:title>Bergfink – Fågelboken</image:title>
+      <image:caption>Artplansch för Bergfink (Fringilla montifringilla) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_greenfinch.webp</image:loc>
+      <image:title>Grönfink – Fågelboken</image:title>
+      <image:caption>Artplansch för Grönfink (Chloris chloris) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_rosefinch.webp</image:loc>
+      <image:title>Rosenfink – Fågelboken</image:title>
+      <image:caption>Artplansch för Rosenfink (Carpodacus erythrinus) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_redpoll.webp</image:loc>
+      <image:title>Gråsiska – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråsiska (Acanthis flammea) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_siskin.webp</image:loc>
+      <image:title>Grönsiska – Fågelboken</image:title>
+      <image:caption>Artplansch för Grönsiska (Spinus spinus) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_linnet.webp</image:loc>
+      <image:title>Hämpling – Fågelboken</image:title>
+      <image:caption>Artplansch för Hämpling (Linaria cannabina) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/arctic_redpoll.webp</image:loc>
+      <image:title>Vinterhämpling – Fågelboken</image:title>
+      <image:caption>Artplansch för Vinterhämpling (Acanthis hornemanni) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/hawfinch.webp</image:loc>
+      <image:title>Stenknäck – Fågelboken</image:title>
+      <image:caption>Artplansch för Stenknäck (Coccothraustes coccothraustes) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_bullfinch.webp</image:loc>
+      <image:title>Domherre – Fågelboken</image:title>
+      <image:caption>Artplansch för Domherre (Pyrrhula pyrrhula) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/snow_bunting.webp</image:loc>
+      <image:title>Snösparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Snösparv (Plectrophenax nivalis) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/corn_bunting.webp</image:loc>
+      <image:title>Kornsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Kornsparv (Emberiza calandra) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lapland_bunting.webp</image:loc>
+      <image:title>Lappsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Lappsparv (Calcarius lapponicus) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/yellowhammer.webp</image:loc>
+      <image:title>Gulsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Gulsparv (Emberiza citrinella) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ortolan_bunting.webp</image:loc>
+      <image:title>Ortolansparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Ortolansparv (Emberiza hortulana) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/house_sparrow.webp</image:loc>
+      <image:title>Gråsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråsparv (Passer domesticus) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/reed_bunting.webp</image:loc>
+      <image:title>Sävsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Sävsparv (Emberiza schoeniclus) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rustic_bunting.webp</image:loc>
+      <image:title>Videsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Videsparv (Emberiza rustica) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_tree_sparrow.webp</image:loc>
+      <image:title>Pilfink – Fågelboken</image:title>
+      <image:caption>Artplansch för Pilfink (Passer montanus) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/least_bunting.webp</image:loc>
+      <image:title>Dvärgsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Dvärgsparv (Emberiza pusilla) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_jay.webp</image:loc>
+      <image:title>Nötskrika – Fågelboken</image:title>
+      <image:caption>Artplansch för Nötskrika (Garrulus glandarius) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/siberian_jay.webp</image:loc>
+      <image:title>Lavskrika – Fågelboken</image:title>
+      <image:caption>Artplansch för Lavskrika (Perisoreus infaustus) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_magpie.webp</image:loc>
+      <image:title>Skata – Fågelboken</image:title>
+      <image:caption>Artplansch för Skata (Pica pica) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_raven.webp</image:loc>
+      <image:title>Korp – Fågelboken</image:title>
+      <image:caption>Artplansch för Korp (Corvus corax) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/hooded_crow.webp</image:loc>
+      <image:title>Gråkråka – Fågelboken</image:title>
+      <image:caption>Artplansch för Gråkråka (Corvus cornix) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rook.webp</image:loc>
+      <image:title>Råka – Fågelboken</image:title>
+      <image:caption>Artplansch för Råka (Corvus frugilegus) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_jackdaw.webp</image:loc>
+      <image:title>Kaja – Fågelboken</image:title>
+      <image:caption>Artplansch för Kaja (Coloeus monedula) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/spotted_nutcracker.webp</image:loc>
+      <image:title>Nötkråka – Fågelboken</image:title>
+      <image:caption>Artplansch för Nötkråka (Nucifraga caryocatactes) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/barn_swallow.webp</image:loc>
+      <image:title>Ladusvala – Fågelboken</image:title>
+      <image:caption>Artplansch för Ladusvala (Hirundo rustica) i Naturboken (Svalor &amp; Seglare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_house_martin.webp</image:loc>
+      <image:title>Hussvala – Fågelboken</image:title>
+      <image:caption>Artplansch för Hussvala (Delichon urbicum) i Naturboken (Svalor &amp; Seglare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/sand_martin.webp</image:loc>
+      <image:title>Backsvala – Fågelboken</image:title>
+      <image:caption>Artplansch för Backsvala (Riparia riparia) i Naturboken (Svalor &amp; Seglare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_egret.webp</image:loc>
+      <image:title>Ägretthäger – Fågelboken</image:title>
+      <image:caption>Artplansch för Ägretthäger (Ardea alba) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/carrion_crow.webp</image:loc>
+      <image:title>Svartkråka – Fågelboken</image:title>
+      <image:caption>Artplansch för Svartkråka (Corvus corone) i Naturboken (Kråkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_stonechat.webp</image:loc>
+      <image:title>Svarthakad buskskvätta – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarthakad buskskvätta (Saxicola rubicola) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_tern.webp</image:loc>
+      <image:title>Svarttärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarttärna (Chlidonias niger) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/twite.webp</image:loc>
+      <image:title>Vinterhämpling – Fågelboken</image:title>
+      <image:caption>Artplansch för Vinterhämpling (Linaria flavirostris) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/great_reed_warbler.webp</image:loc>
+      <image:title>Trastsångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Trastsångare (Acrocephalus arundinaceus) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_shag.webp</image:loc>
+      <image:title>Toppskarv – Fågelboken</image:title>
+      <image:caption>Artplansch för Toppskarv (Phalacrocorax aristotelis) i Naturboken (Skarvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tundra_bean_goose.webp</image:loc>
+      <image:title>Tundrasädgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Tundrasädgås (Anser serrirostris) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tundra_swan.webp</image:loc>
+      <image:title>Tundrasvan – Fågelboken</image:title>
+      <image:caption>Artplansch för Tundrasvan (Cygnus columbianus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_serin.webp</image:loc>
+      <image:title>Gulhämpling – Fågelboken</image:title>
+      <image:caption>Artplansch för Gulhämpling (Serinus serinus) i Naturboken (Finkar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/horned_lark.webp</image:loc>
+      <image:title>Berglärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Berglärka (Eremophila alpestris) i Naturboken (Lärkor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/long_tailed_jaeger.webp</image:loc>
+      <image:title>Fjällabb – Fågelboken</image:title>
+      <image:caption>Artplansch för Fjällabb (Stercorarius longicaudus) i Naturboken (Labbar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_spoonbill.webp</image:loc>
+      <image:title>Skedstork – Fågelboken</image:title>
+      <image:caption>Artplansch för Skedstork (Platalea leucorodia) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ring_billed_gull.webp</image:loc>
+      <image:title>Ringnäbbad mås – Fågelboken</image:title>
+      <image:caption>Artplansch för Ringnäbbad mås (Larus delawarensis) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/citrine_wagtail.webp</image:loc>
+      <image:title>Citronärla – Fågelboken</image:title>
+      <image:caption>Artplansch för Citronärla (Motacilla citreola) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pallid_harrier.webp</image:loc>
+      <image:title>Stäpphök – Fågelboken</image:title>
+      <image:caption>Artplansch för Stäpphök (Circus macrourus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/short_toed_treecreeper.webp</image:loc>
+      <image:title>Kortårig trädkrypare – Fågelboken</image:title>
+      <image:caption>Artplansch för Kortårig trädkrypare (Certhia brachydactyla) i Naturboken (Trädkrypare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_legged_kittiwake.webp</image:loc>
+      <image:title>Tretåig mås – Fågelboken</image:title>
+      <image:caption>Artplansch för Tretåig mås (Rissa tridactyla) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/dalmatian_pelican.webp</image:loc>
+      <image:title>Krushuvad pelikan – Fågelboken</image:title>
+      <image:caption>Artplansch för Krushuvad pelikan (Pelecanus crispus) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_crested_pochard.webp</image:loc>
+      <image:title>Rödhuvad dykand – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödhuvad dykand (Netta rufina) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_hoopoe.webp</image:loc>
+      <image:title>Härfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Härfågel (Upupa epops) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/mediterranean_gull.webp</image:loc>
+      <image:title>Svarthuvad mås – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarthuvad mås (Ichthyaetus melanocephalus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_breasted_goose.webp</image:loc>
+      <image:title>Rödhalsad gås – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödhalsad gås (Branta ruficollis) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pacific_golden_plover.webp</image:loc>
+      <image:title>Sibirisk guldspov – Fågelboken</image:title>
+      <image:caption>Artplansch för Sibirisk guldspov (Pluvialis fulva) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/water_pipit.webp</image:loc>
+      <image:title>Vattenpiplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Vattenpiplärka (Anthus spinoletta) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/king_eider.webp</image:loc>
+      <image:title>Praktejder – Fågelboken</image:title>
+      <image:caption>Artplansch för Praktejder (Somateria spectabilis) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/american_wigeon.webp</image:loc>
+      <image:title>Amerikansk bläsand – Fågelboken</image:title>
+      <image:caption>Artplansch för Amerikansk bläsand (Mareca americana) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_bee_eater.webp</image:loc>
+      <image:title>Biätare – Fågelboken</image:title>
+      <image:caption>Artplansch för Biätare (Merops apiaster) i Naturboken (Övriga)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_egret.webp</image:loc>
+      <image:title>Silkeshäger – Fågelboken</image:title>
+      <image:caption>Artplansch för Silkeshäger (Egretta garzetta) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_crowned_night_heron.webp</image:loc>
+      <image:title>Natthäger – Fågelboken</image:title>
+      <image:caption>Artplansch för Natthäger (Nycticorax nycticorax) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/egyptian_goose.webp</image:loc>
+      <image:title>Nilgås – Fågelboken</image:title>
+      <image:caption>Artplansch för Nilgås (Alopochen aegyptiaca) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_nightingale.webp</image:loc>
+      <image:title>Sydnäktergal – Fågelboken</image:title>
+      <image:caption>Artplansch för Sydnäktergal (Luscinia megarhynchos) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/northern_fulmar.webp</image:loc>
+      <image:title>Stormfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Stormfågel (Fulmarus glacialis) i Naturboken (Stormfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/tawny_pipit.webp</image:loc>
+      <image:title>Fältpiplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Fältpiplärka (Anthus campestris) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pectoral_sandpiper.webp</image:loc>
+      <image:title>Sporvsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Sporvsnäppa (Calidris melanotos) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/kentish_plover.webp</image:loc>
+      <image:title>Tjockfotad strandpipare – Fågelboken</image:title>
+      <image:caption>Artplansch för Tjockfotad strandpipare (Charadrius alexandrinus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/common_loon.webp</image:loc>
+      <image:title>Islom – Fågelboken</image:title>
+      <image:caption>Artplansch för Islom (Gavia immer) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/little_crake.webp</image:loc>
+      <image:title>Liten sumphöna – Fågelboken</image:title>
+      <image:caption>Artplansch för Liten sumphöna (Porzana parva) i Naturboken (Tranor &amp; Rallar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/white_winged_tern.webp</image:loc>
+      <image:title>Vitvingad tärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Vitvingad tärna (Chlidonias leucopterus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/yellow_billed_loon.webp</image:loc>
+      <image:title>Vitnäbbad lom – Fågelboken</image:title>
+      <image:caption>Artplansch för Vitnäbbad lom (Gavia adamsii) i Naturboken (Lommar &amp; Doppingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/cattle_egret.webp</image:loc>
+      <image:title>Kohäger – Fågelboken</image:title>
+      <image:caption>Artplansch för Kohäger (Bubulcus ibis) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/terek_sandpiper.webp</image:loc>
+      <image:title>Tereksnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Tereksnäppa (Xenus cinereus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/snow_goose.webp</image:loc>
+      <image:title>Snögås – Fågelboken</image:title>
+      <image:caption>Artplansch för Snögås (Anser caerulescens) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_flanked_bluetail.webp</image:loc>
+      <image:title>Sibirisk blåstjärt – Fågelboken</image:title>
+      <image:caption>Artplansch för Sibirisk blåstjärt (Tarsiger cyanurus) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bearded_vulture.webp</image:loc>
+      <image:title>Lammgam – Fågelboken</image:title>
+      <image:caption>Artplansch för Lammgam (Gypaetus barbatus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/gull_billed_tern.webp</image:loc>
+      <image:title>Sandtärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Sandtärna (Gelochelidon nilotica) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_stork.webp</image:loc>
+      <image:title>Svart stork – Fågelboken</image:title>
+      <image:caption>Artplansch för Svart stork (Ciconia nigra) i Naturboken (Hägrar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/oriental_turtle_dove.webp</image:loc>
+      <image:title>Östlig turturduva – Fågelboken</image:title>
+      <image:caption>Artplansch för Östlig turturduva (Streptopelia orientalis) i Naturboken (Duvor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rosy_starling.webp</image:loc>
+      <image:title>Rosenstare – Fågelboken</image:title>
+      <image:caption>Artplansch för Rosenstare (Pastor roseus) i Naturboken (Starar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_swan.webp</image:loc>
+      <image:title>Svart svan – Fågelboken</image:title>
+      <image:caption>Artplansch för Svart svan (Cygnus atratus) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/rose_ringed_parakeet.webp</image:loc>
+      <image:title>Halsbandsparakit – Fågelboken</image:title>
+      <image:caption>Artplansch för Halsbandsparakit (Psittacula krameri) i Naturboken (Papegojor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ring_necked_duck.webp</image:loc>
+      <image:title>Ringand – Fågelboken</image:title>
+      <image:caption>Artplansch för Ringand (Aythya collaris) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greater_short_toed_lark.webp</image:loc>
+      <image:title>Korttålärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Korttålärka (Calandrella brachydactyla) i Naturboken (Lärkor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pomarine_jaeger.webp</image:loc>
+      <image:title>Bredstjärtad labb – Fågelboken</image:title>
+      <image:caption>Artplansch för Bredstjärtad labb (Stercorarius pomarinus) i Naturboken (Labbar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/manx_shearwater.webp</image:loc>
+      <image:title>Liten lira – Fågelboken</image:title>
+      <image:caption>Artplansch för Liten lira (Puffinus puffinus) i Naturboken (Stormfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/subalpine_warbler.webp</image:loc>
+      <image:title>Rödstrupig sångare – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödstrupig sångare (Curruca cantillans) i Naturboken (Sångare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/whiskered_tern.webp</image:loc>
+      <image:title>Skäggtärna – Fågelboken</image:title>
+      <image:caption>Artplansch för Skäggtärna (Chlidonias hybrida) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/white_backed_woodpecker.webp</image:loc>
+      <image:title>Vitryggig hackspett – Fågelboken</image:title>
+      <image:caption>Artplansch för Vitryggig hackspett (Dendrocopos leucotos) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ruddy_shelduck.webp</image:loc>
+      <image:title>Rostand – Fågelboken</image:title>
+      <image:caption>Artplansch för Rostand (Tadorna ferruginea) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/atlantic_puffin.webp</image:loc>
+      <image:title>Lunnefågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Lunnefågel (Fratercula arctica) i Naturboken (Alkfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eleonoraes_falcon.webp</image:loc>
+      <image:title>Eleonorafalken – Fågelboken</image:title>
+      <image:caption>Artplansch för Eleonorafalken (Falco eleonorae) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_shouldered_kite.webp</image:loc>
+      <image:title>Svartvingad glada – Fågelboken</image:title>
+      <image:caption>Artplansch för Svartvingad glada (Elanus caeruleus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_spotted_eagle.webp</image:loc>
+      <image:title>Mindre skrikörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Mindre skrikörn (Aquila pomarina) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/cackling_goose.webp</image:loc>
+      <image:title>Dvärgkanadagås – Fågelboken</image:title>
+      <image:caption>Artplansch för Dvärgkanadagås (Branta hutchinsii) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_yellowlegs.webp</image:loc>
+      <image:title>Liten gulbena – Fågelboken</image:title>
+      <image:caption>Artplansch för Liten gulbena (Tringa flavipes) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/crested_lark.webp</image:loc>
+      <image:title>Tofslärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Tofslärka (Galerida cristata) i Naturboken (Lärkor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/lesser_grey_shrike.webp</image:loc>
+      <image:title>Mindre varfågel – Fågelboken</image:title>
+      <image:caption>Artplansch för Mindre varfågel (Lanius minor) i Naturboken (Törnskator)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/bald_eagle.webp</image:loc>
+      <image:title>Vithövdad havsörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Vithövdad havsörn (Haliaeetus leucocephalus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/greater_spotted_eagle.webp</image:loc>
+      <image:title>Stor skrikörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Stor skrikörn (Aquila clanga) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/leachs_storm_petrel.webp</image:loc>
+      <image:title>Klykstjärtad stormsvala – Fågelboken</image:title>
+      <image:caption>Artplansch för Klykstjärtad stormsvala (Oceanodroma leucorhoa) i Naturboken (Stormfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/siberian_accentor.webp</image:loc>
+      <image:title>Sibirisk järnsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Sibirisk järnsparv (Prunella montanella) i Naturboken (Järnsparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/iceland_gull.webp</image:loc>
+      <image:title>Vitvingad trut – Fågelboken</image:title>
+      <image:caption>Artplansch för Vitvingad trut (Larus glaucoides) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/ferruginous_duck.webp</image:loc>
+      <image:title>Vitögd dykand – Fågelboken</image:title>
+      <image:caption>Artplansch för Vitögd dykand (Aythya nyroca) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/red_phalarope.webp</image:loc>
+      <image:title>Brednäbbad simsnäppa – Fågelboken</image:title>
+      <image:caption>Artplansch för Brednäbbad simsnäppa (Phalaropus fulicarius) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_headed_bunting.webp</image:loc>
+      <image:title>Svarthuvad sparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Svarthuvad sparv (Emberiza melanocephala) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/monk_parakeet.webp</image:loc>
+      <image:title>Munkparakit – Fågelboken</image:title>
+      <image:caption>Artplansch för Munkparakit (Myiopsitta monachus) i Naturboken (Papegojor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/imperial_eagle.webp</image:loc>
+      <image:title>Kejsarörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Kejsarörn (Aquila heliaca) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/short_toed_snake_eagle.webp</image:loc>
+      <image:title>Kortårig ormörn – Fågelboken</image:title>
+      <image:caption>Artplansch för Kortårig ormörn (Circaetus gallicus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/glaucous_gull.webp</image:loc>
+      <image:title>Vittrut – Fågelboken</image:title>
+      <image:caption>Artplansch för Vittrut (Larus hyperboreus) i Naturboken (Måsar &amp; Tärnor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/olive_backed_pipit.webp</image:loc>
+      <image:title>Sibirisk piplärka – Fågelboken</image:title>
+      <image:caption>Artplansch för Sibirisk piplärka (Anthus hodgsoni) i Naturboken (Ärlor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/european_storm_petrel.webp</image:loc>
+      <image:title>Stormsvala – Fågelboken</image:title>
+      <image:caption>Artplansch för Stormsvala (Hydrobates pelagicus) i Naturboken (Stormfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_winged_stilt.webp</image:loc>
+      <image:title>Styltlöpare – Fågelboken</image:title>
+      <image:caption>Artplansch för Styltlöpare (Himantopus himantopus) i Naturboken (Vadare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/eurasian_griffon.webp</image:loc>
+      <image:title>Gam – Fågelboken</image:title>
+      <image:caption>Artplansch för Gam (Gyps fulvus) i Naturboken (Rovfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/black_browed_albatross.webp</image:loc>
+      <image:title>Svartbrynt albatross – Fågelboken</image:title>
+      <image:caption>Artplansch för Svartbrynt albatross (Thalassarche melanophris) i Naturboken (Stormfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/isabelline_wheatear.webp</image:loc>
+      <image:title>Isabellastenskvätta – Fågelboken</image:title>
+      <image:caption>Artplansch för Isabellastenskvätta (Oenanthe isabellina) i Naturboken (Flugsnappare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/cirl_bunting.webp</image:loc>
+      <image:title>Häcksparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Häcksparv (Emberiza cirlus) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/middle_spotted_woodpecker.webp</image:loc>
+      <image:title>Mellanspett – Fågelboken</image:title>
+      <image:caption>Artplansch för Mellanspett (Dendrocoptes medius) i Naturboken (Hackspettar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/american_black_duck.webp</image:loc>
+      <image:title>Svart and – Fågelboken</image:title>
+      <image:caption>Artplansch för Svart and (Anas rubripes) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/dusky_thrush.webp</image:loc>
+      <image:title>Sibirisk trast – Fågelboken</image:title>
+      <image:caption>Artplansch för Sibirisk trast (Turdus eunomus) i Naturboken (Trastar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/song_sparrow.webp</image:loc>
+      <image:title>Sångsparv – Fågelboken</image:title>
+      <image:caption>Artplansch för Sångsparv (Melospiza melodia) i Naturboken (Sparvar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/woodchat_shrike.webp</image:loc>
+      <image:title>Rödhuvad törnskata – Fågelboken</image:title>
+      <image:caption>Artplansch för Rödhuvad törnskata (Lanius senator) i Naturboken (Törnskator)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/pallid_swift.webp</image:loc>
+      <image:title>Blek tornseglare – Fågelboken</image:title>
+      <image:caption>Artplansch för Blek tornseglare (Apus pallidus) i Naturboken (Svalor &amp; Seglare)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/dioramas/wood_duck.webp</image:loc>
+      <image:title>Brudand – Fågelboken</image:title>
+      <image:caption>Artplansch för Brudand (Aix sponsa) i Naturboken (Andfåglar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/silver_birch.jpg</image:loc>
+      <image:title>Vårtbjörk – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Vårtbjörk (Betula pendula) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/downy_birch.jpg</image:loc>
+      <image:title>Glasbjörk – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Glasbjörk (Betula pubescens) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/scots_pine.jpg</image:loc>
+      <image:title>Tall – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Tall (Pinus sylvestris) i Naturboken (Barrträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/norway_spruce.jpg</image:loc>
+      <image:title>Gran – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Gran (Picea abies) i Naturboken (Barrträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/oak.jpg</image:loc>
+      <image:title>Ek – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Ek (Quercus robur) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/beech.jpg</image:loc>
+      <image:title>Bok – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Bok (Fagus sylvatica) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/european_ash.jpg</image:loc>
+      <image:title>Ask – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Ask (Fraxinus excelsior) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/wych_elm.jpg</image:loc>
+      <image:title>Skogsalm – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Skogsalm (Ulmus glabra) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/norway_maple.jpg</image:loc>
+      <image:title>Lönn – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Lönn (Acer platanoides) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/small_leaved_lime.jpg</image:loc>
+      <image:title>Lind – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Lind (Tilia cordata) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/aspen.jpg</image:loc>
+      <image:title>Asp – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Asp (Populus tremula) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/rowan.jpg</image:loc>
+      <image:title>Rönn – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Rönn (Sorbus aucuparia) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/juniper.jpg</image:loc>
+      <image:title>En – Växtboken</image:title>
+      <image:caption>Botanisk plansch av En (Juniperus communis) i Naturboken (Barrträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/goat_willow.jpg</image:loc>
+      <image:title>Sälg – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Sälg (Salix caprea) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/bird_cherry.jpg</image:loc>
+      <image:title>Hägg – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Hägg (Prunus padus) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/hawthorn.jpg</image:loc>
+      <image:title>Hagtorn – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Hagtorn (Crataegus monogyna) i Naturboken (Buskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/alder.jpg</image:loc>
+      <image:title>Klibbal – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Klibbal (Alnus glutinosa) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/black_alder.jpg</image:loc>
+      <image:title>Svartal – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Svartal (Alnus incana) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/whitebeam.jpg</image:loc>
+      <image:title>Oxel – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Oxel (Sorbus intermedia) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/crab_apple.jpg</image:loc>
+      <image:title>Vildapel – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Vildapel (Malus sylvestris) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/wild_cherry.jpg</image:loc>
+      <image:title>Fågelbär – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Fågelbär (Prunus avium) i Naturboken (Lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/wych_elm2.jpg</image:loc>
+      <image:title>Alm – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Alm (Ulmus minor) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/hornbeam.jpg</image:loc>
+      <image:title>Avenbok – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Avenbok (Carpinus betulus) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/yew.jpg</image:loc>
+      <image:title>Idegran – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Idegran (Taxus baccata) i Naturboken (Barrträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/tradboken_bilder/field_maple.jpg</image:loc>
+      <image:title>Naverlönn – Växtboken</image:title>
+      <image:caption>Botanisk plansch av Naverlönn (Acer campestre) i Naturboken (Ädla lövträd)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/chanterelle.jpg</image:loc>
+      <image:title>Kantarell – Svampboken</image:title>
+      <image:caption>Artbild för Kantarell (Cantharellus cibarius) i Naturboken (Kantareller)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/penny_bun.jpg</image:loc>
+      <image:title>Karljohan – Svampboken</image:title>
+      <image:caption>Artbild för Karljohan (Boletus edulis) i Naturboken (Soppar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/fly_agaric.jpeg</image:loc>
+      <image:title>Röd flugsvamp – Svampboken</image:title>
+      <image:caption>Artbild för Röd flugsvamp (Amanita muscaria) i Naturboken (Flugsvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/death_cap.jpeg</image:loc>
+      <image:title>Lömsk flugsvamp – Svampboken</image:title>
+      <image:caption>Artbild för Lömsk flugsvamp (Amanita phalloides) i Naturboken (Flugsvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/destroying_angel.jpg</image:loc>
+      <image:title>Vit flugsvamp – Svampboken</image:title>
+      <image:caption>Artbild för Vit flugsvamp (Amanita virosa) i Naturboken (Flugsvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/common_mushroom.jpeg</image:loc>
+      <image:title>Ängschampinjon – Svampboken</image:title>
+      <image:caption>Artbild för Ängschampinjon (Agaricus campestris) i Naturboken (Bläcksvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/meadow_waxcap.jpeg</image:loc>
+      <image:title>Papegojvaxskivling – Svampboken</image:title>
+      <image:caption>Artbild för Papegojvaxskivling (Gliophorus psittacinus) i Naturboken (Vaxskivlingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/black_trumpet.jpeg</image:loc>
+      <image:title>Trattkantarell – Svampboken</image:title>
+      <image:caption>Artbild för Trattkantarell (Craterellus tubaeformis) i Naturboken (Kantareller)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/horn_of_plenty.jpeg</image:loc>
+      <image:title>Svart trumpetsvamp – Svampboken</image:title>
+      <image:caption>Artbild för Svart trumpetsvamp (Craterellus cornucopioides) i Naturboken (Kantareller)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/oyster_mushroom.jpg</image:loc>
+      <image:title>Ostronmussling – Svampboken</image:title>
+      <image:caption>Artbild för Ostronmussling (Pleurotus ostreatus) i Naturboken (Ostronsvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/honey_fungus.jpg</image:loc>
+      <image:title>Honungsskivling – Svampboken</image:title>
+      <image:caption>Artbild för Honungsskivling (Armillaria mellea) i Naturboken (Rottickor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/velvet_shank.jpeg</image:loc>
+      <image:title>Vinterskivling – Svampboken</image:title>
+      <image:caption>Artbild för Vinterskivling (Flammulina velutipes) i Naturboken (Flammor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/giant_puffball.jpg</image:loc>
+      <image:title>Jätteröksvamp – Svampboken</image:title>
+      <image:caption>Artbild för Jätteröksvamp (Calvatia gigantea) i Naturboken (Röksvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/common_puffball.jpeg</image:loc>
+      <image:title>Päronröksvamp – Svampboken</image:title>
+      <image:caption>Artbild för Päronröksvamp (Lycoperdon pyriforme) i Naturboken (Röksvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/sulphur_tuft.jpeg</image:loc>
+      <image:title>Svavelgul slöjskivling – Svampboken</image:title>
+      <image:caption>Artbild för Svavelgul slöjskivling (Hypholoma fasciculare) i Naturboken (Svavelskivlingar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/saffron_milkcap.jpeg</image:loc>
+      <image:title>Läcker riska – Svampboken</image:title>
+      <image:caption>Artbild för Läcker riska (Lactarius deliciosus) i Naturboken (Riska)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/woolly_milkcap.jpeg</image:loc>
+      <image:title>Skäggriska – Svampboken</image:title>
+      <image:caption>Artbild för Skäggriska (Lactarius torminosus) i Naturboken (Riska)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/shaggy_inkcap.jpeg</image:loc>
+      <image:title>Fjällig bläcksvamp – Svampboken</image:title>
+      <image:caption>Artbild för Fjällig bläcksvamp (Coprinus comatus) i Naturboken (Bläcksvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/morel.jpg</image:loc>
+      <image:title>Rundmurkla – Svampboken</image:title>
+      <image:caption>Artbild för Rundmurkla (Morchella esculenta) i Naturboken (Murkla)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/false_morel.jpg</image:loc>
+      <image:title>Stenmurkla – Svampboken</image:title>
+      <image:caption>Artbild för Stenmurkla (Gyromitra esculenta) i Naturboken (Murkla)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/cep_rough.jpg</image:loc>
+      <image:title>Brunsopp – Svampboken</image:title>
+      <image:caption>Artbild för Brunsopp (Imleria badia) i Naturboken (Soppar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/scarlet_elf_cup.jpeg</image:loc>
+      <image:title>Scharlakansvårskål – Svampboken</image:title>
+      <image:caption>Artbild för Scharlakansvårskål (Sarcoscypha austriaca) i Naturboken (Skålsvampar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/chicken_of_the_woods.jpg</image:loc>
+      <image:title>Svavelticka – Svampboken</image:title>
+      <image:caption>Artbild för Svavelticka (Laetiporus sulphureus) i Naturboken (Tickor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/birch_polypore.jpg</image:loc>
+      <image:title>Björkticka – Svampboken</image:title>
+      <image:caption>Artbild för Björkticka (Fomitopsis betulina) i Naturboken (Tickor)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/velvet_bolete.jpg</image:loc>
+      <image:title>Björksopp – Svampboken</image:title>
+      <image:caption>Artbild för Björksopp (Leccinum scabrum) i Naturboken (Soppar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/svampboken_bilder/hedgehog_fungus.jpg</image:loc>
+      <image:title>Blek taggsvamp – Svampboken</image:title>
+      <image:caption>Artbild för Blek taggsvamp (Hydnum repandum) i Naturboken (Piggsoppar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/northern_pike.jpg</image:loc>
+      <image:title>Gädda – Fiskboken</image:title>
+      <image:caption>Artbild för Gädda (Esox lucius) i Naturboken (Rovfisk)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/european_perch.jpg</image:loc>
+      <image:title>Abborre – Fiskboken</image:title>
+      <image:caption>Artbild för Abborre (Perca fluviatilis) i Naturboken (Abborrfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/atlantic_herring.jpg</image:loc>
+      <image:title>Sill – Fiskboken</image:title>
+      <image:caption>Artbild för Sill (Clupea harengus) i Naturboken (Sillfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/atlantic_cod.jpg</image:loc>
+      <image:title>Torsk – Fiskboken</image:title>
+      <image:caption>Artbild för Torsk (Gadus morhua) i Naturboken (Torskfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/brown_trout.jpg</image:loc>
+      <image:title>Öring – Fiskboken</image:title>
+      <image:caption>Artbild för Öring (Salmo trutta) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/atlantic_salmon.jpg</image:loc>
+      <image:title>Lax – Fiskboken</image:title>
+      <image:caption>Artbild för Lax (Salmo salar) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/arctic_char.jpg</image:loc>
+      <image:title>Röding – Fiskboken</image:title>
+      <image:caption>Artbild för Röding (Salvelinus alpinus) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/whitefish.jpg</image:loc>
+      <image:title>Siklöja – Fiskboken</image:title>
+      <image:caption>Artbild för Siklöja (Coregonus albula) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/common_bream.jpg</image:loc>
+      <image:title>Braxen – Fiskboken</image:title>
+      <image:caption>Artbild för Braxen (Abramis brama) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/roach.jpg</image:loc>
+      <image:title>Mört – Fiskboken</image:title>
+      <image:caption>Artbild för Mört (Rutilus rutilus) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/rudd.jpg</image:loc>
+      <image:title>Sarv – Fiskboken</image:title>
+      <image:caption>Artbild för Sarv (Scardinius erythrophthalmus) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/common_carp.jpg</image:loc>
+      <image:title>Karp – Fiskboken</image:title>
+      <image:caption>Artbild för Karp (Cyprinus carpio) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/tench.jpg</image:loc>
+      <image:title>Sutare – Fiskboken</image:title>
+      <image:caption>Artbild för Sutare (Tinca tinca) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/pike_perch.jpg</image:loc>
+      <image:title>Gös – Fiskboken</image:title>
+      <image:caption>Artbild för Gös (Sander lucioperca) i Naturboken (Abborrfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/burbot.jpg</image:loc>
+      <image:title>Lake – Fiskboken</image:title>
+      <image:caption>Artbild för Lake (Lota lota) i Naturboken (Torskfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/wels_catfish.jpg</image:loc>
+      <image:title>Mal – Fiskboken</image:title>
+      <image:caption>Artbild för Mal (Silurus glanis) i Naturboken (Malartade fiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/asp.jpg</image:loc>
+      <image:title>Asp – Fiskboken</image:title>
+      <image:caption>Artbild för Asp (Leuciscus aspius) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/ide.jpg</image:loc>
+      <image:title>Id – Fiskboken</image:title>
+      <image:caption>Artbild för Id (Leuciscus idus) i Naturboken (Karpfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/european_eel.jpg</image:loc>
+      <image:title>Ål – Fiskboken</image:title>
+      <image:caption>Artbild för Ål (Anguilla anguilla) i Naturboken (Ålfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/sprat.jpg</image:loc>
+      <image:title>Skarpsill – Fiskboken</image:title>
+      <image:caption>Artbild för Skarpsill (Sprattus sprattus) i Naturboken (Sillfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/mackerel.jpg</image:loc>
+      <image:title>Makrill – Fiskboken</image:title>
+      <image:caption>Artbild för Makrill (Scomber scombrus) i Naturboken (Makrillfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/three_spined_stickleback.jpg</image:loc>
+      <image:title>Storspigg – Fiskboken</image:title>
+      <image:caption>Artbild för Storspigg (Gasterosteus aculeatus) i Naturboken (Stickelfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/sea_trout.jpg</image:loc>
+      <image:title>Havsöring – Fiskboken</image:title>
+      <image:caption>Artbild för Havsöring (Salmo trutta trutta) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/garfish.jpg</image:loc>
+      <image:title>Hornfisk – Fiskboken</image:title>
+      <image:caption>Artbild för Hornfisk (Belone belone) i Naturboken (Nålfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/plaice.jpg</image:loc>
+      <image:title>Rödspätta – Fiskboken</image:title>
+      <image:caption>Artbild för Rödspätta (Pleuronectes platessa) i Naturboken (Platfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/flounder.jpg</image:loc>
+      <image:title>Skrubbskädda – Fiskboken</image:title>
+      <image:caption>Artbild för Skrubbskädda (Platichthys flesus) i Naturboken (Platfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/vendace.jpg</image:loc>
+      <image:title>Sik – Fiskboken</image:title>
+      <image:caption>Artbild för Sik (Coregonus lavaretus) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://al3190106-maker.github.io/Birdbook/images/fiskboken_bilder/rainbow_trout.jpg</image:loc>
+      <image:title>Regnbågslax – Fiskboken</image:title>
+      <image:caption>Artbild för Regnbågslax (Oncorhynchus mykiss) i Naturboken (Laxfiskar)</image:caption>
+    </image:image>
   </url>
 </urlset>

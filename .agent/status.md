@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-19 | 🚀 Deploy & Infra | **Uppgift 39: Google Image Sitemap (Bild-SEO för alla 430+ artplanscher & naturbilder)**: Genererat fullständig Google Image Sitemap i `sitemap.xml` med 433 artbilder (348 fågelplanscher, 25 trädbilder, 26 svampbilder, 28 fiskbilder samt kategori-ikoner) inklusive titlar, vetenskapliga namn och bildtexter. Skapat skriptet `scripts/generate_image_sitemap.js` och bumpat cache till `v5.9.2` (`sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js`). |
 | 2026-09-19 | 🎨 Generera bilder | **Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (trees.js)**: Kartlagt och importerat högupplösta botaniska akvarellplanscher från `naturboken.alt-qq.com/trees/originals/` för samtliga 24 matchande trädarter i `trees.js` med lokal backup för hagtorn och offline-drift. Säkerställt att diorama-/sprite-beskärning enbart aktiveras för fågelarter och lagt till bildcentrering för Växtboken i CSS så att träden renderas knivskarpt i både normalläge, kompaktläge och helskärm (`trees.js`, `app.js`, `style.css`, `sw.js`). |
 | 2026-09-19 | 🚀 Deploy & Infra | **Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph, sitemap.xml, robots.txt & Schema.org)**: Implementerat fullständig SEO-struktur med optimerad svensk titel och metabeskrivning innehållande Fågelboken, Växtboken, Fiskboken m.fl., Open Graph- och Twitter Card-metataggar, Schema.org JSON-LD med underavdelningar (`hasPart` för samtliga 5 böcker) och `alternateName`, samt `robots.txt` och `sitemap.xml` i roten (`index.html`, `robots.txt`, `sitemap.xml`, `sw.js`). |
 | 2026-09-19 | 🔍 Identifiera | **Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")**: Implementerat väder- och aktivitetskompass i "Nära mig". Hämtar realtidsväder från Open-Meteo API med GPS (eller fallback till Stockholm med möjlighet att klicka för att aktivera GPS), beräknar dynamiskt Skådar-index (Hög/Måttlig/Låg aktivitet) baserat på vindhastighet, vindriktning (N, NO, O osv.), nederbörd och soluppgång/solnedgång, samt skapat responsiv mobilanpassad design med stöd för dark mode (`index.html`, `style.css`, `app.js`, `sightings.js`, `sw.js`). |
@@ -228,6 +229,7 @@
 
 
 ### 🚀 Deploy & Infra
+- [x] Uppgift 39: Google Image Sitemap (Bild-SEO för alla 430+ artplanscher & naturbilder)
 - [x] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
 - [ ] Uppgift 9: Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 - [x] Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 (Diskret 1-rads banner + info i Inställningar)
