@@ -10,7 +10,7 @@ require('../trees.js');
 require('../fungi.js');
 require('../fish.js');
 
-const BASE_URL = 'https://al3190106-maker.github.io/Birdbook/';
+const BASE_URL = 'https://naturboken.se/';
 
 function escapeXml(unsafe) {
     if (!unsafe) return '';

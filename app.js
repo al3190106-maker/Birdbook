@@ -1458,25 +1458,11 @@ function _renderBirdDetail(item, sighting = null) {
     elements.detailNameSv.textContent = item.nameSv;
     elements.detailNameScEn.textContent = item.nameEn ? `${item.scientific} (${item.nameEn})` : (item.scientific || '');
 
-    // 1. Sällsynthet
-    const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
-    const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c']; 
-    const rIndex = (item.rarity || 1) - 1;
-    if (elements.detailRarity) {
-        elements.detailRarity.textContent = rarityLevels[rIndex] || 'Allmän';
-        elements.detailRarity.style.color = rarityColors[rIndex] || '#ffffff';
-        elements.detailRarity.style.backgroundColor = rIndex === 0 ? '#94a3b8' : 'transparent';
-        elements.detailRarity.style.padding = rIndex === 0 ? '0.1rem 0.4rem' : '0';
-        elements.detailRarity.style.borderRadius = rIndex === 0 ? '6px' : '0';
-        elements.detailRarity.style.display = 'inline-block';
-        elements.detailRarity.style.textShadow = 'none';
-        elements.detailRarity.style.border = 'none';
-    }
-    
     // 0. Description / Fun Fact
     if (descEl) {
-        descEl.textContent = item.funFact || '';
-        descEl.style.display = item.funFact ? 'block' : 'none';
+        const factText = item.funFact || item.description || '';
+        descEl.textContent = factText;
+        descEl.style.display = factText ? 'block' : 'none';
     }
 
     if (elements.detailAudioContainer && elements.detailAudioPlayer) {
@@ -1491,71 +1477,265 @@ function _renderBirdDetail(item, sighting = null) {
         }
     }
 
-    // 2. Utbredning (VART) & 3. Säsong (NÄR & HUR)
-    let distText = 'Hela landet';
-    let seasonText = 'Hela året';
+    // Dynamic Fact Cards Setup per Subject
+    const card1Title = document.getElementById('detail-card1-title');
+    const card2Title = document.getElementById('detail-card2-title');
+    const card3Title = document.getElementById('detail-card3-title');
+    const card4Title = document.getElementById('detail-card4-title');
+    const card5Title = document.getElementById('detail-card5-title');
+    const card6Title = document.getElementById('detail-card6-title');
 
-    if (item.seasonDistribution) {
-        const raw = item.seasonDistribution;
-        if (raw.includes('(') && raw.includes(')')) {
-            const parts = raw.split('(');
-            seasonText = parts[0].trim();
-            distText = parts[1].replace(')', '').trim();
-        } else if (raw.includes(',')) {
-            const parts = raw.split(',');
-            seasonText = parts[0].trim();
-            distText = parts.slice(1).join(', ').trim();
-        } else {
-            seasonText = raw;
-            distText = 'Hela landet';
-        }
-    }
-
-    // Säkerställ att Säsong & Flytt alltid anger NÄR arten kan ses (t.ex. Vår & Höst för sällsynta gäster / genomflyttare)
-    if (seasonText === 'Sällsynt gäst' || seasonText === 'Tillfällig gäst') {
-        seasonText = 'Vår & Höst (Sporadisk)';
-        distText = 'Sporadiska fynd i Sverige';
-    } else if (seasonText === 'Genomflyttare') {
-        seasonText = 'Vår & Höst (Flyttperioder)';
-    }
-
-    if (item.distribution) distText = item.distribution;
-    if (item.season) seasonText = item.season;
-
-
+    const rarityEl = document.getElementById('detail-rarity');
     const distEl = document.getElementById('detail-distribution-text');
-    if (distEl) distEl.textContent = distText;
-
     const seasonEl = document.getElementById('detail-season-text');
-    if (seasonEl) seasonEl.textContent = seasonText;
-
-    // 4. Biotop (VAR)
     const habitatEl = document.getElementById('detail-habitat-text');
-    if (habitatEl) {
-        habitatEl.textContent = item.habitat || item.type || 'Skog & natur';
-    }
-
-    // 5. Föda (VAD)
     const foodEl = document.getElementById('detail-food-text');
-    if (foodEl) {
-        foodEl.textContent = item.food || item.diet || 'Insekter, frön & bär';
+    const sizeEl = document.getElementById('detail-size-combined');
+
+    const rarityLevels = ['Allmän', 'Vanlig', 'Ovanlig', 'Sällsynt', 'Mycket sällsynt'];
+    const rarityColors = ['#ffffff', '#16a34a', '#2563eb', '#9333ea', '#ea580c'];
+    const rIndex = Math.max(0, Math.min(4, (item.rarity || 1) - 1));
+
+    function setRarityBadge(targetEl, idx) {
+        if (!targetEl) return;
+        targetEl.textContent = rarityLevels[idx] || 'Allmän';
+        targetEl.style.color = rarityColors[idx] || '#ffffff';
+        targetEl.style.backgroundColor = idx === 0 ? '#94a3b8' : 'transparent';
+        targetEl.style.padding = idx === 0 ? '0.15rem 0.5rem' : '0';
+        targetEl.style.borderRadius = idx === 0 ? '6px' : '0';
+        targetEl.style.display = 'inline-block';
+        targetEl.style.textShadow = 'none';
+        targetEl.style.border = 'none';
+        targetEl.style.fontWeight = '600';
     }
 
-    // 6. Storlek (Kombinerat Vingspann + Totallängd)
-    const sizeEl = document.getElementById('detail-size-combined');
-    if (sizeEl) {
-        const len = item.length || item.height || item.size || null;
-        const wing = item.wingspan || null;
-        if (wing && len) {
-            sizeEl.innerHTML = `Vingspann: ${wing} cm<br>Totallängd: ${len} cm`;
-        } else if (wing) {
-            sizeEl.innerHTML = `Vingspann: ${wing} cm`;
-        } else if (len) {
-            sizeEl.innerHTML = `Totallängd: ${len} cm`;
-        } else {
-            sizeEl.innerHTML = '-- cm';
+    const currentSub = state.currentSubject || 'birds';
+
+    if (currentSub === 'fungi') {
+        // --- SVAMPBOKEN ---
+        if (card1Title) card1Title.innerHTML = `<i class="fa-solid fa-utensils"></i> <span>Ätlighet</span>`;
+        if (rarityEl) {
+            const ed = item.edibility || 'Ej matsvamp';
+            rarityEl.textContent = ed;
+            rarityEl.style.padding = '0.2rem 0.6rem';
+            rarityEl.style.borderRadius = '6px';
+            rarityEl.style.display = 'inline-block';
+            rarityEl.style.fontWeight = '700';
+            rarityEl.style.fontSize = '0.95rem';
+
+            if (ed.includes('Utmärkt') || ed.includes('God') || ed.includes('Ätbar')) {
+                rarityEl.style.backgroundColor = '#dcfce7';
+                rarityEl.style.color = '#15803d';
+            } else if (ed.includes('Dödligt')) {
+                rarityEl.style.backgroundColor = '#f3e8ff';
+                rarityEl.style.color = '#7e22ce';
+            } else if (ed.includes('Giftig')) {
+                rarityEl.style.backgroundColor = '#ffedd5';
+                rarityEl.style.color = '#c2410c';
+            } else {
+                rarityEl.style.backgroundColor = '#f1f5f9';
+                rarityEl.style.color = '#475569';
+            }
+        }
+
+        if (card2Title) card2Title.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> <span>Utbredning</span>`;
+        if (distEl) distEl.textContent = item.seasonDistribution || item.distribution || 'Hela landet';
+
+        if (card3Title) card3Title.innerHTML = `<i class="fa-solid fa-calendar-days"></i> <span>Plocksäsong</span>`;
+        if (seasonEl) seasonEl.textContent = item.bestTime || item.season || 'Höst (Aug–Okt)';
+
+        if (card4Title) card4Title.innerHTML = `<i class="fa-solid fa-tree"></i> <span>Växtplats & Miljö</span>`;
+        if (habitatEl) habitatEl.textContent = item.habitat || item.type || 'Barr- & lövskog';
+
+        if (card5Title) card5Title.innerHTML = `<i class="fa-solid fa-star"></i> <span>Sällsynthet</span>`;
+        if (foodEl) {
+            foodEl.innerHTML = `<span id="fungi-rarity-pill">${rarityLevels[rIndex]}</span>`;
+            const pill = document.getElementById('fungi-rarity-pill');
+            if (pill) {
+                pill.style.color = rarityColors[rIndex] || '#ffffff';
+                pill.style.fontWeight = '600';
+                if (rIndex === 0) {
+                    pill.style.backgroundColor = '#94a3b8';
+                    pill.style.padding = '0.15rem 0.5rem';
+                    pill.style.borderRadius = '6px';
+                }
+            }
+        }
+
+        if (card6Title) card6Title.innerHTML = `<i class="fa-solid fa-ruler-horizontal"></i> <span>Kännetecken</span>`;
+        if (sizeEl) {
+            if (item.size) {
+                sizeEl.innerHTML = `Hattbredd: ${item.size} cm`;
+            } else if (item.type) {
+                sizeEl.innerHTML = `Typ: ${item.type}`;
+            } else {
+                sizeEl.innerHTML = '--';
+            }
+        }
+
+    } else if (currentSub === 'fish') {
+        // --- FISKBOKEN ---
+        if (card1Title) card1Title.innerHTML = `<i class="fa-solid fa-star"></i> <span>Sällsynthet</span>`;
+        setRarityBadge(rarityEl, rIndex);
+
+        if (card2Title) card2Title.innerHTML = `<i class="fa-solid fa-water"></i> <span>Förekomst</span>`;
+        if (distEl) distEl.textContent = item.seasonDistribution || item.distribution || 'Sjöar & Kuster';
+
+        if (card3Title) card3Title.innerHTML = `<i class="fa-solid fa-calendar-days"></i> <span>Fisketid & Säsong</span>`;
+        if (seasonEl) seasonEl.textContent = item.bestTime || item.season || 'Året runt';
+
+        if (card4Title) card4Title.innerHTML = `<i class="fa-solid fa-anchor"></i> <span>Vatten & Miljö</span>`;
+        if (habitatEl) habitatEl.textContent = item.habitat || item.type || 'Sötvatten & bräkt vatten';
+
+        if (card5Title) card5Title.innerHTML = `<i class="fa-solid fa-fish"></i> <span>Föda</span>`;
+        if (foodEl) foodEl.textContent = item.food || item.diet || (item.type === 'Rovfisk' ? 'Småfisk & kräftdjur' : 'Bottendjur & insekter');
+
+        if (card6Title) card6Title.innerHTML = `<i class="fa-solid fa-weight-scale"></i> <span>Mått & Vikt</span>`;
+        if (sizeEl) {
+            const len = item.length || item.size || null;
+            const w = item.weight || null;
+            let weightStr = null;
+            if (w) {
+                weightStr = w >= 1 ? `${w} kg` : `${Math.round(w * 1000)} g`;
+            }
+            if (len && weightStr) {
+                sizeEl.innerHTML = `Maxlängd: ${len} cm<br>Maxvikt: ${weightStr}`;
+            } else if (len) {
+                sizeEl.innerHTML = `Maxlängd: ${len} cm`;
+            } else if (weightStr) {
+                sizeEl.innerHTML = `Maxvikt: ${weightStr}`;
+            } else {
+                sizeEl.innerHTML = '--';
+            }
+        }
+
+    } else if (currentSub === 'animals') {
+        // --- DÄGGDJURSBOKEN ---
+        if (card1Title) card1Title.innerHTML = `<i class="fa-solid fa-star"></i> <span>Sällsynthet</span>`;
+        setRarityBadge(rarityEl, rIndex);
+
+        if (card2Title) card2Title.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> <span>Utbredning</span>`;
+        if (distEl) distEl.textContent = item.seasonDistribution || item.distribution || 'Hela landet';
+
+        if (card3Title) card3Title.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Aktivitet & Säsong</span>`;
+        if (seasonEl) seasonEl.textContent = item.bestTime || item.season || 'Natt & gryning';
+
+        if (card4Title) card4Title.innerHTML = `<i class="fa-solid fa-paw"></i> <span>Biotop</span>`;
+        if (habitatEl) habitatEl.textContent = item.habitat || item.type || 'Skog & mark';
+
+        if (card5Title) card5Title.innerHTML = `<i class="fa-solid fa-utensils"></i> <span>Föda</span>`;
+        if (foodEl) foodEl.textContent = item.food || item.diet || 'Växter & kött';
+
+        if (card6Title) card6Title.innerHTML = `<i class="fa-solid fa-ruler-combined"></i> <span>Mått & Vikt</span>`;
+        if (sizeEl) {
+            const h = item.height || item.size || null;
+            const w = item.weight || null;
+            if (h && w) {
+                sizeEl.innerHTML = `Mankhöjd: ${h} cm<br>Vikt: ${w} kg`;
+            } else if (h) {
+                sizeEl.innerHTML = `Mankhöjd: ${h} cm`;
+            } else if (w) {
+                sizeEl.innerHTML = `Vikt: ${w} kg`;
+            } else {
+                sizeEl.innerHTML = '--';
+            }
+        }
+
+    } else if (currentSub === 'trees' || currentSub === 'flowers' || currentSub === 'plants') {
+        // --- TRÄD / BLOMMOR / VÄXTER ---
+        if (card1Title) card1Title.innerHTML = `<i class="fa-solid fa-star"></i> <span>Sällsynthet</span>`;
+        setRarityBadge(rarityEl, rIndex);
+
+        if (card2Title) card2Title.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> <span>Utbredning</span>`;
+        if (distEl) distEl.textContent = item.seasonDistribution || item.distribution || 'Hela landet';
+
+        if (card3Title) card3Title.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Blomning / Säsong</span>`;
+        if (seasonEl) seasonEl.textContent = item.bestTime || item.season || 'Vår & Sommar';
+
+        if (card4Title) card4Title.innerHTML = `<i class="fa-solid fa-tree"></i> <span>Växtplats</span>`;
+        if (habitatEl) habitatEl.textContent = item.habitat || item.type || 'Skog & ängsmark';
+
+        if (card5Title) card5Title.innerHTML = `<i class="fa-solid fa-seedling"></i> <span>Typ & Egenskaper</span>`;
+        if (foodEl) foodEl.textContent = item.type || item.food || 'Lövträd / Ört';
+
+        if (card6Title) card6Title.innerHTML = `<i class="fa-solid fa-ruler-vertical"></i> <span>Höjd & Ålder</span>`;
+        if (sizeEl) {
+            const h = item.height || item.size || null;
+            const a = item.age || null;
+            if (h && a) {
+                sizeEl.innerHTML = `Maxhöjd: ${h} m<br>Maxålder: ${a} år`;
+            } else if (h) {
+                sizeEl.innerHTML = `Maxhöjd: ${h} m`;
+            } else if (a) {
+                sizeEl.innerHTML = `Maxålder: ${a} år`;
+            } else {
+                sizeEl.innerHTML = '--';
+            }
+        }
+
+    } else {
+        // --- FÅGELBOKEN (Default) ---
+        if (card1Title) card1Title.innerHTML = `<i class="fa-solid fa-star"></i> <span>Sällsynthet</span>`;
+        setRarityBadge(rarityEl, rIndex);
+
+        if (card2Title) card2Title.innerHTML = `<i class="fa-solid fa-map-location-dot"></i> <span>Utbredning</span>`;
+
+        let distText = 'Hela landet';
+        let seasonText = 'Hela året';
+
+        if (item.seasonDistribution) {
+            const raw = item.seasonDistribution;
+            if (raw.includes('(') && raw.includes(')')) {
+                const parts = raw.split('(');
+                seasonText = parts[0].trim();
+                distText = parts[1].replace(')', '').trim();
+            } else if (raw.includes(',')) {
+                const parts = raw.split(',');
+                seasonText = parts[0].trim();
+                distText = parts.slice(1).join(', ').trim();
+            } else {
+                seasonText = raw;
+                distText = 'Hela landet';
+            }
+        }
+
+        if (seasonText === 'Sällsynt gäst' || seasonText === 'Tillfällig gäst') {
+            seasonText = 'Vår & Höst (Sporadisk)';
+            distText = 'Sporadiska fynd i Sverige';
+        } else if (seasonText === 'Genomflyttare') {
+            seasonText = 'Vår & Höst (Flyttperioder)';
+        }
+
+        if (item.distribution) distText = item.distribution;
+        if (item.season) seasonText = item.season;
+
+        if (distEl) distEl.textContent = distText;
+
+        if (card3Title) card3Title.innerHTML = `<i class="fa-solid fa-calendar-days"></i> <span>Säsong & Flytt</span>`;
+        if (seasonEl) seasonEl.textContent = seasonText;
+
+        if (card4Title) card4Title.innerHTML = `<i class="fa-solid fa-tree"></i> <span>Biotop</span>`;
+        if (habitatEl) habitatEl.textContent = item.habitat || item.type || 'Skog & natur';
+
+        if (card5Title) card5Title.innerHTML = `<i class="fa-solid fa-utensils"></i> <span>Föda</span>`;
+        if (foodEl) foodEl.textContent = item.food || item.diet || 'Insekter, frön & bär';
+
+        if (card6Title) card6Title.innerHTML = `<i class="fa-solid fa-ruler-combined"></i> <span>Storlek</span>`;
+        if (sizeEl) {
+            const len = item.length || item.height || item.size || null;
+            const wing = item.wingspan || null;
+            if (wing && len) {
+                sizeEl.innerHTML = `Vingspann: ${wing} cm<br>Totallängd: ${len} cm`;
+            } else if (wing) {
+                sizeEl.innerHTML = `Vingspann: ${wing} cm`;
+            } else if (len) {
+                sizeEl.innerHTML = `Totallängd: ${len} cm`;
+            } else {
+                sizeEl.innerHTML = '-- cm';
+            }
         }
     }
+
 
 
 

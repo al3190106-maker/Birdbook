@@ -3,7 +3,7 @@
 > Denna fil fungerar som en delad "anslagstavla" mellan konversationer.
 > Uppdatera efter betydande ändringar så andra konversationer vet vad som pågår.
 
-*Senast uppdaterad: 2026-08-12*
+*Senast uppdaterad: 2026-09-24*
 
 ---
 
@@ -15,9 +15,12 @@
 
 | Konversation | Vad pågår | Berörda filer |
 |---|---|---|
-| 🎴 Fågelkort | 👋 Redo för arbetsuppgifter! Uppkopplad, har granskat `.bird-detail-modal` och väntar på uppdragsinstruktioner. | `index.html`, `style.css`, `app.js` |
+| 🎴 Fågelkort | 👋 Slutfört Uppgift 28! Redo för nästa arbetsuppgift från Arbetsgivaren. | `index.html`, `style.css`, `app.js`, `sw.js` |
 
 ## ✅ Nyligen avslutat
+
+| 2026-09-24 | 🎴 Fågelkort | **Uppgift 28: Slutför översyn & polering av Fakta och Mått på Fågelkortet (.bird-detail-modal)**: Slutfört fullständig polering och dynamisk faktrutanpassning för alla aktiva böcker (Fågelboken, Fiskboken, Svampboken m.fl.). Fåglar visar Sällsynthet, Utbredning, Säsong/Flytt, Biotop, Föda och Storlek (vingspann/totallängd). Fiskar visar Sällsynthet, Förekomst, Fisketid/Säsong, Vatten/Miljö, Föda och Mått/Maxvikt. Svampar visar Ätlighet/Giftighet (med färgkodade badges), Utbredning, Plocksäsong, Växtplats/Miljö, Sällsynthet och Kännetecken/Hattbredd. Förbättrat kuriosa-typografi med snygg citat-ruta och polerat 2x3 responsivt grid i CSS samt bumpat cache till `v5.9.7` (`index.html`, `app.js`, `style.css`, `sw.js`). |
+
 
 | 2026-09-24 | 🚀 Deploy & Infra | **Uppgift 41: Uppdatera Google- & SEO-titel till "Naturboken – Kryssa och hitta"**: Uppdaterat `<title>`, `<meta name="title">`, Open Graph och Twitter Cards till "Naturboken – Kryssa och hitta", uppdaterat metabeskrivning och sökord för att spegla de tre aktiva böckerna (Fågelboken, Fiskboken, Svampboken), uppdaterat Schema.org JSON-LD med aktiva delappar och bumpat Service Worker cache till `v5.9.6` (`index.html`, `sw.js`). |
 | 2026-09-19 | ✨ Features & UI | **Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)**: Dolt Däggdjursboken, Växtboken, Trädboken och Blomboken från bokremsan (`#book-strip`), välkomstmodalen (`#welcome-modal`), biblioteksmodalen (`#library-modal`), statistikvyn (`renderStatsView`) och ämnesväxlaren. Appen fokuserar nu 100% på **Naturboken**, **Fågelboken**, **Fiskboken** och **Svampboken**. Säkerställt att sparade lägen i LocalStorage automatiskt omdirigeras och bumpat cache till `v5.9.5` (`index.html`, `app.js`, `sw.js`). |
@@ -208,7 +211,8 @@
 
 ### 🎴 Fågelkort (Artdetaljkort & Modaler)
 - [ ] Ansvara för `.bird-detail-modal`, bildkaruseller, artfakta, mått & popup-detaljer
-- [/] Uppgift 28: Översyn & rensning av information på Fågelkorten (Bort med 'Aktiv: morgon', in med förslag på värdefulla faktafält)
+- [x] Uppgift 28: Översyn & rensning av information på Fågelkorten (Bort med 'Aktiv: morgon', in med förslag på värdefulla faktafält)
+
 
 ### 🎨 Generera bilder
 - [ ] Uppgift 42: Ombeskärning & Förbättring av 11 Fågelbilder (Dioramor & 1:1 Kompaktbilder)
@@ -218,8 +222,8 @@
 
 ### ✨ Features & UI
 - [x] Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)
+- [x] Uppgift 8: Dagskalender & Tidsfilter i Min Logg
 - [ ] Uppgift 31: Interaktiv Flyttningskarta (Jan–Dec animerad tidslinje på Sverigekartan)
-- [/] Uppgift 8: Skapa Dagskalender & möjlighet att skapa egna listor (Steg 1: Dagskalender & Tidsfilter i Min Logg klart ✅)
 - [ ] Uppgift 12: Användarkonto-system (Användarprofil & ID)
 - [ ] Uppgift 13: Dela konto / Se andras framsteg (Profil-delning & statistik-kort)
 - [ ] Uppgift 29: Instagram Story-kort & Native 1-klick Delning
@@ -235,10 +239,10 @@
 
 
 ### 🚀 Deploy & Infra
+- [ ] Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap från 'Birdbook' till 'naturboken.se'
 - [x] Uppgift 41: Uppdatera Google- & SEO-titel till "Naturboken – Kryssa och hitta"
 - [x] Uppgift 39: Google Image Sitemap (Bild-SEO för alla 430+ artplanscher & naturbilder)
 - [x] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
-- [ ] Uppgift 9: Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
 - [x] Uppgift 36: Integritetsmeddelande & Cookie-info för GA4 (Diskret 1-rads banner + info i Inställningar)
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
 

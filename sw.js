@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.9.6-kryssa-och-hitta';
+const CACHE_NAME = 'birdfinder-v5.9.8-domain-naturboken';
 const ASSETS_TO_CACHE = [
+
     './',
     './index.html',
     './style.css',

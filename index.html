@@ -12,24 +12,24 @@
     <meta name="description" content="Sveriges interaktiva naturguide med Fågelboken, Fiskboken och Svampboken. Identifiera, kryssa och lär dig om svenska arter med ljud, quiz och observationer.">
     <meta name="keywords" content="naturboken, fågelboken, fiskboken, svampboken, kryssa och hitta, fåglar, fiskar, svampar, fågelskådning, fågelläten, birdnet, artguide, sverige">
     <meta name="author" content="Alexander Larsson &amp; Theia Skoog">
-    <link rel="canonical" href="https://al3190106-maker.github.io/Birdbook/">
+    <link rel="canonical" href="https://naturboken.se/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://al3190106-maker.github.io/Birdbook/">
+    <meta property="og:url" content="https://naturboken.se/">
     <meta property="og:site_name" content="Naturboken">
     <meta property="og:title" content="Naturboken – Kryssa och hitta">
     <meta property="og:description" content="Sveriges interaktiva naturguide med Fågelboken, Fiskboken och Svampboken. Identifiera, kryssa och lär dig om svenska arter med ljud, quiz och observationer.">
-    <meta property="og:image" content="https://al3190106-maker.github.io/Birdbook/images/category_icons/nature_alla.png">
+    <meta property="og:image" content="https://naturboken.se/images/category_icons/nature_alla.png">
     <meta property="og:image:alt" content="Naturboken – Sveriges interaktiva naturguide">
     <meta property="og:locale" content="sv_SE">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://al3190106-maker.github.io/Birdbook/">
+    <meta name="twitter:url" content="https://naturboken.se/">
     <meta name="twitter:title" content="Naturboken – Kryssa och hitta">
     <meta name="twitter:description" content="Sveriges interaktiva naturguide med Fågelboken, Fiskboken och Svampboken. Identifiera, kryssa och lär dig om svenska arter med ljud, quiz och observationer.">
-    <meta name="twitter:image" content="https://al3190106-maker.github.io/Birdbook/images/category_icons/nature_alla.png">
+    <meta name="twitter:image" content="https://naturboken.se/images/category_icons/nature_alla.png">
 
     <!-- Schema.org JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -44,7 +44,7 @@
         "Svampboken",
         "BirdFinder Sweden"
       ],
-      "url": "https://al3190106-maker.github.io/Birdbook/",
+      "url": "https://naturboken.se/",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
       "inLanguage": "sv",
@@ -1525,43 +1525,44 @@
                 </div>
 
                 <div class="bird-facts-grid">
-                    <!-- 1. Sällsynthet -->
-                    <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-star"></i> Sällsynthet</div>
-                        <div class="rarity-text" id="detail-rarity" style="font-size: 1.1rem; font-weight: 600; color: var(--accent);">Allmän</div>
+                    <!-- 1. Sällsynthet / Ätlighet -->
+                    <div class="fact-card" id="detail-card-1">
+                        <div class="fact-title" id="detail-card1-title"><i class="fa-solid fa-star"></i> <span>Sällsynthet</span></div>
+                        <div class="rarity-text" id="detail-rarity" style="font-size: 1.05rem; font-weight: 600; color: var(--accent);">Allmän</div>
                     </div>
 
-                    <!-- 2. Utbredning (VART) -->
-                    <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-map-location-dot"></i> Utbredning</div>
+                    <!-- 2. Utbredning / Förekomst -->
+                    <div class="fact-card" id="detail-card-2">
+                        <div class="fact-title" id="detail-card2-title"><i class="fa-solid fa-map-location-dot"></i> <span>Utbredning</span></div>
                         <div class="fact-value" id="detail-distribution-text" style="font-size: 0.95rem; line-height: 1.35;">Hela landet</div>
                     </div>
 
-                    <!-- 3. Säsong & Flytt (NÄR & HUR) -->
-                    <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-calendar-days"></i> Säsong & Flytt</div>
+                    <!-- 3. Säsong & Flytt / Fisketid / Plocksäsong -->
+                    <div class="fact-card" id="detail-card-3">
+                        <div class="fact-title" id="detail-card3-title"><i class="fa-solid fa-calendar-days"></i> <span>Säsong & Flytt</span></div>
                         <div class="fact-value" id="detail-season-text" style="font-size: 0.95rem; line-height: 1.35;">Hela året</div>
                     </div>
 
-                    <!-- 4. Biotop (VAR) -->
-                    <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-tree"></i> Biotop</div>
+                    <!-- 4. Biotop / Växtplats / Vatten -->
+                    <div class="fact-card" id="detail-card-4">
+                        <div class="fact-title" id="detail-card4-title"><i class="fa-solid fa-tree"></i> <span>Biotop</span></div>
                         <div class="fact-value" id="detail-habitat-text" style="font-size: 0.95rem; line-height: 1.35;">Skog & natur</div>
                     </div>
 
-                    <!-- 5. Föda (VAD) -->
-                    <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-utensils"></i> Föda</div>
+                    <!-- 5. Föda / Sällsynthet för svamp -->
+                    <div class="fact-card" id="detail-card-5">
+                        <div class="fact-title" id="detail-card5-title"><i class="fa-solid fa-utensils"></i> <span>Föda</span></div>
                         <div class="fact-value" id="detail-food-text" style="font-size: 0.95rem; line-height: 1.35;">Insekter & frön</div>
                     </div>
 
-                    <!-- 6. Storlek (Kombinerat Vingspann + Totallängd) -->
-                    <div class="fact-card">
-                        <div class="fact-title"><i class="fa-solid fa-ruler-combined"></i> Storlek</div>
+                    <!-- 6. Storlek / Mått & Vikt / Kännetecken -->
+                    <div class="fact-card" id="detail-card-6">
+                        <div class="fact-title" id="detail-card6-title"><i class="fa-solid fa-ruler-combined"></i> <span>Storlek</span></div>
                         <div class="fact-value" id="detail-size-combined" style="font-size: 0.95rem; line-height: 1.45;">-- cm</div>
                     </div>
 
                 </div>
+
 
 
                 

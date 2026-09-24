@@ -1414,26 +1414,45 @@ body {
     color: var(--primary);
 }
 
-.bird-detail-scientific {
-    font-style: italic;
-    color: var(--text-muted);
-    font-size: 1.1rem;
+.bird-detail-description {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    background: rgba(16, 185, 129, 0.07);
+    border-left: 4px solid var(--accent, #10b981);
+    padding: 0.85rem 1.1rem;
+    border-radius: 0 10px 10px 0;
     margin-bottom: 1.5rem;
-    display: block;
 }
 
 .bird-facts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.8rem;
 }
 
+.fact-card {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.fact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
 
 .fact-title {
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -1441,8 +1460,15 @@ body {
 }
 
 .fact-title i {
-    color: var(--accent);
+    color: var(--accent, #10b981);
+    font-size: 0.95rem;
 }
+
+.fact-value {
+    color: var(--text-main);
+    font-weight: 500;
+}
+
 
 .rarity-stars {
     color: #FFD700;
