@@ -15,10 +15,12 @@
 
 | Konversation | Vad pågår | Berörda filer |
 |---|---|---|
+| 🚀 Deploy & Infra | 👋 Slutfört Uppgift 43! Redo för nästa arbetsuppgift från Arbetsgivaren. | `index.html`, `robots.txt`, `sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js` |
 | 🎴 Fågelkort | 👋 Slutfört Uppgift 28! Redo för nästa arbetsuppgift från Arbetsgivaren. | `index.html`, `style.css`, `app.js`, `sw.js` |
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-24 | 🚀 Deploy & Infra | **Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap till naturboken.se**: Uppdaterat canonical, Open Graph, Twitter Cards och Schema.org i `index.html` till `https://naturboken.se/`, uppdaterat robots.txt och återskapat `sitemap.xml` med 479 artbilder mot `naturboken.se`, samt bumpat Service Worker cache till `v5.9.8-domain-naturboken` (`index.html`, `robots.txt`, `sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js`). |
 | 2026-09-24 | 🎴 Fågelkort | **Uppgift 28: Slutför översyn & polering av Fakta och Mått på Fågelkortet (.bird-detail-modal)**: Slutfört fullständig polering och dynamisk faktrutanpassning för alla aktiva böcker (Fågelboken, Fiskboken, Svampboken m.fl.). Fåglar visar Sällsynthet, Utbredning, Säsong/Flytt, Biotop, Föda och Storlek (vingspann/totallängd). Fiskar visar Sällsynthet, Förekomst, Fisketid/Säsong, Vatten/Miljö, Föda och Mått/Maxvikt. Svampar visar Ätlighet/Giftighet (med färgkodade badges), Utbredning, Plocksäsong, Växtplats/Miljö, Sällsynthet och Kännetecken/Hattbredd. Förbättrat kuriosa-typografi med snygg citat-ruta och polerat 2x3 responsivt grid i CSS samt bumpat cache till `v5.9.7` (`index.html`, `app.js`, `style.css`, `sw.js`). |
 
 
@@ -239,7 +241,7 @@
 
 
 ### 🚀 Deploy & Infra
-- [ ] Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap från 'Birdbook' till 'naturboken.se'
+- [x] Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap från 'Birdbook' till 'naturboken.se'
 - [x] Uppgift 41: Uppdatera Google- & SEO-titel till "Naturboken – Kryssa och hitta"
 - [x] Uppgift 39: Google Image Sitemap (Bild-SEO för alla 430+ artplanscher & naturbilder)
 - [x] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
