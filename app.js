@@ -4314,8 +4314,8 @@ function getBirdImageSrc(birdId, context = 'guide') {
     const custom = localStorage.getItem(`custom_img_${birdId}`);
     if (custom) return custom;
 
-    // 2. Om kompakt 1:1-profilbild efterfrågas för en fågelart (Min Logg, miniatyrer, etc.):
-    if ((context === 'log' || context === 'compact') && (!birdId.startsWith('custom_'))) {
+    // 2. Om kompakt 1:1-profilbild efterfrågas för en fågelart (Min Logg, miniatyrer, Quiz, etc.):
+    if ((context === 'log' || context === 'compact' || context === 'quiz') && (!birdId.startsWith('custom_'))) {
         const isNonBird = (window.swedishFungi || []).some(f => f.id === birdId)
                        || (window.swedishFish || []).some(f => f.id === birdId)
                        || (window.swedishTrees || []).some(f => f.id === birdId)
@@ -6197,6 +6197,7 @@ function renderQuizQuestion() {
         `;
     } else if (q.image) {
         const imgSrc = getBirdImageSrc(q.image, 'quiz');
+        const fallbackSrc = getBirdImageSrc(q.image, 'guide');
         const isExternal = imgSrc && imgSrc.includes('wikimedia.org');
         const isPhoto = imgSrc && !imgSrc.includes('images/');
         const imgTypeClass = isPhoto ? 'img-type-foto' : 'img-type-illustration';
@@ -6205,7 +6206,7 @@ function renderQuizQuestion() {
 
         imageHtml = `<div class="quiz-image-container ${loadingClass}">
             <div class="quiz-img-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
-            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}"
+            <img src="${imgSrc}" alt="Quiz bird" data-bird-id="${q.image}" data-fallback="${fallbackSrc}"
                 class="${imgClass}"
                 onload="this.classList.remove('loading-fade'); if(this.parentElement)this.parentElement.classList.remove('loading');"
                 onerror="if(this.parentElement)this.parentElement.classList.remove('loading'); handleImageError(this);">
