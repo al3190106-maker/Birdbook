@@ -1,5 +1,6 @@
-const CACHE_NAME = 'birdfinder-v5.9.8-domain-naturboken';
+const CACHE_NAME = 'birdfinder-v5.9.9-bird-biotopes';
 const ASSETS_TO_CACHE = [
+
 
     './',
     './index.html',

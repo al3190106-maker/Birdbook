@@ -20,7 +20,9 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-24 | 🐦 Fågelguide | **Uppdaterade Biotoper för alla 394 Fågelarter**: Skapat och kört automatiserat skript (`scripts/update_bird_biotopes.js`) som tilldelat exakta, naturliga svenska biotoper/livsmiljöer (`habitat`) för samtliga 394 fåglar i `birds.js` (t.ex. *"Gammal tall- & barrskog"*, *"Klara insjöar & skärgård"*, *"Slåtterängar & gräsmarker"*, *"Vassbälten & sumpmark"*). Detaljkortets biotopruta samt sökfunktionen i fågelguiden och sökfältet drar nu nytta av 100% fullständiga biotopdata. Bumpat cache till `v5.9.9` (`birds.js`, `scripts/update_bird_biotopes.js`, `sw.js`). |
 | 2026-09-24 | 🚀 Deploy & Infra | **Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap till naturboken.se**: Uppdaterat canonical, Open Graph, Twitter Cards och Schema.org i `index.html` till `https://naturboken.se/`, uppdaterat robots.txt och återskapat `sitemap.xml` med 479 artbilder mot `naturboken.se`, samt bumpat Service Worker cache till `v5.9.8-domain-naturboken` (`index.html`, `robots.txt`, `sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js`). |
+
 | 2026-09-24 | 🎴 Fågelkort | **Uppgift 28: Slutför översyn & polering av Fakta och Mått på Fågelkortet (.bird-detail-modal)**: Slutfört fullständig polering och dynamisk faktrutanpassning för alla aktiva böcker (Fågelboken, Fiskboken, Svampboken m.fl.). Fåglar visar Sällsynthet, Utbredning, Säsong/Flytt, Biotop, Föda och Storlek (vingspann/totallängd). Fiskar visar Sällsynthet, Förekomst, Fisketid/Säsong, Vatten/Miljö, Föda och Mått/Maxvikt. Svampar visar Ätlighet/Giftighet (med färgkodade badges), Utbredning, Plocksäsong, Växtplats/Miljö, Sällsynthet och Kännetecken/Hattbredd. Förbättrat kuriosa-typografi med snygg citat-ruta och polerat 2x3 responsivt grid i CSS samt bumpat cache till `v5.9.7` (`index.html`, `app.js`, `style.css`, `sw.js`). |
 
 
