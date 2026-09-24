@@ -1,7 +1,5 @@
-const CACHE_NAME = 'birdfinder-v5.9.9-bird-biotopes';
+const CACHE_NAME = 'birdfinder-v5.9.10-stats-icons';
 const ASSETS_TO_CACHE = [
-
-
     './',
     './index.html',
     './style.css',
@@ -16,7 +14,13 @@ const ASSETS_TO_CACHE = [
     './assets/vendor/fonts/outfit/index.css',
     './assets/vendor/leaflet/leaflet.css',
     './assets/vendor/leaflet/leaflet.js',
-    './sightings.js'
+    './sightings.js',
+    './images/category_icons/stats/stat_obs.png',
+    './images/category_icons/stats/stat_species.png',
+    './images/category_icons/stats/stat_coverage.png',
+    './images/category_icons/stats/stat_quiz.png',
+    './images/category_icons/stats/stat_rarity.png',
+    './images/category_icons/stats/stat_years.png'
 ];
 
 self.addEventListener('install', (event) => {

@@ -4300,14 +4300,27 @@ body.mode-fungi .quiz-results-score strong {
 
 .stats-overview-icon {
     font-size: 1.25rem;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
-    background: rgba(46, 93, 75, 0.08);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 0.4rem;
+}
+
+.stats-overview-icon:not(:has(img)) {
+    background: rgba(46, 93, 75, 0.08);
+}
+
+.stats-overview-icon img,
+.stats-icon-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
 }
 
 .stats-overview-text {
@@ -4706,11 +4719,17 @@ details[open] .stats-collapsible-chevron {
     }
 
     .stats-overview-icon {
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
         font-size: 1.1rem;
         margin-bottom: 0;
         flex-shrink: 0;
+    }
+
+    .stats-overview-icon img,
+    .stats-icon-img {
+        width: 30px;
+        height: 30px;
     }
 
     .stats-overview-text {
@@ -4881,7 +4900,9 @@ details[open] .stats-collapsible-chevron {
     }
 
     .stats-overview-icon {
-        font-size: 1.25rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1.1rem;
         margin-bottom: 0;
         flex-shrink: 0;
     }

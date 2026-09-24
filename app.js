@@ -6879,33 +6879,36 @@ function renderStatsView() {
 
     // --- Overview numbers ---
     const overviewEl = document.getElementById('stats-overview-grid');
+    const getStatIconHtml = (imgName, fallbackEmoji) =>
+        `<img class="stats-icon-img" src="images/category_icons/stats/${imgName}" alt="${fallbackEmoji}" onerror="this.onerror=null;this.parentElement.innerHTML='${fallbackEmoji}'">`;
+
     let overviewCards = [];
     if (isNature) {
         overviewCards = [
-            { icon: '🔍', value: s.totalSightings, label: 'Totala observationer' },
-            { icon: '🐦', value: s.birdUniq, label: 'Unika fågelarter' },
-            { icon: '🌿', value: s.totalUniq, label: 'Unika arter (alla)' },
-            { icon: '🧩', value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
-            { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
-            { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+            { icon: getStatIconHtml('stat_obs.png', '🔍'), value: s.totalSightings, label: 'Totala observationer' },
+            { icon: getStatIconHtml('stat_species.png', '🐦'), value: s.birdUniq, label: 'Unika fågelarter' },
+            { icon: getStatIconHtml('stat_coverage.png', '🌿'), value: s.totalUniq, label: 'Unika arter (alla)' },
+            { icon: getStatIconHtml('stat_quiz.png', '🧩'), value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
+            { icon: getStatIconHtml('stat_rarity.png', '⭐'), value: s.rarityScore, label: 'Sällsynthetsscore' },
+            { icon: getStatIconHtml('stat_years.png', '📅'), value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
         ];
     } else if (state.currentSubject === 'birds') {
         overviewCards = [
-            { icon: '🔍', value: s.totalSightings, label: 'Obs. i Fågelboken' },
-            { icon: '🐦', value: s.activeUniq, label: 'Unika fågelarter' },
-            { icon: '📊', value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
-            { icon: '🧩', value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
-            { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
-            { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+            { icon: getStatIconHtml('stat_obs.png', '🔍'), value: s.totalSightings, label: 'Obs. i Fågelboken' },
+            { icon: getStatIconHtml('stat_species.png', '🐦'), value: s.activeUniq, label: 'Unika fågelarter' },
+            { icon: getStatIconHtml('stat_coverage.png', '📊'), value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
+            { icon: getStatIconHtml('stat_quiz.png', '🧩'), value: s.quizStats.completedCount, label: 'Genomförda Quiz' },
+            { icon: getStatIconHtml('stat_rarity.png', '⭐'), value: s.rarityScore, label: 'Sällsynthetsscore' },
+            { icon: getStatIconHtml('stat_years.png', '📅'), value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
         ];
     } else {
         const itemLabel = subjectCfg ? subjectCfg.texts.itemLabel.toLowerCase() : 'art';
         overviewCards = [
-            { icon: '🔍', value: s.totalSightings, label: `Obs. i ${subjectName}` },
-            { icon: '📖', value: s.activeUniq, label: `Unika ${itemLabel}er` },
-            { icon: '📊', value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
-            { icon: '⭐', value: s.rarityScore, label: 'Sällsynthetsscore' },
-            { icon: '📅', value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
+            { icon: getStatIconHtml('stat_obs.png', '🔍'), value: s.totalSightings, label: `Obs. i ${subjectName}` },
+            { icon: getStatIconHtml('stat_species.png', '📖'), value: s.activeUniq, label: `Unika ${itemLabel}er` },
+            { icon: getStatIconHtml('stat_coverage.png', '📊'), value: s.activeCoveragePct + '%', label: `Täckningsgrad (${s.activeUniq}/${s.activeTotal})` },
+            { icon: getStatIconHtml('stat_rarity.png', '⭐'), value: s.rarityScore, label: 'Sällsynthetsscore' },
+            { icon: getStatIconHtml('stat_years.png', '📅'), value: s.yearCount, label: s.yearCount === 1 ? 'År aktivt' : 'År aktiv' },
         ];
     }
 

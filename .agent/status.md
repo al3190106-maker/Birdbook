@@ -20,6 +20,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-24 | 🎨 Generera bilder | **Uppgift 34 (Pilot): 6 st unika Naturboken-ikoner för "Översikt i siffror" i Statistiken**: Skapat och integrerat 6 st minimalistiska, färgkodade 256x256 transparenta PNG-ikoner i `images/category_icons/stats/` (`stat_obs.png`, `stat_species.png`, `stat_coverage.png`, `stat_quiz.png`, `stat_rarity.png`, `stat_years.png`) i enhetlig nordisk naturguidestil med rena silhuetter och subtila negativa rymder enligt användarens referens. Ersatt generiska OS-emojis i `app.js` med bildtaggar och fallback-kedja, anpassat desktop- och mobil-CSS i `style.css` för knivskarp visning samt bumpat Service Worker cache till `v5.9.10-stats-icons` (`images/category_icons/stats/`, `app.js`, `style.css`, `sw.js`). |
 | 2026-09-24 | 🐦 Fågelguide | **Uppdaterade Biotoper för alla 394 Fågelarter**: Skapat och kört automatiserat skript (`scripts/update_bird_biotopes.js`) som tilldelat exakta, naturliga svenska biotoper/livsmiljöer (`habitat`) för samtliga 394 fåglar i `birds.js` (t.ex. *"Gammal tall- & barrskog"*, *"Klara insjöar & skärgård"*, *"Slåtterängar & gräsmarker"*, *"Vassbälten & sumpmark"*). Detaljkortets biotopruta samt sökfunktionen i fågelguiden och sökfältet drar nu nytta av 100% fullständiga biotopdata. Bumpat cache till `v5.9.9` (`birds.js`, `scripts/update_bird_biotopes.js`, `sw.js`). |
 | 2026-09-24 | 🚀 Deploy & Infra | **Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap till naturboken.se**: Uppdaterat canonical, Open Graph, Twitter Cards och Schema.org i `index.html` till `https://naturboken.se/`, uppdaterat robots.txt och återskapat `sitemap.xml` med 479 artbilder mot `naturboken.se`, samt bumpat Service Worker cache till `v5.9.8-domain-naturboken` (`index.html`, `robots.txt`, `sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js`). |
 
@@ -221,7 +222,8 @@
 ### 🎨 Generera bilder
 - [ ] Uppgift 42: Ombeskärning & Förbättring av 11 Fågelbilder (Dioramor & 1:1 Kompaktbilder)
 - [x] Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (`trees.js`)
-- [ ] Uppgift 34: Unik Visuell Identitet & Ikon-renovering (Byta ut lånade/generiska ikoner i `images/category_icons/` mot egen enhetlig grafik)
+- [x] Uppgift 34 (Pilot): 6 st unika Naturboken-ikoner för "Översikt i siffror" i Statistiken (bilder skapade & integrerade i `images/category_icons/stats/`, `app.js`, `style.css`, `sw.js`)
+- [ ] Uppgift 34 (Fortsättning): Unik Visuell Identitet & Ikon-renovering för resterande kategoriikoner i `images/category_icons/`
 - [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
 
 ### ✨ Features & UI
