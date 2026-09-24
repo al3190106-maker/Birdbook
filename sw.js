@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.9.10-stats-icons';
+const CACHE_NAME = 'birdfinder-v5.9.11-bold-stat-icons';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

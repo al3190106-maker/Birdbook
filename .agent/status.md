@@ -20,7 +20,7 @@
 
 ## ✅ Nyligen avslutat
 
-| 2026-09-24 | 🎨 Generera bilder | **Uppgift 34 (Pilot): 6 st unika Naturboken-ikoner för "Översikt i siffror" i Statistiken**: Skapat och integrerat 6 st minimalistiska, färgkodade 256x256 transparenta PNG-ikoner i `images/category_icons/stats/` (`stat_obs.png`, `stat_species.png`, `stat_coverage.png`, `stat_quiz.png`, `stat_rarity.png`, `stat_years.png`) i enhetlig nordisk naturguidestil med rena silhuetter och subtila negativa rymder enligt användarens referens. Ersatt generiska OS-emojis i `app.js` med bildtaggar och fallback-kedja, anpassat desktop- och mobil-CSS i `style.css` för knivskarp visning samt bumpat Service Worker cache till `v5.9.10-stats-icons` (`images/category_icons/stats/`, `app.js`, `style.css`, `sw.js`). |
+| 2026-09-24 | 🎨 Generera bilder | **Uppgift 34 (Pilot): Övertydliga, konkreta ikoner & storleksökning för "Översikt i siffror"**: Omarbetat samtliga 6 ikoner i `images/category_icons/stats/` till helt konkreta och övertydliga silhuetter utan plottriga småstreck (Rejäl fältkikare i teal, officiella Naturboken-sångfågeln i skogsgrön, tydlig framstegs-donut med procenttecken i indigo, kraftig pusselbit med stort frågetecken i bärnsten, 5-uddig facetterad guldstjärna och kalendertavla med 4 datumblock). Ökat ikonernas storlek i `style.css` från 30px till 42-44px på mobil och 48px på desktop för optimal synlighet i korten, samt bumpat Service Worker cache till `v5.9.11-bold-stat-icons` (`images/category_icons/stats/`, `style.css`, `sw.js`). |
 | 2026-09-24 | 🐦 Fågelguide | **Uppdaterade Biotoper för alla 394 Fågelarter**: Skapat och kört automatiserat skript (`scripts/update_bird_biotopes.js`) som tilldelat exakta, naturliga svenska biotoper/livsmiljöer (`habitat`) för samtliga 394 fåglar i `birds.js` (t.ex. *"Gammal tall- & barrskog"*, *"Klara insjöar & skärgård"*, *"Slåtterängar & gräsmarker"*, *"Vassbälten & sumpmark"*). Detaljkortets biotopruta samt sökfunktionen i fågelguiden och sökfältet drar nu nytta av 100% fullständiga biotopdata. Bumpat cache till `v5.9.9` (`birds.js`, `scripts/update_bird_biotopes.js`, `sw.js`). |
 | 2026-09-24 | 🚀 Deploy & Infra | **Uppgift 43: Ändra alla delningslänkar, Open Graph & Sitemap till naturboken.se**: Uppdaterat canonical, Open Graph, Twitter Cards och Schema.org i `index.html` till `https://naturboken.se/`, uppdaterat robots.txt och återskapat `sitemap.xml` med 479 artbilder mot `naturboken.se`, samt bumpat Service Worker cache till `v5.9.8-domain-naturboken` (`index.html`, `robots.txt`, `sitemap.xml`, `scripts/generate_image_sitemap.js`, `sw.js`). |
 
@@ -253,6 +253,7 @@
 - [x] Uppgift 26: Privat besöksstatistik & användaranalys via Google Analytics 4 (`G-471QWLB8LB`)
 
 ### 🔍 Identifiera
+- [ ] Uppgift 44: Anpassa Quiz-bilderna till 1:1 Kompaktbilder (Stor & Skarp visning)
 - [x] Uppgift 30: Ljud-Quiz ("Gissa lätet!")
 - [x] Uppgift 33: Skådarväder & Aktivitet (Väderkompass i "Nära mig")
 - [x] Lägga till Quiz-läget igen under Identifiera

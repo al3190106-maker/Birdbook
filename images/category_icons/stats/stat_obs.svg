@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <g fill="#0891b2">
+    <!-- Center bridge and knob -->
+    <rect x="41" y="24" width="18" height="10" rx="4" />
+    <rect x="43" y="38" width="14" height="22" rx="4" />
+    
+    <!-- Eyepieces -->
+    <rect x="20" y="16" width="20" height="10" rx="3.5" />
+    <rect x="24" y="26" width="12" height="10" />
+    <rect x="60" y="16" width="20" height="10" rx="3.5" />
+    <rect x="64" y="26" width="12" height="10" />
+    
+    <!-- Left barrel & lens -->
+    <path d="M 16 36 L 44 36 L 46 70 L 12 70 Z" />
+    <circle cx="29" cy="70" r="19" />
+    
+    <!-- Right barrel & lens -->
+    <path d="M 56 36 L 84 36 L 88 70 L 54 70 Z" />
+    <circle cx="71" cy="70" r="19" />
+  </g>
+  
+  <!-- Thick bold cutouts in the lenses -->
+  <circle cx="29" cy="70" r="11" fill="#ffffff" />
+  <circle cx="71" cy="70" r="11" fill="#ffffff" />
+  <circle cx="29" cy="70" r="6" fill="#0891b2" />
+  <circle cx="71" cy="70" r="6" fill="#0891b2" />
+</svg>

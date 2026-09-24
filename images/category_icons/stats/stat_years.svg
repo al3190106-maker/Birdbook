@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <g fill="#b91c1c">
+    <!-- Top hanging rings -->
+    <rect x="28" y="8" width="9" height="20" rx="4.5" fill="#7f1d1d" />
+    <rect x="63" y="8" width="9" height="20" rx="4.5" fill="#7f1d1d" />
+    
+    <!-- Main tablet -->
+    <rect x="15" y="18" width="70" height="72" rx="14" />
+    
+    <!-- Header band -->
+    <rect x="15" y="18" width="70" height="22" rx="14" fill="#991b1b" />
+    <rect x="15" y="30" width="70" height="10" fill="#991b1b" />
+  </g>
+  <!-- 4 Chunky clean date blocks (2x2) -->
+  <g fill="#ffffff">
+    <rect x="25" y="48" width="21" height="15" rx="4" />
+    <rect x="54" y="48" width="21" height="15" rx="4" />
+    <rect x="25" y="68" width="21" height="15" rx="4" />
+    <rect x="54" y="68" width="21" height="15" rx="4" />
+  </g>
+  <!-- Active date dot in bottom right block -->
+  <circle cx="64.5" cy="75.5" r="4.5" fill="#b91c1c" />
+</svg>
