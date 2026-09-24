@@ -1,4 +1,4 @@
-const CACHE_NAME = 'birdfinder-v5.9.5-focus-birds-fish-fungi';
+const CACHE_NAME = 'birdfinder-v5.9.6-kryssa-och-hitta';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

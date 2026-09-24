@@ -19,6 +19,7 @@
 
 ## ✅ Nyligen avslutat
 
+| 2026-09-24 | 🚀 Deploy & Infra | **Uppgift 41: Uppdatera Google- & SEO-titel till "Naturboken – Kryssa och hitta"**: Uppdaterat `<title>`, `<meta name="title">`, Open Graph och Twitter Cards till "Naturboken – Kryssa och hitta", uppdaterat metabeskrivning och sökord för att spegla de tre aktiva böckerna (Fågelboken, Fiskboken, Svampboken), uppdaterat Schema.org JSON-LD med aktiva delappar och bumpat Service Worker cache till `v5.9.6` (`index.html`, `sw.js`). |
 | 2026-09-19 | ✨ Features & UI | **Uppgift 40: Dölj Däggdjursboken & Växtboken (Fokusera på Fågel-, Fisk- och Svampboken)**: Dolt Däggdjursboken, Växtboken, Trädboken och Blomboken från bokremsan (`#book-strip`), välkomstmodalen (`#welcome-modal`), biblioteksmodalen (`#library-modal`), statistikvyn (`renderStatsView`) och ämnesväxlaren. Appen fokuserar nu 100% på **Naturboken**, **Fågelboken**, **Fiskboken** och **Svampboken**. Säkerställt att sparade lägen i LocalStorage automatiskt omdirigeras och bumpat cache till `v5.9.5` (`index.html`, `app.js`, `sw.js`). |
 | 2026-09-19 | 🎨 Generera bilder | **Unik bildvisning för trädbilder i Växtguide (Fullständiga botaniska planscher)**: Implementerat unik anpassad kort- och bildvisning för samtliga trädarter i Växtguide (`.bird-card.tree-card` och `.tree-image-container`). Bildcontainern anpassas dynamiskt efter planschernas naturliga proportioner (`aspect-ratio: 1055 / 1491`, max-height 520px) med `object-fit: contain` på vit bakgrund så att hela illustrationen syns oavkortad från krona och löv/hängen ner till stam och rötter utan beskärning. Responsivt mobiloptimerat och bumpat Service Worker-cache till `v5.9.4` (`app.js`, `style.css`, `sw.js`). |
 | 2026-09-19 | 🎨 Generera bilder | **Komplett bildsamling: Alla 46 nya fågelarter bearbetade (Dioraman & 1:1 Kompaktbilder)**: Laddat ner samtliga 46 nyligen uppladdade planscher från naturboken.alt-qq.com (1024x1536px). Skapat smart trimmade liggande dioramabilder i `images/dioramas/` med bevarat utrymme för fågelhuvuden och vignett (394 av 394 arter nu 100% kompletta) samt centrerade 1:1 kvadratiska profilbilder i `images/compact/` (394 av 394 arter kompletta). Ersatt botens avhuggna beskärningar med våra högkvalitativa versioner och bumpat Service Worker-cache till `v5.9.3` (`images/dioramas/`, `images/compact/`, `sw.js`). |
@@ -210,6 +211,7 @@
 - [/] Uppgift 28: Översyn & rensning av information på Fågelkorten (Bort med 'Aktiv: morgon', in med förslag på värdefulla faktafält)
 
 ### 🎨 Generera bilder
+- [ ] Uppgift 42: Ombeskärning & Förbättring av 11 Fågelbilder (Dioramor & 1:1 Kompaktbilder)
 - [x] Uppgift 38: Importera Trädbilder från naturboken.alt till Växtboken (`trees.js`)
 - [ ] Uppgift 34: Unik Visuell Identitet & Ikon-renovering (Byta ut lånade/generiska ikoner i `images/category_icons/` mot egen enhetlig grafik)
 - [ ] Uppgift 15: Silhuett-versioner av rovfåglar och andra fåglar
@@ -233,6 +235,7 @@
 
 
 ### 🚀 Deploy & Infra
+- [x] Uppgift 41: Uppdatera Google- & SEO-titel till "Naturboken – Kryssa och hitta"
 - [x] Uppgift 39: Google Image Sitemap (Bild-SEO för alla 430+ artplanscher & naturbilder)
 - [x] Uppgift 35: SEO-optimering & Sökbarhet på Google (Open Graph-kort, sitemap.xml & Search Console)
 - [ ] Uppgift 9: Utreda möjlighet att ändra mobilens visade app-ikon/PWA-ikon unikt per användare
